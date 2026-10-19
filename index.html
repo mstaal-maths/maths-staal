@@ -2016,7 +2016,7 @@ function sheetHTML(P, kind){
   if(kind==="ex") return title("ex") + D.exos.map((S,si)=>sec(R[si],S.t)+(S.note?`<p class="sh-note">${fmt(S.note)}</p>`:"")
       + S.e.map(e=>`<div class="sh-ex keep">${exH(e)}<div class="body">${qfmt(fmt(e.h))}</div></div>`).join("")).join("");
   if(kind==="corr") return title("corr") + D.exos.map((S,si)=>{ const L=S.e.filter(e=>e.c); return L.length?sec(R[si],S.t)
-      + L.map(e=>`<div class="sh-ex">${exH(e)}<div class="body">${corr(e.c)}</div></div>`).join(""):""; }).join("");
+      + L.map(e=>`<div class="sh-ex keep">${exH(e)}<div class="body">${corr(e.c)}</div></div>`).join(""):""; }).join("");
   let E=D.eval; if(!E) return "";
   if(kind==="evsa"||kind==="evca"){ E=amenage(E)||E; kind=kind==="evsa"?"evs":"evc"; }
   const T=num(E.exos.reduce((a,x)=>a+x.p,0));
@@ -2025,7 +2025,7 @@ function sheetHTML(P, kind){
       + `<table class="sh-comp"><thead><tr><th>Compétence</th><th>Ce que je dois être capable de faire</th><th>Exercices</th><th>Niveau</th></tr></thead><tbody>${E.comp.map(c=>`<tr><td><b>${c[0]}</b></td><td>${fmt(c[1])}</td><td>${c[2]}</td><td style="width:60px"></td></tr>`).join("")}</tbody></table>`
       + E.exos.map((e,i)=>`<div class="sh-ex keep"><div class="sh-h"><span>Exercice ${i+1} : ${fmt(e.t)}</span><span class="pts">…… / ${num(e.p)}</span></div><div class="body">${qfmt(fmt(e.h))}</div></div>`).join("");
   if(kind==="evc") return `<h1 class="sh-title">${esc(E.titre)} — Corrigé et barème</h1>`
-      + E.exos.map((e,i)=>`<div class="sh-ex"><div class="sh-h"><span>Exercice ${i+1} : ${fmt(e.t)}</span><span class="pts">/ ${num(e.p)}</span></div><div class="body">${corr(e.c)}</div></div>`).join("")
+      + E.exos.map((e,i)=>`<div class="sh-ex keep"><div class="sh-h"><span>Exercice ${i+1} : ${fmt(e.t)}</span><span class="pts">/ ${num(e.p)}</span></div><div class="body">${corr(e.c)}</div></div>`).join("")
       + `<p class="sh-bar">Total : …… / ${T}</p>`;
   return "";
 }
