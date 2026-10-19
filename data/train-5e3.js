@@ -11,6 +11,8 @@ const gen = (f, test=okInt) => { for(let g=0; g<2000; g++){ const e=f(); if(test
 const dec = (a,b,k=1) => C.txt(C.R(ri(a,b), Math.pow(10,k)));   /* décimal aléatoire, ex. dec(11,49) → 1,1…4,9 */
 /* montant en euros : toujours deux chiffres après la virgule s'il y a des centimes */
 const eur = t => /,\d$/.test(t) ? t+"0" : t;
+/* calculs nommés côte à côte : [["A","5 × 6 − 2"], …] */
+const duo = list => `<div class="calcs">${list.map(([n,e])=>`<div>${L(e,n)}</div>`).join("")}</div>`;
 const grid = list => `<div class="calcs">${list.map(([n,e])=>`<span>${n} = ${e}</span>`).join("")}</div>`;
 const prog = (titre, steps) => `<div class="pgc"><b>${titre}</b><ul>${steps.map(s=>`<li>${s}</li>`).join("")}</ul></div>`;
 const VERB={"+":"Ajouter","−":"Soustraire","×":"Multiplier par","÷":"Diviser par"};
@@ -42,7 +44,7 @@ e0.push(["H", gen(()=>`${ri(30,45)} − ${ri(10,15)} − ${ri(2,9)}`), null]);
 { const a=ri(11,29), c=pick([50,60,70])-a; e0.push(["I", null, [C.txt(C.R(a,10)), C.txt(C.R(ri(31,59),10)), C.txt(C.R(c,10))]]); }
 { const b=ri(111,399), c=pick([500,600])-b; e0.push(["J", null, [C.txt(C.R(ri(201,399),100)), C.txt(C.R(b,100)), C.txt(C.R(c,100))]]); }
 const E0h = grid(e0.map(([n,e,t])=>[n, e||t.join(" + ")]));
-const E0c = `<div class="calcs">${e0.map(([n,e,t])=> t ? astuceSomme(n,t) : L(e,n)).join("")}</div>`;
+const E0c = `<div class="calcs">${e0.map(([n,e,t])=> `<div>${t ? astuceSomme(n,t) : L(e,n)}</div>`).join("")}</div>`;
 
 /* Exercice 1 : mêmes formes que la fiche */
 const sh = [
@@ -63,7 +65,7 @@ const cS=(()=>{ const a=ri(11,29), c=pick([50,60])-a; return [C.txt(C.R(a,10)), 
 const eE=pick(["563,7","48,3","12,6","7,25","304,9"]), eP=pick([[25,4],[50,2],[20,5]]);
 const lS=(()=>{ const b=ri(111,399), c=pick([500,600])-b; return [C.txt(C.R(ri(201,399),100)), C.txt(C.R(b,100)), C.txt(C.R(c,100))]; })();
 const E1list = [sh[0], sh[1], ["C",cS.join(" + ")], sh[2], ["E",`${eE} × ${eP[0]} × ${eP[1]}`], sh[3], sh[4], sh[5], sh[6], sh[7], sh[8], ["L",lS.join(" + ")], sh[9], sh[10], sh[11]];
-const E1c = `<div class="calcs">${E1list.map(([n,e])=> n==="C" ? astuceSomme("C",cS) : n==="L" ? astuceSomme("L",lS) : n==="E" ? `<p class="calc">E = ${e}<br>E = ${eE} × ${eP[0]*eP[1]}<br>E = ${V(e)}</p>` : L(e,n)).join("")}</div>`;
+const E1c = `<div class="calcs">${E1list.map(([n,e])=> `<div>${n==="C" ? astuceSomme("C",cS) : n==="L" ? astuceSomme("L",lS) : n==="E" ? `<p class="calc">E = ${e}<br>E = ${eE} × ${eP[0]*eP[1]}<br>E = ${V(e)}</p>` : L(e,n)}</div>`).join("")}</div>`;
 
 /* ===== B. Parenthèses ===== */
 const P3 = [];
@@ -104,7 +106,7 @@ let pb10; do{ pb10=p10(); }while(!pb10);
 const pb11=(()=>{ const a=ri(150,400)*10, b=ri(150,450)*10, c=ri(80,200)*10, d=ri(120,250)*10; const f=x=>eur(C.txt(C.R(x,100))); return {a:f(a), b:f(b), c:f(c), d:f(d), e:`${f(a)} + ${f(b)} + ${f(c)} − ${f(d)}`}; })();
 const pb12=(()=>{ for(let g=0; g<2000; g++){ const T=ri(30,50)*10, u=ri(2,6)*10, a=ri(3,8), ta=pick([7,9,11]), b=ri(8,15), tb=pick([3,6,7]), k=pick([5,4]); const e=`(${T} − ${u} − ${a} × ${ta} − ${b} × ${tb}) ÷ ${k}`; if(okInt(e) && C.val(e).n>=5) return {T,u,a,ta,b,tb,k,e}; } })();
 
-const pbC = (o, money, unit, phrase) => `<p>Expression : ${o.e}</p>${C.html(o.e,"",!!money)}<p>${phrase(V(o.e))}</p>`;
+const pbC = (o, money, unit, phrase) => `${C.html(o.e,"A",!!money)}<p>${phrase(V(o.e))}</p>`;
 return [
  {t:"Enchaînements d'opérations", e:[
   {n:"Exercice 0", t:"Enchaînement d'additions et de soustractions", w:"Sur ton cahier", h:`<p>Recopie les calculs sur ton cahier et effectue-les en détaillant tes étapes de calculs.</p>${E0h}`,
@@ -115,10 +117,10 @@ return [
   {n:"Exercice 3", t:"Utilisation des parenthèses dans un calcul", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> pour chaque question, une égalité est vraie et l'autre est fausse. Recopie l'égalité vraie, puis recopie l'égalité fausse en ajoutant des parenthèses pour qu'elle devienne vraie.</p>
    <p>${P3rows.map((r,i)=>`${"abcde"[i]}) ${r.ordre[0]} &nbsp;et&nbsp; ${r.ordre[1]}`).join("<br>")}</p>
    <p><b>Partie 2 :</b> même consigne. Cette fois, il y a une égalité vraie et 3 fausses.</p><p>${p2ordre.map(e=>`${p2.base} = ${V(e)}`).join(" &nbsp;et&nbsp; ")}</p>`,
-   c:`<p><b>Partie 1</b></p>${P3rows.map((r,i)=>`<p>${"abcde"[i]}) Vraie : ${r.sans} = ${V(r.sans)} (car ${IN(r.sans)}). Avec des parenthèses : ${r.avec} = ${V(r.avec)}.</p>`).join("")}
-   <p><b>Partie 2</b></p><p>Vraie : ${p2.base} = ${V(p2.base)} (car ${IN(p2.base)}).</p><p>Avec des parenthèses :</p>${p2.ex.slice(1).map(e=>`<p>${IN(e)}</p>`).join("")}`}
+   c:`<p><b>Partie 1</b></p>${P3rows.map((r,i)=>`<p>${"abcde"[i]}) Vraie : ${r.sans} = ${V(r.sans)}. Avec des parenthèses : ${r.avec} = ${V(r.avec)}.</p>${duo([["ACEGI"[i],r.sans],["BDFHJ"[i],r.avec]])}`).join("")}
+   <p><b>Partie 2</b></p><p>Vraie : ${p2.base} = ${V(p2.base)}.</p>${duo([["K",p2.base]])}<p>Avec des parenthèses :</p>${duo(p2.ex.slice(1).map((e,i)=>["LMN"[i],e]))}`}
  ]},
- {t:"Résoudre un problème avec une seule expression", note:`<b>Consigne pour chaque problème :</b> écris une expression qui donne la solution du problème, effectue le calcul en détaillant les étapes, puis conclus par une phrase.`, e:[
+ {t:"Résoudre un problème avec une seule expression", note:`<b>Consigne pour chaque problème :</b> écris une expression qui donne la solution du problème et nomme-la A. Effectue le calcul en détaillant les étapes (chaque ligne commence par « A = »), puis conclus par une phrase.`, e:[
   {n:"Exercice 2", t:"Résoudre un problème", w:"Sur ton cahier", h:`<p>J'ai ${pr2.s} €. J'achète ${pr2.n} livres à ${pr2.p} € l'un et ${pr2.m} CD à ${pr2.q} € l'un. Quel argent me reste-t-il ? Rédige ta réponse.</p>`,
    c:pbC(pr2,0,0,v=>`Il me reste ${v} €.`)},
   {n:"Exercice 4", t:"À la papeterie", w:"Sur ton cahier", h:`<p>Anna achète une règle à ${pr4.r} € et ${pr4.n} stylos à ${pr4.s} € l'un. Combien paie-t-elle ?</p>`, c:pbC(pr4,1,0,v=>`Anna paie ${eur(v)} €.`)},
@@ -128,12 +130,12 @@ return [
  ]},
  {t:"Programmes de calcul", e:[
   {n:"Activité 2", t:"Écrire la bonne expression", w:"Sur ton cahier", h:`${act2.map((o,i)=>`<p><b>Problème ${i+1} :</b> ${o.who} choisit le nombre ${o.x} et applique ce programme de calcul. Quel résultat obtient-${o.il} ?</p>${progBox(o.st)}`).join("")}
-   <p>Pour chaque problème :</p><p>a) Calcule mentalement le résultat. b) Écris <b>un seul calcul</b> qui permet de trouver le résultat. c) Effectue ce calcul en détaillant tes étapes et conclus par une phrase.</p>`,
-   c:act2.map((o,i)=>`<p><b>Problème ${i+1}.</b> Le calcul : ${o.e}</p>${L(o.e)}<p>${o.who} obtient ${V(o.e)}.</p>`).join("")},
-  {n:"Exercice 8", t:"Quatre programmes de calcul", w:"Sur ton cahier", h:`<div class="progs">${p8.map((o,i)=>progBox(o.st,`Programme ${i+1}`)).join("")}</div><p>Pour chaque programme, on a choisi le nombre ${x8}.</p><p>1. Écris une seule expression qui permet de trouver le résultat de chaque programme de calcul. 2. Effectue ensuite tes calculs.</p>`,
-   c:`<div class="calcs">${p8.map((o,i)=>`<div><p><b>Programme ${i+1}</b></p>${L(o.e)}</div>`).join("")}</div>`},
-  {n:"Exercice 9", t:"Quatre autres programmes", w:"Sur ton cahier", h:`<p>Dans chaque cas, écris l'expression numérique qui permet de résoudre le problème. Il n'est pas demandé d'effectuer les calculs, mais tu peux le faire au brouillon pour vérifier ton expression.</p>${p9.map((o,i)=>`<p><b>Problème ${i+1} :</b> je choisis le nombre ${o.x} et j'applique ce programme de calcul. Quel est le résultat ?</p>${progBox(o.st)}`).join("")}`,
-   c:p9.map((o,i)=>`<p>${i+1}. ${o.e} &nbsp;<i>(vérification : ${IN(o.e)})</i></p>`).join("")}
+   <p>Pour chaque problème :</p><p>a) Calcule mentalement le résultat. b) Écris <b>un seul calcul</b> qui permet de trouver le résultat. Nomme-le A pour le problème 1, B pour le problème 2 et C pour le problème 3. c) Effectue ce calcul en détaillant tes étapes et conclus par une phrase.</p>`,
+   c:act2.map((o,i)=>`<p><b>Problème ${i+1}.</b> Le calcul :</p>${L(o.e,"ABC"[i])}<p>${o.who} obtient ${V(o.e)}.</p>`).join("")},
+  {n:"Exercice 8", t:"Quatre programmes de calcul", w:"Sur ton cahier", h:`<div class="progs">${p8.map((o,i)=>progBox(o.st,`Programme ${i+1}`)).join("")}</div><p>Pour chaque programme, on a choisi le nombre ${x8}.</p><p>1. Écris une seule expression qui permet de trouver le résultat de chaque programme de calcul. Nomme-les A, B, C et D. 2. Effectue ensuite tes calculs.</p>`,
+   c:`<div class="calcs">${p8.map((o,i)=>`<div><p><b>Programme ${i+1}</b></p>${L(o.e,"ABCD"[i])}</div>`).join("")}</div>`},
+  {n:"Exercice 9", t:"Quatre autres programmes", w:"Sur ton cahier", h:`<p>Dans chaque cas, écris l'expression numérique qui permet de résoudre le problème. Nomme-les A, B, C et D. Il n'est pas demandé d'effectuer les calculs, mais tu peux le faire au brouillon pour vérifier ton expression.</p>${p9.map((o,i)=>`<p><b>Problème ${i+1} :</b> je choisis le nombre ${o.x} et j'applique ce programme de calcul. Quel est le résultat ?</p>${progBox(o.st)}`).join("")}`,
+   c:`<p>La première ligne est l'expression demandée. Les lignes suivantes sont la vérification au brouillon.</p><div class="calcs">${p9.map((o,i)=>`<div><p><b>Problème ${i+1}</b></p>${L(o.e,"ABCD"[i])}</div>`).join("")}</div>`}
  ]},
  {t:"Problèmes en plusieurs étapes", e:[
   {n:"Exercice 10", t:"Crédit pour l'achat d'une voiture", w:"Sur ton cahier", h:`<p>Paul veut acheter une voiture à ${C.txt(C.R(pb10.prix,1))} €. Son garagiste lui propose un crédit : paiement de ${C.txt(C.R(pb10.app,1))} € quand il récupère le véhicule, puis prélèvement de ${pb10.m} € par mois pendant ${pb10.n} mois.</p><p>Quelle somme d'argent Paul va-t-il payer en plus s'il achète cette voiture avec ce crédit ?</p>`,

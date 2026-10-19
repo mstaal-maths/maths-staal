@@ -2,7 +2,7 @@
    Les maths avec M. Staal — fonctions ajoutées
    · lecture à voix haute (les maths sont lues comme on les dit)
    · sommaire cliquable, chapitre précédent / suivant, « reprendre là où j'en étais »
-   · onglet « Par cœur » (définitions, propriétés, formules) + fiche résumé en schémas
+   · onglet « En un coup d'œil » (un grand schéma, seulement pour certains chapitres)
    · méthodes et calculs « pas à pas »
    · défi du jour, espace « Objectif brevet », page parents
    · fonctionnement sans connexion (site public)
@@ -308,25 +308,13 @@ function parCoeurBoxes(D){
 }
 function schemasOf(D){ const seen=new Set(); return (D.quiz||[]).map(N=>N.schema).filter(s=>s && String(s).trim() && !seen.has(s) && seen.add(s)); }
 window.renderEssentiel = function(panel, D){
-  const parts=parCoeurBoxes(D), sch=schemasOf(D);
-  panel.innerHTML = `<div class="card savoir"><h3>À connaître par cœur</h3>
-      <p class="where" style="margin-top:6px">Les définitions, les propriétés et les formules du chapitre, à apprendre par cœur. Les méthodes et les exemples sont dans « Le cours ».</p>
-      <div class="pctools"><button class="btn" type="button" id="pchide" aria-pressed="false">🙈 Me tester : cacher les encadrés</button><span class="where" id="pchint" hidden>Récite chaque encadré dans ta tête, puis clique dessus pour vérifier.</span></div></div>
-    ${sch.length?`<article class="card cours fiche"><h3><span class="k">★</span>La fiche résumé en schémas</h3><div class="body"><div class="sumgrid">${sch.map(s=>`<div class="schema">${fmt(s)}</div>`).join("")}</div></div></article>`:""}
-    ${parts.map(p=>`<article class="card cours"><h3><span class="k">${p.k}</span>${fmt(p.t)}</h3><div class="body">${p.html}</div></article>`).join("")}
-    ${parts.length?"":`<div class="card"><p>Dans ce chapitre, il n'y a pas de définition ni de propriété à réciter : ce sont surtout des méthodes. Relis-les dans « Le cours », puis entraîne-toi dans « Je m'entraîne ».</p></div>`}`;
-  if(!parts.length) $("#pchide", panel).parentNode.remove();
-  const hb=$("#pchide", panel); if(hb) hb.onclick=()=>{ const on=!panel.classList.contains("pc-hide"); panel.classList.toggle("pc-hide", on); hb.setAttribute("aria-pressed", on); hb.textContent = on ? "👀 Tout afficher" : "🙈 Me tester : cacher les encadrés"; $("#pchint",panel).hidden=!on; $$(".retenir.shown", panel).forEach(x=>x.classList.remove("shown")); };
-  panel.addEventListener("click", e=>{ if(!panel.classList.contains("pc-hide")) return; const r=e.target.closest(".retenir"); if(r && !e.target.closest(".tts-btn")) r.classList.toggle("shown"); });
-  tocFor(panel, $$(":scope > article.card.cours", panel), a=>a.querySelector("h3"));
-  ttsAll(panel, "🔊 Écouter tout");
+  const k=Object.keys(CH).find(x=>CH[x]===D), h=(window.CARTES||{})[k];
+  panel.innerHTML = h ? `<div class="card savoir"><h3>En un coup d'œil</h3><p class="where" style="margin-top:6px">Tout le chapitre résumé dans un seul schéma, à relire avant l'évaluation. Les explications et les exemples sont dans « Le cours ».</p></div><div class="cmap-scroll">${h}</div>` : `<div class="card"><p>Pas de schéma pour ce chapitre : relis « Le cours ».</p></div>`;
 };
-/* fiche PDF « Par cœur » (même modèle que les fiches de M. Staal) */
+/* fiche PDF « En un coup d'œil » : le schéma seul, en A4 paysage */
 window.parCoeurSheet = function(P){
-  const D=P.D, sch=schemasOf(D), parts=parCoeurBoxes(D);
-  return `<h1 class="sh-title">Chapitre ${P.n} — ${esc(P.titre)} — À connaître par cœur</h1>`
-    + (sch.length?`<div class="sh-sec">La fiche résumé en schémas</div><div class="sh-sum">${sch.map(s=>`<div class="sh-sch">${fmt(s)}</div>`).join("")}</div>`:"")
-    + parts.map(p=>`<div class="sh-part"><div class="sh-sec">${p.k} — ${fmt(p.t)}</div><div class="body">${p.html}</div></div>`).join("");
+  const k=Object.keys(CH).find(x=>CH[x]===P.D), h=(window.CARTES||{})[k]||"";
+  return h;
 };
 
 /* chapitre : précédent / suivant, mémoire de la visite, ouverture d'un onglet demandé */
@@ -383,7 +371,7 @@ window.home = function(choix){
   _home(choix);
   const L=jg("last", null), A=app(), hero=$(".hero", A);
   let h="";
-  if(L && CLASSES[L.id] && CH[L.id+"-"+L.n]){ const T={cours:"Le cours", essentiel:"Par cœur", ex:"Exercices", quiz:"Je m'entraîne", eval:"Éval d'entraînement"}[L.t]||"Le cours";
+  if(L && CLASSES[L.id] && CH[L.id+"-"+L.n]){ const T={cours:"Le cours", essentiel:"En un coup d'œil", ex:"Exercices", quiz:"Je m'entraîne", eval:"Éval d'entraînement"}[L.t]||"Le cours";
     h+=`<a class="resume" href="#${L.id}-ch${L.n}" id="resume"><span aria-hidden="true">▶</span> Reprendre là où j'en étais</a>`; }
   if(hero) hero.insertAdjacentHTML("afterend", h);
   const r=$("#resume", A); if(r) r.onclick=()=>openAt(L.id+"-"+L.n, L.t);
@@ -480,7 +468,7 @@ function brevetPage(){
       <button class="xcard" type="button" data-go="auto" style="text-align:left;font:inherit;cursor:pointer"><b>⏱️ Automatismes</b><span>10 questions, 20 minutes, sans calculatrice : des questions de la 6e à la 3e.</span></button>
       <button class="xcard" type="button" data-go="blanc" style="text-align:left;font:inherit;cursor:pointer"><b>📝 Brevet blanc</b><span>5 exercices de problèmes tirés de tous les chapitres de 3e, chrono 1 h 40, corrigé et barème.</span></button>
       <button class="xcard" type="button" data-go="exos" style="text-align:left;font:inherit;cursor:pointer"><b>📚 Exercices du brevet</b><span>${BX.length} exercice${BX.length>1?"s":""} tombé${BX.length>1?"s":""} au brevet, rangé${BX.length>1?"s":""} par chapitre, avec la correction.</span></button>
-      <button class="xcard" type="button" data-go="pc" style="text-align:left;font:inherit;cursor:pointer"><b>🧠 Tout le « Par cœur »</b><span>Les définitions, propriétés et formules de tous les chapitres de 3e.</span></button>
+      ${keys3.some(k=>(window.CARTES||{})[k])?`<button class="xcard" type="button" data-go="pc" style="text-align:left;font:inherit;cursor:pointer"><b>🧭 Les schémas « En un coup d'œil »</b><span>Les grands schémas des chapitres de 3e, pour réviser d'un coup.</span></button>`:""}
     </div>
     <div id="bzone"></div>`;
   const Z=$("#bzone", A);
@@ -495,9 +483,9 @@ function brevetPage(){
     if(w==="blanc"){ Z.innerHTML=`<div class="pbtns" style="margin:0 0 12px"><button class="btn" id="newbb">🔄 Un autre brevet blanc</button></div><div id="bbp"></div>`;
       renderEval($("#bbp", Z), "brevet", brevetBlanc(false)); $("#newbb", Z).onclick=()=>{ brevetBlanc(true); go("blanc"); }; }
     if(w==="exos"){ let last=""; Z.innerHTML = BX.length ? BX.map(x=>{ const h=x.id+x.n!==last ? `<h2 class="sech" style="margin-top:22px"><span>${x.id==="3e"?"3e":"4e"}</span>Chapitre ${x.n} — ${esc(x.ct)}</h2>` : ""; last=x.id+x.n; return h+exCard(x.e); }).join("") : `<p class="where">Les exercices du brevet arrivent bientôt.</p>`; }
-    if(w==="pc"){ Z.innerHTML = keys3.map(k=>{ const n=+k.split("-")[1], parts=parCoeurBoxes(CH[k]); if(!parts.length) return "";
-        return `<article class="card cours"><h3><span class="k">${n}</span>${esc(C.chapitres[n-1][0])}</h3><div class="body">${parts.map(p=>p.html).join("")}<p><a href="#3e-ch${n}" data-k="${k}" class="pcl">Ouvrir le chapitre ${n} →</a></p></div></article>`; }).join("");
-      $$(".pcl", Z).forEach(a=>a.onclick=()=>openAt(a.dataset.k, "essentiel")); }
+    if(w==="pc"){ Z.innerHTML = keys3.filter(k=>(window.CARTES||{})[k]).map(k=>{ const n=+k.split("-")[1];
+        return `<article class="card cours"><h3><span class="k">${n}</span>${esc(C.chapitres[n-1][0])}</h3><div class="cmap-scroll">${CARTES[k]}</div><p><a href="#3e-ch${n}" data-k="${k}" class="pcl">Ouvrir le chapitre ${n} →</a></p></article>`; }).join("");
+      $$(".pcl", Z).forEach(a=>a.onclick=()=>openAt(a.dataset.k, "cours")); }
     Z.scrollIntoView({behavior:"smooth", block:"start"});
   };
   $$("[data-go]", A).forEach(b=>b.onclick=()=>go(b.dataset.go));

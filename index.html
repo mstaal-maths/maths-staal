@@ -481,7 +481,7 @@ footer{margin-top:64px;padding-top:18px;border-top:1.5px solid var(--line);font-
 .sheet .sh-id{display:flex;justify-content:space-between;gap:12px;border:1.5px solid #000;padding:6px 12px;margin:0 0 12px;font-size:12pt}
 .sheet .sh-sec{font-size:14pt;font-weight:700;margin:18px 0 6px;break-after:avoid}
 .sheet .sh-note{font-style:italic;margin:0 0 8px}
-.sheet .sh-ex{margin:0 0 14px}
+.sheet .sh-ex{margin:0 0 1.6em}
 .sheet .sh-ex.keep{break-inside:avoid}
 .sheet .sh-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-weight:700;border-bottom:1.5px solid #000;margin:0 0 6px;padding-bottom:1px;break-after:avoid}
 .sheet .sh-h u{text-decoration:none}
@@ -519,7 +519,7 @@ footer{margin-top:64px;padding-top:18px;border-top:1.5px solid var(--line);font-
 .sheet .sh-sec{color:#1f4e79;font-size:13.5pt;font-weight:700;border-bottom:1.3px solid #1f4e79;padding-bottom:2px;margin:18px 0 10px;break-after:avoid}
 .sheet .sh-part{margin:0 0 10px}
 .sheet .sh-h{border-bottom:1.2px solid #000;font-size:12pt;margin:12px 0 6px}
-.sheet .sh-ex{margin:0 0 12px}
+.sheet .sh-ex{margin:0 0 1.6em}
 .sheet .retenir{background:#eaf1fb;border:1px solid #333;border-radius:0;padding:6px 10px;margin:10px 0 8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .sheet .retenir::before{content:attr(data-l) " :";position:static;float:left;margin:0 .4em 0 0;padding:0;background:none;color:#000;font-weight:700;font-size:12pt;font-family:Arial,"Liberation Sans",sans-serif}
 .sheet .retenir[data-l^="Méthode"],.sheet .retenir[data-l^="Méthodes"]{background:#fff6e5}
@@ -545,6 +545,10 @@ html.sheetmode #sheetpage{display:block;max-width:182mm;margin:0 auto;padding:0}
 /* ---------- jeu du labyrinthe ---------- */
 .infoh{font-family:var(--f-display);font-size:1.3rem;margin:36px 0 14px}
 .chap.info p{margin:0}
+.jeuxacc{margin:0 0 48px}.jeuxacc .infoh{margin-top:0}
+.jeuxautres{margin:14px 0;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:4px 14px}
+.jeuxautres>summary{cursor:pointer;font-weight:700;font-size:1.05rem;padding:10px 0;color:var(--c)}
+.jeuxautres[open]>summary{margin-bottom:6px}.jeuxautres .chaps{margin-bottom:14px}
 .chap.info .ill{margin:-6px -6px 2px;aspect-ratio:200/110;max-height:200px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#f2f6fc}
 .chap.info .ill svg{display:block;width:100%;height:100%}
 .chap.info:hover .ill{border-color:var(--c,#4C97FF)}
@@ -1214,6 +1218,7 @@ const CLASSES = {
 <script src="data/train-3e21.js"></script>
 <script src="data/train-3e22.js"></script>
 <script src="data/train-3e23.js"></script>
+<script src="data/mj.js"></script>
 <script>
 /* ================= Moteur du site ================= */
 const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
@@ -1261,10 +1266,11 @@ function home(choix){
     : `<h2 class="ask">Tu es en quelle classe ?</h2>
     <div class="classes">${card("6e")}${card("5e")}${card("4e")}${card("3e")}</div>`}
 
+    ${jeuxAccueil(mine)}
     <section class="uses">
       <h2>Pour chaque chapitre, tu trouves</h2>
       <div class="usegrid">
-        <div class="use">${ICO.cours}<h3>Le cours et « Par cœur »</h3><p>Le cours complet, et une page « Par cœur » avec les définitions, propriétés et formules à connaître, et une fiche résumé en schémas.</p></div>
+        <div class="use">${ICO.cours}<h3>Le cours</h3><p>Le cours complet, avec des animations qui montrent les constructions pas à pas, et pour certains chapitres un grand schéma « En un coup d'œil ».</p></div>
         <div class="use">${ICO.ex}<h3>Les exercices</h3><p>Les exercices de la fiche, avec leur correction détaillée.</p></div>
         <div class="use">${ICO.quiz}<h3>Je m'entraîne</h3><p>Un QCM de plus en plus difficile, et des exercices comme en classe avec d'autres nombres, corrigés.</p></div>
         <div class="use">${ICO.eval}<h3>Éval d'entraînement</h3><p>Une évaluation blanche avec chrono, puis le corrigé et le barème pour te noter.</p></div>
@@ -1286,7 +1292,10 @@ function classe(id){
         <h3>${esc(t)}</h3>${best?`<span class="best">Record : ${best} notions</span>`:""}</a>`;
     }).join("")}</div>
     <h2 class="infoh">Informatique</h2>
-    <div class="chaps">${INFO34[id] ? INFO34[id]() : id==="5e"
+    <div class="chaps">${infoCards(id)}</div>
+    ${mjCards(id)?`<h2 class="infoh">Mini-jeux de maths</h2><div class="chaps">${mjCards(id)}</div>`:""}`;
+}
+function infoCards(id){ return `${INFO34[id] ? INFO34[id]() : id==="5e"
       ? `<a class="chap info" href="#nombres">${ILL("nombres")}<div class="row"><span class="n">Programmation</span><span class="st on">15 niveaux</span></div>
       <h3>Le labyrinthe des nombres</h3><p class="where">Le robot transporte un nombre : programme les calculs qui ouvrent les portes à code.</p></a>
       <a class="chap info" href="#tableur5">${ILL("tableur5")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
@@ -1310,7 +1319,16 @@ function classe(id){
       <a class="chap info" href="#miroir6">${ILL("miroir6")}<div class="row"><span class="n">Géométrie</span><span class="st on">14 niveaux</span></div>
       <h3>Le miroir</h3><p class="where">Colorie le quadrillage pour compléter les figures par symétrie axiale.</p></a>
       <a class="chap info" href="#puiss6">${ILL("puiss6")}<div class="row"><span class="n">Calcul</span><span class="st on">7 grilles</span></div>
-      <h3>Le Puissance 4 du calcul</h3><p class="where">Tables, × et ÷ par 10, 100, 1 000, calculs avec les décimaux : calcule juste pour poser ton jeton.</p></a>`}</div>`;
+      <h3>Le Puissance 4 du calcul</h3><p class="where">Tables, × et ÷ par 10, 100, 1 000, calculs avec les décimaux : calcule juste pour poser ton jeton.</p></a>`}`; }
+function mjCards(id){ return Object.entries(window.MJ||{}).filter(([k,m])=>m.cls===id).map(([k,m])=>`<a class="chap info" href="#${k}">${ILL(k)}<div class="row"><span class="n">${m.tag}</span><span class="st on">${m.badge}</span></div>
+      <h3>${m.titre}</h3><p class="where">${m.desc}</p></a>`).join(""); }
+/* accueil : tous les jeux et l'informatique, classe par classe */
+function jeuxAccueil(mine){
+  const bloc=id=>`<div class="chaps">${mjCards(id)}${infoCards(id)}</div>`;
+  const ids=["6e","5e","4e","3e"];
+  if(mine && CLASSES[mine]) return `<section class="jeuxacc"><h2 class="infoh">Mini-jeux et informatique · ${CLASSES[mine].nom}</h2>${bloc(mine)}
+    ${ids.filter(i=>i!==mine).map(i=>`<details class="jeuxautres" style="--c:${CLASSES[i].couleur}"><summary>Mini-jeux et informatique · ${CLASSES[i].nom}</summary>${bloc(i)}</details>`).join("")}</section>`;
+  return `<section class="jeuxacc"><h2 class="infoh">Mini-jeux et informatique</h2>${ids.map(i=>`<details class="jeuxautres" style="--c:${CLASSES[i].couleur}"><summary>${CLASSES[i].nom}</summary>${bloc(i)}</details>`).join("")}</section>`;
 }
 
 /* ---------- Petites illustrations des jeux (cartes Informatique) ---------- */
@@ -1434,6 +1452,7 @@ function ILL(k){
     <rect x="146" y="52" width="48" height="26" rx="12" fill="#fff" stroke="#1b2a44" stroke-width="1.5"/><path d="M160 77l-3 8 10-8" fill="#fff" stroke="#1b2a44" stroke-width="1.5"/><text x="170" y="70" text-anchor="middle" style="font:800 14px Arial,sans-serif" fill="#1b2a44">26</text>
     <g transform="translate(160 96)"><path d="M-8 9L0 -9L8 9L0 4.5Z" fill="#FF8C1A" stroke="#a24d00" stroke-width="1.5" stroke-linejoin="round"/></g>`
   };
+  if(!S[k] && window.MJ && MJ[k]) S[k]=MJ[k].ill;
   return S[k] ? `<div class="ill" aria-hidden="true"><svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice">${S[k]}</svg></div>` : "";
 }
 /* ---------- Jeu de programmation : le labyrinthe (Blockly chargé seulement ici) ---------- */
@@ -1479,10 +1498,13 @@ const JEUX = {
   puiss3:{cls:"3e", mod:{src:"data/puiss4.js", name:"PUISS4", pack:"3e"}, eyebrow:"jeu de calcul", titre:"Le Puissance 4 du calcul", intro:"Choisis une colonne, puis développe et réduis l'expression de la case où tombe ton jeton. Réponse juste : le jeton est posé. Aligne 4 jetons pour gagner, à deux ou contre l'ordinateur."},
   geo3:{cls:"3e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"3e"}, wide:true, eyebrow:"géométrie dynamique", titre:"Géométrie dynamique", intro:"Construis des images par symétrie, rotation et homothétie, puis utilise le théorème de Thalès et sa réciproque."}
 };
+/* mini-jeux de maths (data/mj.js : registre ; chaque jeu est dans data/mj-<nom>.js) */
+if(window.MJ) Object.entries(MJ).forEach(([k,m])=>{ JEUX[k]={cls:m.cls, mod:{src:m.src, name:m.name}, wide:!!m.wide, mj:true, titre:m.titre, intro:m.intro}; });
 async function labyrinthe(jeu){
   const J=JEUX[jeu], cls=J.cls;
+  if(J.mj) document.documentElement.style.setProperty("--c", CLASSES[cls].couleur);
   crumbs.innerHTML = `<a href="#accueil">Accueil</a><span aria-hidden="true">›</span><a href="#${cls}">${CLASSES[cls].nom}</a><span aria-hidden="true">›</span><span>${J.titre}</span>`;
-  app.innerHTML = `<div class="head"><span class="eyebrow">Informatique · ${J.eyebrow||(J.tab?"séance tableur":"jeu de programmation")}</span><h1>${J.titre}</h1>
+  app.innerHTML = `<div class="head"><span class="eyebrow">${J.mj?"Mini-jeu de maths":"Informatique · "+(J.eyebrow||(J.tab?"séance tableur":"jeu de programmation"))}</span><h1>${J.titre}</h1>
     <p>${J.intro}</p></div>
     <div id="labyroot"><p class="where">Chargement du jeu…</p></div>`;
   try{ if(J.mod) await loadJS(J.mod.src); else if(J.tab) await loadJS("data/tableur.js"); else { await loadJS("lib/blockly/blockly_compressed.js"); await loadJS("lib/blockly/fr.js"); await loadJS("data/laby.js"); } }
@@ -1497,7 +1519,7 @@ function chapitre(id, n){
   document.documentElement.style.setProperty("--c", C.couleur);
   const key = id+"-"+n, D = CH[key];
   crumbs.innerHTML = `<a href="#accueil">Accueil</a><span aria-hidden="true">›</span><a href="#${id}">${C.nom}</a><span aria-hidden="true">›</span><span>Chapitre ${n}</span>`;
-  const tabs = [["cours","Le cours"],["essentiel","Par cœur"],["ex","Exercices"],["quiz","Je m'entraîne"]];
+  const tabs = [["cours","Le cours"]].concat(window.CARTES&&CARTES[key]?[["essentiel","En un coup d'œil"]]:[], [["ex","Exercices"],["quiz","Je m'entraîne"]]);
   if(D && D.eval) tabs.push(["eval","Éval d'entraînement"]);
   app.innerHTML = `
     <div class="head"><span class="eyebrow">${C.nom} · Chapitre ${n}</span><h1>${esc(ch[0])}</h1>${D&&D.intro?`<p>${fmt(D.intro)}</p>`:""}</div>
@@ -1677,6 +1699,7 @@ function renderQuiz(panel, key, D, toCours){
     let secs;
     try{ secs = TRAIN[key](); }catch(e){ console.error(e); secs = []; }
     el.innerHTML = `<div class="trhead"><button class="btn" id="trback">← Retour</button><button class="btn primary" id="trnew">Nouvelle fiche, nouveaux nombres</button></div>
+      <div class="trhead" style="margin-top:10px"><button class="btn" id="trpdf">🖨️ Cette fiche à imprimer (PDF)</button><button class="btn" id="trcpdf">🖨️ Son corrigé (PDF)</button><small class="where" id="trmsg"></small></div>
       <p class="where" style="margin:10px 0 18px">Fais les exercices sur ton cahier. Clique sur « Voir la correction » seulement quand tu as fini.</p>
       <div class="panel trpanel">${secs.map((S,si)=>`<section class="exsec">
         <h2 class="sech"><span>${String.fromCharCode(65+si)}</span>${fmt(S.t)}</h2>
@@ -1684,6 +1707,9 @@ function renderQuiz(panel, key, D, toCours){
         ${S.e.map(e=>exCard(e)).join("")}</section>`).join("")}</div>`;
     el.querySelector("#trback").onclick = intro;
     el.querySelector("#trnew").onclick = ()=>{ training(); el.scrollIntoView({behavior:"smooth", block:"start"}); };
+    const C=CLASSES[key.split("-")[0]], n=+key.split("-")[1], TD=Object.assign({}, D, {exos:secs});
+    el.querySelector("#trpdf").onclick = e=>dlTrain(e.currentTarget, {D:TD, nom:C.nom, n, titre:C.chapitres[n-1][0]}, "ex", el.querySelector("#trmsg"));
+    el.querySelector("#trcpdf").onclick = e=>dlTrain(e.currentTarget, {D:TD, nom:C.nom, n, titre:C.chapitres[n-1][0]}, "corr", el.querySelector("#trmsg"));
   }
 
   function pickRandom(keys, n, hard){
@@ -1861,7 +1887,7 @@ function renderEval(panel, key, E0){
 }
 
 /* ---------- Version papier : cours, essentiel, exercices, éval (pour tous les chapitres, y compris les futurs) ---------- */
-const PRINTABLE = {cours:"Le cours", essentiel:"À connaître par cœur", ex:"Exercices", eval:"Évaluation d'entraînement"};
+const PRINTABLE = {cours:"Le cours", essentiel:"En un coup d'œil", ex:"Exercices", eval:"Évaluation d'entraînement"};
 const PRINT = {cur:null};
 const pnum = v => String(v).replace(".",",");
 function printHTML(P){
@@ -1966,7 +1992,7 @@ function pdfReady(box){
     const r=svg.getBoundingClientRect(); if(r.width){ svg.setAttribute("width",r.width.toFixed(1)); svg.setAttribute("height",r.height.toFixed(1)); } });
 }
 /* boutons de téléchargement de chaque onglet */
-const TAB_DL = {cours:[["cours","Télécharger le cours (PDF)"]], essentiel:[["ess","Télécharger la fiche « Par cœur » (PDF)"]], ex:[["ex","Fiche d'exercices (PDF)"],["corr","Corrections (PDF)"]], eval:[["evs","Sujet (PDF)"],["evc","Corrigé et barème (PDF)"]]};
+const TAB_DL = {cours:[["cours","Télécharger le cours (PDF)"]], essentiel:[["ess","Télécharger le schéma (PDF)"]], ex:[["ex","Fiche d'exercices (PDF)"],["corr","Corrections (PDF)"]], eval:[["evs","Sujet (PDF)"],["evc","Corrigé et barème (PDF)"]]};
 async function dlPdf(btn, kind){
   const P=PRINT.cur; if(!P || btn.disabled) return;
   const msg=document.getElementById("printmsg"), say=t=>{ if(msg) msg.textContent=t; };
@@ -1997,12 +2023,31 @@ async function dlPdf(btn, kind){
   finally{ if(box) box.remove(); btn.disabled=false; btn.textContent=label; }
 }
 
+/* fiche d'entraînement (nombres tirés au hasard) : PDF fabriqué dans la page, même présentation que la fiche d'exercices */
+async function dlTrain(btn, P, kind, msgEl){
+  if(btn.disabled) return; const say=t=>{ if(msgEl) msgEl.textContent=t; };
+  const filename=`${P.nom} - Chapitre ${P.n} - Exercices d'entraînement${kind==="corr"?" - corrigé":""}.pdf`;
+  const dl = (window.claude && typeof window.claude.use==="function") ? await window.claude.use("downloads").catch(()=>null) : null;
+  const label=btn.textContent; btn.disabled=true; btn.textContent="Préparation…"; let box=null;
+  try{
+    box=document.createElement("div"); box.className="sheet"; box.style.cssText="position:absolute;left:-10000px;top:0;width:688px;background:#fff";
+    box.innerHTML=sheetHTML(P, kind).replace(/ loading="lazy"/g,"").replace(/ — Exercices<\/h1>/," — Exercices d'entraînement</h1>").replace(/ — Corrigé<\/h1>/," — Exercices d'entraînement, corrigé</h1>");
+    document.body.appendChild(box); hatify(box); await fillImgs(box);
+    await Promise.all([...box.querySelectorAll("img")].filter(i=>!i.complete).map(i=>new Promise(ok=>{ i.onload=i.onerror=ok; })));
+    pdfReady(box); const blob=await buildPdf(box, (i,n)=>say(`Préparation du PDF… ${Math.round(i/n*100)} %`));
+    window.__lastPdf=blob;
+    if(dl){ try{ await dl.save({filename, data:blob}); say("C'est prêt : ouvre le PDF pour l'imprimer."); } catch(e){ say(e && e.code==="declined" ? "Téléchargement annulé." : "Le téléchargement n'est pas possible ici."); } }
+    else{ const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=filename; a.target="_blank"; document.body.appendChild(a); a.click(); a.remove(); say("C'est prêt : ouvre le PDF pour l'imprimer."); }
+  }catch(e){ console.error("PDF", e); say("Le PDF n'a pas pu être préparé. Réessaie dans un instant."); }
+  finally{ if(box) box.remove(); btn.disabled=false; btn.textContent=label; }
+}
+
 /* ---------- Documents à imprimer, présentés comme les fiches de M. Staal ---------- */
-const SHEET_KINDS = {cours:"Le cours", ess:"À connaître par cœur", ex:"Exercices", corr:"Corrections des exercices", evs:"Évaluation d'entraînement", evc:"Évaluation d'entraînement — corrigé et barème"};
+const SHEET_KINDS = {cours:"Le cours", ess:"En un coup d'œil", ex:"Exercices", corr:"Corrections des exercices", evs:"Évaluation d'entraînement", evc:"Évaluation d'entraînement — corrigé et barème"};
 function sheetHTML(P, kind){
   /* même modèle que les fiches Word de M. Staal : « Chapitre N — Titre », parties « I — … » en bleu, encadrés colorés */
   const D=P.D, num=pnum, R=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
-  const SUF={cours:"", ess:" — Par cœur", ex:" — Exercices", corr:" — Corrigé"};
+  const SUF={cours:"", ess:" — En un coup d'œil", ex:" — Exercices", corr:" — Corrigé"};
   const title = k => `<h1 class="sh-title">Chapitre ${P.n} — ${esc(P.titre)}${P.only&&k==="cours"?" (suite)":SUF[k]||""}</h1>`;
   const exH = e => `<div class="sh-h"><span>${e.n?fmt(e.n)+" : ":""}${fmt(e.t)}</span></div>`;
   const sav = () => D.savoir?`<div class="sh-sav keep"><p><b>Ce que je dois savoir faire à la fin du chapitre :</b></p><ul>${D.savoir.map(x=>`<li>${fmt(x)}</li>`).join("")}</ul></div>`:"";
@@ -2035,7 +2080,7 @@ function sheetPage(key, kind, only){
   let z=document.getElementById("sheetpage"); if(!z){ z=document.createElement("div"); z.id="sheetpage"; document.body.appendChild(z); }
   document.documentElement.classList.add("sheetmode");
   z.className="sheet"; z.innerHTML=D?sheetHTML({D, nom:C.nom, n:+n, titre:C.chapitres[+n-1][0], only:only?only.split(",").map(Number):null}, kind).replace(/ loading="lazy"/g,""):"";
-  hatify(z); const T=C.chapitres[+n-1][0], E=D&&D.eval, SUF={cours:"", ess:" — Par cœur", ex:" — Exercices", corr:" — Corrigé"};
+  hatify(z); const T=C.chapitres[+n-1][0], E=D&&D.eval, SUF={cours:"", ess:" — En un coup d'œil", ex:" — Exercices", corr:" — Corrigé"};
   const EA = E && /a$/.test(kind) ? (amenage(E)||E) : E;
   document.title = /^ev/.test(kind) && E ? `${EA.titre}${/^evc/.test(kind)?" — Corrigé":""} — ${id}` : `Chapitre ${n} — ${T}${SUF[kind]||""} — ${id}`;
 }
@@ -2112,5 +2157,5 @@ affbtn.onclick=()=>{ affp.hidden=!affp.hidden; affbtn.setAttribute("aria-expande
 applyAff();
 window.addEventListener("hashchange", route);
 </script>
-<script src="data/anim.js"></script><script src="data/plus.js"></script>
+<script src="data/anim.js"></script><script src="data/cartes.js"></script><script src="data/plus.js"></script>
 <script>route();</script>
