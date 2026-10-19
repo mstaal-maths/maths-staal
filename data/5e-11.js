@@ -126,6 +126,103 @@ exos:[
  ]}
 ],
 
+/* ÉVAL-5b début */
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT (+ version aménagée « bep ») ===================== */
+eval:(()=>{
+const pn = v => String(v).replace(".",",");
+const pts = v => `${pn(v)} point${v>=2?"s":""}`;
+const pt = v => ` <i>(${pts(v)})</i>`;
+const exl = (X, ids) => { const s=ids.reduce((a,i)=>a+X[i-1].p,0); return (ids.length===1?`Ex. ${ids[0]}`:`Ex. ${ids.slice(0,-1).join(", ")} et ${ids[ids.length-1]}`)+` (${pts(s)})`; };
+const NL = (n, ch) => `<p class="calc">${n} = ${ch.split(" = ").join(`<br>${n} = `)}</p>`;
+const COMP = [
+  ["RAISONNER","Je reconnais, en justifiant, une situation de proportionnalité.",[1]],
+  ["CALCULER","Je complète un tableau de proportionnalité et je calcule avec des pourcentages.",[2,4]],
+  ["CHERCHER","Je résous des problèmes de proportionnalité (retour à l'unité, vitesse, échelle) et je compare des proportions.",[3,5]]
+];
+const L = (b, list) => list.filter(q=>!(b && q.rm));
+const lab = i => "abcdefgh"[i]+")", num = i => (i+1)+".";
+/* tableau de l'exercice 2 : [litres, surface] ; null = case à trouver */
+const PEINT = [[3,21],[6,42,"6 = 3 × 2, donc 21 × 2 = 42 m²"],[1,7,"1 = 3 ÷ 3, donc 21 ÷ 3 = 7 m²"],[10,70,"10 L, c'est 10 fois 1 L : 7 × 10 = 70 m²",1],[4,28,"4 = 3 + 1, donc 21 + 7 = 28 m²"],[5,35,"35 ÷ 7 = 5 L (on divise par le coefficient)"]];
+const mk = b => {
+  const P_ = q => b ? q.pb : q.p;
+  const sum = q => q.reduce((a,z)=>a+P_(z),0);
+  const wr = f => (q,i) => { const c=q.c.startsWith("<p>") ? `<p>${f(i)} `+q.c.slice(3) : `<p>${f(i)}</p>`+q.c; return (c.endsWith("</p>") ? c.slice(0,-4) : c)+pt(P_(q))+"</p>"; };
+  /* Ex 1 */
+  const q1 = L(b, [
+    {h:`Location d'un vélo :`, tb:T2("Durée (h)",["2","3","5"],"Prix (€)",["9","13,50","22,50"]), p:1, pb:1.5,
+     c:`${T2("Durée (h)",["2","3","5"],"Prix (€)",["9","13,50","22,50"],["Prix ÷ durée",["4,5","4,5","4,5"]])}<p class="calc">${Q(9,2)} = 4,5 &nbsp;·&nbsp; ${Q("13,5",3)} = 4,5 &nbsp;·&nbsp; ${Q("22,5",5)} = 4,5</p><p>Tous les quotients sont égaux : <b>c'est un tableau de proportionnalité</b>, de coefficient 4,5 (une heure de location coûte 4,50 €).`},
+    {h:`Envoi d'un colis :`, tb:T2("Masse (kg)",["1","2","5"],"Prix (€)",["6","8","14"]), p:1, pb:1.5,
+     c:`<p class="calc">${Q(6,1)} = 6 &nbsp; et &nbsp; ${Q(8,2)} = 4</p><p>Deux quotients sont différents : <b>ce n'est pas un tableau de proportionnalité</b> (2 kg ne coûtent pas le double de 1 kg).`},
+    {h:`Le périmètre d'un triangle équilatéral et la longueur de son côté.`, p:1, rm:true,
+     c:`<p>Un triangle équilatéral a trois côtés de même longueur : périmètre = 3 × côté.</p><p>On multiplie toujours par 3 : <b>c'est une situation de proportionnalité</b> (coefficient 3).`}
+  ]);
+  /* Ex 2 */
+  const cols2 = PEINT.filter(r=>!(b && r[3]));
+  const known = (r,i) => i===0 || i===cols2.length-1;     /* première colonne et dernière surface connues */
+  const tab2 = full => T2("Peinture (L)", cols2.map((r,i)=>i===cols2.length-1 && !full ? "……" : String(r[0])), "Surface peinte (m²)", cols2.map((r,i)=>known(r,i)||full ? String(r[1]) : "……"));
+  const nc = cols2.length-1, pc = 0.5, pcoef = b ? 1.5 : 1;
+  /* Ex 3 */
+  const q3 = [
+    {h:`4 entrées à la piscine coûtent 13,60 €. Combien coûtent 7 entrées ?`, p:1.5, pb:2,
+     c:`<p>Je calcule d'abord le prix d'une entrée (retour à l'unité) :</p><p class="calc">13,60 ÷ 4 = 3,40 €</p><p class="calc">7 × 3,40 = 23,80 €</p><p>7 entrées coûtent <b>23,80 €</b>.`},
+    {h:`Un cycliste roule à la vitesse constante de 18 km/h. Quelle distance parcourt-il en 2&nbsp;h&nbsp;30&nbsp;min ?`, p:1.5, pb:1.5,
+     c:`<p>À 18 km/h, il parcourt 18 km en 1 h. La distance est proportionnelle à la durée.</p><p class="calc">En 2 h : 18 × 2 = 36 km &nbsp;·&nbsp; en 30 min (une demi-heure) : 18 ÷ 2 = 9 km</p><p class="calc">36 + 9 = 45 km</p><p>En 2&nbsp;h&nbsp;30&nbsp;min, il parcourt <b>45 km</b>.`},
+    {h:`Sur un plan à l'échelle ${Q(1,200)}, une piscine mesure 12,5 cm de long. Quelle est sa longueur réelle, en mètres ?`, p:1.5, pb:2,
+     c:`<p>À l'échelle ${Q(1,200)}, 1 cm sur le plan représente 200 cm dans la réalité.</p><p class="calc">12,5 × 200 = 2 500 cm &nbsp; et &nbsp; 2 500 cm = 25 m</p><p>La piscine mesure <b>25 m</b> de long.`}
+  ];
+  /* Ex 4 */
+  const a4 = L(b, [
+    {h:`10 % de 230`, c:`230 ÷ 10 = <b>23</b>`},
+    {h:`75 % de 48`, c:`48 × ${Q(75,100)} = <b>36</b> &nbsp; <i>(ou : 75 %, c'est les trois quarts : 48 ÷ 4 × 3 = 36)</i>`},
+    {h:`15 % de 120`, c:`120 × ${Q(15,100)} = <b>18</b> &nbsp; <i>(ou : 10 % = 12 et 5 % = 6, donc 12 + 6 = 18)</i>`, rm:true}
+  ]);
+  const q4 = L(b, [
+    {h:`Calcule : ${a4.map(q=>q.h).join(" ; ")}.`, p:a4.length*0.5, pb:a4.length*0.5,
+     c:`${a4.map(q=>`<p class="calc">${q.h} : ${q.c}</p>`).join("")}<p><i>0,5 point par calcul.</i></p>`},
+    {h:`Écris sous la forme d'un pourcentage : 7 élèves sur 20 ; 27 élèves sur 30.`, p:1, pb:1,
+     c:`<p class="calc">${Q(7,20)} = ${Q("7 × 5","20 × 5")} = ${Q(35,100)} = <b>35 %</b></p><p class="calc">${Q(27,30)} = ${Q(9,10)} = ${Q(90,100)} = <b>90 %</b></p><p><i>0,5 point par pourcentage.</i></p>`},
+    {h:`Un abonnement de musique coûte 32 € par mois. Son prix augmente de 25 %. Quel est son nouveau prix ?`, p:1.5, pb:2,
+     c:`<p>Je calcule l'augmentation : 25 %, c'est le quart.</p><p class="calc">25 % de 32 € : 32 ÷ 4 = 8 €</p><p>Je l'ajoute à l'ancien prix :</p><p class="calc">32 + 8 = 40 €</p><p>Le nouveau prix est de <b>40 €</b> par mois.`},
+    {h:`Dans une classe de 25 élèves, 40 % des élèves mangent à la cantine. Combien d'élèves mangent à la cantine ?`, p:1, rm:true,
+     c:`<p class="calc">25 × ${Q(40,100)} = 10</p><p><b>10 élèves</b> mangent à la cantine.`}
+  ]);
+  /* Ex 5 */
+  const BOT = L(b, [
+    {n:"Soleil", d:`18 cL de jus d'orange pour 40 cL`, c:`${Q(18,40)} = ${Q(9,20)} = ${Q("9 × 5","20 × 5")} = ${Q(45,100)} = <b>45 %</b>`},
+    {n:"Tropic", d:`12 cL de jus d'orange pour 25 cL`, c:`${Q(12,25)} = ${Q("12 × 4","25 × 4")} = ${Q(48,100)} = <b>48 %</b>`},
+    {n:"Verger", d:`les ${Q(2,5)} de la bouteille sont du jus d'orange`, c:`${Q(2,5)} = ${Q("2 × 20","5 × 20")} = ${Q(40,100)} = <b>40 %</b>`, rm:true}
+  ]);
+  const pb5 = b ? 1.5 : 1;
+  const q5 = [
+    {h:`Calcule la proportion de jus d'orange de chaque bouteille, sous la forme d'un pourcentage.`, p:BOT.length*1, pb:BOT.length*pb5,
+     c:`<p>Proportion = ${Q("quantité de jus d'orange","quantité totale")}.</p>${BOT.map(o=>`<p class="calc">${o.n} : ${o.c}</p>`).join("")}<p><i>${pn(pb5)} point par bouteille.</i></p>`},
+    {h: b ? `Dans quelle bouteille la proportion de jus d'orange est-elle la plus grande ? Justifie.` : `Range les trois bouteilles, de la plus riche en jus d'orange à la moins riche.`, p:1, pb:1,
+     c: b ? `<p>48 % &gt; 45 % : la proportion de jus d'orange est la plus grande dans la bouteille <b>Tropic</b>.` : `<p>48 % &gt; 45 % &gt; 40 % : <b>Tropic</b>, puis <b>Soleil</b>, puis <b>Verger</b>.`}
+  ];
+  const X_ = [
+    {t:"Proportionnel ou non ?", p:sum(q1),
+     h:`<p>Dans chaque cas, dis s'il s'agit d'une situation de proportionnalité. Justifie par des calculs.</p>${q1.map((q,i)=>`<p>${lab(i)} ${q.h}</p>${q.tb||""}`).join("")}`, c:q1.map(wr(lab)).join("")},
+    {t:"La peinture", p:nc*pc+pcoef,
+     h:`<p>Avec 3 L de peinture, on peut peindre 21 m² de mur. La surface peinte est proportionnelle à la quantité de peinture.</p><p>1. Complète le tableau. Laisse apparents tes calculs.</p>${tab2(false)}<p>2. Quel est le coefficient de proportionnalité ? Que représente-t-il ?</p>`,
+     c:`<p>1.</p>${tab2(true)}${cols2.slice(1).map(r=>`<p>${r[2]}</p>`).join("")}<p><i>(${pn(pc)} point par case, soit ${pts(nc*pc)})</i></p><p>2. Le coefficient est <b>7</b> (21 ÷ 3 = 7) : avec 1 L de peinture, on peint 7 m².${pt(pcoef)}</p>`},
+    {t:"Problèmes de proportionnalité", p:sum(q3), h:q3.map((q,i)=>`<p>${lab(i)} ${q.h}</p>`).join(""), c:q3.map(wr(lab)).join("")},
+    {t:"Calculer avec des pourcentages", p:sum(q4), h:q4.map((q,i)=>`<p>${lab(i)} ${q.h}</p>`).join(""), c:q4.map(wr(lab)).join("")},
+    {t:"Le jus d'orange", p:sum(q5),
+     h:`<p>Voici la composition de ${BOT.length===3?"trois":"deux"} bouteilles de jus de fruits mélangés.</p><ul>${BOT.map(o=>`<li>Bouteille <b>${o.n}</b> : ${o.d}.</li>`).join("")}</ul>${q5.map((q,i)=>`<p>${num(i)} ${q.h}</p>`).join("")}`, c:q5.map(wr(num)).join("")}
+  ];
+  return {X:X_, comp:COMP.map(([k,tt,ids])=>[k,tt,exl(X_,ids)])};
+};
+const N = mk(false), B = mk(true);
+return {
+titre:"Évaluation d'entraînement — Chapitre 11", duree:50, info:"Durée : 50 min · Calculatrice non autorisée",
+comp:N.comp, exos:N.X,
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 11 · version aménagée", duree:50, info:"Version aménagée · Durée : 50 min · Calculatrice non autorisée",
+note:"Les mêmes exercices avec cinq questions en moins, dans le même temps (50 min). Le barème est recalculé pour rester sur 20. Les justifications sont toujours demandées.",
+comp:B.comp, exos:B.X }
+};
+})(),
+/* ÉVAL-5b fin */
 /* ===================== QCM ===================== */
 quiz:[
 {nom:"Reconnaître la proportionnalité", schema:S_REC, q:{

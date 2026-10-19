@@ -18,14 +18,16 @@ const tabH=(head,rows)=>`<div class="scroll"><table class="std"><thead><tr>${hea
 const co=(p,alt,w)=>img("4k5co/"+p,alt,w), ex=(p,alt,w)=>img("4k5ex/"+p,alt,w);
 const nz=(a,b)=>{ let v; do{ v=ri(a,b); }while(!v); return v; };
 
+/* calculs en chaîne « A = … » (outils définis dans 4e-1.js) */
+const {chn,chns,qChain}=window.CHN4;
 /* outils réutilisés par la fiche d'entraînement */
 window.PUI4={F,P,pw,dev,cols,tabH};
 
 /* ===================== schémas (rappels) ===================== */
-const S_DEF=sch("Définition d'une puissance",`<p class="calc">2<sup>5</sup> = 2 × 2 × 2 × 2 × 2 = 32 &nbsp; <span style="color:var(--muted)">5 facteurs égaux à 2</span></p><p class="schN">a<sup>0</sup> = 1 (a non nul) et a<sup>1</sup> = a.</p>`);
-const S_NEG=sch("(−3)<sup>4</sup> ou −3<sup>4</sup> ?",`<p class="calc">(−3)<sup>4</sup> = (−3) × (−3) × (−3) × (−3) = 81</p><p class="calc">−3<sup>4</sup> = −(3 × 3 × 3 × 3) = −81</p><p class="schN">Sans parenthèses, l'exposant ne porte que sur 3.</p>`);
+const S_DEF=sch("Définition d'une puissance",`${chn("A",["2<sup>5</sup>","2 × 2 × 2 × 2 × 2","32"])}<p class="schN">5 facteurs égaux à 2.</p><p class="schN">a<sup>0</sup> = 1 (a non nul) et a<sup>1</sup> = a.</p>`);
+const S_NEG=sch("(−3)<sup>4</sup> ou −3<sup>4</sup> ?",`${chns([["A",["(−3)<sup>4</sup>","(−3) × (−3) × (−3) × (−3)","81"]],["B",["−3<sup>4</sup>","−(3 × 3 × 3 × 3)","−81"]]])}<p class="schN">Sans parenthèses, l'exposant ne porte que sur 3.</p>`);
 const S_10=sch("Puissances de 10",`<p class="calc">10<sup>4</sup> = 10 000 &nbsp; <span style="color:var(--muted)">un 1 suivi de 4 zéros</span></p>`);
-const S_PRIO=sch("Priorités opératoires",`<p class="schN">1. parenthèses · 2. puissances · 3. × et ÷ · 4. + et −</p><p class="calc">4 − 8<sup>2</sup> = 4 − 64 = −60</p>`);
+const S_PRIO=sch("Priorités opératoires",`<p class="schN">1. parenthèses · 2. puissances · 3. × et ÷ · 4. + et −</p>${chn("A",["4 − 8<sup>2</sup>","4 − 64","−60"])}`);
 const S_PB=sch("Problèmes et puissances",`<p class="schN">Une quantité qui triple 5 fois de suite est multipliée par 3 × 3 × 3 × 3 × 3 = 3<sup>5</sup>.</p><p class="schN">Un code de 4 chiffres (de 0 à 9) : 10 × 10 × 10 × 10 = 10<sup>4</sup> codes.</p>`);
 
 CH["4e-5"]={
@@ -46,13 +48,13 @@ cours:[
   <div class="retenir" data-l="Définition"><p><b>a</b> désigne un nombre relatif et <b>n</b> un entier positif non nul.</p><p><b>a<sup>n</sup></b> désigne le produit de <b>n</b> facteurs tous égaux à <b>a</b> :</p><p class="calc">a<sup>n</sup> = a × a × … × a &nbsp; (n facteurs)</p><ul><li>a<sup>n</sup> se lit « a exposant n » ;</li><li>a<sup>n</sup> est une puissance de a.</li></ul></div>
   <div class="retenir" data-l="Convention"><ul><li>Pour tout nombre a non nul, a<sup>0</sup> = 1.</li><li>Pour tout nombre a, a<sup>1</sup> = a.</li></ul></div>
   <p><b>Exemples :</b> décompose les puissances sous la forme d'un produit et calcule.</p>
-  ${cols(["2<sup>5</sup> = 2 × 2 × 2 × 2 × 2 = 32","(−4)<sup>3</sup> = (−4) × (−4) × (−4) = −64","6<sup>0</sup> = 1","8<sup>1</sup> = 8"])}
+  ${chns([["A",["2<sup>5</sup>","2 × 2 × 2 × 2 × 2","32"]],["B",["(−4)<sup>3</sup>","(−4) × (−4) × (−4)","−64"]],["C",["6<sup>0</sup>","1"]],["D",["8<sup>1</sup>","8"]]])}
   <div class="attention"><b>ATTENTION :</b> ne pas confondre (−3)<sup>4</sup> et −3<sup>4</sup> !</div>
-  <div class="figs" style="gap:28px"><p class="calc">A = (−3)<sup>4</sup><br>A = (−3) × (−3) × (−3) × (−3)<br>A = 81</p><p class="calc">B = −3<sup>4</sup><br>B = −(3 × 3 × 3 × 3)<br>B = −81</p></div>
-  <p>Dans A, l'exposant porte sur (−3). Dans B, il ne porte que sur 3 : on calcule 3<sup>4</sup> = 81, puis on prend l'opposé.</p>
+  <div class="figs" style="gap:28px"><p class="calc">E = (−3)<sup>4</sup><br>E = (−3) × (−3) × (−3) × (−3)<br>E = 81</p><p class="calc">F = −3<sup>4</sup><br>F = −(3 × 3 × 3 × 3)<br>F = −81</p></div>
+  <p>Dans E, l'exposant porte sur (−3). Dans F, il ne porte que sur 3 : on calcule 3<sup>4</sup> = 81, puis on prend l'opposé.</p>
   <h4>b) Cas particulier : puissances de 10</h4>
   <div class="retenir" data-l="Propriété"><p><b>n</b> est un entier positif non nul.</p><p class="calc">10<sup>n</sup> = 10…0 &nbsp; (un 1 suivi de n zéros)</p></div>
-  <p><b>Exemples :</b> calcule.</p>${cols(["10<sup>4</sup> = 10 000","10<sup>9</sup> = 1 000 000 000"])}`},
+  <p><b>Exemples :</b> calcule.</p>${chns([["G",["10<sup>4</sup>","10 000"]],["H",["10<sup>9</sup>","1 000 000 000"]]])}`},
 {k:"2", t:"Calculs et priorités opératoires", h:`
   <div class="retenir" data-l="Propriété"><p><b>Ordre des priorités :</b></p><p><b>1)</b> les calculs entre parenthèses (ou entre crochets) ;</p><p><b>2)</b> les puissances ;</p><p><b>3)</b> les multiplications et les divisions ;</p><p><b>4)</b> les additions et les soustractions.</p></div>
   <p><b>Exemples :</b> calcule.</p>
@@ -71,9 +73,9 @@ exos:[
   {n:"Activité 1", t:"Population de bactéries", w:"Sur ton cahier", h:`<p>Un laboratoire effectue des recherches sur le développement d'une population de bactéries dans un milieu clos.</p><p>Les chercheurs observent que le nombre de bactéries triple toutes les heures.</p><p>À 0 heure, il y a 4 bactéries.</p><p>Détermine le nombre de bactéries au bout de 24 h.</p><p><i>Tu peux utiliser la calculatrice.</i></p>`,
    c:`<p>Au bout de 1 h : 4 × 3 = 12 bactéries. Au bout de 2 h : 4 × 3 × 3 = 36 bactéries.</p><p>Au bout de 24 h, on a multiplié 24 fois par 3 :</p><p class="calc">4 × 3 × 3 × … × 3 (24 facteurs 3) = 4 × 3<sup>24</sup> = 4 × 282 429 536 481 = 1 129 718 145 924</p><p>Il y a <b>1 129 718 145 924 bactéries</b> (plus de mille-milliards). Écrire 3<sup>24</sup> est bien plus court que d'écrire les 24 facteurs !</p>`},
   {n:"Exercice 1", t:"Vocabulaire", w:"Sur ta feuille", h:`<p><i>Sans calculatrice.</i></p><p><b>Partie 1 :</b> complète le tableau.</p>${tabH(["Produit","Notation puissance","Se lit"],[["5 × 5 × 5 × 5","",""],["8 × 8 × 8 × 8 × 8 × 8","",""],["","6<sup>3</sup>",""],["","","2 exposant 6"]])}
-   <p><b>Partie 2 :</b> écris sous la forme d'un produit et calcule.</p>${cols(["a) 3<sup>4</sup>","b) 4<sup>3</sup>","c) 2<sup>5</sup>","d) (−2)<sup>4</sup>","e) −2<sup>4</sup>","f) (−2)<sup>3</sup>","g) −2<sup>3</sup>","h) (−5)<sup>2</sup>"])}`,
+   <p><b>Partie 2 :</b> écris sous la forme d'un produit et calcule.</p>${cols(["A = 3<sup>4</sup>","B = 4<sup>3</sup>","C = 2<sup>5</sup>","D = (−2)<sup>4</sup>","E = −2<sup>4</sup>","F = (−2)<sup>3</sup>","G = −2<sup>3</sup>","H = (−5)<sup>2</sup>"])}`,
    c:`<p><b>Partie 1 :</b></p>${tabH(["Produit","Notation puissance","Se lit"],[["5 × 5 × 5 × 5","5<sup>4</sup>","5 exposant 4"],["8 × 8 × 8 × 8 × 8 × 8","8<sup>6</sup>","8 exposant 6"],["6 × 6 × 6","6<sup>3</sup>","6 exposant 3"],["2 × 2 × 2 × 2 × 2 × 2","2<sup>6</sup>","2 exposant 6"]])}
-   <p><b>Partie 2 :</b></p><p class="calc">a) 3<sup>4</sup> = 3 × 3 × 3 × 3 = 81<br>b) 4<sup>3</sup> = 4 × 4 × 4 = 64<br>c) 2<sup>5</sup> = 2 × 2 × 2 × 2 × 2 = 32<br>d) (−2)<sup>4</sup> = (−2) × (−2) × (−2) × (−2) = 16<br>e) −2<sup>4</sup> = −(2 × 2 × 2 × 2) = −16<br>f) (−2)<sup>3</sup> = (−2) × (−2) × (−2) = −8<br>g) −2<sup>3</sup> = −(2 × 2 × 2) = −8<br>h) (−5)<sup>2</sup> = (−5) × (−5) = 25</p>`},
+   <p><b>Partie 2 :</b></p>${chns([["A",["3<sup>4</sup>","3 × 3 × 3 × 3","81"]],["B",["4<sup>3</sup>","4 × 4 × 4","64"]],["C",["2<sup>5</sup>","2 × 2 × 2 × 2 × 2","32"]],["D",["(−2)<sup>4</sup>","(−2) × (−2) × (−2) × (−2)","16"]],["E",["−2<sup>4</sup>","−(2 × 2 × 2 × 2)","−16"]],["F",["(−2)<sup>3</sup>","(−2) × (−2) × (−2)","−8"]],["G",["−2<sup>3</sup>","−(2 × 2 × 2)","−8"]],["H",["(−5)<sup>2</sup>","(−5) × (−5)","25"]]])}`},
   {n:"Exercice 2", t:"Jeu du « quitte ou double »", w:"Sur ton cahier", h:`<p>Lors du jeu « Le quitte ou double », la première bonne réponse rapporte 1 €. Ensuite, chaque bonne réponse permet de doubler son gain.</p><p>Réponds aux questions en expliquant ta démarche.</p><p><b>1)</b> Gilles a répondu correctement à une série de sept questions. Quel est son gain ?</p><p><b>2)</b> Combien de bonnes réponses consécutives, au minimum, lui faudra-t-il pour gagner plus de 1 000 euros ?</p>`,
    c:`<p><b>1)</b> La première bonne réponse rapporte 1 €. Les 6 bonnes réponses suivantes doublent le gain 6 fois :</p><p class="calc">1 × 2 × 2 × 2 × 2 × 2 × 2 = 1 × 2<sup>6</sup> = 64</p>${tabH(["Bonnes réponses","1","2","3","4","5","6","7"],[["Gain (en €)","1","2","4","8","16","32","64"]])}<p>Gilles a gagné <b>64 €</b>.</p>
    <p><b>2)</b> On continue de doubler : 8 réponses → 128 € ; 9 → 256 € ; 10 → 512 € ; 11 → 1 024 €.</p><p>Il faut donc au moins <b>11 réponses consécutives</b> pour gagner plus de 1 000 € (2<sup>10</sup> = 1 024).</p>`}
@@ -98,8 +100,8 @@ exos:[
    c:`<p><b>1)</b> Pour chacune des 3 entrées, il y a 3 plats possibles : 3 × 3 = 3<sup>2</sup> = <b>9 menus</b>.</p><p><b>2)</b> Pour chacun de ces 9 menus, il y a 3 desserts : 3 × 3 × 3 = 3<sup>3</sup> = <b>27 menus</b>.</p>`},
   {n:"Exercice 9", t:"Code de carte bancaire", w:"Sur ton cahier", h:`<p>Un code de carte bancaire est composé de 4 chiffres de 0 à 9.</p><p>Combien y a-t-il de codes différents ?</p>`,
    c:`<p>Il y a 10 choix pour chacun des 4 chiffres :</p><p class="calc">10 × 10 × 10 × 10 = 10<sup>4</sup> = 10 000</p><p>Il y a <b>10 000 codes</b> différents (de 0000 à 9999).</p>`},
-  {n:"Exercice 10", t:"Le cadenas", w:"Sur ton cahier", h:`<p>Hugo doit choisir un code à 3 chiffres pour son cadenas de vélo. Sur ce cadenas, les chiffres vont de 0 à 9.</p><p>Combien de codes possibles peut-il choisir ?</p>`,
-   c:`<p class="calc">10 × 10 × 10 = 10<sup>3</sup> = 1 000</p><p>Hugo peut choisir parmi <b>1 000 codes</b> (de 000 à 999).</p>`},
+  {n:"Exercice 10", t:"Le cadenas", w:"Sur ton cahier", h:`<p>Hugo doit choisir un code pour son cadenas de vélo.</p><p>Ce cadenas a 4 molettes. Sur chaque molette, il y a les chiffres de 1 à 6.</p><p>Combien de codes possibles peut-il choisir ?</p>`,
+   c:`<p>Il y a 6 choix pour chacune des 4 molettes :</p><p class="calc">6 × 6 × 6 × 6 = 6<sup>4</sup> = 1 296</p><p>Hugo peut choisir parmi <b>1 296 codes</b> (de 1111 à 6666).</p>`},
   {n:"Exercice 11", t:"Numéros de téléphone", w:"Sur ton cahier", h:`<p>En France métropolitaine, avant 1996, les numéros de téléphone fixe étaient composés de 8 chiffres.</p><p>Depuis, les numéros ont 2 chiffres supplémentaires au début : <b>0 + un indicatif de région</b>.</p>
    <p><b>01 à 05 : numéros réservés aux fixes.</b> La répartition de ces préfixes est géographique :</p><ul><li>01 : Île-de-France ;</li><li>02 : quart nord-ouest ;</li><li>03 : quart nord-est ;</li><li>04 : quart sud-est ;</li><li>05 : quart sud-ouest.</li></ul>${ex("carte.png","Carte de France métropolitaine découpée en 5 zones : 01 Île-de-France, 02 nord-ouest, 03 nord-est, 04 sud-est, 05 sud-ouest",220)}
    <p><b>1)</b> À ton avis, pourquoi a-t-on rajouté ces deux chiffres au début ?</p><p><b>2)</b> Depuis 1996, combien y a-t-il de numéros de téléphone fixe possibles ?</p><p><b>3)</b> Depuis 2005, les numéros qui commencent par 09 désignent aussi des lignes fixes (offres téléphone-internet-télévision). Combien de numéros de lignes fixes y a-t-il désormais ?</p><p><b>4) a)</b> À quoi correspond un numéro en 06 ? <b>b)</b> Combien y a-t-il de numéros possibles en 06 ?</p><p><b>5)</b> Depuis 2010, on peut avoir un numéro de portable qui commence par 07. Pourquoi ces numéros ont-ils été créés ?</p>`,
@@ -128,10 +130,10 @@ quiz:[
      {g:()=>{ const n=ri(2,6), k=ri(2,9); return {q:`Calcule : ${k} × 10<sup>${n}</sup>`, rep:[F(k*10**n)], ex:`10<sup>${n}</sup> = ${F(10**n)}, donc ${k} × 10<sup>${n}</sup> = ${F(k*10**n)}.`, sx:S_10}; }} ]
 }},
 {nom:"Priorités avec des puissances", schema:S_PRIO, q:{
- 1:[ {g:()=>{ const a=ri(1,20), b=ri(2,9); return {q:`Calcule : ${a} − ${b}<sup>2</sup>`, rep:[F(a-b*b)], ex:`La puissance d'abord : ${a} − ${b*b} = ${F(a-b*b)}.`, sx:S_PRIO}; }},
-     {g:()=>{ const a=ri(2,9), b=ri(2,4); return {q:`Calcule : ${a} × ${b}<sup>${b===4?2:3}</sup>`, rep:[F(a*b**(b===4?2:3))], ex:`La puissance d'abord : ${b}<sup>${b===4?2:3}</sup> = ${b**(b===4?2:3)}, puis ${a} × ${b**(b===4?2:3)} = ${F(a*b**(b===4?2:3))}.`, sx:S_PRIO}; }} ],
- 2:[ {g:()=>{ const a=ri(-9,9), b=ri(-9,9), n=pick([2,3]), c=ri(2,5); const s=a+b; return {q:`Calcule : (${F(a)} + ${P(b)})<sup>${n}</sup> × ${c}`, rep:[F(s**n*c)], ex:`Parenthèses : ${F(s)} ; puissance : ${pw(s,n)} = ${F(s**n)} ; produit : ${F(s**n)} × ${c} = ${F(s**n*c)}.`, sx:S_PRIO}; }} ],
- 3:[ {g:()=>{ let a,b,c,v; do{ a=ri(2,9); b=ri(2,9); c=ri(2,9); v=a*b-c*c; }while(Math.abs(v)>3); const n=pick([3,4]); return {q:`Calcule : (${a} × ${b} − ${c}<sup>2</sup>)<sup>${n}</sup>`, rep:[F(v**n)], ex:`Dans la parenthèse : ${a*b} − ${c*c} = ${F(v)}. Puis ${pw(v,n)} = ${F(v**n)}.`, sx:S_PRIO}; }},
+ 1:[ {g:()=>{ const a=ri(1,20), b=ri(2,9); return {q:`Calcule : ${a} − ${b}<sup>2</sup>`, rep:[F(a-b*b)], ex:`La puissance d'abord : ${a} − ${b}<sup>2</sup> = ${a} − ${b*b} = ${F(a-b*b)}.`, sx:S_PRIO}; }},
+     {g:()=>{ const a=ri(2,9), b=ri(2,4); return {q:`Calcule : ${a} × ${b}<sup>${b===4?2:3}</sup>`, rep:[F(a*b**(b===4?2:3))], ex:`La puissance d'abord : ${a} × ${b}<sup>${b===4?2:3}</sup> = ${a} × ${b**(b===4?2:3)} = ${F(a*b**(b===4?2:3))}.`, sx:S_PRIO}; }} ],
+ 2:[ {g:()=>{ const a=ri(-9,9), b=ri(-9,9), n=pick([2,3]), c=ri(2,5); const s=a+b; return {q:`Calcule : (${F(a)} + ${P(b)})<sup>${n}</sup> × ${c}`, rep:[F(s**n*c)], ex:`La parenthèse, puis la puissance, puis le produit : (${F(a)} + ${P(b)})<sup>${n}</sup> × ${c} = ${pw(s,n)} × ${c} = ${F(s**n)} × ${c} = ${F(s**n*c)}.`, sx:S_PRIO}; }} ],
+ 3:[ {g:()=>{ let a,b,c,v; do{ a=ri(2,9); b=ri(2,9); c=ri(2,9); v=a*b-c*c; }while(Math.abs(v)>3); const n=pick([3,4]); return {q:`Calcule : (${a} × ${b} − ${c}<sup>2</sup>)<sup>${n}</sup>`, rep:[F(v**n)], ex:`On calcule d'abord dans la parenthèse : (${a} × ${b} − ${c}<sup>2</sup>)<sup>${n}</sup> = (${a*b} − ${c*c})<sup>${n}</sup> = ${pw(v,n)} = ${F(v**n)}.`, sx:S_PRIO}; }},
      {q:"Vrai ou faux : (2 + 3)<sup>2</sup> = 2<sup>2</sup> + 3<sup>2</sup>.", c:VF, rep:"Faux", ex:"(2 + 3)<sup>2</sup> = 5<sup>2</sup> = 25, alors que 2<sup>2</sup> + 3<sup>2</sup> = 4 + 9 = 13.", sx:S_PRIO} ]
 }},
 {nom:"Problèmes avec des puissances", schema:S_PB, q:{
@@ -153,8 +155,8 @@ comp:[
 exos:[
 {t:"Vocabulaire", p:3, h:`<p>Recopie et complète le tableau.</p>${tabH(["Produit","Notation puissance","Se lit"],[["9 × 9 × 9","",""],["","4<sup>5</sup>",""],["","","7 exposant 2"]])}`,
  c:`${tabH(["Produit","Notation puissance","Se lit"],[["9 × 9 × 9","9<sup>3</sup>","9 exposant 3"],["4 × 4 × 4 × 4 × 4","4<sup>5</sup>","4 exposant 5"],["7 × 7","7<sup>2</sup>","7 exposant 2"]])}<p><i>(0,5 point par case juste)</i></p>`},
-{t:"Calculer des puissances", p:4, h:`<p>Calcule.</p>${cols(["a) 2<sup>4</sup>","b) (−3)<sup>3</sup>","c) −5<sup>2</sup>","d) (−1)<sup>8</sup>","e) 10<sup>6</sup>","f) 4<sup>0</sup>","g) (−6)<sup>2</sup>","h) 0,5<sup>2</sup>"])}`,
- c:`<p class="calc">a) 2<sup>4</sup> = 16 · b) (−3)<sup>3</sup> = −27 · c) −5<sup>2</sup> = −25 · d) (−1)<sup>8</sup> = 1<br>e) 10<sup>6</sup> = 1 000 000 · f) 4<sup>0</sup> = 1 · g) (−6)<sup>2</sup> = 36 · h) 0,5<sup>2</sup> = 0,25</p><p><i>(0,5 point par calcul)</i></p>`},
+{t:"Calculer des puissances", p:4, h:`<p>Calcule.</p>${cols(["A = 2<sup>4</sup>","B = (−3)<sup>3</sup>","C = −5<sup>2</sup>","D = (−1)<sup>8</sup>","E = 10<sup>6</sup>","F = 4<sup>0</sup>","G = (−6)<sup>2</sup>","H = 0,5<sup>2</sup>"])}`,
+ c:`${chns([["A",["2<sup>4</sup>","2 × 2 × 2 × 2","16"]],["B",["(−3)<sup>3</sup>","(−3) × (−3) × (−3)","−27"]],["C",["−5<sup>2</sup>","−(5 × 5)","−25"]],["D",["(−1)<sup>8</sup>","1"]],["E",["10<sup>6</sup>","1 000 000"]],["F",["4<sup>0</sup>","1"]],["G",["(−6)<sup>2</sup>","(−6) × (−6)","36"]],["H",["0,5<sup>2</sup>","0,5 × 0,5","0,25"]]])}<p>Pour D : 8 facteurs égaux à −1, c'est un nombre pair, donc le résultat est positif.</p><p><i>(0,5 point par calcul)</i></p>`},
 {t:"Priorités opératoires", p:6, h:`<p>Calcule en écrivant les étapes.</p>${cols(["A = 6 − 3<sup>2</sup>","B = (4 − 7)<sup>2</sup>","C = 2 × (−3)<sup>2</sup>","D = (−2)<sup>3</sup> + 4<sup>2</sup>","E = (5 − 2 × 4)<sup>3</sup>","F = 10 − (−1 + 3)<sup>4</sup>"])}`,
  c:`<div class="figs" style="gap:28px"><p class="calc">A = 6 − 3<sup>2</sup><br>A = 6 − 9<br>A = −3</p><p class="calc">B = (4 − 7)<sup>2</sup><br>B = (−3)<sup>2</sup><br>B = 9</p><p class="calc">C = 2 × (−3)<sup>2</sup><br>C = 2 × 9<br>C = 18</p><p class="calc">D = (−2)<sup>3</sup> + 4<sup>2</sup><br>D = −8 + 16<br>D = 8</p><p class="calc">E = (5 − 2 × 4)<sup>3</sup><br>E = (5 − 8)<sup>3</sup><br>E = (−3)<sup>3</sup><br>E = −27</p><p class="calc">F = 10 − (−1 + 3)<sup>4</sup><br>F = 10 − 2<sup>4</sup><br>F = 10 − 16<br>F = −6</p></div><p><i>(1 point par calcul : 0,5 pour les étapes, 0,5 pour le résultat)</i></p>`},
 {t:"Vrai ou faux ?", p:3, h:`<p>Dis si chaque égalité est vraie ou fausse.</p>${cols(["a) 2<sup>3</sup> = 6","b) (−4)<sup>2</sup> = 16","c) −4<sup>2</sup> = 16","d) 3<sup>2</sup> + 4<sup>2</sup> = 7<sup>2</sup>","e) 10<sup>5</sup> = 100 000","f) (−1)<sup>7</sup> = −1"])}`,
@@ -165,7 +167,10 @@ exos:[
 };
 
 /* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −) */
-CH["4e-5"].quiz.forEach(N=>Object.values(N.q).forEach(list=>list.forEach((it,i)=>{
-  if(it.g){ const g=it.g; list[i]={g:()=>Object.assign(g(),{kb:"text"})}; } else it.kb="text";
+/* et calculs en chaîne « A = … » dans les explications (sauf vrai/faux et problèmes) */
+const NOCH=["3.3.1"];
+CH["4e-5"].quiz.forEach((N,ni)=>Object.entries(N.q).forEach(([l,list])=>list.forEach((it,i)=>{
+  const f=o=>Object.assign(ni===3||NOCH.includes(`${ni+1}.${l}.${i}`)?o:qChain(o),{kb:"text"});
+  if(it.g){ const g=it.g; list[i]={g:()=>f(g())}; } else list[i]=f(it);
 })));
 })();

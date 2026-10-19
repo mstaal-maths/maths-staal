@@ -120,7 +120,7 @@ exos:[
 {t:"Expériences aléatoires", e:[
   {n:"Activité 1", t:"Tirer une boule", w:"Sur ta feuille", h:`<p>Un sac opaque contient 3 boules rouges, 2 boules bleues et 1 boule verte.</p><p>Les boules sont indiscernables au toucher. On tire une boule au hasard.</p>${ex("act1","Un sac avec 3 boules rouges, 2 boules bleues et 1 boule verte",300)}
    <p><b>1)</b> Combien y a-t-il d'issues possibles ?</p><p><b>2)</b> Quel est l'événement le plus probable : « tirer une boule rouge », « tirer une boule bleue » ou « tirer une boule verte » ?</p><p><b>3)</b> Peut-on être certain de tirer une boule rouge ? Peut-on tirer une boule jaune ?</p>`,
-   c:`<p><b>1)</b> Il y a 6 boules, donc <b>6 issues</b> possibles.</p><p><b>2)</b> <b>« Tirer une boule rouge »</b> : il y a 3 boules rouges, plus que de boules bleues ou vertes.</p><p><b>3)</b> <b>Non</b> : il y a aussi des boules bleues et une verte.</p><p><b>Non</b> : il n'y a pas de boule jaune, l'événement est <b>impossible</b>.</p>`},
+   c:`<p><b>1)</b> La boule tirée peut être rouge, bleue ou verte.</p><p>Il y a donc <b>3 issues</b> possibles : « rouge », « bleue » et « verte ».</p><p><b>2)</b> <b>« Tirer une boule rouge »</b> : il y a 3 boules rouges, plus que de boules bleues ou vertes.</p><p><b>3)</b> <b>Non</b> : il y a aussi des boules bleues et une verte.</p><p><b>Non</b> : il n'y a pas de boule jaune, l'événement est <b>impossible</b>.</p>`},
   {n:"Exercice 1", t:"Vocabulaire", w:"Sur ton cahier", h:`<p>On lance un dé équilibré à 6 faces.</p><p><b>a)</b> Quelles sont les issues possibles ?</p><p><b>b)</b> Quelles issues réalisent l'événement « obtenir un multiple de 3 » ? « obtenir un diviseur de 6 » ?</p><p><b>c)</b> Donne un événement certain et un événement impossible pour cette expérience.</p>`,
    c:`<p><b>a)</b> 1, 2, 3, 4, 5, 6.</p><p><b>b)</b> Multiple de 3 : <b>3 et 6</b>.</p><p>Diviseur de 6 : <b>1, 2, 3 et 6</b>.</p><p><b>c)</b> Par exemple : « obtenir un nombre inférieur ou égal à 6 » est <b>certain</b>.</p><p>« Obtenir 10 » est <b>impossible</b>.</p>`}
  ]},
@@ -197,6 +197,56 @@ quiz:[
  3:[ {g:()=>{ const k=ri(5,15); return {q:`On lance un dé 60 fois. La face 4 sort ${k} fois. Quelle est sa fréquence en pourcentage, arrondie à l'unité ?`, rep:[String(Math.round(k*100/60)), Math.round(k*100/60)+" %"], ex:`${k} ÷ 60 ${decOk(k,60)?"=":"≈"} ${D(Math.round(k*1000/60)/1000)}, soit ${Number.isInteger(k*100/60)?"":"environ "}${Math.round(k*100/60)} %.`, sx:S_FREQ}; }},
      {q:"On répète une expérience un très grand nombre de fois. Les fréquences observées se rapprochent alors…", c:["de la probabilité","de 0","de 1"], rep:"de la probabilité", ex:"Plus le nombre de répétitions est grand, plus la fréquence se rapproche de la probabilité.", sx:S_FREQ} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const ROUE = roue(["B","R","B","V","B","R","B","J"],{w:210,alt:"Roue de 8 secteurs identiques : 4 bleus, 2 rouges, 1 vert et 1 jaune, avec une flèche fixe en haut"});
+const CARTES = `<p>Dans une boîte, il y a 12 cartes numérotées de 1 à 12, indiscernables au toucher. On tire une carte au hasard.</p><p>Donne chaque probabilité sous la forme d'une fraction irréductible.</p>`;
+const C1 = {
+  a:`Les issues sont 1, 2, 3, …, 12 : il y a <b>12 issues</b>, toutes équiprobables.`,
+  b:`Une seule carte porte le numéro 7 : la probabilité est <b>{1/12}</b>.`,
+  c:`Les multiples de 3 sont 3, 6, 9 et 12 : 4 issues favorables sur 12.</p><p class="calc">{4/12} = {1/3}</p><p>La probabilité est <b>{1/3}</b>.`,
+  d:`Les nombres impairs sont 1, 3, 5, 7, 9 et 11 : 6 issues favorables sur 12.</p><p class="calc">{6/12} = {1/2}</p><p>La probabilité est <b>{1/2}</b>.`,
+  e:`Aucune carte ne porte un nombre plus grand que 20 : l'événement est <b>impossible</b>, sa probabilité est <b>0</b>.`
+};
+const ROUEh = `<p>La roue est partagée en 8 secteurs identiques. On la fait tourner : la couleur indiquée par la flèche est le résultat.</p>${ROUE}`;
+const SAC = `<p>Un sachet contient 20 bonbons de même forme : 8 à la fraise, 7 au citron, et les autres à l'orange. Noah prend un bonbon au hasard, sans regarder.</p>`;
+const S1 = `1. 20 − 8 − 7 = 5 : il y a <b>5 bonbons à l'orange</b>.`;
+const S2 = `2. 7 bonbons au citron sur 20 bonbons :</p><p class="calc">{7/20} = {35/100} = 35 %</p><p>La probabilité est <b>{7/20}</b>, soit <b>35 %</b>.`;
+const S3 = n => `${n}. Fréquence de la fraise : 22 fois sur 50 tirages.</p><p class="calc">{22/50} = {44/100} = 44 %</p><p>Probabilité de tirer un bonbon à la fraise : 8 bonbons sur 20.</p><p class="calc">{8/20} = {40/100} = 40 %</p><p>La fréquence observée (<b>44 %</b>) est <b>proche</b> de la probabilité (<b>40 %</b>), sans lui être égale. Avec beaucoup plus de tirages, la fréquence se rapprocherait de 40 %.`;
+const COMP = (a,b) => [
+  ["CALCULER","Je calcule une probabilité, je l'écris sous forme de fraction irréductible ou de pourcentage, et je place des événements sur une échelle de probabilité.",`Ex. 1 et 2 (${a} points)`],
+  ["CHERCHER","Je résous un problème de probabilités et je compare une fréquence à une probabilité.",`Ex. 3 (${b} points)`]
+];
+const INFO = "Durée : 25 min · Calculatrice non autorisée";
+return {
+titre:"Évaluation d'entraînement — Chapitre 16", duree:25, info:INFO,
+comp:COMP(6,4),
+exos:[
+{t:"Tirer une carte", p:4, h:`${CARTES}<p>a) Combien y a-t-il d'issues possibles ?</p><p>b) Quelle est la probabilité de tirer la carte numéro 7 ?</p><p>c) Quelle est la probabilité de tirer un multiple de 3 ?</p><p>d) Quelle est la probabilité de tirer un nombre impair ?</p><p>e) Quelle est la probabilité de tirer un nombre plus grand que 20 ? Comment appelle-t-on cet événement ?</p>`,
+ c:`<p>Probabilité = {nombre d'issues favorables/nombre total d'issues}.</p><p>a) ${C1.a} <i>(0,5 point)</i></p><p>b) ${C1.b} <i>(0,5 point)</i></p><p>c) ${C1.c} <i>(1 point)</i></p><p>d) ${C1.d} <i>(1 point)</i></p><p>e) ${C1.e} <i>(1 point)</i></p>`},
+{t:"Une roue et une échelle de probabilité", p:2, h:`${ROUEh}<p>Calcule la probabilité de chaque événement, puis place sa lettre sur l'échelle de probabilité.</p><p><b>A</b> : « obtenir bleu »</p><p><b>B</b> : « obtenir rouge »</p><p><b>C</b> : « obtenir violet »</p><p><b>D</b> : « ne pas obtenir vert »</p>${echelle([],{w:560})}`,
+ c:`<p>Il y a 8 secteurs identiques : 4 bleus, 2 rouges, 1 vert et 1 jaune.</p><p>A : {4/8} = <b>{1/2}</b> = 0,5.</p><p>B : {2/8} = <b>{1/4}</b> = 0,25.</p><p>C : il n'y a pas de secteur violet : probabilité <b>0</b> (impossible).</p><p>D : 7 secteurs ne sont pas verts : <b>{7/8}</b> = 0,875.</p>${echelle([["A",0.5],["B",0.25],["C",0],["D",0.875]],{w:560})}<p><i>0,5 point par événement (probabilité et place sur l'échelle).</i></p>`},
+{t:"Le sachet de bonbons", p:4, h:`${SAC}
+  <p>1. Combien y a-t-il de bonbons à l'orange ?</p><p>2. Quelle est la probabilité que Noah prenne un bonbon au citron ? Donne-la sous forme de fraction, puis de pourcentage.</p><p>3. Noah répète l'expérience 50 fois, en remettant le bonbon dans le sachet à chaque fois. Il obtient 22 fois un bonbon à la fraise. Calcule la fréquence de la fraise en pourcentage, puis compare-la à la probabilité de tirer un bonbon à la fraise.</p><p>4. Noah vient de tirer trois fois de suite un bonbon à la fraise. Il dit : « Au prochain tirage, j'aurai sûrement un autre parfum. » A-t-il raison ? Explique.</p>`,
+ c:`<p>${S1} <i>(0,5 point)</i></p><p>${S2} <i>(1 point)</i></p><p>${S3(3)} <i>(1,5 point : 0,5 pour la fréquence, 0,5 pour la probabilité, 0,5 pour la comparaison)</i></p>
+  <p>4. <b>Non</b> : le hasard n'a pas de mémoire. Le bonbon est remis dans le sachet, donc la probabilité de tirer un bonbon à la fraise reste {8/20} = {2/5} à chaque tirage. Ce n'est pas « sûr » : il peut encore tirer la fraise. <i>(1 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 16 · version aménagée", duree:25, info:"Version aménagée · "+INFO,
+note:"Même durée, avec environ une question sur cinq en moins (les questions restantes sont renumérotées). Toujours sur 10 : les points sont répartis sur les questions gardées. Les justifications restent demandées.",
+comp:COMP("6,5","3,5"),
+exos:[
+{t:"Tirer une carte", p:4.5, h:`${CARTES}<p>a) Combien y a-t-il d'issues possibles ?</p><p>b) Quelle est la probabilité de tirer un multiple de 3 ?</p><p>c) Quelle est la probabilité de tirer un nombre impair ?</p><p>d) Quelle est la probabilité de tirer un nombre plus grand que 20 ? Comment appelle-t-on cet événement ?</p>`,
+ c:`<p>Probabilité = {nombre d'issues favorables/nombre total d'issues}.</p><p>a) ${C1.a} <i>(0,5 point)</i></p><p>b) ${C1.c} <i>(1,5 point)</i></p><p>c) ${C1.d} <i>(1,5 point)</i></p><p>d) ${C1.e} <i>(1 point)</i></p>`},
+{t:"Une roue et une échelle de probabilité", p:2, h:`${ROUEh}<p>Calcule la probabilité de chaque événement, puis place sa lettre sur l'échelle de probabilité.</p><p><b>A</b> : « obtenir bleu »</p><p><b>B</b> : « obtenir rouge »</p><p><b>C</b> : « obtenir violet »</p>${echelle([],{w:560})}`,
+ c:`<p>Il y a 8 secteurs identiques : 4 bleus, 2 rouges, 1 vert et 1 jaune.</p><p>A : {4/8} = <b>{1/2}</b> = 0,5. <i>(0,5 point)</i></p><p>B : {2/8} = <b>{1/4}</b> = 0,25. <i>(1 point)</i></p><p>C : il n'y a pas de secteur violet : probabilité <b>0</b> (impossible). <i>(0,5 point)</i></p>${echelle([["A",0.5],["B",0.25],["C",0]],{w:560})}`},
+{t:"Le sachet de bonbons", p:3.5, h:`${SAC}
+  <p>1. Combien y a-t-il de bonbons à l'orange ?</p><p>2. Quelle est la probabilité que Noah prenne un bonbon au citron ? Donne-la sous forme de fraction, puis de pourcentage.</p><p>3. Noah répète l'expérience 50 fois, en remettant le bonbon dans le sachet à chaque fois. Il obtient 22 fois un bonbon à la fraise. Calcule la fréquence de la fraise en pourcentage, puis compare-la à la probabilité de tirer un bonbon à la fraise.</p>`,
+ c:`<p>${S1} <i>(0,5 point)</i></p><p>${S2} <i>(1,5 point)</i></p><p>${S3(3)} <i>(1,5 point : 0,5 pour la fréquence, 0,5 pour la probabilité, 0,5 pour la comparaison)</i></p>`}
+]}
+};
+})()
 };
 })();

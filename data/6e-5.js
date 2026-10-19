@@ -210,6 +210,70 @@ quiz:[
  3:[ {g:()=>{ const n=ri(101,999)*10+5; const c=Math.floor(n/10)+1; return {q:`Quel est l'arrondi au centième de ${D(n,3)} ?`, rep:[D(c,2),T(D(c,2))], ex:`${D(n,3)} est exactement au milieu entre ${D(c-1,2)} et ${D(c,2)} : on prend la borne supérieure, ${D(c,2)}.`, sx:S_ARR}; }},
      {g:()=>{ const n=ri(10,98)*100+ri(96,99); const u=Math.floor(n/100); return {q:`Quel est l'arrondi au dixième de ${D(n,2)} ?`, c:uniq(`${u+1},0`,[`${u},9`,`${u},10`,`${u+1}`].filter(x=>x!==`${u+1}`)), rep:`${u+1},0`, ex:`${u},9 &lt; ${D(n,2)} &lt; ${u+1},0 et ${D(n,2)} est plus proche de ${u+1},0 (on peut aussi écrire ${u+1}).`, sx:S_ARR}; }} ]
 }}
-]
+],
+
+/* ===================== ÉVAL D'ENTRAÎNEMENT (+ version aménagée pour les élèves à besoins particuliers) ===================== */
+eval:{
+titre:"Évaluation d'entraînement — Chapitre 5", duree:25, info:"Durée : 25 min · Calculatrice non autorisée",
+comp:[
+  ["RAISONNER","Je compare des nombres décimaux et je les range dans l'ordre.","Ex. 1 (3 points)"],
+  ["CALCULER","Je trouve un encadrement, un nombre intercalé ou un arrondi.","Ex. 2 (2 points)"],
+  ["REPRÉSENTER","J'écris un nombre décimal de plusieurs façons : écriture décimale, fraction décimale, en lettres.","Ex. 3 (3 points)"],
+  ["REPRÉSENTER","Je repère et je place un nombre décimal sur une demi-droite graduée.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"Le concours de saut en longueur", p:3, h:`<p>1) Vrai ou faux ? Corrige les phrases fausses. a) 15,3 est plus petit que 15,29. b) 6,07 est plus grand que 6,7. c) 0,9 et 0,90 sont égaux.</p>
+  <p>2) Voici les sauts de cinq élèves : Léo 3,8 m · Ana 3,75 m · Tim 3,08 m · Lou 3,805 m · Sam 3,5 m.</p><p>Range ces longueurs dans l'ordre décroissant, puis donne le nom du gagnant.</p>`,
+ c:`<p>1) a) Faux : 15,3 &gt; 15,29 (même partie entière ; 3 dixièmes &gt; 2 dixièmes). b) Faux : 6,07 &lt; 6,7 (0 dixième &lt; 7 dixièmes). c) Vrai : 0,90 = 0,9 (le zéro à droite est inutile). <i>(0,5 point chacun)</i></p>
+  <p>2) J'écris tous les nombres avec trois chiffres après la virgule : 3,800 · 3,750 · 3,080 · 3,805 · 3,500.</p><p class="calc">3,805 &gt; 3,8 &gt; 3,75 &gt; 3,5 &gt; 3,08</p><p>Le gagnant est Lou. <i>(1 point pour le rangement, 0,5 point pour le gagnant)</i></p>`},
+{t:"Encadrements et arrondis", p:2, h:`<p>a) Encadre 12,58 au dixième près : …… &lt; 12,58 &lt; ……</p><p>b) Trouve un nombre compris entre 7,4 et 7,41.</p><p>c) Arrondis 9,357 à l'unité, puis au centième.</p>`,
+ c:`<p>a) 12,5 &lt; 12,58 &lt; 12,6 <i>(0,5 point)</i></p>
+  <p>b) J'écris 7,4 = 7,400 et 7,41 = 7,410 : par exemple <b>7,405</b> (7,401 ; 7,402… conviennent aussi). <i>(0,5 point)</i></p>
+  <p>c) À l'unité : 9 &lt; 9,357 &lt; 10, et 9,357 est plus proche de 9 : l'arrondi est <b>9</b>. Au centième : 9,35 &lt; 9,357 &lt; 9,36 ; le chiffre des millièmes est 7, donc l'arrondi est <b>9,36</b>. <i>(0,5 point chacun)</i></p>`},
+{t:"Un nombre, plusieurs écritures", p:3, h:`<p>a) Donne l'écriture décimale de {2 053/100}.</p><p>b) Quelle fraction décimale est égale à 0,407 ?</p><p>c) Pour le nombre 618,294 : donne son chiffre des dixièmes, puis son nombre de dixièmes.</p><p>d) Écris 4,06 en lettres, avec les mots «&nbsp;unités&nbsp;» et «&nbsp;centièmes&nbsp;».</p><p>e) Écris 030,500 sans les zéros inutiles.</p>`,
+ c:`<p>a) {2 053/100} = <b>20,53</b> (100 : deux chiffres après la virgule) <i>(0,5 point)</i></p>
+  <p>b) 0,407 = <b>{407/1 000}</b> (trois chiffres après la virgule : 1 000) <i>(0,5 point)</i></p>
+  <p>c) Le chiffre des dixièmes est <b>2</b>. Le nombre de dixièmes est <b>6 182</b> (je garde tous les chiffres jusqu'aux dixièmes). <i>(0,5 point chacun)</i></p>
+  <p>d) quatre unités et six centièmes <i>(0,5 point)</i></p><p>e) 030,500 = <b>30,5</b> <i>(0,5 point)</i></p>`},
+{t:"Zoom au centième", p:2, h:`${cent(48,[["A",482],["B",487]])}<p>a) Combien vaut une petite graduation ?</p><p>b) Donne l'abscisse de A et celle de B.</p><p>c) Place le point C(4,84).</p>`,
+ c:`<p>a) Entre 4,8 et 4,9, il y a 10 intervalles : 0,1 ÷ 10 = <b>0,01</b> (un centième). <i>(0,5 point)</i></p><p>b) A(4,82) ; B(4,87) <i>(0,5 point chacun)</i></p>
+  <p>c) C est à la 4<sup>e</sup> graduation après 4,8. <i>(0,5 point)</i></p>${cent(48,[["A",482],["C",484],["B",487]])}`}
+],
+
+/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 5 · version aménagée", duree:25, info:"Durée : 25 min · Calculatrice non autorisée · Version aménagée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+comp:[
+  ["RAISONNER","Je compare des nombres décimaux et je les range dans l'ordre.","Ex. 1 (3 points)"],
+  ["CALCULER","Je trouve un encadrement, un nombre intercalé ou un arrondi.","Ex. 2 (2 points)"],
+  ["REPRÉSENTER","J'écris un nombre décimal de plusieurs façons : écriture décimale, fraction décimale, en lettres.","Ex. 3 (3 points)"],
+  ["REPRÉSENTER","Je repère et je place un nombre décimal sur une demi-droite graduée.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"Le concours de saut en longueur", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Pour comparer, je regarde d'abord les parties entières. Si elles sont égales, je compare les dixièmes, puis les centièmes.</p></div>
+  <p>1) Vrai ou faux ? Entoure la bonne réponse.</p><p>a) 8,3 est plus petit que 8,29 : vrai · faux</p><p>b) 2,07 est plus grand que 2,7 : vrai · faux</p><p>c) 0,5 et 0,50 sont égaux : vrai · faux</p>
+  <p>2) Voici les sauts de cinq élèves : Léo 3,8 m · Ana 3,5 m · Tim 3,08 m · Lou 3,85 m · Sam 3,2 m.</p><p>Range ces longueurs dans l'ordre décroissant (du plus grand au plus petit). Qui a gagné ?</p>
+  <p class="note"><b>Aide :</b> écris tous les nombres avec deux chiffres après la virgule : 3,80 ; 3,50…</p>`,
+ c:`<p>1) a) Faux : 8,3 &gt; 8,29 (3 dixièmes &gt; 2 dixièmes). b) Faux : 2,07 &lt; 2,7 (0 dixième &lt; 7 dixièmes). c) Vrai : 0,50 = 0,5. <i>(0,5 point chacun)</i></p>
+  <p>2) 3,80 · 3,50 · 3,08 · 3,85 · 3,20</p><p class="calc">3,85 &gt; 3,8 &gt; 3,5 &gt; 3,2 &gt; 3,08</p><p>Le gagnant est Lou. <i>(1 point pour le rangement, 0,5 point pour le gagnant)</i></p>`},
+{t:"Encadrements et arrondis", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Pour arrondir, je regarde le chiffre juste après : avec 0, 1, 2, 3 ou 4, je garde ; avec 5, 6, 7, 8 ou 9, j'augmente de 1.</p></div>
+  <p>a) Complète : 5,…… &lt; 5,37 &lt; 5,……</p><p class="note"><b>Aide :</b> le chiffre des dixièmes de 5,37 est 3.</p>
+  <p>b) Trouve un nombre compris entre 7,4 et 7,5.</p><p>c) Arrondis 9,36 à l'unité, puis au dixième.</p>`,
+ c:`<p>a) 5,3 &lt; 5,37 &lt; 5,4 <i>(0,5 point)</i></p><p>b) Par exemple <b>7,45</b> (7,41 ; 7,42… conviennent aussi). <i>(0,5 point)</i></p>
+  <p>c) À l'unité : le chiffre après l'unité est 3, je garde : <b>9</b>. Au dixième : le chiffre des centièmes est 6, j'augmente : <b>9,4</b>. <i>(0,5 point chacun)</i></p>`},
+{t:"Un nombre, plusieurs écritures", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Le nombre 61,29 dans le tableau de numération :</p>${tabNum(61,"29")}</div>
+  <p>a) Donne l'écriture décimale de {253/100}.</p><p class="note"><b>Aide :</b> 100 a deux zéros, donc il y a deux chiffres après la virgule.</p>
+  <p>b) Quelle fraction décimale est égale à 0,47 ?</p>
+  <p>c) Pour le nombre 61,29 : donne son chiffre des dixièmes, puis son nombre de dixièmes.</p><p class="note"><b>Aide :</b> pour le nombre de dixièmes, je garde tous les chiffres jusqu'à la colonne des dixièmes.</p>
+  <p>d) Complète : 4,06 = quatre unités et …… centièmes.</p><p>e) Écris 05,40 sans les zéros inutiles.</p>`,
+ c:`<p>a) {253/100} = <b>2,53</b> <i>(0,5 point)</i></p><p>b) 0,47 = <b>{47/100}</b> <i>(0,5 point)</i></p>
+  <p>c) Le chiffre des dixièmes est <b>2</b>. Le nombre de dixièmes est <b>612</b>. <i>(0,5 point chacun)</i></p>
+  <p>d) 4,06 = quatre unités et <b>six</b> centièmes <i>(0,5 point)</i></p><p>e) 05,40 = <b>5,4</b> <i>(0,5 point)</i></p>`},
+{t:"Zoom au centième", p:2, h:`${dix(4,5,[["A",42],["B",47]])}<p>a) Complète : entre 4 et 5, l'unité est partagée en …… parts égales, donc une petite graduation vaut 0,…… .</p><p>b) Donne l'abscisse de A et celle de B.</p><p>c) Place le point C(4,4).</p>`,
+ c:`<p>a) L'unité est partagée en <b>10</b> parts égales : une petite graduation vaut <b>0,1</b> (un dixième). <i>(0,5 point)</i></p><p>b) A(4,2) ; B(4,7) <i>(0,5 point chacun)</i></p>
+  <p>c) C est à la 4<sup>e</sup> graduation après 4. <i>(0,5 point)</i></p>${dix(4,5,[["A",42],["C",44],["B",47]])}`}
+]}
+}
 };
 })();

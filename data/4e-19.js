@@ -32,12 +32,14 @@ const gcd=(a,b)=>b?gcd(b,a%b):a;
 const PRE=[["G","Giga"],["",""],["",""],["M","Méga"],["",""],["",""],["k","kilo"],["h","hecto"],["da","déca"],["","unité"],["d","déci"],["c","centi"],["m","milli"],["",""],["",""],["μ","micro"],["",""],["",""],["n","nano"]];
 const tabPre=(u)=>`<div class="scroll"><table class="std"><thead><tr>${PRE.map(([s,n])=>`<th style="text-align:center;padding:6px 4px">${n==="unité"?`<b>${u||"UNITÉ"}</b>`:s?`<b>${s}${u||""}</b>`:""}</th>`).join("")}</tr></thead><tbody><tr>${PRE.map(([s,n])=>`<td style="text-align:center;font-size:13px;padding:6px 4px">${n==="unité"?"":n}</td>`).join("")}</tr></tbody></table></div>`;
 
+/* calculs en chaîne « A = … » (outils définis dans 4e-1.js) */
+const {chn,chns,qChain}=window.CHN4;
 /* outils réutilisés par la fiche d'entraînement */
 window.PUI19={F,P,pw,U,PU,fr,dev,dec10,cols,tabH,jetons,gcd,tabPre};
 
 /* ===================== schémas (rappels) ===================== */
-const S_NEG=sch("Puissance d'exposant négatif",`<p class="calc">2<sup>−3</sup> = ${fr(1,"2³")} = ${fr(1,"2 × 2 × 2")} = ${fr(1,8)}</p><p class="schN">a<sup>−n</sup> est l'inverse de a<sup>n</sup>.</p>`);
-const S_10=sch("Puissances de 10 négatives",`<p class="calc">10<sup>−3</sup> = ${fr(1,"10³")} = ${fr(1,"1 000")} = 0,001 &nbsp; <span style="color:var(--muted)">3 zéros</span></p>`);
+const S_NEG=sch("Puissance d'exposant négatif",`<p class="calc">A = 2<sup>−3</sup><br>A = ${fr(1,"2³")}<br>A = ${fr(1,"2 × 2 × 2")}<br>A = ${fr(1,8)}</p><p class="schN">a<sup>−n</sup> est l'inverse de a<sup>n</sup>.</p>`);
+const S_10=sch("Puissances de 10 négatives",`<p class="calc">A = 10<sup>−3</sup><br>A = ${fr(1,"10³")}<br>A = ${fr(1,"1 000")}<br>A = 0,001 &nbsp; <span style="color:var(--muted)">3 zéros</span></p>`);
 const S_PRE=sch("Les 4 préfixes à connaître",`<p class="calc">1 Gm = 10<sup>9</sup> m · 1 Mm = 10<sup>6</sup> m<br>1 μm = 10<sup>−6</sup> m · 1 nm = 10<sup>−9</sup> m</p><p class="schN">G (giga), M (méga), μ (micro), n (nano).</p>`);
 
 CH["4e-19"]={
@@ -56,14 +58,14 @@ cours:[
   <p><b>a</b> désigne un nombre relatif non nul et <b>n</b> est un entier positif non nul.</p>
   <div class="retenir" data-l="Définition"><p><b>a<sup>−n</sup></b> désigne l'<b>inverse</b> de <b>a<sup>n</sup></b> :</p><p class="calc">a<sup>−n</sup> = ${fr(1,"aⁿ")}</p></div>
   <p><b>Exemples :</b> donne le résultat sous la forme d'un quotient.</p>
-  <p class="calc">2<sup>−3</sup> = ${fr(1,"2³")} = ${fr(1,"2 × 2 × 2")} = ${fr(1,8)}</p>
-  <p class="calc">(−5)<sup>−2</sup> = ${fr(1,"(−5)²")} = ${fr(1,"(−5) × (−5)")} = ${fr(1,25)}</p>
-  <p class="calc">(−4)<sup>−1</sup> = ${fr(1,"(−4)¹")} = ${fr(1,"−4")} = −${fr(1,4)}</p>`},
+  ${chns([["A",[`2<sup>−3</sup>`,`${fr(1,"2³")}`,`${fr(1,"2 × 2 × 2")}`,`${fr(1,8)}`]]])}
+  ${chns([["B",[`(−5)<sup>−2</sup>`,`${fr(1,"(−5)²")}`,`${fr(1,"(−5) × (−5)")}`,`${fr(1,25)}`]]])}
+  ${chns([["C",[`(−4)<sup>−1</sup>`,`${fr(1,"(−4)¹")}`,`${fr(1,"−4")}`,`−${fr(1,4)}`]]])}`},
 {k:"2", t:"Cas particulier : les puissances de 10", h:`
   <div class="retenir" data-l="Propriété"><p class="calc">10<sup>−n</sup> = ${fr(1,"10ⁿ")} = ${fr(1,"10…0")} = 0,0…01</p><p>Le nombre 10…0 s'écrit avec <b>n zéros</b>, et 0,0…01 s'écrit aussi avec <b>n zéros</b> (en comptant le zéro avant la virgule).</p></div>
   <p><b>Exemples :</b> donne le résultat sous la forme d'un nombre décimal.</p>
-  <p class="calc">10<sup>−3</sup> = ${fr(1,"10³")} = ${fr(1,"1 000")} = 0,001 &nbsp; (3 zéros)</p>
-  <p class="calc">10<sup>−7</sup> = 0,000 000 1 &nbsp; (7 zéros)</p>
+  ${chns([["A",[`10<sup>−3</sup>`,`${fr(1,"10³")}`,`${fr(1,"1 000")}`,`0,001 &nbsp; (3 zéros)`]]])}
+  ${chns([["B",[`10<sup>−7</sup>`,`0,000 000 1 &nbsp; (7 zéros)`]]])}
   <div class="retenir" data-l="Rappel"><p>10<sup>n</sup> = 10…0 : un 1 suivi de n zéros. Par exemple, 10<sup>6</sup> = 1 000 000.</p></div>`},
 {k:"3", t:"Les préfixes scientifiques", h:`
   <p>Pour simplifier l'écriture des très grands et des très petits nombres, on utilise des <b>préfixes scientifiques</b>. Dans un tableau, ils sont rangés dans cet ordre (chaque colonne correspond à un rang, même si elle n'a pas de nom) :</p>
@@ -83,23 +85,23 @@ exos:[
    <p><b>Méthode 2 :</b> avec les puissances. Jour 1 : 1 = 3<sup>0</sup> ; jour 2 : 3 = 3<sup>1</sup> ; jour 3 : 9 = 3<sup>2</sup>. L'exposant vaut le numéro du jour moins 1.</p><p class="calc">Jour 10 : 3<sup>9</sup> = 19 683</p><p>Sans gestes barrières, <b>19 683 nouvelles personnes</b> seront contaminées le 10<sup>e</sup> jour. Il est donc important de bien respecter les gestes barrières.</p>`},
   {n:"Exercice 2", t:"Écrire sous forme d'une puissance", w:"Sur ton cahier", h:`<p>Écris chaque produit sous la forme d'une puissance.</p>${cols(["a) 2 × 2 × 2 × 2","b) 3 × 3 × 3 × 3 × 3","c) 4 × 4 × 4 × 4 × 4 × 4","d) 5 × 5 × 5 × 5 × 5 × 5 × 5"])}`,
    c:cols(["a) 2 × 2 × 2 × 2 = 2<sup>4</sup>","b) 3 × 3 × 3 × 3 × 3 = 3<sup>5</sup>","c) 4 × 4 × 4 × 4 × 4 × 4 = 4<sup>6</sup>","d) 5 × 5 × 5 × 5 × 5 × 5 × 5 = 5<sup>7</sup>"])},
-  {n:"Exercice 3", t:"Calculer des puissances", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["a) 2<sup>2</sup>","b) 2<sup>4</sup>","c) 2<sup>6</sup>","d) 3<sup>2</sup>","e) 3<sup>3</sup>","f) 3<sup>4</sup>","g) 10<sup>2</sup>","h) 10<sup>6</sup>","i) 10<sup>9</sup>","j) (−5)<sup>1</sup>","k) (−5)<sup>2</sup>","l) (−5)<sup>3</sup>"])}`,
-   c:`<p class="calc">a) 2<sup>2</sup> = 2 × 2 = 4<br>b) 2<sup>4</sup> = 2 × 2 × 2 × 2 = 16<br>c) 2<sup>6</sup> = 2 × 2 × 2 × 2 × 2 × 2 = 64<br>d) 3<sup>2</sup> = 3 × 3 = 9<br>e) 3<sup>3</sup> = 3 × 3 × 3 = 27<br>f) 3<sup>4</sup> = 3 × 3 × 3 × 3 = 81<br>g) 10<sup>2</sup> = 100<br>h) 10<sup>6</sup> = 1 000 000<br>i) 10<sup>9</sup> = 1 000 000 000<br>j) (−5)<sup>1</sup> = −5<br>k) (−5)<sup>2</sup> = (−5) × (−5) = 25<br>l) (−5)<sup>3</sup> = (−5) × (−5) × (−5) = −125</p>`}
+  {n:"Exercice 3", t:"Calculer des puissances", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["A = 2<sup>2</sup>","B = 2<sup>4</sup>","C = 2<sup>6</sup>","D = 3<sup>2</sup>","E = 3<sup>3</sup>","F = 3<sup>4</sup>","G = 10<sup>2</sup>","H = 10<sup>6</sup>","I = 10<sup>9</sup>","J = (−5)<sup>1</sup>","K = (−5)<sup>2</sup>","L = (−5)<sup>3</sup>"])}`,
+   c:`${chns([["A",[`2<sup>2</sup>`,`2 × 2`,`4`]],["B",[`2<sup>4</sup>`,`2 × 2 × 2 × 2`,`16`]],["C",[`2<sup>6</sup>`,`2 × 2 × 2 × 2 × 2 × 2`,`64`]],["D",[`3<sup>2</sup>`,`3 × 3`,`9`]],["E",[`3<sup>3</sup>`,`3 × 3 × 3`,`27`]],["F",[`3<sup>4</sup>`,`3 × 3 × 3 × 3`,`81`]],["G",[`10<sup>2</sup>`,`100`]],["H",[`10<sup>6</sup>`,`1 000 000`]],["I",[`10<sup>9</sup>`,`1 000 000 000`]],["J",[`(−5)<sup>1</sup>`,`−5`]],["K",[`(−5)<sup>2</sup>`,`(−5) × (−5)`,`25`]],["L",[`(−5)<sup>3</sup>`,`(−5) × (−5) × (−5)`,`−125`]]])}`}
  ]},
 {t:"Les puissances négatives", e:[
-  {n:"Exercice 4", t:"Écrire avec un exposant négatif", w:"Sur ton cahier", h:`<p>Écris chaque quotient sous la forme d'une puissance d'exposant négatif.</p>${cols([`a) ${fr(1,"9 × 9")}`,`b) ${fr(1,"7 × 7 × 7")}`,`c) ${fr(1,"3 × 3 × 3 × 3")}`,`d) ${fr(1,"6 × 6 × 6 × 6 × 6")}`])}`,
-   c:cols([`a) ${fr(1,"9 × 9")} = ${fr(1,"9²")} = 9<sup>−2</sup>`,`b) ${fr(1,"7 × 7 × 7")} = ${fr(1,"7³")} = 7<sup>−3</sup>`,`c) ${fr(1,"3 × 3 × 3 × 3")} = ${fr(1,"3⁴")} = 3<sup>−4</sup>`,`d) ${fr(1,"6 × 6 × 6 × 6 × 6")} = ${fr(1,"6⁵")} = 6<sup>−5</sup>`])},
-  {n:"Exercice 5", t:"Les puissances négatives", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> complète les pointillés.</p><p class="calc">a) 3<sup>−2</sup> = ${fr(1,"3…")} = ${fr(1,"……")} = ${fr(1,"……")}<br>b) 2<sup>−4</sup> = ${fr(1,"2…")} = ${fr(1,"……")} = ${fr(1,"……")}</p>
-   <p><b>Partie 2 :</b> écris chaque puissance sous la forme d'une fraction simplifiée.</p>${cols(["a) 3<sup>−3</sup>","b) 10<sup>−2</sup>","c) 6<sup>−1</sup>","d) (−2)<sup>−3</sup>","e) (−4)<sup>−2</sup>"])}
-   <p><b>Partie 3 :</b> donne le résultat sous la forme d'un nombre décimal ou d'un quotient.</p>${cols(["2<sup>3</sup>","6<sup>−2</sup>","10<sup>4</sup>","(−7)<sup>−2</sup>","(−5)<sup>0</sup>","9<sup>−1</sup>"])}`,
-   c:`<p><b>Partie 1 :</b></p><p class="calc">a) 3<sup>−2</sup> = ${fr(1,"3²")} = ${fr(1,"3 × 3")} = ${fr(1,9)}<br>b) 2<sup>−4</sup> = ${fr(1,"2⁴")} = ${fr(1,"2 × 2 × 2 × 2")} = ${fr(1,16)}</p>
-   <p><b>Partie 2 :</b></p><p class="calc">a) 3<sup>−3</sup> = ${fr(1,"3³")} = ${fr(1,"3 × 3 × 3")} = ${fr(1,27)}<br>b) 10<sup>−2</sup> = ${fr(1,"10²")} = ${fr(1,"10 × 10")} = ${fr(1,100)}<br>c) 6<sup>−1</sup> = ${fr(1,"6¹")} = ${fr(1,6)}<br>d) (−2)<sup>−3</sup> = ${fr(1,"(−2)³")} = ${fr(1,"(−2) × (−2) × (−2)")} = ${fr(1,"−8")} = −${fr(1,8)}<br>e) (−4)<sup>−2</sup> = ${fr(1,"(−4)²")} = ${fr(1,"(−4) × (−4)")} = ${fr(1,16)}</p>
-   <p><b>Partie 3 :</b></p><p class="calc">2<sup>3</sup> = 2 × 2 × 2 = 8<br>6<sup>−2</sup> = ${fr(1,"6²")} = ${fr(1,"6 × 6")} = ${fr(1,36)}<br>10<sup>4</sup> = 10 000<br>(−7)<sup>−2</sup> = ${fr(1,"(−7)²")} = ${fr(1,"(−7) × (−7)")} = ${fr(1,49)}<br>(−5)<sup>0</sup> = 1<br>9<sup>−1</sup> = ${fr(1,"9¹")} = ${fr(1,9)}</p>`}
+  {n:"Exercice 4", t:"Écrire avec un exposant négatif", w:"Sur ton cahier", h:`<p>Écris chaque quotient sous la forme d'une puissance d'exposant négatif.</p>${cols([`A = ${fr(1,"9 × 9")}`,`B = ${fr(1,"7 × 7 × 7")}`,`C = ${fr(1,"3 × 3 × 3 × 3")}`,`D = ${fr(1,"6 × 6 × 6 × 6 × 6")}`])}`,
+   c:chns([["A",[`${fr(1,"9 × 9")}`,`${fr(1,"9²")}`,`9<sup>−2</sup>`]],["B",[`${fr(1,"7 × 7 × 7")}`,`${fr(1,"7³")}`,`7<sup>−3</sup>`]],["C",[`${fr(1,"3 × 3 × 3 × 3")}`,`${fr(1,"3⁴")}`,`3<sup>−4</sup>`]],["D",[`${fr(1,"6 × 6 × 6 × 6 × 6")}`,`${fr(1,"6⁵")}`,`6<sup>−5</sup>`]]])},
+  {n:"Exercice 5", t:"Les puissances négatives", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> complète les pointillés.</p><div class="calcs"><p class="calc" data-steps="1">A = 3<sup>−2</sup><br>A = ${fr(1,"3…")}<br>A = ${fr(1,"……")}<br>A = ${fr(1,"……")}</p><p class="calc" data-steps="1">B = 2<sup>−4</sup><br>B = ${fr(1,"2…")}<br>B = ${fr(1,"……")}<br>B = ${fr(1,"……")}</p></div>
+   <p><b>Partie 2 :</b> écris chaque puissance sous la forme d'une fraction simplifiée.</p>${cols(["C = 3<sup>−3</sup>","D = 10<sup>−2</sup>","E = 6<sup>−1</sup>","F = (−2)<sup>−3</sup>","G = (−4)<sup>−2</sup>"])}
+   <p><b>Partie 3 :</b> donne le résultat sous la forme d'un nombre décimal ou d'un quotient.</p>${cols(["H = 2<sup>3</sup>","I = 6<sup>−2</sup>","J = 10<sup>4</sup>","K = (−7)<sup>−2</sup>","L = (−5)<sup>0</sup>","M = 9<sup>−1</sup>"])}`,
+   c:`<p><b>Partie 1 :</b></p>${chns([["A",[`3<sup>−2</sup>`,`${fr(1,"3²")}`,`${fr(1,"3 × 3")}`,`${fr(1,9)}`]],["B",[`2<sup>−4</sup>`,`${fr(1,"2⁴")}`,`${fr(1,"2 × 2 × 2 × 2")}`,`${fr(1,16)}`]]])}
+   <p><b>Partie 2 :</b></p>${chns([["C",[`3<sup>−3</sup>`,`${fr(1,"3³")}`,`${fr(1,"3 × 3 × 3")}`,`${fr(1,27)}`]],["D",[`10<sup>−2</sup>`,`${fr(1,"10²")}`,`${fr(1,"10 × 10")}`,`${fr(1,100)}`]],["E",[`6<sup>−1</sup>`,`${fr(1,"6¹")}`,`${fr(1,6)}`]],["F",[`(−2)<sup>−3</sup>`,`${fr(1,"(−2)³")}`,`${fr(1,"(−2) × (−2) × (−2)")}`,`${fr(1,"−8")}`,`−${fr(1,8)}`]],["G",[`(−4)<sup>−2</sup>`,`${fr(1,"(−4)²")}`,`${fr(1,"(−4) × (−4)")}`,`${fr(1,16)}`]]])}
+   <p><b>Partie 3 :</b></p>${chns([["H",[`2<sup>3</sup>`,`2 × 2 × 2`,`8`]],["I",[`6<sup>−2</sup>`,`${fr(1,"6²")}`,`${fr(1,"6 × 6")}`,`${fr(1,36)}`]],["J",[`10<sup>4</sup>`,`10 000`]],["K",[`(−7)<sup>−2</sup>`,`${fr(1,"(−7)²")}`,`${fr(1,"(−7) × (−7)")}`,`${fr(1,49)}`]],["L",[`(−5)<sup>0</sup>`,`1`]],["M",[`9<sup>−1</sup>`,`${fr(1,"9¹")}`,`${fr(1,9)}`]]])}`}
  ]},
 {t:"Les puissances de 10 négatives", e:[
-  {n:"Exercice 6", t:"Les puissances de 10", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> donne le résultat sous la forme d'un nombre décimal.</p>${cols(["a) 10<sup>−2</sup>","b) 10<sup>−5</sup>","c) 10<sup>−10</sup>","d) 10<sup>3</sup>","e) 10<sup>6</sup>"])}
+  {n:"Exercice 6", t:"Les puissances de 10", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> donne le résultat sous la forme d'un nombre décimal.</p>${cols(["A = 10<sup>−2</sup>","B = 10<sup>−5</sup>","C = 10<sup>−10</sup>","D = 10<sup>3</sup>","E = 10<sup>6</sup>"])}
    <p><b>Partie 2 :</b> sur chaque jeton est inscrit un nombre décimal. Associe les jetons par paire (deux jetons égaux).</p>${jetons(["10<sup>−6</sup>","0,001",fr(1,"10²"),"0,000 000 001","10<sup>−3</sup>","0,000 1","10<sup>7</sup>","1 000 000 000","10<sup>−4</sup>","10<sup>9</sup>","10<sup>−9</sup>","10 000 000","0,000 001","10<sup>−2</sup>"])}`,
-   c:`<p><b>Partie 1 :</b></p><p class="calc">a) 10<sup>−2</sup> = ${fr(1,"10²")} = ${fr(1,"100")} = 0,01 &nbsp; (2 zéros)<br>b) 10<sup>−5</sup> = 0,000 01 &nbsp; (5 zéros)<br>c) 10<sup>−10</sup> = 0,000 000 000 1 &nbsp; (10 zéros)<br>d) 10<sup>3</sup> = 1 000 &nbsp; (un 1 suivi de 3 zéros)<br>e) 10<sup>6</sup> = 1 000 000 &nbsp; (un 1 suivi de 6 zéros)</p>
+   c:`<p><b>Partie 1 :</b></p>${chns([["A",[`10<sup>−2</sup>`,`${fr(1,"10²")}`,`${fr(1,"100")}`,`0,01 &nbsp; (2 zéros)`]],["B",[`10<sup>−5</sup>`,`0,000 01 &nbsp; (5 zéros)`]],["C",[`10<sup>−10</sup>`,`0,000 000 000 1 &nbsp; (10 zéros)`]],["D",[`10<sup>3</sup>`,`1 000 &nbsp; (un 1 suivi de 3 zéros)`]],["E",[`10<sup>6</sup>`,`1 000 000 &nbsp; (un 1 suivi de 6 zéros)`]]])}
    <p><b>Partie 2 :</b></p><p class="calc">10<sup>9</sup> = 1 000 000 000<br>10<sup>7</sup> = 10 000 000<br>10<sup>−2</sup> = ${fr(1,"10²")}<br>10<sup>−3</sup> = 0,001<br>10<sup>−4</sup> = 0,000 1<br>10<sup>−6</sup> = 0,000 001<br>10<sup>−9</sup> = 0,000 000 001</p>`}
  ]},
 {t:"Les préfixes scientifiques", e:[
@@ -154,12 +156,12 @@ comp:[
   ["MODÉLISER","Je résous un problème à l'aide des puissances.","Ex. 5 (4 points)"]
 ],
 exos:[
-{t:"Puissances d'exposant positif", p:3, h:`<p>Calcule.</p>${cols(["a) 3<sup>4</sup>","b) (−2)<sup>5</sup>","c) 10<sup>7</sup>","d) 7<sup>0</sup>","e) (−1)<sup>9</sup>","f) 6<sup>1</sup>"])}`,
- c:`<p class="calc">a) 3<sup>4</sup> = 3 × 3 × 3 × 3 = 81<br>b) (−2)<sup>5</sup> = (−2) × (−2) × (−2) × (−2) × (−2) = −32<br>c) 10<sup>7</sup> = 10 000 000 &nbsp; (un 1 suivi de 7 zéros)<br>d) 7<sup>0</sup> = 1 &nbsp; (un nombre non nul à la puissance 0 est égal à 1)<br>e) (−1)<sup>9</sup> = (−1) × (−1) × … × (−1) = −1 &nbsp; (9 facteurs négatifs : le résultat est négatif)<br>f) 6<sup>1</sup> = 6</p><p><i>(0,5 point par calcul)</i></p>`},
-{t:"Puissances d'exposant négatif", p:4, h:`<p><b>1)</b> Écris chaque puissance sous la forme d'une fraction.</p>${cols(["a) 5<sup>−2</sup>","b) 2<sup>−5</sup>","c) 7<sup>−1</sup>","d) (−3)<sup>−3</sup>","e) (−2)<sup>−4</sup>","f) (−10)<sup>−2</sup>"])}<p><b>2)</b> Écris sous la forme d'une puissance d'exposant négatif.</p>${cols([`a) ${fr(1,"8 × 8")}`,`b) ${fr(1,"3 × 3 × 3 × 3 × 3")}`])}`,
- c:`<p><b>1)</b></p><p class="calc">a) 5<sup>−2</sup> = ${fr(1,"5²")} = ${fr(1,"5 × 5")} = ${fr(1,25)}<br>b) 2<sup>−5</sup> = ${fr(1,"2⁵")} = ${fr(1,"2 × 2 × 2 × 2 × 2")} = ${fr(1,32)}<br>c) 7<sup>−1</sup> = ${fr(1,"7¹")} = ${fr(1,7)}<br>d) (−3)<sup>−3</sup> = ${fr(1,"(−3)³")} = ${fr(1,"(−3) × (−3) × (−3)")} = ${fr(1,"−27")} = −${fr(1,27)}<br>e) (−2)<sup>−4</sup> = ${fr(1,"(−2)⁴")} = ${fr(1,"(−2) × (−2) × (−2) × (−2)")} = ${fr(1,16)}<br>f) (−10)<sup>−2</sup> = ${fr(1,"(−10)²")} = ${fr(1,"(−10) × (−10)")} = ${fr(1,100)}</p><p><b>2)</b></p><p class="calc">a) ${fr(1,"8 × 8")} = ${fr(1,"8²")} = 8<sup>−2</sup><br>b) ${fr(1,"3 × 3 × 3 × 3 × 3")} = ${fr(1,"3⁵")} = 3<sup>−5</sup></p><p><i>(0,5 point par réponse)</i></p>`},
-{t:"Puissances de 10", p:4, h:`<p><b>1)</b> Écris sous la forme d'un nombre décimal.</p>${cols(["a) 10<sup>−3</sup>","b) 10<sup>−6</sup>","c) 10<sup>5</sup>","d) 10<sup>−1</sup>"])}<p><b>2)</b> Écris sous la forme d'une puissance de 10.</p>${cols(["a) 0,000 01","b) 1 000 000 000",`c) ${fr(1,"10 000")}`,"d) 0,01"])}`,
- c:`<p><b>1)</b></p><p class="calc">a) 10<sup>−3</sup> = ${fr(1,"10³")} = ${fr(1,"1 000")} = 0,001 &nbsp; (3 zéros)<br>b) 10<sup>−6</sup> = 0,000 001 &nbsp; (6 zéros)<br>c) 10<sup>5</sup> = 100 000 &nbsp; (un 1 suivi de 5 zéros)<br>d) 10<sup>−1</sup> = ${fr(1,"10")} = 0,1 &nbsp; (1 zéro)</p><p><b>2)</b></p><p class="calc">a) 0,000 01 s'écrit avec 5 zéros : 0,000 01 = 10<sup>−5</sup><br>b) 1 000 000 000 : un 1 suivi de 9 zéros, donc 1 000 000 000 = 10<sup>9</sup><br>c) ${fr(1,"10 000")} = ${fr(1,"10⁴")} = 10<sup>−4</sup><br>d) 0,01 s'écrit avec 2 zéros : 0,01 = 10<sup>−2</sup></p><p><i>(0,5 point par réponse)</i></p>`},
+{t:"Puissances d'exposant positif", p:3, h:`<p>Calcule.</p>${cols(["A = 3<sup>4</sup>","B = (−2)<sup>5</sup>","C = 10<sup>7</sup>","D = 7<sup>0</sup>","E = (−1)<sup>9</sup>","F = 6<sup>1</sup>"])}`,
+ c:`${chns([["A",[`3<sup>4</sup>`,`3 × 3 × 3 × 3`,`81`]],["B",[`(−2)<sup>5</sup>`,`(−2) × (−2) × (−2) × (−2) × (−2)`,`−32`]],["C",[`10<sup>7</sup>`,`10 000 000 &nbsp; (un 1 suivi de 7 zéros)`]],["D",[`7<sup>0</sup>`,`1 &nbsp; (un nombre non nul à la puissance 0 est égal à 1)`]],["E",[`(−1)<sup>9</sup>`,`(−1) × (−1) × … × (−1)`,`−1 &nbsp; (9 facteurs négatifs : le résultat est négatif)`]],["F",[`6<sup>1</sup>`,`6`]]])}<p><i>(0,5 point par calcul)</i></p>`},
+{t:"Puissances d'exposant négatif", p:4, h:`<p><b>1)</b> Écris chaque puissance sous la forme d'une fraction.</p>${cols(["A = 5<sup>−2</sup>","B = 2<sup>−5</sup>","C = 7<sup>−1</sup>","D = (−3)<sup>−3</sup>","E = (−2)<sup>−4</sup>","F = (−10)<sup>−2</sup>"])}<p><b>2)</b> Écris sous la forme d'une puissance d'exposant négatif.</p>${cols([`G = ${fr(1,"8 × 8")}`,`H = ${fr(1,"3 × 3 × 3 × 3 × 3")}`])}`,
+ c:`<p><b>1)</b></p>${chns([["A",[`5<sup>−2</sup>`,`${fr(1,"5²")}`,`${fr(1,"5 × 5")}`,`${fr(1,25)}`]],["B",[`2<sup>−5</sup>`,`${fr(1,"2⁵")}`,`${fr(1,"2 × 2 × 2 × 2 × 2")}`,`${fr(1,32)}`]],["C",[`7<sup>−1</sup>`,`${fr(1,"7¹")}`,`${fr(1,7)}`]],["D",[`(−3)<sup>−3</sup>`,`${fr(1,"(−3)³")}`,`${fr(1,"(−3) × (−3) × (−3)")}`,`${fr(1,"−27")}`,`−${fr(1,27)}`]],["E",[`(−2)<sup>−4</sup>`,`${fr(1,"(−2)⁴")}`,`${fr(1,"(−2) × (−2) × (−2) × (−2)")}`,`${fr(1,16)}`]],["F",[`(−10)<sup>−2</sup>`,`${fr(1,"(−10)²")}`,`${fr(1,"(−10) × (−10)")}`,`${fr(1,100)}`]]])}<p><b>2)</b></p>${chns([["G",[`${fr(1,"8 × 8")}`,`${fr(1,"8²")}`,`8<sup>−2</sup>`]],["H",[`${fr(1,"3 × 3 × 3 × 3 × 3")}`,`${fr(1,"3⁵")}`,`3<sup>−5</sup>`]]])}<p><i>(0,5 point par réponse)</i></p>`},
+{t:"Puissances de 10", p:4, h:`<p><b>1)</b> Écris sous la forme d'un nombre décimal.</p>${cols(["A = 10<sup>−3</sup>","B = 10<sup>−6</sup>","C = 10<sup>5</sup>","D = 10<sup>−1</sup>"])}<p><b>2)</b> Écris sous la forme d'une puissance de 10.</p>${cols(["E = 0,000 01","F = 1 000 000 000",`G = ${fr(1,"10 000")}`,"H = 0,01"])}`,
+ c:`<p><b>1)</b></p>${chns([["A",[`10<sup>−3</sup>`,`${fr(1,"10³")}`,`${fr(1,"1 000")}`,`0,001 &nbsp; (3 zéros)`]],["B",[`10<sup>−6</sup>`,`0,000 001 &nbsp; (6 zéros)`]],["C",[`10<sup>5</sup>`,`100 000 &nbsp; (un 1 suivi de 5 zéros)`]],["D",[`10<sup>−1</sup>`,`${fr(1,"10")}`,`0,1 &nbsp; (1 zéro)`]]])}<p><b>2)</b></p>${chns([["E",["0,000 01","10<sup>−5</sup> &nbsp; (5 zéros)"]],["F",["1 000 000 000","10<sup>9</sup> &nbsp; (un 1 suivi de 9 zéros)"]],["G",[`${fr(1,"10 000")}`,`${fr(1,"10⁴")}`,"10<sup>−4</sup>"]],["H",["0,01","10<sup>−2</sup> &nbsp; (2 zéros)"]]])}<p><i>(0,5 point par réponse)</i></p>`},
 {t:"Les préfixes", p:5, h:`<p><b>1)</b> Complète avec une puissance de 10.</p>${cols(["a) 1 Mm = … m","b) 1 nm = … m","c) 1 Gm = … m","d) 1 μm = … m"])}<p><b>2)</b> Complète les conversions.</p><p><b>a)</b> Une clé USB a une capacité de 2,5 Go = … o.</p><p><b>b)</b> Une bactérie mesure 4 500 nm = … μm.</p><p><b>c)</b> Un grain de sable mesure 0,008 m = … mm.</p>`,
  c:`<p class="calc">1) a) 10<sup>6</sup> m · b) 10<sup>−9</sup> m · c) 10<sup>9</sup> m · d) 10<sup>−6</sup> m</p><p><i>(0,5 point par réponse)</i></p><p class="calc">2) a) 2,5 Go = 2,5 × 10<sup>9</sup> o = 2 500 000 000 o<br>b) 1 μm = 1 000 nm, donc 4 500 nm = 4 500 ÷ 1 000 μm = 4,5 μm<br>c) 1 m = 1 000 mm, donc 0,008 m = 0,008 × 1 000 mm = 8 mm</p><p><i>(1 point par conversion)</i></p>`},
 {t:"Une vidéo qui se partage", p:4, h:`<p>Le jour 1, Inès publie une vidéo. Le jour 2, 4 personnes la reçoivent.</p><p>Chaque jour, chaque personne qui a reçu la vidéo la veille l'envoie à 4 nouvelles personnes.</p><p><b>a)</b> Combien de nouvelles personnes reçoivent la vidéo le jour 3 ?</p><p><b>b)</b> Écris sous la forme d'une puissance de 4 le nombre de nouvelles personnes qui reçoivent la vidéo le jour 8, puis calcule ce nombre.</p><p><b>c)</b> L'écran du téléphone d'Inès est fait de pixels de 2 μm. Écris cette longueur en mètres, sous la forme d'un nombre décimal.</p>`,
@@ -167,8 +169,10 @@ exos:[
 ]}
 };
 
-/* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −) */
-CH["4e-19"].quiz.forEach(N=>Object.values(N.q).forEach(list=>list.forEach((it,i)=>{
-  if(it.g){ const g=it.g; list[i]={g:()=>Object.assign(g(),{kb:"text"})}; } else it.kb="text";
+/* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −)
+   et calculs en chaîne « A = … » dans les explications (sauf les préfixes) */
+CH["4e-19"].quiz.forEach((N,ni)=>Object.values(N.q).forEach(list=>list.forEach((it,i)=>{
+  const f=o=>Object.assign(ni===3?o:qChain(o),{kb:"text"});
+  if(it.g){ const g=it.g; list[i]={g:()=>f(g())}; } else list[i]=f(it);
 })));
 })();

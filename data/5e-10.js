@@ -22,10 +22,10 @@ const NL = (n, ch) => `<p class="calc">${n} = ${ch.split(" = ").join(`<br>${n} =
 window.ALG = {F, X, mono, lin, par, r3, NL};
 
 /* ===================== schémas ===================== */
-const S_EXPR = sch("Écrire et calculer une expression", `<p class="calc">2 × ${X("n")} = 2${X("n")} &nbsp;&nbsp; 5 × (${X("x")}+2) = 5(${X("x")}+2) &nbsp;&nbsp; 1${X("x")} = ${X("x")}</p><p class="calc">Pour ${X("x")} = 4 : 3${X("x")} + 2 = 3 × 4 + 2 = 12 + 2 = 14</p><p class="schN">Je remplace la lettre par sa valeur, en remettant le signe ×. Puis je respecte les priorités.</p>`);
+const S_EXPR = sch("Écrire et calculer une expression", `<p class="calc">2 × ${X("n")} = 2${X("n")} &nbsp;&nbsp; 5 × (${X("x")}+2) = 5(${X("x")}+2) &nbsp;&nbsp; 1${X("x")} = ${X("x")}</p><p class="schN">Pour ${X("x")} = 4 :</p>${NL("A",`3${X("x")} + 2 = 3 × 4 + 2 = 12 + 2 = 14`)}<p class="schN">Je remplace la lettre par sa valeur, en remettant le signe ×. Puis je respecte les priorités.</p>`);
 const S_TEST = sch("Tester une égalité", `<p class="calc">Pour ${X("x")} = 4 : 2${X("x")} + 3 = 11 et ${X("x")} + 7 = 11 → vraie</p><p class="calc">Pour ${X("x")} = 2 : 2${X("x")} + 3 = 7 et ${X("x")} + 7 = 9 → fausse</p><p class="schN">On calcule séparément les deux membres, puis on compare.</p>`);
-const S_DEV = sch("Développer et factoriser", `<p class="calc">${X("k")}(${X("a")}+${X("b")}) = ${X("k")}${X("a")} + ${X("k")}${X("b")} &nbsp;&nbsp; ${X("k")}(${X("a")}−${X("b")}) = ${X("k")}${X("a")} − ${X("k")}${X("b")}</p><p class="calc">Développer : 3(${X("x")}+5) = 3${X("x")} + 15<br>Factoriser : 5${X("x")} + 10 = 5(${X("x")}+2)</p><p class="schN">Développer : produit → somme. Factoriser : somme → produit.</p>`);
-const S_RED = sch("Réduire une expression", `<p class="calc">7${X("x")} − 2${X("x")} + 4 = (7−2)${X("x")} + 4 = 5${X("x")} + 4</p><p class="schN">Je regroupe les termes en ${X("x")} entre eux, et les nombres entre eux.</p>`);
+const S_DEV = sch("Développer et factoriser", `<p class="calc">${X("k")}(${X("a")}+${X("b")}) = ${X("k")}${X("a")} + ${X("k")}${X("b")} &nbsp;&nbsp; ${X("k")}(${X("a")}−${X("b")}) = ${X("k")}${X("a")} − ${X("k")}${X("b")}</p><p class="schN">Développer :</p>${NL("A",`3(${X("x")}+5) = 3 × ${X("x")} + 3 × 5 = 3${X("x")} + 15`)}<p class="schN">Factoriser :</p>${NL("B",`5${X("x")} + 10 = 5 × ${X("x")} + 5 × 2 = 5(${X("x")}+2)`)}<p class="schN">Développer : produit → somme. Factoriser : somme → produit.</p>`);
+const S_RED = sch("Réduire une expression", `${NL("A",`7${X("x")} − 2${X("x")} + 4 = (7−2)${X("x")} + 4 = 5${X("x")} + 4`)}<p class="schN">Je regroupe les termes en ${X("x")} entre eux, et les nombres entre eux.</p>`);
 const S_DEM = sch("Démontrer et réfuter", `<p class="calc">${X("n")} + (${X("n")}+1) = 2${X("n")} + 1 : toujours impair</p><p class="schN">Des exemples ne suffisent pas pour démontrer : on utilise une lettre. Pour montrer qu'une affirmation est fausse, <b>un seul</b> contre-exemple suffit.</p>`);
 const S_EQ = sch("Résoudre une équation", `<p class="calc">${X("x")} + 7 = 15 donc ${X("x")} = 15 − 7 = 8<br>3${X("x")} = 21 donc ${X("x")} = 21 ÷ 3 = 7</p><p class="schN">J'utilise l'opération inverse, puis je vérifie : 8 + 7 = 15.</p>`);
 
@@ -112,7 +112,7 @@ exos:[
    <p>a) le double de ${X("n")} : ……………… b) le successeur de ${X("n")} : ……………… c) le triple de ${X("n")} augmenté de 5 : ……………… d) la moitié de ${X("n")} : ……………… e) le périmètre d'un carré de côté ${X("c")} : ……………… f) l'aire d'un rectangle de côtés ${X("a")} et ${X("b")} : ………………</p>`,
    c:`<p>On supprime le signe × devant une lettre.</p><p>a) le double de ${X("n")} : 2 × ${X("n")} = <b>2${X("n")}</b></p><p>b) le successeur de ${X("n")} : <b>${X("n")} + 1</b></p><p>c) le triple de ${X("n")}, plus 5 : 3 × ${X("n")} + 5 = <b>3${X("n")} + 5</b></p><p>d) la moitié de ${X("n")} : <b>${X("n")} ÷ 2</b></p><p>e) un carré a 4 côtés égaux : 4 × ${X("c")} = <b>4${X("c")}</b></p><p>f) longueur × largeur : ${X("a")} × ${X("b")} = <b>${X("a")}${X("b")}</b></p>`},
   {n:"Exercice 2", t:"Calculer la valeur d'une expression", w:"Sur ta feuille", h:`<p>Complète le tableau (tu peux utiliser ta calculatrice).</p>${tab(["Valeur de "+X("x"),...XS2.map(F)], E2.map(([e])=>[e,"","","",""]))}`,
-   c:`${tab(["Valeur de "+X("x"),...XS2.map(F)], E2.map(([e,f])=>[e,...XS2.map(x=>F(f(x)))]))}<p>Par exemple, pour ${X("x")} = 1,5 (on remet le signe ×) :</p><p class="calc">3 × 1,5 + 4 = 4,5 + 4 = 8,5<br>5 × (1,5+2) = 5 × 3,5 = 17,5<br>10 − 2 × 1,5 = 10 − 3 = 7<br>1,5 × 1,5 + 1 = 2,25 + 1 = 3,25</p>`},
+   c:`${tab(["Valeur de "+X("x"),...XS2.map(F)], E2.map(([e,f])=>[e,...XS2.map(x=>F(f(x)))]))}<p>Par exemple, pour ${X("x")} = 1,5 (on remet le signe ×) :</p><div class="calcs"><div>${NL("A",`${lin(3,4)} = 3 × 1,5 + 4 = 4,5 + 4 = 8,5`)}</div><div>${NL("B",`${par(5,2)} = 5 × (1,5+2) = 5 × 3,5 = 17,5`)}</div><div>${NL("C",`10 − 2${X("x")} = 10 − 2 × 1,5 = 10 − 3 = 7`)}</div><div>${NL("D",`${X("x")} × ${X("x")} + 1 = 1,5 × 1,5 + 1 = 2,25 + 1 = 3,25`)}</div></div>`},
   {n:"Exercice 3", t:"Programme de calcul", w:"Sur ton cahier", h:`<p>Voici un programme de calcul :</p><p>« Choisis un nombre ; ajoute 3 ; multiplie le résultat par 2 ; soustrais 4. »</p>
    <p><b>1)</b> Applique ce programme au nombre 5, puis au nombre 1,5.</p><p><b>2)</b> Écris une expression qui donne le résultat du programme pour un nombre ${X("x")}.</p><p><b>3)</b> Réduis cette expression, puis vérifie avec 5.</p>`,
    c:`<p><b>1)</b> Avec 5 : 5 + 3 = 8 ; 8 × 2 = 16 ; 16 − 4 = <b>12</b>.</p><p>Avec 1,5 : 1,5 + 3 = 4,5 ; 4,5 × 2 = 9 ; 9 − 4 = <b>5</b>.</p>
@@ -123,8 +123,8 @@ exos:[
 {t:"Développer, factoriser, réduire", e:[
   {n:"Exercice 5", t:"Développer", w:"Sur ton cahier", h:`<p>Développe chaque expression.</p>${cols([`A = 3(${X("x")}+5)`,`B = 4(${X("y")}+2)`,`C = 7(${X("x")}−2)`,`D = 2,5(${X("x")}+4)`,`E = 6(${X("a")}−1)`,`F = 10(${X("z")}+0,5)`])}`,
    c:`<p>${X("k")}(${X("a")}+${X("b")}) = ${X("k")}${X("a")} + ${X("k")}${X("b")} et ${X("k")}(${X("a")}−${X("b")}) = ${X("k")}${X("a")} − ${X("k")}${X("b")}.</p><div class="calcs"><div>${NL("A",`3(${X("x")}+5) = 3 × ${X("x")} + 3 × 5 = 3${X("x")} + 15`)}</div><div>${NL("B",`4(${X("y")}+2) = 4 × ${X("y")} + 4 × 2 = 4${X("y")} + 8`)}</div><div>${NL("C",`7(${X("x")}−2) = 7 × ${X("x")} − 7 × 2 = 7${X("x")} − 14`)}</div><div>${NL("D",`2,5(${X("x")}+4) = 2,5 × ${X("x")} + 2,5 × 4 = 2,5${X("x")} + 10`)}</div><div>${NL("E",`6(${X("a")}−1) = 6 × ${X("a")} − 6 × 1 = 6${X("a")} − 6`)}</div><div>${NL("F",`10(${X("z")}+0,5) = 10 × ${X("z")} + 10 × 0,5 = 10${X("z")} + 5`)}</div></div>`},
-  {n:"Exercice 6", t:"Calcul mental", w:"Sur ton cahier", h:`<p>Calcule mentalement en utilisant la distributivité, comme dans l'exemple :</p><p class="calc">7 × 102 = 7 × (100+2) = 700 + 14 = 714</p><p>Écris les étapes.</p>${cols(["A = 7 × 102","B = 9 × 98","C = 15 × 21","D = 12 × 99","E = 6 × 205"])}`,
-   c:`<div class="calcs"><div>${NL("A",`7 × 102 = 7 × (100+2) = 7 × 100 + 7 × 2 = 700 + 14 = <b>714</b>`)}</div><div>${NL("B",`9 × 98 = 9 × (100−2) = 9 × 100 − 9 × 2 = 900 − 18 = <b>882</b>`)}</div><div>${NL("C",`15 × 21 = 15 × (20+1) = 15 × 20 + 15 × 1 = 300 + 15 = <b>315</b>`)}</div><div>${NL("D",`12 × 99 = 12 × (100−1) = 12 × 100 − 12 × 1 = 1 200 − 12 = <b>1 188</b>`)}</div><div>${NL("E",`6 × 205 = 6 × (200+5) = 6 × 200 + 6 × 5 = 1 200 + 30 = <b>1 230</b>`)}</div></div>`},
+  {n:"Exercice 6", t:"Calcul mental", w:"Sur ton cahier", h:`<p>Calcule mentalement en utilisant la distributivité, comme dans l'exemple :</p><p class="calc">7 × 102 = 7 × (100+2) = 700 + 14 = 714</p><p>Écris les étapes.</p>${cols(["A = 8 × 103","B = 9 × 98","C = 15 × 21","D = 12 × 99","E = 6 × 205"])}`,
+   c:`<div class="calcs"><div>${NL("A",`8 × 103 = 8 × (100+3) = 8 × 100 + 8 × 3 = 800 + 24 = <b>824</b>`)}</div><div>${NL("B",`9 × 98 = 9 × (100−2) = 9 × 100 − 9 × 2 = 900 − 18 = <b>882</b>`)}</div><div>${NL("C",`15 × 21 = 15 × (20+1) = 15 × 20 + 15 × 1 = 300 + 15 = <b>315</b>`)}</div><div>${NL("D",`12 × 99 = 12 × (100−1) = 12 × 100 − 12 × 1 = 1 200 − 12 = <b>1 188</b>`)}</div><div>${NL("E",`6 × 205 = 6 × (200+5) = 6 × 200 + 6 × 5 = 1 200 + 30 = <b>1 230</b>`)}</div></div>`},
   {n:"Exercice 7", t:"Factoriser", w:"Sur ton cahier", h:`<p>Factorise chaque expression.</p>${cols([`A = 5${X("x")} + 10`,`B = 4${X("x")} − 12`,`C = 3${X("a")} + 3${X("b")}`,`D = 6${X("y")} − 6`,`E = 2,5${X("x")} + 5`,`F = 9${X("x")} + 27`])}`,
    c:`<p>On cherche le facteur commun, puis on le met devant la parenthèse.</p><div class="calcs"><div>${NL("A",`5${X("x")} + 10 = 5 × ${X("x")} + 5 × 2 = 5(${X("x")}+2)`)}</div><div>${NL("B",`4${X("x")} − 12 = 4 × ${X("x")} − 4 × 3 = 4(${X("x")}−3)`)}</div><div>${NL("C",`3${X("a")} + 3${X("b")} = 3 × ${X("a")} + 3 × ${X("b")} = 3(${X("a")}+${X("b")})`)}</div><div>${NL("D",`6${X("y")} − 6 = 6 × ${X("y")} − 6 × 1 = 6(${X("y")}−1)`)}</div><div>${NL("E",`2,5${X("x")} + 5 = 2,5 × ${X("x")} + 2,5 × 2 = 2,5(${X("x")}+2)`)}</div><div>${NL("F",`9${X("x")} + 27 = 9 × ${X("x")} + 9 × 3 = 9(${X("x")}+3)`)}</div></div>`},
   {n:"Exercice 8", t:"Réduire une expression", w:"Sur ton cahier", h:`<p>Réduis chaque expression (développe d'abord si nécessaire).</p>${cols([`A = 3${X("x")} + 5${X("x")}`,`B = 7${X("x")} − 2${X("x")} + 4`,`C = 4 + 2${X("x")} + ${X("x")} + 1`,`D = 9${X("a")} − 4${X("a")} − ${X("a")}`,`E = 2${X("x")} + 3 + 5${X("x")} − 1`,`F = 2(${X("x")}+3) + 4${X("x")}`,`G = 5(${X("x")}+1) − 2${X("x")}`,`H = 7 + 3(${X("x")}−1)`])}`,
@@ -151,6 +151,97 @@ exos:[
  ]}
 ],
 
+/* ÉVAL-5b début */
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT (+ version aménagée « bep ») ===================== */
+eval:(()=>{
+const pn = v => String(v).replace(".",",");
+const pts = v => `${pn(v)} point${v>=2?"s":""}`;
+const pt = v => ` <i>(${pts(v)})</i>`;
+const exl = (X, ids) => { const s=ids.reduce((a,i)=>a+X[i-1].p,0); return (ids.length===1?`Ex. ${ids[0]}`:`Ex. ${ids.slice(0,-1).join(", ")} et ${ids[ids.length-1]}`)+` (${pts(s)})`; };
+const COMP = [
+  ["MODÉLISER","J'écris une expression littérale et je teste une égalité.",[1,3]],
+  ["CALCULER","Je calcule la valeur d'une expression, je développe, je factorise, je réduis et je résous une équation.",[2,4,6]],
+  ["RAISONNER","Je démontre une propriété avec le calcul littéral ou je la réfute par un contre-exemple.",[5]]
+];
+const x=X("x"), y=X("y"), t=X("t");
+const RECT = `<svg class="fig" viewBox="0 0 320 130" width="320" role="img" aria-label="Rectangle de longueur x cm et de largeur 4 cm"><rect x="70" y="18" width="210" height="76" style="fill:none;stroke:var(--ink);stroke-width:2"/><text x="168" y="120" text-anchor="end" style="font-size:17px;font-style:italic">x</text><text x="172" y="120" style="font-size:17px">cm</text><text x="60" y="62" text-anchor="end" style="font-size:17px">4 cm</text></svg>`;
+const L = (b, list) => list.filter(q=>!(b && q.rm));
+const lab = i => "abcdefgh"[i]+")", num = i => (i+1)+".";
+const mk = b => {
+  const P_ = q => b ? q.pb : q.p;
+  const sum = q => q.reduce((a,z)=>a+P_(z),0);
+  const wr = f => (q,i) => { const c=q.c.startsWith("<p>") ? `<p>${f(i)} `+q.c.slice(3) : `<p>${f(i)}</p>`+q.c; return (c.endsWith("</p>") ? c.slice(0,-4) : c)+pt(P_(q))+"</p>"; };
+  const q1 = L(b, [
+    {h:`le double de ${y}, diminué de 3`, p:0.5, pb:1, c:`<p>2 × ${y} − 3 = <b>2${y} − 3</b>`},
+    {h:`le périmètre du rectangle ci-dessous`, p:1, pb:1, c:`<p>${X("P")} = 2 × (${x}+4) = <b>2(${x}+4)</b> &nbsp; <i>(ou 2${x} + 8)</i>`},
+    {h:`l'aire de ce rectangle`, p:0.5, pb:0.5, c:`<p>${X("A")} = ${x} × 4 = <b>4${x}</b>`},
+    {h:`le résultat du programme : « Choisis un nombre ${x} ; ajoute 6 ; multiplie le résultat par 3 »`, p:1, rm:true, c:`<p>On ajoute 6 : ${x} + 6. On multiplie le résultat par 3 : <b>3(${x}+6)</b> &nbsp; <i>(les parenthèses sont indispensables)</i>`}
+  ]);
+  const q2 = L(b, [
+    {h:`Calcule ${X("E")} = 5${x} + 3 pour ${x} = 4.`, p:1, pb:1.5, c:`${NL("E",`5 × 4 + 3 = 20 + 3 = 23`)}`},
+    {h:`Calcule ${X("E")} = 5${x} + 3 pour ${x} = 0,5.`, p:1, rm:true, c:`${NL("E",`5 × 0,5 + 3 = 2,5 + 3 = 5,5`)}`},
+    {h:`Calcule ${X("G")} = 2(${x}−1) + ${x} pour ${x} = 7.`, p:1.5, pb:1.5, c:`<p>Je remplace ${x} par 7 et je remets le signe ×. Les parenthèses d'abord.</p>${NL("G",`2 × (7−1) + 7 = 2 × 6 + 7 = 12 + 7 = 19`)}`}
+  ]);
+  const q3 = [
+    {h:`L'égalité est-elle vraie pour ${x} = 5 ?`, p:1, pb:1, c:`<p class="calc">3${x} − 4 = 3 × 5 − 4 = 15 − 4 = 11 &nbsp; et &nbsp; ${x} + 6 = 5 + 6 = 11</p><p>Les deux membres sont égaux : pour ${x} = 5, l'égalité est <b>vraie</b>.`},
+    {h:`Est-elle vraie pour ${x} = 2 ?`, p:1, pb:1, c:`<p class="calc">3${x} − 4 = 3 × 2 − 4 = 6 − 4 = 2 &nbsp; et &nbsp; ${x} + 6 = 2 + 6 = 8</p><p>2 ≠ 8 : pour ${x} = 2, l'égalité est <b>fausse</b>.`}
+  ];
+  const D4 = L(b, [
+    {n:"A", e:`7(${x}+3)`, ch:`7(${x}+3) = 7 × ${x} + 7 × 3 = 7${x} + 21`, p:0.5, pb:0.5},
+    {n:"B", e:`0,5(6${x}+10)`, ch:`0,5(6${x}+10) = 0,5 × 6${x} + 0,5 × 10 = 3${x} + 5`, p:0.5, pb:0.5}
+  ]);
+  const F4 = [
+    {n:"C", e:`4${x} + 28`, ch:`4${x} + 28 = 4 × ${x} + 4 × 7 = 4(${x}+7)`, p:0.5, pb:0.5},
+    {n:"D", e:`10 + 5${t}`, ch:`10 + 5${t} = 5 × 2 + 5 × ${t} = 5(2+${t})`, p:0.5, pb:0.5}
+  ];
+  const R4 = L(b, [
+    {n:"E", e:`${x} + 4 + 6${x}`, ch:`${x} + 4 + 6${x} = ${x} + 6${x} + 4 = 7${x} + 4`, p:0.5, pb:0.5},
+    {n:"F", e:`9 + 2${y} − 4 + 3${y}`, ch:`9 + 2${y} − 4 + 3${y} = 2${y} + 3${y} + 9 − 4 = 5${y} + 5`, p:0.5, rm:true},
+    {n:"G", e:`4(${x}+2) + 3${x}`, ch:`4(${x}+2) + 3${x} = 4${x} + 8 + 3${x} = 7${x} + 8`, p:1, pb:1.5}
+  ]);
+  const nl = q => NL(q.n, q.ch).replace(/<\/p>$/, pt(P_(q))+"</p>");
+  const q5 = [
+    {h:`Voici un programme de calcul : « Choisis un nombre ; ajoute 6 ; multiplie le résultat par 2 ; soustrais le nombre de départ ; soustrais 12. »<br>Démontre que l'on retrouve toujours le nombre de départ. <i>(Appelle ${x} le nombre choisi.)</i>`, p:2, pb:2.5,
+     c:`<p>On ajoute 6 : ${x} + 6. On multiplie par 2 : 2(${x}+6). On soustrait ${x}, puis 12 :</p>${NL("R",`2(${x}+6) − ${x} − 12 = 2${x} + 12 − ${x} − 12 = 2${x} − ${x} + 12 − 12 = ${x}`)}<p>Le résultat est ${x} : on retrouve toujours le nombre de départ, quel que soit le nombre choisi.</p><p><i>Tester avec quelques nombres ne suffit pas : il faut utiliser une lettre.</i>`},
+    {h:`Zoé affirme : « Pour tout nombre ${x}, on a 4(${x}+1) = 4${x} + 1. » Montre qu'elle a tort avec un contre-exemple, puis écris le bon développement.`, p:2, pb:2.5,
+     c:`<p><b>Contre-exemple</b> : pour ${x} = 0, 4(${x}+1) = 4 × 1 = 4 et 4${x} + 1 = 4 × 0 + 1 = 1. Or 4 ≠ 1 : l'affirmation est <b>fausse</b>.</p><p>Zoé a oublié de multiplier le 1 par 4 :</p>${NL("H",`4(${x}+1) = 4 × ${x} + 4 × 1 = 4${x} + 4`)}<p><i>${b?"1,5 point":"1 point"} pour le contre-exemple, 1 point pour le bon développement.</i>`}
+  ];
+  const q6 = L(b, [
+    {h:`6${x} = 45`, p:0.5, pb:1, c:`<p class="calc">6${x} = 45 donc ${x} = 45 ÷ 6 = <b>7,5</b> &nbsp; <i>(vérification : 6 × 7,5 = 45)</i></p>`},
+    {h:`${x} + 13 = 30`, p:0.5, pb:1, c:`<p class="calc">${x} + 13 = 30 donc ${x} = 30 − 13 = <b>17</b> &nbsp; <i>(vérification : 17 + 13 = 30)</i></p>`},
+    {h:`${x} − 8 = 15`, p:0.5, rm:true, c:`<p class="calc">${x} − 8 = 15 donc ${x} = 15 + 8 = <b>23</b> &nbsp; <i>(vérification : 23 − 8 = 15)</i></p>`},
+    {h:`${x} + 14 = 6`, p:0.5, rm:true, c:`<p class="calc">${x} + 14 = 6 donc ${x} = 6 − 14 = <b>−8</b> &nbsp; <i>(vérification : −8 + 14 = 6)</i></p>`},
+    {h:`Léo achète 6 cahiers identiques et paie 10,20 €. On appelle ${x} le prix d'un cahier. Écris une équation, résous-la, puis réponds par une phrase.`, p:1.5, pb:1.5,
+     c:`<p>6 cahiers coûtent 10,20 € : <b>6${x} = 10,2</b>.</p><p class="calc">${x} = 10,2 ÷ 6 = 1,7</p><p>Un cahier coûte <b>1,70 €</b> &nbsp; <i>(vérification : 6 × 1,70 = 10,20)</i>.`}
+  ]);
+  const ne = q6.length-1;
+  const X_ = [
+    {t:"Écrire une expression littérale", p:sum(q1),
+     h:`<p>Écris une expression littérale pour :</p>${q1.map((q,i)=>`<p>${lab(i)} ${q.h}${i<q1.length-1?" ;":"."}</p>`).join("")}${RECT}`, c:`<p>On supprime le signe × devant une lettre ou une parenthèse.</p>`+q1.map(wr(lab)).join("")},
+    {t:"Calculer la valeur d'une expression", p:sum(q2),
+     h:q2.map((q,i)=>`<p>${num(i)} ${q.h}</p>`).join(""), c:`<p>Je remplace la lettre par sa valeur en remettant le signe ×, puis je respecte les priorités.</p>`+q2.map(wr(num)).join("")},
+    {t:"Tester une égalité", p:sum(q3),
+     h:`<p>On considère l'égalité 3${x} − 4 = ${x} + 6. Réponds en écrivant tes calculs.</p>`+q3.map((q,i)=>`<p>${num(i)} ${q.h}</p>`).join(""), c:`<p>Je calcule séparément les deux membres, puis je compare.</p>`+q3.map(wr(num)).join("")},
+    {t:"Développer, factoriser, réduire", p:sum(D4)+sum(F4)+sum(R4),
+     h:`<p>a) Développe : ${D4.map(q=>`${q.n} = ${q.e}`).join(" et ")}.</p><p>b) Factorise : ${F4.map(q=>`${q.n} = ${q.e}`).join(" et ")}.</p><p>c) Réduis : ${R4.map(q=>`${q.n} = ${q.e}`).join(R4.length>2?" ; ":" et ")}${R4.length>2?"":""}.</p>`,
+     c:`<p>a) Développer : ${X("k")}(${X("a")}+${X("b")}) = ${X("k")}${X("a")} + ${X("k")}${X("b")}.</p>${D4.map(nl).join("")}<p>b) Factoriser : je cherche le facteur commun et je le mets devant la parenthèse.</p>${F4.map(nl).join("")}<p>c) Réduire : je regroupe les termes en ${x} (ou en ${y}) entre eux, et les nombres entre eux. Pour G, je développe d'abord.</p>${R4.map(nl).join("")}`},
+    {t:"Démontrer et réfuter", p:sum(q5), h:q5.map((q,i)=>`<p>${num(i)} ${q.h}</p>`).join(""), c:q5.map(wr(num)).join("")},
+    {t:"Résoudre des équations", p:sum(q6),
+     h:`<p>Résous chaque équation. Écris ton calcul et vérifie ta solution.</p>${q6.slice(0,ne).map((q,i)=>`<p>${lab(i)} ${q.h}</p>`).join("")}<p>${lab(ne)} ${q6[ne].h}</p>`, c:q6.map(wr(lab)).join("")}
+  ];
+  return {X:X_, comp:COMP.map(([k,tt,ids])=>[k,tt,exl(X_,ids)])};
+};
+const N = mk(false), B = mk(true);
+return {
+titre:"Évaluation d'entraînement — Chapitre 10", duree:50, info:"Durée : 50 min · Calculatrice non autorisée",
+comp:N.comp, exos:N.X,
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 10 · version aménagée", duree:50, info:"Version aménagée · Durée : 50 min · Calculatrice non autorisée",
+note:"Les mêmes exercices avec cinq questions en moins, dans le même temps (50 min). Le barème est recalculé pour rester sur 20. Les justifications sont toujours demandées.",
+comp:B.comp, exos:B.X }
+};
+})(),
+/* ÉVAL-5b fin */
 /* ===================== QCM ===================== */
 quiz:[
 {nom:"Écrire et calculer une expression", schema:S_EXPR, q:{
@@ -158,11 +249,11 @@ quiz:[
        const p=pick(P); return {q:`Comment écrit-on ${p[0]} ?`, c:ch3(p[1], shuf(P.map(x=>x[1]))), rep:p[1], ex:`${p[0][0].toUpperCase()+p[0].slice(1)} s'écrit ${p[1]}.`, sx:S_EXPR}; }},
      {g:()=>{ const a=ri(2,9), b=ri(1,9); return {q:`Comment écrit-on ${a} × (${X("x")}+${b}) en supprimant le signe × ?`, c:shuf([par(a,b), lin(a,b), `${X("x")}${a}+${b}`]), rep:par(a,b), ex:`On supprime le signe × devant la parenthèse, mais on garde la parenthèse : ${par(a,b)}.`, sx:S_EXPR}; }},
      {q:`Comment écrit-on 1 × ${X("x")} en calcul littéral ?`, c:[X("x"),"1"+X("x"),"1"], rep:X("x"), ex:`On n'écrit jamais 1${X("x")}, mais simplement ${X("x")}.`, sx:S_EXPR} ],
- 2:[ {g:()=>{ const a=ri(2,9), b=ri(1,12), x=ri(2,10); return {q:`Calcule ${lin(a,b)} pour ${X("x")} = ${x}.`, rep:F(a*x+b), ex:`${a} × ${x} + ${b} = ${a*x} + ${b} = ${F(a*x+b)}.`, sx:S_EXPR}; }},
-     {g:()=>{ const c=pick([10,12,15,20]), d=ri(2,4), x=ri(1,Math.floor(c/d)); return {q:`Calcule ${c} − ${d}${X("x")} pour ${X("x")} = ${x}.`, rep:F(c-d*x), ex:`${c} − ${d} × ${x} = ${c} − ${d*x} = ${F(c-d*x)}. La multiplication est prioritaire.`, sx:S_EXPR}; }} ],
- 3:[ {g:()=>{ const k=ri(2,6), b=ri(1,6), x=ri(1,9)+0.5; return {q:`Calcule ${par(k,b)} pour ${X("x")} = ${F(x)}.`, rep:F(k*(x+b)), ex:`${k} × (${F(x)}+${b}) = ${k} × ${F(x+b)} = ${F(k*(x+b))}.`, sx:S_EXPR}; }},
-     {g:()=>{ const x=pick([1.5,2.5,0.5,3,4,6]), c=ri(1,9); return {q:`Calcule ${X("x")} × ${X("x")} + ${c} pour ${X("x")} = ${F(x)}.`, rep:F(x*x+c), ex:`${F(x)} × ${F(x)} + ${c} = ${F(x*x)} + ${c} = ${F(x*x+c)}.`, sx:S_EXPR}; }},
-     {g:()=>{ const L=ri(5,15), l=ri(2,L-1); return {q:`Le périmètre d'un rectangle est ${X("P")} = 2 × (${X("L")}+${X("l")}). Calcule ${X("P")} pour ${X("L")} = ${L} cm et ${X("l")} = ${l} cm (en cm).`, rep:F(2*(L+l)), ex:`2 × (${L}+${l}) = 2 × ${L+l} = ${2*(L+l)}.`, sx:S_EXPR}; }} ]
+ 2:[ {g:()=>{ const a=ri(2,9), b=ri(1,12), x=ri(2,10); return {q:`Calcule A = ${lin(a,b)} pour ${X("x")} = ${x}.`, rep:F(a*x+b), ex:"On remplace la lettre par sa valeur, en remettant le signe ×.", sx:NL("A",`${lin(a,b)} = ${a} × ${x} + ${b} = ${a*x} + ${b} = ${F(a*x+b)}`)+S_EXPR}; }},
+     {g:()=>{ const c=pick([10,12,15,20]), d=ri(2,4), x=ri(1,Math.floor(c/d)); return {q:`Calcule A = ${c} − ${d}${X("x")} pour ${X("x")} = ${x}.`, rep:F(c-d*x), ex:"La multiplication est prioritaire.", sx:NL("A",`${c} − ${d}${X("x")} = ${c} − ${d} × ${x} = ${c} − ${d*x} = ${F(c-d*x)}`)+S_EXPR}; }} ],
+ 3:[ {g:()=>{ const k=ri(2,6), b=ri(1,6), x=ri(1,9)+0.5; return {q:`Calcule A = ${par(k,b)} pour ${X("x")} = ${F(x)}.`, rep:F(k*(x+b)), ex:"On remet le signe × devant la parenthèse. Les parenthèses d'abord.", sx:NL("A",`${par(k,b)} = ${k} × (${F(x)}+${b}) = ${k} × ${F(x+b)} = ${F(k*(x+b))}`)+S_EXPR}; }},
+     {g:()=>{ const x=pick([1.5,2.5,0.5,3,4,6]), c=ri(1,9); return {q:`Calcule A = ${X("x")} × ${X("x")} + ${c} pour ${X("x")} = ${F(x)}.`, rep:F(x*x+c), ex:"La multiplication est prioritaire.", sx:NL("A",`${X("x")} × ${X("x")} + ${c} = ${F(x)} × ${F(x)} + ${c} = ${F(x*x)} + ${c} = ${F(x*x+c)}`)+S_EXPR}; }},
+     {g:()=>{ const L=ri(5,15), l=ri(2,L-1); return {q:`Le périmètre d'un rectangle est ${X("P")} = 2 × (${X("L")}+${X("l")}). Calcule ${X("P")} pour ${X("L")} = ${L} cm et ${X("l")} = ${l} cm (en cm).`, rep:F(2*(L+l)), ex:"On remplace L et l par leurs valeurs.", sx:NL(X("P"),`2 × (${X("L")}+${X("l")}) = 2 × (${L}+${l}) = 2 × ${L+l} = ${2*(L+l)}`)+S_EXPR}; }} ]
 }},
 {nom:"Tester une égalité", schema:S_TEST, q:{
  1:[ {g:()=>{ const s=ri(1,9), b=ri(1,9), d=s+b, t=Math.random()<0.5?s:pick([0,1,2,3,4,5,6,7,8,9,10].filter(v=>v!==s)); const ok=t===s;
@@ -175,21 +266,21 @@ quiz:[
        return {q:`Pour ${X("x")} = ${F(t)}, l'égalité ${lin(a,b)} = ${lin(1,d)} est-elle vraie ?`, c:["vraie","fausse"], rep:L===R?"vraie":"fausse", ex:`${a} × ${F(t)} + ${b} = ${F(L)} et ${F(t)} + ${F(d)} = ${F(R)}.`, sx:S_TEST}; }} ]
 }},
 {nom:"Développer et factoriser", schema:S_DEV, q:{
- 1:[ {g:()=>{ const k=ri(2,9), b=ri(2,9); return {q:`Développe ${par(k,b)}.`, c:ch3(lin(k,k*b),[lin(k,b), lin(1,k*b), mono(k+b)]), rep:lin(k,k*b), ex:`${par(k,b)} = ${k}${X("x")} + ${k} × ${b} = ${lin(k,k*b)}.`, sx:S_DEV}; }},
+ 1:[ {g:()=>{ const k=ri(2,9), b=ri(2,9); return {q:`Développe A = ${par(k,b)}.`, c:ch3(lin(k,k*b),[lin(k,b), lin(1,k*b), mono(k+b)]), rep:lin(k,k*b), ex:`On multiplie ${k} par chaque terme de la parenthèse.`, sx:NL("A",`${par(k,b)} = ${k} × ${X("x")} + ${k} × ${b} = ${lin(k,k*b)}`)+S_DEV}; }},
      {q:"Développer, c'est transformer…", c:["un produit en une somme","une somme en un produit"], rep:"un produit en une somme", sx:S_DEV} ],
- 2:[ {g:()=>{ const k=ri(2,9), b=ri(2,9); return {q:`Développe ${par(k,-b)}.`, c:ch3(lin(k,-k*b),[lin(k,-b), lin(k,k*b), lin(1,-k*b)]), rep:lin(k,-k*b), ex:`${par(k,-b)} = ${k}${X("x")} − ${k} × ${b} = ${lin(k,-k*b)}.`, sx:S_DEV}; }},
+ 2:[ {g:()=>{ const k=ri(2,9), b=ri(2,9); return {q:`Développe A = ${par(k,-b)}.`, c:ch3(lin(k,-k*b),[lin(k,-b), lin(k,k*b), lin(1,-k*b)]), rep:lin(k,-k*b), ex:`On multiplie ${k} par chaque terme de la parenthèse.`, sx:NL("A",`${par(k,-b)} = ${k} × ${X("x")} − ${k} × ${b} = ${lin(k,-k*b)}`)+S_DEV}; }},
      {g:()=>{ const a=ri(3,15), [h,d]=pick([[100,ri(1,5)],[100,-ri(1,3)],[20,1],[200,ri(1,5)]]); const n=h+d, v=a*n;
-       return {q:`Calcule mentalement ${a} × ${n}.`, rep:F(v), ex:`${a} × (${h}${d<0?"−"+(-d):"+"+d}) = ${F(a*h)} ${d<0?"−":"+"} ${F(a*Math.abs(d))} = ${F(v)}.`, sx:S_DEV}; }} ],
- 3:[ {g:()=>{ const k=ri(2,9), b=ri(2,9); return {q:`Factorise ${lin(k,k*b)}.`, c:ch3(par(k,b),[par(k,k*b), par(b,k), par(k,b+k)]), rep:par(k,b), ex:`${lin(k,k*b)} = ${k} × ${X("x")} + ${k} × ${b} = ${par(k,b)}.`, sx:S_DEV}; }},
-     {g:()=>{ const k=ri(2,9), b=ri(1,9); return {q:`Factorise ${lin(k,-k*b)}.`, c:ch3(par(k,-b),[par(k,b), par(k,-k*b), par(b,-k)]), rep:par(k,-b), ex:`${lin(k,-k*b)} = ${k} × ${X("x")} − ${k} × ${b} = ${par(k,-b)}.`, sx:S_DEV}; }},
-     {g:()=>{ const b=ri(2,8); return {q:`Développe 2,5(${X("x")}+${b}).`, c:ch3(lin(2.5,2.5*b),[lin(2.5,b), lin(2,2.5*b), lin(2.5,2*b)]), rep:lin(2.5,2.5*b), ex:`2,5 × ${b} = ${F(2.5*b)}.`, sx:S_DEV}; }} ]
+       return {q:`Calcule mentalement A = ${a} × ${n}.`, rep:F(v), ex:`On décompose ${n} = ${h} ${d<0?"−":"+"} ${Math.abs(d)}.`, sx:NL("A",`${a} × ${n} = ${a} × (${h}${d<0?"−"+(-d):"+"+d}) = ${a} × ${h} ${d<0?"−":"+"} ${a} × ${Math.abs(d)} = ${F(a*h)} ${d<0?"−":"+"} ${F(a*Math.abs(d))} = ${F(v)}`)+S_DEV}; }} ],
+ 3:[ {g:()=>{ const k=ri(2,9), b=ri(2,9); return {q:`Factorise A = ${lin(k,k*b)}.`, c:ch3(par(k,b),[par(k,k*b), par(b,k), par(k,b+k)]), rep:par(k,b), ex:`Le facteur commun est ${k}.`, sx:NL("A",`${lin(k,k*b)} = ${k} × ${X("x")} + ${k} × ${b} = ${par(k,b)}`)+S_DEV}; }},
+     {g:()=>{ const k=ri(2,9), b=ri(1,9); return {q:`Factorise A = ${lin(k,-k*b)}.`, c:ch3(par(k,-b),[par(k,b), par(k,-k*b), par(b,-k)]), rep:par(k,-b), ex:`Le facteur commun est ${k}.`, sx:NL("A",`${lin(k,-k*b)} = ${k} × ${X("x")} − ${k} × ${b} = ${par(k,-b)}`)+S_DEV}; }},
+     {g:()=>{ const b=ri(2,8); return {q:`Développe A = 2,5(${X("x")}+${b}).`, c:ch3(lin(2.5,2.5*b),[lin(2.5,b), lin(2,2.5*b), lin(2.5,2*b)]), rep:lin(2.5,2.5*b), ex:`On multiplie 2,5 par chaque terme de la parenthèse.`, sx:NL("A",`2,5(${X("x")}+${b}) = 2,5 × ${X("x")} + 2,5 × ${b} = ${lin(2.5,2.5*b)}`)+S_DEV}; }} ]
 }},
 {nom:"Réduire une expression", schema:S_RED, q:{
- 1:[ {g:()=>{ const a=ri(2,9), b=ri(2,9); return {q:`Réduis ${mono(a)} + ${mono(b)}.`, c:ch3(mono(a+b),[mono(a*b), F(a+b), lin(a,b)]), rep:mono(a+b), ex:`${mono(a)} + ${mono(b)} = (${a}+${b})${X("x")} = ${mono(a+b)}.`, sx:S_RED}; }} ],
- 2:[ {g:()=>{ const a=ri(5,12), b=ri(1,a-2), c=ri(1,9); return {q:`Réduis ${mono(a)} − ${mono(b)} + ${c}.`, c:ch3(lin(a-b,c),[mono(a-b+c), lin(a+b,c), F(a-b+c)]), rep:lin(a-b,c), ex:`(${a}−${b})${X("x")} + ${c} = ${lin(a-b,c)}.`, sx:S_RED}; }},
-     {g:()=>{ const a=ri(2,6), b=ri(2,9), c=ri(2,6), d=ri(1,b-1); return {q:`Réduis ${mono(a)} + ${b} + ${mono(c)} − ${d}.`, c:ch3(lin(a+c,b-d),[lin(a+c,b+d), mono(a+c+b-d), lin(a+c+b,-d)]), rep:lin(a+c,b-d), ex:`Termes en ${X("x")} : ${a} + ${c} = ${a+c}. Nombres : ${b} − ${d} = ${b-d}.`, sx:S_RED}; }} ],
- 3:[ {g:()=>{ const k=ri(2,6), b=ri(1,6), c=ri(1,6); return {q:`Réduis ${par(k,b)} + ${mono(c)}.`, c:ch3(lin(k+c,k*b),[lin(k+c,b), lin(k,k*b+c), mono(k+c+k*b)]), rep:lin(k+c,k*b), ex:`On développe d'abord : ${lin(k,k*b)} + ${mono(c)} = ${lin(k+c,k*b)}.`, sx:S_RED}; }},
-     {g:()=>{ const c=ri(5,12), k=ri(2,6), b=ri(1,4); return {q:`Réduis ${c} + ${par(k,-b)}.`, c:ch3(lin(k,c-k*b),[lin(k,c-b), lin(k,c+k*b), mono(k+c-b)]), rep:lin(k,c-k*b), ex:`${c} + ${mono(k)} − ${k*b} = ${lin(k,c-k*b)}.`, sx:S_RED}; }} ]
+ 1:[ {g:()=>{ const a=ri(2,9), b=ri(2,9); return {q:`Réduis A = ${mono(a)} + ${mono(b)}.`, c:ch3(mono(a+b),[mono(a*b), F(a+b), lin(a,b)]), rep:mono(a+b), ex:`On regroupe les termes en ${X("x")}.`, sx:NL("A",`${mono(a)} + ${mono(b)} = (${a}+${b})${X("x")} = ${mono(a+b)}`)+S_RED}; }} ],
+ 2:[ {g:()=>{ const a=ri(5,12), b=ri(1,a-2), c=ri(1,9); return {q:`Réduis A = ${mono(a)} − ${mono(b)} + ${c}.`, c:ch3(lin(a-b,c),[mono(a-b+c), lin(a+b,c), F(a-b+c)]), rep:lin(a-b,c), ex:`On regroupe les termes en ${X("x")}.`, sx:NL("A",`${mono(a)} − ${mono(b)} + ${c} = (${a}−${b})${X("x")} + ${c} = ${lin(a-b,c)}`)+S_RED}; }},
+     {g:()=>{ const a=ri(2,6), b=ri(2,9), c=ri(2,6), d=ri(1,b-1); return {q:`Réduis A = ${mono(a)} + ${b} + ${mono(c)} − ${d}.`, c:ch3(lin(a+c,b-d),[lin(a+c,b+d), mono(a+c+b-d), lin(a+c+b,-d)]), rep:lin(a+c,b-d), ex:`Termes en ${X("x")} : ${a} + ${c} = ${a+c}. Nombres : ${b} − ${d} = ${b-d}.`, sx:NL("A",`${mono(a)} + ${b} + ${mono(c)} − ${d} = ${mono(a)} + ${mono(c)} + ${b} − ${d} = ${lin(a+c,b-d)}`)+S_RED}; }} ],
+ 3:[ {g:()=>{ const k=ri(2,6), b=ri(1,6), c=ri(1,6); return {q:`Réduis A = ${par(k,b)} + ${mono(c)}.`, c:ch3(lin(k+c,k*b),[lin(k+c,b), lin(k,k*b+c), mono(k+c+k*b)]), rep:lin(k+c,k*b), ex:`On développe d'abord.`, sx:NL("A",`${par(k,b)} + ${mono(c)} = ${lin(k,k*b)} + ${mono(c)} = ${lin(k+c,k*b)}`)+S_RED}; }},
+     {g:()=>{ const c=ri(5,12), k=ri(2,6), b=ri(1,4); return {q:`Réduis A = ${c} + ${par(k,-b)}.`, c:ch3(lin(k,c-k*b),[lin(k,c-b), lin(k,c+k*b), mono(k+c-b)]), rep:lin(k,c-k*b), ex:`On développe d'abord.`, sx:NL("A",`${c} + ${par(k,-b)} = ${c} + ${mono(k)} − ${k*b} = ${lin(k,c-k*b)}`)+S_RED}; }} ]
 }},
 {nom:"Démontrer et réfuter", schema:S_DEM, q:{
  1:[ {q:"Pour montrer qu'une affirmation est fausse, il suffit de trouver…", c:["un seul contre-exemple","beaucoup d'exemples","une lettre"], rep:"un seul contre-exemple", sx:S_DEM},

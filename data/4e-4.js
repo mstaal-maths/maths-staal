@@ -17,6 +17,9 @@ const nz=(a,b)=>{ let v; do{ v=ri(a,b); }while(!v); return v; };
 const nNeg=a=>a.filter(x=>x<0).length;
 const prod=a=>r3(a.reduce((x,y)=>x*y,1));
 const prodTxt=a=>a.map((v,i)=>i===0?F(v):P(v)).join(" × ");
+/* calculs en chaîne « A = … » (outils définis dans 4e-1.js) */
+const {chn,chns,qChain}=window.CHN4;
+const simpW=arr=>arr.map((x,i)=>i?(x<0?"− ":"+ ")+F(Math.abs(x)):F(x)).join(" ");
 
 /* ------------------------------------------------------------------
    Jeu des bulles : 6 nombres autour d'un cercle, le nombre à trouver au centre
@@ -42,9 +45,9 @@ window.REL4B={F,P,cols,tabH,bulles,nNeg,prod,prodTxt,prioQ:l=>prioQ(l)};
 
 /* ===================== schémas (rappels) ===================== */
 const S_DIV=sch("Diviser deux nombres relatifs",`<p class="calc">{−20/−4} = 5 &nbsp; <span style="color:var(--muted)">même signe : positif</span></p><p class="calc">36 ÷ (−3) = −12 &nbsp; <span style="color:var(--muted)">signes différents : négatif</span></p>`);
-const S_MUL=sch("Signe d'un produit de plusieurs facteurs",`<p class="calc">(−2) × 3 × (−4) × (−3) = −72</p><p class="schN">3 facteurs négatifs (nombre impair) : le résultat est négatif. Un nombre pair de facteurs négatifs : positif.</p>`);
-const S_ADD=sch("Suite d'additions",`<p class="calc">−5 + 3 − 13 + 9 = 3 + 9 − 5 − 13 = 12 − 18 = −6</p><p class="schN">On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p>`);
-const S_PRIO=sch("Priorités opératoires",`<p class="schN">1. parenthèses et crochets (les plus intérieurs d'abord) · 2. × et ÷ · 3. + et −</p><p class="calc">13 + 5 × (3 − 11) − 7 = 13 + 5 × (−8) − 7 = 13 − 40 − 7 = −34</p>`);
+const S_MUL=sch("Signe d'un produit de plusieurs facteurs",`${chn("A",["(−2) × 3 × (−4) × (−3)","−72"])}<p class="schN">3 facteurs négatifs (nombre impair) : le résultat est négatif. Un nombre pair de facteurs négatifs : positif.</p>`);
+const S_ADD=sch("Suite d'additions",`${chn("D",["−5 + 3 − 13 + 9","3 + 9 − 5 − 13","12 − 18","−6"])}<p class="schN">On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p>`);
+const S_PRIO=sch("Priorités opératoires",`<p class="schN">1. parenthèses et crochets (les plus intérieurs d'abord) · 2. × et ÷ · 3. + et −</p>${chn("F",["13 + 5 × (3 − 11) − 7","13 + 5 × (−8) − 7","13 − 40 − 7","−34"])}`);
 
 /* ---------- générateurs de calculs avec priorités (étapes exactes) ---------- */
 function prioQ(level){
@@ -74,24 +77,24 @@ savoir:[
 cours:[
 {k:"1", t:"La division de nombres relatifs", h:`
   <div class="retenir" data-l="Propriété"><p>Pour calculer le <b>quotient de deux nombres relatifs</b>, on s'intéresse d'abord à leur signe :</p><ul><li>si les nombres relatifs sont <b>de même signe</b>, le résultat sera <b>positif</b> ;</li><li>si les nombres relatifs sont <b>de signes différents</b>, le résultat sera <b>négatif</b>.</li></ul><p>Ensuite, on calcule le quotient sans tenir compte du signe.</p></div>
-  <p><b>Exemples :</b></p>${cols(["21 ÷ 7 = 3","{−20/−4} = 5","36 ÷ (−3) = −12","{−30/6} = −5"])}`},
+  <p><b>Exemples :</b></p>${chns([["A",["21 ÷ 7","3"]],["B",["{−20/−4}","5"]],["C",["36 ÷ (−3)","−12"]],["D",["{−30/6}","−5"]]])}`},
 {k:"2", t:"Multiplications successives de nombres relatifs", h:`
   <h4>a) Signe du résultat de multiplications successives</h4>
   <div class="retenir" data-l="Propriété"><p>Pour calculer le résultat de <b>multiplications successives de nombres relatifs</b>, on s'intéresse d'abord à son signe. Pour cela, on compte le nombre de facteurs négatifs :</p><ul><li>s'il y a un <b>nombre pair de facteurs négatifs</b>, le résultat sera <b>positif</b> ;</li><li>s'il y a un <b>nombre impair de facteurs négatifs</b>, le résultat sera <b>négatif</b>.</li></ul><p>On peut ensuite calculer le produit sans tenir compte du signe.</p></div>
   <p><b>Exemples :</b></p>
-  <p class="calc">A = (−2) × 3 × (−4) × (−3)<br>A = −72</p><p>Il y a 3 facteurs négatifs (nombre impair) : A est négatif. 2 × 3 × 4 × 3 = 72.</p>
-  <p class="calc">B = 7 × (−2) × (−4)<br>B = 56</p><p>Il y a 2 facteurs négatifs (nombre pair) : B est positif. 7 × 2 × 4 = 56.</p>
+  <p class="calc">E = (−2) × 3 × (−4) × (−3)<br>E = −72</p><p>Il y a 3 facteurs négatifs (nombre impair) : E est négatif. 2 × 3 × 4 × 3 = 72.</p>
+  <p class="calc">F = 7 × (−2) × (−4)<br>F = 56</p><p>Il y a 2 facteurs négatifs (nombre pair) : F est positif. 7 × 2 × 4 = 56.</p>
   <h4>b) Calculer astucieusement un produit</h4>
   <p><b>Exemple :</b> on regroupe les facteurs qui donnent un résultat simple (4 × 25 = 100).</p>
-  <p class="calc">C = 23,8 × 4 × (−25)<br>C = 23,8 × (−100)<br>C = −2 380</p>`},
+  <p class="calc">G = 23,8 × 4 × (−25)<br>G = 23,8 × (−100)<br>G = −2 380</p>`},
 {k:"3", t:"Additions successives de nombres relatifs", h:`
   <div class="retenir" data-l="Propriété"><p>Pour effectuer <b>une suite d'additions de nombres relatifs</b> :</p><ul><li>on calcule de gauche à droite ;</li><li><b>ou</b> on peut <b>regrouper</b> ensemble <b>tous les nombres négatifs</b> d'un côté et <b>les nombres positifs</b> de l'autre.</li></ul></div>
   <p><b>Exemples :</b> calcule les expressions suivantes.</p>
-  <div class="figs" style="gap:28px"><p class="calc">D = −5 + 3 − 13 + 9<br>D = 3 + 9 − 5 − 13<br>D = 12 − 18<br>D = −6</p><p class="calc">E = 6 − 7 − 3,5 + 9,2 + 3,8<br>E = 6 + 9,2 + 3,8 − 7 − 3,5<br>E = 19 − 10,5<br>E = 8,5</p></div>`},
+  <div class="figs" style="gap:28px"><p class="calc">H = −5 + 3 − 13 + 9<br>H = 3 + 9 − 5 − 13<br>H = 12 − 18<br>H = −6</p><p class="calc">I = 6 − 7 − 3,5 + 9,2 + 3,8<br>I = 6 + 9,2 + 3,8 − 7 − 3,5<br>I = 19 − 10,5<br>I = 8,5</p></div>`},
 {k:"4", t:"Enchaînements d'opérations et priorités opératoires", h:`
   <div class="retenir" data-l="Propriété"><p>Pour calculer une expression, on effectue les opérations dans l'ordre suivant :</p><p><b>1)</b> les calculs entre parenthèses ou entre crochets, en commençant par les plus intérieurs ;</p><p><b>2)</b> les multiplications et les divisions ;</p><p><b>3)</b> les additions et les soustractions.</p><p>Quand des opérations ont le même niveau de priorité, on les effectue de gauche à droite.</p></div>
   <p><b>Exemples :</b> calcule les expressions suivantes.</p>
-  <div class="figs" style="gap:28px"><p class="calc">F = 13 + 5 × (3 − 11) − 7<br>F = 13 + 5 × (−8) − 7<br>F = 13 − 40 − 7<br>F = −34</p><p class="calc">G = 7 − [18 ÷ (4 − 7)]<br>G = 7 − [18 ÷ (−3)]<br>G = 7 − (−6)<br>G = 13</p></div>`}
+  <div class="figs" style="gap:28px"><p class="calc">J = 13 + 5 × (3 − 11) − 7<br>J = 13 + 5 × (−8) − 7<br>J = 13 − 40 − 7<br>J = −34</p><p class="calc">K = 7 − [18 ÷ (4 − 7)]<br>K = 7 − [18 ÷ (−3)]<br>K = 7 − (−6)<br>K = 13</p></div>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -165,14 +168,14 @@ quiz:[
  2:[ {g:()=>{ const a=Array.from({length:ri(3,4)},()=>nz(-5,5)); const k=nNeg(a), p=prod(a); return {q:`Calcule : ${prodTxt(a)}`, rep:[F(p)], ex:`${k} facteur${k>1?"s":""} négatif${k>1?"s":""} : ${k%2?"négatif":"positif"}. ${a.map(x=>Math.abs(x)).join(" × ")} = ${Math.abs(p)}.`, sx:S_MUL}; }},
      {g:()=>{ const n=pick([2,3,5,6,7,8,9,11]), s=pick([1,-1]); return {q:`Quel est le signe du produit de ${n*2+(s<0?1:0)} facteurs tous égaux à (−1) ?`, c:["positif","négatif"], rep:s<0?"négatif":"positif", ex:`${n*2+(s<0?1:0)} est ${s<0?"impair : le produit est négatif (−1).":"pair : le produit est positif (1)."}`, sx:S_MUL}; }} ],
  3:[ {g:()=>{ const t=pick([[4,25,100],[25,4,100],[2.5,4,10],[50,-2,-100],[-4,25,-100],[0.5,-20,-10]]); const x=ri(11,999)/10, s=pick([1,-1]); const f=[t[0], s*x, t[1]], p=prod(f);
-       return {q:`Calcule astucieusement : ${prodTxt(f)}`, rep:[F(p)], ex:`On regroupe ${P(t[0])} × ${P(t[1])} = ${F(t[2])}, puis ${F(t[2])} × ${P(s*x)} = ${F(p)}.`, sx:S_MUL}; }} ]
+       return {q:`Calcule astucieusement : ${prodTxt(f)}`, rep:[F(p)], ex:`On regroupe ${P(t[0])} × ${P(t[1])} = ${F(t[2])} : ${prodTxt(f)} = ${P(t[0])} × ${P(t[1])} × ${P(s*x)} = ${F(t[2])} × ${P(s*x)} = ${F(p)}.`, sx:S_MUL}; }} ]
 }},
 {nom:"Suite d'additions", schema:S_ADD, q:{
- 1:[ {g:()=>{ const v=Array.from({length:4},()=>nz(-20,20)); const s=v.reduce((a,b)=>a+b,0); return {q:`Calcule : ${v.map((x,i)=>i?`(${x>0?"+":""}${F(x)})`:`(${x>0?"+":""}${F(x)})`).join(" + ")}`, rep:[F(s)], ex:`Positifs : ${F(v.filter(x=>x>0).reduce((a,b)=>a+b,0))} ; négatifs : ${F(v.filter(x=>x<0).reduce((a,b)=>a+b,0))}. Total : ${F(s)}.`, sx:S_ADD}; }} ],
+ 1:[ {g:()=>{ const v=Array.from({length:4},()=>nz(-20,20)); const s=v.reduce((a,b)=>a+b,0); return {q:`Calcule : ${v.map((x,i)=>i?`(${x>0?"+":""}${F(x)})`:`(${x>0?"+":""}${F(x)})`).join(" + ")}`, rep:[F(s)], ex:`On regroupe les positifs, puis les négatifs : ${[v.map(x=>`(${x>0?"+":""}${F(x)})`).join(" + "), [...v.filter(x=>x>0),...v.filter(x=>x<0)].map(x=>`(${x>0?"+":""}${F(x)})`).join(" + "), [v.filter(x=>x>0),v.filter(x=>x<0)].filter(g=>g.length).map(g=>{ const t=g.reduce((a,b)=>a+b,0); return `(${t>0?"+":""}${F(t)})`; }).join(" + "), F(s)].filter((x,i,a)=>x!==a[i-1]).join(" = ")}.`, sx:S_ADD}; }} ],
  2:[ {g:()=>{ const v=Array.from({length:ri(4,6)},()=>nz(-15,15)); const s=v.reduce((a,b)=>a+b,0), e=v.map((x,i)=>i?(x<0?"− ":"+ ")+Math.abs(x):F(x)).join(" "); const p=v.filter(x=>x>0).reduce((a,b)=>a+b,0), n=-v.filter(x=>x<0).reduce((a,b)=>a+b,0);
-       return {q:`Calcule : ${e}`, rep:[F(s)], ex:`On regroupe : ${p} − ${n} = ${F(s)}.`, sx:S_ADD}; }} ],
+       return {q:`Calcule : ${e}`, rep:[F(s)], ex:`On regroupe : ${[e, simpW([...v.filter(x=>x>0),...v.filter(x=>x<0)]), p&&n?`${p} − ${n}`:"", F(s)].filter((x,i,a)=>x&&x!==a[i-1]).join(" = ")}.`, sx:S_ADD}; }} ],
  3:[ {g:()=>{ const v=Array.from({length:5},()=>nz(-99,99)/10); const s=r3(v.reduce((a,b)=>a+b,0)), e=v.map((x,i)=>i?(x<0?"− ":"+ ")+F(Math.abs(x)):F(x)).join(" "); const p=r3(v.filter(x=>x>0).reduce((a,b)=>a+b,0)), n=r3(-v.filter(x=>x<0).reduce((a,b)=>a+b,0));
-       return {q:`Calcule : ${e}`, rep:[F(s)], ex:`On regroupe : ${F(p)} − ${F(n)} = ${F(s)}.`, sx:S_ADD}; }} ]
+       return {q:`Calcule : ${e}`, rep:[F(s)], ex:`On regroupe : ${[e, simpW([...v.filter(x=>x>0),...v.filter(x=>x<0)]), p&&n?`${F(p)} − ${F(n)}`:"", F(s)].filter((x,i,a)=>x&&x!==a[i-1]).join(" = ")}.`, sx:S_ADD}; }} ]
 }},
 {nom:"Priorités opératoires", schema:S_PRIO, q:{
  1:[ {g:prioG(1)},
@@ -194,8 +197,8 @@ comp:[
   ["MODÉLISER","Je traduis un problème par une expression.","Ex. 7 (2 points)"]
 ],
 exos:[
-{t:"Des divisions", p:2, h:`<p>Calcule.</p>${cols(["a) 45 ÷ (−9)","b) (−56) ÷ (−7)","c) {−48/6}","d) {−72/−8}"])}`,
- c:`<p class="calc">a) 45 ÷ (−9) = −5 · b) (−56) ÷ (−7) = 8 · c) {−48/6} = −8 · d) {−72/−8} = 9</p><p><i>(0,5 point par calcul)</i></p>`},
+{t:"Des divisions", p:2, h:`<p>Calcule.</p>${cols(["A = 45 ÷ (−9)","B = (−56) ÷ (−7)","C = {−48/6}","D = {−72/−8}"])}`,
+ c:`${chns([["A",["45 ÷ (−9)","−5"]],["B",["(−56) ÷ (−7)","8"]],["C",["{−48/6}","−8"]],["D",["{−72/−8}","9"]]])}<p><i>(0,5 point par calcul)</i></p>`},
 {t:"Le signe d'un produit", p:2, h:`<p><b>1)</b> Sans calculer, donne le signe de 6 × (−3) × 9 × (−11) × (−2). Explique.</p><p><b>2)</b> Écris le signe du résultat de chaque calcul.</p><p class="calc">a) (−1) × 4 × (−7) × (−2,5) × (−3) × 8<br>b) (−5) × (−6) × (−1) × 2 × (−8) × (−4)</p>`,
  c:`<p><b>1)</b> Il y a 3 facteurs négatifs : c'est un nombre impair, donc le résultat est <b>négatif</b>. <i>(1 point)</i></p><p><b>2)</b> a) 4 facteurs négatifs (pair) : <b>positif</b>. <i>(0,5 point)</i> · b) 5 facteurs négatifs (impair) : <b>négatif</b>. <i>(0,5 point)</i></p>`},
 {t:"Calculer astucieusement", p:3, h:`<p>Calcule en écrivant tes étapes.</p><p class="calc">A = 25 × (−7,3) × 4<br>B = (−2) × 39,6 × 50<br>C = (−4) × (−2) × 5 × (−1) × 3</p>`,
@@ -211,8 +214,10 @@ exos:[
 ]}
 };
 
-/* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −) */
+/* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −)
+   et calculs en chaîne « A = … » dans les explications */
 CH["4e-4"].quiz.forEach(N=>Object.values(N.q).forEach(list=>list.forEach((it,i)=>{
-  if(it.g){ const g=it.g; list[i]={g:()=>Object.assign(g(),{kb:"text"})}; } else it.kb="text";
+  const f=o=>Object.assign(qChain(o),{kb:"text"});
+  if(it.g){ const g=it.g; list[i]={g:()=>f(g())}; } else list[i]=f(it);
 })));
 })();

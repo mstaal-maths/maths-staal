@@ -81,10 +81,10 @@ cours: [
     <li>Puis les <b>multiplications et les divisions</b>.</li>
     <li>Puis les <b>additions et les soustractions</b>.</li>
     <li>Quand les opérations ont la même priorité, on calcule <b>de gauche à droite</b>.</li></ol></div>
-  <p class="calc">5 + 2 × 3 = 5 + 6 = 11<br>(6 + 4) × 5 = 10 × 5 = 50<br>20 − 6 − 4 = 14 − 4 = 10<br>40 ÷ 8 + 6 × 2 = 5 + 12 = 17</p>
+  <p><b>Exemples :</b></p><div class="calcs"><div><p class="calc">A = 5 + 2 × 3<br>A = 5 + 6<br>A = <b>11</b></p></div><div><p class="calc">B = (6 + 4) × 5<br>B = 10 × 5<br>B = <b>50</b></p></div><div><p class="calc">C = 20 − 6 − 4<br>C = 14 − 4<br>C = <b>10</b></p></div><div><p class="calc">D = 40 ÷ 8 + 6 × 2<br>D = 5 + 12<br>D = <b>17</b></p></div></div>
   <h4>2. Calculer astucieusement</h4>
   <div class="retenir" data-l="Propriété"><p>Pour multiplier une somme ou une différence, on peut multiplier chacun de ses termes :</p><p class="calc">k × (a + b) = k × a + k × b &nbsp;&nbsp; et &nbsp;&nbsp; k × (a − b) = k × a − k × b</p></div>
-  <p class="calc">13 × 7 + 13 × 3 = 13 × (7 + 3) = 13 × 10 = 130<br>32 × 11 = 32 × 10 + 32 × 1 = 320 + 32 = 352<br>32 × 19 = 32 × 20 − 32 × 1 = 640 − 32 = 608</p>`}
+  <p><b>Exemples :</b></p><div class="calcs"><div><p class="calc">E = 13 × 7 + 13 × 3<br>E = 13 × (7 + 3)<br>E = 13 × 10<br>E = <b>130</b></p></div><div><p class="calc">F = 32 × 11<br>F = 32 × 10 + 32 × 1<br>F = 320 + 32<br>F = <b>352</b></p></div><div><p class="calc">G = 32 × 19<br>G = 32 × 20 − 32 × 1<br>G = 640 − 32<br>G = <b>608</b></p></div></div>`}
 ],
 
 /* ===================== EXERCICES (dans l'ordre de la fiche de M. Staal) ===================== */
@@ -178,21 +178,16 @@ exos: [
    c:`<p>9 intervalles de 0 à 1 800 000 : écart = 1 800 000 ÷ 9 = <b>200 000</b>.</p><p>A(400 000) · B(1 000 000) · C(1 600 000)</p>`}
  ]},
 {t:"Les priorités opératoires", note:"<b>Rappel :</b> les parenthèses d'abord, puis × et ÷, puis + et −. À priorité égale, de gauche à droite.", e:[
-  {n:"Exercice 19", t:"Sans parenthèses", w:"Sur ta feuille", h:`<p>a) 5 + 2 × 3 · b) 10 − 3 × 2 · c) 4 × 5 + 6 · d) 20 ÷ 4 + 7 · e) 9 + 12 ÷ 3 · f) 7 × 2 − 8 · g) 6 + 5 × 4 · h) 30 − 4 × 7 · i) 8 × 3 − 15 ÷ 5 · j) 40 ÷ 8 + 6 × 2</p>`,
-   c:`<p>Je calcule d'abord les multiplications et les divisions, puis les additions et les soustractions.</p><p>a) 5 + 2 × 3 = 5 + 6 = 11 · b) 10 − 3 × 2 = 10 − 6 = 4 · c) 4 × 5 + 6 = 20 + 6 = 26 · d) 20 ÷ 4 + 7 = 5 + 7 = 12 · e) 9 + 12 ÷ 3 = 9 + 4 = 13 · f) 7 × 2 − 8 = 14 − 8 = 6 · g) 6 + 5 × 4 = 6 + 20 = 26 · h) 30 − 4 × 7 = 30 − 28 = 2 · i) 8 × 3 − 15 ÷ 5 = 24 − 3 = 21 · j) 40 ÷ 8 + 6 × 2 = 5 + 12 = 17</p>`},
-  {n:"Exercice 20", t:"Avec des parenthèses", w:"Sur ta feuille", h:`<p>a) (6 + 4) × 5 · b) 3 × (8 + 7) · c) (18 − 6) ÷ 3 · d) 25 − 4 × (2 + 3) · e) (12 + 8) ÷ 4 + 9 · f) 2 × (15 − 3 × 4) · g) (7 + 3) × (9 − 4) · h) 5 × (20 − 4 ÷ 2) · i) (36 ÷ 9 + 2) × 3 · j) 100 − (5 + 3) × (10 − 4)</p>`,
-   c:`<p>Je calcule d'abord dans les parenthèses, puis les multiplications et les divisions, puis les additions et les soustractions.</p><p>a) (6 + 4) × 5 = 10 × 5 = 50 · b) 3 × (8 + 7) = 3 × 15 = 45 · c) (18 − 6) ÷ 3 = 12 ÷ 3 = 4 · d) 25 − 4 × (2 + 3) = 25 − 4 × 5 = 25 − 20 = 5 · e) (12 + 8) ÷ 4 + 9 = 20 ÷ 4 + 9 = 5 + 9 = 14 · f) 2 × (15 − 3 × 4) = 2 × (15 − 12) = 2 × 3 = 6 · g) (7 + 3) × (9 − 4) = 10 × 5 = 50 · h) 5 × (20 − 4 ÷ 2) = 5 × (20 − 2) = 5 × 18 = 90 · i) (36 ÷ 9 + 2) × 3 = (4 + 2) × 3 = 6 × 3 = 18 · j) 100 − (5 + 3) × (10 − 4) = 100 − 8 × 6 = 100 − 48 = 52</p>`},
-  {n:"Exercice 21", t:"En détaillant les étapes", w:"Sur ton cahier", h:`<p>Calcule sur ton cahier en écrivant une étape par ligne.</p><p>A = 12 + 3 × (10 − 6) · B = (45 − 5) ÷ 8 + 7 · C = 9 × 4 − 6 × 3 · D = 50 − (2 + 4 × 6) · E = (14 − 2 × 5) × 7 · F = 3 × (6 + 4) − 8 ÷ 4</p>`,
-   c:`<p class="calc">A = 12 + 3 × (10 − 6)<br>A = 12 + 3 × 4<br>A = 12 + 12<br>A = 24</p>
-   <p class="calc">B = (45 − 5) ÷ 8 + 7<br>B = 40 ÷ 8 + 7<br>B = 5 + 7<br>B = 12</p>
-   <p class="calc">C = 9 × 4 − 6 × 3<br>C = 36 − 18<br>C = 18</p>
-   <p class="calc">D = 50 − (2 + 4 × 6)<br>D = 50 − (2 + 24)<br>D = 50 − 26<br>D = 24</p>
-   <p class="calc">E = (14 − 2 × 5) × 7<br>E = (14 − 10) × 7<br>E = 4 × 7<br>E = 28</p>
-   <p class="calc">F = 3 × (6 + 4) − 8 ÷ 4<br>F = 3 × 10 − 8 ÷ 4<br>F = 30 − 2<br>F = 28</p>`},
+  {n:"Exercice 19", t:"Sans parenthèses", w:"Sur ta feuille", h:`<p>Calcule en écrivant une étape par ligne.</p><div class="calcs"><span>A = 5 + 2 × 3</span><span>B = 10 − 3 × 2</span><span>C = 4 × 5 + 6</span><span>D = 20 ÷ 4 + 7</span><span>E = 9 + 12 ÷ 3</span><span>F = 7 × 2 − 8</span><span>G = 6 + 5 × 4</span><span>H = 30 − 4 × 7</span><span>I = 8 × 3 − 15 ÷ 5</span><span>J = 40 ÷ 8 + 6 × 2</span></div>`,
+   c:`<p>Je calcule d'abord les multiplications et les divisions, puis les additions et les soustractions.</p><div class="calcs"><div><p class="calc">A = 5 + 2 × 3<br>A = 5 + 6<br>A = <b>11</b></p></div><div><p class="calc">B = 10 − 3 × 2<br>B = 10 − 6<br>B = <b>4</b></p></div><div><p class="calc">C = 4 × 5 + 6<br>C = 20 + 6<br>C = <b>26</b></p></div><div><p class="calc">D = 20 ÷ 4 + 7<br>D = 5 + 7<br>D = <b>12</b></p></div><div><p class="calc">E = 9 + 12 ÷ 3<br>E = 9 + 4<br>E = <b>13</b></p></div><div><p class="calc">F = 7 × 2 − 8<br>F = 14 − 8<br>F = <b>6</b></p></div><div><p class="calc">G = 6 + 5 × 4<br>G = 6 + 20<br>G = <b>26</b></p></div><div><p class="calc">H = 30 − 4 × 7<br>H = 30 − 28<br>H = <b>2</b></p></div><div><p class="calc">I = 8 × 3 − 15 ÷ 5<br>I = 24 − 3<br>I = <b>21</b></p></div><div><p class="calc">J = 40 ÷ 8 + 6 × 2<br>J = 5 + 12<br>J = <b>17</b></p></div></div>`},
+  {n:"Exercice 20", t:"Avec des parenthèses", w:"Sur ta feuille", h:`<p>Calcule en écrivant une étape par ligne.</p><div class="calcs"><span>A = (6 + 4) × 5</span><span>B = 3 × (8 + 7)</span><span>C = (18 − 6) ÷ 3</span><span>D = 25 − 4 × (2 + 3)</span><span>E = (12 + 8) ÷ 4 + 9</span><span>F = 2 × (15 − 3 × 4)</span><span>G = (7 + 3) × (9 − 4)</span><span>H = 5 × (20 − 4 ÷ 2)</span><span>I = (36 ÷ 9 + 2) × 3</span><span>J = 100 − (5 + 3) × (10 − 4)</span></div>`,
+   c:`<p>Je calcule d'abord dans les parenthèses, puis les multiplications et les divisions, puis les additions et les soustractions.</p><div class="calcs" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))"><div><p class="calc">A = (6 + 4) × 5<br>A = 10 × 5<br>A = <b>50</b></p></div><div><p class="calc">B = 3 × (8 + 7)<br>B = 3 × 15<br>B = <b>45</b></p></div><div><p class="calc">C = (18 − 6) ÷ 3<br>C = 12 ÷ 3<br>C = <b>4</b></p></div><div><p class="calc">D = 25 − 4 × (2 + 3)<br>D = 25 − 4 × 5<br>D = 25 − 20<br>D = <b>5</b></p></div><div><p class="calc">E = (12 + 8) ÷ 4 + 9<br>E = 20 ÷ 4 + 9<br>E = 5 + 9<br>E = <b>14</b></p></div><div><p class="calc">F = 2 × (15 − 3 × 4)<br>F = 2 × (15 − 12)<br>F = 2 × 3<br>F = <b>6</b></p></div><div><p class="calc">G = (7 + 3) × (9 − 4)<br>G = 10 × 5<br>G = <b>50</b></p></div><div><p class="calc">H = 5 × (20 − 4 ÷ 2)<br>H = 5 × (20 − 2)<br>H = 5 × 18<br>H = <b>90</b></p></div><div><p class="calc">I = (36 ÷ 9 + 2) × 3<br>I = (4 + 2) × 3<br>I = 6 × 3<br>I = <b>18</b></p></div><div><p class="calc">J = 100 − (5 + 3) × (10 − 4)<br>J = 100 − 8 × 6<br>J = 100 − 48<br>J = <b>52</b></p></div></div>`},
+  {n:"Exercice 21", t:"En détaillant les étapes", w:"Sur ton cahier", h:`<p>Calcule sur ton cahier en écrivant une étape par ligne.</p><div class="calcs"><span>A = 12 + 3 × (10 − 6)</span><span>B = (45 − 5) ÷ 8 + 7</span><span>C = 9 × 4 − 6 × 3</span><span>D = 50 − (2 + 4 × 6)</span><span>E = (14 − 2 × 5) × 7</span><span>F = 3 × (6 + 4) − 8 ÷ 4</span></div>`,
+   c:`<div class="calcs"><div><p class="calc">A = 12 + 3 × (10 − 6)<br>A = 12 + 3 × 4<br>A = 12 + 12<br>A = <b>24</b></p></div><div><p class="calc">B = (45 − 5) ÷ 8 + 7<br>B = 40 ÷ 8 + 7<br>B = 5 + 7<br>B = <b>12</b></p></div><div><p class="calc">C = 9 × 4 − 6 × 3<br>C = 36 − 18<br>C = <b>18</b></p></div><div><p class="calc">D = 50 − (2 + 4 × 6)<br>D = 50 − (2 + 24)<br>D = 50 − 26<br>D = <b>24</b></p></div><div><p class="calc">E = (14 − 2 × 5) × 7<br>E = (14 − 10) × 7<br>E = 4 × 7<br>E = <b>28</b></p></div><div><p class="calc">F = 3 × (6 + 4) − 8 ÷ 4<br>F = 3 × 10 − 8 ÷ 4<br>F = 30 − 2<br>F = <b>28</b></p></div></div>`},
   {n:"Exercice 22", t:"Placer des parenthèses", w:"Sur ton cahier", h:`<p>Recopie et place des parenthèses pour que l'égalité soit vraie.</p><p>a) 3 + 5 × 2 = 16 · b) 12 − 4 × 2 = 16 · c) 24 ÷ 6 + 2 = 3 · d) 10 + 2 × 3 = 36 · e) 7 × 4 − 2 = 14 · f) 30 − 10 + 5 = 15</p>`,
    c:`a) (3 + 5) × 2 = 8 × 2 = 16 · b) (12 − 4) × 2 = 8 × 2 = 16 · c) 24 ÷ (6 + 2) = 24 ÷ 8 = 3 · d) (10 + 2) × 3 = 12 × 3 = 36 · e) 7 × (4 − 2) = 7 × 2 = 14 · f) 30 − (10 + 5) = 30 − 15 = 15`},
-  {n:"Exercice 23", t:"Calculer astucieusement", w:"Sur ton cahier", h:`<p>Exemple : 13 × 7 + 13 × 3 = 13 × (7 + 3) = 13 × 10 = 130.</p><p>a) 17 × 9 + 17 × 1 · b) 45 × 6 − 35 × 6 · c) 6 × 102 · d) 12 × 99 · e) 25 × 8 × 4 · f) 32 × 11</p>`,
-   c:`a) 17 × (9 + 1) = 17 × 10 = 170 · b) (45 − 35) × 6 = 10 × 6 = 60 · c) 6 × 100 + 6 × 2 = 600 + 12 = 612 · d) 12 × 100 − 12 × 1 = 1 200 − 12 = 1 188 · e) 25 × 4 × 8 = 100 × 8 = 800 · f) 32 × 10 + 32 × 1 = 320 + 32 = 352`},
+  {n:"Exercice 23", t:"Calculer astucieusement", w:"Sur ton cahier", h:`<p><b>Exemple :</b></p><p class="calc">A = 13 × 7 + 13 × 3<br>A = 13 × (7 + 3)<br>A = 13 × 10<br>A = 130</p><p>Calcule de la même façon, en écrivant une étape par ligne.</p><div class="calcs"><span>B = 17 × 9 + 17 × 1</span><span>C = 45 × 6 − 35 × 6</span><span>D = 6 × 102</span><span>E = 12 × 99</span><span>F = 25 × 8 × 4</span><span>G = 32 × 11</span></div>`,
+   c:`<div class="calcs"><div><p class="calc">B = 17 × 9 + 17 × 1<br>B = 17 × (9 + 1)<br>B = 17 × 10<br>B = <b>170</b></p></div><div><p class="calc">C = 45 × 6 − 35 × 6<br>C = (45 − 35) × 6<br>C = 10 × 6<br>C = <b>60</b></p></div><div><p class="calc">D = 6 × 102<br>D = 6 × 100 + 6 × 2<br>D = 600 + 12<br>D = <b>612</b></p></div><div><p class="calc">E = 12 × 99<br>E = 12 × 100 − 12 × 1<br>E = 1 200 − 12<br>E = <b>1 188</b></p></div><div><p class="calc">F = 25 × 8 × 4<br>F = (25 × 4) × 8<br>F = 100 × 8<br>F = <b>800</b></p></div><div><p class="calc">G = 32 × 11<br>G = 32 × 10 + 32 × 1<br>G = 320 + 32<br>G = <b>352</b></p></div></div>`},
   {n:"Exercice 24", t:"Les signes manquants", w:"Sur ton cahier", h:`<p>Remplace chaque ? par +, −, × ou ÷.</p><p>a) 5 ? 3 ? 2 = 13 · b) 8 ? 4 ? 2 = 16 · c) 20 ? 4 ? 3 = 8 · d) 15 ? 3 ? 4 = 9</p>`,
    c:`a) 5 × 3 − 2 = 15 − 2 = 13 · b) 8 × 4 ÷ 2 = 32 ÷ 2 = 16 (ou 8 + 4 × 2 = 8 + 8 = 16) · c) 20 ÷ 4 + 3 = 5 + 3 = 8 (ou 20 − 4 × 3 = 20 − 12 = 8) · d) 15 ÷ 3 + 4 = 5 + 4 = 9`}
  ]},
@@ -316,42 +311,104 @@ quiz: [
 }}
 ],
 
-/* ===================== ÉVAL D'ENTRAÎNEMENT ===================== */
-eval: {
-titre:"Évaluation d'entraînement n° 1", duree:45, info:"Durée : 45 min · Calculatrice non autorisée",
+/* ===================== ÉVAL D'ENTRAÎNEMENT (+ version aménagée pour les élèves à besoins particuliers) ===================== */
+eval:{
+titre:"Évaluation d'entraînement — Chapitre 1", duree:45, info:"Durée : 45 min · Calculatrice non autorisée",
 comp:[
-  ["COMMUNIQUER","J'écris un nombre en chiffres et en lettres, sans faute.","Ex. 1 (4 points)"],
-  ["REPRÉSENTER","Je décompose un nombre et je lis une demi-droite graduée.","Ex. 2 et 3 (8 points)"],
-  ["CALCULER","Je respecte les priorités opératoires dans un calcul.","Ex. 4 (5 points)"],
-  ["CHERCHER","J'essaie et je trouve où placer les parenthèses.","Ex. 5 (3 points)"]
+  ["CALCULER","Je calcule en respectant les priorités opératoires.","Ex. 1 (5 points)"],
+  ["COMMUNIQUER","Je passe de l'écriture en chiffres à l'écriture en lettres, avec la bonne orthographe.","Ex. 2 (4 points)"],
+  ["REPRÉSENTER","Je lis la valeur des chiffres, je décompose un nombre et j'utilise une demi-droite graduée.","Ex. 3 et 4 (8 points)"],
+  ["CHERCHER","Je cherche où placer des parenthèses pour obtenir un résultat.","Ex. 5 (3 points)"]
 ],
 exos:[
-{t:"Écrire les nombres", p:4, h:`<p>a) Écris ces nombres en lettres : 90 · 507 · 30 700 · 8 004</p>
-  <p>b) Écris ces nombres en chiffres : neuf-mille-douze · trois-cent-mille-quinze</p>
-  <p>c) Chaque écriture contient une erreur d'orthographe. Corrige-la : « quatre-vingts-sept » (pour 87) · « sept-cents-deux » (pour 702)</p>`,
- c:`<p>a) quatre-vingt-dix · cinq-cent-sept · trente-mille-sept-cents · huit-mille-quatre <i>(0,5 point par nombre)</i></p>
-  <p>b) 9 mille et 12 unités : 9 012 · 300 mille et 15 unités : 300 015 <i>(0,5 point chacun)</i></p>
-  <p>c) quatre-vingt-sept (suivi de sept : pas de s) · sept-cent-deux (suivi de deux : pas de s) <i>(0,5 point chacun)</i></p>`},
-{t:"Numération et décomposition", p:4, h:`<p>1) Dans le nombre 47 263 851 : quel est le chiffre des centaines de mille ? le chiffre des unités de millions ?</p>
-  <p>2) Décompose le nombre 40 607, comme dans le cours (addition et multiplication).</p>
-  <p>3) Retrouve le nombre : 5 000 000 + 80 000 + 200 + 3</p>`,
- c:`<p>1) Je sépare en classes : 47 263 851. Dans la classe des mille (263), le chiffre des centaines de mille est 2. Dans la classe des millions (47), le chiffre des unités de millions est 7 <i>(0,5 point chacun)</i></p>
-  <p>2) 40 607 = 40 000 + 600 + 7 = 4 × 10 000 + 6 × 100 + 7 × 1 <i>(1 point par décomposition)</i></p>
-  <p>3) 5 millions, 80 mille et 203 unités : 5 080 203 <i>(1 point)</i></p>`},
-{t:"Demi-droites graduées", p:4, h:`<p>1) Les points A, B et C sont placés sur la demi-droite graduée ci-dessous.</p>
-  ${axis({n:10, lab:[[0,"0"],[10,"3 000"]], pts:[["A",3],["B",6],["C",8]]})}
-  <p>a) Quel est l'écart entre deux graduations ? b) Écris l'abscisse de chaque point avec la bonne notation.</p>
-  <p>2) Reproduis la demi-droite ci-dessous et places-y les points E(500) et F(1 750).</p>
-  ${axis({n:8, lab:[[0,"0"],[8,"2 000"]]})}`,
- c:`<p>1) a) 3 000 ÷ 10 = 300 <i>(1 point)</i> · b) A(900) ; B(1 800) ; C(2 400) <i>(0,5 point chacun)</i></p>
-  <p>2) Écart = 2 000 ÷ 8 = 250. E est à la 2<sup>e</sup> graduation, F à la 7<sup>e</sup> <i>(0,5 point pour l'écart, 0,5 point par point bien placé)</i> :</p>
-  ${axis({n:8, lab:[[0,"0"],[8,"2 000"]], pts:[["E",2],["F",7]]})}`},
-{t:"Priorités opératoires", p:5, h:`<p>Calcule en respectant les priorités. <b>Écris les étapes.</b></p>
-  <p class="calc">A = 4 + 6 × 2<br>B = 18 − 12 ÷ 4<br>C = (7 + 3) × 4<br>D = 30 − 3 × (5 + 2)<br>E = 6 × 4 − 20 ÷ 5</p>`,
- c:`<p class="calc">A = 4 + 6 × 2 = 4 + 12 = 16<br>B = 18 − 12 ÷ 4 = 18 − 3 = 15<br>C = (7 + 3) × 4 = 10 × 4 = 40<br>D = 30 − 3 × (5 + 2) = 30 − 3 × 7 = 30 − 21 = 9<br>E = 6 × 4 − 20 ÷ 5 = 24 − 4 = 20</p><p><i>1 point par calcul, étapes comprises.</i></p>`},
-{t:"Où placer les parenthèses ?", p:3, h:`<p>Recopie chaque calcul en plaçant une paire de parenthèses pour que l'égalité soit vraie.</p>
-  <p class="calc">a) 2 + 4 × 3 = 18<br>b) 36 ÷ 4 + 5 = 4<br>c) 20 − 8 + 2 = 10</p>`,
- c:`<p class="calc">a) (2 + 4) × 3 = 6 × 3 = 18<br>b) 36 ÷ (4 + 5) = 36 ÷ 9 = 4<br>c) 20 − (8 + 2) = 20 − 10 = 10</p><p><i>1 point par égalité.</i></p>`}
+{t:"Calculer avec les priorités", p:5, h:`<p>Calcule. <b>Écris toutes les étapes.</b></p>
+  <div class="calcs"><span>A = 18 − 3 × 4</span><span>B = 40 ÷ (2 + 6)</span><span>C = 7 + 24 ÷ 6 × 2</span><span>D = 3 × (12 − 5) + 9</span></div>
+  <p>Pour finir, Tom a écrit : «&nbsp;20 − 2 × 5 = 90&nbsp;». A-t-il raison ? Explique, puis écris le bon calcul.</p>`,
+ c:`<div class="calcs"><div><p class="calc">A = 18 − 3 × 4<br>A = 18 − 12<br>A = <b>6</b></p></div><div><p class="calc">B = 40 ÷ (2 + 6)<br>B = 40 ÷ 8<br>B = <b>5</b></p></div><div><p class="calc">C = 7 + 24 ÷ 6 × 2<br>C = 7 + 4 × 2<br>C = 7 + 8<br>C = <b>15</b></p></div><div><p class="calc">D = 3 × (12 − 5) + 9<br>D = 3 × 7 + 9<br>D = 21 + 9<br>D = <b>30</b></p></div></div>
+  <p>Pour C : ÷ et × ont la même priorité, donc on calcule de gauche à droite (24 ÷ 6 d'abord). <i>(1 point par calcul, étapes comprises)</i></p>
+  <p>Tom a tort. Il a calculé 20 − 2 = 18, puis 18 × 5 = 90. Mais la multiplication passe avant la soustraction : 20 − 2 × 5 = 20 − 10 = <b>10</b>. <i>(0,5 point pour l'explication, 0,5 point pour le bon calcul)</i></p>`},
+{t:"Des chèques à remplir", p:4, h:`<p>Mme Diallo remplit des chèques. Sur un chèque, le montant s'écrit aussi en lettres.</p>
+  <p>a) Écris en lettres : 300 € · 1 090 € · 72 015 €</p>
+  <p>b) Écris en chiffres : six-cent-mille-quarante euros · trente-mille-huit-cents euros</p>
+  <p>c) Vrai ou faux ? Si l'écriture est fausse, écris-la correctement.</p>
+  <p>«&nbsp;cinq-cents&nbsp;» pour 500 · «&nbsp;quatre-vingts-dix&nbsp;» pour 90 · «&nbsp;deux-milles&nbsp;» pour 2 000</p>`,
+ c:`<p>a) trois-cents (cent est multiplié par 3 et rien ne le suit : il prend un s) · mille-quatre-vingt-dix · soixante-douze-mille-quinze <i>(0,5 point par nombre)</i></p>
+  <p>b) 600 mille et 40 unités : 600 040 · 30 mille et 800 unités : 30 800 <i>(0,5 point chacun)</i></p>
+  <p>c) «&nbsp;cinq-cents&nbsp;» : vrai. «&nbsp;quatre-vingts-dix&nbsp;» : faux, on écrit quatre-vingt-dix (vingt est suivi de dix : pas de s). «&nbsp;deux-milles&nbsp;» : faux, on écrit deux-mille (mille ne prend jamais de s). <i>(0,5 point chacun)</i></p>`},
+{t:"Lire et décomposer un nombre", p:4, h:`<p>1) On donne le nombre 58 137 260.</p><p>a) Quel est son chiffre des dizaines de mille ? b) Quel est son nombre de centaines ?</p>
+  <p>2) Décompose 70 518 avec des multiplications par 10 000, 1 000, 100 et 10, comme dans le cours.</p>
+  <p>3) Quel nombre s'écrit (4 × 1 000 000) + (9 × 10 000) + (6 × 10) ?</p>`,
+ c:`<p>1) Je sépare les classes : 58 | 137 | 260. a) Dans la classe des mille (137), le chiffre des dizaines de mille est <b>3</b>. b) Je garde tous les chiffres jusqu'aux centaines : le nombre de centaines est <b>581 372</b>. <i>(0,5 point chacun)</i></p>
+  <p class="calc">2) 70 518 = (7 × 10 000) + (5 × 100) + (1 × 10) + 8</p><p>On peut aussi écrire (0 × 1 000) : il n'y a pas d'unités de mille. <i>(1,5 point)</i></p>
+  <p>3) 4 millions, 9 dizaines de mille et 6 dizaines : 4 000 000 + 90 000 + 60 = <b>4 090 060</b>. <i>(1,5 point)</i></p>`},
+{t:"Lire et placer sur une graduation", p:4, h:`<p>1) Voici une demi-droite graduée.</p>
+  ${axis({n:10, lab:[[0,"0"],[10,"200"]], pts:[["R",3],["S",7],["T",9]]})}
+  <p>a) Combien vaut une petite graduation ? b) Donne l'abscisse de R, de S et de T. Utilise la notation du cours.</p>
+  <p>2) Place les points U(1 500) et V(3 500) sur cette demi-droite graduée.</p>
+  ${axis({n:8, lab:[[0,"0"],[8,"4 000"]]})}`,
+ c:`<p>1) a) Il y a 10 intervalles entre 0 et 200 : 200 ÷ 10 = <b>20</b>. <i>(1 point)</i></p><p>b) R(60) ; S(140) ; T(180). <i>(0,5 point chacun)</i></p>
+  <p>2) Il y a 8 intervalles entre 0 et 4 000 : 4 000 ÷ 8 = 500. U est à la 3<sup>e</sup> graduation (3 × 500 = 1 500), V à la 7<sup>e</sup> (7 × 500 = 3 500). <i>(0,5 point pour l'écart, 0,5 point par point bien placé)</i></p>
+  ${axis({n:8, lab:[[0,"0"],[8,"4 000"]], pts:[["U",3],["V",7]]})}`},
+{t:"Le bon résultat", p:3, h:`<p>Où faut-il mettre une paire de parenthèses pour obtenir le résultat indiqué ? Recopie chaque calcul avec les parenthèses, puis vérifie.</p>
+  <p class="calc">a) 6 + 4 × 5 − 2 = 48<br>b) 6 + 4 × 5 − 2 = 18<br>c) 36 ÷ 6 − 2 + 1 = 3</p>`,
+ c:`<p class="calc">a) (6 + 4) × 5 − 2 = 10 × 5 − 2 = 50 − 2 = 48<br>b) 6 + 4 × (5 − 2) = 6 + 4 × 3 = 6 + 12 = 18<br>c) 36 ÷ 6 − (2 + 1) = 6 − 3 = 3</p><p>Sans parenthèses, 6 + 4 × 5 − 2 = 6 + 20 − 2 = 24. <i>(1 point par égalité)</i></p>`}
+],
+
+/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 1 · version aménagée", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Version aménagée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+comp:[
+  ["CALCULER","Je calcule en respectant les priorités opératoires.","Ex. 1 (5 points)"],
+  ["COMMUNIQUER","Je passe de l'écriture en chiffres à l'écriture en lettres, avec la bonne orthographe.","Ex. 2 (4 points)"],
+  ["REPRÉSENTER","Je lis la valeur des chiffres, je décompose un nombre et j'utilise une demi-droite graduée.","Ex. 3 et 4 (8 points)"],
+  ["CHERCHER","Je cherche où placer des parenthèses pour obtenir un résultat.","Ex. 5 (3 points)"]
+],
+exos:[
+{t:"Calculer avec les priorités", p:5, h:`<div class="retenir" data-l="Je me souviens"><p>1. D'abord les calculs entre parenthèses. 2. Puis × et ÷. 3. Puis + et −.</p></div>
+  <p>Calcule, en écrivant chaque étape.</p>
+  <div class="calcs"><div><p class="calc">A = 15 − 2 × 4<br>A = ……………<br>A = ……………</p></div><div><p class="calc">B = 30 ÷ (1 + 5)<br>B = ……………<br>B = ……………</p></div><div><p class="calc">C = 6 + 12 ÷ 3<br>C = ……………<br>C = ……………</p></div><div><p class="calc">D = 2 × (9 − 4) + 3<br>D = ……………<br>D = ……………<br>D = ……………</p></div></div>
+  <p class="note"><b>Aide :</b> pour D, commence par la parenthèse.</p>
+  <p>Tom a écrit : «&nbsp;10 − 2 × 3 = 24&nbsp;». Entoure : Tom a raison · Tom a tort.</p><p>Écris le bon calcul : 10 − 2 × 3 = …………… = ……………</p>`,
+ c:`<div class="calcs"><div><p class="calc">A = 15 − 2 × 4<br>A = 15 − 8<br>A = <b>7</b></p></div><div><p class="calc">B = 30 ÷ (1 + 5)<br>B = 30 ÷ 6<br>B = <b>5</b></p></div><div><p class="calc">C = 6 + 12 ÷ 3<br>C = 6 + 4<br>C = <b>10</b></p></div><div><p class="calc">D = 2 × (9 − 4) + 3<br>D = 2 × 5 + 3<br>D = 10 + 3<br>D = <b>13</b></p></div></div>
+  <p><i>(1 point par calcul, étapes comprises)</i></p>
+  <p>Tom a tort : il a calculé 10 − 2 = 8, puis 8 × 3 = 24. La multiplication passe avant : 10 − 2 × 3 = 10 − 6 = <b>4</b>. <i>(0,5 point pour «&nbsp;Tom a tort&nbsp;», 0,5 point pour le bon calcul)</i></p>`},
+{t:"Des chèques à remplir", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Je mets des traits d'union entre tous les mots. «&nbsp;cent&nbsp;» et «&nbsp;vingt&nbsp;» prennent un s s'ils sont multipliés et si rien ne les suit. «&nbsp;mille&nbsp;» ne prend jamais de s.</p></div>
+  <p>a) Écris en lettres : 300 € · 2 050 € · 40 015 €</p>
+  <p>b) Écris en chiffres : six-mille-quarante euros · trente-mille euros</p>
+  <p class="note"><b>Aide :</b> écris d'abord le nombre de mille, puis le reste avec 3 chiffres.</p>
+  <p>c) Entoure la bonne écriture.</p>
+  <p>90 : quatre-vingt-dix · quatre-vingts-dix</p><p>2 000 : deux-mille · deux-milles</p><p>500 : cinq-cent · cinq-cents</p>`,
+ c:`<p>a) trois-cents · deux-mille-cinquante · quarante-mille-quinze <i>(0,5 point par nombre)</i></p>
+  <p>b) 6 mille et 40 unités : 6 040 · 30 mille : 30 000 <i>(0,5 point chacun)</i></p>
+  <p>c) quatre-vingt-dix (vingt est suivi de dix) · deux-mille (mille ne prend jamais de s) · cinq-cents (cent est multiplié par 5 et rien ne le suit) <i>(0,5 point chacun)</i></p>`},
+{t:"Lire et décomposer un nombre", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Le chiffre des centaines est un seul chiffre. Pour le nombre de centaines, je garde tous les chiffres jusqu'à la colonne des centaines.</p></div>
+  <p>1) Voici le nombre 4 625 190 dans le tableau.</p>
+  <div class="scroll"><table class="num"><thead><tr><th colspan="3">Classe des millions</th><th colspan="3">Classe des mille</th><th colspan="3">Classe des unités</th></tr><tr>${"<th>c</th><th>d</th><th>u</th>".repeat(3)}</tr></thead><tbody><tr><td></td><td></td><td>4</td><td>6</td><td>2</td><td>5</td><td>1</td><td>9</td><td>0</td></tr></tbody></table></div>
+  <p>a) Le chiffre des dizaines de mille est …… b) Le nombre de centaines est ……</p>
+  <p>2) Complète : 60 324 = (6 × ……) + (3 × ……) + (2 × ……) + 4</p>
+  <p>3) Quel nombre s'écrit (3 × 1 000 000) + (5 × 1 000) + (2 × 10) ?</p>
+  <p class="note"><b>Aide :</b> place les chiffres dans un tableau de numération, et mets un 0 dans chaque case vide.</p>`,
+ c:`<p>1) a) Le chiffre des dizaines de mille est <b>2</b>. b) Je garde 4 6 2 5 1 : le nombre de centaines est <b>46 251</b>. <i>(0,5 point chacun)</i></p>
+  <p class="calc">2) 60 324 = (6 × 10 000) + (3 × 100) + (2 × 10) + 4</p><p><i>(0,5 point par case)</i></p>
+  <p>3) 3 millions, 5 mille et 2 dizaines : 3 000 000 + 5 000 + 20 = <b>3 005 020</b>. <i>(1,5 point)</i></p>`},
+{t:"Lire et placer sur une graduation", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>L'abscisse d'un point est le nombre qui lui correspond. On l'écrit entre parenthèses, par exemple A(3).</p></div>
+  <p>1) Voici une demi-droite graduée.</p>
+  ${axis({n:10, lab:[[0,"0"],[10,"100"]], pts:[["R",3],["S",7],["T",9]]})}
+  <p>a) Combien vaut une petite graduation ?</p><p class="note"><b>Aide :</b> il y a 10 intervalles entre 0 et 100. Calcule 100 ÷ 10.</p>
+  <p>b) Complète : R( …… ) S( …… ) T( …… )</p>
+  <p>2) Place les points U(300) et V(800) sur cette demi-droite graduée.</p>
+  ${axis({n:10, lab:[[0,"0"],[10,"1 000"]]})}
+  <p class="note"><b>Aide :</b> calcule d'abord la valeur d'une petite graduation, puis compte les graduations à partir de 0.</p>`,
+ c:`<p>1) a) 100 ÷ 10 = <b>10</b>. <i>(1 point)</i></p><p>b) R(30) ; S(70) ; T(90). <i>(0,5 point chacun)</i></p>
+  <p>2) 1 000 ÷ 10 = 100. U est à la 3<sup>e</sup> graduation, V à la 8<sup>e</sup>. <i>(0,5 point pour l'écart, 0,5 point par point bien placé)</i></p>
+  ${axis({n:10, lab:[[0,"0"],[10,"1 000"]], pts:[["U",3],["V",8]]})}`},
+{t:"Le bon résultat", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>On calcule toujours en premier ce qui est entre parenthèses.</p></div>
+  <p>Mets des parenthèses au bon endroit pour que le résultat soit juste.</p>
+  <p class="calc">a) 6 + 4 × 5 = 50<br>b) 20 − 5 + 3 = 12<br>c) 2 × 3 + 4 = 14</p>
+  <p class="note"><b>Aide :</b> essaie les parenthèses à plusieurs endroits, et calcule à chaque fois.</p>`,
+ c:`<p class="calc">a) (6 + 4) × 5 = 10 × 5 = 50<br>b) 20 − (5 + 3) = 20 − 8 = 12<br>c) 2 × (3 + 4) = 2 × 7 = 14</p><p><i>(1 point par égalité)</i></p>`}
 ]}
+}
 };
 })();

@@ -51,6 +51,8 @@ const dS=DEF.L.map((x,i)=>[x,DEF.v[i]]).sort((p,q)=>p[1]-q[1]);
 const fx=([a,b])=>a<0?`(${F(a,b)})`:F(a,b);
 const tw=v=>v<0?`(${F(v,20)})`:F(v,20);   /* en vingtièmes, entre parenthèses si négatif */
 const eqR=v=>F(v,20)===R(v,20)?`<b>${R(v,20)}</b>`:`${F(v,20)} = <b>${R(v,20)}</b>`;
+const {chns}=window.CHN4;   /* calculs en chaîne « A = … » */
+const stR=v=>F(v,20)===R(v,20)?[`<b>${R(v,20)}</b>`]:[F(v,20),`<b>${R(v,20)}</b>`];
 const VELO=(()=>{ for(;;){ const [p,q]=pick([[2,5],[1,2],[3,4],[3,5],[2,3]]), [r,s]=pick([[1,6],[1,8],[1,10],[1,4],[1,12]]); const m=lcm(q,s), pos=p*m/q-r*m/s; if(pos<=0) continue; const rest=m-pos, k=pick([0.1,0.2,0.5,1]); return {p,q,r,s,m,pos,rest,k,km:Math.round(rest*k*10)/10,T:Math.round(m*k*10)/10}; } })();
 const N=x=>String(x).replace(".",",");
 const SOM=(()=>{ const e=pick([1,2,3]), pr=pick([5,7,9,11]), dl=pick([2,3,4]); /* en 48e : endormissement e, profond 2·pr (en 24e pr), différence 6·dl/… */
@@ -94,12 +96,11 @@ return [
    c:`<p><b>1)</b></p>${E11.map(([a,b,c,d],i)=>calc(LET[i],addSteps(a,b,c,d,"+").L)).join("")}<p><b>2)</b></p>${E11b.map(([n,d],i)=>calc(LET[i],simp(n,d).slice(0))).join("")}`}
  ]},
  {t:"Pour les plus rapides", e:[
-  {n:"Exercice 12", t:"Défi", w:"Sur ton cahier", h:`<p>Avec deux des quatre nombres suivants :</p><p class="calc">${DEF.L.map(([a,b])=>F(a,b)).join(" &nbsp;&nbsp; ")}</p><p>a) calcule la plus grande somme possible ;</p><p>b) calcule la plus petite somme possible ;</p><p>c) calcule la plus grande différence possible ;</p><p>d) calcule la plus petite différence possible.</p>`,
+  {n:"Exercice 12", t:"Défi", w:"Sur ton cahier", h:`<p>Avec deux des quatre nombres suivants :</p><p class="calc">${DEF.L.map(([a,b])=>F(a,b)).join(" &nbsp;&nbsp; ")}</p><p>a) calcule la plus grande somme possible A ;</p><p>b) calcule la plus petite somme possible B ;</p><p>c) calcule la plus grande différence possible C ;</p><p>d) calcule la plus petite différence possible D.</p>`,
    c:`<p>En vingtièmes : ${DEF.L.map(([a,b],i)=>`${F(a,b)} = ${F(DEF.v[i],20)}`).join(" ; ")}.</p><p>Rangés : ${dS.map(x=>F(x[1],20)).join(" &lt; ")}.</p>
-   <p>a) On ajoute les deux plus grands : ${fx(dS[2][0])} + ${fx(dS[3][0])} = ${tw(dS[2][1])} + ${tw(dS[3][1])} = ${eqR(dS[2][1]+dS[3][1])}</p>
-   <p>b) On ajoute les deux plus petits : ${fx(dS[0][0])} + ${fx(dS[1][0])} = ${tw(dS[0][1])} + ${tw(dS[1][1])} = ${eqR(dS[0][1]+dS[1][1])}</p>
-   <p>c) Le plus grand moins le plus petit : ${fx(dS[3][0])} − ${fx(dS[0][0])} = ${tw(dS[3][1])} − ${tw(dS[0][1])} = ${eqR(dS[3][1]-dS[0][1])}</p>
-   <p>d) Le plus petit moins le plus grand : ${fx(dS[0][0])} − ${fx(dS[3][0])} = ${tw(dS[0][1])} − ${tw(dS[3][1])} = ${eqR(dS[0][1]-dS[3][1])}</p>`},
+   <p>a) On ajoute les deux plus grands. b) On ajoute les deux plus petits. c) Le plus grand moins le plus petit. d) Le plus petit moins le plus grand.</p>
+   ${chns([["A",[`${fx(dS[2][0])} + ${fx(dS[3][0])}`,`${tw(dS[2][1])} + ${tw(dS[3][1])}`,...stR(dS[2][1]+dS[3][1])]],["B",[`${fx(dS[0][0])} + ${fx(dS[1][0])}`,`${tw(dS[0][1])} + ${tw(dS[1][1])}`,...stR(dS[0][1]+dS[1][1])]],
+     ["C",[`${fx(dS[3][0])} − ${fx(dS[0][0])}`,`${tw(dS[3][1])} − ${tw(dS[0][1])}`,...stR(dS[3][1]-dS[0][1])]],["D",[`${fx(dS[0][0])} − ${fx(dS[3][0])}`,`${tw(dS[0][1])} − ${tw(dS[3][1])}`,...stR(dS[0][1]-dS[3][1])]]])}`},
   {n:"Exercice 13", t:"À vélo", w:"Sur ton cahier", h:`<p>Coline part du collège à vélo pour rentrer chez elle.</p><p>Elle parcourt ${F(VELO.p,VELO.q)} de son trajet, puis elle fait demi-tour sur ${F(VELO.r,VELO.s)} du parcours total pour ramasser son cartable.</p><p>Il lui reste alors ${N(VELO.km)} km à parcourir jusque chez elle.</p><p>Quelle est la distance entre chez elle et son collège ?</p>`,
    c:`<p class="calc">${F(VELO.p,VELO.q)} − ${F(VELO.r,VELO.s)} = ${F(VELO.p*VELO.m/VELO.q,VELO.m)} − ${F(VELO.r*VELO.m/VELO.s,VELO.m)} = ${F(VELO.pos,VELO.m)} du trajet</p><p>Il lui reste 1 − ${F(VELO.pos,VELO.m)} = ${F(VELO.rest,VELO.m)} du trajet, soit ${N(VELO.km)} km.</p><p class="calc">{1/${VELO.m}} du trajet : ${N(VELO.km)} ÷ ${VELO.rest} = ${N(VELO.k)} km<br>Trajet entier : ${VELO.m} × ${N(VELO.k)} = ${N(VELO.T)} km</p><p>La distance est <b>${N(VELO.T)} km</b>.</p>`},
   {n:"Exercice 14", t:"Sommeil", w:"Sur ton cahier", h:`<p>On a enregistré les phases de sommeil d'un patient, en fraction de la durée totale :</p><p>• temps d'endormissement : ${F(SOM.e,48)} ;</p><p>• sommeil profond : ${R(SOM.pr,24)} ;</p><p>• le sommeil léger dure ${R(SOM.D,48)} de plus que le sommeil profond.</p><p>Quelle est la part du sommeil paradoxal ?</p>`,

@@ -21,12 +21,12 @@ const secA = {t:"Le carré d'un nombre", e:[
    c:`<p>1) ${nA} × ${nA} = ${P(nA,2)} = <b>${nA*nA}</b> petits carrés.</p><p>2) Côté ${nA+2} : ${P(nA+2,2)} = <b>${(nA+2)**2}</b> petits carrés. Côté ${nA+5} : ${P(nA+5,2)} = <b>${(nA+5)**2}</b> petits carrés.</p>`},
   {n:"Exercice 2", t:"Écrire un produit et calculer", w:"Sur ton cahier", h:`<p>Écris sous forme d'un produit, puis calcule.</p>${cols(e1.map(([b,e],i)=>`${NM[i]} = ${P(b,e)}`))}`,
    c:grid(e1.map(([b,e],i)=>[NM[i], `${P(b,e)} = ${prod(b,e)} = <b>${D(pw(b,e))}</b>`]))},
-  {n:"Exercice 3", t:"Les carrés à connaître", w:"Sur ton cahier", h:`<p>Complète de tête (les carrés de 0 à 12 sont à connaître par cœur).</p><p>${items(e2.map(n=>`${P(n,2)} = ……`),"  ·  ",true)}</p>`,
-   c:`<p>${items(e2.map(n=>`${P(n,2)} = ${n} × ${n} = <b>${n*n}</b>`),"</p><p>",true)}</p>`},
-  {n:"Exercice 4", t:"Carrés de décimaux et de fractions", w:"Sur ton cahier", h:`<p>Calcule mentalement et écris seulement les résultats.</p><p>${items(e3.map(([q])=>`${q} = ……`),"  ·  ",true)}</p>`,
-   c:`<p>${items(e3.map(([q,r,m])=>`${q} = ${m} = <b>${r}</b>`),"</p><p>",true)}</p>`},
+  {n:"Exercice 3", t:"Les carrés à connaître", w:"Sur ton cahier", h:`<p>Complète de tête (les carrés de 0 à 12 sont à connaître par cœur).</p>${cols(e2.map((n,i)=>`${NM[i]} = ${P(n,2)}`))}`,
+   c:grid(e2.map((n,i)=>[NM[i], `${P(n,2)} = ${n} × ${n} = <b>${n*n}</b>`]))},
+  {n:"Exercice 4", t:"Carrés de décimaux et de fractions", w:"Sur ton cahier", h:`<p>Calcule mentalement et écris seulement les résultats.</p>${cols(e3.map(([q],i)=>`${NM[i]} = ${q}`))}`,
+   c:grid(e3.map(([q,r,m],i)=>[NM[i], `${q} = ${m} = <b>${r}</b>`]))},
   {n:"Exercice 5", t:"Corriger les erreurs", w:"Sur ton cahier", h:`<p>Vrai ou faux ? Justifie.</p><p>a) Léa affirme : « ${P(n4a,2)} = ${2*n4a} ». Que vaut vraiment ${P(n4a,2)} ? Quelle erreur a-t-elle commise ?</p><p>b) Noé affirme : « ${P(n4b,3)} = ${3*n4b} ». A-t-il raison ?</p><p>c) Sacha affirme : « le carré de ${n4c} est plus petit que le cube de ${n4c} ». A-t-il raison ?</p>`,
-   c:`<p>a) ${P(n4a,2)} = ${n4a} × ${n4a} = <b>${n4a*n4a}</b> : Léa a calculé ${n4a} × 2 au lieu de ${n4a} × ${n4a}.</p><p>b) <b>Non</b> : ${P(n4b,3)} = ${prod(n4b,3)} = ${n4b**3} ; Noé a calculé ${n4b} × 3.</p><p>c) <b>Oui</b> : ${P(n4c,2)} = ${n4c**2} et ${P(n4c,3)} = ${n4c**3}, et ${n4c**2} &lt; ${n4c**3}.</p>`}
+   c:`<p>a) Léa a calculé ${n4a} × 2 au lieu de ${n4a} × ${n4a}.</p>${grid([["A",`${P(n4a,2)} = ${n4a} × ${n4a} = <b>${n4a*n4a}</b>`]])}<p>b) <b>Non</b> : Noé a calculé ${n4b} × 3.</p>${grid([["B",`${P(n4b,3)} = ${prod(n4b,3)} = <b>${n4b**3}</b>`]])}<p>c) <b>Oui</b> : ${P(n4c,2)} = ${n4c**2} et ${P(n4c,3)} = ${n4c**3}, et ${n4c**2} &lt; ${n4c**3}.</p>`}
  ]};
 
 /* ================= B. Le cube d'un nombre ================= */
@@ -54,7 +54,7 @@ const T7 = [
 ];
 const T8 = [
   ()=>{ const a=ri(1,9), b=ri(2,5), c=ri(2,5); return [`${a} + ${b} × ${P(c,2)}`, `${a} + ${b} × ${P(c,2)} = ${a} + ${b} × ${c*c} = ${a} + ${b*c*c} = <b>${a+b*c*c}</b>`]; },
-  ()=>{ const a=ri(1,6), b=ri(1,6), c=ri(2,4); return [`(${a}+${b}) × ${P(c,2)}`, `(${a}+${b}) × ${P(c,2)} = ${a+b} × ${c*c} = <b>${(a+b)*c*c}</b>`]; },
+  ()=>{ const a=ri(1,6), b=ri(1,6), c=ri(2,4); return [`(${a}+${b}) × ${P(c,2)}`, `(${a}+${b}) × ${P(c,2)} = ${a+b} × ${P(c,2)} = ${a+b} × ${c*c} = <b>${(a+b)*c*c}</b>`]; },
   ()=>{ let a,b,c; do{ a=ri(4,10); b=ri(2,4); c=ri(2,4); }while(a*a-b*c*c<=0); return [`${P(a,2)} − ${b} × ${P(c,2)}`, `${P(a,2)} − ${b} × ${P(c,2)} = ${a*a} − ${b} × ${c*c} = ${a*a} − ${b*c*c} = <b>${a*a-b*c*c}</b>`]; },
   ()=>{ const b=ri(1,6), a=b+ri(1,4); return [`${P(`(${a}−${b})`,3)}`, `${P(`(${a}−${b})`,3)} = ${P(a-b,3)} = <b>${(a-b)**3}</b>`]; },
   ()=>{ const a=pick([10,6,8,4]), k=pick([0.5,0.2,0.1,0.25]), N=Math.ceil(a*a*k/50)*50+pick([50,100]); return [`${N} − ${P(a,2)} × ${D(k)}`, `${N} − ${P(a,2)} × ${D(k)} = ${N} − ${a*a} × ${D(k)} = ${N} − ${D(a*a*k)} = <b>${D(N-a*a*k)}</b>`]; },

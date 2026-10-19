@@ -3,7 +3,8 @@
 TRAIN["5e-9"] = function(){
 const {ri, pick, shuf} = TR;
 const {F, Fs, cols} = window.REL;
-const {P, R, suite, addEx, sgn, addWhy, NL} = window.REL9;
+const {P, R, suite, addEx, sgn, addWhy, NL, addL} = window.REL9;
+const UP="ABCDEFGHIJKL";
 const r3=x=>Math.round(x*1000)/1000;
 const L="abcdefghijkl";
 const nz=(a,b)=>{ let x; do{ x=ri(a,b); }while(!x); return x; };
@@ -69,10 +70,10 @@ return [
  {t:"Additionner des nombres relatifs", e:[
   {n:"Activité 1", t:"Le jeu des gains et des pertes", w:"Sur ton cahier", h:`<p>Noé commence un jeu avec un score de 0 point. À chaque manche, il gagne des points (nombre positif) ou il en perd (nombre négatif).</p><p>Recopie et complète le tableau.</p>${actTab(false)}<p><b>1)</b> Quelle règle permet de trouver le score après la manche 2 ?</p><p><b>2)</b> Quel est le score final de Noé ?</p>`,
    c:`${actTab(true)}<p><b>1)</b> ${addEx(v1,v2)} ${P(v1)} + ${P(v2)} = ${R(s2)}.</p><p><b>2)</b> Le score final de Noé est de <b>${R(s3+v4)} points</b>.</p>`},
-  {n:"Exercice 1", t:"Même signe", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(e1.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)}`))}`,
-   c:`<p>On garde le signe commun et on additionne les valeurs absolues.</p>${e1.map(([a,b],i)=>`<p>${L[i]}) ${P(a)} + ${P(b)} = <b>${R(a+b)}</b> &nbsp; <i>${addWhy(a,b)}</i></p>`).join("")}`},
-  {n:"Exercice 2", t:"Signes contraires", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(e2.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)}`))}`,
-   c:`<p>On soustrait les valeurs absolues et on garde le signe du nombre qui a la plus grande valeur absolue.</p>${e2.map(([a,b],i)=>`<p>${L[i]}) ${P(a)} + ${P(b)} = <b>${R(a+b)}</b> &nbsp; <i>${addWhy(a,b)}</i></p>`).join("")}`},
+  {n:"Exercice 1", t:"Même signe", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(e1.map(([a,b],i)=>`${L[i]}) ${UP[i]} = ${P(a)} + ${P(b)}`))}`,
+   c:`<p>On garde le signe commun et on additionne les valeurs absolues.</p><div class="calcs">${e1.map(([a,b],i)=>`<div>${addL(L[i],UP[i],a,b)}</div>`).join("")}</div>`},
+  {n:"Exercice 2", t:"Signes contraires", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(e2.map(([a,b],i)=>`${L[i]}) ${UP[i]} = ${P(a)} + ${P(b)}`))}`,
+   c:`<p>On soustrait les valeurs absolues et on garde le signe du nombre qui a la plus grande valeur absolue.</p><div class="calcs">${e2.map(([a,b],i)=>`<div>${addL(L[i],UP[i],a,b)}</div>`).join("")}</div>`},
   {n:"Exercice 3", t:"Le signe du résultat", w:"Sur ton cahier", h:`<p>Sans calculer, donne le signe de chaque somme : positive, négative ou nulle.</p>${e3Tab(false)}`,
    c:`${e3Tab(true)}<p>Le résultat a le signe du nombre qui a la plus grande valeur absolue (quand les deux nombres ont le même signe, c'est ce signe). Il vaut 0 si les nombres sont opposés.</p>`},
   {n:"Exercice 4", t:"Additions à trous", w:"Sur ton cahier", h:`<p>Complète par le nombre relatif qui convient.</p>${cols(e4.map((o,i)=>`${L[i]}) ${trou(o,false)}`))}`,
@@ -90,13 +91,13 @@ return [
   {n:"Exercice 8", t:"Suites d'additions et de soustractions", w:"Sur ton cahier", h:`<p>Calcule en regroupant astucieusement les nombres.</p>${cols(e8.map((e,i)=>`${NOMS8[i]} = ${suite(e.t)}`))}`,
    c:`<p>On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p><div class="calcs">${e8.map((e,i)=>`<div>${NL(NOMS8[i],`${suite(e.t)} = ${grp(e.pos)} − ${grp(e.neg)}${e.pos.length>1||e.neg.length>1?` = ${F(e.ps)} − ${F(e.ns)}`:""} = <b>${F(e.s)}</b>`)}</div>`).join("")}</div>`},
   {n:"Exercice 9", t:"Trouver l'erreur", w:"Sur ton cahier", h:`<p>Chaque élève a fait une erreur. Explique laquelle et donne le bon résultat.</p><p><b>1)</b> Léa a écrit : −${e9a} + ${e9b} = −${e9a+e9b}.</p><p><b>2)</b> Karim a écrit : (+${e9c}) − (+${e9d}) = +${e9d-e9c}.</p><p><b>3)</b> Inès a écrit : ${e9e} − (−${e9f}) = ${F(e9e-e9f)}.</p>`,
-   c:`<p><b>1)</b> Léa a additionné les valeurs absolues alors que les signes sont contraires. On soustrait ${e9a} − ${e9b} = ${e9a-e9b} et on garde le signe de −${e9a} : <b>−${e9a} + ${e9b} = ${F(e9b-e9a)}</b>.</p><p><b>2)</b> Karim a oublié que (+${e9c}) − (+${e9d}) = (+${e9c}) + (−${e9d}). On soustrait ${e9d} − ${e9c} = ${e9d-e9c} et on garde le signe − : <b>(+${e9c}) − (+${e9d}) = −${e9d-e9c}</b>.</p><p><b>3)</b> Inès n'a pas ajouté l'opposé de −${e9f} : <b>${e9e} − (−${e9f}) = ${e9e} + ${e9f} = ${e9e+e9f}</b>.</p>`},
+   c:`<p><b>1)</b> Léa a additionné les valeurs absolues alors que les signes sont contraires. On soustrait ${e9a} − ${e9b} = ${e9a-e9b} et on garde le signe de −${e9a}.</p>${NL("A",`−${e9a} + ${e9b} = <b>${F(e9b-e9a)}</b>`)}<p><b>2)</b> Karim a oublié que soustraire +${e9d}, c'est ajouter −${e9d}. On soustrait ${e9d} − ${e9c} = ${e9d-e9c} et on garde le signe −.</p>${NL("B",`(+${e9c}) − (+${e9d}) = (+${e9c}) + (−${e9d}) = <b>−${e9d-e9c}</b>`)}<p><b>3)</b> Inès n'a pas ajouté l'opposé de −${e9f}.</p>${NL("C",`${e9e} − (−${e9f}) = ${e9e} + ${e9f} = <b>${e9e+e9f}</b>`)}`},
   {n:"Exercice 10", t:"Problèmes", w:"Sur ton cahier", h:`<p>Écris le calcul, puis réponds.</p><p><b>1)</b> Au début du mois, le compte de Mme Martin affiche ${money(c0)} €. Elle reçoit ${money(c1)} €, puis elle paie une facture de ${money(c2)} €, puis une facture de ${money(c3)} €. Quel est son solde à la fin ?</p><p><b>2)</b> Il fait ${F(tm)} °C à 6 h. À midi, la température a monté de ${tu} °C. Le soir, elle a baissé de ${tb} °C par rapport à midi. Quelle est la température le soir ?</p>`,
    c:`<p><b>1)</b></p><p class="calc">${money(c0)} + ${money(c1)} − ${money(c2)} − ${money(c3)} = ${money(cS[1])} − ${money(c2)} − ${money(c3)} = ${money(cS[2])} − ${money(c3)} = ${money(cS[3])}</p><p>Le solde est de <b>${money(cS[3])} €</b>.</p><p><b>2)</b></p><p class="calc">${F(tm)} + ${tu} − ${tb} = ${F(tm+tu)} − ${tb} = ${F(tm+tu-tb)}</p><p>La température le soir est de <b>${F(tm+tu-tb)} °C</b>.</p>`},
   {n:"Exercice 11", t:"Carré magique", w:"Sur ton cahier", h:`<p>Recopie et complète ce carré magique : la somme de chaque ligne, de chaque colonne et de chaque diagonale doit être égale à 0.</p>${carre(MGh)}`,
    c:`${carre(MG)}<p>Ligne 1 : ${F(MG[0][0])} + … + ${P(MG[0][2])} = 0, donc ${F(MG[0][1])}.</p><p>Colonne 1 : ${F(MG[0][0])} + … + ${P(MG[2][0])} = 0, donc ${F(MG[1][0])}.</p><p>Colonne 3 : ${F(MG[0][2])} + … + ${P(MG[2][2])} = 0, donc ${F(MG[1][2])}.</p><p>Ligne 3 : ${F(MG[2][0])} + … + ${P(MG[2][2])} = 0, donc ${F(MG[2][1])}.</p><p><b>Vérification :</b> diagonales ${F(MG[0][0])} + 0 + ${P(MG[2][2])} = 0 et ${F(MG[0][2])} + 0 + ${P(MG[2][0])} = 0.</p>`},
-  {n:"Exercice 12", t:"Pour aller plus loin : calcul astucieux", w:"Sur ton cahier", h:`<p>Calcule le plus intelligemment possible.</p><p><b>a)</b> ${s12.map(x=>x<0?P(x):F(x)).join(" + ")}</p><p><b>b)</b> ${suite(t12)}</p>`,
-   c:`<p><b>a)</b> On associe chaque nombre à son opposé : (−${n12}) + ${n12} = 0, (−${n12-1}) + ${n12-1} = 0, … Le résultat est <b>0</b>.</p><p><b>b)</b> On regroupe par deux :</p><p class="calc">${Array.from({length:n12b},(_,k)=>`(−${2*n12b-2*k} + ${2*n12b-2*k-1})`).join(" + ")} = ${n12b} × (−1) = <b>−${n12b}</b></p>`}
+  {n:"Exercice 12", t:"Pour aller plus loin : calcul astucieux", w:"Sur ton cahier", h:`<p>Calcule le plus intelligemment possible.</p><p><b>a)</b> A = ${s12.map(x=>x<0?P(x):F(x)).join(" + ")}</p><p><b>b)</b> B = ${suite(t12)}</p>`,
+   c:`<p><b>a)</b> On associe chaque nombre à son opposé : (−${n12}) + ${n12} = 0, (−${n12-1}) + ${n12-1} = 0, …</p>${NL("A",`${s12.map(x=>x<0?P(x):F(x)).join(" + ")} = <b>0</b>`)}<p><b>b)</b> On regroupe par deux :</p>${NL("B",`${suite(t12)} = ${Array.from({length:n12b},(_,k)=>`(−${2*n12b-2*k} + ${2*n12b-2*k-1})`).join(" + ")} = ${n12b} × (−1) = <b>−${n12b}</b>`)}`}
  ]}
 ];
 };

@@ -75,7 +75,7 @@ function load(i){
   cur=i; store.set("niveau",i); const L=LV[i]; shown=false; if(!L.full) L.full=complete(L);
   grid=L.m.map((row,r)=>[...row].map((ch,c)=>montre(L,r,c)?ch:"."));
   const cols=[...new Set(L.m.join("").replace(/\./g,""))].sort(); couleur=cols[0];
-  $("mlevels").innerHTML = LV.map((l,j)=>(l.groupe?`<span class="ggroupe">${l.groupe}</span>`:"")+(l.defi?`<span class="ggroupe">Défi</span>`:"")+`<button class="lnum${j===i?" on":""}${done.includes(j)?" ok":""}${l.defi?" defi":""}" data-i="${j}" aria-label="Niveau ${j+1}">${j+1}</button>`).join("");
+  $("mlevels").innerHTML = LV.map((l,j)=>(l.defi?`<span class="ggroupe">Défi</span>`:"")+`<button class="lnum${j===i?" on":""}${done.includes(j)?" ok":""}${l.defi?" defi":""}" data-i="${j}" aria-label="Niveau ${j+1}">${j+1}</button>`).join("");
   R0.querySelectorAll("#mlevels .lnum").forEach(b=>b.onclick=()=>load(+b.dataset.i));
   $("mtitre").textContent=`Niveau ${i+1} · ${L.titre.replace(/^Défi : /,"Défi · ")}`;
   const ax={v:"l'axe rouge (vertical)", vc:"l'axe rouge (il passe au milieu d'une colonne de cases)", h:"l'axe rouge (horizontal)", d:"l'axe rouge (en diagonale)", vh:"les deux axes rouges"}[L.axe.t];

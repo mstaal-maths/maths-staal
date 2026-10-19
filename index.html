@@ -546,6 +546,7 @@ html.sheetmode #sheetpage{display:block;max-width:182mm;margin:0 auto;padding:0}
 .infoh{font-family:var(--f-display);font-size:1.3rem;margin:36px 0 14px}
 .chap.info p{margin:0}
 .jeuxacc{margin:0 0 48px}.jeuxacc .infoh{margin-top:0}
+.jeuxacc .jsub{font-size:1.05rem;margin:18px 0 10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .jeuxautres{margin:14px 0;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:4px 14px}
 .jeuxautres>summary{cursor:pointer;font-weight:700;font-size:1.05rem;padding:10px 0;color:var(--c)}
 .jeuxautres[open]>summary{margin-bottom:6px}.jeuxautres .chaps{margin-bottom:14px}
@@ -1291,7 +1292,7 @@ function classe(id){
         <div class="row"><span class="n">Chapitre ${i+1}</span>${on?"":`<span class="st off">Bientôt</span>`}</div>
         <h3>${esc(t)}</h3>${best?`<span class="best">Record : ${best} notions</span>`:""}</a>`;
     }).join("")}</div>
-    <h2 class="infoh">Informatique</h2>
+    <h2 class="infoh">Séances informatiques</h2>
     <div class="chaps">${infoCards(id)}</div>
     ${mjCards(id)?`<h2 class="infoh">Mini-jeux de maths</h2><div class="chaps">${mjCards(id)}</div>`:""}`;
 }
@@ -1300,31 +1301,37 @@ function infoCards(id){ return `${INFO34[id] ? INFO34[id]() : id==="5e"
       <h3>Le labyrinthe des nombres</h3><p class="where">Le robot transporte un nombre : programme les calculs qui ouvrent les portes à code.</p></a>
       <a class="chap info" href="#tableur5">${ILL("tableur5")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
       <h3>Le tableur · Statistiques</h3><p class="where">Effectifs, fréquences, pourcentages, moyenne et diagrammes, calculés par le tableur.</p></a>
-      <a class="chap info" href="#compte">${ILL("compte")}<div class="row"><span class="n">Calcul</span><span class="st on">6 niveaux</span></div>
-      <h3>Le compte est bon</h3><p class="where">Atteins la cible avec les plaques, puis écris ton calcul en une seule ligne, avec des parenthèses.</p></a>
-      <a class="chap info" href="#puiss5">${ILL("puiss5")}<div class="row"><span class="n">Calcul</span><span class="st on">7 grilles</span></div>
-      <h3>Le Puissance 4 du calcul</h3><p class="where">Additions et soustractions de nombres relatifs : calcule juste pour poser ton jeton, à deux ou contre l'ordinateur.</p></a>
       <a class="chap info" href="#geo5">${ILL("geo5")}<div class="row"><span class="n">Géométrie</span><span class="st on">15 niveaux</span></div>
-      <h3>Géométrie dynamique</h3><p class="where">Construis des figures avec les outils de GeoGebra, puis déplace les points pour découvrir des propriétés.</p></a>
-      <a class="chap info" href="#bnav5">${ILL("bnav5")}<div class="row"><span class="n">Repérage</span><span class="st on">2 niveaux</span></div>
-      <h3>La bataille navale du repère</h3><p class="where">Coule la flotte de l'ordinateur en écrivant des coordonnées, et repère ses tirs dans ta flotte.</p></a>`
+      <h3>Géométrie dynamique</h3><p class="where">Construis des figures avec les outils de GeoGebra, puis déplace les points pour découvrir des propriétés.</p></a>`
       : `<a class="chap info" href="#labyrinthe">${ILL("labyrinthe")}<div class="row"><span class="n">Programmation</span><span class="st on">14 niveaux</span></div>
       <h3>Le labyrinthe</h3><p class="where">Programme un robot avec des blocs, comme dans Scratch, pour le guider jusqu'au drapeau.</p></a>
       <a class="chap info" href="#tableur">${ILL("tableur")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
       <h3>Le tableur · Proportionnalité</h3><p class="where">Découvre le tableur : formules, recopie, et un test pour savoir si un tableau est de proportionnalité.</p></a>
       <a class="chap info" href="#geo6">${ILL("geo6")}<div class="row"><span class="n">Géométrie</span><span class="st on">16 niveaux</span></div>
-      <h3>Constructions géométriques</h3><p class="where">Construis des figures avec la règle, l'équerre et le compas, de plus en plus difficiles.</p></a>
-      <a class="chap info" href="#rapp6">${ILL("rapp6")}<div class="row"><span class="n">Géométrie</span><span class="st on">10 niveaux</span></div>
+      <h3>Constructions géométriques</h3><p class="where">Construis des figures avec la règle, l'équerre et le compas, de plus en plus difficiles.</p></a>`}`; }
+const MJ_EXTRA = id => ({
+  "6e": `<a class="chap info" href="#rapp6">${ILL("rapp6")}<div class="row"><span class="n">Géométrie</span><span class="st on">10 niveaux</span></div>
       <h3>Le rapporteur</h3><p class="where">Déplace et tourne le rapporteur pour mesurer des angles, puis pour en construire.</p></a>
       <a class="chap info" href="#miroir6">${ILL("miroir6")}<div class="row"><span class="n">Géométrie</span><span class="st on">14 niveaux</span></div>
       <h3>Le miroir</h3><p class="where">Colorie le quadrillage pour compléter les figures par symétrie axiale.</p></a>
       <a class="chap info" href="#puiss6">${ILL("puiss6")}<div class="row"><span class="n">Calcul</span><span class="st on">7 grilles</span></div>
-      <h3>Le Puissance 4 du calcul</h3><p class="where">Tables, × et ÷ par 10, 100, 1 000, calculs avec les décimaux : calcule juste pour poser ton jeton.</p></a>`}`; }
-function mjCards(id){ return Object.entries(window.MJ||{}).filter(([k,m])=>m.cls===id).map(([k,m])=>`<a class="chap info" href="#${k}">${ILL(k)}<div class="row"><span class="n">${m.tag}</span><span class="st on">${m.badge}</span></div>
+      <h3>Le Puissance 4 du calcul</h3><p class="where">Tables, × et ÷ par 10, 100, 1 000, calculs avec les décimaux : calcule juste pour poser ton jeton.</p></a>`,
+  "5e": `<a class="chap info" href="#compte">${ILL("compte")}<div class="row"><span class="n">Calcul</span><span class="st on">6 niveaux</span></div>
+      <h3>Le compte est bon</h3><p class="where">Atteins la cible avec les plaques, puis écris ton calcul en une seule ligne, avec des parenthèses.</p></a>
+      <a class="chap info" href="#bnav5">${ILL("bnav5")}<div class="row"><span class="n">Repérage</span><span class="st on">2 niveaux</span></div>
+      <h3>La bataille navale du repère</h3><p class="where">Coule la flotte de l'ordinateur en écrivant des coordonnées, et repère ses tirs dans ta flotte.</p></a>
+      <a class="chap info" href="#puiss5">${ILL("puiss5")}<div class="row"><span class="n">Calcul</span><span class="st on">7 grilles</span></div>
+      <h3>Le Puissance 4 du calcul</h3><p class="where">Additions et soustractions de nombres relatifs : calcule juste pour poser ton jeton, à deux ou contre l'ordinateur.</p></a>`,
+  "4e": `<a class="chap info" href="#puiss4">${ILL("puiss4")}<div class="row"><span class="n">Calcul</span><span class="st on">8 grilles</span></div>
+      <h3>Le Puissance 4 du calcul</h3><p class="where">Relatifs, puissances, calcul littéral : calcule juste pour poser ton jeton, à deux ou contre l'ordinateur.</p></a>`,
+  "3e": `<a class="chap info" href="#puiss3">${ILL("puiss3")}<div class="row"><span class="n">Calcul</span><span class="st on">6 grilles</span></div>
+      <h3>Le Puissance 4 du calcul</h3><p class="where">Développer avec la simple et la double distributivité, calculer avec les puissances de 10.</p></a>`
+})[id];
+function mjCards(id){ return (MJ_EXTRA(id)||"")+Object.entries(window.MJ||{}).filter(([k,m])=>m.cls===id).map(([k,m])=>`<a class="chap info" href="#${k}">${ILL(k)}<div class="row"><span class="n">${m.tag}</span><span class="st on">${m.badge}</span></div>
       <h3>${m.titre}</h3><p class="where">${m.desc}</p></a>`).join(""); }
 /* accueil : tous les jeux et l'informatique, classe par classe */
 function jeuxAccueil(mine){
-  const bloc=id=>`<div class="chaps">${mjCards(id)}${infoCards(id)}</div>`;
+  const bloc=id=>`<h3 class="jsub">Mini-jeux de maths</h3><div class="chaps">${mjCards(id)}</div><h3 class="jsub">Séances informatiques</h3><div class="chaps">${infoCards(id)}</div>`;
   const ids=["6e","5e","4e","3e"];
   if(mine && CLASSES[mine]) return `<section class="jeuxacc"><h2 class="infoh">Mini-jeux et informatique · ${CLASSES[mine].nom}</h2>${bloc(mine)}
     ${ids.filter(i=>i!==mine).map(i=>`<details class="jeuxautres" style="--c:${CLASSES[i].couleur}"><summary>Mini-jeux et informatique · ${CLASSES[i].nom}</summary>${bloc(i)}</details>`).join("")}</section>`;
@@ -1463,16 +1470,12 @@ const INFO34 = {
       <h3>Le lutin dessinateur</h3><p class="where">Programme le stylo du lutin, comme dans Scratch : polygones, frise par translation, variables.</p></a>
       <a class="chap info" href="#tableur4">${ILL("tableur4")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
       <h3>Le tableur · Statistiques</h3><p class="where">Diagrammes en bâtons et circulaires, moyenne pondérée, étendue, et une égalité à tester.</p></a>
-      <a class="chap info" href="#puiss4">${ILL("puiss4")}<div class="row"><span class="n">Calcul</span><span class="st on">8 grilles</span></div>
-      <h3>Le Puissance 4 du calcul</h3><p class="where">Relatifs, puissances, calcul littéral : calcule juste pour poser ton jeton, à deux ou contre l'ordinateur.</p></a>
       <a class="chap info" href="#geo4">${ILL("geo4")}<div class="row"><span class="n">Géométrie</span><span class="st on">12 niveaux</span></div>
       <h3>Géométrie dynamique</h3><p class="where">Translations et frise, puis le théorème de Pythagore et sa réciproque.</p></a>`,
   "3e": () => `<a class="chap info" href="#prog3">${ILL("prog3")}<div class="row"><span class="n">Programmation</span><span class="st on">14 niveaux</span></div>
       <h3>Programmer avec Scratch</h3><p class="where">Tout ce qui est attendu en fin de 3e : figures, variables, conditions, événements, blocs personnalisés et hasard.</p></a>
       <a class="chap info" href="#tableur3">${ILL("tableur3")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
       <h3>Le tableur · Fonctions</h3><p class="where">Tableau de valeurs, représentation graphique, et équations résolues par essais successifs.</p></a>
-      <a class="chap info" href="#puiss3">${ILL("puiss3")}<div class="row"><span class="n">Calcul</span><span class="st on">6 grilles</span></div>
-      <h3>Le Puissance 4 du calcul</h3><p class="where">Développer avec la simple et la double distributivité, calculer avec les puissances de 10.</p></a>
       <a class="chap info" href="#geo3">${ILL("geo3")}<div class="row"><span class="n">Géométrie</span><span class="st on">11 niveaux</span></div>
       <h3>Géométrie dynamique</h3><p class="where">Symétrie axiale, rotation, homothétie, puis le théorème de Thalès et sa réciproque.</p></a>`
 };
@@ -1504,7 +1507,7 @@ async function labyrinthe(jeu){
   const J=JEUX[jeu], cls=J.cls;
   if(J.mj) document.documentElement.style.setProperty("--c", CLASSES[cls].couleur);
   crumbs.innerHTML = `<a href="#accueil">Accueil</a><span aria-hidden="true">›</span><a href="#${cls}">${CLASSES[cls].nom}</a><span aria-hidden="true">›</span><span>${J.titre}</span>`;
-  app.innerHTML = `<div class="head"><span class="eyebrow">${J.mj?"Mini-jeu de maths":"Informatique · "+(J.eyebrow||(J.tab?"séance tableur":"jeu de programmation"))}</span><h1>${J.titre}</h1>
+  app.innerHTML = `<div class="head"><span class="eyebrow">${J.mj||/^(miroir6|rapp6|puiss[3-6]|compte|bnav5)$/.test(jeu)?"Mini-jeu de maths":"Informatique · "+(J.eyebrow||(J.tab?"séance tableur":"jeu de programmation"))}</span><h1>${J.titre}</h1>
     <p>${J.intro}</p></div>
     <div id="labyroot"><p class="where">Chargement du jeu…</p></div>`;
   try{ if(J.mod) await loadJS(J.mod.src); else if(J.tab) await loadJS("data/tableur.js"); else { await loadJS("lib/blockly/blockly_compressed.js"); await loadJS("lib/blockly/fr.js"); await loadJS("data/laby.js"); } }
@@ -1845,14 +1848,18 @@ function amenage(E){
   return Object.assign({}, E, {exos:E.exos.filter((e,i)=>best.kept[i]), comp, titre:E.titre+" · version aménagée",
     info:E.info+` · Version aménagée (tiers-temps) : sujet noté sur ${pnum(best.K)} points`, amen:{T, K:best.K, retires, liste:liste(retires), sans:comp.filter(c=>/^non évalué/.test(c[2])).map(c=>c[1])}});
 }
+/* version aménagée écrite à la main pour les élèves à besoins éducatifs particuliers (eval.bep), sinon version tiers-temps calculée */
+function amenOf(E){ if(!E) return null; if(E.bep){ const B=E.bep, K=B.exos.reduce((a,x)=>a+x.p,0);
+    return Object.assign({}, E, B, {titre:B.titre||E.titre+" · version aménagée", info:B.info||E.info+" · Version aménagée", amen:{bep:true, K, T:K, retires:[], liste:"", sans:[], note:B.note}}); }
+  return amenage(E); }
 function renderEval(panel, key, E0){
-  const want = store.get("amen")==="1", A = want ? amenage(E0) : null, E = A || E0, sfx = A ? "-am" : "";
+  const want = store.get("amen")==="1", A = want ? amenOf(E0) : null, E = A || E0, sfx = A ? "-am" : "";
   if(PRINT.cur && PRINT.cur.t==="eval") PRINT.cur = Object.assign({}, PRINT.cur, {D:Object.assign({}, PRINT.cur.D, {eval:E}), am:!!A});
   const saved = JSON.parse(store.get("comp-"+key) || "[]");
   panel.innerHTML = `
     <div class="card evhead"><h3>${esc(E.titre)}</h3><p>${E.info}</p>
-      <div class="amenbar"><button class="btn${want?" on":""}" id="amen" aria-pressed="${want}">${want?"✓ ":""}Version aménagée (tiers-temps)</button>
-        ${want ? (A ? `<span>Cette version garde environ les trois quarts du sujet${A.amen.sans.length?"":", avec au moins un exercice par compétence"} : ${A.amen.retires.length>1?"les exercices":"l'exercice"} ${A.amen.liste} de l'évaluation complète ${A.amen.retires.length>1?"sont retirés":"est retiré"}${A.amen.sans.length?` (la compétence « ${A.amen.sans.map(x=>fmt(x).replace(/\.$/,"")).join(" » et « ")} » n'est donc pas évaluée)`:""}. Le total est sur <b>${pnum(A.amen.K)} points</b> : pour avoir la note sur 20, calcule note × 20 ÷ ${pnum(A.amen.K)}.</span>` : `<span>Cette évaluation est trop courte pour être allégée : c'est la version complète.</span>`) : `<span>Pour les élèves qui ont un tiers-temps : un sujet plus court, à faire dans le même temps.</span>`}</div>
+      <div class="amenbar"><button class="btn${want?" on":""}" id="amen" aria-pressed="${want}">${want?"✓ ":""}${E0.bep?"Version aménagée (élèves à besoins particuliers)":"Version aménagée (tiers-temps)"}</button>
+        ${want && A && A.amen.bep ? `<span>${A.amen.note||"Même évaluation, adaptée : consignes plus courtes, rappels et aides. Le barème est le même."}</span>` : want ? (A ? `<span>Cette version garde environ les trois quarts du sujet${A.amen.sans.length?"":", avec au moins un exercice par compétence"} : ${A.amen.retires.length>1?"les exercices":"l'exercice"} ${A.amen.liste} de l'évaluation complète ${A.amen.retires.length>1?"sont retirés":"est retiré"}${A.amen.sans.length?` (la compétence « ${A.amen.sans.map(x=>fmt(x).replace(/\.$/,"")).join(" » et « ")} » n'est donc pas évaluée)`:""}. Le total est sur <b>${pnum(A.amen.K)} points</b> : pour avoir la note sur 20, calcule note × 20 ÷ ${pnum(A.amen.K)}.</span>` : `<span>Cette évaluation est trop courte pour être allégée : c'est la version complète.</span>`) : `<span>${E0.bep?"Pour les élèves à besoins éducatifs particuliers : la même évaluation, adaptée.":"Pour les élèves qui ont un tiers-temps : un sujet plus court, à faire dans le même temps."}</span>`}</div>
       <p>Fais-la sur ton cahier, comme une vraie évaluation, sans regarder le cours. Quand tu as fini, affiche le corrigé et note-toi avec le barème.</p>
       <div class="chrono"><b id="clock">${String(E.duree).padStart(2,"0")}:00</b><button class="btn" id="chr">Lancer le chrono</button></div></div>
     <div class="card"><div class="scroll"><table class="std comp"><thead><tr><th>Compétence</th><th>Ce que je dois être capable de faire</th><th>Exercices</th><th>Je sais faire</th></tr></thead>
@@ -2063,7 +2070,7 @@ function sheetHTML(P, kind){
   if(kind==="corr") return title("corr") + D.exos.map((S,si)=>{ const L=S.e.filter(e=>e.c); return L.length?sec(R[si],S.t)
       + L.map(e=>`<div class="sh-ex keep">${exH(e)}<div class="body">${corr(e.c)}</div></div>`).join(""):""; }).join("");
   let E=D.eval; if(!E) return "";
-  if(kind==="evsa"||kind==="evca"){ E=amenage(E)||E; kind=kind==="evsa"?"evs":"evc"; }
+  if(kind==="evsa"||kind==="evca"){ E=amenOf(E)||E; kind=kind==="evsa"?"evs":"evc"; }
   const T=num(E.exos.reduce((a,x)=>a+x.p,0));
   if(kind==="evs") return `<div class="sh-id"><span>Nom : ………………………</span><span>Prénom : ………………………</span><span>Classe : ……</span><span style="white-space:nowrap"><b>Note : …… / ${T}</b></span></div>`
       + `<h1 class="sh-title">${esc(E.titre)}</h1><p class="sh-sub">${E.info}</p>`
@@ -2081,7 +2088,7 @@ function sheetPage(key, kind, only){
   document.documentElement.classList.add("sheetmode");
   z.className="sheet"; z.innerHTML=D?sheetHTML({D, nom:C.nom, n:+n, titre:C.chapitres[+n-1][0], only:only?only.split(",").map(Number):null}, kind).replace(/ loading="lazy"/g,""):"";
   hatify(z); const T=C.chapitres[+n-1][0], E=D&&D.eval, SUF={cours:"", ess:" — En un coup d'œil", ex:" — Exercices", corr:" — Corrigé"};
-  const EA = E && /a$/.test(kind) ? (amenage(E)||E) : E;
+  const EA = E && /a$/.test(kind) ? (amenOf(E)||E) : E;
   document.title = /^ev/.test(kind) && E ? `${EA.titre}${/^evc/.test(kind)?" — Corrigé":""} — ${id}` : `Chapitre ${n} — ${T}${SUF[kind]||""} — ${id}`;
 }
 /* ---------- Navigation ---------- */

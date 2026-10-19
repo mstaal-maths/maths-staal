@@ -154,6 +154,67 @@ quiz:[
  3:[ {g:()=>{ const k=pick([2,3,3.5,1.5]), prop=Math.random()<0.5, xs=[1,3,5,10]; const ys=xs.map(x=>r3(k*x)); if(!prop) ys[3]=r3(ys[3]+pick([1,2,-1])); return {q:"Les points de ce tableau seraient-ils alignés avec l'origine ?", fig:TB(["Abscisse",...xs.map(String)],[["Ordonnée",...ys.map(F)]]), c:["Oui","Non"], rep:prop?"Oui":"Non", ex:prop?`Tous les quotients valent ${F(k)} : c'est une situation de proportionnalité.`:`${Q(F(ys[0]),1)} = ${F(ys[0])} mais ${Q(F(ys[3]),10)} = ${F(ys[3]/10)} : les quotients sont différents.`, sx:S_PROP}; }},
      {g:()=>{ const p=pick([2,3]), e=ri(2,4), q=1; return {q:`Formule A : ${p} € par heure. Formule B : ${e} € pour l'entrée, puis ${q} € par heure. Quelle formule correspond à une situation de proportionnalité ?`, c:["la formule A","la formule B","les deux"], rep:"la formule A", ex:`Formule A : prix = ${p} × durée. Formule B : ${Q(e+1,1)} = ${e+1} et ${Q(e+2,2)} = ${F((e+2)/2)}, les quotients sont différents.`, sx:S_PROP}; }} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const PK = [["K",3,4],["L",6,2],["M",0,1,9,-8]];
+const PN = [["N",2,0,8,-10],["P",4.5,3.5]];
+const G_KLM = gr({xmax:7, ymax:5, pts:PK, pw:280, ph:200, alt:"Repère avec les points K, L et M"});
+const G_KLMc = gr({xmax:7, ymax:5, pts:[...PK,...PN], proj:[...PK,...PN].map(p=>[p[1],p[2]]), pw:280, ph:200, alt:"Repère avec les points K, L, M, N et P"});
+const TAXI = [1,2,3,4,5,6].map(x=>["",x,3+2*x]);
+const G_TAXI = gr({xmax:7, ymax:16, yl:2, pts:TAXI, segs:[[0,3,6.5,16]], title:"Prix d'une course en taxi", xt:"Distance (km)", yt:"Prix (€)", pw:280, ph:256, alt:"Prix d'une course en taxi selon la distance"});
+const G_TAXIc = gr({xmax:7, ymax:16, yl:2, pts:TAXI, segs:[[0,3,6.5,16]], proj:[[4,11],[2,7]], title:"Prix d'une course en taxi", xt:"Distance (km)", yt:"Prix (€)", pw:280, ph:256, alt:"Prix du taxi : lectures pour 4 km et pour 7 €"});
+const ROB = [[1,3],[2,6],[4,12],[6,18]];
+const TROB = TB(["Durée (min)","1","2","4","6"],[["Volume d'eau (L)","3","6","12","18"]]);
+const G_ROB = gr({xmax:7, ymax:20, ys:2, xt:"Durée (min)", yt:"Volume d'eau (L)", pw:280, ph:250, alt:"Repère vide : durée en abscisse, volume d'eau en ordonnée"});
+const G_ROBc = gr({xmax:7, ymax:20, ys:2, pts:ROB.map(([x,y])=>["",x,y]), segs:[[0,0,6.67,20,1]], proj:[[5,15]], xt:"Durée (min)", yt:"Volume d'eau (L)", pw:280, ph:250, alt:"Les quatre points alignés avec l'origine ; lecture : 15 L en 5 min"});
+const G4 = c => `<div class="figs"><figure><figcaption>Graphique 1</figcaption>${gr({xmax:5, ymax:9, pts:[1,2,3,4].map(x=>["",x,x*x/2]), segs:c?[[0,0,4,8,1]]:[], pw:200, ph:180, alt:"Graphique 1"})}</figure><figure><figcaption>Graphique 2</figcaption>${gr({xmax:5, ymax:9, pts:[1,2,3,4].map(x=>["",x,1.5*x]), segs:c?[[0,0,5,7.5,1]]:[], pw:200, ph:180, alt:"Graphique 2"})}</figure></div>`;
+const EX1c = `<p>a) On lit d'abord l'abscisse (axe horizontal), puis l'ordonnée (axe vertical) :</p><p>${PK.map(([n,x,y])=>P(n,x,y)).join(" &nbsp; ")}</p>`;
+const EX4c = `<p>Une situation est une situation de proportionnalité si et seulement si les points sont <b>alignés avec l'origine</b>.</p>${G4(true)}
+  <p>Graphique 1 : <b>non</b>. Les points ne sont pas alignés : la droite qui passe par l'origine et le dernier point ne passe pas par les autres. On le voit aussi avec les quotients : ${Q("0,5",1)} = 0,5 et ${Q(2,2)} = 1 sont différents. <i>(1 point : 0,5 pour la réponse, 0,5 pour la justification)</i></p>
+  <p>Graphique 2 : <b>oui</b>. Les points (1 ; 1,5), (2 ; 3), (3 ; 4,5) et (4 ; 6) sont alignés avec l'origine.</p><p class="calc">${Q("1,5",1)} = ${Q(3,2)} = ${Q("4,5",3)} = ${Q(6,4)} = 1,5</p><p>Le coefficient de proportionnalité est 1,5. <i>(1 point : 0,5 pour la réponse, 0,5 pour la justification)</i></p>`;
+const COMP = [
+  ["REPRÉSENTER","Je lis et je place des points dans un repère ; je représente un tableau de valeurs par des points.","Ex. 1 et 3 (5,5 points)"],
+  ["COMMUNIQUER","Je lis des valeurs sur un graphique.","Ex. 2 (2,5 points)"],
+  ["RAISONNER","Je reconnais, en justifiant, une situation de proportionnalité sur un graphique.","Ex. 4 (2 points)"]
+];
+const INFO = "Durée : 25 min · Calculatrice non autorisée · Règle et crayon";
+const ROBh = `<p>Un robinet remplit une bassine. Voici le volume d'eau dans la bassine selon la durée.</p>${TROB}${G_ROB}`;
+return {
+titre:"Évaluation d'entraînement — Chapitre 14", duree:25, info:INFO,
+comp:COMP,
+exos:[
+{t:"Coordonnées de points", p:2.5, h:`${G_KLM}<p>a) Lis les coordonnées des points K, L et M.</p><p>b) Place dans le repère les points N(2 ; 0) et P(4,5 ; 3,5).</p>`,
+ c:`${EX1c}<p><i>(1,5 point : 0,5 par point)</i></p><p>b) Pour N : on avance de 2 vers la droite, on ne monte pas (N est sur l'axe des abscisses). Pour P : on avance de 4,5 puis on monte de 3,5. <i>(1 point : 0,5 par point)</i></p>${G_KLMc}`},
+{t:"Lire un graphique", p:2.5, h:`<p>Le graphique donne le prix d'une course en taxi selon la distance parcourue.</p>${G_TAXI}
+  <p>a) Combien coûte une course de 4 km ?</p><p>b) Quelle distance peut-on parcourir avec 7 € ?</p><p>c) Quel est le prix à payer avant même d'avoir roulé (pour 0 km) ?</p><p>d) Le prix de la course est-il proportionnel à la distance ? Justifie.</p>`,
+ c:`${G_TAXIc}<p>a) On part de 4 km sur l'axe horizontal, on monte jusqu'à la droite, puis on lit l'ordonnée : <b>11 €</b>. <i>(0,5 point)</i></p><p>b) On part de 7 € sur l'axe vertical, on va jusqu'à la droite, puis on lit l'abscisse : <b>2 km</b>. <i>(0,5 point)</i></p><p>c) Pour 0 km, la droite passe par 3 : il faut payer <b>3 €</b>. <i>(0,5 point)</i></p><p>d) <b>Non</b> : les points sont alignés, mais la droite <b>ne passe pas par l'origine</b> (pour 0 km, le prix est 3 €, et non 0 €). <i>(1 point : 0,5 pour la réponse, 0,5 pour la justification)</i></p><p>On peut aussi le vérifier avec les quotients : ${Q(5,1)} = 5 et ${Q(7,2)} = 3,5 sont différents.</p>`},
+{t:"Du tableau au graphique", p:3, h:`${ROBh}
+  <p>1. Place dans le repère les points qui correspondent au tableau.</p><p>2. Ces points sont-ils alignés avec l'origine du repère ? Que peux-tu en conclure ?</p><p>3. Trace la droite qui passe par ces points. Par lecture graphique, au bout de combien de temps la bassine contient-elle 15 L ?</p><p>4. Combien de litres d'eau coulent du robinet en une minute ?</p>`,
+ c:`<p>1. Chaque colonne du tableau donne un point : (1 ; 3), (2 ; 6), (4 ; 12) et (6 ; 18). <i>(1 point : 0,25 par point)</i></p>${G_ROBc}
+  <p>2. <b>Oui</b> : les quatre points sont alignés avec l'origine. Le volume d'eau est donc <b>proportionnel</b> à la durée. <i>(1 point : 0,5 pour la réponse, 0,5 pour la conclusion)</i></p><p>3. On trace la droite qui passe par les points. On part de 15 L sur l'axe vertical, on va jusqu'à la droite, puis on lit l'abscisse : <b>5 min</b>. <i>(0,5 point)</i></p><p>4. C'est l'ordonnée du point d'abscisse 1 : <b>3 L</b> par minute (le coefficient de proportionnalité). <i>(0,5 point)</i></p>`},
+{t:"Reconnaître la proportionnalité", p:2, h:`<p>Chaque graphique représente une grandeur qui dépend d'une autre.</p>${G4(false)}<p>Pour chaque graphique, dis s'il représente une situation de proportionnalité. Justifie.</p>`,
+ c:EX4c}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 14 · version aménagée", duree:25, info:"Version aménagée · "+INFO,
+note:"Même durée, avec environ une question sur cinq en moins (les questions restantes sont renumérotées). Toujours sur 10 : les points sont répartis sur les questions gardées. Les justifications restent demandées.",
+comp:COMP,
+exos:[
+{t:"Coordonnées de points", p:2.5, h:`${G_KLM}<p>a) Lis les coordonnées des points K, L et M.</p><p>b) Place dans le repère les points N(2 ; 0) et P(4,5 ; 3,5).</p>`,
+ c:`${EX1c}<p><i>(1,5 point : 0,5 par point)</i></p><p>b) Pour N : on avance de 2 vers la droite, on ne monte pas (N est sur l'axe des abscisses). Pour P : on avance de 4,5 puis on monte de 3,5. <i>(1 point : 0,5 par point)</i></p>${G_KLMc}`},
+{t:"Lire un graphique", p:2.5, h:`<p>Le graphique donne le prix d'une course en taxi selon la distance parcourue.</p>${G_TAXI}
+  <p>a) Combien coûte une course de 4 km ?</p><p>b) Quelle distance peut-on parcourir avec 7 € ?</p><p>c) Le prix de la course est-il proportionnel à la distance ? Justifie.</p>`,
+ c:`${G_TAXIc}<p>a) On part de 4 km sur l'axe horizontal, on monte jusqu'à la droite, puis on lit l'ordonnée : <b>11 €</b>. <i>(0,5 point)</i></p><p>b) On part de 7 € sur l'axe vertical, on va jusqu'à la droite, puis on lit l'abscisse : <b>2 km</b>. <i>(1 point)</i></p><p>c) <b>Non</b> : les points sont alignés, mais la droite <b>ne passe pas par l'origine</b> (pour 0 km, le prix est 3 €, et non 0 €). <i>(1 point : 0,5 pour la réponse, 0,5 pour la justification)</i></p><p>On peut aussi le vérifier avec les quotients : ${Q(5,1)} = 5 et ${Q(7,2)} = 3,5 sont différents.</p>`},
+{t:"Du tableau au graphique", p:3, h:`${ROBh}
+  <p>1. Place dans le repère les points qui correspondent au tableau.</p><p>2. Ces points sont-ils alignés avec l'origine du repère ? Que peux-tu en conclure ?</p><p>3. Trace la droite qui passe par ces points. Par lecture graphique, au bout de combien de temps la bassine contient-elle 15 L ?</p>`,
+ c:`<p>1. Chaque colonne du tableau donne un point : (1 ; 3), (2 ; 6), (4 ; 12) et (6 ; 18). <i>(1 point : 0,25 par point)</i></p>${G_ROBc}
+  <p>2. <b>Oui</b> : les quatre points sont alignés avec l'origine. Le volume d'eau est donc <b>proportionnel</b> à la durée. <i>(1 point : 0,5 pour la réponse, 0,5 pour la conclusion)</i></p><p>3. On trace la droite qui passe par les points. On part de 15 L sur l'axe vertical, on va jusqu'à la droite, puis on lit l'abscisse : <b>5 min</b>. <i>(1 point)</i></p>`},
+{t:"Reconnaître la proportionnalité", p:2, h:`<p>Chaque graphique représente une grandeur qui dépend d'une autre.</p>${G4(false)}<p>Pour chaque graphique, dis s'il représente une situation de proportionnalité. Justifie.</p>`,
+ c:EX4c}
+]}
+};
+})()
 };
 })();

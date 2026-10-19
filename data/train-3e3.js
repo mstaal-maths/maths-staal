@@ -70,7 +70,8 @@ const EX12 = shuf([ {s:`${co(ri(2,6))}(x+${ri(1,9)})`, d:true}, {s:fT[0](), d:fa
 return [
  {t:"Réduire et supprimer des parenthèses", e:[
   {n:"Activité 2", t:"L'opposé d'un nombre ou d'une opération", w:"Sur ton cahier", h:`<p>Recopie et complète : donne l'opposé, puis le calcul associé.</p>${OPP.map((o,i)=>`<p><b>${"abcdefg"[i]})</b> L'opposé de ${o[0]} est …</p>`).join("")}`,
-   c:OPP.map((o,i)=>`<p><b>${"abcdefg"[i]})</b> L'opposé de ${o[0]} est <b>${o[1]}</b> : ${o[2]}</p>`).join("")},
+   c:OPP.map((o,i)=>{ const p=o[2].split(" = "), N="ABCDEFG"[i];   /* calcul en chaîne nommé quand il y a des étapes */
+     return p.length>2 ? `<p><b>${"abcdefg"[i]})</b> L'opposé de ${o[0]} est <b>${o[1]}</b> :</p>${calc(p.map(t=>`${N} = ${t}`))}` : `<p><b>${"abcdefg"[i]})</b> L'opposé de ${o[0]} est <b>${o[1]}</b> : ${o[2]}</p>`; }).join("")},
   {n:"Exercice 1", t:"Réduire des expressions de la forme −(a + b) ou +(a + b)", w:"Sur ton cahier", h:`<p>Recopie les expressions sur ton cahier et réduis-les.</p>${grid(EX1.map((s,i)=>E(LET[i],s)))}`,
    c:grid(EX1.map((s,i)=>dv(LET[i],s)))}
  ]},

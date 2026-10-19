@@ -4,6 +4,9 @@ TRAIN["3e-14"] = function(){
 const {ri, pick, shuf, distinct} = TR;
 const {F,calc,cols,E,pw,bs,P10,FRH,prod,dec,sciOf,sci,nz} = window.PW14;
 const L="abcdefghijkl";
+/* calcul en chaîne : « a) A = … » puis une ligne « A = … » par étape */
+const nm=(i,parts)=>calc(parts.map((t,k)=>(k===0?L[i]+") ":"")+L[i].toUpperCase()+" = "+t));
+const nmH=(i,t)=>`${L[i]}) ${L[i].toUpperCase()} = ${t}`;
 
 /* ===== Exercice 1 : décomposer et calculer ===== */
 const E1=distinct(8,()=>{ const t=pick(["pos","neg","moins","dix","zero","un"]);
@@ -66,8 +69,8 @@ const s14c=v=>{ const num=v.a*v.b, K=Math.round(num*1000/v.c), e=v.m+v.n-v.p, q=
 
 return [
  {t:"Puissances d'exposant positif", e:[
-  {n:"Exercice 1", t:"Décomposer et calculer (sans calculatrice)", w:"Sur ta feuille", h:`<p>Décompose chaque puissance sous la forme d'un produit et donne le résultat, sans calculatrice.</p>${cols(E1.map((v,i)=>`${L[i]}) ${e1h(v)}`))}`,
-   c:cols(E1.map((v,i)=>`${L[i]}) ${e1h(v)} = ${e1c(v)}`))},
+  {n:"Exercice 1", t:"Décomposer et calculer (sans calculatrice)", w:"Sur ta feuille", h:`<p>Décompose chaque puissance sous la forme d'un produit et donne le résultat, sans calculatrice.</p>${cols(E1.map((v,i)=>nmH(i,e1h(v))))}`,
+   c:cols(E1.map((v,i)=>nm(i,[e1h(v),...e1c(v).split(" = ")])))},
   {n:"Exercice 2", t:"Priorités opératoires (sans calculatrice)", w:"Sur ton cahier", h:`<p>Recopie le calcul et calcule en tenant compte des priorités opératoires.</p>${cols(P2.map(x=>x[0]))}`,
    c:cols(P2.map(x=>calc([x[0],...x[1]])))},
   {n:"Exercice 3", t:"Jeu du « quitte ou double »", w:"Sur ton cahier", h:`<p>Au jeu « Le quitte ou double », la première bonne réponse rapporte 1 €, et ensuite chaque bonne réponse permet de doubler son gain.</p><p><b>1)</b> Un joueur a répondu correctement à ${Q3.n} questions de suite. Quel est son gain ?</p><p><b>2)</b> Combien de bonnes réponses consécutives, au minimum, lui faut-il pour gagner plus de ${F(Q3.S)} € ?</p>`,
@@ -76,8 +79,8 @@ return [
 <p><b>2)</b> Après ${Q3.m-1} bonnes réponses : ${pw("2",Q3.m-2)} = ${F(Math.pow(2,Q3.m-2))} € (pas plus de ${F(Q3.S)} €). Après ${Q3.m} bonnes réponses : ${pw("2",Q3.m-1)} = ${F(Math.pow(2,Q3.m-1))} €.</p><p>Il faut au minimum <b>${Q3.m} bonnes réponses</b>.</p>`}
  ]},
  {t:"Exposants négatifs et puissances de 10", e:[
-  {n:"Exercice 4", t:"Les puissances d'exposants positifs et négatifs", w:"Sur ta feuille", h:`<p>Donne le résultat sous la forme d'une écriture décimale ou d'une fraction réduite.</p>${cols(E5.map((v,i)=>`${L[i]}) ${e5h(v)}`))}`,
-   c:cols(E5.map((v,i)=>`${L[i]}) ${e5h(v)} = ${e5c(v)}`))},
+  {n:"Exercice 4", t:"Les puissances d'exposants positifs et négatifs", w:"Sur ta feuille", h:`<p>Donne le résultat sous la forme d'une écriture décimale ou d'une fraction réduite.</p>${cols(E5.map((v,i)=>nmH(i,e5h(v))))}`,
+   c:cols(E5.map((v,i)=>nm(i,[e5h(v),...e5c(v).split(" = ")])))},
   {n:"Exercice 5", t:"Les puissances de 10", w:"Sur ta feuille", h:`<p>Donne directement le résultat en écriture décimale.</p>${cols(E6.map((n,i)=>`${L[i]}) ${P10(n)}`))}`,
    c:cols(E6.map((n,i)=>`${L[i]}) ${P10(n)} = ${dec(1,n)}`))},
   {n:"Exercice 6", t:"Multiplier un nombre par une puissance de 10", w:"Sur ta feuille", h:`<p>Donne l'écriture décimale de chaque expression.</p>${cols(E8.map(([M,q,n],i)=>`${"ABCDEF"[i]} = ${dec(M,q)} × ${P10(n)}`))}`,
@@ -88,14 +91,14 @@ return [
    c:cols(PR.map((v,i)=>{ const e=v.a[1]-v.b[1]; return `${L[i]}) ${dec(v.M,v.q)} ${v.a[0]}${v.unit} = ${dec(v.M,v.q)} × ${P10(e)} ${v.b[0]}${v.unit} = ${dec(v.M,v.q+e)} ${v.b[0]}${v.unit} = ${sci(v.M,v.q+e)} ${v.b[0]}${v.unit}`; }))+`<p>Rappel : G = ${P10(9)} · M = ${P10(6)} · k = ${P10(3)} · m = ${P10(-3)} · μ = ${P10(-6)} · n = ${P10(-9)}</p>`}
  ]},
  {t:"Calculer avec des puissances", e:[
-  {n:"Exercice 8", t:"Calculs avec des puissances", w:"Sur ton cahier", h:`<p>Exprime le résultat sous la forme d'une puissance.</p>${cols(R.map((v,i)=>`${L[i]}) ${rH(v)}`))}`,
-   c:cols(R.map((v,i)=>`${L[i]}) ${rH(v)} = ${rC(v)}`))}
+  {n:"Exercice 8", t:"Calculs avec des puissances", w:"Sur ton cahier", h:`<p>Exprime le résultat sous la forme d'une puissance.</p>${cols(R.map((v,i)=>nmH(i,rH(v))))}`,
+   c:cols(R.map((v,i)=>nm(i,[rH(v),...rC(v).split(" = ")])))}
  ]},
  {t:"Notation scientifique", e:[
   {n:"Exercice 9", t:"De l'écriture décimale à la notation scientifique", w:"Sur ton cahier", h:`<p>Écris chacun de ces nombres en notation scientifique.</p>${cols(S12.map(([M,p],i)=>`${L[i]}) ${dec(M,p)}`))}`,
    c:cols(S12.map(([M,p],i)=>`${L[i]}) ${dec(M,p)} = ${sci(M,p)}`))},
-  {n:"Exercice 10", t:"Écrire un produit en notation scientifique", w:"Sur ton cahier", h:`<p>Écris le résultat de chaque produit en notation scientifique.</p>${cols(S13.map((v,i)=>`${L[i]}) ${dec(v[0],v[1])} × ${P10(v[2])}`))}`,
-   c:cols(S13.map((v,i)=>`${L[i]}) ${s13c(v)}`))},
+  {n:"Exercice 10", t:"Écrire un produit en notation scientifique", w:"Sur ton cahier", h:`<p>Écris le résultat de chaque produit en notation scientifique.</p>${cols(S13.map((v,i)=>nmH(i,`${dec(v[0],v[1])} × ${P10(v[2])}`)))}`,
+   c:cols(S13.map((v,i)=>nm(i,s13c(v).split(" = "))))},
   {n:"Exercice 11", t:"Calculer un quotient d'écritures scientifiques", w:"Sur ton cahier", h:`<p>Exprime le résultat de chaque calcul en notation scientifique.</p>${cols(S14.map((v,i)=>`${"AB"[i]} = ${FRH(`${v.a} × ${P10(v.m)} × ${v.b} × ${P10(v.n)}`,`${v.c} × ${P10(v.p)}`)}`))}`,
    c:cols(S14.map((v,i)=>{ const A="AB"[i]; return calc([`${A} = ${FRH(`${v.a} × ${P10(v.m)} × ${v.b} × ${P10(v.n)}`,`${v.c} × ${P10(v.p)}`)}`,...s14c(v).split(" = ").map(t=>`${A} = ${t}`)]); }))}
  ]}

@@ -45,10 +45,10 @@ const E10=(()=>{ const [a,b]=fr(), [c,d]=fr(true); const [e,f]=fr(); const g=nz(
 
 return [
  {t:"Multiplier des fractions", e:[
-  {n:"Exercice 1", t:"Multiplier puis simplifier", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p>${E1.map((x,i)=>`<p>${"abcdef"[i]}) ${x.S.L[0]}</p>`).join("")}`,
+  {n:"Exercice 1", t:"Multiplier puis simplifier", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p>${E1.map((x,i)=>`<p>${L6[i]} = ${x.S.L[0]}</p>`).join("")}`,
    c:E1.map((x,i)=>calc(L6[i],x.S.L)).join("")},
   {n:"Exercice 2", t:"Simplifier avant de multiplier", w:"Sur ton cahier", h:`<p>Calcule en simplifiant avant d'effectuer les multiplications.</p>${E2.map((x,i)=>`<p>${L6[i]} = ${x.S.L[0]}</p>`).join("")}<p>F = ${F(T3.p,T3.q)} × ${F(T3.q,T3.r)} × ${F(T3.r,T3.t)}</p>`,
-   c:E2.map((x,i)=>calc(L6[i],x.S.L)).join("")+calc("F",[`${F(T3.p,T3.q)} × ${F(T3.q,T3.r)} × ${F(T3.r,T3.t)}`,`{${T3.p} × ${T3.q} × ${T3.r}/${T3.q} × ${T3.r} × ${T3.t}}`,F(T3.p,T3.t)+(gcd(T3.p,T3.t)>1?" = "+R(T3.p,T3.t):"")])},
+   c:E2.map((x,i)=>calc(L6[i],x.S.L)).join("")+calc("F",[`${F(T3.p,T3.q)} × ${F(T3.q,T3.r)} × ${F(T3.r,T3.t)}`,`{${T3.p} × ${T3.q} × ${T3.r}/${T3.q} × ${T3.r} × ${T3.t}}`,F(T3.p,T3.t),...(gcd(T3.p,T3.t)>1?[R(T3.p,T3.t)]:[])])},
   {n:"Exercice 3", t:"Décomposer pour simplifier", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p>${E3.map((x,i)=>`<p>${L6[i]} = ${x.S.L[0]}</p>`).join("")}`,
    c:E3.map((x,i)=>calc(L6[i],x.S.L)).join("")}
  ]},
@@ -67,7 +67,7 @@ return [
    c:E8.map((o,i)=>`<p>${"abcde"[i]}) L'inverse de ${F(o.x,o.y)} est <b>${F(...o.i)}</b> car ${F(o.x,o.y)} × ${F(...o.i)} = 1.</p>`).join("")},
   {n:"Exercice 9", t:"Diviser des fractions", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p>${E9.map((o,i)=>`<p>${L6[i]} = ${o.t}</p>`).join("")}`,
    c:E9.map((o,i)=>calc(L6[i],o.S.L)).join("")},
-  {n:"Exercice 10", t:"Des fractions de fractions", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p><div class="figs" style="gap:40px">${E10.map((o,i)=>`<p>${"abcd"[i]}) ${FR2(o.top,o.bot)}</p>`).join("")}</div>`,
+  {n:"Exercice 10", t:"Des fractions de fractions", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p><div class="figs" style="gap:40px">${E10.map((o,i)=>`<p>${L6[i]} = ${FR2(o.top,o.bot)}</p>`).join("")}</div>`,
    c:E10.map((o,i)=>calc(L6[i],o.S.L)).join("")}
  ]}
 ];

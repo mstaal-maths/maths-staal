@@ -16,6 +16,9 @@ function cent(n, o={}){ const c=o.c||15, W=10*c+4; let s=`<svg class="fig" viewB
   for(let i=0;i<100;i++){ const x=2+(i%10)*c, y=2+Math.floor(i/10)*c; s+=`<rect x="${x}" y="${y}" width="${c}" height="${c}" style="fill:${i<n?(o.col||"#9fc3ea"):"#fff"};stroke:#888;stroke-width:.8"/>`; }
   return s+`<rect x="2" y="2" width="${10*c}" height="${10*c}" style="fill:none;stroke:#222;stroke-width:2"/></svg>`; }
 window.FIG20 = {cent, D, F};
+/* calculs en chaîne : une étape par ligne, chaque ligne commence par « A = » (ou « P = », « l = »…) */
+const KC = (nm, st, lab) => `<p class="calc">${st.map((t,i)=>(i===0&&lab?lab+" ":"")+nm+(t[0]==="≈"?" ≈ "+t.slice(1).trim():" = "+t)).join("<br>")}</p>`;
+const KCS = arr => `<div class="calcs">${arr.map(x=>`<div>${x}</div>`).join("")}</div>`;
 
 /* ---------- schémas ---------- */
 const S_SENS = sch("Le sens d'un pourcentage", cent(30,{c:12})+`<p class="calc">30 % = ${F(30,100)} = 0,3</p><p class="schN">30 parts sur 100.</p>`);
@@ -45,7 +48,7 @@ cours:[
   <p class="attention"><b>ATTENTION :</b> pour comparer deux proportions, on ne compare pas les effectifs : on compare les fractions, ou mieux les pourcentages.</p>`},
 {k:"III", t:"Appliquer un pourcentage", h:`
   <div class="retenir" data-l="Propriété"><p>Prendre p % d'un nombre, c'est le multiplier par ${F("p",100)} :</p><p class="calc">p % de N = N × p ÷ 100</p></div>
-  <p><b>Exemples :</b></p><ul><li>13 % de 225 € = 225 × 13 ÷ 100 = 2 925 ÷ 100 = 29,25 € ;</li><li>24 % de 775 élèves = 775 × 24 ÷ 100 = 18 600 ÷ 100 = 186 élèves.</li></ul>
+  <p><b>Exemples :</b></p>${KCS([KC("A",["13 % de 225 €","225 × 13 ÷ 100","2 925 ÷ 100","29,25 €"]), KC("B",["24 % de 775 élèves","775 × 24 ÷ 100","18 600 ÷ 100","186 élèves"])])}
   <h4>Calcul mental</h4>
   <p>On utilise les pourcentages usuels. Pour 120 élèves :</p><ul><li>50 % de 120 = la moitié de 120 = 120 ÷ 2 = 60 ;</li><li>25 % de 120 = le quart de 120 = 120 ÷ 4 = 30 ;</li><li>10 % de 120 = le dixième de 120 = 120 ÷ 10 = 12 ;</li><li>20 % de 120 = 2 × 10 % de 120 = 2 × 12 = 24.</li></ul>
   <p><b>Remarque :</b> la moitié de 28, 28 × ${F(1,2)} et 50 % de 28 sont trois écritures du même nombre : 14.</p>
@@ -80,8 +83,8 @@ exos:[
    c:`<p>a) 120 ÷ 2 = <b>60</b> · b) 120 ÷ 4 = <b>30</b> · c) 120 ÷ 10 = <b>12</b> · d) 20 % = 2 × 10 % : 2 × 12 = <b>24</b> · e) la moitié de 10 % : 12 ÷ 2 = <b>6</b> · f) 75 % = 3 × 25 % : 3 × 30 = <b>90</b></p>`},
   {n:"Exercice 9", t:"Faire le lien", w:"Sur ta feuille", h:`<p>Complète. Les nombres d'une même ligne sont égaux.</p><p>a) La moitié de 28 = 28 × ${F(1,2)} = 50 % de 28 = …… · b) Le quart de 80 = ${F(1,4)} de 80 = 25 % de 80 = …… · c) Le dixième de 350 = ${F(1,10)} de 350 = 10 % de 350 = …… · d) Les trois quarts de 60 = ${F(3,4)} de 60 = 75 % de 60 = ……</p>`,
    c:`<p>a) 28 ÷ 2 = <b>14</b> · b) 80 ÷ 4 = <b>20</b> · c) 350 ÷ 10 = <b>35</b> · d) (60 ÷ 4) × 3 = 15 × 3 = <b>45</b></p>`},
-  {n:"Exercice 10", t:"Calculer un pourcentage", w:"Sur ton cahier", h:`<p>Calcule en posant le calcul « N × p ÷ 100 ».</p><p>a) 13 % de 225 € · b) 24 % de 775 élèves · c) 35 % de 60 kg · d) 8 % de 450 € · e) 15 % de 300 m · f) 60 % de 45 L</p>`,
-   c:`<p>a) 225 × 13 ÷ 100 = 2 925 ÷ 100 = <b>29,25 €</b> · b) 775 × 24 ÷ 100 = 18 600 ÷ 100 = <b>186 élèves</b></p><p>c) 60 × 35 ÷ 100 = 2 100 ÷ 100 = <b>21 kg</b> · d) 450 × 8 ÷ 100 = 3 600 ÷ 100 = <b>36 €</b></p><p>e) 300 × 15 ÷ 100 = 4 500 ÷ 100 = <b>45 m</b> · f) 45 × 60 ÷ 100 = 2 700 ÷ 100 = <b>27 L</b></p>`},
+  {n:"Exercice 10", t:"Calculer un pourcentage", w:"Sur ton cahier", h:`<p>Calcule en posant le calcul « N × p ÷ 100 ».</p><p>a) A = 13 % de 225 € · b) B = 24 % de 775 élèves · c) C = 35 % de 60 kg · d) D = 8 % de 450 € · e) E = 15 % de 300 m · f) F = 60 % de 45 L</p>`,
+   c:`${KCS([KC("A",["13 % de 225 €","225 × 13 ÷ 100","2 925 ÷ 100","<b>29,25 €</b>"],"a)"), KC("B",["24 % de 775 élèves","775 × 24 ÷ 100","18 600 ÷ 100","<b>186 élèves</b>"],"b)"), KC("C",["35 % de 60 kg","60 × 35 ÷ 100","2 100 ÷ 100","<b>21 kg</b>"],"c)"), KC("D",["8 % de 450 €","450 × 8 ÷ 100","3 600 ÷ 100","<b>36 €</b>"],"d)"), KC("E",["15 % de 300 m","300 × 15 ÷ 100","4 500 ÷ 100","<b>45 m</b>"],"e)"), KC("F",["60 % de 45 L","45 × 60 ÷ 100","2 700 ÷ 100","<b>27 L</b>"],"f)")])}`},
   {n:"Exercice 11", t:"Ordre de grandeur", w:"Sur ta feuille", h:`<p>Sans poser de calcul, donne un ordre de grandeur de chaque résultat.</p><p>a) 48 % de 60,45 € · b) 26 % de 398 élèves · c) 9,8 % de 2 012 € · d) 74 % de 81 km</p>`,
    c:`<p>a) ≈ 50 % de 60 € = la moitié : <b>environ 30 €</b> · b) ≈ 25 % de 400 = le quart : <b>environ 100 élèves</b></p><p>c) ≈ 10 % de 2 000 € = le dixième : <b>environ 200 €</b> · d) ≈ 75 % de 80 km = les trois quarts : <b>environ 60 km</b></p>`},
   {n:"Exercice 12", t:"Des problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un collège compte 775 élèves. 24 % des élèves sont externes. Combien y a-t-il d'élèves externes ?</p><p><b>Problème 2 :</b> un pull coûte 40 €. Pendant les soldes, il y a une remise de 30 %. Calcule le montant de la remise, puis le nouveau prix du pull.</p><p><b>Problème 3 :</b> une tablette de chocolat de 200 g contient 70 % de cacao. Quelle est la masse de cacao dans cette tablette ?</p><p><b>Problème 4 :</b> un village compte 2 500 habitants. 12 % d'entre eux ont moins de 10 ans. Combien d'habitants ont moins de 10 ans ?</p>`,
@@ -114,6 +117,57 @@ quiz:[
  2:[ {g:()=>{ const b=pick([[49,"la moitié",2],[26,"le quart",4],[11,"le dixième",10]]), N=pick([200,400,800,1000]); const v=N/b[2]; return {q:`${b[0]} % de ${N+ri(-9,9)} vaut environ…`, c:shuf([String(v),String(v*2),String(v/2)]), rep:String(v), ex:`≈ ${b[1]} de ${N}.`, sx:S_APP}; }} ],
  3:[ {q:"Un prix baisse de 20 % puis encore de 20 %. Au total, il a baissé de…", c:["36 %","40 %","20 %"], rep:"36 %", ex:"100 → 80 → 64.", sx:S_APP} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const vide = cent(0,{c:16}).replace("0 carreaux coloriés sur 100","Un carré de 100 carreaux à colorier");
+const souv = t => `<div class="retenir" data-l="Je me souviens"><p>${t}</p></div>`;
+return {
+titre:"Évaluation d'entraînement — Chapitre 20", duree:25, info:"Durée : 25 min · Crayons de couleur · Calculatrice non autorisée",
+comp:[
+  ["REPRÉSENTER","Je comprends ce que veut dire un pourcentage et je connais les pourcentages usuels.","Ex. 1 (2 points)"],
+  ["CALCULER","J'applique un pourcentage de tête.","Ex. 2 (3 points)"],
+  ["CALCULER","Je calcule une proportion et je l'écris sous forme de fraction et de pourcentage.","Ex. 3 (2 points)"],
+  ["MODÉLISER","Je résous un problème avec un pourcentage.","Ex. 4 (3 points)"]
+],
+exos:[
+{t:"Colorier un pourcentage", p:2, h:`<div class="cpt"><div><p>Ce carré est partagé en 100 carreaux identiques.</p><p>a) Colorie 35 % du carré.</p><p>b) Quel pourcentage du carré reste blanc ?</p><p>c) Complète avec un pourcentage : le dixième = …… % ; les trois quarts = …… %.</p></div>${vide}</div>`,
+ c:`<div class="cpt"><div><p>a) On colorie 35 carreaux sur 100 (par exemple 3 lignes de 10 et 5 carreaux). <i>(0,5 point)</i></p><p>b) 100 − 35 = 65 : il reste <b>65 %</b> du carré en blanc. <i>(0,5 point)</i></p><p>c) Le dixième = <b>10 %</b> ; les trois quarts = <b>75 %</b>. <i>(0,5 point chacun)</i></p></div>${cent(35,{c:12})}</div>`},
+{t:"De tête", p:3, h:`<p>Calcule de tête.</p><p>a) 10 % de 230 · b) 50 % de 36 · c) 25 % de 84 · d) 20 % de 45 · e) 75 % de 16 · f) 1 % de 700</p>`,
+ c:`<p>a) 10 %, c'est le dixième : 230 ÷ 10 = <b>23</b> · b) 50 %, c'est la moitié : 36 ÷ 2 = <b>18</b> · c) 25 %, c'est le quart : 84 ÷ 4 = <b>21</b></p>
+  <p>d) 10 % de 45 = 4,5, et 20 % = 2 × 10 % : 2 × 4,5 = <b>9</b> · e) le quart de 16 = 4, et 75 % = 3 × 25 % : 3 × 4 = <b>12</b> · f) 1 %, c'est le centième : 700 ÷ 100 = <b>7</b></p><p><i>(0,5 point par calcul)</i></p>`},
+{t:"Le club d'échecs", p:2, h:`<p>Le club d'échecs du collège compte 50 membres. Parmi eux, 19 sont des filles.</p><p>a) Écris la proportion de filles sous forme de fraction.</p><p>b) Écris cette proportion sous forme de pourcentage.</p><p>c) Quel pourcentage des membres sont des garçons ?</p>`,
+ c:`<p>a) Proportion de filles : <b>${F(19,50)}</b>. <i>(0,5 point)</i></p>
+  <p>b) On multiplie le numérateur et le dénominateur par 2 : ${F(19,50)} = ${F(38,100)} = <b>38 %</b>. <i>(1 point)</i></p>
+  <p>c) 100 % − 38 % = <b>62 %</b> des membres sont des garçons. (On peut aussi calculer : 50 − 19 = 31 garçons, et ${F(31,50)} = ${F(62,100)} = 62 %.) <i>(0,5 point)</i></p>`},
+{t:"Le club de football", p:3, h:`<p>Un club de football compte 60 licenciés. 15 % des licenciés sont des filles.</p><p>a) Combien de filles y a-t-il dans ce club ? Écris ton calcul.</p><p>b) Combien de garçons y a-t-il ?</p><p>c) Quel pourcentage des licenciés sont des garçons ?</p>`,
+ c:`<p>a)</p>${KC("A",["15 % de 60","60 × 15 ÷ 100","900 ÷ 100","9"])}<p>Il y a <b>9 filles</b>. (De tête : 10 % de 60 = 6 et 5 % de 60 = 3, donc 15 % de 60 = 6 + 3 = 9.) <i>(1,5 point)</i></p>
+  <p>b) 60 − 9 = 51 : il y a <b>51 garçons</b>. <i>(0,5 point)</i></p>
+  <p>c) 100 % − 15 % = <b>85 %</b> des licenciés sont des garçons. <i>(1 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 20 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Crayons de couleur · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, moins de calculs, des rappels du cours (« Je me souviens ») et des aides.",
+comp:[
+  ["REPRÉSENTER","Je comprends ce que veut dire un pourcentage et je connais les pourcentages usuels.","Ex. 1 (2 points)"],
+  ["CALCULER","J'applique un pourcentage de tête.","Ex. 2 (3 points)"],
+  ["CALCULER","Je calcule une proportion et je l'écris sous forme de fraction et de pourcentage.","Ex. 3 (2 points)"],
+  ["MODÉLISER","Je résous un problème avec un pourcentage.","Ex. 4 (3 points)"]
+],
+exos:[
+{t:"Colorier un pourcentage", p:2, h:`${souv("30 % = 30 carreaux sur 100. Une ligne du carré = 10 carreaux.")}
+  <div class="cpt"><div><p>Le carré a 100 carreaux.</p><p>a) Colorie 30 % du carré.</p><p>b) Quel pourcentage du carré reste blanc ?</p><p>c) Complète : la moitié = …… % ; le dixième = …… %.</p></div>${vide}</div>`,
+ c:`<div class="cpt"><div><p>a) On colorie 30 carreaux, par exemple 3 lignes. <i>(0,5 point)</i></p><p>b) 100 − 30 = 70 : il reste <b>70 %</b> en blanc. <i>(0,5 point)</i></p><p>c) La moitié = <b>50 %</b> ; le dixième = <b>10 %</b>. <i>(0,5 point chacun)</i></p></div>${cent(30,{c:12})}</div>`},
+{t:"De tête", p:3, h:`${souv("50 % = la moitié ; 25 % = le quart ; 10 % = le dixième.")}<p>Calcule de tête.</p><p>a) 50 % de 36 · b) 10 % de 230 · c) 25 % de 40</p>`,
+ c:`<p>a) La moitié de 36 : 36 ÷ 2 = <b>18</b> · b) le dixième de 230 : 230 ÷ 10 = <b>23</b> · c) le quart de 40 : 40 ÷ 4 = <b>10</b></p><p><i>(1 point par calcul)</i></p>`},
+{t:"Le club d'échecs", p:2, h:`<p>Le club d'échecs compte 50 membres, dont 20 filles.</p><p>a) Écris la proportion de filles sous forme de fraction.</p><p>b) Écris-la sous forme de pourcentage.</p><p><i>Aide : pour avoir 100 en bas, multiplie le haut et le bas par 2.</i></p><p>c) Quel pourcentage des membres sont des garçons ?</p>`,
+ c:`<p>a) <b>${F(20,50)}</b>. <i>(0,5 point)</i></p><p>b) ${F(20,50)} = ${F(40,100)} = <b>40 %</b>. <i>(1 point)</i></p><p>c) 100 % − 40 % = <b>60 %</b>. <i>(0,5 point)</i></p>`},
+{t:"Le club de football", p:3, h:`<p>Un club de football compte 60 licenciés. 10 % des licenciés sont des filles.</p><p>a) Combien de filles y a-t-il ? Écris ton calcul.</p><p><i>Aide : 10 %, c'est le dixième.</i></p><p>b) Combien de garçons y a-t-il ?</p><p>c) Quel pourcentage des licenciés sont des garçons ?</p><p><i>Aide : tous les licenciés, c'est 100 %.</i></p>`,
+ c:`<p>a)</p>${KC("A",["10 % de 60","60 ÷ 10","6"])}<p>Il y a <b>6 filles</b>. <i>(1,5 point)</i></p><p>b) 60 − 6 = 54 : il y a <b>54 garçons</b>. <i>(0,5 point)</i></p><p>c) 100 % − 10 % = <b>90 %</b>. <i>(1 point)</i></p>`}
+]}
+};
+})()
+
 };
 })();

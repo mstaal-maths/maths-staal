@@ -262,6 +262,80 @@ quiz:[
  3:[ {g:()=>{ const L=10*ri(3,10), l=10*ri(2,5), h=10*ri(2,5), V=L*l*h; return {q:`Un aquarium (pavé droit) mesure ${L} cm × ${l} cm × ${h} cm. Quelle est sa capacité en litres ?`, rep:[N(V/1000), N(V/1000)+" L"], ex:`${L} × ${l} × ${h} = ${N(V)} cm³ = ${N(V/1000)} dm³ = ${N(V/1000)} L.`, sx:S_UNIT}; }},
      {g:()=>{ const L=ri(6,15), l=ri(3,8), p=ri(10,20)/10, V=rd(L*l*p,3); return {q:`Une piscine (pavé droit) mesure ${L} m × ${l} m × ${N(p)} m. Quelle est sa contenance en litres ?`, rep:[N(V*1000), N(V*1000)+" L"], ex:`${L} × ${l} × ${N(p)} = ${N(V)} m³ = ${N(V*1000)} L.`, sx:S_UNIT}; }} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+/* patron d'un cylindre : un rectangle (périmètre de la base × hauteur) et deux disques posés sur ses grands côtés */
+const patCyl = (r,h,u=24) => { const L=2*Math.PI*r*u, H=h*u, R=r*u, cx=L*0.35;
+  return `<svg class="fig" viewBox="-6 -6 ${fx(L+12)} ${fx(H+4*R+12)}" width="${Math.round(L+12)}" role="img" aria-label="Patron d'un cylindre : un rectangle et deux disques">`+
+   `<rect x="0" y="${fx(2*R)}" width="${fx(L)}" height="${fx(H)}" class="ln" style="${FACE}"/>`+
+   `<circle cx="${fx(cx)}" cy="${fx(R)}" r="${fx(R)}" class="ln" style="${FACE}"/><circle cx="${fx(cx)}" cy="${fx(3*R+H)}" r="${fx(R)}" class="ln" style="${FACE}"/></svg>`; };
+const NOV = ["","","",""];
+const PATS = `<div class="figs"><figure><figcaption>Patron A</figcaption>${patCyl(1,2.6)}</figure><figure><figcaption>Patron B</figcaption>${patPave(3,2,1.5,24).replace(/<text[^>]*>[^<]*<\/text>/g,"")}</figure><figure><figcaption>Patron C</figcaption>${patPrisme(2,3,3.6,3.4,NOV,22)}</figure></div>`;
+const PRI = solid("prisme",{p:6,q:5,L:10,u:20,lab:{p:"6 cm",q:"5 cm",L:"10 cm"},alt:"Prisme droit : la base est un triangle rectangle dont les côtés de l'angle droit mesurent 6 cm et 5 cm ; la hauteur du prisme est 10 cm"});
+const COMP = (a,b,c) => [
+  ["REPRÉSENTER","Je reconnais les solides usuels et je les relie à leurs patrons.",`Ex. 1 (${a} points)`],
+  ["CALCULER","Je calcule l'aire d'un disque et des volumes, et je convertis des unités de volume et de capacité.",`Ex. 2, 3 et 4 (${b} points)`],
+  ["MODÉLISER","Je calcule le volume et la contenance d'un objet de la vie courante.",`Ex. 5 (${c} points)`]
+];
+const INFO = "Durée : 45 min · Calculatrice non autorisée";
+const SOL1 = `<p>1. Patron A : un <b>cylindre</b> (deux disques et un rectangle).</p><p>Patron B : un <b>pavé droit</b> (six rectangles).</p><p>Patron C : un <b>prisme droit</b> à base triangulaire (deux triangles et trois rectangles).</p>`;
+const SOL2 = `<p>2. Le patron est formé des 2 bases (deux <b>hexagones</b>) et d'autant de rectangles que l'hexagone a de côtés (six <b>rectangles</b>) : en tout, <b>8 faces</b>.</p>`;
+const SOL3 = `<p>3. <b>Non</b> : les bases d'un prisme droit sont des polygones. Ici, les bases sont des disques : c'est un cylindre.</p>`;
+const AIRE_A = `<p class="calc">A = ${PI} × r × r<br>A = ${PI} × 4 × 4<br>A = 16${PI} m²</p>`;
+const AIRE_C = `<p>Le diamètre est 16 m, donc le rayon est 16 ÷ 2 = 8 m.</p><p class="calc">A = ${PI} × 8 × 8<br>A = 64${PI} m²</p><p>Deux fois la première surface : 2 × 16${PI} = 32${PI} m². Or 64${PI} ≠ 32${PI}.</p><p>Lucas a <b>tort</b> : 64${PI} = 4 × 16${PI}, la surface est <b>quatre fois</b> plus grande.</p>`;
+const VOLa = `<p class="calc">V = c × c × c<br>V = 3 × 3 × 3<br>V = 27 cm³</p>`;
+const VOLb = `<p>Aire de la base (triangle rectangle) :</p><p class="calc">B = ${F("6 × 5",2)}<br>B = ${F(30,2)}<br>B = 15 cm²</p><p>Volume du prisme :</p><p class="calc">V = B × h<br>V = 15 × 10<br>V = 150 cm³</p>`;
+const VOLc = `<p>Le diamètre est 4 cm, donc le rayon est 4 ÷ 2 = 2 cm.</p><p class="calc">V = ${PI} × r × r × h<br>V = ${PI} × 2 × 2 × 10<br>V = 40${PI} cm³</p>`;
+const CONVh = `<p>Complète.</p><div class="scroll"><table class="std"><tbody><tr><td><b>a)</b> 1,5 dm³ = ……… cm³</td><td><b>b)</b> 750 mL = ……… cm³</td></tr><tr><td><b>c)</b> 2 m³ = ……… L</td><td><b>d)</b> 4 200 cm³ = ……… L</td></tr></tbody></table></div>`;
+const CONVc = `<p>a) 1 dm³ = 1 000 cm³, donc 1,5 dm³ = 1,5 × 1 000 = <b>1 500 cm³</b>.</p><p>b) 1 mL = 1 cm³, donc 750 mL = <b>750 cm³</b>.</p><p>c) 1 m³ = 1 000 L, donc 2 m³ = 2 × 1 000 = <b>2 000 L</b>.</p><p>d) 1 L = 1 000 cm³, donc 4 200 cm³ = 4 200 ÷ 1 000 = <b>4,2 L</b>.</p>`;
+const BACh = `<p>Un bac à sable a la forme d'un pavé droit de 2 m de longueur et de 1,5 m de largeur.</p><p>On veut le remplir de sable sur une hauteur de 20 cm.</p>`;
+const BAC1 = `<p>1. On écrit toutes les longueurs dans la même unité : 20 cm = 0,2 m.</p><p class="calc">V = L × l × h<br>V = 2 × 1,5 × 0,2<br>V = 3 × 0,2<br>V = 0,6 m³</p>`;
+const BAC2 = `<p>2. 1 m³ = 1 000 L, donc 0,6 m³ = 0,6 × 1 000 = <b>600 L</b>.</p>`;
+const BAC3 = `<p>3. On cherche combien de fois 25 L dans 600 L :</p><p class="calc">600 ÷ 25 = 24</p><p>Il faut acheter <b>24 sacs</b> de sable.</p>`;
+return {
+titre:"Évaluation d'entraînement — Chapitre 15", duree:45, info:INFO,
+comp:COMP(4,"11,5","4,5"),
+exos:[
+{t:"Solides et patrons", p:4, h:`<p>Voici trois patrons.</p>${PATS}
+  <p>1. Quel solide obtient-on en pliant chacun de ces patrons ?</p><p>2. Un prisme droit a pour bases deux hexagones. De combien de faces son patron est-il formé ? Quelles sont leurs formes ?</p><p>3. Le patron A est-il le patron d'un prisme droit ? Explique.</p><p>4. Dans le patron A, les disques ont pour rayon 1 cm. Quelle est la longueur du rectangle ? Donne la valeur exacte, avec ${PI}.</p>`,
+ c:`${SOL1}<p><i>(1,5 point : 0,5 par solide)</i></p>${SOL2}<p><i>(1 point)</i></p>${SOL3}<p><i>(0,5 point)</i></p>
+  <p>4. La longueur du rectangle est le périmètre du disque de base :</p><p class="calc">2 × ${PI} × 1 = 2${PI} cm</p><p>La longueur du rectangle est <b>2${PI} cm</b> (environ 6,3 cm). <i>(1 point)</i></p>`},
+{t:"Aire d'un disque", p:4, h:`<p>Un arroseur automatique tourne sur lui-même : il arrose une pelouse en forme de disque de rayon 4 m.</p>
+  <p>a) Calcule l'aire exacte de la surface arrosée, avec ${PI}.</p><p>b) En prenant ${PI} ≈ 3,14, donne une valeur approchée de cette aire.</p><p>c) Lucas affirme : « Un arroseur qui arrose un disque de diamètre 16 m arrose une surface deux fois plus grande. » A-t-il raison ? Justifie par un calcul.</p>`,
+ c:`<p>a)</p>${AIRE_A}<p>L'aire exacte est <b>16${PI} m²</b>. <i>(1 point)</i></p><p>b)</p><p class="calc">A ≈ 16 × 3,14<br>A ≈ 50,24 m²</p><p>La surface arrosée mesure environ <b>50,24 m²</b>. <i>(1 point)</i></p>
+  <p>c)</p>${AIRE_C}<p><i>(2 points : 1 pour le calcul de l'aire, 1 pour la conclusion justifiée)</i></p>`},
+{t:"Calculer des volumes", p:5.5, h:`<p>a) Calcule le volume d'un cube d'arête 3 cm.</p><p>b) Voici un prisme droit. Sa base est un triangle rectangle dont les côtés de l'angle droit mesurent 6 cm et 5 cm. Sa hauteur est 10 cm.</p>${PRI}<p>Calcule l'aire de sa base, puis son volume.</p>
+  <p>c) Un cylindre a pour diamètre 4 cm et pour hauteur 10 cm. Calcule son volume exact, puis une valeur approchée en prenant ${PI} ≈ 3,14.</p><p>d) Un pavé droit a un volume de 60 cm³. Sa longueur est 5 cm et sa largeur 4 cm. Quelle est sa hauteur ?</p>`,
+ c:`<p>a)</p>${VOLa}<p><i>(1 point)</i></p><p>b)</p>${VOLb}<p><i>(2 points : 1 pour l'aire de la base, 1 pour le volume)</i></p>
+  <p>c)</p>${VOLc}<p class="calc">V ≈ 40 × 3,14<br>V ≈ 125,6 cm³</p><p><i>(1,5 point : 1 pour la valeur exacte, 0,5 pour la valeur approchée)</i></p>
+  <p>d) V = L × l × h, donc 60 = 5 × 4 × h, c'est-à-dire 60 = 20 × h.</p><p class="calc">h = 60 ÷ 20<br>h = 3 cm</p><p>La hauteur du pavé est <b>3 cm</b>. <i>(1 point)</i></p>`},
+{t:"Conversions", p:2, h:CONVh, c:`${CONVc}<p><i>0,5 point par conversion.</i></p>`},
+{t:"Problème : le bac à sable", p:4.5, h:`${BACh}
+  <p>1. Calcule le volume de sable nécessaire, en m³.</p><p>2. Exprime ce volume en litres.</p><p>3. Le sable est vendu en sacs de 25 L. Combien de sacs faut-il acheter ?</p>`,
+ c:`${BAC1}<p><i>(1,5 point : 0,5 pour la conversion, 1 pour le volume)</i></p>${BAC2}<p><i>(1 point)</i></p>${BAC3}<p><i>(2 points)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 15 · version aménagée", duree:45, info:"Version aménagée · "+INFO,
+note:"Même durée, avec environ une question sur cinq en moins (les questions restantes sont renumérotées). Toujours sur 20 : les points sont répartis sur les questions gardées. Les justifications restent demandées.",
+comp:COMP("3,5","10,5",6),
+exos:[
+{t:"Solides et patrons", p:3.5, h:`<p>Voici trois patrons.</p>${PATS}
+  <p>1. Quel solide obtient-on en pliant chacun de ces patrons ?</p><p>2. Un prisme droit a pour bases deux hexagones. De combien de faces son patron est-il formé ? Quelles sont leurs formes ?</p><p>3. Le patron A est-il le patron d'un prisme droit ? Explique.</p>`,
+ c:`${SOL1}<p><i>(1,5 point : 0,5 par solide)</i></p>${SOL2}<p><i>(1,5 point)</i></p>${SOL3}<p><i>(0,5 point)</i></p>`},
+{t:"Aire d'un disque", p:3.5, h:`<p>Un arroseur automatique tourne sur lui-même : il arrose une pelouse en forme de disque de rayon 4 m.</p>
+  <p>a) Calcule l'aire exacte de la surface arrosée, avec ${PI}.</p><p>b) Lucas affirme : « Un arroseur qui arrose un disque de diamètre 16 m arrose une surface deux fois plus grande. » A-t-il raison ? Justifie par un calcul.</p>`,
+ c:`<p>a)</p>${AIRE_A}<p>L'aire exacte est <b>16${PI} m²</b>. <i>(1,5 point)</i></p><p>b)</p>${AIRE_C}<p><i>(2 points : 1 pour le calcul de l'aire, 1 pour la conclusion justifiée)</i></p>`},
+{t:"Calculer des volumes", p:5, h:`<p>a) Calcule le volume d'un cube d'arête 3 cm.</p><p>b) Voici un prisme droit. Sa base est un triangle rectangle dont les côtés de l'angle droit mesurent 6 cm et 5 cm. Sa hauteur est 10 cm.</p>${PRI}<p>Calcule l'aire de sa base, puis son volume.</p>
+  <p>c) Un cylindre a pour diamètre 4 cm et pour hauteur 10 cm. Calcule son volume exact.</p>`,
+ c:`<p>a)</p>${VOLa}<p><i>(1,5 point)</i></p><p>b)</p>${VOLb}<p><i>(2 points : 1 pour l'aire de la base, 1 pour le volume)</i></p><p>c)</p>${VOLc}<p><i>(1,5 point)</i></p>`},
+{t:"Conversions", p:2, h:CONVh, c:`${CONVc}<p><i>0,5 point par conversion.</i></p>`},
+{t:"Problème : le bac à sable", p:6, h:`${BACh}
+  <p>1. Calcule le volume de sable nécessaire, en m³.</p><p>2. Exprime ce volume en litres.</p><p>3. Le sable est vendu en sacs de 25 L. Combien de sacs faut-il acheter ?</p>`,
+ c:`${BAC1}<p><i>(2 points : 0,5 pour la conversion, 1,5 pour le volume)</i></p>${BAC2}<p><i>(1,5 point)</i></p>${BAC3}<p><i>(2,5 points)</i></p>`}
+]}
+};
+})()
 };
 })();

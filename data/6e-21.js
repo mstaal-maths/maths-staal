@@ -118,7 +118,67 @@ quiz:[
  2:[ {g:()=>{ const x=ri(1,10), y=ri(1,8); return {q:"Quelles sont les coordonnées du point M ?", fig:repere([["M",x,y]],{c:20}), c:shuf([`(${x} ; ${y})`,`(${y} ; ${x})`,`(${x} ; ${y+1})`].filter((s,i,a)=>a.indexOf(s)===i)), rep:`(${x} ; ${y})`, ex:"On lit d'abord l'abscisse (axe horizontal), puis l'ordonnée.", sx:S_LIRE}; }} ],
  3:[ {q:"Sur le graphique de la température (cours), à quelle heure fait-il le plus chaud ?", fig:co("graph","Température au cours d'une journée",420), c:["14 h","12 h","16 h"], rep:"14 h", sx:S_LIRE} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const souv = t => `<div class="retenir" data-l="Je me souviens"><p>${t}</p></div>`;
+const PARF = ["Sucre","Chocolat","Confiture","Caramel","Citron"];
+const DIAG = v => barres(PARF, v, {step:2, bw:50, title:"Crêpes vendues à la kermesse", alt:"Diagramme en barres : nombre de crêpes vendues pour chaque parfum"}).replace(/width="(\d+)"/, (m,w)=>`width="${Math.round(w*1.45)}"`);
+const cell = '<td style="height:2.6em;min-width:3.4em"></td>';
+const TEFF = (vals) => `<div class="scroll"><table class="std"><thead><tr><th>Nombre de frères et sœurs</th><th>0</th><th>1</th><th>2</th><th>3</th><th>Total</th></tr></thead><tbody><tr><th>Effectif</th>${vals?vals.map(x=>`<td><b>${x}</b></td>`).join(""):cell.repeat(5)}</tr></tbody></table></div>`;
+/* tableau à double entrée : null = case à compléter */
+const TDBL = (L, sol) => `<div class="scroll"><table class="std"><thead><tr><th></th><th>Fruit</th><th>Yaourt</th><th>Gâteau</th><th>Total</th></tr></thead><tbody>${[["6e",L[0]],["5e",L[1]],["Total",L[2]]].map(([n,r],i)=>`<tr><th>${n}</th>${r.map((x,j)=>x===null?`<td style="min-width:3.4em">${sol?`<b>${sol[i][j]}</b>`:"……"}</td>`:`<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+const D1 = [[12,9,null,35],[null,11,16,null],[20,null,30,null]], S1 = [[12,9,14,35],[8,11,16,35],[20,20,30,70]];
+const D2 = [[10,10,null,30],[null,5,15,null],[20,null,25,null]], S2 = [[10,10,10,30],[10,5,15,30],[20,15,25,60]];
+return {
+titre:"Évaluation d'entraînement — Chapitre 21", duree:25, info:"Durée : 25 min · Calculatrice non autorisée",
+comp:[
+  ["COMMUNIQUER","Je lis et j'exploite un diagramme en barres.","Ex. 1 (4 points)"],
+  ["REPRÉSENTER","Je range des données dans un tableau d'effectifs.","Ex. 2 (3 points)"],
+  ["COMMUNIQUER","Je lis et je complète un tableau à double entrée.","Ex. 3 (3 points)"]
+],
+exos:[
+{t:"Les crêpes de la kermesse", p:4, h:`<p>Ce diagramme indique le nombre de crêpes vendues pour chaque parfum.</p>${DIAG([12,18,7,10,5])}
+  <p>a) Combien de crêpes au chocolat ont été vendues ?</p><p>b) Quel parfum a été le moins vendu ?</p><p>c) Quels parfums ont été vendus plus de 10 fois ?</p><p>d) Combien de crêpes ont été vendues en tout ?</p>`,
+ c:`<p>a) La barre « Chocolat » monte jusqu'à 18 : <b>18 crêpes</b>. <i>(1 point)</i></p>
+  <p>b) La barre la plus basse est celle du <b>citron</b> (5 crêpes). <i>(1 point)</i></p>
+  <p>c) Le <b>sucre</b> (12) et le <b>chocolat</b> (18). Le caramel a été vendu exactement 10 fois : pas plus de 10 fois. <i>(1 point)</i></p>
+  <p>d) On additionne les hauteurs des barres :</p><p class="calc">N = 12 + 18 + 7 + 10 + 5<br>N = 52</p><p><b>52 crêpes</b> ont été vendues. <i>(1 point)</i></p>`},
+{t:"Frères et sœurs", p:3, h:`<p>On a demandé à 22 élèves combien ils ont de frères et sœurs. Voici leurs réponses :</p><p>1, 0, 2, 1, 1, 3, 0, 2, 1, 2, 0, 1, 1, 2, 3, 1, 0, 2, 1, 0, 2, 1.</p>
+  <p>a) Recopie et complète le tableau d'effectifs.</p>${TEFF()}<p>b) Combien d'élèves ont au moins 2 frères et sœurs ?</p>`,
+ c:`<p>a)</p>${TEFF([5,9,6,2,22])}<p>Vérification : 5 + 9 + 6 + 2 = 22, c'est bien le nombre d'élèves interrogés. <i>(0,5 point par effectif et 0,5 point pour le total)</i></p>
+  <p>b) « Au moins 2 », c'est 2 ou 3 : 6 + 2 = <b>8 élèves</b>. <i>(0,5 point)</i></p>`},
+{t:"Le dessert de la cantine", p:3, h:`<p>Ce tableau indique le dessert choisi par les élèves de 6e et de 5e, un jour à la cantine.</p>${TDBL(D1)}
+  <p>a) Complète les cinq cases vides du tableau.</p><p>b) Quel dessert les élèves de 5e ont-ils le plus choisi ?</p>`,
+ c:`<p>a)</p>${TDBL(D1,S1)}
+  <p>Gâteau en 6e : 35 − 12 − 9 = 14. Fruit en 5e : 20 − 12 = 8. Total des 5e : 8 + 11 + 16 = 35.</p><p>Total des yaourts : 9 + 11 = 20. Total général : 20 + 20 + 30 = 70 (ou 35 + 35 = 70). <i>(0,5 point par case)</i></p>
+  <p>b) Ligne « 5e » : 8, 11 et 16. Les élèves de 5e ont le plus choisi le <b>gâteau</b> (16 élèves). <i>(0,5 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 21 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, moins de données, des rappels du cours (« Je me souviens ») et des aides.",
+comp:[
+  ["COMMUNIQUER","Je lis et j'exploite un diagramme en barres.","Ex. 1 (4 points)"],
+  ["REPRÉSENTER","Je range des données dans un tableau d'effectifs.","Ex. 2 (3 points)"],
+  ["COMMUNIQUER","Je lis et je complète un tableau à double entrée.","Ex. 3 (3 points)"]
+],
+exos:[
+{t:"Les crêpes de la kermesse", p:4, h:`${souv("La hauteur d'une barre donne l'effectif. Je lis la graduation à gauche.")}${DIAG([12,18,8,10,6])}
+  <p>a) Combien de crêpes au chocolat ont été vendues ?</p><p>b) Quel parfum a été le moins vendu ?</p><p>c) Quels parfums ont été vendus plus de 10 fois ?</p><p><i>Aide : « plus de 10 » : 10 ne compte pas.</i></p><p>d) Combien de crêpes ont été vendues en tout ?</p><p><i>Aide : additionne les hauteurs des 5 barres.</i></p>`,
+ c:`<p>a) <b>18 crêpes</b>. <i>(1 point)</i></p><p>b) Le <b>citron</b> (6 crêpes). <i>(1 point)</i></p><p>c) Le <b>sucre</b> (12) et le <b>chocolat</b> (18). <i>(1 point)</i></p>
+  <p>d)</p><p class="calc">N = 12 + 18 + 8 + 10 + 6<br>N = 54</p><p><b>54 crêpes</b>. <i>(1 point)</i></p>`},
+{t:"Frères et sœurs", p:3, h:`${souv("L'effectif d'une valeur, c'est le nombre de fois où elle apparaît. Je barre les réponses au fur et à mesure.")}
+  <p>12 élèves ont dit combien ils ont de frères et sœurs :</p><p>1, 2, 0, 1, 1, 3, 0, 2, 1, 0, 2, 1.</p><p>a) Complète le tableau.</p>${TEFF()}<p>b) Combien d'élèves ont au moins 2 frères et sœurs ?</p><p><i>Aide : « au moins 2 », c'est 2 ou 3.</i></p>`,
+ c:`<p>a)</p>${TEFF([3,5,3,1,12])}<p>Vérification : 3 + 5 + 3 + 1 = 12. <i>(0,5 point par effectif et 0,5 point pour le total)</i></p><p>b) 3 + 1 = <b>4 élèves</b>. <i>(0,5 point)</i></p>`},
+{t:"Le dessert de la cantine", p:3, h:`${souv("Dans la colonne « Total », j'additionne les nombres de la ligne. Dans la ligne « Total », j'additionne les nombres de la colonne.")}
+  <p>Voici le dessert choisi par les élèves de 6e et de 5e.</p>${TDBL(D2)}<p>a) Complète les cinq cases vides.</p><p><i>Aide : commence par une ligne ou une colonne où il ne manque qu'un nombre.</i></p><p>b) Quel dessert les élèves de 5e ont-ils le plus choisi ?</p>`,
+ c:`<p>a)</p>${TDBL(D2,S2)}<p>Gâteau en 6e : 30 − 10 − 10 = 10. Fruit en 5e : 20 − 10 = 10. Total des 5e : 10 + 5 + 15 = 30. Total des yaourts : 10 + 5 = 15. Total général : 30 + 30 = 60. <i>(0,5 point par case)</i></p>
+  <p>b) Ligne « 5e » : 10, 5 et 15. C'est le <b>gâteau</b> (15 élèves). <i>(0,5 point)</i></p>`}
+]}
+};
+})()
+
 };
 function distinct4(){ for(;;){ const v=[2*ri(1,8),2*ri(1,8),2*ri(1,8),2*ri(1,8)]; const m=Math.max(...v); if(v.filter(x=>x===m).length===1) return v; } }
 })();

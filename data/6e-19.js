@@ -184,6 +184,89 @@ quiz:[
  2:[ {g:()=>{ const h=[[ri(1,3),ri(1,3),ri(1,3)]]; const f=vues(h).face; return {q:"Combien de carrés compte la vue de face de cet assemblage ?", fig:iso(h,{s:28}), rep:String(f.length), sx:S_VUES}; }} ],
  3:[ {g:()=>{ const t=[[ri(1,3),ri(1,3)],[ri(1,3),ri(1,3)]]; const tot=t.flat().reduce((s,x)=>s+x,0); return {q:`Une vue de dessus cotée indique les hauteurs ${t[1].join(" et ")} (derrière) et ${t[0].join(" et ")} (devant). Combien de cubes ?`, rep:String(tot), ex:`On additionne les hauteurs : ${t.flat().join(" + ")} = ${tot}.`, sx:S_VUES}; }} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+/* quatre solides dessinés en perspective (arêtes cachées en pointillés) */
+const ST = "fill:none;stroke:var(--ink);stroke-width:2", DS = "fill:none;stroke:var(--ink);stroke-width:1.6;stroke-dasharray:5 4";
+const box = (n, inner, alt) => `<figure style="margin:0 6px"><svg class="fig" viewBox="0 0 110 112" width="110" role="img" aria-label="${alt}">${inner}</svg><figcaption>${n}</figcaption></figure>`;
+const CONE = `<path d="M15 92 A40 12 0 0 0 95 92" style="${ST}"/><path d="M15 92 A40 12 0 0 1 95 92" style="${DS}"/><path d="M15 92 L55 8 L95 92" style="${ST}"/><path d="M15 92 A40 12 0 0 0 95 92 L55 8 Z" style="fill:#d2e3f5;stroke:none;opacity:.6"/>`;
+const PRISME = `<path d="M8 100 L68 100 L38 50 Z M38 50 L68 28 L98 78 L68 100 M68 28 L38 50" style="${ST};fill:#d2e3f5"/><path d="M8 100 L38 78 L98 78 M38 78 L68 28" style="${DS}"/>`;
+const CUBE = `<path d="M8 100 H68 V40 H8 Z" style="${ST};fill:#d2e3f5"/><path d="M8 40 L33 15 H93 V75 L68 100 M68 40 L93 15" style="${ST}"/><path d="M8 100 L33 75 H93 M33 75 V15" style="${DS}"/>`;
+const BOULE = `<circle cx="55" cy="55" r="42" style="${ST};fill:#d2e3f5"/><path d="M13 55 A42 11 0 0 0 97 55" style="${ST}"/><path d="M13 55 A42 11 0 0 1 97 55" style="${DS}"/>`;
+const SOLIDES = (L) => `<div class="figs">${L.map(([n,s,a])=>box(n,s,a)).join("")}</div>`;
+const S4 = SOLIDES([["①",CONE,"Solide ① : un cône"],["②",PRISME,"Solide ② : un prisme droit à base triangulaire"],["③",BOULE,"Solide ③ : une boule"],["④",CUBE,"Solide ④ : un cube"]]);
+const NOMS = `<p>① un <b>cône</b> · ② un <b>prisme droit</b> (à base triangulaire) · ③ une <b>boule</b> · ④ un <b>cube</b></p>`;
+const fv = (cells, n, alt) => vue(cells, n).replace(`aria-label="${n}"`, `aria-label="${alt}"`);
+const PAT = (L) => `<div class="figs">${L.map(([n,cells])=>fv(cells, n, "Figure "+n+" : six carrés")).join("")}</div>`;
+const souv = t => `<div class="retenir" data-l="Je me souviens"><p>${t}</p></div>`;
+const NETS = {a:[[0,1],[1,1],[2,1],[3,1],[1,0],[2,2]], b:[[0,0],[1,0],[2,0],[2,1],[3,1],[4,1]], c:[[0,0],[1,0],[2,0],[3,0],[0,1],[3,1]], d:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]]};
+const NETSB = {a:[[1,0],[0,1],[1,1],[2,1],[3,1],[1,2]], b:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0]], c:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]], d:[[0,0],[0,1],[1,1],[2,1],[3,1],[3,2]]};
+const VOL = [[[1,1,1,1],[2,2,1,1]], [[2,1,1],[2,2,1]], [[2,2,2],[2,3,2]]];
+const VOLB = [[[3,1,2]], [[1,1,1],[1,1,1]], [[2,2,2],[2,2,2]]];
+const ISOS = L => `<div class="figs">${L.map((h,i)=>`<figure style="margin:0 8px">${iso(h,{s:32})}<figcaption>${"abc"[i]})</figcaption></figure>`).join("")}</div>`;
+const A4 = [[1,1,2],[1,0,0]], V4 = vues(A4), T4 = [[0,1],[1,1],[2,1],[1,0]];
+const A4B = [[1,2,1]], V4B = vues(A4B), T4B = [[0,1],[1,1],[2,1],[0,0]];
+return {
+titre:"Évaluation d'entraînement — Chapitre 19", duree:25, info:"Durée : 25 min · Crayon et règle · Calculatrice non autorisée",
+comp:[
+  ["COMMUNIQUER","Je reconnais et je nomme les solides usuels ; je décris un pavé droit (faces, arêtes, sommets).","Ex. 1 (3 points)"],
+  ["CALCULER","Je trouve le volume d'un assemblage en comptant les cubes de 1 cm³.","Ex. 2 (3 points)"],
+  ["REPRÉSENTER","Je reconnais les vues d'un assemblage de cubes.","Ex. 3 (2 points)"],
+  ["REPRÉSENTER","Je reconnais les patrons d'un cube.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"Quel est ce solide ?", p:3, h:`<p>a) Donne le nom de chacun de ces solides.</p>${S4}
+  <p>b) Recopie chaque phrase et écris « vrai » ou « faux ».</p><p>1) Un pavé droit a 8 sommets.</p><p>2) Toutes les faces d'un pavé droit sont des carrés.</p><p>3) Un pavé droit a 6 arêtes.</p><p>4) Deux faces opposées d'un pavé droit sont identiques.</p>`,
+ c:`<p>a)</p>${NOMS}<p><i>(0,5 point par nom)</i></p>
+  <p>b) 1) <b>Vrai</b>. · 2) <b>Faux</b> : ce sont des rectangles (des carrés seulement pour un cube). · 3) <b>Faux</b> : il a 12 arêtes (et 6 faces). · 4) <b>Vrai</b>. <i>(0,25 point par réponse)</i></p>`},
+{t:"Combien de cubes ?", p:3, h:`<p>Chaque petit cube a un volume de 1 cm³. Les assemblages sont pleins : les cubes cachés qui soutiennent les autres sont bien là.</p><p>Quel est le volume de chaque assemblage ?</p>${ISOS(VOL)}`,
+ c:`<p>On regarde le côté droit pour savoir combien il y a de rangées (ici, deux rangées pour chaque assemblage).</p>
+  <p>a) Devant : 4 cubes. Derrière : 2 colonnes de 2 cubes et 2 cubes seuls, soit 2 + 2 + 1 + 1 = 6 cubes. 4 + 6 = 10 cubes : <b>10 cm³</b>. <i>(1 point)</i></p>
+  <p>b) Devant : 2 + 1 + 1 = 4 cubes. Derrière : 2 + 2 + 1 = 5 cubes. 4 + 5 = 9 cubes : <b>9 cm³</b>. <i>(1 point)</i></p>
+  <p>c) Deux couches de 3 × 2 = 6 cubes, et 1 cube posé dessus : 6 + 6 + 1 = 13 cubes : <b>13 cm³</b>. <i>(1 point)</i></p>`},
+{t:"De dessus, de face", p:2, h:`<div class="cpt"><div><p>Voici un assemblage de cubes. On le regarde de devant (de face) et d'en haut (de dessus).</p>
+  <p>a) Laquelle des figures ①, ② et ③ est la vue de dessus ?</p><p>b) Laquelle est la vue de face ?</p></div>${iso(A4,{s:34})}</div><div class="figs">${fv(V4.face,"①","Figure ①")}${fv(T4,"②","Figure ②")}${fv(V4.top,"③","Figure ③")}</div>`,
+ c:`<p>a) La vue de dessus est la figure <b>③</b> : on voit 3 carrés pour la rangée de devant, et 1 carré derrière, à gauche. <i>(1 point)</i></p>
+  <p>b) La vue de face est la figure <b>①</b> : de devant, on voit une colonne de 1 cube, une colonne de 1 cube, puis une colonne de 2 cubes à droite. Le cube de derrière est caché. <i>(1 point)</i></p>
+  <p>La figure ② ne correspond à aucune des deux vues.</p>`},
+{t:"Patrons de cube", p:2, h:`<p>Parmi ces figures, lesquelles sont des patrons de cube ?</p>${PAT([["a)",NETS.a],["b)",NETS.b],["c)",NETS.c],["d)",NETS.d]])}`,
+ c:`<p>Les patrons de cube sont <b>a) et b)</b>. <i>(0,5 point par figure bien classée)</i></p>
+  <p>c) n'en est pas un : les deux carrés du bas se plieraient tous les deux sur la même face. · d) n'en est pas un : un rectangle de 2 carrés sur 3 ne se referme pas en cube.</p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 19 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Crayon et règle · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des assemblages plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+comp:[
+  ["COMMUNIQUER","Je reconnais et je nomme les solides usuels ; je décris un pavé droit (faces, arêtes, sommets).","Ex. 1 (3 points)"],
+  ["CALCULER","Je trouve le volume d'un assemblage en comptant les cubes de 1 cm³.","Ex. 2 (3 points)"],
+  ["REPRÉSENTER","Je reconnais les vues d'un assemblage de cubes.","Ex. 3 (2 points)"],
+  ["REPRÉSENTER","Je reconnais les patrons d'un cube.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"Quel est ce solide ?", p:3, h:`<p>a) Écris le nom de chaque solide.</p><p><i>Aide : choisis parmi ces noms : cube, cône, boule, cylindre, prisme droit, pyramide.</i></p>${S4}
+  <p>b) Écris « vrai » ou « faux ».</p><p>1) Un pavé droit a 8 sommets.</p><p>2) Toutes les faces d'un pavé droit sont des carrés.</p><p><i>Aide : pense à une boîte à chaussures.</i></p>`,
+ c:`<p>a)</p>${NOMS}<p><i>(0,5 point par nom)</i></p>
+  <p>b) 1) <b>Vrai</b>. · 2) <b>Faux</b> : ce sont des rectangles. <i>(0,5 point par réponse)</i></p>`},
+{t:"Combien de cubes ?", p:3, h:`${souv("1 petit cube = 1 cm³. Le volume, c'est le nombre de petits cubes.")}
+  <p>Chaque petit cube mesure 1 cm³. Les cubes cachés sont bien là. Donne le volume de chaque assemblage.</p>${ISOS(VOLB)}
+  <p><i>Aide : compte couche par couche. Pour b) et c), regarde le côté droit : il y a 2 rangées.</i></p>`,
+ c:`<p>a) Une seule rangée : 3 + 1 + 2 = 6 cubes : <b>6 cm³</b>. <i>(1 point)</i></p>
+  <p>b) Une couche de 2 rangées de 3 cubes : 3 + 3 = 6 cubes : <b>6 cm³</b>. <i>(1 point)</i></p>
+  <p>c) Deux couches de 6 cubes : 6 + 6 = 12 cubes : <b>12 cm³</b>. <i>(1 point)</i></p>`},
+{t:"De dessus, de face", p:2, h:`${souv("Vue de dessus : ce que je vois d'en haut. Vue de face : ce que je vois de devant.")}
+  <div class="cpt"><div><p>Voici un assemblage de 4 cubes.</p><p>a) Quelle figure est la vue de dessus ?</p><p>b) Quelle figure est la vue de face ?</p></div>${iso(A4B,{s:34})}</div><div class="figs">${fv(V4B.face,"①","Figure ①")}${fv(V4B.top,"②","Figure ②")}${fv(T4B,"③","Figure ③")}</div>`,
+ c:`<p>a) La vue de dessus est la figure <b>②</b> : d'en haut, on voit 3 carrés en ligne. <i>(1 point)</i></p>
+  <p>b) La vue de face est la figure <b>①</b> : de devant, on voit 3 cubes en bas et 1 cube au milieu, en haut. <i>(1 point)</i></p>`},
+{t:"Patrons de cube", p:2, h:`${souv("Un patron de cube a 6 carrés. Quand on le plie, aucun carré ne se pose sur un autre.")}
+  <p>Quelles figures sont des patrons de cube ?</p>${PAT([["a)",NETSB.a],["b)",NETSB.b],["c)",NETSB.c],["d)",NETSB.d]])}
+  <p><i>Aide : choisis un carré pour le fond du cube, puis plie les autres autour dans ta tête.</i></p>`,
+ c:`<p>Les patrons de cube sont <b>a) et d)</b>. <i>(0,5 point par figure bien classée)</i></p>
+  <p>b) n'en est pas un : avec 6 carrés en ligne, des carrés se superposent. · c) n'en est pas un : un rectangle de 2 carrés sur 3 ne se referme pas.</p>`}
+]}
+};
+})()
+
 };
 })();

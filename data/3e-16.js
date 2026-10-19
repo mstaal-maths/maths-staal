@@ -101,7 +101,7 @@ cours:[
   <p>Nous avons découvert une propriété que l'on appelle <b>une identité remarquable</b>.</p>
   <div class="retenir" data-l="Propriété"><p>Pour tous nombres ${$a} et ${$b} :</p><p class="calc">(${$a} + ${$b})(${$a} − ${$b}) = ${sq($a)} − ${sq($b)}</p></div>
   <p>Nous l'avons prouvée en développant l'expression avec la double distributivité :</p>
-  <p class="calc">(${$a} + ${$b})(${$a} − ${$b}) = ${sq($a)} − ${$a}${$b} + ${$b}${$a} − ${sq($b)} = ${sq($a)} − ${sq($b)}</p>
+  <p class="calc">E = (${$a} + ${$b})(${$a} − ${$b})<br>E = ${sq($a)} − ${$a}${$b} + ${$b}${$a} − ${sq($b)}<br>E = ${sq($a)} − ${sq($b)}</p>
   <div class="retenir" data-l="À retenir"><p>(${$a} + ${$b})(${$a} − ${$b}) = ${sq($a)} − ${sq($b)} : écrite de cette manière, la propriété permet de <b>développer</b>, c'est-à-dire de <b>transformer un produit en une soustraction</b>.</p>
    <p>${sq($a)} − ${sq($b)} = (${$a} + ${$b})(${$a} − ${$b}) : écrite de cette manière, la propriété permet de <b>factoriser</b>, c'est-à-dire de <b>transformer une soustraction en un produit</b>.</p></div>
   <p><b>Exercice 1 : développer</b> les deux expressions suivantes.</p>${eqs("A",devAB(1,9))}${eqs("B",devAB(3,5,0))}

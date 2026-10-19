@@ -82,11 +82,11 @@ const W1 = [[1,2],[1,4],[3,4],[3,4],[1,1],[7,4]], W2 = [[1,4],[1,6],[1,3],[5,12]
 const S_Q = sch("La fraction, un quotient", `<p class="calc">${F("a","b")} = a ÷ b &nbsp; et &nbsp; b × ${F("a","b")} = a</p><p class="calc">3 × ${F(7,3)} = 7 &nbsp;·&nbsp; 3 ÷ 4 = ${F(3,4)} = 0,75</p><p class="schN">${F(1,3)} = 0,333… n'a pas d'écriture décimale exacte : on garde la fraction.</p>`);
 const S_DG = sch("Une fraction sur une droite graduée", fl({units:3, sub:4, pts:[["A",3],["B",7]], show:true, w:420})+`<p class="schN">L'unité est partagée en 4 : on compte 3 graduations pour A({3/4}), 7 graduations pour B({7/4}).</p>`);
 const S_ENT = sch("Entier + fraction inférieure à 1", `<p class="calc">17 = 5 × 3 + 2 &nbsp; donc &nbsp; ${F(17,5)} = ${F(15,5)} + ${F(2,5)} = 3 + ${F(2,5)}</p>`);
-const S_PART = sch("Prendre une fraction d'une quantité", `<p class="calc">les ${F(3,4)} de 20 : 20 ÷ 4 = 5, puis 5 × 3 = 15</p><p class="schN">1) Je divise par le dénominateur. 2) Je multiplie par le numérateur.</p>`);
+const S_PART = sch("Prendre une fraction d'une quantité", `<p class="schN">Les ${F(3,4)} de 20 :</p>${NL("A",`20 ÷ 4 × 3 = 5 × 3 = 15`)}<p class="schN">1) Je divise par le dénominateur. 2) Je multiplie par le numérateur.</p>`);
 const S_EG = sch("Des fractions égales", BARS_EG.replace('width="544"','width="420"')+`<p class="calc">${F(2,5)} = ${F("2 × 2","5 × 2")} = ${F(4,10)}</p><p class="schN">On multiplie (ou on divise) le numérateur et le dénominateur par le <b>même</b> nombre.</p>`);
 const S_SIMP = sch("Simplifier une fraction", `<p class="calc">${F(36,24)} = ${F("36 ÷ 12","24 ÷ 12")} = ${F(3,2)}</p><p class="schN">Je divise le numérateur et le dénominateur par un diviseur commun, jusqu'à obtenir une fraction irréductible.</p>`);
 const S_CMP = sch("Comparer des fractions", `<p class="calc">${F(3,5)} = ${F("3 × 4","5 × 4")} = ${F(12,20)} &nbsp; et &nbsp; 12 &gt; 11, &nbsp; donc &nbsp; ${F(3,5)} &gt; ${F(11,20)}</p><p class="schN">Même dénominateur : la plus grande est celle qui a le plus grand numérateur.</p>`);
-const S_ADD = sch("Additionner, soustraire", `<p class="calc">${F(3,7)} + ${F(2,7)} = ${F(5,7)}</p><p class="calc">${F(1,2)} + ${F(1,3)} = ${F(3,6)} + ${F(2,6)} = ${F(5,6)}</p><p class="schN">Même dénominateur d'abord, puis on additionne les numérateurs et on <b>garde</b> le dénominateur. On n'additionne jamais les dénominateurs.</p>`);
+const S_ADD = sch("Additionner, soustraire", `${NL("A",`${F(3,7)} + ${F(2,7)} = ${F(5,7)}`)}${NL("B",`${F(1,2)} + ${F(1,3)} = ${F(3,6)} + ${F(2,6)} = ${F(5,6)}`)}<p class="schN">Même dénominateur d'abord, puis on additionne les numérateurs et on <b>garde</b> le dénominateur. On n'additionne jamais les dénominateurs.</p>`);
 const S_PB = sch("Les parts d'un même tout", bars([{n:12,k:3,k2:4}], {lw:4, w:420, alt:"Trois douzièmes en orange, quatre douzièmes en bleu"})+`<p class="calc">${F(1,4)} + ${F(1,3)} = ${F(3,12)} + ${F(4,12)} = ${F(7,12)} &nbsp; et &nbsp; 1 − ${F(7,12)} = ${F(12,12)} − ${F(7,12)} = ${F(5,12)}</p><p class="schN">Le tout vaut 1.</p>`);
 
 /* paires de dénominateurs « sans lien » */
@@ -121,7 +121,7 @@ cours:[
   <p><b>Exemple :</b></p><p class="calc">${F(17,5)} = ${F(15,5)} + ${F(2,5)} = 3 + ${F(2,5)}</p><p>On utilise la division euclidienne : 17 = 5 × 3 + 2.</p>
   <h4>3. Prendre une fraction d'une quantité</h4>
   <div class="retenir" data-l="Méthode"><p>Pour prendre ${F("a","b")} d'une quantité :</p><ol><li>je divise la quantité par le dénominateur <i>b</i> ;</li><li>je multiplie le résultat par le numérateur <i>a</i>.</li></ol></div>
-  <p><b>Exemple :</b> les ${F(3,4)} de 20 briques : 20 ÷ 4 = 5, puis 5 × 3 = 15 briques.</p>`},
+  <p><b>Exemple :</b> les ${F(3,4)} de 20 briques.</p>${NL("A",`20 ÷ 4 × 3 = 5 × 3 = 15`)}<p>Les ${F(3,4)} de 20 briques, c'est 15 briques.</p>`},
 {k:"II", t:"Fractions égales et simplification", h:`
   <h4>1. Fractions égales</h4>
   <div class="retenir" data-l="Propriété"><p>On ne change pas la valeur d'une fraction quand on multiplie, ou quand on divise, son numérateur et son dénominateur par un <b>même nombre non nul</b>.</p><p class="calc">${F("a","b")} = ${F("a × k","b × k")} &nbsp;&nbsp; et &nbsp;&nbsp; ${F("a","b")} = ${F("a ÷ k","b ÷ k")} &nbsp;&nbsp; (k ≠ 0)</p></div>
@@ -146,21 +146,21 @@ cours:[
 {k:"IV", t:"Additionner et soustraire des fractions", h:`
   <h4>1. Fractions de même dénominateur</h4>
   <div class="retenir" data-l="Propriété"><p>Pour additionner (ou soustraire) deux fractions de même dénominateur, on additionne (ou on soustrait) les numérateurs et <b>on garde le dénominateur</b>.</p><p class="calc">${F("a","c")} + ${F("b","c")} = ${F("a + b","c")} &nbsp;&nbsp; et &nbsp;&nbsp; ${F("a","c")} − ${F("b","c")} = ${F("a − b","c")} &nbsp;&nbsp; (avec c ≠ 0)</p></div>
-  <p><b>Exemples :</b></p><p class="calc">${F(3,7)} + ${F(2,7)} = ${F(5,7)} &nbsp;&nbsp;&nbsp; ${F(21,6)} − ${F(10,6)} = ${F(11,6)}</p>
+  <p><b>Exemples :</b></p><div class="calcs"><div>${NL("A",`${F(3,7)} + ${F(2,7)} = ${F(5,7)}`)}</div><div>${NL("B",`${F(21,6)} − ${F(10,6)} = ${F(11,6)}`)}</div></div>
   <h4>2. Fractions de dénominateurs différents</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Je cherche un multiple commun aux dénominateurs (le plus petit possible).</li><li>J'écris chaque fraction avec ce dénominateur.</li><li>J'additionne (ou je soustrais) les numérateurs et je garde le dénominateur.</li><li>Je simplifie le résultat si c'est possible.</li></ol></div>
   <p><b>Exemples :</b></p>
-  <div class="calcs"><div>${NL("A",`${F(3,4)} + ${F(5,6)} = ${F(9,12)} + ${F(10,12)} = ${F(19,12)}`)}</div><div>${NL("B",`${F(11,12)} − ${F(1,4)} = ${F(11,12)} − ${F(3,12)} = ${F(8,12)} = ${F(2,3)}`)}</div><div>${NL("C",`2 − ${F(3,5)} = ${F(10,5)} − ${F(3,5)} = ${F(7,5)}`)}</div></div>
-  <p>Pour C, on écrit l'entier avec le même dénominateur : 2 = ${F(10,5)}.</p>
-  <div class="attention"><b>ATTENTION :</b> on n'additionne jamais les dénominateurs ! ${F(1,2)} + ${F(1,3)} n'est pas égal à ${F(2,5)}.<br>Le bon calcul est : ${F(1,2)} + ${F(1,3)} = ${F(3,6)} + ${F(2,6)} = ${F(5,6)}.</div>
+  <div class="calcs"><div>${NL("C",`${F(3,4)} + ${F(5,6)} = ${F(9,12)} + ${F(10,12)} = ${F(19,12)}`)}</div><div>${NL("D",`${F(11,12)} − ${F(1,4)} = ${F(11,12)} − ${F(3,12)} = ${F(8,12)} = ${F(2,3)}`)}</div><div>${NL("E",`2 − ${F(3,5)} = ${F(10,5)} − ${F(3,5)} = ${F(7,5)}`)}</div></div>
+  <p>Pour E, on écrit l'entier avec le même dénominateur : 2 = ${F(10,5)}.</p>
+  <div class="attention"><b>ATTENTION :</b> on n'additionne jamais les dénominateurs ! ${F(1,2)} + ${F(1,3)} n'est pas égal à ${F(2,5)}.<br>Le bon calcul est :${NL("F",`${F(1,2)} + ${F(1,3)} = ${F(3,6)} + ${F(2,6)} = ${F(5,6)}`)}</div>
   <h4>3. Résoudre un problème avec des fractions</h4>
   <p>Quand plusieurs fractions décrivent les parts d'un même tout, on les additionne.</p>
   <p>Le tout vaut 1 : la part qui reste est 1 moins la somme des parts connues.</p>
   <p><b>Exemple :</b> dans une boîte, ${F(1,4)} des briques sont rouges et ${F(1,3)} sont bleues.</p>
   <p>Les briques rouges ou bleues représentent :</p><p class="calc">${F(1,4)} + ${F(1,3)} = ${F(3,12)} + ${F(4,12)} = ${F(7,12)} de la boîte.</p>
   <p>Il reste :</p><p class="calc">1 − ${F(7,12)} = ${F(12,12)} − ${F(7,12)} = ${F(5,12)} de la boîte.</p>
-  <p><b>À toi de jouer :</b> calcule D = ${F(5,6)} − ${F(1,4)} et donne le résultat sous forme irréductible.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p>12 est un multiple de 6 et de 4.</p>${NL("D",`${F(5,6)} − ${F(1,4)} = ${F("5 × 2","6 × 2")} − ${F("1 × 3","4 × 3")} = ${F(10,12)} − ${F(3,12)} = ${F(7,12)}`)}<p>${F(7,12)} est irréductible.</p></div></details>`}
+  <p><b>À toi de jouer :</b> calcule G = ${F(5,6)} − ${F(1,4)} et donne le résultat sous forme irréductible.</p>
+  <details><summary>Voir la correction</summary><div class="corr"><p>12 est un multiple de 6 et de 4.</p>${NL("G",`${F(5,6)} − ${F(1,4)} = ${F("5 × 2","6 × 2")} − ${F("1 × 3","4 × 3")} = ${F(10,12)} − ${F(3,12)} = ${F(7,12)}`)}<p>${F(7,12)} est irréductible.</p></div></details>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -190,7 +190,7 @@ exos:[
   {n:"Exercice 5", t:"Partie entière et fraction", w:"Sur ton cahier", h:`<p>Écris chaque fraction sous la forme « entier + fraction inférieure à 1 ».</p><p>Aide-toi de la division euclidienne.</p><p>a) ${F(7,4)} · b) ${F(17,5)} · c) ${F(23,6)} · d) ${F(31,10)} · e) ${F(25,8)} · f) ${F(40,9)}</p>`,
    c:`<p>a) ${F(7,4)} = <b>1 + ${F(3,4)}</b> &nbsp; (7 = 4 × 1 + 3)</p><p>b) ${F(17,5)} = <b>3 + ${F(2,5)}</b> &nbsp; (17 = 5 × 3 + 2)</p><p>c) ${F(23,6)} = <b>3 + ${F(5,6)}</b> &nbsp; (23 = 6 × 3 + 5)</p><p>d) ${F(31,10)} = <b>3 + ${F(1,10)}</b> &nbsp; (31 = 10 × 3 + 1)</p><p>e) ${F(25,8)} = <b>3 + ${F(1,8)}</b> &nbsp; (25 = 8 × 3 + 1)</p><p>f) ${F(40,9)} = <b>4 + ${F(4,9)}</b> &nbsp; (40 = 9 × 4 + 4)</p>`},
   {n:"Exercice 6", t:"Prendre une fraction d'une quantité", w:"Sur ton cahier", h:`<p>Calcule.</p><p>a) les ${F(3,4)} de 20 · b) les ${F(2,5)} de 35 · c) les ${F(7,10)} de 40 · d) les ${F(5,6)} de 18 · e) les ${F(3,8)} de 64 · f) les ${F(4,9)} de 27</p>`,
-   c:`<p>a) 20 ÷ 4 × 3 = <b>15</b> · b) 35 ÷ 5 × 2 = <b>14</b> · c) 40 ÷ 10 × 7 = <b>28</b> · d) 18 ÷ 6 × 5 = <b>15</b> · e) 64 ÷ 8 × 3 = <b>24</b> · f) 27 ÷ 9 × 4 = <b>12</b></p>`}
+   c:`<p>Je divise par le dénominateur, puis je multiplie par le numérateur.</p><div class="calcs">${[[3,4,20],[2,5,35],[7,10,40],[5,6,18],[3,8,64],[4,9,27]].map(([a,b,Q],i)=>`<div>${NL("ABCDEF"[i],`${Q} ÷ ${b} × ${a} = ${Q/b} × ${a} = <b>${Q/b*a}</b>`).replace('<p class="calc">',`<p class="calc">${"abcdef"[i]}) `)}</div>`).join("")}</div>`}
  ]},
 {t:"Fractions égales et simplification", e:[
   {n:"Activité 2", t:"Des parts égales ?", w:"Sur ta feuille", h:`<p>Amélie et Victoire se partagent deux paquets de biscuits identiques.</p><p>Amélie mange les ${F(2,5)} du premier paquet. Victoire mange les ${F(6,15)} du second.</p>
@@ -234,8 +234,8 @@ exos:[
   {n:"Exercice 18", t:"Dénominateurs différents", w:"Sur ton cahier", h:`<p>Calcule, puis simplifie le résultat si c'est possible.</p>${cols([`A = ${F(3,20)} + ${F(2,5)}`,`B = ${F(3,4)} + ${F(11,12)}`,`C = ${F(25,36)} − ${F(6,9)}`,`D = ${F(1,4)} + ${F(2,32)}`,`E = ${F(10,8)} − ${F(2,40)}`,`F = ${F(7,21)} + ${F(4,3)}`,`G = ${F(5,6)} − ${F(3,10)}`,`H = ${F(4,5)} + 2`,`I = 4 − ${F(2,3)}`])}`,
    c:[["A",3,20,"+",2,5],["B",3,4,"+",11,12],["C",25,36,"−",6,9],["D",1,4,"+",2,32],["E",10,8,"−",2,40],["F",7,21,"+",4,3],["G",5,6,"−",3,10],["H",4,5,"+",2,1],["I",4,1,"−",2,3]].map(([n,a,b,o,c,d])=>`<div>${NL(n,steps2(a,b,o,c,d))}</div>`).join("").replace(/^/,'<p>On écrit les deux fractions avec le même dénominateur (un multiple commun), puis on calcule et on simplifie.</p><div class="calcs">')+"</div>"},
   {n:"Exercice 19", t:"Trouver l'erreur", w:"Sur ton cahier", h:`<p>Deux élèves se sont trompés. Explique chaque erreur, puis donne le bon résultat.</p><p>1) Juliette a écrit : ${F(2,3)} + ${F(1,4)} = ${F(3,7)}.</p><p>2) Hugo a écrit : ${F(5,6)} − ${F(1,3)} = ${F(4,3)}.</p>`,
-   c:`<p>1) Juliette a additionné les numérateurs <b>et</b> les dénominateurs. Il faut d'abord mettre les fractions sur le même dénominateur :</p><p class="calc">${F(2,3)} + ${F(1,4)} = ${F(8,12)} + ${F(3,12)} = <b>${F(11,12)}</b></p>
-   <p>2) Hugo a soustrait les numérateurs et les dénominateurs. Le bon calcul est :</p><p class="calc">${F(5,6)} − ${F(1,3)} = ${F(5,6)} − ${F(2,6)} = ${F(3,6)} = <b>${F(1,2)}</b></p><p>Le résultat de Hugo est d'ailleurs supérieur à ${F(5,6)} : impossible pour une soustraction.</p>`},
+   c:`<p>1) Juliette a additionné les numérateurs <b>et</b> les dénominateurs. Il faut d'abord mettre les fractions sur le même dénominateur :</p>${NL("A",`${F(2,3)} + ${F(1,4)} = ${F(8,12)} + ${F(3,12)} = <b>${F(11,12)}</b>`)}
+   <p>2) Hugo a soustrait les numérateurs et les dénominateurs. Le bon calcul est :</p>${NL("B",`${F(5,6)} − ${F(1,3)} = ${F(5,6)} − ${F(2,6)} = ${F(3,6)} = <b>${F(1,2)}</b>`)}<p>Le résultat de Hugo est d'ailleurs supérieur à ${F(5,6)} : impossible pour une soustraction.</p>`},
   {n:"Exercice 20", t:"Enchaîner les calculs", w:"Sur ton cahier", h:`<p>Calcule en détaillant (de gauche à droite, avec un dénominateur commun).</p>${cols([`A = ${F(1,2)} + ${F(1,3)} + ${F(1,6)}`,`B = ${F(3,4)} − ${F(1,2)} + ${F(1,8)}`,`C = ${F(5,6)} − ${F(1,3)} + ${F(1,12)}`,`D = 2 − ${F(1,4)} − ${F(3,8)}`])}`,
    c:`<div class="calcs"><div>${NL("A",`${F(1,2)} + ${F(1,3)} + ${F(1,6)} = ${F(3,6)} + ${F(2,6)} + ${F(1,6)} = ${F(6,6)} = <b>1</b>`)}</div><div>${NL("B",`${F(3,4)} − ${F(1,2)} + ${F(1,8)} = ${F(6,8)} − ${F(4,8)} + ${F(1,8)} = <b>${F(3,8)}</b>`)}</div><div>${NL("C",`${F(5,6)} − ${F(1,3)} + ${F(1,12)} = ${F(10,12)} − ${F(4,12)} + ${F(1,12)} = <b>${F(7,12)}</b>`)}</div><div>${NL("D",`2 − ${F(1,4)} − ${F(3,8)} = ${F(16,8)} − ${F(2,8)} − ${F(3,8)} = <b>${F(11,8)}</b>`)}</div></div>`},
   {n:"Exercice 21", t:"Murs de briques", w:"Sur ta feuille", h:`<p>Dans un mur de briques, chaque brique est égale à la <b>somme</b> des deux briques placées juste en dessous.</p><p>Complète.</p><div class="figs">${wall(W1,[1,1,1,0,0,0])}${wall(W2,[1,0,1,1,0,1])}</div>`,
@@ -255,6 +255,110 @@ exos:[
  ]}
 ],
 
+/* ÉVAL-5b début */
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT (+ version aménagée « bep ») ===================== */
+eval:(()=>{
+const pn = v => String(v).replace(".",",");
+const pts = v => `${pn(v)} point${v>=2?"s":""}`;
+const pt = v => ` <i>(${pts(v)})</i>`;
+const exl = (X, ids) => { const s=ids.reduce((a,i)=>a+X[i-1].p,0); return (ids.length===1?`Ex. ${ids[0]}`:`Ex. ${ids.slice(0,-1).join(", ")} et ${ids[ids.length-1]}`)+` (${pts(s)})`; };
+const COMP = [
+  ["REPRÉSENTER","Je lis et je place une fraction sur une droite graduée ; j'écris une fraction comme la somme d'un entier et d'une fraction inférieure à 1.",[1]],
+  ["CALCULER","Je simplifie, je compare, j'additionne et je soustrais des fractions.",[2,3,4]],
+  ["CHERCHER","Je résous un problème avec des fractions (parts d'un tout, fraction d'une quantité).",[5]]
+];
+const DG = fl({units:3, sub:3, pts:[["K",4],["L",8]], alt:"Droite graduée de 0 à 3, chaque unité est partagée en 3 ; les points K et L sont placés"});
+const DGc = fl({units:3, sub:3, pts:[["P",2],["K",4],["Q",7],["L",8]], show:true, alt:"Correction : les points P, K, Q et L avec leurs abscisses"});
+const BARc = bars([{n:9,k:4,k2:3}], {lw:4, w:450, alt:"Le sentier partagé en 9 parts : 4 parts en orange (1er jour), 3 parts en bleu (2e jour), 2 parts blanches (3e jour)"});
+const L = (b, list) => list.filter(q=>!(b && q.rm));
+const lab = i => "abcdefgh"[i]+")";
+const num = i => (i+1)+".";
+const mk = b => {
+  /* ---------- Exercice 1 ---------- */
+  const q1 = L(b, [
+    {h:`Lis l'abscisse des points K et L.`, p:1, pb:1,
+     c:`<p>Chaque unité est partagée en 3 : une graduation vaut ${F(1,3)}.</p><p>K est à 4 graduations de 0 et L à 8 graduations : <b>K(${F(4,3)})</b> et <b>L(${F(8,3)})</b>.`},
+    {h:`Place sur la droite le point P d'abscisse ${F(2,3)} et le point Q d'abscisse ${F(7,3)}.`, p:1, pb:1.5,
+     c:`<p>Je compte 2 graduations à partir de 0 pour P, et 7 graduations pour Q.</p>${DGc}<p>Voir la figure.`},
+    {h:`Écris ${F(8,3)} comme la somme d'un entier et d'une fraction inférieure à 1.`, p:1, pb:1,
+     c:`<p>8 = 3 × 2 + 2, donc :</p><p class="calc">${F(8,3)} = ${F(6,3)} + ${F(2,3)} = 2 + ${F(2,3)}</p><p>On le voit sur la droite : L est entre 2 et 3.`},
+    {h:`Quel point de la droite a pour abscisse ${F(14,6)} ? Justifie.`, p:1, rm:true,
+     c:`<p class="calc">${F(14,6)} = ${F("14 ÷ 2","6 ÷ 2")} = ${F(7,3)}</p><p>C'est le point <b>Q</b>.`}
+  ]);
+  /* ---------- Exercice 2 ---------- */
+  const SIMP = [[20,35,5,"4/7"],[48,18,6,"8/3"],[63,81,9,"7/9"],[120,150,30,"4/5"]];
+  const q2 = L(b, [
+    ...SIMP.map(([a,d,k,r],i)=>({h:`${F(a,d)}`, p:0.5, pb:0.5, rm:i===3,
+      c:`<p class="calc">${F(a,d)} = ${F(`${a} ÷ ${k}`,`${d} ÷ ${k}`)} = <b>{${r}}</b>${i===3?` &nbsp; <i>(ou en deux étapes : ÷ 10, puis ÷ 3)</i>`:""}</p>`})),
+    {h:`La fraction ${F(35,49)} est-elle irréductible ? Justifie.`, p:1, pb:1.5,
+     c:`<p><b>Non.</b> 35 = 5 × 7 et 49 = 7 × 7 : 7 est un diviseur commun de 35 et de 49.</p><p class="calc">${F(35,49)} = ${F("35 ÷ 7","49 ÷ 7")} = ${F(5,7)}</p><p>${F(35,49)} n'est donc pas irréductible.`}
+  ]);
+  const n2 = b ? 3 : 4;
+  /* ---------- Exercice 3 ---------- */
+  const q3 = [
+    {h:`${F(7,12)} …… ${F(2,3)}`, p:0.5, pb:0.5,
+     c:`<p class="calc">${F(2,3)} = ${F("2 × 4","3 × 4")} = ${F(8,12)} &nbsp; et &nbsp; 7 &lt; 8, &nbsp; donc &nbsp; <b>${F(7,12)} &lt; ${F(2,3)}</b></p>`},
+    {h:`${F(11,8)} …… 1`, p:0.5, pb:0.5,
+     c:`<p>Le numérateur 11 est plus grand que le dénominateur 8, donc <b>${F(11,8)} &gt; 1</b>.</p>`},
+    {h:`${F(4,9)} …… ${F(5,12)}`, p:0.5, pb:0.5,
+     c:`<p>36 est un multiple de 9 et de 12.</p><p class="calc">${F(4,9)} = ${F("4 × 4","9 × 4")} = ${F(16,36)} &nbsp; et &nbsp; ${F(5,12)} = ${F("5 × 3","12 × 3")} = ${F(15,36)}</p><p>16 &gt; 15, donc <b>${F(4,9)} &gt; ${F(5,12)}</b>.</p>`},
+    {h:`Range ces fractions dans l'ordre <b>décroissant</b> (de la plus grande à la plus petite) : ${F(3,5)} ; ${F(7,10)} ; ${F(1,2)} ; ${F(13,20)}.`, p:1.5, pb:1.5,
+     c:`<p>J'écris toutes les fractions avec le dénominateur 20 :</p><p class="calc">${F(3,5)} = ${F(12,20)} &nbsp;·&nbsp; ${F(7,10)} = ${F(14,20)} &nbsp;·&nbsp; ${F(1,2)} = ${F(10,20)} &nbsp;·&nbsp; ${F(13,20)}</p><p>14 &gt; 13 &gt; 12 &gt; 10, donc :</p><p class="calc"><b>${F(7,10)} &gt; ${F(13,20)} &gt; ${F(3,5)} &gt; ${F(1,2)}</b></p>`}
+  ];
+  /* ---------- Exercice 4 ---------- */
+  const C4 = L(b, [
+    {n:"A", a:[13,10,"−",3,10], p:1, pb:1, r:`1`},
+    {n:"B", a:[2,3,"+",5,12], p:1, pb:1.5},
+    {n:"C", a:[9,14,"−",2,7], p:1, pb:1.5},
+    {n:"D", a:[3,1,"−",7,4], p:1, pb:1},
+    {n:"E", a:[3,4,"+",1,6], p:1, rm:true}
+  ]);
+  const w4 = ([a,c]) => c===1 ? String(a) : F(a,c);
+  /* ---------- Exercice 5 ---------- */
+  const q5 = L(b, [
+    {h:`Le premier jour, Yanis parcourt les ${F(4,9)} du sentier. Combien de kilomètres parcourt-il ce jour-là ?`, p:1, pb:1.5,
+     c:`<p>Je prends les ${F(4,9)} de 18 km : je divise par 9, puis je multiplie par 4.</p>${NL("A",`18 ÷ 9 × 4 = 2 × 4 = 8`)}<p>Le premier jour, Yanis parcourt <b>8 km</b>.`},
+    {h:`Le deuxième jour, il parcourt ${F(1,3)} du sentier. Quelle fraction du sentier a-t-il parcourue pendant ces deux jours ?`, p:1.5, pb:2,
+     c:`<p>J'additionne les deux parts du même sentier. 9 est un multiple de 3.</p><p class="calc">${F(4,9)} + ${F(1,3)} = ${F(4,9)} + ${F("1 × 3","3 × 3")} = ${F(4,9)} + ${F(3,9)} = ${F(7,9)}</p><p>En deux jours, il a parcouru les <b>${F(7,9)}</b> du sentier.`},
+    {h:`Quelle fraction du sentier lui reste-t-il à parcourir le troisième jour ? Combien de kilomètres cela fait-il ?`, p:1.5, pb:2,
+     c:`<p>Le sentier entier vaut 1.</p><p class="calc">1 − ${F(7,9)} = ${F(9,9)} − ${F(7,9)} = ${F(2,9)}</p><p>Il lui reste les <b>${F(2,9)}</b> du sentier, soit :</p>${NL("B",`18 ÷ 9 × 2 = 2 × 2 = 4`)}${BARc}<p><i>Orange : le 1<sup>er</sup> jour (${F(4,9)}) · bleu : le 2<sup>e</sup> jour (${F(3,9)}) · blanc : le 3<sup>e</sup> jour (${F(2,9)}).</i></p><p>Il lui reste <b>4 km</b> à parcourir.`},
+    {h:`A-t-il parcouru plus de kilomètres le premier jour ou le deuxième jour ? Justifie.`, p:1, rm:true,
+     c:`<p class="calc">${F(1,3)} = ${F(3,9)} &nbsp; et &nbsp; ${F(3,9)} &lt; ${F(4,9)}</p><p>Il a parcouru plus de kilomètres le <b>premier jour</b> (8 km, contre 18 ÷ 3 = 6 km le deuxième jour).`}
+  ]);
+  const sum = q => q.reduce((a,x)=>a+(b?x.pb:x.p),0);
+  const wr = (q,i,f) => { const c=q.c.startsWith("<p>") ? `<p>${f(i)} `+q.c.slice(3) : `<p>${f(i)}</p>`+q.c; return (c.endsWith("</p>") ? c.slice(0,-4) : c)+pt(b?q.pb:q.p)+"</p>"; };
+  const X = [
+    {t:"Fractions sur une droite graduée", p:sum(q1),
+     h:`<p>Sur la droite graduée ci-dessous, chaque unité est partagée en 3 parts égales.</p>${DG}${q1.map((q,i)=>`<p>${lab(i)} ${q.h}</p>`).join("")}`,
+     c:q1.map((q,i)=>wr(q,i,lab)).join("")},
+    {t:"Simplifier une fraction", p:sum(q2),
+     h:`<p>Simplifie au maximum chaque fraction : écris une fraction irréductible.</p>${cols(q2.slice(0,n2).map((q,i)=>`${lab(i)} ${q.h} = ………`))}<p>${lab(n2)} ${q2[n2].h}</p>`,
+     c:q2.map((q,i)=>wr(q,i,lab)).join("")},
+    {t:"Comparer et ranger", p:sum(q3),
+     h:`<p>Compare avec le signe &lt;, &gt; ou =. Écris ton calcul.</p>${cols(q3.slice(0,3).map((q,i)=>`${lab(i)} ${q.h}`))}<p>${lab(3)} ${q3[3].h}</p>`,
+     c:q3.map((q,i)=>wr(q,i,lab)).join("")},
+    {t:"Additionner et soustraire", p:sum(C4),
+     h:`<p>Calcule. Écris toutes les étapes et donne le résultat sous la forme d'une fraction irréductible (ou d'un entier).</p>${cols(C4.map(q=>`${q.n} = ${w4([q.a[0],q.a[1]])} ${q.a[2]} ${w4([q.a[3],q.a[4]])}`))}`,
+     c:`<p>Je mets les fractions au même dénominateur, j'additionne (ou je soustrais) les numérateurs et je garde le dénominateur. Puis je simplifie si c'est possible.</p>`
+       + C4.map(q=>NL(q.n, steps2(...q.a)).replace(/<\/p>$/, pt(b?q.pb:q.p)+"</p>")).join("")
+       + (C4.some(q=>q.n==="D") ? `<p>Pour D, j'écris l'entier avec le dénominateur 4 : 3 = ${F(12,4)}.</p>` : "")},
+    {t:"Problème : le sentier côtier", p:sum(q5),
+     h:`<p>Yanis parcourt un sentier côtier de <b>18 km</b> en trois jours.</p>${q5.map((q,i)=>`<p>${num(i)} ${q.h}</p>`).join("")}`,
+     c:q5.map((q,i)=>wr(q,i,num)).join("")}
+  ];
+  return {X, comp:COMP.map(([k,t,ids])=>[k,t,exl(X,ids)])};
+};
+const N = mk(false), B = mk(true);
+return {
+titre:"Évaluation d'entraînement — Chapitre 7", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Règle et crayon",
+comp:N.comp, exos:N.X,
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 7 · version aménagée", duree:45, info:"Version aménagée · Durée : 45 min · Calculatrice non autorisée · Règle et crayon",
+note:"Les mêmes exercices avec quatre questions en moins, dans le même temps (45 min). Le barème est recalculé pour rester sur 20. Les justifications sont toujours demandées.",
+comp:B.comp, exos:B.X }
+};
+})(),
+/* ÉVAL-5b fin */
 /* ===================== QCM ===================== */
 quiz:[
 {nom:"Fraction, quotient et droite graduée", schema:S_Q, q:{
@@ -262,7 +366,7 @@ quiz:[
      {g:()=>{ const b=ri(3,19); let a; do{ a=ri(1,20); }while(a===b); return {q:`Calcule : ${F(a,b)} × ${b}`, rep:String(a), ex:`Multiplier ${F(a,b)} par son dénominateur ${b} donne le numérateur : ${a}.`, sx:S_Q}; }} ],
  2:[ {g:()=>{ const sub=pick([2,3,4,5,6,8,10]), units=sub>=8?2:3; let k; do{ k=ri(1,units*sub-1); }while(k%sub===0); return {q:"Quelle est l'abscisse du point A ? Écris-la sous forme de fraction.", fig:fl({units, sub, pts:[["A",k]], w:440}), rep:uniq(`${k}/${sub}`,[RS(k,sub)]), ex:`Chaque unité est partagée en ${sub} et A est à ${k} graduations de 0 : A(${F(k,sub)}).`, sx:fl({units, sub, pts:[["A",k]], show:true, w:420})}; }},
      {g:()=>{ const d=ri(3,9), e=ri(1,5), r=ri(1,d-1), n=d*e+r; const good=`${e} + ${F(r,d)}`; return {q:`Écris ${F(n,d)} sous la forme « entier + fraction inférieure à 1 ».`, c:uniq(good,[`${r} + ${F(e,d)}`,`${e+1} + ${F(r,d)}`,`${e} + ${F(r,n)}`]).slice(0,3), rep:good, ex:`${n} = ${d} × ${e} + ${r}, donc ${F(n,d)} = ${F(d*e,d)} + ${F(r,d)} = ${good}.`, sx:S_ENT}; }} ],
- 3:[ {g:()=>{ const b=ri(3,10), a=ri(1,b-1), Q=b*ri(2,12); return {q:`Calcule ${a===1?"le":"les"} ${F(a,b)} de ${Q}.`, rep:String(Q/b*a), ex:`${Q} ÷ ${b} = ${Q/b}, puis ${Q/b} × ${a} = ${Q/b*a}.`, sx:S_PART}; }},
+ 3:[ {g:()=>{ const b=ri(3,10), a=ri(1,b-1), Q=b*ri(2,12); return {q:`Calcule ${a===1?"le":"les"} ${F(a,b)} de ${Q}.`, rep:String(Q/b*a), ex:`Je divise par ${b}, puis je multiplie par ${a}.`, sx:NL("A",`${Q} ÷ ${b} × ${a} = ${Q/b} × ${a} = ${Q/b*a}`)+S_PART}; }},
      {g:()=>{ const b=pick([3,6,7,9,4,5,8]); let a; do{ a=ri(1,3*b); }while(a%b===0); const s=simp(a,b), dec=[2,5].reduce((x,p)=>{ while(x%p===0) x/=p; return x; }, s[1])===1; return {q:`La fraction ${F(a,b)} a-t-elle une écriture décimale exacte ?`, c:["Oui","Non"], rep:dec?"Oui":"Non", ex: dec ? `${a} ÷ ${b} = ${String(+(a/b).toFixed(6)).replace(".",",")} : la division s'arrête.` : `${a} ÷ ${b} = ${String(Math.floor(a/b*10000)/10000).replace(".",",")}… : la division ne s'arrête pas. On garde la fraction.`, sx:S_Q}; }} ]
 }},
 {nom:"Fractions égales et simplification", schema:S_EG, q:{
@@ -285,15 +389,15 @@ quiz:[
        const up=[...L].sort((u,v)=>u[0]/u[1]-v[0]/v[1]); const big=up[2]; return {q:`Quelle est la plus grande de ces fractions : ${L.map(([p,q])=>F(p,q)).join(" ; ")} ?`, c:L.map(([p,q])=>F(p,q)), rep:F(big[0],big[1]), ex:`Avec le dénominateur ${D} : ${L.map(([p,q])=>F(p*D/q,D)).join(" ; ")}.`, sx:S_CMP}; }} ]
 }},
 {nom:"Additionner et soustraire", schema:S_ADD, q:{
- 1:[ {g:()=>{ const d=ri(3,12), a=ri(1,d-1), b=ri(1,d-1); return {q:`Calcule : ${F(a,d)} + ${F(b,d)}`, rep:uniq(`${a+b}/${d}`,[RS(a+b,d)]), ex:`On additionne les numérateurs et on garde le dénominateur : ${steps2(a,d,"+",b,d)}.`, sx:S_ADD}; }},
-     {g:()=>{ const d=ri(3,12), b=ri(1,d), a=b+ri(1,d); return {q:`Calcule : ${F(a,d)} − ${F(b,d)}`, rep:uniq(`${a-b}/${d}`,[RS(a-b,d)]), ex:`On soustrait les numérateurs et on garde le dénominateur : ${steps2(a,d,"−",b,d)}.`, sx:S_ADD}; }} ],
+ 1:[ {g:()=>{ const d=ri(3,12), a=ri(1,d-1), b=ri(1,d-1); return {q:`Calcule A = ${F(a,d)} + ${F(b,d)}`, rep:uniq(`${a+b}/${d}`,[RS(a+b,d)]), ex:`On additionne les numérateurs et on garde le dénominateur.`, sx:NL("A",steps2(a,d,"+",b,d))+S_ADD}; }},
+     {g:()=>{ const d=ri(3,12), b=ri(1,d), a=b+ri(1,d); return {q:`Calcule A = ${F(a,d)} − ${F(b,d)}`, rep:uniq(`${a-b}/${d}`,[RS(a-b,d)]), ex:`On soustrait les numérateurs et on garde le dénominateur.`, sx:NL("A",steps2(a,d,"−",b,d))+S_ADD}; }} ],
  2:[ {g:()=>{ const d1=ri(2,6), m=ri(2,4), d2=d1*m, op=pick(["+","−"]); let a,c; do{ a=ri(1,2*d1); c=ri(1,d2); }while((op==="−"&&a*m<=c)||gcd(a,d1)!==1||gcd(c,d2)!==1||a===d1); const [p,q]=val2(a,d1,op,c,d2);
-       return {q:`Calcule : ${F(a,d1)} ${op} ${F(c,d2)} (résultat sous forme irréductible)`, rep:q===1?String(p):`${p}/${q}`, ex:steps2(a,d1,op,c,d2)+".", sx:S_ADD}; }} ],
+       return {q:`Calcule A = ${F(a,d1)} ${op} ${F(c,d2)} (résultat sous forme irréductible)`, rep:q===1?String(p):`${p}/${q}`, ex:"On écrit les deux fractions avec le même dénominateur.", sx:NL("A",steps2(a,d1,op,c,d2))+S_ADD}; }} ],
  3:[ {g:()=>{ const [d1,d2]=shuf(pick(PAIRS)), op=pick(["+","−"]); let a,c; do{ a=ri(1,2*d1); c=ri(1,d2); }while((op==="−"&&a*d2<=c*d1)||gcd(a,d1)!==1||gcd(c,d2)!==1||a===d1||c===d2); const [p,q]=val2(a,d1,op,c,d2);
-       return {q:`Calcule : ${F(a,d1)} ${op} ${F(c,d2)} (résultat sous forme irréductible)`, rep:q===1?String(p):`${p}/${q}`, ex:steps2(a,d1,op,c,d2)+".", sx:S_ADD}; }},
-     {g:()=>{ const n=ri(1,5), b=ri(2,9), a=ri(1,b-1); const [p,q]=val2(n,1,"−",a,b); return {q:`Calcule : ${n} − ${F(a,b)} (résultat sous forme irréductible)`, rep:`${p}/${q}`, ex:`On écrit l'entier avec le même dénominateur : ${n} = ${F(n*b,b)}. ${steps2(n,1,"−",a,b)}.`, sx:S_ADD}; }},
+       return {q:`Calcule A = ${F(a,d1)} ${op} ${F(c,d2)} (résultat sous forme irréductible)`, rep:q===1?String(p):`${p}/${q}`, ex:"On écrit les deux fractions avec le même dénominateur.", sx:NL("A",steps2(a,d1,op,c,d2))+S_ADD}; }},
+     {g:()=>{ const n=ri(1,5), b=ri(2,9), a=ri(1,b-1); const [p,q]=val2(n,1,"−",a,b); return {q:`Calcule A = ${n} − ${F(a,b)} (résultat sous forme irréductible)`, rep:`${p}/${q}`, ex:`On écrit l'entier avec le même dénominateur : ${n} = ${F(n*b,b)}.`, sx:NL("A",steps2(n,1,"−",a,b))+S_ADD}; }},
      {g:()=>{ const [b,d]=shuf(pick(PAIRS)); let a,c; do{ a=ri(1,b-1); c=ri(1,d-1); }while(gcd(a,b)!==1||gcd(c,d)!==1); const [p,q]=val2(a,b,"+",c,d), good=fr(p,q);
-       return {q:`${F(a,b)} + ${F(c,d)} = ?`, c:uniq(good,[F(a+c,b+d),F(a+c,b*d),fr(...simp(a*c,b*d))]).slice(0,3), rep:good, ex:`On n'additionne jamais les dénominateurs : ${steps2(a,b,"+",c,d)}.`, sx:S_ADD}; }} ]
+       return {q:`A = ${F(a,b)} + ${F(c,d)}. Combien vaut A ?`, c:uniq(good,[F(a+c,b+d),F(a+c,b*d),fr(...simp(a*c,b*d))]).slice(0,3), rep:good, ex:`On n'additionne jamais les dénominateurs.`, sx:NL("A",steps2(a,b,"+",c,d))+S_ADD}; }} ]
 }},
 {nom:"Problèmes avec des fractions", schema:S_PB, q:{
  1:[ {g:()=>{ const [a,b]=shuf(pick([[2,6],[4,3],[3,6],[2,4],[4,8],[2,3],[2,5],[3,4],[5,10],[2,8]])); const L=lcm(a,b), [p,q]=val2(1,a,"+",1,b);

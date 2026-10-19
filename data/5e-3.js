@@ -233,7 +233,7 @@ quiz:[
 };
 /* ---- Petite évaluation d'entraînement : chapitre 3 seulement ---- */
 CH["5e-3"].eval = {
-titre:"Petite évaluation d'entraînement · chapitre 3", duree:25, info:"Durée : 25 min · Calculatrice non autorisée · Noté sur 10",
+titre:"Évaluation d'entraînement — Chapitre 3", duree:25, info:"Durée : 25 min · Calculatrice non autorisée · Noté sur 10",
 comp:[
   ["CALCULER","Je connais et j'utilise les priorités opératoires. Je calcule astucieusement.","Ex. 1, 2 et 3 (5,5 points)"],
   ["MODÉLISER","J'écris une seule expression pour regrouper des calculs ou pour résoudre un problème.","Ex. 4 et 5 (4,5 points)"]
@@ -256,6 +256,35 @@ exos:[
   <p>1) Écris une seule expression qui permet de résoudre le problème. Nomme-la A.</p><p>2) Effectue le calcul en détaillant tes étapes.</p><p>3) Conclus par une phrase.</p>`,
  c:`<p>1) Cagnotte : 24 × 3 + 30. Dépenses : 48 + 18. Expression : A = 24 × 3 + 30 − (48 + 18). <i>(1 point)</i></p>
   <p>2) <i>(1,5 point)</i></p>${L("24 × 3 + 30 − (48 + 18)","A")}
+  <p>3) Il reste ${V("24 × 3 + 30 − (48 + 18)")} € dans la cagnotte. <i>(0,5 point)</i></p>`}
+]};
+/* ---- version aménagée (élèves à besoins éducatifs particuliers), faite comme M. Staal fait les siennes :
+   même durée, environ une question sur cinq retirée (jamais un exercice entier), questions renumérotées, barème recalculé (toujours sur 10) ---- */
+CH["5e-3"].eval.bep = {
+titre:"Évaluation d'entraînement — Chapitre 3 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée · Noté sur 10",
+note:"Même durée et mêmes exercices, avec environ une question sur cinq en moins (réparties dans plusieurs exercices). Les questions sont renumérotées et le barème est recalculé : la note reste sur 10.",
+comp:[
+  ["CALCULER","Je connais et j'utilise les priorités opératoires. Je calcule astucieusement.","Ex. 1, 2 et 3 (4,5 points)"],
+  ["MODÉLISER","J'écris une seule expression pour regrouper des calculs ou pour résoudre un problème.","Ex. 4 et 5 (5,5 points)"]
+],
+exos:[
+{t:"Calcul mental", p:1.5, h:`<p>Pour chaque calcul, écris seulement le résultat.</p><div class="calcs"><span>A = 8 + 2 × 6</span><span>B = 40 − 10 × 3</span><span>C = {30 + 6/4}</span></div>`,
+ c:`<p>A = ${V("8 + 2 × 6")} ; B = ${V("40 − 10 × 3")} ; C = ${V("(30 + 6) ÷ 4")}. <i>0,5 point par calcul.</i></p><p>Les étapes :</p>
+ <div class="calcs"><div>${L("8 + 2 × 6","A")}</div><div>${L("40 − 10 × 3","B")}</div><div><p class="calc">C = {30 + 6/4}<br>C = (30 + 6) ÷ 4<br>C = 36 ÷ 4<br>C = ${V("(30 + 6) ÷ 4")}</p></div></div>
+ <p>Pour C : le trait de fraction regroupe le numérateur.</p>`},
+{t:"Calculer astucieusement", p:1, h:`<p>Calcule astucieusement, en écrivant l'étape qui rend le calcul facile.</p><div class="calcs"><span>A = 4 × 37 × 25</span><span>B = 6,8 + 4,5 + 3,2</span></div>`,
+ c:`<div class="calcs"><div><p class="calc">A = 4 × 37 × 25<br>A = 4 × 25 × 37<br>A = 100 × 37<br>A = ${V("4 × 37 × 25")}</p></div><div><p class="calc">B = 6,8 + 4,5 + 3,2<br>B = 6,8 + 3,2 + 4,5<br>B = 10 + 4,5<br>B = ${V("6,8 + 4,5 + 3,2")}</p></div></div><p><i>0,5 point par calcul (l'étape astucieuse doit apparaître).</i></p>`},
+{t:"Où sont les parenthèses ?", p:2, h:`<p>Recopie chaque égalité en ajoutant des parenthèses pour qu'elle devienne vraie. Attention : il faut parfois deux paires de parenthèses.</p><p>a) 2 + 3 × 4 + 1 = 25</p><p>b) 10 − 4 − 2 + 1 = 7</p>`,
+ c:`<p>a) (2 + 3) × (4 + 1) = ${V("(2 + 3) × (4 + 1)")} <i>(1 point)</i></p><p>b) 10 − (4 − 2 + 1) = ${V("10 − (4 − 2 + 1)")} <i>(1 point)</i></p><p>Vérification :</p>${duo([["A","(2 + 3) × (4 + 1)"],["B","10 − (4 − 2 + 1)"]])}<p><i>Sans parenthèses, on trouve ${V("2 + 3 × 4 + 1")} et ${V("10 − 4 − 2 + 1")} : vérifie toujours ton égalité en refaisant le calcul.</i></p>`},
+{t:"Une seule expression", p:2, h:`<p>Chaque élève a fait ses calculs en plusieurs étapes. Écris une seule expression qui regroupe toutes ses étapes. Nomme-la A pour Léna et B pour Yanis.</p>
+  <p>a) Léna : 7 × 4 = 28, puis 28 − 3 = 25, puis 25 × 2 = 50.</p><p>b) Yanis : 18 + 6 = 24, puis 24 ÷ 4 = 6, puis 6 + 5 = 11.</p>`,
+ c:`<p>a) A = (7 × 4 − 3) × 2. Les parenthèses sont indispensables : sans elles, on multiplierait 3 par 2 en premier. <i>(1 point)</i></p>
+  <p>b) B = (18 + 6) ÷ 4 + 5, ou avec un trait de fraction : B = {18 + 6/4} + 5. <i>(1 point)</i></p>
+  <p>Vérification :</p>${duo([["A","(7 × 4 − 3) × 2"],["B","(18 + 6) ÷ 4 + 5"]])}`},
+{t:"La cagnotte de la classe", p:3.5, h:`<p>Pour la fête de fin d'année, les 24 élèves d'une classe donnent chacun 3 €, et le collège ajoute 30 €. Avec cette cagnotte, ils achètent un gâteau à 48 € et des boissons pour 18 €. Combien reste-t-il dans la cagnotte ?</p>
+  <p>1) Écris une seule expression qui permet de résoudre le problème. Nomme-la A.</p><p>2) Effectue le calcul en détaillant tes étapes.</p><p>3) Conclus par une phrase.</p>`,
+ c:`<p>1) Cagnotte : 24 × 3 + 30. Dépenses : 48 + 18. Expression : A = 24 × 3 + 30 − (48 + 18). <i>(1,25 point)</i></p>
+  <p>2) <i>(1,75 point)</i></p>${L("24 × 3 + 30 − (48 + 18)","A")}
   <p>3) Il reste ${V("24 × 3 + 30 − (48 + 18)")} € dans la cagnotte. <i>(0,5 point)</i></p>`}
 ]};
 })();

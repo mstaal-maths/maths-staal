@@ -362,4 +362,131 @@ quiz:[
 }}
 ]
 };
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT (chapitres 5 et 6) =====================
+   Mêmes compétences que l'évaluation n° 3 de M. Staal, avec d'autres exercices, d'autres nombres et d'autres figures.
+   Les figures sont calculées : ce qui est dessiné correspond aux valeurs écrites. */
+const RL=window.REL, dgE=RL.dg, repE=RL.rep, colsE=RL.cols;
+/* Ex 1 : les trois maisons K, L, M (triangle aux trois angles aigus) */
+const E1={K:[0,0], L:[7,1], M:[3,6]}; E1.P=V.cc(E1.K,E1.L,E1.M);
+/* médiatrice de [AB] au compas : arcs de rayon r centrés en A et en B, droite qui passe par leurs points d'intersection */
+function medC(A,B,r,ext){ const I=V.mid(A,B), u=V.unit(V.perp(V.sub(B,A))), h=Math.sqrt(r*r-V.d(A,B)**2/4), X1=V.add(I,V.mul(u,h)), X2=V.sub(I,V.mul(u,h));
+  const t=p=>V.dot(V.sub(p,I),u), ts=[h,-h,...(ext||[]).map(t)], a=Math.min(...ts)-0.6, b=Math.max(...ts)+0.6;
+  const at=(C,X)=>Math.atan2(X[1]-C[1],X[0]-C[0])*180/Math.PI;
+  return {seg:[V.add(I,V.mul(u,a)),V.add(I,V.mul(u,b)),"m"], arcs:[[A,r,at(A,X1),22],[A,r,at(A,X2),22],[B,r,at(B,X1),22],[B,r,at(B,X2),22]], I}; }
+const mKL=medC(E1.K,E1.L,5,[E1.P]), mLM=medC(E1.L,E1.M,5,[E1.P]);
+const E1fig = geo({P:{K:E1.K,L:E1.L,M:E1.M}, poly:[["K","L","M"]], k:38, alt:"Les trois maisons K, L et M"});
+const E1cor = geo({P:{K:E1.K,L:E1.L,M:E1.M,P:E1.P}, poly:[["K","L","M"]], k:36, seg:[mKL.seg,mLM.seg], box:[mKL.seg[0],mKL.seg[1],mLM.seg[0],mLM.seg[1]], pad:24, arcs:[...mKL.arcs,...mLM.arcs], circ:[["P",V.d(E1.P,E1.K)]], dots:["P"], off:{P:[-16,4]},
+  ticks:[["K",mKL.I,1],[mKL.I,"L",1],["L",mLM.I,2],[mLM.I,"M",2]], cen:E1.P, alt:"Les médiatrices de [KL] et de [LM] se coupent en P, centre du cercle qui passe par K, L et M"});
+/* Ex 4 : EFG rectangle en F, EF = 5,4 cm et FG = 7,2 cm, donc EG = 9 cm et OF = 4,5 cm (dessin à l'échelle dans la correction) */
+const E4={E:[0,5.4], F:[0,0], G:[7.2,0]}; E4.O=V.mid(E4.E,E4.G);
+const E4fig = geo({P:{E:E4.E,F:E4.F,G:E4.G}, poly:[["E","F","G"]], right:[["F","G","E"]], k:24, alt:"Triangle EFG rectangle en F"});
+const E4cor = geo({P:{E:E4.E,F:E4.F,G:E4.G,O:E4.O}, poly:[["E","F","G"]], right:[["F","G","E"]], seg:[["O","F","b"]], circ:[["O",V.d(E4.O,E4.F)]], dots:["O"], ticks:[["E","O",1],["O","G",1]], off:{O:[12,-12]}, cen:E4.O, k:22, alt:"Le cercle circonscrit à EFG a pour diamètre [EG] et pour centre O"});
+/* Ex 6 : terrain PQR, QR = 14 m et PH = 8 m (1 unité du dessin = 2 m) */
+const E6={Q:[0,0], R:[7,0], P:[2.2,4], H:[2.2,0], I:[3.5,0]};
+/* cote de [QR] : un trait fin sous le côté, de Q à R, avec « 14 m » au milieu */
+const COTE6={seg:[[[0,-0.95],[7,-0.95],"d"],[[0,-0.7],[0,-1.2],"d"],[[7,-0.7],[7,-1.2],"d"]], txt:["14 m",[3.5,-0.95],0,20], box:[[0,-1.7]]};
+const E6fig = geo({P:{P:E6.P,Q:E6.Q,R:E6.R,H:E6.H}, poly:[["P","Q","R"]], seg:[["P","H","hd"],...COTE6.seg], right:[["H","R","P",GRN]], txt:[["8 m",[2.2,1.8],-22,0,GRN],COTE6.txt], box:COTE6.box, off:{H:[0,19]}, k:38, w:330, alt:"Le terrain triangulaire PQR"});
+const E6cor = geo({P:{P:E6.P,Q:E6.Q,R:E6.R,H:E6.H,I:E6.I}, poly:[["P","Q","R"]], seg:[["P","H","hd"],["P","I","md"],...COTE6.seg], right:[["H","R","P",GRN]], ticks:[["Q","I",1],["I","R",1]], txt:[["8 m",[2.2,1.8],-22,0,GRN],COTE6.txt], box:COTE6.box, dots:["I"], off:{H:[-6,19],I:[6,19]}, k:38, w:330, alt:"La clôture [PI] est la médiane issue de P"});
+/* Ex 5 : droite graduée (seuls 0 et 2 sont écrits) et repère */
+const E5d = dgE({min:-3, max:3, step:0.5, lab:1, only:[0,2], pts:[["R",-3],["S",-0.5],["T",1]], alt:"Droite graduée avec les points R, S et T"});
+const E5dc = dgE({w:600, min:-3, max:3, step:0.5, lab:1, pts:[["R",-3],["U",-1.5],["S",-0.5],["T",1],["V",2]], show:true, alt:"Les points R, U, S, T et V sur la droite graduée"});
+const E5r = repE({pts:[["E",0,3],["F",-4,-2]], alt:"Repère avec les points E et F"});
+const E5rc = repE({pts:[["E",0,3],["F",-4,-2],["A",-3,1,-10,-9],["B",3,1],["C",3,-3],["D",-3,-3,-10,16]], poly:["A","B","C","D"], proj:["E","F","D"], grads:true, alt:"Le rectangle ABCD et les points E et F"});
+const E5rcB = repE({pts:[["E",0,3],["F",-4,-2],["A",-3,1,-10,-9],["B",3,1],["C",3,-3]], proj:["E","F"], grads:true, alt:"Les points A, B, C, E et F"});
+const TEMP=[["Lille","−2,5"],["Brest","3"],["Strasbourg","−4"],["Lyon","−0,5"],["Nice","6,5"]];
+const tempTab=`<div class="scroll"><table class="std"><thead><tr><th>Ville</th>${TEMP.map(t=>`<th>${t[0]}</th>`).join("")}</tr></thead><tbody><tr><td><b>Température (°C)</b></td>${TEMP.map(t=>`<td>${t[1]}</td>`).join("")}</tr></tbody></table></div>`;
+const JSOD=`<div class="scroll"><table class="std"><tbody><tr><th>Je sais que</th><td style="min-width:16em">&nbsp;</td></tr><tr><th>Or</th><td>&nbsp;</td></tr><tr><th>Donc</th><td>&nbsp;</td></tr></tbody></table></div>`;
+const EX1h=`<p>Trois maisons sont représentées par les points K, L et M. On veut installer une antenne à la même distance des trois maisons.</p>${E1fig}<p>Travaille sur la figure (ou reproduis-la), avec tes instruments de géométrie. Laisse apparents tes traits de construction.</p>`;
+const EX1c=`${E1cor}<p>Les médiatrices sont tracées au compas : on garde le même écartement pour les deux arcs centrés en K et les deux arcs centrés en L (de même pour L et M).</p>`;
+
+const EVAL6 = {
+titre:"Évaluation d'entraînement — Chapitres 5 et 6", duree:55, info:"Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
+comp:[
+  ["CALCULER","Je reconnais un nombre négatif ; je trouve l'opposé, la distance à zéro et la valeur absolue d'un nombre ; je compare des nombres relatifs et je les range dans l'ordre.","Ex. 2 et 3 (6 points)"],
+  ["REPRÉSENTER","Je lis et je place des points sur une droite graduée et dans un repère ; je trace des médiatrices pour construire le cercle circonscrit à un triangle.","Ex. 1 et 5 (8 points)"],
+  ["CHERCHER","J'utilise l'aire d'un triangle et une médiane pour résoudre un problème de partage.","Ex. 6 (3 points)"],
+  ["RAISONNER","Je justifie avec une propriété du cours sur le triangle rectangle et son cercle circonscrit.","Ex. 4 (3 points)"]
+],
+exos:[
+{t:"L'antenne des trois maisons", p:4, h:`${EX1h}
+  <p>a) Construis la médiatrice du segment [KL].</p><p>b) Construis la médiatrice du segment [LM]. Elle coupe la première médiatrice au point P.</p>
+  <p>c) Explique pourquoi PK = PL = PM.</p><p>d) Trace le cercle de centre P qui passe par K. Que remarques-tu ? Comment s'appelle ce cercle ?</p>`,
+ c:`${EX1c}
+  <p>a) Médiatrice de [KL] : perpendiculaire à [KL] en son milieu. <i>(1 point)</i></p><p>b) Médiatrice de [LM], qui coupe la première en P. <i>(1 point)</i></p>
+  <p>c) P est sur la médiatrice de [KL], donc il est à égale distance de K et de L : PK = PL. P est aussi sur la médiatrice de [LM], donc PL = PM. Donc PK = PL = PM : l'antenne doit être installée au point P. <i>(1 point)</i></p>
+  <p>d) Le cercle passe aussi par L et par M, car PL = PM = PK. C'est le <b>cercle circonscrit</b> au triangle KLM. <i>(1 point)</i></p>`},
+{t:"Le vocabulaire des nombres relatifs", p:3, h:`<p>Voici six nombres : &nbsp; −7,5 &nbsp;;&nbsp; 3 &nbsp;;&nbsp; −0,4 &nbsp;;&nbsp; 0 &nbsp;;&nbsp; 12 &nbsp;;&nbsp; −12</p>
+  <p>1. Écris les nombres strictement négatifs de cette liste.</p><p>2. Quels sont les deux nombres opposés de cette liste ?</p><p>3. Donne la distance à zéro de −7,5 et celle de −0,4.</p>
+  <p>4. Complète : &nbsp; |−0,4| = ……… &nbsp;;&nbsp; |12| = ……… &nbsp;;&nbsp; |0| = ………</p><p>5. Écris l'opposé de −7,5 et l'opposé de 3.</p>`,
+ c:`<p>1. −7,5 ; −0,4 et −12. Le nombre 0 n'est pas strictement négatif. <i>(0,75 point)</i></p><p>2. 12 et −12 : ils ont la même distance à zéro et des signes différents. <i>(0,5 point)</i></p>
+  <p>3. La distance à zéro de −7,5 est 7,5 ; celle de −0,4 est 0,4. <i>(0,5 point)</i></p><p>4. |−0,4| = 0,4 ; |12| = 12 ; |0| = 0 <i>(0,25 point par case)</i></p><p>5. L'opposé de −7,5 est 7,5 ; l'opposé de 3 est −3. <i>(0,5 point)</i></p>`},
+{t:"Un matin de janvier", p:3, h:`<p>a) Complète avec &lt; ou &gt;.</p>${colsE(["−7 …… −9","−1,3 …… 1,2","−0,5 …… −0,45","−10 …… 0"])}
+  <p>Voici les températures relevées un matin de janvier dans cinq villes.</p>${tempTab}
+  <p>b) Range ces températures dans l'ordre <b>décroissant</b> (de la plus chaude à la plus froide).</p><p>c) Dans quelle ville a-t-il fait le plus froid ? Explique.</p>`,
+ c:`<p>a) −7 &gt; −9 <i>(deux négatifs : 7 &lt; 9)</i> · −1,3 &lt; 1,2 <i>(un négatif est plus petit qu'un positif)</i> · −0,5 &lt; −0,45 <i>(0,50 &gt; 0,45)</i> · −10 &lt; 0 <i>(0,25 point par case)</i></p>
+  <p>b) 6,5 &gt; 3 &gt; −0,5 &gt; −2,5 &gt; −4 &nbsp; soit Nice, Brest, Lyon, Lille, Strasbourg. <i>(1,5 point)</i></p>
+  <p>c) À Strasbourg : −4 est le plus petit des cinq nombres (c'est le négatif qui a la plus grande distance à zéro). <i>(0,5 point)</i></p>`},
+{t:"Un triangle rectangle et son cercle", p:3, h:`<p>EFG est un triangle rectangle en F. On appelle O le centre de son cercle circonscrit. <i>(Figure à main levée.)</i></p>${E4fig}
+  <p>a) Où se trouve le point O ? Justifie (Je sais que… Or… Donc…).</p>${JSOD}<p>b) On mesure OF = 4,5 cm. Calcule la longueur EG. Justifie.</p>`,
+ c:`<p>a) Je sais que EFG est un triangle rectangle en F, d'hypoténuse [EG].<br>Or si un triangle est rectangle, alors son cercle circonscrit a pour diamètre l'hypoténuse.<br>Donc O est le milieu de [EG]. <i>(0,5 point par ligne)</i></p>
+  ${E4cor}
+  <p>b) F est sur le cercle de centre O, donc OF est un rayon : le rayon mesure 4,5 cm. [EG] est un diamètre, donc EG = 2 × 4,5 = 9 cm. <i>(1,5 point)</i></p>`},
+{t:"Sur la droite et dans le repère", p:4, h:`<p>1. Observe la droite graduée.</p>${E5d}<p>a) Lis l'abscisse des points R, S et T.</p><p>b) Place les points U(−1,5) et V(2).</p>
+  <p>2. Observe le repère.</p>${E5r}<p>a) Lis les coordonnées des points E et F.</p><p>b) Place les points A(−3 ; 1), B(3 ; 1) et C(3 ; −3).</p><p>c) Place le point D pour que ABCD soit un rectangle. Écris ses coordonnées.</p><p>d) Lequel des points E et F est sur un axe ? Sur lequel ?</p>`,
+ c:`<p>1. Entre 0 et 2, il y a 4 intervalles : une graduation vaut 2 ÷ 4 = 0,5.</p><p>a) R(−3) ; S(−0,5) ; T(1) <i>(0,25 point par point)</i></p><p>b) Voir la droite. <i>(0,25 point par point)</i></p>${E5dc}
+  <p>2. a) E(0 ; 3) ; F(−4 ; −2) <i>(0,5 point par point)</i></p><p>b) Voir le repère. <i>(0,25 point par point)</i></p><p>c) D(−3 ; −3) <i>(0,5 point)</i></p>${E5rc}
+  <p>d) Le point E : son abscisse est 0, il est sur l'axe des ordonnées. <i>(0,5 point)</i></p>`},
+{t:"Le terrain à partager", p:3, h:`<p>Mme Lenoir possède un terrain en forme de triangle PQR. On sait que QR = 14 m et que la hauteur [PH] issue de P mesure 8 m. <i>(Figure à main levée.)</i></p>${E6fig}
+  <p>Elle veut le partager entre ses deux enfants en deux parcelles de même aire, avec une clôture droite qui part de P et qui arrive sur le côté [QR].</p>
+  <p>1. Calcule l'aire du terrain.</p><p>2. À quel endroit du côté [QR] la clôture doit-elle arriver ? Explique.</p><p>3. Quelle sera l'aire de chaque parcelle ?</p>`,
+ c:`<p>1. Aire = base × hauteur ÷ 2 <i>(1 point)</i></p><p class="calc">Aire = 14 × 8 ÷ 2<br>Aire = 112 ÷ 2<br>Aire = 56 m²</p>
+  <p>2. Elle doit arriver au milieu I de [QR], à 14 ÷ 2 = 7 m de Q. La clôture [PI] est alors la médiane issue de P, et une médiane partage un triangle en deux triangles de même aire. <i>(1 point)</i></p>${E6cor}
+  <p>3. Chaque parcelle a pour aire 56 ÷ 2 = 28 m². <i>Vérification : 7 × 8 ÷ 2 = 28 m².</i> <i>(1 point)</i></p>`}
+],
+/* ---- version aménagée (élèves à besoins éducatifs particuliers), faite comme M. Staal fait les siennes :
+   même durée, environ une question sur cinq retirée (jamais un exercice entier), questions renumérotées, barème recalculé sur 20 ---- */
+bep:{
+titre:"Évaluation d'entraînement — Chapitres 5 et 6 · version aménagée", duree:55, info:"Version aménagée · Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
+note:"Même durée et mêmes exercices, avec environ une question sur cinq en moins (réparties dans plusieurs exercices). Les questions sont renumérotées et le barème est recalculé : la note reste sur 20. Les justifications sont toujours demandées.",
+comp:[
+  ["CALCULER","Je reconnais un nombre négatif ; je trouve l'opposé et la valeur absolue d'un nombre ; je compare des nombres relatifs et je les range dans l'ordre.","Ex. 2 et 3 (6 points)"],
+  ["REPRÉSENTER","Je lis et je place des points sur une droite graduée et dans un repère ; je trace des médiatrices pour construire le cercle circonscrit à un triangle.","Ex. 1 et 5 (8 points)"],
+  ["CHERCHER","J'utilise l'aire d'un triangle et une médiane pour résoudre un problème de partage.","Ex. 6 (2,5 points)"],
+  ["RAISONNER","Je justifie avec une propriété du cours sur le triangle rectangle et son cercle circonscrit.","Ex. 4 (3,5 points)"]
+],
+exos:[
+{t:"L'antenne des trois maisons", p:4.5, h:`${EX1h}
+  <p>a) Construis la médiatrice du segment [KL].</p><p>b) Construis la médiatrice du segment [LM]. Elle coupe la première médiatrice au point P.</p>
+  <p>c) Explique pourquoi PK = PL = PM.</p><p>d) Trace le cercle de centre P qui passe par K. Que remarques-tu ? Comment s'appelle ce cercle ?</p>`,
+ c:`${EX1c}
+  <p>a) Médiatrice de [KL] : perpendiculaire à [KL] en son milieu. <i>(1,25 point)</i></p><p>b) Médiatrice de [LM], qui coupe la première en P. <i>(1,25 point)</i></p>
+  <p>c) P est sur la médiatrice de [KL], donc il est à égale distance de K et de L : PK = PL. P est aussi sur la médiatrice de [LM], donc PL = PM. Donc PK = PL = PM : l'antenne doit être installée au point P. <i>(1 point)</i></p>
+  <p>d) Le cercle passe aussi par L et par M, car PL = PM = PK. C'est le <b>cercle circonscrit</b> au triangle KLM. <i>(1 point)</i></p>`},
+{t:"Le vocabulaire des nombres relatifs", p:3, h:`<p>Voici six nombres : &nbsp; −7,5 &nbsp;;&nbsp; 3 &nbsp;;&nbsp; −0,4 &nbsp;;&nbsp; 0 &nbsp;;&nbsp; 12 &nbsp;;&nbsp; −12</p>
+  <p>1. Écris les nombres strictement négatifs de cette liste.</p><p>2. Quels sont les deux nombres opposés de cette liste ?</p>
+  <p>3. Complète : &nbsp; |−0,4| = ……… &nbsp;;&nbsp; |12| = ……… &nbsp;;&nbsp; |0| = ………</p><p>4. Écris l'opposé de −7,5 et l'opposé de 3.</p>`,
+ c:`<p>1. −7,5 ; −0,4 et −12. Le nombre 0 n'est pas strictement négatif. <i>(0,75 point)</i></p><p>2. 12 et −12 : ils ont la même distance à zéro et des signes différents. <i>(0,75 point)</i></p>
+  <p>3. |−0,4| = 0,4 ; |12| = 12 ; |0| = 0 <i>(0,25 point par case)</i></p><p>4. L'opposé de −7,5 est 7,5 ; l'opposé de 3 est −3. <i>(0,75 point)</i></p>`},
+{t:"Un matin de janvier", p:3, h:`<p>a) Complète avec &lt; ou &gt;.</p>${colsE(["−7 …… −9","−1,3 …… 1,2","−0,5 …… −0,45","−10 …… 0"])}
+  <p>Voici les températures relevées un matin de janvier dans cinq villes.</p>${tempTab}
+  <p>b) Range ces températures dans l'ordre <b>décroissant</b> (de la plus chaude à la plus froide).</p>`,
+ c:`<p>a) −7 &gt; −9 <i>(deux négatifs : 7 &lt; 9)</i> · −1,3 &lt; 1,2 <i>(un négatif est plus petit qu'un positif)</i> · −0,5 &lt; −0,45 <i>(0,50 &gt; 0,45)</i> · −10 &lt; 0 <i>(0,25 point par case)</i></p>
+  <p>b) 6,5 &gt; 3 &gt; −0,5 &gt; −2,5 &gt; −4 &nbsp; soit Nice, Brest, Lyon, Lille, Strasbourg. <i>(2 points)</i></p>`},
+{t:"Un triangle rectangle et son cercle", p:3.5, h:`<p>EFG est un triangle rectangle en F. On appelle O le centre de son cercle circonscrit. <i>(Figure à main levée.)</i></p>${E4fig}
+  <p>a) Où se trouve le point O ? Justifie (Je sais que… Or… Donc…).</p>${JSOD}<p>b) On mesure OF = 4,5 cm. Calcule la longueur EG. Justifie.</p>`,
+ c:`<p>a) Je sais que EFG est un triangle rectangle en F, d'hypoténuse [EG].<br>Or si un triangle est rectangle, alors son cercle circonscrit a pour diamètre l'hypoténuse.<br>Donc O est le milieu de [EG]. <i>(0,5 point pour « Je sais que », 0,75 point pour « Or », 0,5 point pour « Donc »)</i></p>
+  ${E4cor}
+  <p>b) F est sur le cercle de centre O, donc OF est un rayon : le rayon mesure 4,5 cm. [EG] est un diamètre, donc EG = 2 × 4,5 = 9 cm. <i>(1,75 point)</i></p>`},
+{t:"Sur la droite et dans le repère", p:3.5, h:`<p>1. Observe la droite graduée.</p>${E5d}<p>a) Lis l'abscisse des points R, S et T.</p><p>b) Place les points U(−1,5) et V(2).</p>
+  <p>2. Observe le repère.</p>${E5r}<p>a) Lis les coordonnées des points E et F.</p><p>b) Place les points A(−3 ; 1), B(3 ; 1) et C(3 ; −3).</p>`,
+ c:`<p>1. Entre 0 et 2, il y a 4 intervalles : une graduation vaut 2 ÷ 4 = 0,5.</p><p>a) R(−3) ; S(−0,5) ; T(1) <i>(1 point)</i></p><p>b) Voir la droite. <i>(0,75 point)</i></p>${E5dc}
+  <p>2. a) E(0 ; 3) ; F(−4 ; −2) <i>(0,5 point par point)</i></p><p>b) Voir le repère. <i>(0,25 point par point)</i></p>${E5rcB}`},
+{t:"Le terrain à partager", p:2.5, h:`<p>Mme Lenoir possède un terrain en forme de triangle PQR. On sait que QR = 14 m et que la hauteur [PH] issue de P mesure 8 m. <i>(Figure à main levée.)</i></p>${E6fig}
+  <p>Elle veut le partager entre ses deux enfants en deux parcelles de même aire, avec une clôture droite qui part de P et qui arrive sur le côté [QR].</p>
+  <p>1. À quel endroit du côté [QR] la clôture doit-elle arriver ? Explique.</p><p>2. Quelle sera l'aire de chaque parcelle ? Écris tes calculs.</p>`,
+ c:`<p>1. Elle doit arriver au milieu I de [QR], à 14 ÷ 2 = 7 m de Q. La clôture [PI] est alors la médiane issue de P, et une médiane partage un triangle en deux triangles de même aire. <i>(1 point)</i></p>${E6cor}
+  <p>2. Aire du terrain (base × hauteur ÷ 2), puis aire de chaque parcelle : <i>(1,5 point)</i></p><p class="calc">Aire = 14 × 8 ÷ 2<br>Aire = 112 ÷ 2<br>Aire = 56 m²</p><p>Chaque parcelle a pour aire 56 ÷ 2 = 28 m². <i>Autre méthode : 7 × 8 ÷ 2 = 28 m².</i></p>`}
+]}
+};
+CH["5e-6"].eval = EVAL6;
 })();

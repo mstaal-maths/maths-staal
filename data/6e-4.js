@@ -248,37 +248,90 @@ quiz:[
 }}
 ],
 
-/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
-eval:{
-titre:"Évaluation d'entraînement n° 4", duree:45, info:"Durée : 45 min · Règle graduée et compas · Calculatrice non autorisée",
-comp:[
-  ["COMMUNIQUER","J'utilise le bon vocabulaire et les bonnes notations : [AB] et AB, rayon, corde, diamètre, cercle, disque.","Ex. 1 (3 points)"],
-  ["CALCULER","Je calcule une longueur sur une figure, avec un milieu, un rayon ou un diamètre.","Ex. 2, 5 et 6 (9 points)"],
-  ["REPRÉSENTER","Je construis un segment, son milieu et des cercles en suivant un programme.","Ex. 3 (4 points)"],
-  ["RAISONNER","J'utilise le cercle et le disque pour répondre à un problème.","Ex. 4 (4 points)"]
-],
-exos:[
-{t:"Le bon mot", p:3, h:`${circFig({r:72, w:250, pts:[["O",0,0],["R",-60,1],["S",128,1],["U",58,1],["V",160,1],["W",-20,1]], segs:[["O","R"],["S","U"],["V","W"]], alt:"Cercle de centre O avec les segments [OR], [SU] et [VW]"})}
-  <p>Sur la figure, O est le centre du cercle.</p><p>a) Complète avec le mot qui convient : [OR] est … ; [SU] est … ; [VW] est … .</p><p>b) Recopie la seule écriture correcte : « [VW] = 5 cm » ou « VW = 5 cm ».</p><p>c) Le point O appartient-il au cercle ? au disque ?</p>`,
- c:`<p>a) [OR] est un <b>rayon</b> ; [SU] est une <b>corde</b> ; [VW] est un <b>diamètre</b> (il passe par O). <i>(0,5 point chacun)</i></p><p>b) VW = 5 cm : une longueur s'écrit sans crochets. <i>(0,5 point)</i></p><p>c) O n'appartient pas au cercle, mais il appartient au disque. <i>(0,5 point par réponse)</i></p>`},
-{t:"Le sentier de randonnée", p:3, h:`<p>Un sentier droit relie le parking P au refuge R. Le lac L et la cascade C sont sur ce sentier, dans l'ordre P, L, C, R. On sait que : PR = 18 km ; PL = 5 km ; C est le milieu de [LR].</p>
-  <p>a) Fais un dessin à main levée en y plaçant les longueurs connues.</p><p>b) Calcule LR, puis LC.</p><p>c) À quelle distance du parking se trouve la cascade ?</p>`,
- c:`<p>a) ${segFig({w:380, pts:[["P",0],["L",5/18],["C",11.5/18],["R",1]], ticks:[[1,2,1],[2,3,1]], lens:[[0,1,"5 km"],[0,3,"18 km",1]]})} <i>(0,5 point)</i></p>
-  <p>b) L est sur [PR], donc LR = PR − PL = 18 − 5 = 13 km. C est le milieu de [LR], donc LC = 13 ÷ 2 = 6,5 km. <i>(1,5 point)</i></p>
-  <p>c) PC = PL + LC = 5 + 6,5 = 11,5 km. La cascade est à 11,5 km du parking. <i>(1 point)</i></p>`},
-{t:"Programme de construction", p:4, h:`<p>1) Trace un segment [AB] de 8 cm. Place son milieu I et code la figure.</p><p>2) Trace le cercle de diamètre [AB].</p><p>3) Trace le cercle de centre A et de rayon 3 cm. Il coupe [AB] en M.</p><p>4) Calcule MI et MB, sans mesurer. Justifie.</p>`,
- c:`<p>1) à 3) Figure : AB = 8 cm, I à 4 cm de A, le cercle de centre I et de rayon 4 cm passe par A et B, le cercle de centre A et de rayon 3 cm. <i>(2 points)</i></p>
-  <svg class="fig" viewBox="0 0 330 250" width="330" role="img" aria-label="Figure réduite : segment [AB] de milieu I, cercle de diamètre [AB], cercle de centre A et de rayon 3 cm qui coupe [AB] en M"><circle cx="190" cy="125" r="100" style="fill:none;stroke:${BLUE};stroke-width:2"/><circle cx="90" cy="125" r="75" style="fill:none;stroke:${GREEN};stroke-width:2"/><line x1="90" y1="125" x2="290" y2="125" class="ln"/><line x1="137" y1="131" x2="143" y2="119" style="stroke:${RED};stroke-width:2"/><line x1="237" y1="131" x2="243" y2="119" style="stroke:${RED};stroke-width:2"/>${cross(90,125,"ln")}${cross(290,125,"ln")}${cross(190,125,"ln")}${cross(165,125,"ln")}<text x="78" y="118" style="font-size:15px;font-weight:600">A</text><text x="296" y="118" style="font-size:15px;font-weight:600">B</text><text x="186" y="146" style="font-size:15px;font-weight:600">I</text><text x="158" y="146" style="font-size:15px;font-weight:600">M</text><text x="232" y="244" style="font-size:13px;fill:${BLUE}">diamètre [AB]</text><text x="4" y="244" style="font-size:13px;fill:${GREEN}">rayon 3 cm</text></svg>
-  ${segFig({w:380, pts:[["A",0],["M",3/8],["I",0.5],["B",1]], ticks:[[0,2,1],[2,3,1]], lens:[[0,1,"3 cm"],[0,3,"8 cm",1]]})}
-  <p>4) M appartient au cercle de centre A et de rayon 3 cm, donc AM = 3 cm. I est le milieu de [AB], donc AI = 8 ÷ 2 = 4 cm.</p><p>M est entre A et I : MI = AI − AM = 4 − 3 = 1 cm. &nbsp; M est entre A et B : MB = AB − AM = 8 − 3 = 5 cm. <i>(2 points)</i></p>`},
-{t:"La chèvre de M. Seguin", p:4, h:`<p>Une chèvre est attachée à un piquet P par une corde de 5 m. Elle peut aller partout où la corde le lui permet.</p><p>a) Quelle est la forme de la zone où la chèvre peut brouter ? Donne son centre et son rayon.</p><p>b) Un chou est à 4,5 m du piquet, une rose à 5 m et un pommier à 6,2 m. Lesquels la chèvre peut-elle atteindre ? Explique.</p><p>c) Sur un plan, 1 cm représente 1 m. Quel rayon faut-il donner au compas pour tracer la zone ?</p>`,
- c:`<p>a) C'est le <b>disque de centre P et de rayon 5 m</b> (la chèvre peut aller sur le bord et à l'intérieur). <i>(1,5 point)</i></p><p>b) Le chou (4,5 m &lt; 5 m) est dans le disque : il sera mangé. La rose (5 m) est sur le cercle, donc dans le disque : elle aussi. Le pommier (6,2 m &gt; 5 m) est en dehors : il est à l'abri. <i>(1,5 point)</i></p><p>c) 5 m sont représentés par 5 cm : on écarte le compas de 5 cm. <i>(1 point)</i></p>`},
-{t:"Rayon et diamètre", p:2, h:`<p>Complète le tableau.</p><div class="scroll"><table class="std"><tbody><tr><th>Rayon</th><td>6 cm</td><td>……</td><td>2,5 cm</td><td>……</td></tr><tr><th>Diamètre</th><td>……</td><td>18 cm</td><td>……</td><td>9 cm</td></tr></tbody></table></div>`,
- c:`<div class="scroll"><table class="std"><tbody><tr><th>Rayon</th><td>6 cm</td><td><b>9 cm</b></td><td>2,5 cm</td><td><b>4,5 cm</b></td></tr><tr><th>Diamètre</th><td><b>12 cm</b></td><td>18 cm</td><td><b>5 cm</b></td><td>9 cm</td></tr></tbody></table></div><p><i>0,5 point par case.</i></p>`},
-{t:"Deux cercles", p:4, h:`<p>Le cercle (C₁) a pour centre A et pour rayon 4 cm. Le cercle (C₂) a pour centre B et pour rayon 3 cm. Les deux cercles se coupent en E et F, et AB = 5 cm.</p>
-  <p>a) Combien mesurent AE, AF, BE et BF ? Justifie une des réponses.</p><p>b) Calcule le périmètre du quadrilatère AEBF.</p><p>c) Le cercle (C₁) coupe le segment [AB] en un point G. Calcule GB.</p>`,
- c:`<p>a) E appartient au cercle (C₁) de centre A et de rayon 4 cm, donc AE = 4 cm. De même AF = 4 cm. E et F appartiennent au cercle (C₂) de centre B et de rayon 3 cm, donc BE = BF = 3 cm. <i>(2 points)</i></p>
-  <p>b) Périmètre de AEBF = AE + EB + BF + FA = 4 + 3 + 3 + 4 = 14 cm. <i>(1 point)</i></p><p>c) G appartient à (C₁), donc AG = 4 cm. G est entre A et B : GB = AB − AG = 5 − 4 = 1 cm. <i>(1 point)</i></p>`}
-]}
+/* ===================== ÉVAL D'ENTRAÎNEMENT (+ version aménagée pour les élèves à besoins particuliers) ===================== */
+eval:(()=>{
+/* figures en vraie grandeur sur le sujet imprimé : 1 cm = 37,8 px (PDF de 182 mm pour 688 px) */
+const CM=37.8, f1=x=>(+x).toFixed(1);
+const T=(x,y,t,st="")=>`<text x="${f1(x)}" y="${f1(y)}" style="font-size:16px;font-weight:600;${st}">${t}</text>`;
+const L_=(a,b,st="")=>`<line x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}" class="ln"${st?` style="${st}"`:""}/>`;
+const tk=(x,y)=>L_([x,y-7],[x,y+7]);
+const cod=(x,y)=>`<line x1="${f1(x-3)}" y1="${f1(y+6)}" x2="${f1(x+3)}" y2="${f1(y-6)}" style="stroke:${RED};stroke-width:2"/>`;
+const sv=(W,H,lab,body)=>`<svg class="fig" viewBox="0 0 ${f1(W)} ${H}" width="${f1(W)}" role="img" aria-label="${lab}">${body}</svg>`;
+/* exercice 2 : le segment [RS], la demi-droite [Ox), la droite (d) et le point M */
+const segRS = L => sv(L*CM+60,60,`Le segment [RS] (${String(L).replace(".",",")} cm sur le sujet imprimé)`, L_([30,36],[30+L*CM,36])+tk(30,36)+tk(30+L*CM,36)+T(24,22,"R")+T(24+L*CM,22,"S"));
+const ray = (L,c) => { const x=30+L*CM, xm=30+L*CM/2, R=L*CM, a=0.2;
+  return sv(410,70,c?"La demi-droite [Ox), le point P tel que OP = RS et le milieu K de [OP]":"La demi-droite [Ox)", L_([30,40],[400,40])+tk(30,40)+T(24,26,"O")+T(392,26,"x","font-style:italic;font-weight:400")
+   +(c?`<path d="M${f1(30+R*Math.cos(a))} ${f1(40-R*Math.sin(a))} A${f1(R)} ${f1(R)} 0 0 1 ${f1(30+R*Math.cos(a))} ${f1(40+R*Math.sin(a))}" class="cons"/>${cross(x,40,"ln")}${T(x-5,26,"P",`fill:${BLUE}`)}${cross(xm,40,"ln")}${T(xm-5,26,"K",`fill:${BLUE}`)}${cod((30+xm)/2,40)}${cod((xm+x)/2,40)}`:"")); };
+const dM = (dist,c) => { const A=[10,190], B=[410,110], u=[(B[0]-A[0])/Math.hypot(400,80),(B[1]-A[1])/Math.hypot(400,80)], nn=[u[1],-u[0]], F=[A[0]+u[0]*192,A[1]+u[1]*192], M=[F[0]+nn[0]*dist*CM,F[1]+nn[1]*dist*CM], q=10;
+  const s1=[F[0]-u[0]*q,F[1]-u[1]*q], s2=[s1[0]+nn[0]*q,s1[1]+nn[1]*q], s3=[F[0]+nn[0]*q,F[1]+nn[1]*q];
+  return sv(420,200,c?"La distance du point M à la droite (d) : le segment perpendiculaire à (d)":"La droite (d) et le point M", L_(A,B)+T(392,98,"(d)","font-weight:400")+cross(M[0],M[1],"ln")+T(M[0]+10,M[1]+6,"M")
+   +(c?L_(M,F,`stroke:${BLUE};stroke-width:2.6`)+`<path d="M${f1(s1[0])} ${f1(s1[1])} L${f1(s2[0])} ${f1(s2[1])} L${f1(s3[0])} ${f1(s3[1])}" style="fill:none;stroke:${BLUE};stroke-width:1.5"/>`+cross(F[0],F[1],"ln")+T(F[0]+4,F[1]+22,"H",`fill:${BLUE}`):"")); };
+/* exercice 1 : correction réduite (1 cm = 30 px) */
+const prog = (()=>{ const k=30, y=115, E=[85,y], O=[85+3*k,y], F=[85+6*k,y], a=115*Math.PI/180, G=[O[0]+3*k*Math.cos(a),y-3*k*Math.sin(a)], L=[85+2*k,y];
+  return sv(290,235,"Correction réduite : [EF] de milieu O, le cercle (C) de diamètre [EF], le rayon [OG], la corde [FG], le cercle de centre E et de rayon 2 cm qui coupe [EF] en L",
+   `<circle cx="${O[0]}" cy="${y}" r="${3*k}" style="fill:none;stroke:${BLUE};stroke-width:2"/><circle cx="${E[0]}" cy="${y}" r="${2*k}" style="fill:none;stroke:${GREEN};stroke-width:2"/>`
+   +L_(E,F)+L_(O,G,`stroke:${ORANGE};stroke-width:2.4`)+L_(F,G,`stroke:${RED};stroke-width:2.4`)+cod(E[0]+45,y)+cod(O[0]+45,y)
+   +[[E,"E",-16,-8],[O,"O",-5,22],[F,"F",6,-8],[G,"G",-6,-10],[L,"L",-4,22]].map(([P,n,dx,dy])=>cross(P[0],P[1],"ln")+T(P[0]+dx,P[1]+dy,n)).join("")
+   +T(222,226,"(C)",`fill:${BLUE}`)+T(4,226,"cercle de centre E",`fill:${GREEN};font-size:13px;font-weight:400`)); })();
+/* exercice 4 : deux cercles le long de [OP] (pas en vraie grandeur) */
+const cercles = (r1,r2,op) => { const k=22, y=105, O=[24+r1*k,y], P=[O[0]+op*k,y], M=[O[0]+r1*k,y], N=[P[0]-r2*k,y];
+  return sv(P[0]+r2*k+24,215,`Le cercle (C₁) de centre O, le cercle (C₂) de centre P, le segment [OP] qui coupe (C₁) en M et (C₂) en N`,
+   `<circle cx="${O[0]}" cy="${y}" r="${r1*k}" style="fill:none;stroke:var(--ink);stroke-width:2"/><circle cx="${P[0]}" cy="${y}" r="${r2*k}" style="fill:none;stroke:var(--ink);stroke-width:2"/>`+L_(O,P)
+   +[[O,"O"],[M,"M"],[N,"N"],[P,"P"]].map(([Q,n])=>cross(Q[0],Q[1],"ln")+T(Q[0]-5,Q[1]-12,n)).join("")+T(O[0]-r1*k*0.95,205,"(C₁)","font-weight:400")+T(P[0]+r2*k*0.4,y+r2*k+24,"(C₂)","font-weight:400")); };
+/* exercice 3 : figure du vocabulaire */
+const voc = circFig({r:72, w:260, pts:[["K",0,0],["A",200,1],["B",20,1],["C",110,1],["D",-40,0.55],["E",-25,1.35]], segs:[["A","B"],["K","C"],["B","C"]], alt:"Cercle de centre K : le segment [AB] passe par K, les segments [KC] et [BC], le point D à l'intérieur, le point E à l'extérieur"});
+const malo = circFig({r:62, w:230, pts:[["O",0,0],["A",180,1],["B",0,1],["C",125,1],["D",55,1]], segs:[["A","B",BLUE],["C","D",RED]], alt:"Un diamètre [AB] et une corde [CD] plus courte"});
+const VF = (h,ok,why) => `${h} : <b>${ok?"vrai":"faux"}</b>${why?" ("+why+")":""}`;
+const exos = (B) => [
+{t:"Un programme à suivre", p:4, h:(B?`<div class="retenir" data-l="Je me souviens"><p>Le cercle de diamètre [EF] a pour centre le milieu de [EF]. Son rayon est la moitié de EF.</p></div><p>Suis ce programme au crayon à papier, sans effacer les traits de construction.</p>
+  <p>1) Trace un segment [EF] de 6 cm.</p><p>2) Place son milieu O (à 3 cm de E), avec le codage.</p><p>3) Trace le cercle (C) de diamètre [EF].</p><p class="note"><b>Aide :</b> pique le compas en O, avec un écartement de 3 cm.</p><p>4) Place un point G sur le cercle (C). Trace le segment [OG] et le segment [FG].</p><p>5) Trace le cercle de centre E et de rayon 2 cm. Il coupe le segment [EF] : appelle L ce point.</p>`
+  :`<p>Suis ce programme au crayon à papier, sans effacer les traits de construction.</p><p>1) Trace un segment [EF] de 6 cm. Place son milieu O, avec le codage. 2) Trace le cercle (C) de diamètre [EF]. 3) Place un point G sur (C). Trace le rayon [OG] et la corde [FG]. 4) Trace le cercle de centre E et de rayon 2 cm. Il coupe le segment [EF] en un point : nomme-le L.</p>`),
+ c:`<p>Voici la figure, réduite :</p>${prog}
+  <p>O est le milieu de [EF], donc OE = OF = 6 ÷ 2 = 3 cm. Le cercle de diamètre [EF] a pour centre O et pour rayon 3 cm. G peut être placé n'importe où sur (C). L est sur [EF], à 2 cm de E.</p>
+  <p><i>${B?"1) 0,5 point · 2) 0,5 point · 3) 1 point · 4) 1 point · 5) 1 point":"1 point par étape"}</i></p>`},
+{t:"Règle, compas et équerre", p:5, h:`<p class="note"><b>Sur le sujet imprimé</b>, les figures de cet exercice sont en vraie grandeur.</p>${B?`<div class="retenir" data-l="Je me souviens"><p>Le milieu d'un segment le partage en deux segments de même longueur. La distance d'un point à une droite se mesure sur le segment perpendiculaire à la droite.</p></div>`:""}
+  ${segRS(B?4:5)}${ray(B?4:5,0)}${dM(B?2:3,0)}
+  <p>1) Quelle est la longueur RS ? Mesure-la avec ta règle graduée.</p><p>2) Sans utiliser la graduation de la règle, place sur [Ox) le point P tel que OP = RS. Laisse les traces de compas.</p>${B?`<p class="note"><b>Aide :</b> pique le compas en R et écarte-le jusqu'à S. Sans changer l'écartement, pique en O.</p>`:""}
+  <p>3) Construis le point K, milieu de [OP]. N'oublie pas le codage.</p><p>4) Calcule OK (ne mesure pas).</p>
+  <p>5) À quelle distance de la droite (d) se trouve le point M ? Trace en couleur le segment qui le montre, puis mesure-le.</p>${B?`<p class="note"><b>Aide :</b> utilise ton équerre. Pose un côté de l'angle droit sur (d), l'autre côté doit passer par M.</p>`:""}`,
+ c:`<p>1) RS = <b>${B?4:5} cm</b> (sur le sujet imprimé). <i>(0,5 point)</i></p>
+  <p>2) J'écarte le compas de R à S, je pique en O et je trace un arc qui coupe [Ox) en P : OP = RS = ${B?4:5} cm. <i>(1 point)</i></p>${ray(B?4:5,1)}
+  <p>3) K est à ${B?2:"2,5"} cm de O, et je code [OK] et [KP] avec le même petit trait. <i>(1 point)</i></p>
+  <p>4) K est le milieu de [OP], donc :</p><p class="calc">OK = OP ÷ 2 = ${B?4:5} ÷ 2 = ${B?2:"2,5"} cm</p><p><i>(1 point)</i></p>
+  <p>5) Avec l'équerre, je trace le segment [MH] perpendiculaire à (d) (H est sur (d)). La distance du point M à la droite (d) est MH = <b>${B?2:3} cm</b>. <i>(1 point pour le tracé perpendiculaire, 0,5 point pour la mesure)</i></p>${dM(B?2:3,1)}`},
+{t:"Vrai ou faux ?", p:5, h:`${B?`<div class="retenir" data-l="Je me souviens"><p>Un rayon va du centre à un point du cercle. Une corde relie deux points du cercle. Un diamètre est une corde qui passe par le centre. Le disque, c'est le cercle et tout son intérieur.</p></div>`:""}${voc}
+  <p>Sur la figure, K est le centre du cercle, et [AB] passe par K. La figure n'est pas en vraie grandeur.</p>
+  <p>1) Vrai ou faux ?</p><p>a) [KC] est un rayon du cercle. b) [BC] est un diamètre du cercle. c) [AB] est une corde du cercle. d) Le point D appartient au cercle. e) Le point D appartient au disque. f) Le centre K appartient au cercle. g) KD est plus petit que le rayon. h) KE est égal au rayon.</p>
+  ${B?`<p class="note"><b>Aide :</b> pour g) et h), regarde si le point est à l'intérieur du cercle, sur le cercle ou à l'extérieur.</p><p>2) Le rayon du cercle mesure 2 cm. Complète : KA = …… cm et AB = 2 × …… = …… cm.</p>`
+   :`<p>2) Le rayon du cercle mesure 2 cm. Sans mesurer, donne KA et AB.</p>`}`,
+ c:`<p>1) ${VF("a) [KC]",1,"il va du centre K à un point C du cercle")} · ${VF("b) [BC]",0,"il ne passe pas par le centre : c'est une corde")} · ${VF("c) [AB]",1,"A et B sont sur le cercle ; un diamètre est une corde qui passe par le centre")} · ${VF("d) D sur le cercle",0,"D est à l'intérieur")} · ${VF("e) D dans le disque",1,"")} · ${VF("f) K sur le cercle",0,"le centre appartient au disque, mais pas au cercle")} · ${VF("g) KD plus petit que le rayon",1,"D est à l'intérieur du cercle")} · ${VF("h) KE égal au rayon",0,"E est à l'extérieur, donc KE est plus grand que le rayon")}</p><p><i>(0,5 point par réponse)</i></p>
+  <p>2) A est sur le cercle, donc KA = <b>2 cm</b>. [AB] est un diamètre, donc AB = 2 × 2 = <b>4 cm</b>. <i>(0,5 point chacun)</i></p>
+  `},
+{t:"Deux cercles sur une ligne", p:4, h:`<p>Deux cercles sont tracés le long du segment [OP], qui mesure ${B?8:9} cm.</p><p>Le premier, (C₁), a pour centre O et pour rayon ${B?3:4} cm. Le second, (C₂), a pour centre P et pour rayon 2 cm.</p><p>Le segment [OP] coupe (C₁) en M et (C₂) en N.</p>
+  ${cercles(B?3:4,2,B?8:9)}<p><i>La figure n'est pas en vraie grandeur.</i></p>
+  ${B?`<p>1) Complète : M est sur le cercle (C₁), donc OM = …… cm.</p><p>2) Complète : MP = OP − OM = …… − …… = …… cm.</p><p>3) Calcule MN.</p><p class="note"><b>Aide :</b> N est sur le cercle (C₂), donc PN = 2 cm. Et MN = MP − PN.</p><p>4) Quelle est la longueur d'un diamètre de (C₁) ?</p><p class="note"><b>Aide :</b> diamètre = 2 × rayon.</p>`
+   :`<p>1) Quelle est la longueur OM ? Pourquoi ? 2) Déduis-en la longueur MP. 3) Calcule MN. 4) Combien mesure un diamètre de (C₁) ?</p>`}`,
+ c:`<p>1) M appartient au cercle (C₁) de centre O et de rayon ${B?3:4} cm, donc OM = <b>${B?3:4} cm</b>. <i>(1 point)</i></p>
+  <p>2) M est sur le segment [OP], donc :</p><p class="calc">MP = OP − OM = ${B?8:9} − ${B?3:4} = 5 cm</p><p><i>(1 point)</i></p>
+  <p>3) N appartient au cercle (C₂) de centre P et de rayon 2 cm, donc PN = 2 cm. N est entre M et P :</p><p class="calc">MN = MP − PN = 5 − 2 = 3 cm</p><p><i>(1 point)</i></p>
+  <p>4) Un diamètre mesure deux fois le rayon :</p><p class="calc">diamètre de (C₁) = 2 × ${B?3:4} = ${B?6:8} cm</p><p><i>(1 point)</i></p>`},
+{t:"Malo a-t-il raison ?", p:2, h:`<p>Malo affirme : «&nbsp;Dans un cercle de rayon 3 cm, toutes les cordes mesurent 6 cm.&nbsp;»</p>${B?`<p>Entoure : Malo a raison · Malo a tort. Explique pourquoi.</p><p class="note"><b>Aide :</b> trace un cercle de rayon 3 cm, un diamètre et une autre corde, puis mesure-les.</p>`:`<p>Est-ce vrai ? Explique pourquoi, en t'aidant d'un dessin si tu veux.</p>`}`,
+ c:`<p>Malo a tort. Seules les cordes qui passent par le centre, c'est-à-dire les diamètres, mesurent 2 × 3 = 6 cm. Une corde qui ne passe pas par le centre est plus courte. <i>(1 point pour la réponse avec le diamètre, 1 point pour l'exemple d'une corde plus courte)</i></p>${malo}<p>[AB] est un diamètre : AB = 6 cm. [CD] est une corde plus courte.</p>`}
+];
+const comp = [
+  ["REPRÉSENTER","Je construis une figure avec la règle et le compas ; je mesure et je reporte une longueur ; je trace la distance d'un point à une droite.","Ex. 1 et 2 (9 points)"],
+  ["RAISONNER","Je reconnais rayon, corde et diamètre, et je décide si un point est sur le cercle ou dans le disque.","Ex. 3 (5 points)"],
+  ["CALCULER","Je calcule une longueur avec un rayon ou un diamètre, et je justifie.","Ex. 4 (4 points)"],
+  ["COMMUNIQUER","Je rédige une explication claire.","Ex. 5 (2 points)"]
+];
+return {
+titre:"Évaluation d'entraînement — Chapitre 4", duree:50, info:"Durée : 50 min · Matériel : règle graduée, équerre, compas, crayon à papier · Calculatrice non autorisée",
+comp, exos:exos(0),
+/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+bep:{titre:"Évaluation d'entraînement — Chapitre 4 · version aménagée", duree:50, info:"Durée : 50 min · Matériel : règle graduée, équerre, compas, crayon à papier · Calculatrice non autorisée · Version aménagée",
+  note:"Mêmes exercices et même barème, avec des nombres plus simples, des consignes découpées en étapes, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+  comp, exos:exos(1)}
+};
+})()
 };
 })();

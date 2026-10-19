@@ -213,7 +213,108 @@ quiz:[
  3:[ {g:()=>{ const [n,a]=pick([[5,144],[8,135],[9,160],[10,108],[12,150]]); return {q:`Un script répète ${n} fois « avancer de 100 pas, tourner ↻ de ${a} degrés ». Combien de tours complets le lutin fait-il au total ?`, rep:String(n*a/360), ex:`${n} × ${a} = ${n*a} degrés, et ${n*a} ÷ 360 = ${n*a/360}.`, sx:trace([PEN,rep(n,[av(100),td(a)])],{start:RIGHT,size:140})}; }},
      {g:()=>{ const a=pick([70,80,100,110]); return {q:`Camille répète 4 fois « avancer de 50 pas, tourner ↻ de ${a} degrés ». Vrai ou faux : elle obtient un carré.`, c:VF, rep:"Faux", ex:`Elle tourne de 4 × ${a} = ${4*a}° au lieu de 360° : la figure n'est pas un carré.`, sx:trace([PEN,rep(4,[av(50),td(a)])],{start:RIGHT,size:140})}; }} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT (sur papier, sans ordinateur) ===================== */
+eval:(()=>{
+const RIGHT0 = {x:0,y:0,dir:90};
+const DIRN = d => ({0:"vers le haut",90:"vers la droite",180:"vers le bas","-90":"vers la gauche"})[String(d)];
+/* exercice 1 : sans stylo */
+const S1 = [HAT, go(-40,30), or(0), av(60), tg(90), av(100), td(180), av(30)];
+const R1 = run(S1).steps;                  /* états après chaque bloc */
+const a1 = R1[2], a2 = R1[4], a3 = R1[6];  /* après avancer de 60, de 100, de 30 */
+/* exercice 2 : l'escalier */
+const S2 = [HAT, go(0,0), or(90), PEN, rep(3,[av(20), tg(90), av(20), td(90)])];
+const R2 = run(S2);
+const GRID2 = trace([PEN, av(100), tg(90), av(80)], {start:RIGHT0, g:20, k:2, alt:"Grille vide : un carreau représente 20 pas ; le point de départ est marqué"}).replace(/<line[^>]*stroke:#c00000[^>]*\/>/g,"");
+const TR2 = trace(S2, {start:RIGHT0, g:20, k:2, alt:"Escalier de trois marches : 20 pas vers la droite, 20 pas vers le haut, trois fois"});
+/* exercice 3 : un carré tracé en tournant vers la gauche */
+const S3 = [HAT, or(90), PEN, rep(4,[av(80), tg(90)])];
+const R3 = run(S3);
+const TR3 = trace(S3, {start:RIGHT0, g:20, k:1.6, alt:"Carré de côté 80 pas, tracé au-dessus du point de départ"});
+/* exercice 4 */
+const S4 = [HAT, PEN, rep(5,[av(70), td(72)])];
+const S4y = [HAT, PEN, rep(6,[av(50), td(120)])];
+const TR4y = trace(S4y, {start:RIGHT0, size:150, alt:"Le script de Yanis trace deux fois le même triangle équilatéral de côté 50 pas"});
+const S4ok = [HAT, PEN, rep(6,[av(50), td(60)])];
+/* exercice 5 */
+const S5 = [HAT, PEN, rep(3,[av(60), td(120)])];
+const S5c = [HAT, or(0), PEN, rep(3,[av(60), td(120)])];
+const POLYT = `<div class="scroll"><table class="std"><thead><tr><th>Polygone régulier</th><th>Carré</th><th>Triangle équilatéral</th><th>Décagone régulier (10 côtés)</th></tr></thead><tbody><tr><th>Angle de rotation (°)</th><td></td><td></td><td></td></tr></tbody></table></div>`;
+const POLYc = `<div class="scroll"><table class="std"><thead><tr><th>Polygone régulier</th><th>Carré</th><th>Triangle équilatéral</th><th>Décagone régulier (10 côtés)</th></tr></thead><tbody><tr><th>Angle de rotation (°)</th><td><b>${360/4}</b></td><td><b>${360/3}</b></td><td><b>${360/10}</b></td></tr></tbody></table></div><p class="calc">360 ÷ 4 = 90 &nbsp;&nbsp; 360 ÷ 3 = 120 &nbsp;&nbsp; 360 ÷ 10 = 36</p>`;
+const INFO = "Durée : 55 min · Calculatrice non autorisée · Règle et crayon (sans ordinateur)";
+const COMP = (c,ch,r,ra,exR) => [
+  ["COMMUNIQUER","Je lis un script et je décris ce qu'il fait.",`Ex. 3 (${c} points)`],
+  ["CHERCHER","Je prévois la position et la direction du lutin.",`Ex. 1 (${ch} points)`],
+  ["REPRÉSENTER","Je dessine le résultat d'un script et j'écris un script qui trace un polygone régulier.",`Ex. 2 et 4 (${r} points)`],
+  ["RAISONNER","Je modifie un script pour obtenir un autre résultat.",`Ex. 5 (${ra} points)`]
+];
+const E1h = `<p>Le centre de la scène est le point de coordonnées (0 ; 0).</p><p>Voici un script :</p>${script(S1)}`;
+const E1c = {
+  q1:`Le lutin se place en (−40 ; 30) et s'oriente vers le haut (direction 0). Il monte de 60 pas : 30 + 60 = 90. Il est en <b>${P(a1.x,a1.y)}</b>.`,
+  q2:`Il tourne ↺ de 90° : il regarde <b>vers la gauche</b> (direction ${F(a2.dir)}). Il avance de 100 pas vers la gauche : −40 − 100 = −140. Il est en <b>${P(a2.x,a2.y)}</b>.`,
+  q3:`Après le bloc « avancer de 100 pas », le lutin est en ${P(a2.x,a2.y)} et regarde vers la gauche. Il fait demi-tour (↻ de 180°) : il regarde <b>vers la droite</b> (direction ${F(a3.dir)}). Il avance de 30 pas vers la droite : −140 + 30 = −110. À la fin, il est en <b>${P(a3.x,a3.y)}</b> et regarde ${DIRN(a3.dir)}.`,
+  q4:`Il n'y a pas de bloc « stylo en position d'écriture » : le lutin se déplace sans laisser de trace. Il faut ajouter ce bloc <b>après</b> « aller à x : −40 y : 30 » (sinon le lutin tracerait aussi un trait en allant à son point de départ).`
+};
+const E2h = `<p>Au départ, le lutin est au point marqué sur la grille, de coordonnées (0 ; 0). Sur la grille, un carreau représente 20 pas.</p><div class="figs">${script(S2)}${GRID2}</div>`;
+const E3h = `<p>Voici un script :</p>${script(S3)}`;
+const E3c = {
+  q1:`Le bloc « avancer de 80 pas » est dans la boucle « répéter 4 fois » : il est exécuté <b>4 fois</b>.`,
+  q2:`Le lutin trace 4 côtés de 80 pas et tourne de 90° à chaque fois : c'est un <b>carré</b> de côté <b>80 pas</b>.`,
+  q3:`Périmètre : 4 × 80 = <b>320 pas</b>.`,
+  q4:`Le lutin avance d'abord vers la droite, puis il tourne ↺, dans le sens inverse des aiguilles d'une montre : il se retrouve orienté <b>vers le haut</b> (direction ${F(run([or(90),av(80),tg(90)]).dir)}). Le carré est donc tracé <b>au-dessus</b> du point de départ.`
+};
+const E4q1 = `<p>1. Écris un script qui trace un pentagone régulier de côté 70 pas.</p>`;
+const E4c1 = `<p>1. Un pentagone a 5 côtés : on répète <b>5</b> fois « avancer de <b>70</b> pas » puis « tourner de 360 ÷ 5 = <b>72</b> degrés ».</p>${script(S4,{k:0.75})}`;
+const E4yh = n => `<p>${n}. Yanis veut tracer un hexagone régulier de côté 50 pas. Il écrit : « répéter 6 fois : avancer de 50 pas, tourner ↻ de 120 degrés ». Que trace réellement son script ? Corrige-le.</p>`;
+const E4yc = n => `<p>${n}. À chaque sommet, le lutin tourne de 120° : c'est l'angle de rotation d'un <b>triangle équilatéral</b> (360 ÷ 3 = 120). Après 3 côtés, il est revenu à son point de départ, dans sa direction de départ : les 3 côtés suivants repassent sur les mêmes traits.</p><p>Son script trace donc <b>deux fois le même triangle équilatéral</b> de côté 50 pas (il tourne au total de 6 × 120 = 720°, soit deux tours).</p>${TR4y}<p>Correction : un hexagone a 6 côtés, il faut tourner de 360 ÷ 6 = <b>60</b> degrés : « répéter 6 fois : avancer de 50 pas, tourner ↻ de <b>60</b> degrés ».</p>${script(S4ok,{k:0.75})}`;
+const E5h = `<p>Ce script trace un triangle équilatéral de côté 60 pas.</p>${script(S5)}`;
+const E5c = {
+  q1:`On remplace « avancer de 60 pas » par « avancer de <b>100</b> pas ». Le reste ne change pas.`,
+  q2:`Un hexagone a 6 côtés : « répéter <b>6</b> fois » et « tourner ↻ de 360 ÷ 6 = <b>60</b> degrés ». On garde « avancer de 60 pas ».`,
+  q3:`On ajoute le bloc « s'orienter à <b>0</b> degrés » <b>avant</b> la boucle « répéter » (juste sous « quand le drapeau vert est cliqué ») : le lutin regarde alors vers le haut avant de commencer à tracer.`
+};
+return {
+titre:"Évaluation d'entraînement — Chapitre 17", duree:55, info:INFO,
+comp:COMP(4,4,9,3),
+exos:[
+{t:"Prévoir la position et la direction du lutin", p:4, h:`${E1h}
+  <p>1. Où se trouve le lutin après le bloc « avancer de 60 pas » ?</p><p>2. Où se trouve-t-il après le bloc « avancer de 100 pas » ? Dans quelle direction regarde-t-il alors ?</p><p>3. Où se trouve-t-il à la fin du script ? Dans quelle direction regarde-t-il ?</p><p>4. Quand on clique sur le drapeau vert, le lutin se déplace, mais aucun trait n'apparaît sur la scène. Pourquoi ? Quel bloc faut-il ajouter, et à quel endroit ?</p>`,
+ c:`<p>1. ${E1c.q1} <i>(1 point)</i></p><p>2. ${E1c.q2} <i>(1 point : 0,5 pour la position, 0,5 pour la direction)</i></p><p>3. Il fait demi-tour (↻ de 180°) : il regarde <b>vers la droite</b> (direction ${F(a3.dir)}). Il avance de 30 pas vers la droite : −140 + 30 = −110. À la fin, il est en <b>${P(a3.x,a3.y)}</b>. <i>(1 point : 0,5 pour la position, 0,5 pour la direction)</i></p><p>4. ${E1c.q4} <i>(1 point : 0,5 pour l'explication, 0,5 pour le bloc et sa place)</i></p>`},
+{t:"Prévoir le dessin", p:4, h:`${E2h}
+  <p>1. Dessine sur la grille la figure tracée par ce script.</p><p>2. Quelles sont les coordonnées du lutin à la fin du script ?</p><p>3. Dans quelle direction le lutin regarde-t-il à la fin du script ?</p>`,
+ c:`<p>1. À chaque répétition, le lutin avance de 20 pas vers la droite (1 carreau), tourne vers le haut, monte de 20 pas (1 carreau), puis se tourne de nouveau vers la droite. Il trace un <b>escalier de 3 marches</b>.</p>${TR2}<p><i>(2 points)</i></p><p>2. Il a avancé de 3 × 20 = 60 pas vers la droite et de 3 × 20 = 60 pas vers le haut : il est en <b>${P(R2.x,R2.y)}</b>. <i>(1 point)</i></p><p>3. Le dernier bloc est « tourner ↻ de 90 degrés » : il regarde <b>${DIRN(R2.dir)}</b> (direction ${F(R2.dir)}). <i>(1 point)</i></p>`},
+{t:"Lire un script", p:4, h:`${E3h}
+  <p>1. Combien de fois le bloc « avancer de 80 pas » est-il exécuté ?</p><p>2. Quelle figure ce script trace-t-il ? Quelle est la longueur de ses côtés ?</p><p>3. Quel est le périmètre de cette figure, en pas ?</p><p>4. La figure est-elle tracée au-dessus ou au-dessous du point de départ du lutin ? Explique.</p>`,
+ c:`<p>1. ${E3c.q1} <i>(1 point)</i></p><p>2. ${E3c.q2} <i>(1 point)</i></p><p>3. ${E3c.q3} <i>(1 point)</i></p><p>4. ${E3c.q4} <i>(1 point)</i></p>${TR3}`},
+{t:"Écrire un script", p:5, h:`${E4q1}<p>2. Complète le tableau.</p>${POLYT}${E4yh(3)}`,
+ c:`${E4c1}<p><i>(2 points : 0,5 par paramètre juste et 0,5 pour la boucle « répéter »)</i></p><p>2.</p>${POLYc}<p><i>(1,5 point : 0,5 par angle)</i></p>${E4yc(3)}<p><i>(1,5 point : 1 pour l'explication, 0,5 pour la correction)</i></p>`},
+{t:"Modifier un script", p:3, h:`${E5h}
+  <p>1. Que faut-il modifier pour obtenir un triangle équilatéral de côté 100 pas ?</p><p>2. Que faut-il modifier pour obtenir un hexagone régulier de côté 60 pas ?</p><p>3. Au départ, le lutin peut être orienté dans n'importe quelle direction. Quel bloc faut-il ajouter, et à quel endroit, pour qu'il commence toujours par avancer vers le haut ?</p>`,
+ c:`<p>1. ${E5c.q1} <i>(1 point)</i></p><p>2. ${E5c.q2} <i>(1 point)</i></p><p>3. ${E5c.q3} <i>(1 point)</i></p>${script(S5c,{k:0.75})}`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 17 · version aménagée", duree:55, info:"Version aménagée · "+INFO,
+note:"Même durée, avec environ une question sur cinq en moins (les questions restantes sont renumérotées). Toujours sur 20 : les points sont répartis sur les questions gardées. Les justifications restent demandées.",
+comp:COMP(4,4,"8,5","3,5"),
+exos:[
+{t:"Prévoir la position et la direction du lutin", p:4, h:`${E1h}
+  <p>1. Où se trouve le lutin après le bloc « avancer de 60 pas » ?</p><p>2. Où se trouve-t-il à la fin du script ? Dans quelle direction regarde-t-il ?</p><p>3. Quand on clique sur le drapeau vert, le lutin se déplace, mais aucun trait n'apparaît sur la scène. Pourquoi ? Quel bloc faut-il ajouter, et à quel endroit ?</p>`,
+ c:`<p>1. ${E1c.q1} <i>(1 point)</i></p><p>2. ${E1c.q2.replace(/<b>(vers la gauche|\(−140 ; 90\))<\/b>/g,"$1")}</p><p>${E1c.q3.replace(/^Après le bloc[^.]*\. /,"")} <i>(1,5 point : 1 pour la position, 0,5 pour la direction)</i></p><p>3. ${E1c.q4} <i>(1,5 point : 0,5 pour l'explication, 1 pour le bloc et sa place)</i></p>`},
+{t:"Prévoir le dessin", p:4, h:`${E2h}
+  <p>1. Dessine sur la grille la figure tracée par ce script.</p><p>2. Quelles sont les coordonnées du lutin à la fin du script ?</p>`,
+ c:`<p>1. À chaque répétition, le lutin avance de 20 pas vers la droite (1 carreau), tourne vers le haut, monte de 20 pas (1 carreau), puis se tourne de nouveau vers la droite. Il trace un <b>escalier de 3 marches</b>.</p>${TR2}<p><i>(2,5 points)</i></p><p>2. Il a avancé de 3 × 20 = 60 pas vers la droite et de 3 × 20 = 60 pas vers le haut : il est en <b>${P(R2.x,R2.y)}</b>. <i>(1,5 point)</i></p>`},
+{t:"Lire un script", p:4, h:`${E3h}
+  <p>1. Quelle figure ce script trace-t-il ? Quelle est la longueur de ses côtés ?</p><p>2. Quel est le périmètre de cette figure, en pas ?</p><p>3. La figure est-elle tracée au-dessus ou au-dessous du point de départ du lutin ? Explique.</p>`,
+ c:`<p>1. ${E3c.q2} <i>(1,5 point)</i></p><p>2. ${E3c.q3} <i>(1 point)</i></p><p>3. ${E3c.q4} <i>(1,5 point)</i></p>${TR3}`},
+{t:"Écrire un script", p:4.5, h:`${E4q1}${E4yh(2)}`,
+ c:`${E4c1}<p><i>(2,5 points : 0,5 par paramètre juste et 1 pour la boucle « répéter »)</i></p>${E4yc(2)}<p><i>(2 points : 1 pour l'explication, 1 pour la correction)</i></p>`},
+{t:"Modifier un script", p:3.5, h:`${E5h}
+  <p>1. Que faut-il modifier pour obtenir un triangle équilatéral de côté 100 pas ?</p><p>2. Que faut-il modifier pour obtenir un hexagone régulier de côté 60 pas ?</p><p>3. Au départ, le lutin peut être orienté dans n'importe quelle direction. Quel bloc faut-il ajouter, et à quel endroit, pour qu'il commence toujours par avancer vers le haut ?</p>`,
+ c:`<p>1. ${E5c.q1} <i>(1 point)</i></p><p>2. ${E5c.q2} <i>(1,5 point)</i></p><p>3. ${E5c.q3} <i>(1 point)</i></p>${script(S5c,{k:0.75})}`}
+]}
+};
+})()
 };
 
 /* clavier texte pour les réponses tapées (signe −) */

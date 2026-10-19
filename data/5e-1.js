@@ -22,19 +22,21 @@ const colGeo = (svg, centres=[]) => { let t = svg.replace(/class="axe2"/g, `clas
     t = t.replace(new RegExp(`(<text [^>]*class="glab"[^>]*?style="font-size:[\\d.]+px)(">${n}<\\/text>)`), `$1;fill:${CTC};font-weight:700$2`); });
   return t; };
 const EVAL5 = {
-titre:"Évaluation d'entraînement n° 1 · chapitres 1 et 2", duree:55, info:"Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
+titre:"Évaluation d'entraînement — Chapitres 1 et 2", duree:55, info:"Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
 comp:[
-  ["CALCULER","Je pose une division euclidienne et j'utilise les diviseurs, les multiples et les critères de divisibilité.","Ex. 1 et 2 (6 points)"],
+  ["CALCULER","Je pose une division euclidienne et j'utilise les diviseurs, les multiples, les critères de divisibilité et les nombres premiers.","Ex. 1 et 2 (6 points)"],
   ["CHERCHER","J'organise ma recherche, je teste et je donne toutes les solutions d'un problème.","Ex. 3 (3 points)"],
   ["REPRÉSENTER","Je reconnais un demi-tour et une symétrie axiale, et je construis l'image d'une figure.","Ex. 4 et 5 (7 points)"],
   ["RAISONNER","J'utilise les propriétés du demi-tour pour justifier une longueur ou une mesure d'angle.","Ex. 6 (4 points)"]
 ],
 exos:[
 {t:"Diviseurs et multiples", p:3, h:`<p>1. a) Cite tous les diviseurs de 48. b) Cite trois multiples de 48.</p>
-  <p>2. Le nombre 285 est-il divisible par 2 ? par 3 ? par 5 ? par 9 ? par 10 ? Réponds par oui ou par non.</p>`,
+  <p>2. Le nombre 285 est-il divisible par 2 ? par 3 ? par 5 ? par 9 ? par 10 ? Réponds par oui ou par non.</p>
+  <p>3. Le nombre 285 est-il un nombre premier ? Justifie.</p>`,
  c:`<p>1. a) 48 = 1 × 48 = 2 × 24 = 3 × 16 = 4 × 12 = 6 × 8, donc les diviseurs de 48 sont : 1, 2, 3, 4, 6, 8, 12, 16, 24, 48 <i>(1 point)</i></p>
   <p>b) Par exemple 48, 96 et 144 (48 × 1, 48 × 2, 48 × 3) <i>(0,5 point)</i></p>
-  <p>2. Par 2 : non (le chiffre des unités est 5) · Par 3 : oui (2 + 8 + 5 = 15, multiple de 3) · Par 5 : oui (le chiffre des unités est 5) · Par 9 : non (15 n'est pas un multiple de 9) · Par 10 : non (le chiffre des unités n'est pas 0) <i>(0,3 point par case)</i></p>`},
+  <p>2. Par 2 : non (le chiffre des unités est 5) · Par 3 : oui (2 + 8 + 5 = 15, multiple de 3) · Par 5 : oui (le chiffre des unités est 5) · Par 9 : non (15 n'est pas un multiple de 9) · Par 10 : non (le chiffre des unités n'est pas 0) <i>(0,2 point par case)</i></p>
+  <p>3. Non : 285 est divisible par 3 et par 5 (285 = 5 × 57). Il a d'autres diviseurs que 1 et lui-même, donc ce n'est pas un nombre premier. <i>(0,5 point)</i></p>`},
 {t:"Répartition en équipes", p:3, h:`<p>389 élèves sont répartis en équipes de 14 pour un concours.</p>
   <p>a) Combien d'équipes entières peut-on constituer ? Écris ton calcul posé.</p><p>b) Combien manquerait-il d'élèves pour constituer une dernière équipe complète ?</p>`,
  c:`<p>a) On pose la division euclidienne de 389 par 14 <i>(1,5 point pour le calcul posé)</i> :</p>${pot(389,14,"14 × 27 + 11 = 389")}
@@ -72,6 +74,60 @@ exos:[
     extra:angLab(K6.K,"115°",14,0)+angLab(K6.L,"35°",-40,-4)+angLab(K6.M,"30°",-6,22)}),[["O",K6.O]])}`,
  c:`<p><b>Question 1.</b> Je sais que les triangles RST et UVW sont symétriques par rapport au point O : le segment [UW] est le symétrique du segment [RT].<br>Or le demi-tour conserve les longueurs.<br>Donc UW = RT = 3,5 cm. <i>(2 points)</i></p>
   <p><b>Question 2.</b> Je sais que les triangles KLM et XYZ sont symétriques par rapport au point O : l'angle <span class="ang">XZY</span> est le symétrique de l'angle <span class="ang">KML</span>.<br>Or le demi-tour conserve les mesures d'angles.<br>Donc <span class="ang">XZY</span> = <span class="ang">KML</span> = 30°. <i>(2 points)</i></p>`}
+]};
+/* ---- version aménagée (élèves à besoins éducatifs particuliers), faite comme M. Staal fait les siennes :
+   même durée, environ une question sur cinq retirée (jamais un exercice entier), questions renumérotées, barème recalculé sur 20 ---- */
+const F6 = [{n:1,f:TF.id},{n:2,f:TF.vx(130)},{n:3,f:TF.rot(130,165)},{n:4,f:TF.tr(230,0)},{n:5,f:TF.hy(165)},{n:6,f:TF.o(TF.tr(230,100),TF.q(81,115))}];
+EVAL5.bep = {
+titre:"Évaluation d'entraînement — Chapitres 1 et 2 · version aménagée", duree:55, info:"Version aménagée · Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
+note:"Même durée et mêmes exercices, avec environ une question sur cinq en moins (réparties dans plusieurs exercices). Les questions sont renumérotées et le barème est recalculé : la note reste sur 20. Les justifications sont toujours demandées.",
+comp:[
+  ["CALCULER","Je pose une division euclidienne et j'utilise les diviseurs, les critères de divisibilité et les nombres premiers.","Ex. 1 et 2 (5,5 points)"],
+  ["CHERCHER","J'organise ma recherche, je teste et je donne toutes les solutions d'un problème.","Ex. 3 (3,5 points)"],
+  ["REPRÉSENTER","Je reconnais un demi-tour et une symétrie axiale, et je construis l'image d'une figure.","Ex. 4 et 5 (6,5 points)"],
+  ["RAISONNER","J'utilise les propriétés du demi-tour pour justifier une longueur ou une mesure d'angle.","Ex. 6 (4,5 points)"]
+],
+exos:[
+{t:"Diviseurs et multiples", p:3, h:`<p>1. Cite tous les diviseurs de 48.</p>
+  <p>2. Le nombre 285 est-il divisible par 2 ? par 3 ? par 5 ? par 9 ? par 10 ? Réponds par oui ou par non.</p>
+  <p>3. Le nombre 285 est-il un nombre premier ? Justifie.</p>`,
+ c:`<p>1. 48 = 1 × 48 = 2 × 24 = 3 × 16 = 4 × 12 = 6 × 8, donc les diviseurs de 48 sont : 1, 2, 3, 4, 6, 8, 12, 16, 24, 48 <i>(1,25 point)</i></p>
+  <p>2. Par 2 : non (le chiffre des unités est 5) · Par 3 : oui (2 + 8 + 5 = 15, multiple de 3) · Par 5 : oui (le chiffre des unités est 5) · Par 9 : non (15 n'est pas un multiple de 9) · Par 10 : non (le chiffre des unités n'est pas 0) <i>(0,25 point par case)</i></p>
+  <p>3. Non : 285 est divisible par 3 et par 5 (285 = 5 × 57). Il a d'autres diviseurs que 1 et lui-même, donc ce n'est pas un nombre premier. <i>(0,5 point)</i></p>`},
+{t:"Répartition en équipes", p:2.5, h:`<p>389 élèves sont répartis en équipes de 14 pour un concours.</p>
+  <p>Combien d'équipes entières peut-on constituer ? Écris ton calcul posé.</p>`,
+ c:`<p>On pose la division euclidienne de 389 par 14 <i>(1,5 point pour le calcul posé)</i> :</p>${pot(389,14,"14 × 27 + 11 = 389")}
+  <p>On peut constituer 27 équipes entières, et il reste 11 élèves. <i>(1 point)</i></p>`},
+{t:"Chez le fleuriste", p:3.5, h:`<p>Un fleuriste a 18 tulipes et 24 roses. Il veut faire, avec toutes ses fleurs, des bouquets de composition identique. Il ne veut pas faire un seul bouquet.</p>
+  <p>Combien de bouquets peut-il faire ? Quelle sera la composition de chaque bouquet ? Donne toutes les possibilités en justifiant.</p>`,
+ c:`<p>Le nombre de bouquets doit être un diviseur de 18 <b>et</b> de 24.</p>
+  <p>Diviseurs de 18 : 1, 2, 3, 6, 9, 18 · Diviseurs de 24 : 1, 2, 3, 4, 6, 8, 12, 24 · Diviseurs communs : 1, 2, 3 et 6. On enlève 1 (pas un seul bouquet). <i>(0,5 point)</i></p>
+  <div class="scroll"><table class="std"><thead><tr><th>Nombre de bouquets</th><th>Tulipes par bouquet</th><th>Roses par bouquet</th></tr></thead>
+  <tbody><tr><td>2</td><td>9</td><td>12</td></tr><tr><td>3</td><td>6</td><td>8</td></tr><tr><td>6</td><td>3</td><td>4</td></tr></tbody></table></div>
+  <p><i>1 point par possibilité justifiée.</i></p>`},
+{t:"Reconnaître une transformation", p:2.5, h:`<p>Ce dessin est composé de six motifs. Pour chaque ligne, écris « une symétrie axiale », « un demi-tour » ou « aucune des deux ».</p>
+  ${flags(F6)}
+  <p>a) du motif 1 au motif 2 · b) du motif 1 au motif 3 · c) du motif 1 au motif 4 · d) du motif 1 au motif 5 · e) du motif 1 au motif 6</p>`,
+ c:`<p>a) une symétrie axiale (axe vertical entre les deux motifs) · b) un demi-tour (le motif est retourné « tête en bas » et de l'autre côté) · c) aucune des deux (le motif a juste glissé) · d) une symétrie axiale (axe horizontal) · e) aucune des deux (le motif a tourné d'un quart de tour seulement)</p>
+  ${flags(F6,380,260,
+   `<line x1="130" y1="60" x2="130" y2="260" class="axe3" style="stroke:${AXC}"/><line x1="20" y1="165" x2="240" y2="165" class="axe3" style="stroke:${AXC}"/><path d="M125 160 L135 170 M135 160 L125 170" class="gx" style="stroke:${CTC};stroke-width:2.2"/><text x="140" y="158" class="glab" style="fill:${CTC};font-weight:700">O</text>`)}
+  <p>Les axes de symétrie (en pointillés <b style="color:${AXC}">rouges</b>) et le centre O du demi-tour (en <b style="color:${CTC}">bleu</b>) ont été tracés pour la correction. <i>(0,5 point par ligne)</i></p>`},
+{t:"Constructions", p:4, h:`<p>Reproduis la figure (ou travaille sur la feuille), puis :</p>
+  <p>a) Trace le symétrique du triangle PIC par rapport au point W. Nomme-le P₁I₁C₁.</p><p>b) Trace le symétrique du triangle PIC par rapport à la droite (d). Nomme-le P₂I₂C₂.</p>
+  ${colGeo(geo({pts:{...tri, W:T5.W, d1:T5.d1, d2:T5.d2}, polys:[{v:["P","I","C"]}], marks:["W"], lines:[{a:"d1",b:"d2",lab:"(d)",t:0.05}], hide:[]}),[["W",T5.W]])}`,
+ c:`<p>a) W est le milieu de [PP₁], de [II₁] et de [CC₁] <i>(2 points)</i>.</p>
+  ${colGeo(geo({pts:{...tri, W:T5.W, "P₁":symW(T5.P),"I₁":symW(T5.I),"C₁":symW(T5.C)}, polys:[{v:["P","I","C"]},{v:["P₁","I₁","C₁"],k:"img"}], cons:[["P","W","P₁",1],["I","W","I₁",2],["C","W","C₁",3]]}),[["W",T5.W]])}
+  <p>b) (d) est la médiatrice de [PP₂], de [II₂] et de [CC₂] <i>(2 points)</i>.</p>
+  ${colGeo(geo({pts:{...tri, d1:T5.d1, d2:T5.d2, "P₂":symD(T5.P),"I₂":symD(T5.I),"C₂":symD(T5.C)}, polys:[{v:["P","I","C"]},{v:["P₂","I₂","C₂"],k:"img"}], lines:[{a:"d1",b:"d2",lab:"(d)",t:0.05}], ax:[["P","P₂","d1","d2",1],["I","I₂","d1","d2",2],["C","C₂","d1","d2",3]]}))}`},
+{t:"Démonstrations", p:4.5, h:`<p>Les deux questions sont indépendantes.</p>
+  <p><b>Question 1</b> (2,25 points). Les triangles RST et UVW sont symétriques par rapport au point O. Quelle est la longueur du segment [UW] ? Justifie ta réponse (Je sais que… Or… Donc…).</p>
+  ${colGeo(geo({pts:{...R6, U:G.sym(R6.R,R6.O), V:G.sym(R6.S,R6.O), W:G.sym(R6.T,R6.O)}, polys:[{v:["R","S","T"]},{v:["U","V","W"],k:"img"}], marks:["O"],
+    extra:angLab([90,20],"6 cm",0,0)+angLab([110,85],"4,5 cm",8,0)+angLab([20,90],"3,5 cm",-14,0)}),[["O",R6.O]])}
+  <p><b>Question 2</b> (2,25 points). Les triangles KLM et XYZ sont symétriques par rapport au point O. Quelle est la mesure de l'angle <span class="ang">XZY</span> ? Justifie ta réponse (Je sais que… Or… Donc…).</p>
+  ${colGeo(geo({pts:{...K6, X:G.sym(K6.K,K6.O), Y:G.sym(K6.L,K6.O), Z:G.sym(K6.M,K6.O)}, polys:[{v:["K","L","M"]},{v:["X","Y","Z"],k:"img"}], marks:["O"],
+    extra:angLab(K6.K,"115°",14,0)+angLab(K6.L,"35°",-40,-4)+angLab(K6.M,"30°",-6,22)}),[["O",K6.O]])}`,
+ c:`<p><b>Question 1.</b> Je sais que les triangles RST et UVW sont symétriques par rapport au point O : le segment [UW] est le symétrique du segment [RT].<br>Or le demi-tour conserve les longueurs.<br>Donc UW = RT = 3,5 cm. <i>(0,75 point par ligne)</i></p>
+  <p><b>Question 2.</b> Je sais que les triangles KLM et XYZ sont symétriques par rapport au point O : l'angle <span class="ang">XZY</span> est le symétrique de l'angle <span class="ang">KML</span>.<br>Or le demi-tour conserve les mesures d'angles.<br>Donc <span class="ang">XZY</span> = <span class="ang">KML</span> = 30°. <i>(0,75 point par ligne)</i></p>`}
 ]};
 window.EVAL5_1 = EVAL5;
 

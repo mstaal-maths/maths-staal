@@ -172,6 +172,91 @@ quiz:[
  3:[ {q:"Les axes de symétrie d'un losange sont…", c:["ses diagonales","les médiatrices de ses côtés","ses côtés"], rep:"ses diagonales", sx:S_AXES},
      {q:"Un parallélogramme (qui n'est ni un rectangle ni un losange) a…", c:["aucun axe de symétrie","2 axes","1 axe"], rep:"aucun axe de symétrie", sx:S_AXES} ]
 }}
-]
+],
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+/* figures de l'évaluation d'entraînement (calculées : symétriques exacts, axes exacts) */
+const RED="#c00000", BLU="#1f6db0", ORA="#e07a00", f1=v=>v.toFixed(1);
+const croix=(x,y,c)=>`<path d="M${f1(x-5)} ${f1(y-5)} L${f1(x+5)} ${f1(y+5)} M${f1(x-5)} ${f1(y+5)} L${f1(x+5)} ${f1(y-5)}" style="stroke:${c||"var(--ink)"};stroke-width:2.2"/>`;
+const lab=(x,y,t,c)=>`<text x="${f1(x)}" y="${f1(y)}" style="font-size:15px;font-weight:700;fill:${c||"var(--ink)"}">${t}</text>`;
+/* symétriques de points par rapport à une droite oblique ; o.cor : figure corrigée */
+function ptsFig(o){
+  const P1=[20,200], P2=[320,40], dx=P2[0]-P1[0], dy=P2[1]-P1[1], L=Math.hypot(dx,dy), u=[dx/L,dy/L];
+  const foot=p=>{ const t=(p[0]-P1[0])*u[0]+(p[1]-P1[1])*u[1]; return [P1[0]+t*u[0], P1[1]+t*u[1]]; };
+  let s=`<svg class="fig" viewBox="0 0 340 235" width="340" style="max-width:100%" role="img" aria-label="${o.alt}">`;
+  s+=`<line x1="${P1[0]}" y1="${P1[1]}" x2="${P2[0]}" y2="${P2[1]}" style="stroke:${RED};stroke-width:2.5"/>`+lab(26,222,"(d)",RED);
+  o.pts.forEach(([n,p,ticks,dl])=>{ const H=foot(p), q=[2*H[0]-p[0],2*H[1]-p[1]], v=[p[0]-H[0],p[1]-H[1]], lv=Math.hypot(...v), w=[v[0]/lv,v[1]/lv];
+    if(o.cor){
+      s+=`<line x1="${f1(p[0]+w[0]*14)}" y1="${f1(p[1]+w[1]*14)}" x2="${f1(q[0]-w[0]*14)}" y2="${f1(q[1]-w[1]*14)}" style="stroke:#777;stroke-width:1.5;stroke-dasharray:5 4"/>`;
+      const a=[H[0]+u[0]*10,H[1]+u[1]*10], b=[a[0]+w[0]*10,a[1]+w[1]*10], c=[H[0]+w[0]*10,H[1]+w[1]*10];
+      s+=`<path d="M${f1(a[0])} ${f1(a[1])} L${f1(b[0])} ${f1(b[1])} L${f1(c[0])} ${f1(c[1])}" style="fill:none;stroke:var(--ink);stroke-width:1.5"/>`;
+      [[p,H],[H,q]].forEach(([A,B])=>{ const m=[(A[0]+B[0])/2,(A[1]+B[1])/2]; for(let k=0;k<ticks;k++){ const c2=[m[0]+w[0]*(k-(ticks-1)/2)*5, m[1]+w[1]*(k-(ticks-1)/2)*5];
+        s+=`<line x1="${f1(c2[0]-u[0]*6)}" y1="${f1(c2[1]-u[1]*6)}" x2="${f1(c2[0]+u[0]*6)}" y2="${f1(c2[1]+u[1]*6)}" style="stroke:var(--ink);stroke-width:1.8"/>`; } });
+      s+=croix(q[0],q[1],ORA)+lab(q[0]+dl[2],q[1]+dl[3],n+"'",ORA);
+    }
+    s+=croix(p[0],p[1])+lab(p[0]+dl[0],p[1]+dl[1],n); });
+  if(o.G){ const G=[P1[0]+0.85*dx,P1[1]+0.85*dy]; s+=croix(G[0],G[1])+lab(G[0]-4,G[1]+22,o.cor?"G = G'":"G"); }
+  return s+"</svg>";
+}
+const PTS=[["E",[95,75],1,[-20,-6,10,6]],["F",[235,190],2,[10,6,-22,-2]]];
+/* les quatre figures de l'exercice sur les axes */
+function axesFig(cor){
+  const shapes=[
+    {pts:[[60,20],[95,70],[60,120],[25,70]], fill:"rgba(31,109,176,.18)", ax:[[[60,8],[60,132]],[[13,70],[107,70]]]},
+    {pts:[[140,118],[222,118],[166,34]], fill:"rgba(29,122,70,.18)", ax:[]},
+    {pts:[[255,116],[345,116],[300,116-45*Math.sqrt(3)]], fill:"rgba(224,122,0,.2)", ax:"tri"},
+    {pts:[[420,22],[450,62],[420,122],[390,62]], fill:"rgba(140,90,190,.2)", ax:[[[420,10],[420,134]]]} ];
+  let s=`<svg class="fig" viewBox="0 0 470 160" width="470" style="max-width:100%" role="img" aria-label="${cor?"Les axes de symétrie tracés en rouge : 2 pour le losange, aucun pour le triangle quelconque, 3 pour le triangle équilatéral, 1 pour le cerf-volant":"Quatre figures : un losange, un triangle quelconque, un triangle équilatéral et un cerf-volant"}">`;
+  shapes.forEach((S,i)=>{ s+=`<polygon points="${S.pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}" style="fill:${S.fill};stroke:var(--ink);stroke-width:2"/>`;
+    const cx=S.pts.reduce((a,p)=>a+p[0],0)/S.pts.length;
+    s+=`<text x="${f1(i===0?60:i===3?420:cx)}" y="153" text-anchor="middle" style="font-size:16px;font-weight:700;fill:var(--ink)">${"①②③④"[i]}</text>`;
+    if(cor){ let ax=S.ax; if(ax==="tri") ax=S.pts.map((V,k)=>{ const A=S.pts[(k+1)%3], B=S.pts[(k+2)%3], M=[(A[0]+B[0])/2,(A[1]+B[1])/2], d=[M[0]-V[0],M[1]-V[1]], l=Math.hypot(...d); return [[V[0]-d[0]/l*12,V[1]-d[1]/l*12],[M[0]+d[0]/l*12,M[1]+d[1]/l*12]]; });
+      ax.forEach(([a,b])=>{ s+=`<line x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}" style="stroke:${RED};stroke-width:2.5"/>`; }); } });
+  return s+"</svg>";
+}
+const AX={t:"h",k:4}, Q1=[[2,3],[3,1],[6,0],[7,2],[5,4],[2,3]], Q2=[[2,1],[5,1],[6,3],[2,3],[2,1]];
+const qd=(pts,sym)=>gsym({n:9,c:24,axe:AX,pts,sym,w:230,alt:sym?"La figure bleue et sa symétrique orange par rapport à la droite rouge":"Une figure bleue au-dessus d'une droite rouge horizontale, sur un quadrillage"});
+const COMP=[
+  ["RAISONNER","J'utilise les propriétés de la symétrie axiale (longueurs, angles, cercles).","Ex. 1 (2 points)"],
+  ["REPRÉSENTER","Je construis le symétrique d'une figure sur un quadrillage.","Ex. 2 (2 points)"],
+  ["RAISONNER","Je trouve tous les axes de symétrie d'une figure.","Ex. 3 (3 points)"],
+  ["REPRÉSENTER","Je construis le symétrique d'un point avec l'équerre et le compas.","Ex. 4 (3 points)"]];
+const C_AXES=`${axesFig(true)}<p>① le losange : <b>2 axes</b> (ses diagonales) · ② le triangle quelconque : <b>aucun axe</b> · ③ le triangle équilatéral : <b>3 axes</b> · ④ le cerf-volant : <b>1 axe</b> (la diagonale verticale).</p><p><i>0,75 point par figure : 0,5 pour les axes bien tracés, 0,25 pour le nombre.</i></p>`;
+const C_PTS=`${ptsFig({cor:true,G:true,pts:PTS,alt:"E' et F' construits : les perpendiculaires à (d) en pointillés, les angles droits et les longueurs égales codés"})}
+  <p>Pour E : avec l'équerre, je trace la droite perpendiculaire à (d) qui passe par E ; elle coupe (d) en un point. Avec le compas, je reporte la distance de E à (d) de l'autre côté : j'obtiens E'. Je fais de même pour F.</p>`;
+return {
+titre:"Évaluation d'entraînement — Chapitre 13", duree:30, info:"Durée : 30 min · Règle, équerre et compas · Calculatrice non autorisée",
+comp:COMP,
+exos:[
+{t:"Ce que conserve la symétrie", p:2, h:`<p>Le triangle RST a pour symétrique le triangle R'S'T' par rapport à une droite (d). On sait que RS = 5,4 cm et que l'angle ${A("RST")} mesure 64°.</p><p>On a aussi tracé le cercle (C) de centre R et de rayon 2,5 cm, et son symétrique (C') par rapport à (d).</p>
+  <p>a) Sans mesurer, donne la longueur R'S'.</p><p>b) Sans mesurer, donne la mesure de l'angle ${A("R'S'T'")}.</p><p>c) Quel est le centre du cercle (C') ? Quel est son rayon ?</p><p>d) Écris la propriété du cours qui permet de répondre.</p>`,
+ c:`<p>a) R'S' = RS = <b>5,4 cm</b>. <i>(0,5 point)</i></p><p>b) ${A("R'S'T'")} = ${A("RST")} = <b>64°</b>. <i>(0,5 point)</i></p><p>c) Le centre de (C') est <b>R'</b>, le symétrique de R, et son rayon est <b>2,5 cm</b>. <i>(0,5 point)</i></p><p>d) La symétrie axiale <b>conserve les longueurs et les angles</b> : le symétrique d'un cercle est un cercle de même rayon. <i>(0,5 point)</i></p>`},
+{t:"Sur le quadrillage", p:2, h:`<p>Trace le symétrique de la figure bleue par rapport à la droite rouge.</p>${qd(Q1,false)}`,
+ c:`${qd(Q1,true)}<p>Je compte les carreaux entre chaque sommet et la droite rouge, puis je reporte le même nombre de carreaux de l'autre côté. Le sommet qui est sur la droite reste à sa place.</p><p><i>0,25 point par sommet bien placé (5 sommets), 0,75 point pour la figure tracée en reliant dans le bon ordre.</i></p>`},
+{t:"Combien d'axes ?", p:3, h:`<p>Pour chaque figure, dessine en couleur ses axes de symétrie (s'il y en a), puis indique leur nombre.</p>${axesFig(false)}<p>① un losange · ② un triangle quelconque · ③ un triangle équilatéral · ④ un cerf-volant</p>`,
+ c:C_AXES},
+{t:"Le symétrique de points", p:3, h:`<p>Construis, avec l'équerre et le compas, les points E' et F', symétriques des points E et F par rapport à la droite (d). On doit voir tes traits de construction et le codage (angles droits et longueurs égales).</p><p>Le point G est sur la droite (d). Où se trouve son symétrique G' ?</p>${ptsFig({G:true,pts:PTS,alt:"Une droite (d) oblique, le point E au-dessus, le point F en dessous et le point G sur (d)"})}`,
+ c:`${C_PTS}<p><i>E' : 1 point · F' : 1 point · codage : 0,5 point.</i></p><p>G est sur (d) : son symétrique est le point lui-même, <b>G' = G</b>. <i>(0,5 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 13 (version aménagée)", duree:30, info:"Version aménagée · Durée : 30 min · Règle, équerre et compas · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec une figure plus simple, des réponses à entourer, des rappels du cours (« Je me souviens ») et des aides.",
+comp:COMP,
+exos:[
+{t:"Ce que conserve la symétrie", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>La symétrie axiale conserve les longueurs et les angles. Le symétrique d'un cercle est un cercle de même rayon.</p></div>
+  <p>Le triangle R'S'T' est le symétrique du triangle RST par rapport à une droite (d). RS = 5,4 cm et ${A("RST")} = 64°. Le cercle (C) a pour centre R et pour rayon 2,5 cm ; (C') est son symétrique.</p>
+  <p>a) Quelle est la longueur R'S' ? Entoure-la : &nbsp; 2,7 cm &nbsp;&nbsp; 5,4 cm &nbsp;&nbsp; 10,8 cm</p><p>b) Quelle est la mesure de ${A("R'S'T'")} ? Entoure-la : &nbsp; 32° &nbsp;&nbsp; 64° &nbsp;&nbsp; 116°</p><p>c) Quel est le centre de (C') ? Entoure-le : &nbsp; R &nbsp;&nbsp; R' &nbsp;&nbsp; S'</p><p>d) Quel est le rayon de (C') ? Entoure-le : &nbsp; 2,5 cm &nbsp;&nbsp; 5 cm</p>`,
+ c:`<p>a) <b>5,4 cm</b> (même longueur que RS). <i>(0,5 point)</i></p><p>b) <b>64°</b> (même mesure que ${A("RST")}). <i>(0,5 point)</i></p><p>c) <b>R'</b>, le symétrique du centre R. <i>(0,5 point)</i></p><p>d) <b>2,5 cm</b> (même rayon). <i>(0,5 point)</i></p>`},
+{t:"Sur le quadrillage", p:2, h:`<p>Trace le symétrique de la figure bleue par rapport à la droite rouge.</p>${qd(Q2,false)}<p><b>Aide :</b> pour chaque sommet, je compte les carreaux jusqu'à la droite rouge, puis je compte le même nombre de carreaux de l'autre côté.</p>`,
+ c:`${qd(Q2,true)}<p>Chaque sommet et son symétrique sont à la même distance de la droite rouge.</p><p><i>0,25 point par sommet bien placé (4 sommets), 1 point pour la figure tracée en reliant dans le bon ordre.</i></p>`},
+{t:"Combien d'axes ?", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Un axe de symétrie partage la figure en deux parties qui se superposent quand on plie la figure le long de cet axe.</p></div>
+  <p>Pour chaque figure, dessine en couleur ses axes de symétrie (s'il y en a), puis écris leur nombre.</p>${axesFig(false)}<p>① un losange · ② un triangle quelconque · ③ un triangle équilatéral · ④ un cerf-volant</p><p><b>Aide :</b> une figure peut avoir 0, 1, 2, 3 axes ou plus.</p>`,
+ c:C_AXES},
+{t:"Le symétrique de points", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>① L'équerre : je trace une perpendiculaire à (d) qui passe par le point. ② Le compas : je reporte la même distance de l'autre côté de (d).</p></div>
+  <p>Construis les points E' et F', symétriques de E et de F par rapport à la droite (d). Code la figure.</p>${ptsFig({pts:PTS,alt:"Une droite (d) oblique, le point E au-dessus et le point F en dessous"})}`,
+ c:`${ptsFig({cor:true,pts:PTS,alt:"E' et F' construits : les perpendiculaires à (d) en pointillés, les angles droits et les longueurs égales codés"})}<p>Perpendiculaire à (d) qui passe par le point, puis report de la distance au compas de l'autre côté.</p><p><i>E' : 1,25 point · F' : 1,25 point · codage : 0,5 point.</i></p>`}
+]}
+};
+})()
 };
 })();

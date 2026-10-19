@@ -2,14 +2,15 @@
 TRAIN["4e-5"] = function(){
 const {ri, pick, shuf, distinct} = TR;
 const {F, P, pw, dev, cols, tabH} = window.PUI4;
-const L="abcdefgh";
+const L="abcdefgh", NM="ABCDEFGH";
+const {chns}=window.CHN4;   /* calculs en chaîne « A = … » */
 const sum=a=>a.reduce((x,y)=>x+y,0);
 
 /* ===== Exercice 1 : vocabulaire ===== */
 const V1=distinct(4,()=>[ri(2,9),ri(2,7)],x=>x[0]);
 const V2=distinct(8,()=>{ const t=pick([0,1,2]), a=ri(2,6), n=ri(2,4); return {t,a,n}; },x=>JSON.stringify(x));
 const vTxt=x=>x.t===0?`${x.a}<sup>${x.n}</sup>`:x.t===1?pw(-x.a,x.n):`−${x.a}<sup>${x.n}</sup>`;
-const vCor=x=>x.t===0?`${x.a}<sup>${x.n}</sup> = ${dev(x.a,x.n)} = ${F(x.a**x.n)}`:x.t===1?`${pw(-x.a,x.n)} = ${dev(-x.a,x.n)} = ${F((-x.a)**x.n)}`:`−${x.a}<sup>${x.n}</sup> = −(${dev(x.a,x.n)}) = ${F(-(x.a**x.n))}`;
+const vCor=x=>x.t===0?[`${x.a}<sup>${x.n}</sup>`,dev(x.a,x.n),F(x.a**x.n)]:x.t===1?[pw(-x.a,x.n),dev(-x.a,x.n),F((-x.a)**x.n)]:[`−${x.a}<sup>${x.n}</sup>`,`−(${dev(x.a,x.n)})`,F(-(x.a**x.n))];
 
 /* ===== Exercice 2 : quitte ou double ===== */
 const Q2=(()=>{ const n=ri(5,9), S=pick([500,1000,2000,5000,10000]); let k=1; while(2**(k-1)<=S) k++; return {n, S, k}; })();
@@ -43,8 +44,8 @@ const hTxt=h=>h%24===0?`${h/24} jour${h>24?"s":""}`:`${h} h`;
 return [
  {t:"Définition", e:[
   {n:"Exercice 1", t:"Vocabulaire", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> recopie et complète le tableau.</p>${tabH(["Produit","Notation puissance","Se lit"],[[dev(V1[0][0],V1[0][1]),"",""],[dev(V1[1][0],V1[1][1]),"",""],["",`${V1[2][0]}<sup>${V1[2][1]}</sup>`,""],["","",`${V1[3][0]} exposant ${V1[3][1]}`]])}
-   <p><b>Partie 2 :</b> écris sous la forme d'un produit et calcule.</p>${cols(V2.map((x,i)=>`${L[i]}) ${vTxt(x)}`))}`,
-   c:`${tabH(["Produit","Notation puissance","Se lit"],V1.map(([a,n])=>[dev(a,n),`${a}<sup>${n}</sup>`,`${a} exposant ${n}`]))}<p class="calc">${V2.map((x,i)=>`${L[i]}) ${vCor(x)}`).join("<br>")}</p>`},
+   <p><b>Partie 2 :</b> écris sous la forme d'un produit et calcule.</p>${cols(V2.map((x,i)=>`${NM[i]} = ${vTxt(x)}`))}`,
+   c:`${tabH(["Produit","Notation puissance","Se lit"],V1.map(([a,n])=>[dev(a,n),`${a}<sup>${n}</sup>`,`${a} exposant ${n}`]))}${chns(V2.map((x,i)=>[NM[i],vCor(x)]))}`},
   {n:"Exercice 2", t:"Jeu du « quitte ou double »", w:"Sur ton cahier", h:`<p>La première bonne réponse rapporte 1 €. Ensuite, chaque bonne réponse double le gain.</p><p><b>1)</b> Gilles a répondu correctement à ${Q2.n} questions de suite. Quel est son gain ?</p><p><b>2)</b> Combien de bonnes réponses consécutives faut-il, au minimum, pour gagner plus de ${F(Q2.S)} € ?</p>`,
    c:`<p><b>1)</b> 1 × 2<sup>${Q2.n-1}</sup> = <b>${F(2**(Q2.n-1))} €</b> (la première réponse rapporte 1 €, puis le gain double ${Q2.n-1} fois).</p><p><b>2)</b> Avec ${Q2.k-1} réponses : 2<sup>${Q2.k-2}</sup> = ${F(2**(Q2.k-2))} € ; avec ${Q2.k} réponses : 2<sup>${Q2.k-1}</sup> = ${F(2**(Q2.k-1))} €. Il faut au moins <b>${Q2.k} bonnes réponses</b>.</p>`}
  ]},

@@ -64,7 +64,7 @@ const dev = shuf([
   [ri(2,9), ri(2,9)], [ri(2,9), -ri(1,9)], [ri(2,9), ri(2,9)], [pick([1.5,2.5,0.5]), ri(2,8)], [ri(2,9), -ri(1,9)], [10, pick([0.5,0.2,0.3,1.5])]
 ]).map(([k,b],i)=>[k,b,VV[i]]);
 const ment = shuf([
-  (()=>{ const a=ri(3,9), d=ri(1,5); return [a,100,d]; })(),
+  (()=>{ let a, d; do { a=ri(3,9); d=ri(1,5); } while(a===7 && d===2); return [a,100,d]; })(),  /* jamais 7 × 102 (exemple de l'énoncé) */
   (()=>{ const a=ri(3,9), d=ri(1,3); return [a,100,-d]; })(),
   (()=>{ const a=ri(11,19); return [a,20,1]; })(),
   (()=>{ const a=ri(11,15); return [a,100,-1]; })(),

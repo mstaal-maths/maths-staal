@@ -4,6 +4,9 @@ const {ri, pick, shuf, sp, distinct, items} = TR;
 const {U, conv, D} = window.FIG14;
 const fr = x => String(x).replace(".",",");
 const r1 = (x,k) => fr((Math.round(x*10**k)/10**k).toFixed(k));
+/* calculs en chaîne : une étape par ligne, chaque ligne commence par « P = » (« P ≈ » pour une valeur arrondie) */
+const KC = (nm, st, lab) => `<p class="calc">${st.map((t,i)=>(i===0&&lab?lab+" ":"")+nm+(t[0]==="≈"?" ≈ "+t.slice(1).trim():" = "+t)).join("<br>")}</p>`;
+const KCS = arr => `<div class="calcs">${arr.map(x=>`<div>${x}</div>`).join("")}</div>`;
 
 /* ---------- A. Conversions ---------- */
 const mk = (t, near) => { const i=ri(0,6); let j; do{ j=ri(0,6); }while(j===i || (near && Math.abs(i-j)>3)); const k=pick([0,0,1,2]), n=ri(2,k?999:950); return {t,i,j,n,k}; };
@@ -35,9 +38,9 @@ const ch = [ri(8,15)*10, ri(5,9)*10], rg = ri(2,4), rou = pick([200,250,300]);
 const fil = 2*(ch[0]+ch[1])*rg, nr = Math.ceil(fil/rou);
 const secB = {t:"Calculer des périmètres", e:[
   {n:"Exercice 5", t:"Carrés et rectangles", w:"Sur ton cahier", h:`<p>1) Périmètre d'un carré de ${D(sq,1)} m de côté ?</p><p>2) Périmètre d'un rectangle de ${D(rL,1)} m sur ${rlcm} cm ? Attention aux unités !</p>`,
-   c:`<p>1) P = 4 × ${D(sq,1)} = <b>${D(4*sq,1)} m</b>.</p><p>2) ${rlcm} cm = ${D(rlcm,2)} m. P = 2 × (${D(rL,1)} + ${D(rlcm,2)}) = 2 × ${D(rL*10+rlcm,2)} = <b>${D(2*(rL*10+rlcm),2)} m</b>.</p>`},
+   c:`${KC("P",[`4 × ${D(sq,1)}`,`<b>${D(4*sq,1)} m</b>`],"1)")}<p>2) ${rlcm} cm = ${D(rlcm,2)} m.</p>${KC("P",[`2 × (${D(rL,1)} + ${D(rlcm,2)})`,`2 × ${D(rL*10+rlcm,2)}`,`<b>${D(2*(rL*10+rlcm),2)} m</b>`])}`},
   {n:"Exercice 6", t:"Un polygone", w:"Sur ton cahier", h:`<p>Un pentagone a pour côtés : ${pv.map(x=>x.t).join(" ; ")}. Calcule son périmètre en cm.</p>`,
-   c:`<p>En cm : ${pv.map(x=>`${x.t} = ${D(x.cm,1)} cm`).join(" ; ")}.</p><p class="calc">P = ${pv.map(x=>D(x.cm,1)).join(" + ")} = <b>${D(pv.reduce((s,x)=>s+x.cm,0),1)} cm</b></p>`},
+   c:`<p>En cm : ${pv.map(x=>`${x.t} = ${D(x.cm,1)} cm`).join(" ; ")}.</p><p class="calc">P = ${pv.map(x=>D(x.cm,1)).join(" + ")}<br>P = <b>${D(pv.reduce((s,x)=>s+x.cm,0),1)} cm</b></p>`},
   {n:"Exercice 7", t:"Retrouver une longueur", w:"Sur ton cahier", h:`<p>1) Un carré a un périmètre de ${pc} m. Longueur de son côté ?</p><p>2) Un rectangle a un périmètre de ${rp*2} cm et une longueur de ${rp-rlen} cm. Sa largeur ?</p>`,
    c:`<p>1) ${pc} ÷ 4 = <b>${D(pc*25,2)} m</b>.</p><p>2) ${rp*2} ÷ 2 = ${rp} ; ${rp} − ${rp-rlen} = <b>${rlen} cm</b>.</p>`},
   {n:"Exercice 8", t:"Clôturer un champ", w:"Sur ton cahier", h:`<p>Un champ rectangulaire mesure ${ch[0]} m sur ${ch[1]} m. On l'entoure avec ${rg} rangées de fil, vendu en rouleaux de ${rou} m. Combien de fil faut-il ? Combien de rouleaux ?</p>`,
@@ -49,7 +52,7 @@ const cd = ri(3,25), crr = ri(2,15), cd2 = ri(11,99), roue = pick([50,60,66,70,7
 const dc = ri(4,12), pl = ri(60,100), pd = ri(50,80);
 const secC = {t:"La longueur d'un cercle", e:[
   {n:"Exercice 9", t:"Ordre de grandeur et calcul", w:"Sur ton cahier", h:`<p>a) Un cercle a un diamètre de ${cd} cm. b) Un cercle a un rayon de ${crr} cm.</p><p>1) Donne un ordre de grandeur de leur longueur (π ≈ 3). 2) Calcule leur longueur, arrondie à l'unité.</p>`,
-   c:`<p>1) a) environ 3 × ${cd} = <b>${3*cd} cm</b> ; b) le diamètre est ${2*crr} cm : environ 3 × ${2*crr} = <b>${6*crr} cm</b>.</p><p>2) a) P = π × ${cd} ≈ ${r1(Math.PI*cd,2)}, soit environ <b>${Math.round(Math.PI*cd)} cm</b>. b) P = 2 × π × ${crr} ≈ ${r1(2*Math.PI*crr,2)}, soit environ <b>${Math.round(2*Math.PI*crr)} cm</b>.</p>`},
+   c:`<p>1) a) environ 3 × ${cd} = <b>${3*cd} cm</b> ; b) le diamètre est ${2*crr} cm : environ 3 × ${2*crr} = <b>${6*crr} cm</b>.</p><p>2)</p>${KCS([KC("P",["π × d",`π × ${cd}`,`≈ ${r1(Math.PI*cd,2)}`,`≈ <b>${Math.round(Math.PI*cd)} cm</b>`],"a)"), KC("P",["2 × π × r",`2 × π × ${crr}`,`≈ ${r1(2*Math.PI*crr,2)}`,`≈ <b>${Math.round(2*Math.PI*crr)} cm</b>`],"b)")])}`},
   {n:"Exercice 10", t:"Des problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un cadran rond a un diamètre de ${D(cd2,1)} cm. Sa longueur, arrondie au dixième ?</p><p><b>Problème 2 :</b> une roue a un diamètre de ${roue} cm. Quelle distance parcourt-elle en 1 tour ? En ${tours} tours ? (arrondis au dixième)</p>`,
    c:`<p><b>Problème 1 :</b> P = π × ${D(cd2,1)} ≈ ${r1(Math.PI*cd2/10,3)}, soit environ <b>${r1(Math.PI*cd2/10,1)} cm</b>.</p><p><b>Problème 2 :</b> 1 tour : π × ${roue} ≈ <b>${r1(Math.PI*roue,1)} cm</b>. ${tours} tours : ${tours} × π × ${roue} ≈ <b>${sp(r1(tours*Math.PI*roue,1).split(",")[0])},${r1(tours*Math.PI*roue,1).split(",")[1]} cm</b>.</p>`},
   {n:"Exercice 11", t:"Demi-cercle et piste", w:"Sur ton cahier", h:`<p>1) Une figure est formée d'un demi-cercle de diamètre [AB] et du segment [AB], avec AB = ${dc} cm. Son périmètre, arrondi au dixième ?</p><p>2) Une piste est formée de deux lignes droites de ${pl} m et de deux demi-cercles de ${pd} m de diamètre. Longueur d'un tour, arrondie au mètre ?</p>`,

@@ -129,7 +129,11 @@ const f3 = distinct(6, ()=>{ const t=ri(0,5), a=ri(2,9), b=ri(2,9), c=ri(2,9), d
   if(t===3) return `${a+b*c+ri(1,30)} − (${a} + ${b} × ${c})`;
   if(t===4) return `(${a*d+b} − ${b}) × ${c}`;
   return `${a} × (${b} + ${c}) − ${d*2} ÷ ${d}`; }, x=>x);
-const NOMS="ABCDEF";
+const NOMS="ABCDEFGHIJ";
+/* calculs nommés : une étape par ligne, chaque ligne commence par « A = » */
+const CHN = (X, st) => `<p class="calc">${st.map((l,k)=>`${X} = ${k===st.length-1?`<b>${l}</b>`:l}`).join("<br>")}</p>`;
+const CALCS = arr => `<div class="calcs" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">${arr.map((st,i)=>`<div>${CHN(NOMS[i],st)}</div>`).join("")}</div>`;
+const ENO = (arr, noms=NOMS) => `<div class="calcs">${arr.map((e,i)=>`<span>${noms[i]} = ${e}</span>`).join("")}</div>`;
 const f4 = distinct(6, ()=>{ const t=ri(0,4), a=ri(2,9), b=ri(2,9), c=ri(2,9);
   if(t===0) return [`${a} + ${b} × ${c}`, `(${a} + ${b}) × ${c}`];
   if(t===1){ const x=b+ri(2,8); return [`${x} − ${b} × ${c}`, `(${x} − ${b}) × ${c}`]; }
@@ -138,25 +142,26 @@ const f4 = distinct(6, ()=>{ const t=ri(0,4), a=ri(2,9), b=ri(2,9), c=ri(2,9);
   const y=c+ri(1,6); return [`${a} × ${y} − ${c}`, `${a} × (${y} − ${c})`]; }, x=>x[0]);
 const b5=ri(11,29), c5=ri(3,9), d5=ri(21,49), e5b=ri(11,19), m5=ri(3,9), g5=ri(12,49);
 const f5 = [
-  [`${b5} × 9 + ${b5} × 1`, `${b5} × (9 + 1) = ${b5} × 10 = ${b5*10}`],
-  [`${d5} × ${m5} − ${d5-10} × ${m5}`, `(${d5} − ${d5-10}) × ${m5} = 10 × ${m5} = ${10*m5}`],
-  [`${c5} × 102`, `${c5} × 100 + ${c5} × 2 = ${100*c5} + ${2*c5} = ${102*c5}`],
-  [`${e5b} × 99`, `${e5b} × 100 − ${e5b} × 1 = ${sp(100*e5b)} − ${e5b} = ${sp(99*e5b)}`],
-  [`25 × ${c5} × 4`, `25 × 4 × ${c5} = 100 × ${c5} = ${100*c5}`],
-  [`${g5} × 11`, `${g5} × 10 + ${g5} × 1 = ${10*g5} + ${g5} = ${11*g5}`]];
+  [`${b5} × 9 + ${b5} × 1`, [`${b5} × (9 + 1)`, `${b5} × 10`, `${sp(b5*10)}`]],
+  [`${d5} × ${m5} − ${d5-10} × ${m5}`, [`(${d5} − ${d5-10}) × ${m5}`, `10 × ${m5}`, `${10*m5}`]],
+  [`${c5} × 102`, [`${c5} × 100 + ${c5} × 2`, `${100*c5} + ${2*c5}`, `${sp(102*c5)}`]],
+  [`${e5b} × 99`, [`${e5b} × 100 − ${e5b} × 1`, `${sp(100*e5b)} − ${e5b}`, `${sp(99*e5b)}`]],
+  [`25 × ${c5} × 4`, [`(25 × 4) × ${c5}`, `100 × ${c5}`, `${sp(100*c5)}`]],
+  [`${g5} × 11`, [`${g5} × 10 + ${g5} × 1`, `${10*g5} + ${g5}`, `${sp(11*g5)}`]]];
 const OPS=["+","−","×","÷"];
 const f6 = distinct(4, ()=>{ let g=0; while(g++<300){ const a=ri(2,20), b=ri(2,9), c=ri(2,9), o1=pick(OPS), o2=pick(OPS); const e=`${a} ${o1} ${b} ${o2} ${c}`;
   if(o1==="÷"&&(a%b)) continue; const st=prioSteps(e); const v=+st[st.length-1]; if(!Number.isInteger(v)||v<0) continue;
   if(o2==="÷"){ const first = (o1==="×"||o1==="÷") ? (o1==="×"?a*b:a/b) : b; if(first%c) continue; }
   return [`${a} ? ${b} ? ${c} = ${v}`, `${e} = ${v}`]; } return ["2 ? 3 ? 4 = 14","2 + 3 × 4 = 14"]; }, x=>x[0]);
 const secF = {t:"Les priorités opératoires", note:"<b>Rappel :</b> les parenthèses d'abord, puis × et ÷, puis + et −. À priorité égale, de gauche à droite.", e:[
-  {n:"Exercice 19", t:"Sans parenthèses", w:"Sur ton cahier", h:`<p>${items(f1,"  ·  ",true)}</p>`, c:items(f1.map(steps),"  ·  ",true)},
-  {n:"Exercice 20", t:"Avec des parenthèses", w:"Sur ton cahier", h:`<p>${items(f2,"  ·  ",true)}</p>`, c:items(f2.map(steps),"  ·  ",true)},
-  {n:"Exercice 21", t:"En détaillant les étapes", w:"Sur ton cahier", h:`<p>${f3.map((e,i)=>`${NOMS[i]} = ${e}`).join("  ·  ")}</p>`,
-   c:`<p class="calc" style="white-space:normal">${f3.map((e,i)=>prioSteps(e).map(l=>`${NOMS[i]} = ${l}`).join("<br>")).join("<br><br>")}</p>`},
+  {n:"Exercice 19", t:"Sans parenthèses", w:"Sur ton cahier", h:`<p>Calcule en écrivant une étape par ligne.</p>${ENO(f1)}`, c:`<p>Je calcule d'abord les multiplications et les divisions, puis les additions et les soustractions.</p>${CALCS(f1.map(prioSteps))}`},
+  {n:"Exercice 20", t:"Avec des parenthèses", w:"Sur ton cahier", h:`<p>Calcule en écrivant une étape par ligne.</p>${ENO(f2)}`, c:`<p>Je calcule d'abord dans les parenthèses, puis les multiplications et les divisions, puis les additions et les soustractions.</p>${CALCS(f2.map(prioSteps))}`},
+  {n:"Exercice 21", t:"En détaillant les étapes", w:"Sur ton cahier", h:`<p>Calcule en écrivant une étape par ligne.</p>${ENO(f3)}`,
+   c:CALCS(f3.map(prioSteps))},
   {n:"Exercice 22", t:"Placer des parenthèses", w:"Sur ton cahier", h:`<p>Recopie et place des parenthèses pour que l'égalité soit vraie : ${items(f4.map(([s,w])=>`${s} = ${TR.evalExpr(w)}`),"  ·  ",true)}</p>`,
    c:items(f4.map(([,w])=>steps(w)),"  ·  ",true)},
-  {n:"Exercice 23", t:"Calculer astucieusement", w:"Sur ton cahier", h:`<p>Exemple : 13 × 7 + 13 × 3 = 13 × (7 + 3) = 13 × 10 = 130.</p><p>${items(f5.map(x=>x[0]),"  ·  ",true)}</p>`, c:items(f5.map(x=>`${x[0]} = ${x[1]}`),"  ·  ",true)},
+  {n:"Exercice 23", t:"Calculer astucieusement", w:"Sur ton cahier", h:`<p><b>Exemple :</b></p><p class="calc">A = 13 × 7 + 13 × 3<br>A = 13 × (7 + 3)<br>A = 13 × 10<br>A = 130</p><p>Calcule de la même façon, en écrivant une étape par ligne.</p>${ENO(f5.map(x=>x[0]),"BCDEFG")}`,
+   c:`<div class="calcs">${f5.map((x,i)=>`<div>${CHN("BCDEFG"[i],[x[0],...x[1]])}</div>`).join("")}</div>`},
   {n:"Exercice 24", t:"Les signes manquants", w:"Sur ton cahier", h:`<p>Remplace chaque ? par +, −, × ou ÷ : ${items(f6.map(x=>x[0]),"  ·  ",true)}</p>`, c:items(f6.map(x=>x[1]+" (une solution possible)"),"  ·  ",true)}
 ]};
 return [secA, secB, secC, secD, secE, secF];

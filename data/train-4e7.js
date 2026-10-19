@@ -4,6 +4,7 @@ TRAIN["4e-7"] = function(){
 const {ri, pick, shuf, items} = TR;
 const {nz, r3, F, X, T, E, R, red, fac, prod, opp, prog, progs, tab, fleche} = window.CL7;
 const tail = ts => ts.map(([c,v])=>T(c,v,false)).join("");
+const {chns}=window.CHN4;   /* calculs en chaîne « A = … » */
 const x=X("x"), n=X("n"), s=X("s");
 const NB=["","une","deux","trois","quatre","cinq"];
 
@@ -35,9 +36,9 @@ const secA={t:"Produire une expression littérale", e:[
    <p><b>5)</b> Une location de voiture coûte ${m5.f} € pour le véhicule et ${F(m5.r)} € par kilomètre parcouru. On note ${X("k")} le nombre de kilomètres. E = ……</p>
    <p><b>6)</b> Un quadrilatère a des côtés de longueurs ${x}, ${m5.q[0]}, ${m5.q[1]} et ${m5.q[2]}. Exprime son périmètre F.</p>
    <p><b>7)</b> Un rectangle a pour côtés ${x} et ${m5.L}. Exprime son périmètre K et son aire L, puis réduis-les.</p>`,
-   c:`<p><b>1)</b> A = ${X("a")} × ${X("a")} − ${m5.b} = <b>${R([[1,"a2"],[-m5.b,""]])}</b></p><p><b>2)</b> B = ${X("b")} × ${m5.k} + ${m5.c} = <b>${R([[m5.k,"b"],[m5.c,""]])}</b></p><p><b>3)</b> C = <b>(${x} − ${m5.s}) × ${x} + ${m5.d}</b></p>
-   <p><b>4)</b> D = ${X("p")} × ${m5.g} + ${m5.dvd} = <b>${R([[m5.g,"p"],[m5.dvd,""]])}</b></p><p><b>5)</b> E = ${X("k")} × ${F(m5.r)} + ${m5.f} = <b>${R([[m5.r,"k"],[m5.f,""]])}</b></p>
-   <p><b>6)</b> F = ${x} + ${m5.q.join(" + ")} = <b>${R([[1,"x"],...m5.q.map(v=>[v,""])])}</b></p><p><b>7)</b> K = ${x} + ${m5.L} + ${x} + ${m5.L} = <b>${R([[1,"x"],[m5.L,""],[1,"x"],[m5.L,""]])}</b> · L = ${x} × ${m5.L} = <b>${E([[m5.L,"x"]])}</b></p>`}
+   c:chns([["A",[`${X("a")} × ${X("a")} − ${m5.b}`,`<b>${R([[1,"a2"],[-m5.b,""]])}</b>`]],["B",[`${X("b")} × ${m5.k} + ${m5.c}`,`<b>${R([[m5.k,"b"],[m5.c,""]])}</b>`]],["C",[`<b>(${x} − ${m5.s}) × ${x} + ${m5.d}</b>`]],
+   ["D",[`${X("p")} × ${m5.g} + ${m5.dvd}`,`<b>${R([[m5.g,"p"],[m5.dvd,""]])}</b>`]],["E",[`${X("k")} × ${F(m5.r)} + ${m5.f}`,`<b>${R([[m5.r,"k"],[m5.f,""]])}</b>`]],
+   ["F",[`${x} + ${m5.q.join(" + ")}`,`<b>${R([[1,"x"],...m5.q.map(v=>[v,""])])}</b>`]],["K",[`${x} + ${m5.L} + ${x} + ${m5.L}`,`<b>${R([[1,"x"],[m5.L,""],[1,"x"],[m5.L,""]])}</b>`]],["L",[`${x} × ${m5.L}`,`<b>${E([[m5.L,"x"]])}</b>`]]])}
  ]};
 
 /* ===== B. Réduire une expression littérale ===== */
@@ -79,8 +80,8 @@ const e7=[
   (()=>{ const A=[[ri(2,6),"y"],[ri(2,6),"x"]], p=[-ri(2,9),"y"], c=ri(2,9), q=[ri(1,9),"y"]; return [`${fac(A[0],true)} × ${fac(A[1])}${tail([p,[c,""],q])}`, [prod(...A),p,[c,""],q]]; })()
 ];
 const secB={t:"Réduire une expression littérale", e:[
-  {n:"Exercice 6", t:"Entraînement à la réduction d'expressions littérales", w:"Sur ton cahier", h:`<p>Réduis les expressions littérales suivantes lorsque c'est possible.</p><div class="calcs">${red6.map((o,i)=>`<span>${TR.L[i]}) ${sh6(o)}</span>`).join("")}</div>`,
-   c:`<p>${items(red6.map(o=>`${sh6(o)} = ${co6(o)}`)," · ",true).replace(/= non réductible/g,": non réductible")}</p>`},
+  {n:"Exercice 6", t:"Entraînement à la réduction d'expressions littérales", w:"Sur ton cahier", h:`<p>Réduis les expressions littérales suivantes lorsque c'est possible.</p><div class="calcs">${red6.map((o,i)=>`<span>${"ABCDEFGHIJKLMN"[i]} = ${sh6(o)}</span>`).join("")}</div>`,
+   c:chns(red6.map((o,i)=>{ const r=co6(o); return ["ABCDEFGHIJKLMN"[i], r==="non réductible"?[`${sh6(o)} : non réductible`]:[sh6(o),r]]; }))},
   {n:"Puissance 4", t:"Réduction d'écritures littérales", w:"Sur ton cahier", h:`<p>Recopie et complète chaque tableau avec l'expression <b>réduite</b>.</p><p><b>Tableau 1 :</b> la somme de l'expression de la ligne et de celle de la colonne.</p>${tA(false)}<p><b>Tableau 2 :</b> le produit de l'expression de la ligne et de celle de la colonne.</p>${tB(false)}`,
    c:`<p><b>Tableau 1</b></p>${tA(true)}<p><b>Tableau 2</b></p>${tB(true)}`},
   {n:"Activité 2", t:"Un « + » ou un « − » devant une parenthèse", w:"Sur ton cahier", h:`<p>Dans chaque cas, ${s} représente une somme d'argent en €. Lundi, ${who} a gagné ${g} € au jeu. Le mardi :</p>${CAS.map(([o1,o2,t],i)=>`<p><b>Cas n° ${i+1} :</b> ${who} ${t}. Le total de ses gains est ${"ABC"[i]} = ${cas(o1,o2).q}.</p>`).join("")}<p><b>Cas n° 4 :</b> D = ${cas("−","−").q}.</p><p>Réduis A, B, C et D.</p>`,

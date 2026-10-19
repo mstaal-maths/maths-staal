@@ -207,6 +207,118 @@ exos:[
  ]}
 ],
 
+/* ÉVAL-5b début */
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT (+ version aménagée « bep ») ===================== */
+eval:(()=>{
+const pn = v => String(v).replace(".",",");
+const pts = v => `${pn(v)} point${v>=2?"s":""}`;
+const pt = v => ` <i>(${pts(v)})</i>`;
+const exl = (X, ids) => { const s=ids.reduce((a,i)=>a+X[i-1].p,0); return (ids.length===1?`Ex. ${ids[0]}`:`Ex. ${ids.slice(0,-1).join(", ")} et ${ids[ids.length-1]}`)+` (${pts(s)})`; };
+const COMP = [
+  ["CALCULER","Je calcule une mesure d'angle avec des angles adjacents ou supplémentaires, et avec la somme des angles d'un triangle.",[1,5]],
+  ["RAISONNER","Je calcule une mesure d'angle et je justifie avec les angles opposés par le sommet, supplémentaires, alternes-internes et correspondants ; je démontre que deux droites sont (ou ne sont pas) parallèles.",[2,3,4,6]]
+];
+/* ---------- figures (mesures exactes) ---------- */
+/* E, I, F alignés ; EIG = a ; GIH = b */
+const FIG1 = (a, b, lb) => { const I=[0,0], E=[-170,0], F=[170,0], G=mul(rot([-1,0],a),150), H=mul(rot([-1,0],a+b),150);
+  return af({pts:{E,F,G,H,I}, segs:[["E","F"],["I","G"],["I","H"]], arcs:[["I","E","G",OR,lb[0],46],["I","G","H",BL,lb[1],56],["I","H","F",GR,lb[2],66]],
+    lab:{E:[-14,14],F:[14,14],I:[0,22],G:[-10,-10],H:[8,-12]}, w:360, alt:"Points E, I et F alignés, demi-droites [IG) et [IH)"}); };
+/* droites (PR) et (ST) sécantes en O : POS = a */
+const FIG2 = (a, arcs) => { const O=[0,0], P=[-150,0], R=[150,0], S=mul(rot([-1,0],a),135), T=mul(S,-1);
+  return af({pts:{O,P,R,S,T}, segs:[["P","R"],["S","T"]], arcs, lab:{P:[-14,0],R:[14,0],S:[8,-12],T:[-8,14],O:[-12,36]}, w:320, alt:"Droites (PR) et (ST) sécantes en O"}); };
+/* deux droites coupées par une sécante. phi : direction de la sécante (degrés, vers le bas) ; delta : inclinaison de la droite du bas
+   n = [gauche haut, droite haut, point haut, gauche bas, droite bas, point bas, haut sécante, bas sécante] */
+const FIGP = (phi, delta, n, arcs, o={}) => { const u=[Math.cos(rad(phi)), Math.sin(rad(phi))], H=o.H||140, w=[Math.cos(rad(delta)), Math.sin(rad(delta))];
+  const M=[0,0], N=mul(u, H/u[1]), TL=[Math.min(0,N[0])-150,0], TR=[Math.max(0,N[0])+150,0];
+  const BL_=sub(N, mul(w,(N[0]-TL[0])/w[0])), BR_=add(N, mul(w,(TR[0]-N[0])/w[0])), UP=sub(M,mul(u,62)), DN=add(N,mul(u,62));
+  const pts={[n[0]]:TL,[n[1]]:TR,[n[2]]:M,[n[3]]:BL_,[n[4]]:BR_,[n[5]]:N,[n[6]]:UP,[n[7]]:DN};
+  const lab={[n[0]]:[0,-16],[n[1]]:[0,-16],[n[3]]:[0,20],[n[4]]:[0,20],[n[6]]:[14,-6],[n[7]]:[-14,10],[n[2]]:o.lM||[-16,-14],[n[5]]:o.lN||[16,20]};
+  if(phi<90){ lab[n[6]]=[-14,-6]; lab[n[7]]=[14,10]; }
+  return af({pts, segs:[[n[0],n[1]],[n[3],n[4]],[n[6],n[7]]], arcs, lab, r:30, w:o.w||420, alt:o.alt||"Deux droites coupées par une sécante"}); };
+const N3 = ["A","B","M","C","D","N","K","L"], N4a = ["R","S","E","T","U","F","V","W"], N4b = ["X","Y","P","Z","T","Q","U","V"];
+/* triangle ABC avec M sur [AB], N sur [AC] et (MN) // (BC) */
+const FIG6 = arcs => { const L=300, b=58, c=70, tb=Math.tan(rad(b)), tc=Math.tan(rad(c)), x=L*tc/(tb+tc), A=[x,-x*tb], B=[0,0], C=[L,0];
+  const M=add(A,mul(sub(B,A),0.45)), N=add(A,mul(sub(C,A),0.45));
+  return af({pts:{A,B,C,M,N}, segs:[["A","B"],["B","C"],["C","A"],["M","N"]], arcs, r:28, lab:{A:[0,-16],B:[-14,10],C:[14,10],M:[-16,-4],N:[16,-4]}, w:340, alt:"Triangle ABC ; M est sur [AB], N est sur [AC] et (MN) est parallèle à (BC)"}); };
+const L = (b, list) => list.filter(q=>!(b && q.rm));
+const num = i => (i+1)+".";
+const mk = b => {
+  const wr = (q,i) => { const c=q.c.startsWith("<p>") ? `<p>${num(i)} `+q.c.slice(3) : `<p>${num(i)}</p>`+q.c; return (c.endsWith("</p>") ? c.slice(0,-4) : c)+pt(b?q.pb:q.p)+"</p>"; };
+  const sum = q => q.reduce((a,x)=>a+(b?x.pb:x.p),0);
+  const qs = q => q.map((x,i)=>`<p>${num(i)} ${x.h}</p>`).join("");
+  const q1 = L(b, [
+    {h:`Nomme deux angles adjacents sur cette figure.`, p:0.5, pb:0.5,
+     c:`<p>Par exemple ${an("EIG")} et ${an("GIH")} : ils ont le même sommet I, le côté commun [IG), et ils sont de part et d'autre de ce côté.</p><p><i>(Autre réponse possible : ${an("GIH")} et ${an("HIF")}.)</i>`},
+    {h:`Calcule la mesure de l'angle ${an("HIF")}. Justifie.`, p:1.5, pb:2,
+     c:`<p>Les points E, I et F sont alignés : ${an("EIF")} est un angle plat, il mesure 180°.</p><p class="calc">${an("HIF")} = 180° − 40° − 75° = 65°</p>${FIG1(40,75,["40°","75°","65°"])}`},
+    {h:`Les angles ${an("EIH")} et ${an("HIF")} sont-ils supplémentaires ? Justifie.`, p:1, rm:true,
+     c:`<p class="calc">${an("EIH")} = 40° + 75° = 115° &nbsp; et &nbsp; 115° + 65° = 180°</p><p><b>Oui</b> : la somme de leurs mesures est égale à 180°, ils sont supplémentaires.`}
+  ]);
+  const q2 = L(b, [
+    {h:`Nomme l'angle opposé par le sommet à ${an("POS")}, puis donne sa mesure. Justifie.`, p:1, pb:1.5,
+     c:`<p>L'angle opposé par le sommet à ${an("POS")} est <b>${an("ROT")}</b>.</p><p>Deux angles opposés par le sommet ont la même mesure : ${an("ROT")} = ${an("POS")} = <b>128°</b>.`},
+    {h:`Calcule la mesure de l'angle ${an("POT")}. Justifie.`, p:1, pb:1,
+     c:`<p>Les points S, O et T sont alignés : ${an("POS")} et ${an("POT")} sont adjacents et supplémentaires.</p><p class="calc">${an("POT")} = 180° − 128° = 52°</p>${b?`${FIG2(128,[["O","P","S",OR,"128°"],["O","R","T",OR,"128°"],["O","P","T",BL,"52°"],["O","R","S",BL,"52°"]])}`:""}`},
+    {h:`Déduis-en la mesure de l'angle ${an("SOR")}. Justifie.`, p:1, rm:true,
+     c:`<p>${an("SOR")} et ${an("POT")} sont opposés par le sommet, donc ${an("SOR")} = ${an("POT")} = <b>52°</b>.</p>${FIG2(128,[["O","P","S",OR,"128°"],["O","R","T",OR,"128°"],["O","P","T",BL,"52°"],["O","R","S",BL,"52°"]])}`}
+  ]);
+  const q3 = [
+    {h:`Nomme l'angle correspondant à ${an("KMB")}, puis donne sa mesure. Justifie.`, p:1.5, pb:1.5,
+     c:`<p>L'angle correspondant à ${an("KMB")} est <b>${an("MND")}</b>.</p><p><b>Si</b> deux droites parallèles sont coupées par une sécante, <b>alors</b> les angles correspondants sont égaux.</p><p>Ici (AB) // (CD), donc ${an("MND")} = ${an("KMB")} = <b>62°</b>.`},
+    {h:`Calcule la mesure de l'angle ${an("BMN")}. Justifie.`, p:1, pb:1,
+     c:`<p>Les points K, M et N sont alignés : ${an("KMB")} et ${an("BMN")} sont supplémentaires.</p><p class="calc">${an("BMN")} = 180° − 62° = 118°</p>`},
+    {h:`Nomme l'angle alterne-interne à ${an("BMN")}, puis donne sa mesure. Justifie.`, p:1.5, pb:1.5,
+     c:`<p>L'angle alterne-interne à ${an("BMN")} est <b>${an("CNM")}</b> (entre les deux droites, de l'autre côté de la sécante).</p><p>(AB) // (CD) et les angles alternes-internes formés par deux droites parallèles sont égaux : ${an("CNM")} = ${an("BMN")} = <b>118°</b>.</p>${FIGP(118,0,N3,[["M","K","B",OR,"62°"],["N","M","D",OR,"62°"],["M","B","N",BL,"118°"],["N","C","M",BL,"118°"]],{w:400})}`}
+  ];
+  const q4 = [
+    {h:`Sur la figure a), les droites (RS) et (TU) sont coupées par la sécante (VW). Sont-elles parallèles ? Justifie.`, p:1.5, pb:2,
+     c:`<p>${an("VES")} et ${an("EFU")} sont des angles <b>correspondants</b> et ils sont égaux (73°).</p><p><b>Si</b> deux droites coupées par une sécante forment des angles correspondants égaux, <b>alors</b> ces droites sont parallèles.</p><p>Donc <b>(RS) // (TU)</b>.`},
+    {h:`Sur la figure b), les droites (XY) et (ZT) sont coupées par la sécante (UV). Sont-elles parallèles ? Justifie.`, p:1.5, pb:2,
+     c:`<p>${an("YPQ")} et ${an("ZQP")} sont des angles <b>alternes-internes</b>, mais ils ne sont pas égaux : 64° ≠ 62°.</p><p>Si (XY) et (ZT) étaient parallèles, ces angles seraient égaux.</p><p>Donc (XY) et (ZT) <b>ne sont pas parallèles</b> (même si elles en ont l'air sur la figure).`}
+  ];
+  const q5 = L(b, [
+    {h:`KLM est un triangle tel que ${an("LKM")} = 104° et ${an("KLM")} = 29°. Calcule ${an("KML")}. Justifie.`, p:1.5, pb:1.5,
+     c:`<p>La somme des angles d'un triangle est égale à 180°, donc :</p><p class="calc">${an("KML")} = 180° − 104° − 29° = 47°</p>`},
+    {h:`PQR est un triangle tel que ${an("PQR")} = 45° et ${an("PRQ")} = 45°. Calcule ${an("QPR")}. Que peux-tu dire du triangle PQR ?`, p:1.5, pb:2,
+     c:`<p>La somme des angles d'un triangle est égale à 180°, donc :</p><p class="calc">${an("QPR")} = 180° − 45° − 45° = 90°</p><p>${an("QPR")} est un angle droit : le triangle PQR est <b>rectangle en P</b>.`},
+    {h:`Noé veut construire un triangle dont les angles mesurent 65°, 55° et 70°. Est-ce possible ? Justifie.`, p:1, rm:true,
+     c:`<p class="calc">65° + 55° + 70° = 190°</p><p>190° ≠ 180° : ce triangle <b>n'existe pas</b>, car la somme des angles d'un triangle est toujours égale à 180°.`}
+  ]);
+  const q6 = [
+    {h:`Calcule la mesure de l'angle ${an("ABC")}. Justifie.`, p:1, pb:1,
+     c:`<p>Les droites (MN) et (BC) sont coupées par la sécante (AB).</p><p>${an("AMN")} et ${an("ABC")} sont correspondants et (MN) // (BC), donc ${an("ABC")} = ${an("AMN")} = <b>58°</b>.`},
+    {h:`Calcule la mesure de l'angle ${an("ACB")}. Justifie.`, p:1, pb:1,
+     c:`<p>Avec la sécante (AC) : ${an("ANM")} et ${an("ACB")} sont correspondants et (MN) // (BC), donc ${an("ACB")} = ${an("ANM")} = <b>70°</b>.`},
+    {h:`Déduis-en la mesure de l'angle ${an("BAC")}.`, p:1, pb:1.5,
+     c:`<p>Dans le triangle ABC, la somme des angles est égale à 180°, donc :</p><p class="calc">${an("BAC")} = 180° − 58° − 70° = 52°</p>${FIG6([["B","C","A",OR,"58°"],["C","A","B",BL,"70°"],["A","B","C",GR,"52°"]])}`}
+  ];
+  const fig = (l, s) => `<figure><figcaption>${l}</figcaption>${s}</figure>`;
+  const X = [
+    {t:"Angles adjacents et supplémentaires", p:sum(q1),
+     h:`<p>Sur la figure, les points E, I et F sont alignés. <i>(La figure n'est pas en vraie grandeur.)</i></p>${FIG1(40,75,["40°","75°","?"])}${qs(q1)}`, c:q1.map(wr).join("")},
+    {t:"Angles et droites sécantes", p:sum(q2),
+     h:`<p>Les droites (PR) et (ST) se coupent en O. On sait que ${an("POS")} = 128°. <i>(Figure à main levée.)</i></p>${FIG2(128,[["O","P","S",OR,"128°"]])}${qs(q2)}`, c:q2.map(wr).join("")},
+    {t:"Angles et droites parallèles", p:sum(q3),
+     h:`<p>Sur la figure, la droite (KL) coupe la droite (AB) en M et la droite (CD) en N. <i>(Figure à main levée.)</i></p><div class="figs">${FIGP(118,0,N3,[["M","K","B",OR,"62°"]],{w:400, alt:"Droites (AB) et (CD) coupées par la sécante (KL) en M et N ; l'angle KMB mesure 62°"})}<p><b>(AB) // (CD)</b><br>${an("KMB")} = 62°</p></div>${qs(q3)}`, c:q3.map(wr).join("")},
+    {t:"Parallèles ou non ?", p:sum(q4),
+     h:`<p>On ne se fie pas à l'aspect des figures : on utilise les mesures écrites.</p><div class="figs">${fig("a)",FIGP(107,0,N4a,[["E","V","S",OR,"73°"],["F","E","U",OR,"73°"]],{w:360, lM:[-16,-12], lN:[-16,20], alt:"Figure a : droites (RS) et (TU) coupées par la sécante (VW) en E et F ; angles VES et EFU de 73°"}))}${fig("b)",FIGP(64,2,N4b,[["P","Y","Q",BL,"64°"],["Q","Z","P",BL,"62°"]],{w:360, lM:[-16,-12], lN:[-18,20], alt:"Figure b : droites (XY) et (ZT) coupées par la sécante (UV) en P et Q ; angles YPQ de 64° et ZQP de 62°"}))}</div>${qs(q4)}`, c:q4.map(wr).join("")},
+    {t:"Somme des angles d'un triangle", p:sum(q5), h:qs(q5), c:q5.map(wr).join("")},
+    {t:"Parallèles dans un triangle", p:sum(q6),
+     h:`<p>Dans le triangle ABC, le point M est sur [AB] et le point N est sur [AC]. <i>(Figure à main levée.)</i></p><div class="figs">${FIG6([["M","A","N",OR,"58°"],["N","M","A",BL,"70°"]])}<p><b>(MN) // (BC)</b><br>${an("AMN")} = 58°<br>${an("ANM")} = 70°</p></div>${qs(q6)}`, c:q6.map(wr).join("")}
+  ];
+  return {X, comp:COMP.map(([k,t,ids])=>[k,t,exl(X,ids)])};
+};
+const N = mk(false), B = mk(true);
+return {
+titre:"Évaluation d'entraînement — Chapitre 8", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Règle",
+comp:N.comp, exos:N.X,
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 8 · version aménagée", duree:45, info:"Version aménagée · Durée : 45 min · Calculatrice non autorisée · Règle",
+note:"Les mêmes exercices avec trois questions en moins, dans le même temps (45 min). Le barème est recalculé pour rester sur 20. Les justifications sont toujours demandées.",
+comp:B.comp, exos:B.X }
+};
+})(),
+/* ÉVAL-5b fin */
 /* ===================== QUIZ ===================== */
 quiz:[
 {nom:"Adjacents, supplémentaires, opposés par le sommet", schema:S_VOC, q:{

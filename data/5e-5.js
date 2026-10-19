@@ -441,7 +441,7 @@ quiz:[
 
 /* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
 eval:{
-titre:"Évaluation d'entraînement n° 3 · chapitre 5", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Règle et crayon",
+titre:"Évaluation d'entraînement — Chapitre 5", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Règle et crayon",
 comp:[
   ["CONNAÎTRE","Je connais le vocabulaire : signe, distance à zéro, opposé, valeur absolue, positif, négatif.","Ex. 1 et 7 (5 points)"],
   ["CALCULER","Je calcule le résultat d'une soustraction, même quand il est négatif.","Ex. 2 (2 points)"],
@@ -449,10 +449,10 @@ comp:[
   ["RAISONNER","Je compare et je range des nombres relatifs.","Ex. 4 et 5 (5,5 points)"]
 ],
 exos:[
-{t:"Vrai ou faux ?", p:3, h:`<p>Réponds par Vrai ou Faux. Aucune justification n'est demandée.</p><p>a) −12 est un nombre relatif de distance à zéro 12.</p><p>b) L'opposé de −0,8 est 0,8.</p><p>c) |−9| = −9</p><p>d) 0 est à la fois positif et négatif.</p><p>e) −4,5 est strictement positif.</p><p>f) −2 &gt; −1</p>`,
- c:`<p>a) Vrai · b) Vrai · c) Faux (|−9| = 9) · d) Vrai · e) Faux (son signe est « − ») · f) Faux (−2 &lt; −1 : 2 &gt; 1)</p><p><i>0,5 point par réponse.</i></p>`},
-{t:"Des soustractions qui passent sous zéro", p:2, h:`<p>Calcule.</p>${cols(["a) 7 − 15","b) 40 − 100","c) 2,5 − 4","d) 1 − 3,7"])}`,
- c:`<p>On enlève plus que ce que l'on a : on calcule « le plus grand moins le plus petit », puis on met le signe −.</p><p>a) 15 − 7 = 8, donc 7 − 15 = −8</p><p>b) 100 − 40 = 60, donc 40 − 100 = −60</p><p>c) 4 − 2,5 = 1,5, donc 2,5 − 4 = −1,5</p><p>d) 3,7 − 1 = 2,7, donc 1 − 3,7 = −2,7</p><p><i>0,5 point par calcul.</i></p>`},
+{t:"Vrai ou faux ?", p:3, h:`<p>Réponds par Vrai ou Faux. Aucune justification n'est demandée.</p><p>a) −12 est un nombre relatif de distance à zéro 12.</p><p>b) L'opposé de −0,8 est 0,8.</p><p>c) |−11| = −11</p><p>d) 0 est à la fois positif et négatif.</p><p>e) −4,5 est strictement positif.</p><p>f) −2 &gt; −1</p>`,
+ c:`<p>a) Vrai · b) Vrai · c) Faux (|−11| = 11) · d) Vrai · e) Faux (son signe est « − ») · f) Faux (−2 &lt; −1 : 2 &gt; 1)</p><p><i>0,5 point par réponse.</i></p>`},
+{t:"Des soustractions qui passent sous zéro", p:2, h:`<p>Calcule.</p>${cols(["a) A = 7 − 15","b) B = 40 − 100","c) C = 2,5 − 4","d) D = 1 − 3,7"])}`,
+ c:`<p>On enlève plus que ce que l'on a : on calcule « le plus grand moins le plus petit », puis on met le signe −.</p><div class="calcs">${[["a","A","7 − 15","−8","15 − 7 = 8"],["b","B","40 − 100","−60","100 − 40 = 60"],["c","C","2,5 − 4","−1,5","4 − 2,5 = 1,5"],["d","D","1 − 3,7","−2,7","3,7 − 1 = 2,7"]].map(([l,n,e,r,w])=>`<div><p class="calc">${l}) ${n} = ${e}<br>${n} = <b>${r}</b> &nbsp; <i>(${w})</i></p></div>`).join("")}</div><p><i>0,5 point par calcul.</i></p>`},
 {t:"Une nouvelle graduation", p:3.5, h:`<p>Observe bien la droite graduée : une unité est partagée en <b>5</b>.</p>${dg({min:-2,max:2,step:0.2,lab:1,pts:[["A",-1.4],["B",-0.6],["C",0.8]]})}
   <p>a) Lis l'abscisse des points A, B et C.</p><p>b) Place les points D(1,6) et E(−1,8).</p><p>c) Place le point F dont l'abscisse est l'opposé de l'abscisse de B.</p><p>d) Range les abscisses des points A, B, C, D et E dans l'ordre croissant.</p>`,
  c:`<p>Une unité est partagée en 5 : une graduation vaut 1 ÷ 5 = 0,2.</p><p>a) A(−1,4) ; B(−0,6) ; C(0,8) <i>(1,5 point)</i></p><p>b) D et E sont placés sur la figure. <i>(1 point)</i></p><p>c) L'opposé de −0,6 est 0,6 : F(0,6). <i>(0,5 point)</i></p>
@@ -464,14 +464,49 @@ exos:[
  c:`<p>a) Inès a gagné : −7 est le plus petit score. <i>(0,5 point)</i></p><p>b) −7 &lt; −5 &lt; −4 &lt; 0 &lt; +1 &lt; +4 : Inès, Sacha, Léa, Tom, Noé, Malik. <i>(1,5 point)</i></p><p>c) Léa (−4) et Malik (+4). <i>(0,5 point)</i></p><p>d) Tom : son score est 0. <i>(0,5 point)</i></p>`},
 {t:"Comparer", p:2.5, h:`<p>Compare avec &lt;, &gt; ou =.</p>${cols(["a) −15 …… 2","b) −3,4 …… −3,7","c) 0 …… −0,1","d) −8 …… −8,0","e) −0,09 …… −0,1"])}`,
  c:`<p>a) −15 &lt; 2 · b) −3,4 &gt; −3,7 · c) 0 &gt; −0,1 · d) −8 = −8,0 · e) −0,09 &gt; −0,1 <i>(0,09 &lt; 0,10)</i></p><p><i>0,5 point par comparaison.</i></p>`},
-{t:"La carte au trésor", p:4, h:`<p>Sur cette carte, le bateau est au point B, le palmier au point P et la grotte au point G.</p>${rep({pts:[["B",-4,3],["P",3,-2],["G",0,2]], alt:"Carte au trésor avec les points B, P et G"})}
-  <p>a) Lis les coordonnées des points B, P et G.</p><p>b) Place le rocher R(−2 ; −1,5) et le puits W(4 ; 0).</p><p>c) Le trésor T a pour coordonnées les opposées de celles du bateau. Écris les coordonnées de T, puis place-le.</p><p>d) Sur quel axe se trouve le puits W ? Explique.</p>`,
- c:`<p>a) B(−4 ; 3) · P(3 ; −2) · G(0 ; 2) <i>(1,5 point)</i></p><p>b) Voir la figure. <i>(1 point)</i></p><p>c) T(4 ; −3) <i>(0,5 point pour les coordonnées, 0,5 point pour le point placé)</i></p>
-  <div class="figs">${rep({pts:[["B",-4,3],["P",3,-2],["G",0,2],["R",-2,-1.5],["W",4,0],["T",4,-3]], proj:["R","T"], grads:true})}</div>
+{t:"La carte au trésor", p:4, h:`<p>Sur cette carte, le bateau est au point B, le palmier au point P et la cabane au point C.</p>${rep({pts:[["B",-3,3],["P",4,-1],["C",0,2]], alt:"Carte au trésor avec les points B, P et C"})}
+  <p>a) Lis les coordonnées des points B, P et C.</p><p>b) Place le rocher R(−2 ; −1,5) et le puits W(−5 ; 0).</p><p>c) Le trésor T a pour coordonnées les opposées de celles du bateau. Écris les coordonnées de T, puis place-le.</p><p>d) Sur quel axe se trouve le puits W ? Explique.</p>`,
+ c:`<p>a) B(−3 ; 3) · P(4 ; −1) · C(0 ; 2) <i>(1,5 point)</i></p><p>b) Voir la figure. <i>(1 point)</i></p><p>c) T(3 ; −3) <i>(0,5 point pour les coordonnées, 0,5 point pour le point placé)</i></p>
+  <div class="figs">${rep({pts:[["B",-3,3],["P",4,-1],["C",0,2],["R",-2,-1.5],["W",-5,0,8,-9],["T",3,-3]], proj:["R","T"], grads:true})}</div>
   <p>d) W est sur l'axe des abscisses, car son ordonnée est 0. <i>(0,5 point)</i></p>`},
 {t:"Qui suis-je ?", p:2, h:`<p>a) Je suis l'opposé de 6,3.</p><p>b) Je suis un nombre entier strictement compris entre −4 et −2.</p><p>c) Ma valeur absolue est 2 et je suis plus petit que 1.</p><p>d) Je suis le plus grand des nombres entiers strictement négatifs.</p>`,
  c:`<p>a) −6,3 · b) −3 · c) −2 <i>(2 et −2 ont pour valeur absolue 2, mais 2 &gt; 1)</i> · d) −1</p><p><i>0,5 point par réponse.</i></p>`}
-]}
+],
+/* ---- version aménagée (élèves à besoins éducatifs particuliers), faite comme M. Staal fait les siennes :
+   même durée, environ une question sur cinq retirée (jamais un exercice entier), questions renumérotées, barème recalculé sur 20 ---- */
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 5 · version aménagée", duree:45, info:"Version aménagée · Durée : 45 min · Calculatrice non autorisée · Règle et crayon",
+note:"Même durée et mêmes exercices, avec environ une question sur cinq en moins (réparties dans plusieurs exercices). Les questions sont renumérotées et le barème est recalculé : la note reste sur 20.",
+comp:[
+  ["CONNAÎTRE","Je connais le vocabulaire : signe, distance à zéro, opposé, valeur absolue, positif, négatif.","Ex. 1 et 7 (5 points)"],
+  ["CALCULER","Je calcule le résultat d'une soustraction, même quand il est négatif.","Ex. 2 (2 points)"],
+  ["REPRÉSENTER","Je lis et je place des points sur une droite graduée et dans un repère.","Ex. 3 et 6 (8 points)"],
+  ["RAISONNER","Je compare et je range des nombres relatifs.","Ex. 4 et 5 (5 points)"]
+],
+exos:[
+{t:"Vrai ou faux ?", p:3, h:`<p>Réponds par Vrai ou Faux. Aucune justification n'est demandée.</p><p>a) −12 est un nombre relatif de distance à zéro 12.</p><p>b) L'opposé de −0,8 est 0,8.</p><p>c) |−11| = −11</p><p>d) 0 est à la fois positif et négatif.</p><p>e) −4,5 est strictement positif.</p>`,
+ c:`<p>a) Vrai · b) Vrai · c) Faux (|−11| = 11) · d) Vrai · e) Faux (son signe est « − »)</p><p><i>0,5 point pour a), b) et e) ; 0,75 point pour c) et d).</i></p>`},
+{t:"Des soustractions qui passent sous zéro", p:2, h:`<p>Calcule.</p>${cols(["a) A = 7 − 15","b) B = 40 − 100","c) C = 2,5 − 4"])}`,
+ c:`<p>On enlève plus que ce que l'on a : on calcule « le plus grand moins le plus petit », puis on met le signe −.</p><div class="calcs">${[["a","A","7 − 15","−8","15 − 7 = 8"],["b","B","40 − 100","−60","100 − 40 = 60"],["c","C","2,5 − 4","−1,5","4 − 2,5 = 1,5"]].map(([l,n,e,r,w])=>`<div><p class="calc">${l}) ${n} = ${e}<br>${n} = <b>${r}</b> &nbsp; <i>(${w})</i></p></div>`).join("")}</div><p><i>0,5 point pour a) ; 0,75 point pour b) et c).</i></p>`},
+{t:"Une nouvelle graduation", p:3.5, h:`<p>Observe bien la droite graduée : une unité est partagée en <b>5</b>.</p>${dg({min:-2,max:2,step:0.2,lab:1,pts:[["A",-1.4],["B",-0.6],["C",0.8]]})}
+  <p>a) Lis l'abscisse des points A, B et C.</p><p>b) Place les points D(1,6) et E(−1,8).</p><p>c) Range les abscisses des points A, B, C, D et E dans l'ordre croissant.</p>`,
+ c:`<p>Une unité est partagée en 5 : une graduation vaut 1 ÷ 5 = 0,2.</p><p>a) A(−1,4) ; B(−0,6) ; C(0,8) <i>(1,5 point)</i></p><p>b) D et E sont placés sur la figure. <i>(1,25 point)</i></p>
+  ${dg({w:640, min:-2,max:2,step:0.2,lab:1,pts:[["E",-1.8],["A",-1.4],["B",-0.6],["C",0.8],["D",1.6]],show:true})}
+  <p>c) −1,8 &lt; −1,4 &lt; −0,6 &lt; 0,8 &lt; 1,6 <i>(0,75 point)</i></p>`},
+{t:"Le tournoi de golf", p:3, h:`<p>Au golf, le score d'un joueur est un nombre relatif : « −3 » veut dire qu'il a utilisé 3 coups de moins que prévu, « +2 » qu'il a utilisé 2 coups de plus. <b>Le vainqueur est celui qui a le score le plus petit.</b></p>
+  <div class="scroll"><table class="std"><thead><tr><th>Joueur</th><th>Léa</th><th>Malik</th><th>Inès</th><th>Tom</th><th>Sacha</th><th>Noé</th></tr></thead><tbody><tr><td><b>Score</b></td><td>−4</td><td>+4</td><td>−7</td><td>0</td><td>−5</td><td>+1</td></tr></tbody></table></div>
+  <p>a) Qui a gagné le tournoi ?</p><p>b) Écris le classement, du premier au dernier, en rangeant les scores.</p><p>c) Quels sont les deux joueurs qui ont des scores opposés ?</p>`,
+ c:`<p>a) Inès a gagné : −7 est le plus petit score. <i>(0,75 point)</i></p><p>b) −7 &lt; −5 &lt; −4 &lt; 0 &lt; +1 &lt; +4 : Inès, Sacha, Léa, Tom, Noé, Malik. <i>(1,75 point)</i></p><p>c) Léa (−4) et Malik (+4). <i>(0,5 point)</i></p>`},
+{t:"Comparer", p:2, h:`<p>Compare avec &lt;, &gt; ou =.</p>${cols(["a) −15 …… 2","b) −3,4 …… −3,7","c) 0 …… −0,1","d) −8 …… −8,0"])}`,
+ c:`<p>a) −15 &lt; 2 · b) −3,4 &gt; −3,7 · c) 0 &gt; −0,1 · d) −8 = −8,0</p><p><i>0,5 point par comparaison.</i></p>`},
+{t:"La carte au trésor", p:4.5, h:`<p>Sur cette carte, le bateau est au point B, le palmier au point P et la cabane au point C.</p>${rep({pts:[["B",-3,3],["P",4,-1],["C",0,2]], alt:"Carte au trésor avec les points B, P et C"})}
+  <p>a) Lis les coordonnées des points B, P et C.</p><p>b) Place le rocher R(−2 ; −1,5) et le puits W(−5 ; 0).</p><p>c) Le trésor T a pour coordonnées les opposées de celles du bateau. Écris les coordonnées de T, puis place-le.</p><p>d) Sur quel axe se trouve le puits W ? Explique.</p>`,
+ c:`<p>a) B(−3 ; 3) · P(4 ; −1) · C(0 ; 2) <i>(1,5 point)</i></p><p>b) Voir la figure. <i>(1 point)</i></p><p>c) T(3 ; −3) <i>(0,75 point pour les coordonnées, 0,5 point pour le point placé)</i></p>
+  <div class="figs">${rep({pts:[["B",-3,3],["P",4,-1],["C",0,2],["R",-2,-1.5],["W",-5,0,8,-9],["T",3,-3]], proj:["R","T"], grads:true})}</div>
+  <p>d) W est sur l'axe des abscisses, car son ordonnée est 0. <i>(0,75 point)</i></p>`},
+{t:"Qui suis-je ?", p:2, h:`<p>a) Je suis l'opposé de 6,3.</p><p>b) Je suis un nombre entier strictement compris entre −4 et −2.</p><p>c) Je suis le plus grand des nombres entiers strictement négatifs.</p>`,
+ c:`<p>a) −6,3 · b) −3 · c) −1</p><p><i>0,5 point pour a) ; 0,75 point pour b) et c).</i></p>`}
+]}}
 };
 
 /* petit outil : n nombres distincts */

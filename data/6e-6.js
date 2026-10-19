@@ -243,6 +243,100 @@ quiz:[
  3:[ {q:"Combien de médiatrices faut-il tracer, au minimum, pour trouver le centre du cercle circonscrit ?", c:["2","3","1"], rep:"2", ex:"Deux suffisent ; la troisième sert à vérifier.", sx:S_CIRC},
      {g:()=>{ const [a,b,c]=pick([[3,4,5],[6,8,10],[5,12,13]]); return {q:`ABC est rectangle en A avec BC = ${c} cm. Le centre de son cercle circonscrit est le milieu de [BC]. Quel est le rayon de ce cercle (en cm) ?`, rep:fr(c/2), ex:`Le rayon est la moitié de [BC] : ${c} ÷ 2 = ${fr(c/2)} cm.`, sx:S_CIRC}; }} ]
 }}
-]
+],
+
+/* ===================== ÉVAL D'ENTRAÎNEMENT (+ version aménagée pour les élèves à besoins particuliers) ===================== */
+eval:(()=>{
+const f1=x=>(+x).toFixed(1), CM=37.8;
+const T=(x,y,t,st="")=>`<text x="${f1(x)}" y="${f1(y)}" style="font-size:16px;font-weight:600;${st}">${t}</text>`;
+const L_=(a,b,st="")=>`<line x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}" class="ln"${st?` style="${st}"`:""}/>`;
+const sv=(W,H,lab,body)=>`<svg class="fig" viewBox="0 0 ${f1(W)} ${f1(H)}" width="${f1(W)}" role="img" aria-label="${lab}">${body}</svg>`;
+const cod=(x,y)=>`<line x1="${f1(x-3)}" y1="${f1(y+6)}" x2="${f1(x+3)}" y2="${f1(y-6)}" style="stroke:${RED};stroke-width:2"/>`;
+const sq=(x,y,s=10)=>`<path d="M${f1(x+s)} ${f1(y)} L${f1(x+s)} ${f1(y-s)} L${f1(x)} ${f1(y-s)}" style="fill:none;stroke:${RED};stroke-width:1.6"/>`;
+const arc=(c,r,a0,a1,st="cons")=>{ const p=a=>[c[0]+r*Math.cos(a*Math.PI/180), c[1]-r*Math.sin(a*Math.PI/180)], A=p(a0), B=p(a1);
+  return `<path d="M${f1(A[0])} ${f1(A[1])} A${f1(r)} ${f1(r)} 0 0 0 ${f1(B[0])} ${f1(B[1])}" class="${st}"/>`; };
+const ang=(c,p)=>Math.atan2(-(p[1]-c[1]),p[0]-c[0])*180/Math.PI;
+/* triangle KLM construit au compas : [KL] horizontal, M au-dessus ; k px par cm */
+const tri=(kl,km,lm,k,lab)=>{ const x=(kl*kl+km*km-lm*lm)/(2*kl), y=Math.sqrt(km*km-x*x), K=[30,y*k+40], L=[30+kl*k,y*k+40], M=[30+x*k,40];
+  const aK=ang(K,M), aL=ang(L,M);
+  return sv(kl*k+60,y*k+75,lab,L_(K,L)+L_(K,M)+L_(L,M)+arc(K,km*k,aK-12,aK+12)+arc(L,lm*k,aL-14,aL+14)
+   +[[K,"K",-18,6],[L,"L",8,6],[M,"M",-24,-6]].map(([P,n,dx,dy])=>cross(P[0],P[1],"ln")+T(P[0]+dx,P[1]+dy,n)).join("")
+   +T((K[0]+L[0])/2-14,K[1]+22,`${String(kl).replace(".",",")} cm`,`fill:${BLUE};font-size:14px`)
+   +T((K[0]+M[0])/2-44,(K[1]+M[1])/2-2,`${km} cm`,`fill:${BLUE};font-size:14px`)+T((L[0]+M[0])/2+8,(L[1]+M[1])/2-2,`${lm} cm`,`fill:${BLUE};font-size:14px`)); };
+/* segment donné en vraie grandeur (version aménagée) : place laissée au-dessus et en dessous */
+const segVG=(a,b,len,up,down)=>{ const W=len*CM+70, y=up; return sv(W,up+down,`Le segment [${a}${b}] de ${len} cm (vraie grandeur sur le sujet imprimé)`,L_([35,y],[35+len*CM,y])+cross(35,y,"ln")+cross(35+len*CM,y,"ln")+T(16,y+6,a)+T(42+len*CM,y+6,b)); };
+/* exercice 3 : trois droites qui coupent [AB] */
+const A=[30,130], B=[350,130], I=[190,130], J=[300,130];
+const fig3 = sv(380,225,"Le segment [AB] de milieu I (codage), la droite (d₁) passe par I sans angle droit, la droite (d₂) est perpendiculaire à [AB] en I, la droite (d₃) est perpendiculaire à [AB] en J",
+  L_(A,B)+L_([120,15],[244,219])+L_([190,12],[190,218])+L_([300,12],[300,218])+sq(190,130)+sq(300,130)+cod(110,130)+cod(270,130)
+  +[[A,"A",-6,-12],[B,"B",-4,-12],[I,"I",-16,22],[J,"J",6,22]].map(([P,n,dx,dy])=>cross(P[0],P[1],"ln")+T(P[0]+dx,P[1]+dy,n)).join("")
+  +T(92,24,"(d₁)","font-weight:400")+T(196,24,"(d₂)","font-weight:400")+T(306,24,"(d₃)","font-weight:400"));
+/* exercice 4 : médiatrice de [PQ] au compas (réduite, 1 cm = 30 px) */
+const med = (()=>{ const k=30, y=125, P=[40,y], Q=[40+6*k,y], r=4*k, h=Math.sqrt(r*r-(3*k)**2), X=40+3*k, U=[X,y-h], V=[X,y+h];
+  return sv(260,250,"Correction : la médiatrice (m) de [PQ] tracée au compas, avec ses arcs et le codage",
+   L_(P,Q)+arc(P,r,ang(P,U)-10,ang(P,U)+10)+arc(P,r,ang(P,V)-10,ang(P,V)+10)+arc(Q,r,ang(Q,U)-10,ang(Q,U)+10)+arc(Q,r,ang(Q,V)-10,ang(Q,V)+10)
+   +L_([X,8],[X,242],`stroke:${BLUE};stroke-width:2.2`)+sq(X,y)+cod((P[0]+X)/2,y)+cod((X+Q[0])/2,y)
+   +[[P,"P",-20,6],[Q,"Q",8,6]].map(([Z,n,dx,dy])=>cross(Z[0],Z[1],"ln")+T(Z[0]+dx,Z[1]+dy,n)).join("")+T(X+8,22,"(m)",`fill:${BLUE}`)); })();
+const comp=[
+  ["REPRÉSENTER","Je trace un triangle à partir des longueurs de ses côtés.","Ex. 1 (3 points)"],
+  ["RAISONNER","Je calcule une longueur grâce à la médiatrice, et je justifie.","Ex. 2 (2 points)"],
+  ["RAISONNER","Je décide si une droite est la médiatrice d'un segment, en lisant le codage.","Ex. 3 (3 points)"],
+  ["REPRÉSENTER","Je construis au compas la médiatrice d'un segment, avec son codage.","Ex. 4 (2 points)"]
+], compB=comp.slice(0,3).concat([["REPRÉSENTER","Je construis la médiatrice d'un segment, avec son codage.","Ex. 4 (2 points)"]]);
+/* exercice 1 : dessin à main levée codé d'un triangle aux trois côtés égaux */
+const uvw = triSVG({U:[0,3.46],V:[4,3.46],W:[2,0]},{k:30, ticks:[["U","V",1],["V","W",1],["U","W",1]], alt:"Dessin à main levée codé du triangle UVW : ses trois côtés portent le même codage"});
+return {
+titre:"Évaluation d'entraînement — Chapitre 6", duree:30, info:"Durée : 30 min · Matériel : règle graduée, équerre, compas · Calculatrice non autorisée",
+comp,
+exos:[
+{t:"Le triangle KLM", p:3, h:`<p>1) Fais un dessin à main levée, puis construis en vraie grandeur le triangle KLM tel que : KL = 7 cm, LM = 3 cm et KM = 5 cm. Ne gomme pas les arcs de cercle.</p>
+  <p>2) Voici le dessin à main levée d'un autre triangle, codé. Quelle est sa nature ?</p>${uvw}`,
+ c:`<p>1) Je trace d'abord [KL] de 7 cm. Je pique en K avec un écartement de 5 cm et je trace un arc. Je pique en L avec un écartement de 3 cm et je trace un arc. M est le point où les deux arcs se coupent. Voici la figure, réduite :</p>${tri(7,5,3,34,"Triangle KLM : KL = 7 cm, KM = 5 cm, LM = 3 cm, avec les deux arcs de cercle")}
+  <p><i>(0,5 point pour le dessin à main levée, 0,5 point pour [KL], 1 point pour les deux arcs, 0,5 point pour le triangle)</i></p>
+  <p>2) Le codage montre que ses trois côtés ont la même longueur : UVW est un triangle <b>équilatéral</b>. <i>(0,5 point)</i></p>`},
+{t:"Un point sur la médiatrice", p:2, h:`<p>La droite (Δ) est la médiatrice du segment [CD], et CD = 5 cm. Le point H appartient à (Δ), et HC = 6 cm.</p>
+  <p>a) Calcule HD. Justifie en citant une propriété du cours.</p><p>b) Quelle est la nature du triangle HCD ?</p>`,
+ c:`<p>a) H appartient à la médiatrice de [CD]. Or, si un point appartient à la médiatrice d'un segment, alors il est équidistant des extrémités de ce segment. Donc HD = HC = <b>6 cm</b>. <i>(1,5 point : 0,5 point pour le résultat, 1 point pour la justification)</i></p>
+  <p>b) HC = HD = 6 cm : le triangle HCD a deux côtés de même longueur, il est <b>isocèle en H</b>. <i>(0,5 point)</i></p><p>La longueur CD = 5 cm ne sert pas pour répondre.</p>`},
+{t:"Laquelle est la médiatrice ?", p:3, h:`${fig3}<p>Trois droites coupent le segment [AB]. Aide-toi du codage de la figure.</p><p>a) Laquelle des droites (d₁), (d₂) et (d₃) est la médiatrice de [AB] ?</p><p>b) Pour chacune des deux autres droites, explique pourquoi ce n'est pas la médiatrice de [AB].</p>`,
+ c:`<p>a) Le codage montre que I est le milieu de [AB] (AI = IB). (d₂) passe par I et elle est perpendiculaire à [AB] (angle droit codé) : <b>(d₂) est la médiatrice de [AB]</b>. <i>(1 point)</i></p>
+  <p>b) (d₁) passe par le milieu I, mais elle n'est pas perpendiculaire à [AB]. <i>(1 point)</i></p><p>(d₃) est perpendiculaire à [AB], mais elle ne passe pas par le milieu de [AB] : elle passe par J. <i>(1 point)</i></p>`},
+{t:"Construction d'une médiatrice", p:2, h:`<p>1) Trace un segment [PQ] de 6 cm.</p><p>2) Construis sa médiatrice (m) avec le compas. Laisse les arcs de cercle visibles.</p><p>3) Ajoute le codage : le milieu et l'angle droit.</p>`,
+ c:`${med}<p>J'écarte le compas de plus de la moitié de [PQ] (ici 4 cm). Je pique en P et je trace deux arcs, de part et d'autre de [PQ]. Sans changer l'écartement, je pique en Q et je trace deux arcs. Je relie les deux points où les arcs se coupent : c'est la médiatrice (m). Je code le milieu et l'angle droit.</p>
+  <p><i>(1 point pour [PQ] et les arcs, 0,5 point pour la droite (m), 0,5 point pour le codage)</i></p>`}
+],
+/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+bep:{titre:"Évaluation d'entraînement — Chapitre 6 · version aménagée", duree:30, info:"Durée : 30 min · Matériel : règle graduée, équerre, compas · Calculatrice non autorisée · Version aménagée",
+note:"Mêmes exercices et même barème, avec des segments déjà tracés, des réponses à entourer ou à compléter, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+comp:compB,
+exos:[
+{t:"Le triangle KLM", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Je trace d'abord un côté. Puis je cherche le troisième sommet avec deux arcs de cercle : un arc depuis chaque extrémité du côté.</p></div>
+  <p>1) Construis le triangle KLM tel que KL = 7 cm, KM = 5 cm et LM = 4 cm. Le côté [KL] est déjà tracé. Laisse les traits de construction.</p>
+  <p class="note"><b>Aide :</b> pique en K avec un écartement de 5 cm et trace un arc. Pique en L avec un écartement de 4 cm et trace un arc. M est le point où les arcs se coupent.</p>
+  ${segVG("K","L",7,160,40)}
+  <p>2) Voici le dessin à main levée d'un autre triangle, codé. Entoure sa nature : quelconque · équilatéral · rectangle</p>${uvw}<p class="note"><b>Aide :</b> les petits traits identiques montrent des côtés de même longueur.</p>`,
+ c:`<p>1) Voici la figure, réduite :</p>${tri(7,5,4,34,"Triangle KLM : KL = 7 cm, KM = 5 cm, LM = 4 cm, avec les deux arcs de cercle")}
+  <p><i>(1 point pour le premier arc, 1 point pour le deuxième arc, 0,5 point pour le triangle tracé)</i></p>
+  <p>2) Les trois côtés ont le même codage : UVW est <b>équilatéral</b>. <i>(0,5 point)</i></p>`},
+{t:"Un point sur la médiatrice", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Si un point est sur la médiatrice d'un segment, alors il est à la même distance des deux extrémités du segment.</p></div>
+  <p>La droite (Δ) est la médiatrice du segment [CD]. Le point H est sur (Δ), et HC = 6 cm.</p>
+  <p>a) Entoure la bonne réponse : HD = 3 cm · HD = 6 cm · HD = 12 cm</p><p>Complète la justification : H est sur la médiatrice de [CD], donc H est à la même …………………… de C et de D.</p>
+  <p>b) Entoure : le triangle HCD est isocèle · équilatéral · rectangle</p><p class="note"><b>Aide :</b> regarde les longueurs HC et HD.</p>`,
+ c:`<p>a) <b>HD = 6 cm</b>. H est sur la médiatrice de [CD], donc H est à la même <b>distance</b> de C et de D : HD = HC = 6 cm. <i>(1,5 point : 0,5 point pour la réponse, 1 point pour la justification)</i></p>
+  <p>b) HC = HD : le triangle HCD est <b>isocèle</b> en H. <i>(0,5 point)</i></p>`},
+{t:"Laquelle est la médiatrice ?", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>La médiatrice d'un segment est la droite perpendiculaire à ce segment qui passe par son milieu. Il faut les deux !</p></div>
+  ${fig3}<p>Trois droites coupent le segment [AB]. Aide-toi du codage : les petits traits rouges et les angles droits.</p>
+  <p>a) Entoure la médiatrice de [AB] : (d₁) · (d₂) · (d₃)</p>
+  <p>b) Complète : (d₁) passe par le milieu I, mais elle n'est pas …………………… à [AB].</p><p>(d₃) est perpendiculaire à [AB], mais elle ne passe pas par le …………………… de [AB].</p>`,
+ c:`<p>a) <b>(d₂)</b> : elle passe par le milieu I et elle est perpendiculaire à [AB]. <i>(1 point)</i></p>
+  <p>b) (d₁) n'est pas <b>perpendiculaire</b> à [AB]. <i>(1 point)</i></p><p>(d₃) ne passe pas par le <b>milieu</b> de [AB]. <i>(1 point)</i></p>`},
+{t:"Construction d'une médiatrice", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Au compas : j'écarte le compas de plus de la moitié du segment. Je pique en P, puis en Q, et je trace des arcs au-dessus et en dessous. Je relie les deux points où les arcs se coupent.</p></div>
+  <p>Le segment [PQ] de 6 cm est déjà tracé. Trace sa médiatrice (m), avec la règle et l'équerre ou avec le compas. Ajoute le codage.</p>
+  ${segVG("P","Q",6,130,130)}`,
+ c:`${med}<p>Avec l'équerre : je place le milieu de [PQ] à 3 cm de P, puis je trace la perpendiculaire à [PQ] qui passe par ce milieu. Au compas : je trace les arcs comme sur la figure. Je code le milieu et l'angle droit.</p>
+  <p><i>(1 point pour la construction, 0,5 point pour la droite (m), 0,5 point pour le codage)</i></p>`}
+]}
+};
+})()
 };
 })();

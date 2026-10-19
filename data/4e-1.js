@@ -17,6 +17,41 @@ const Q=x=>r3(x)<0?`(${F(x)})`:F(x);          /* parenthèses seulement si néga
 const cols=arr=>`<div class="calcs">${arr.map(x=>`<span${x.replace(/<[^>]+>/g,"").length>30?' style="white-space:normal"':""}>${x}</span>`).join("")}</div>`;
 const RED="#d0342c", BLUE="#1e7fc4";
 const co=(p,alt,w)=>img("4k1co/"+p,alt,w), ex=(p,alt,w)=>img("4k1ex/"+p,alt,w);
+/* calculs en chaîne (règle de M. Staal) : l'expression est nommée et chaque étape est sur une nouvelle ligne « A = … » */
+const chn=(N,st)=>`<p class="calc">${st.map(s=>`${N} = ${s}`).join("<br>")}</p>`;
+const chns=L=>`<div class="calcs">${L.map(([N,st])=>chn(N,st)).join("")}</div>`;
+/* QCM : une explication qui enchaîne plusieurs calculs (… = … = …) est réécrite ligne par ligne
+   « A = … » (règle des calculs en chaîne) ; l'expression est aussi nommée dans la question. */
+const qChain=(()=>{
+  const U="(?:<i>[a-z]<\\/i>|<sup>[^<]*<\\/sup>|\\{[^{}]*\\}|[\\d,+−×÷()\\[\\]xy²³√ -])";
+  const S="(?:<i>[a-z]<\\/i>|<sup>[^<]*<\\/sup>|\\{[^{}]*\\}|[\\d)\\]xy²³])";   /* fin d'expression (jamais une espace) */
+  const E=`(?:<i>[a-z]<\\/i>|<sup>[^<]*<\\/sup>|\\{[^{}]*\\}|[\\d(\\[−x√-])(?:${U}*${S})?`;
+  const RE=new RegExp(`(?<![A-Za-zéèàù\\d])${E}(?: = ${E}){2,}`,"g");
+  const bal=s=>{ let d=0; for(const c of s.replace(/<[^>]+>/g,"")){ if(c==="("||c==="[") d++; if(c===")"||c==="]") d--; if(d<0) return false; } return d===0; };
+  const trim=s=>s.replace(/[\s,]+$/,"").replace(/\s*\($/,"");
+  return o=>{
+    if(!o || typeof o.ex!=="string" || (o.ex.match(/ = /g)||[]).length<2) return o;
+    let q=String(o.q||""), k=0, changed=false;
+    const ex=o.ex.replace(RE,(m,off,all)=>{
+      const raw=m.split(" = "), items=raw.map(trim); let rest=raw[raw.length-1].slice(items[items.length-1].length);
+      { const L=items.length-1, k=items[L].lastIndexOf(" ("); if(!bal(items[L]) && k>0){ rest=items[L].slice(k)+rest; items[L]=items[L].slice(0,k); } }
+      if(items.some(x=>!bal(x)||!/[\dxy]|<i>/.test(x))) return m;
+      let N="ABCDEFGH"[k++]; const e0=items[0];
+      const mq=q.match(new RegExp("\\b([A-Z]) = "+e0.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")));
+      if(mq) N=mq[1]; else if(q.split(e0).length===2) q=q.replace(e0, N+" = "+e0);
+      else if(k===1){ const mv=q.match(/^((?:Développe et réduis|Développe|Réduis|Factorise|Calcule(?: en simplifiant d'abord)?|Simplifie)(?: :)? )(.+?)(\.?|\s*\(.*\))$/);
+        if(mv && !/ = /.test(mv[2])){ q=mv[1]+N+" = "+mv[2]+mv[3]; items.unshift(mv[2]); } }
+      changed=true;
+      return "<br>"+items.map(e=>N+" = "+e).join("<br>")+(/^ \(/.test(rest)?rest:"<br>"+rest);
+    });
+    if(!changed) return o;
+    let s=ex.replace(/<br>\s*\.?\s*$/,"").replace(/<br>[\s.,;:]*(?=\S)/g,"<br>").replace(/\s*:?\s*<br>/,m=>/:/.test(m)?" :<br>":"<br>");
+    s=s.replace(/<br>([a-zéèà])/g,(m,c)=>"<br>"+c.toUpperCase());
+    return Object.assign({}, o, {q, ex:s});
+  };
+})();
+/* outils partagés par les chapitres de 4e (chargés après celui-ci) */
+window.CHN4={chn,chns,qChain};
 
 /* ------------------------------------------------------------------
    Droite graduée « flammes / gouttes » : graduations entières de min à max
@@ -105,9 +140,9 @@ const ETQ=["−3 − (−9)","(−2,5) + (−1,5)","−8 − (−14)","4,6 − 8
 
 /* ===================== schémas (rappels) ===================== */
 const S_ADD=sch("Additionner deux nombres relatifs",`<p class="calc">(−4) + (−2) = (−6) &nbsp; <span style="color:var(--muted)">même signe : on garde le signe, on additionne 4 + 2</span></p><p class="calc">(+3) + (−5) = (−2) &nbsp; <span style="color:var(--muted)">signes contraires : 5 − 3 = 2, signe de −5</span></p>`);
-const S_SOUS=sch("Soustraire un nombre relatif",`<p class="calc">(+3) − (−12) = (+3) + (+12) = (+15)</p><p class="schN">Soustraire un nombre, c'est ajouter son opposé.</p>`);
+const S_SOUS=sch("Soustraire un nombre relatif",`${chn("A",["(+3) − (−12)","(+3) + (+12)","(+15)"])}<p class="schN">Soustraire un nombre, c'est ajouter son opposé.</p>`);
 const S_MUL=sch("Signe d'un produit",`<p class="calc">(−6) × (−4) = (+24) &nbsp; <span style="color:var(--muted)">même signe : positif</span></p><p class="calc">(+6) × (−4) = (−24) &nbsp; <span style="color:var(--muted)">signes contraires : négatif</span></p>`);
-const S_SIMP=sch("Simplifier l'écriture",`<p class="calc">(+3) + (−5) = 3 − 5 = −2</p><p class="calc">(−6) × (−4) = −6 × (−4) = 24</p><p class="schN">On supprime le signe d'addition et les parenthèses ; jamais deux signes à la suite.</p>`);
+const S_SIMP=sch("Simplifier l'écriture",`${chns([["A",["(+3) + (−5)","3 − 5","−2"]],["B",["(−6) × (−4)","−6 × (−4)","24"]]])}<p class="schN">On supprime le signe d'addition et les parenthèses ; jamais deux signes à la suite.</p>`);
 
 /* générateurs utiles au QCM */
 const nz=(a,b)=>{ let v; do{ v=ri(a,b); }while(!v); return v; };
@@ -132,35 +167,33 @@ cours:[
   ${co("droite.png","Droite graduée de −7 à +8 : les flammes du côté des négatifs, les gouttes du côté des positifs",520)}
   <h4>1. Additionner deux nombres relatifs de même signe</h4>
   <div class="retenir" data-l="Propriété"><p>Si deux nombres relatifs sont de <b>même signe</b>, alors leur somme :</p><ul><li>a ce même signe ;</li><li>a pour distance à zéro la somme des distances à zéro des deux nombres.</li></ul></div>
-  <p><b>Exemple 1 :</b> (+3) + (+2) = (+5)</p>
+  <p><b>Exemple 1 :</b></p>${chn("A",["(+3) + (+2)","(+5)"])}
   <div class="figs">${co("gouttes.png","3 gouttes plus 2 gouttes",200)}</div>
   <p>Les deux nombres sont positifs. 3 + 2 = 5, donc la somme est +5.</p>${D_A1}
-  <p><b>Exemple 2 :</b> (−4) + (−2) = (−6)</p>
+  <p><b>Exemple 2 :</b></p>${chn("B",["(−4) + (−2)","(−6)"])}
   <div class="figs">${co("flammes.png","4 flammes plus 2 flammes",200)}</div>
   <p>Les deux nombres sont négatifs. 4 + 2 = 6, donc la somme est −6.</p>${D_A2}
   <h4>2. Additionner deux nombres relatifs de signes contraires</h4>
   <div class="retenir" data-l="Propriété"><p>Si deux nombres relatifs sont de <b>signes contraires</b>, alors leur somme :</p><ul><li>a le signe du nombre qui a la plus grande distance à zéro ;</li><li>a pour distance à zéro la différence des distances à zéro des deux nombres.</li></ul></div>
-  <p><b>Exemple 1 :</b> (+3) + (−5) = (−2)</p>
+  <p><b>Exemple 1 :</b></p>${chn("C",["(+3) + (−5)","(−2)"])}
   <p>Les distances à zéro sont 3 et 5 : 5 − 3 = 2.</p><p>C'est −5 qui a la plus grande distance à zéro : la somme est négative.</p>${D_B1}
-  <p><b>Exemple 2 :</b> (−2) + (+6) = (+4)</p>
+  <p><b>Exemple 2 :</b></p>${chn("D",["(−2) + (+6)","(+4)"])}
   <p>Les distances à zéro sont 2 et 6 : 6 − 2 = 4.</p><p>C'est +6 qui a la plus grande distance à zéro : la somme est positive.</p>${D_B2}`},
 {k:"2", t:"La soustraction de deux nombres relatifs", h:`
   <div class="retenir" data-l="Propriété"><p>Soustraire un nombre, c'est <b>ajouter son opposé</b>.</p></div>
   <p><b>Exemples :</b></p>
-  <p class="calc">(−7) − (+9) = (−7) + (−9) = (−16)</p>
-  <p class="calc">(+3) − (−12) = (+3) + (+12) = (+15)</p>
-  <p class="calc">(−5) − (−8) = (−5) + (+8) = (+3)</p>`},
+  ${chns([["A",["(−7) − (+9)","(−7) + (−9)","(−16)"]],["B",["(+3) − (−12)","(+3) + (+12)","(+15)"]],["C",["(−5) − (−8)","(−5) + (+8)","(+3)"]]])}`},
 {k:"3", t:"La multiplication de deux nombres relatifs", h:`
   <h4>1. Multiplier deux nombres relatifs de même signe</h4>
   <div class="retenir" data-l="Propriété"><p>Si deux nombres relatifs sont de <b>même signe</b>, alors leur produit :</p><ul><li>est <b>positif</b> ;</li><li>a pour distance à zéro le produit des distances à zéro des deux nombres.</li></ul></div>
-  <p><b>Exemples :</b></p>${cols(["(+7) × (+3) = (+21)","(−6) × (−4) = (+24)"])}
+  <p><b>Exemples :</b></p>${chns([["A",["(+7) × (+3)","(+21)"]],["B",["(−6) × (−4)","(+24)"]]])}
   <h4>2. Multiplier deux nombres relatifs de signes contraires</h4>
   <div class="retenir" data-l="Propriété"><p>Si deux nombres relatifs sont de <b>signes contraires</b>, alors leur produit :</p><ul><li>est <b>négatif</b> ;</li><li>a pour distance à zéro le produit des distances à zéro des deux nombres.</li></ul></div>
-  <p><b>Exemples :</b></p>${cols(["(−7) × (+3) = (−21)","(+6) × (−4) = (−24)"])}`},
+  <p><b>Exemples :</b></p>${chns([["C",["(−7) × (+3)","(−21)"]],["D",["(+6) × (−4)","(−24)"]]])}`},
 {k:"4", t:"Simplification d'écriture", h:`
   <div class="retenir" data-l="Convention"><ul><li>On peut simplifier une addition de nombres relatifs en supprimant le <b>signe d'addition</b> et les <b>parenthèses</b> autour des nombres.</li><li>On ne peut pas avoir deux signes à suivre : si c'est le cas, il faut mettre des parenthèses.</li><li>On peut supprimer le signe « + » d'un nombre positif (et ses parenthèses).</li></ul></div>
   <p><b>Exemples :</b> simplifier les écritures suivantes.</p>
-  ${cols(["(+3) + (+2) = 3 + 2 = 5","(−4) + (−2) = −4 − 2 = −6","(+3) + (−5) = 3 − 5 = −2","(−2) + (+6) = −2 + 6 = 4","(+6) × (−4) = 6 × (−4) = −24","(−6) × (−4) = −6 × (−4) = 24"])}
+  ${chns([["A",["(+3) + (+2)","3 + 2","5"]],["B",["(−4) + (−2)","−4 − 2","−6"]],["C",["(+3) + (−5)","3 − 5","−2"]],["D",["(−2) + (+6)","−2 + 6","4"]],["E",["(+6) × (−4)","6 × (−4)","−24"]],["F",["(−6) × (−4)","−6 × (−4)","24"]]])}
   <div class="attention"><b>ATTENTION :</b> dans 6 × (−4), on garde les parenthèses autour de −4 : on ne peut pas écrire deux signes à la suite (« × − »).</div>`}
 ],
 
@@ -171,9 +204,9 @@ exos:[
    ${tabH(["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"],[[-1,0,1.3,-1.5,-0.5,1,-0.7].map(F)])}
    <p>Range ces températures dans l'ordre croissant.</p>`,
    c:`<p>Les nombres négatifs sont les plus petits. Entre deux nombres négatifs, le plus petit est celui qui a la plus grande distance à zéro.</p><p class="calc">−1,5 &lt; −1 &lt; −0,7 &lt; −0,5 &lt; 0 &lt; 1 &lt; 1,3</p><p>Jeudi, lundi, dimanche, vendredi, mardi, samedi, mercredi.</p>`},
-  {n:"Exercice 2", t:"Calculer des sommes", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["a) (+2) + (+2)","b) (−1) + (−3)","c) (+4) + (+5)","d) (−5) + (−2)","e) (+3) + (+6)","f) (−2) + (−7)","g) (−5) + (+2)","h) (−1) + (+4)","i) (+5) + (−3)","j) (−3) + (+7)","k) (+3) + (−2)","l) (−7) + (+5)","m) (+5) + (−8)","n) (−6) + (+3)","o) (+5) + (−1)"])}`,
-   c:`<p><b>Même signe :</b> on garde le signe et on additionne les distances à zéro.</p>${cols(["a) (+2) + (+2) = (+4)","b) (−1) + (−3) = (−4)","c) (+4) + (+5) = (+9)","d) (−5) + (−2) = (−7)","e) (+3) + (+6) = (+9)","f) (−2) + (−7) = (−9)"])}
-   <p><b>Signes contraires :</b> on soustrait les distances à zéro et on prend le signe du nombre qui a la plus grande distance à zéro.</p>${cols(["g) (−5) + (+2) = (−3)","h) (−1) + (+4) = (+3)","i) (+5) + (−3) = (+2)","j) (−3) + (+7) = (+4)","k) (+3) + (−2) = (+1)","l) (−7) + (+5) = (−2)","m) (+5) + (−8) = (−3)","n) (−6) + (+3) = (−3)","o) (+5) + (−1) = (+4)"])}`},
+  {n:"Exercice 2", t:"Calculer des sommes", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["A = (+2) + (+2)","B = (−1) + (−3)","C = (+4) + (+5)","D = (−5) + (−2)","E = (+3) + (+6)","F = (−2) + (−7)","G = (−5) + (+2)","H = (−1) + (+4)","I = (+5) + (−3)","J = (−3) + (+7)","K = (+3) + (−2)","L = (−7) + (+5)","M = (+5) + (−8)","N = (−6) + (+3)","O = (+5) + (−1)"])}`,
+   c:`<p><b>Même signe :</b> on garde le signe et on additionne les distances à zéro.</p>${chns([["A",["(+2) + (+2)","(+4)"]],["B",["(−1) + (−3)","(−4)"]],["C",["(+4) + (+5)","(+9)"]],["D",["(−5) + (−2)","(−7)"]],["E",["(+3) + (+6)","(+9)"]],["F",["(−2) + (−7)","(−9)"]]])}
+   <p><b>Signes contraires :</b> on soustrait les distances à zéro et on prend le signe du nombre qui a la plus grande distance à zéro.</p>${chns([["G",["(−5) + (+2)","(−3)"]],["H",["(−1) + (+4)","(+3)"]],["I",["(+5) + (−3)","(+2)"]],["J",["(−3) + (+7)","(+4)"]],["K",["(+3) + (−2)","(+1)"]],["L",["(−7) + (+5)","(−2)"]],["M",["(+5) + (−8)","(−3)"]],["N",["(−6) + (+3)","(−3)"]],["O",["(+5) + (−1)","(+4)"]]])}`},
   {n:"Exercice 3", t:"Additions de plus de deux nombres relatifs", w:"Sur ton cahier", h:`<p><b>Exemple :</b> on regroupe les nombres positifs, puis les nombres négatifs.</p>
    <p class="calc">A = (−4) + (+2) + (−3) + (+5) + (+2) + (−3)<br>A = (+2) + (+5) + (+2) + (−4) + (−3) + (−3)<br>A = (+9) + (−10)<br>A = (−1)</p>
    <div class="retenir" data-l="Remarque"><p>Lorsqu'il y a deux nombres opposés dans une somme, on peut les rayer : leur somme est 0.</p></div>
@@ -208,8 +241,8 @@ exos:[
    c:`<p><b>Partie 1 :</b> on raye les cartes opposées (−3 et 3, −2 et 2, −1 et 1, −6 et 6). Il reste 0 + 4 + 5 + 7 + 8.</p><p><b>a)</b> La somme des cartes est égale à <b>24</b>.</p><p><b>b)</b> Sans la carte 3 : 24 − 3 = <b>21</b>.</p><p><b>c)</b> Sans la carte −3 : la somme augmente de 3 : <b>27</b>. Donc 24 − (−3) = 27 = 24 + 3.</p>
    <p><b>Partie 2 :</b> on ajoute les cartes −5 et −4 : 24 + (−5) + (−4) = 15.</p><p><b>a)</b> La somme des cartes est égale à <b>15</b>.</p><p><b>b)</b> Sans la carte 3 : 15 − 3 = <b>12</b>.</p><p><b>c)</b> Sans la carte −3 : 15 − (−3) = <b>18</b>.</p>
    <p><b>Bilan :</b> 24 − (−3) = 24 + (+3) : soustraire un nombre, c'est ajouter son opposé.</p>`},
-  {n:"Exercice 8", t:"Entraînement aux soustractions", w:"Sur ton cahier", h:`<p>Calcule les expressions suivantes.</p>${cols(["a) 8 − (−4)","b) (−4) − (+10)","c) (−13) − (−3)","d) 15 − (−15)","e) (−22) − (−22)","f) 7 − (+12)"])}`,
-   c:`<p>Soustraire un nombre, c'est ajouter son opposé.</p><p class="calc">a) 8 − (−4) = 8 + (+4) = 12<br>b) (−4) − (+10) = (−4) + (−10) = −14<br>c) (−13) − (−3) = (−13) + (+3) = −10<br>d) 15 − (−15) = 15 + (+15) = 30<br>e) (−22) − (−22) = (−22) + (+22) = 0<br>f) 7 − (+12) = 7 + (−12) = −5</p>`},
+  {n:"Exercice 8", t:"Entraînement aux soustractions", w:"Sur ton cahier", h:`<p>Calcule les expressions suivantes.</p>${cols(["A = 8 − (−4)","B = (−4) − (+10)","C = (−13) − (−3)","D = 15 − (−15)","E = (−22) − (−22)","F = 7 − (+12)"])}`,
+   c:`<p>Soustraire un nombre, c'est ajouter son opposé.</p>${chns([["A",["8 − (−4)","8 + (+4)","12"]],["B",["(−4) − (+10)","(−4) + (−10)","−14"]],["C",["(−13) − (−3)","(−13) + (+3)","−10"]],["D",["15 − (−15)","15 + (+15)","30"]],["E",["(−22) − (−22)","(−22) + (+22)","0"]],["F",["7 − (+12)","7 + (−12)","−5"]]])}`},
   {n:"Exercice 9", t:"Les cercles", w:"Sur ta feuille", h:`<p>Un nombre écrit dans un cercle rouge <b>moins</b> le nombre écrit dans le cercle bleu diamétralement opposé doit donner −5.</p><p>Exemple : 4 − 9 = −5.</p><p>Complète les cercles vides.</p>${cercles(-5,CV,CK)}`,
    c:`<p class="calc">Cercle rouge en face de −1 : … − (−1) = −5, donc … = −6 car −6 − (−1) = −6 + 1 = −5.<br>Cercle bleu en face de 0,7 : 0,7 − … = −5, donc … = 5,7 car 0,7 − 5,7 = −5.<br>Cercle bleu en face de −11 : −11 − … = −5, donc … = −6 car −11 − (−6) = −11 + 6 = −5.</p>${cercles(-5,CV,CK,true)}`}
  ]},
@@ -233,20 +266,20 @@ exos:[
    <div class="scroll"><table class="std"><tbody>${LILA.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("")}</tbody></table></div>
    <p><b>1)</b> Corrige sa copie.</p><p><b>2)</b> Calcule la note de Lila.</p>`,
    c:`<p><b>1)</b></p><div class="scroll"><table class="std"><tbody>${LILA.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[3]?"<b>Juste</b>":`<b>Faux</b> : le résultat est ${F(r[2])}`}</td></tr>`).join("")}</tbody></table></div>
-   <p>a. (−15) + (−5) = −20 · c. (+7) − (+2) = (+7) + (−2) = 5 · f. (−5) × (−3) = 15 (même signe : positif) · h. (−11) − (+5) = (−11) + (−5) = −16</p>
+   <p>Les calculs corrigés (f : même signe, donc le produit est positif) :</p>${chns([["A",["(−15) + (−5)","−20"]],["C",["(+7) − (+2)","(+7) + (−2)","5"]],["F",["(−5) × (−3)","15"]],["H",["(−11) − (+5)","(−11) + (−5)","−16"]]])}
    <p><b>2)</b> Lila a 4 bonnes réponses et 4 réponses fausses.</p><p class="calc">4 × 1 + 4 × (−0,5) = 4 + (−2) = 2</p><p>Lila a <b>2 points sur 8</b>.</p>`}
  ]},
 {t:"Simplification d'écriture", e:[
-  {n:"Exercice 12", t:"Simplification", w:"Sur ton cahier", h:`<p>Simplifie, puis calcule.</p>${cols(["a) (+5) + (+7)","b) (−4) + (−3)","c) (−4) + (+8)","d) (+5) + (−7)"])}`,
-   c:`<p>On supprime le signe d'addition et les parenthèses.</p>${cols(["a) (+5) + (+7) = 5 + 7 = 12","b) (−4) + (−3) = −4 − 3 = −7","c) (−4) + (+8) = −4 + 8 = 4","d) (+5) + (−7) = 5 − 7 = −2"])}`},
-  {n:"Exercice 13", t:"Déjà simplifiées", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["a) 8 − 11","b) −5 + 11","c) −4 − 8","d) −7 + 3","e) 14 − 8","f) −2 − 7"])}`,
-   c:`${cols(["a) 8 − 11 = −3","b) −5 + 11 = 6","c) −4 − 8 = −12","d) −7 + 3 = −4","e) 14 − 8 = 6","f) −2 − 7 = −9"])}<p>Par exemple, −4 − 8 = (−4) + (−8) = −12.</p>`},
-  {n:"Exercice 14", t:"Étiquettes égales", w:"Sur ta feuille", h:`<p>Entoure les étiquettes qui ont le même résultat.</p><p><i>Si tu as besoin, écris tes calculs.</i></p>${etiq(ETQ)}`,
-   c:`<p class="calc">−3 − (−9) = −3 + 9 = 6 · (−2,5) + (−1,5) = −4 · −8 − (−14) = −8 + 14 = 6 · 4,6 − 8,6 = −4<br>7,3 + (−3,3) = 4 · −3,2 − 2,8 = −6 · −1,5 − 4,5 = −6 · 11 − (+7) = 4</p>
-   <p>Égales à 6 : −3 − (−9) et −8 − (−14).</p><p>Égales à −4 : (−2,5) + (−1,5) et 4,6 − 8,6.</p><p>Égales à 4 : 7,3 + (−3,3) et 11 − (+7).</p><p>Égales à −6 : −3,2 − 2,8 et −1,5 − 4,5.</p>`},
+  {n:"Exercice 12", t:"Simplification", w:"Sur ton cahier", h:`<p>Simplifie, puis calcule.</p>${cols(["A = (+5) + (+7)","B = (−4) + (−3)","C = (−4) + (+8)","D = (+5) + (−7)"])}`,
+   c:`<p>On supprime le signe d'addition et les parenthèses.</p>${chns([["A",["(+5) + (+7)","5 + 7","12"]],["B",["(−4) + (−3)","−4 − 3","−7"]],["C",["(−4) + (+8)","−4 + 8","4"]],["D",["(+5) + (−7)","5 − 7","−2"]]])}`},
+  {n:"Exercice 13", t:"Déjà simplifiées", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["A = 8 − 11","B = −5 + 11","C = −4 − 8","D = −7 + 3","E = 14 − 8","F = −2 − 7"])}`,
+   c:`${chns([["A",["8 − 11","−3"]],["B",["−5 + 11","6"]],["C",["−4 − 8","(−4) + (−8)","−12"]],["D",["−7 + 3","−4"]],["E",["14 − 8","6"]],["F",["−2 − 7","−9"]]])}<p>Pour C, on peut écrire −4 − 8 comme la somme (−4) + (−8).</p>`},
+  {n:"Exercice 14", t:"Étiquettes égales", w:"Sur ta feuille", h:`<p>Entoure les étiquettes qui ont le même résultat.</p><p><i>Si tu as besoin, écris tes calculs.</i></p>${etiq(ETQ.map((t,i)=>"ABCDEFGH"[i]+" = "+t))}`,
+   c:`${chns([["A",["−3 − (−9)","−3 + 9","6"]],["B",["(−2,5) + (−1,5)","−4"]],["C",["−8 − (−14)","−8 + 14","6"]],["D",["4,6 − 8,6","−4"]],["E",["7,3 + (−3,3)","4"]],["F",["−3,2 − 2,8","−6"]],["G",["−1,5 − 4,5","−6"]],["H",["11 − (+7)","11 + (−7)","4"]]])}
+   <p>Égales à 6 : A et C.</p><p>Égales à −4 : B et D.</p><p>Égales à 4 : E et H.</p><p>Égales à −6 : F et G.</p>`},
   {n:"Exercice 15", t:"Histoire de simplification", w:"Sur ton cahier", h:`<p>−1 + 2 − 3 + 4 + 5 est l'écriture simplifiée de (−1) + (+2) − (+3) + (+4) − (−5).</p><p>Associe chaque calcul à son écriture simplifiée, puis effectue chaque calcul.</p>
-   ${tab(["Calcul","Écriture simplifiée"],[["a. (−6) + (+11) + (−9)","(1) −6 + 11 + 9"],["b. (+6) + (−11) − (+9)","(2) 6 − 11 − 9"],["c. (−6) − (−11) + (+9)","(3) 6 − 11 + 9"],["d. (+6) − (+11) − (−9)","(4) −6 + 11 − 9"]])}`,
-   c:`<p>Soustraire (+11), c'est ajouter (−11) : on écrit « − 11 ». Soustraire (−11), c'est ajouter (+11) : on écrit « + 11 ».</p><p class="calc">a. (−6) + (+11) + (−9) = −6 + 11 − 9 (4) = −4<br>b. (+6) + (−11) − (+9) = 6 − 11 − 9 (2) = −14<br>c. (−6) − (−11) + (+9) = −6 + 11 + 9 (1) = 14<br>d. (+6) − (+11) − (−9) = 6 − 11 + 9 (3) = 4</p>`},
+   ${tab(["Calcul","Écriture simplifiée"],[["a. A = (−6) + (+11) + (−9)","(1) −6 + 11 + 9"],["b. B = (+6) + (−11) − (+9)","(2) 6 − 11 − 9"],["c. C = (−6) − (−11) + (+9)","(3) 6 − 11 + 9"],["d. D = (+6) − (+11) − (−9)","(4) −6 + 11 − 9"]])}`,
+   c:`<p>Soustraire (+11), c'est ajouter (−11) : on écrit « − 11 ». Soustraire (−11), c'est ajouter (+11) : on écrit « + 11 ».</p><p>Associations : a va avec (4), b avec (2), c avec (1) et d avec (3).</p>${chns([["A",["(−6) + (+11) + (−9)","−6 + 11 − 9","5 − 9","−4"]],["B",["(+6) + (−11) − (+9)","6 − 11 − 9","−5 − 9","−14"]],["C",["(−6) − (−11) + (+9)","−6 + 11 + 9","5 + 9","14"]],["D",["(+6) − (+11) − (−9)","6 − 11 + 9","−5 + 9","4"]]])}`},
   {n:"Exercice 16", t:"L'ascenseur fou", w:"Sur ton cahier", h:`<p>Maïna est au deuxième étage.</p><p>Elle entre dans l'ascenseur et appuie sur le bouton RDC (rez-de-chaussée).</p><p>Mais au lieu de descendre, il se met à monter et à descendre n'importe comment.</p><p>Il monte de 3 étages, puis descend de 4 et encore de 2, pour enfin s'arrêter un étage plus haut.</p><p>Maïna va-t-elle se retrouver au rez-de-chaussée ?</p>`,
    c:`<p>Le rez-de-chaussée correspond à l'étage 0. On part de l'étage 2.</p><p class="calc">2 + 3 − 4 − 2 + 1 = 6 − 6 = 0</p><p>Oui : Maïna se retrouve à l'étage 0, c'est-à-dire au <b>rez-de-chaussée</b>.</p>`}
  ]},
@@ -276,11 +309,11 @@ quiz:[
      {g:()=>{ const a=nz(-15,15), b=nz(-15,15), r=a+b; return {q:`Quel est le signe de ${P(a)} + ${P(b)} ?`, c:r?["positif","négatif"]:["positif","négatif","la somme est nulle"], rep:r>0?"positif":r<0?"négatif":"la somme est nulle", ex:expl(a,b), sx:S_ADD}; }} ],
  2:[ {g:()=>{ let a,b; do{ a=nz(-20,20); b=nz(-20,20); }while(a*b>0); return {q:`Calcule : ${P(a)} + ${P(b)}`, rep:[F(a+b)], ex:expl(a,b), sx:S_ADD}; }} ],
  3:[ {g:()=>{ let a,b; do{ a=nz(-99,99)/10; b=nz(-99,99)/10; }while(a*b>0); return {q:`Calcule : ${P(a)} + ${P(b)}`, rep:[F(a+b)], ex:expl(a,b), sx:S_ADD}; }},
-     {g:()=>{ const v=Array.from({length:5},()=>nz(-9,9)), s=v.reduce((x,y)=>x+y,0), p=v.filter(x=>x>0).reduce((x,y)=>x+y,0), n=s-p; return {q:`Calcule : ${v.map(P).join(" + ")}`, rep:[F(s)], ex:`On regroupe les positifs : ${P(p)}, puis les négatifs : ${P(n)}. ${P(p)} + ${P(n)} = ${P(s)}.`, sx:S_ADD}; }} ]
+     {g:()=>{ const v=Array.from({length:5},()=>nz(-9,9)), s=v.reduce((x,y)=>x+y,0), p=v.filter(x=>x>0).reduce((x,y)=>x+y,0), n=s-p, st=[v.map(P).join(" + "), [...v.filter(x=>x>0),...v.filter(x=>x<0)].map(P).join(" + "), p&&n?`${P(p)} + ${P(n)}`:"", P(s)].filter((x,i,a)=>x&&x!==a[i-1]); return {q:`Calcule : ${v.map(P).join(" + ")}`, rep:[F(s)], ex:`On regroupe les positifs, puis les négatifs : ${st.join(" = ")}.`, sx:S_ADD}; }} ]
 }},
 {nom:"Soustraire un relatif", schema:S_SOUS, q:{
  1:[ {g:()=>{ const a=nz(-15,15), b=ri(1,15); return {q:`Calcule : ${P(a)} − (+${b})`, rep:[F(a-b)], ex:`${P(a)} − (+${b}) = ${P(a)} + (−${b}) = ${P(a-b)}.`, sx:S_SOUS}; }} ],
- 2:[ {g:()=>{ const a=nz(-15,15), b=ri(1,15); return {q:`Calcule : ${P(a)} − (−${b})`, rep:[F(a+b)], ex:`Soustraire −${b}, c'est ajouter son opposé +${b} : ${P(a)} + (+${b}) = ${P(a+b)}.`, sx:S_SOUS}; }},
+ 2:[ {g:()=>{ const a=nz(-15,15), b=ri(1,15); return {q:`Calcule : ${P(a)} − (−${b})`, rep:[F(a+b)], ex:`Soustraire −${b}, c'est ajouter son opposé +${b} : ${P(a)} − (−${b}) = ${P(a)} + (+${b}) = ${P(a+b)}.`, sx:S_SOUS}; }},
      {g:()=>{ const a=nz(-12,12), b=nz(-12,12); const good=`${P(a)} + ${P(-b)}`; return {q:`${P(a)} − ${P(b)} est égal à…`, c:shuf(uniq(good,[`${P(a)} + ${P(b)}`,`${P(-a)} + ${P(-b)}`,`${P(-a)} + ${P(b)}`])), rep:good, ex:`Soustraire ${P(b)}, c'est ajouter son opposé ${P(-b)}.`, sx:S_SOUS}; }} ],
  3:[ {g:()=>{ const a=nz(-99,99)/10, b=nz(-99,99)/10; return {q:`Calcule : ${P(a)} − ${P(b)}`, rep:[F(a-b)], ex:`${P(a)} − ${P(b)} = ${P(a)} + ${P(-b)} = ${P(a-b)}.`, sx:S_SOUS}; }},
      {g:()=>{ const c=nz(-9,-1), r=nz(-9,9); return {q:`Quel nombre faut-il écrire à la place de … ? &nbsp; ${P(r)} − … = ${P(c)}`, rep:[F(r-c)], ex:`${P(r)} − ${P(r-c)} = ${P(r)} + ${P(c-r)} = ${P(c)}.`, sx:S_SOUS}; }} ]
@@ -296,7 +329,7 @@ quiz:[
  2:[ {g:()=>{ let a,b; do{ a=nz(-15,15); b=nz(-15,15); }while(a>0&&b>0); const e=`${F(a)} ${b<0?"−":"+"} ${Math.abs(b)}`; return {q:`Calcule : ${e}`, rep:[F(a+b)], ex:`${e} = ${P(a)} + ${P(b)} = ${F(a+b)}.`, sx:S_SIMP}; }} ],
  3:[ {g:()=>{ const a=nz(-12,12), b=ri(2,12), c=ri(2,12), o1=pick(["+","−"]), s1=pick([1,-1]), o2=pick(["+","−"]), s2=pick([1,-1]);
        const B=s1*b, C=s2*c, eB=o1==="+"?B:-B, eC=o2==="+"?C:-C, r=a+eB+eC; const simp=`${F(a)} ${eB<0?"−":"+"} ${Math.abs(eB)} ${eC<0?"−":"+"} ${Math.abs(eC)}`;
-       return {q:`Calcule : ${P(a)} ${o1} ${P(B)} ${o2} ${P(C)}`, rep:[F(r)], ex:`Écriture simplifiée : ${simp} = ${F(r)}.`, sx:S_SIMP}; }},
+       return {q:`Calcule : ${P(a)} ${o1} ${P(B)} ${o2} ${P(C)}`, rep:[F(r)], ex:`On simplifie l'écriture, puis on calcule : ${P(a)} ${o1} ${P(B)} ${o2} ${P(C)} = ${simp} = ${F(r)}.`, sx:S_SIMP}; }},
      {q:"Vrai ou faux : on peut écrire 6 × −4.", c:VF, rep:"Faux", ex:"On ne peut pas avoir deux signes à suivre : on écrit 6 × (−4).", sx:S_SIMP} ]
 }}
 ],
@@ -312,15 +345,15 @@ comp:[
   ["MODÉLISER","Je traduis un problème par des calculs avec des nombres relatifs.","Ex. 6 (3 points)"]
 ],
 exos:[
-{t:"Additions et soustractions", p:4, h:`<p>Calcule.</p>${cols(["a) (−9) + (−6)","b) (+14) + (−20)","c) (−3,5) + (+8)","d) (−12) + (+12)","e) (−8) − (+5)","f) (+6) − (−9)","g) (−15) − (−4)","h) 2,5 − (−1,5)"])}`,
- c:`<p class="calc">a) (−9) + (−6) = −15<br>b) (+14) + (−20) = −6<br>c) (−3,5) + (+8) = 4,5<br>d) (−12) + (+12) = 0<br>e) (−8) − (+5) = (−8) + (−5) = −13<br>f) (+6) − (−9) = (+6) + (+9) = 15<br>g) (−15) − (−4) = (−15) + (+4) = −11<br>h) 2,5 − (−1,5) = 2,5 + 1,5 = 4</p><p><i>(0,5 point par calcul)</i></p>`},
-{t:"Multiplications", p:3, h:`<p>Calcule.</p>${cols(["a) (−7) × (+8)","b) (−9) × (−6)","c) (+12) × (−5)","d) (−0,5) × (−18)","e) (−1) × (+4,7)","f) 0 × (−13)"])}`,
- c:`<p class="calc">a) (−7) × (+8) = −56<br>b) (−9) × (−6) = 54<br>c) (+12) × (−5) = −60<br>d) (−0,5) × (−18) = 9<br>e) (−1) × (+4,7) = −4,7<br>f) 0 × (−13) = 0</p><p><i>(0,5 point par calcul)</i></p>`},
-{t:"Simplifier, puis calculer", p:3, h:`<p>Écris chaque calcul sans parenthèses ni signe d'addition inutile, puis calcule.</p>${cols(["a) (+7) + (−12)","b) (−6) + (−9)","c) (−11) + (+4)","d) (+5) + (+13)","e) (−3) − (+8) + (+6)"])}`,
- c:`<p class="calc">a) (+7) + (−12) = 7 − 12 = −5<br>b) (−6) + (−9) = −6 − 9 = −15<br>c) (−11) + (+4) = −11 + 4 = −7<br>d) (+5) + (+13) = 5 + 13 = 18</p><p><i>(0,5 point par calcul)</i></p><p class="calc">e) (−3) − (+8) + (+6) = −3 − 8 + 6 = −11 + 6 = −5</p><p><i>(1 point)</i></p>`},
+{t:"Additions et soustractions", p:4, h:`<p>Calcule.</p>${cols(["A = (−9) + (−6)","B = (+14) + (−20)","C = (−3,5) + (+8)","D = (−12) + (+12)","E = (−8) − (+5)","F = (+6) − (−9)","G = (−15) − (−4)","H = 2,5 − (−1,5)"])}`,
+ c:`${chns([["A",["(−9) + (−6)","−15"]],["B",["(+14) + (−20)","−6"]],["C",["(−3,5) + (+8)","4,5"]],["D",["(−12) + (+12)","0"]],["E",["(−8) − (+5)","(−8) + (−5)","−13"]],["F",["(+6) − (−9)","(+6) + (+9)","15"]],["G",["(−15) − (−4)","(−15) + (+4)","−11"]],["H",["2,5 − (−1,5)","2,5 + 1,5","4"]]])}<p><i>(0,5 point par calcul)</i></p>`},
+{t:"Multiplications", p:3, h:`<p>Calcule.</p>${cols(["A = (−7) × (+8)","B = (−9) × (−6)","C = (+12) × (−5)","D = (−0,5) × (−18)","E = (−1) × (+4,7)","F = 0 × (−13)"])}`,
+ c:`${chns([["A",["(−7) × (+8)","−56"]],["B",["(−9) × (−6)","54"]],["C",["(+12) × (−5)","−60"]],["D",["(−0,5) × (−18)","9"]],["E",["(−1) × (+4,7)","−4,7"]],["F",["0 × (−13)","0"]]])}<p><i>(0,5 point par calcul)</i></p>`},
+{t:"Simplifier, puis calculer", p:3, h:`<p>Écris chaque calcul sans parenthèses ni signe d'addition inutile, puis calcule.</p>${cols(["A = (+7) + (−12)","B = (−6) + (−9)","C = (−11) + (+4)","D = (+5) + (+13)","E = (−3) − (+8) + (+6)"])}`,
+ c:`${chns([["A",["(+7) + (−12)","7 − 12","−5"]],["B",["(−6) + (−9)","−6 − 9","−15"]],["C",["(−11) + (+4)","−11 + 4","−7"]],["D",["(+5) + (+13)","5 + 13","18"]]])}<p><i>(0,5 point par calcul)</i></p>${chns([["E",["(−3) − (+8) + (+6)","−3 − 8 + 6","−11 + 6","−5"]]])}<p><i>(1 point)</i></p>`},
 {t:"C'est toi le prof !", p:4, h:`<p>Voici la copie de Noa :</p><div class="scroll"><table class="std"><tbody><tr><th>a)</th><td>(−8) + (+3) = −11</td></tr><tr><th>b)</th><td>(−4) × (−7) = 28</td></tr><tr><th>c)</th><td>(+6) − (+10) = 4</td></tr><tr><th>d)</th><td>−9 − 6 = −15</td></tr><tr><th>e)</th><td>(−5) × 3 = 15</td></tr><tr><th>f)</th><td>7 − (−2) = 9</td></tr></tbody></table></div>
   <p><b>1)</b> Pour chaque ligne, écris « juste » ou « faux ». Corrige les erreurs.</p><p><b>2)</b> Le professeur donne 2 points par bonne réponse et enlève 1 point par réponse fausse. Calcule la note de Noa. Explique ta démarche.</p>`,
- c:`<p><b>1)</b> a) Faux : (−8) + (+3) = −5 · b) Juste · c) Faux : (+6) − (+10) = (+6) + (−10) = −4 · d) Juste · e) Faux : (−5) × 3 = −15 · f) Juste : 7 − (−2) = 7 + 2 = 9</p><p><i>(0,5 point par ligne)</i></p>
+ c:`<p><b>1)</b> a) Faux · b) Juste · c) Faux · d) Juste · e) Faux · f) Juste</p><p>Les calculs corrigés, et la vérification de f :</p>${chns([["A",["(−8) + (+3)","−5"]],["C",["(+6) − (+10)","(+6) + (−10)","−4"]],["E",["(−5) × 3","−15"]],["F",["7 − (−2)","7 + 2","9"]]])}<p><i>(0,5 point par ligne)</i></p>
   <p><b>2)</b> Noa a 3 bonnes réponses et 3 réponses fausses.</p><p class="calc">3 × 2 + 3 × (−1) = 6 + (−3) = 3</p><p>Noa a 3 points sur 12. <i>(1 point)</i></p>`},
 {t:"Pyramides", p:3, h:`<p><b>a)</b> et <b>c)</b> sont des pyramides additives (somme des deux briques du dessous). <b>b)</b> est une pyramide multiplicative (produit des deux briques du dessous).</p><p>Complète-les.</p>
   <div class="figs"><div><p><b>a)</b></p>${pyr(build([-9,4,-2],ADD))}</div><div><p><b>b)</b></p>${pyr(build([-2,5,-1],MUL))}</div><div><p><b>c)</b></p>${pyr(build([-4,5,-12],ADD),(k,i)=>i===0)}</div></div>`,
@@ -333,8 +366,11 @@ exos:[
 ]}
 };
 
-/* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −) */
-CH["4e-1"].quiz.forEach(N=>Object.values(N.q).forEach(list=>list.forEach((it,i)=>{
-  if(it.g){ const g=it.g; list[i]={g:()=>Object.assign(g(),{kb:"text"})}; } else it.kb="text";
+/* clavier texte pour les réponses tapées (pour pouvoir écrire le signe −)
+   et calculs en chaîne « A = … » dans les explications (sauf « Quel nombre faut-il écrire… ») */
+const NOCH=["2.3.1"];
+CH["4e-1"].quiz.forEach((N,ni)=>Object.entries(N.q).forEach(([l,list])=>list.forEach((it,i)=>{
+  const f=o=>Object.assign(NOCH.includes(`${ni+1}.${l}.${i}`)?o:qChain(o),{kb:"text"});
+  if(it.g){ const g=it.g; list[i]={g:()=>f(g())}; } else list[i]=f(it);
 })));
 })();

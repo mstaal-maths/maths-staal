@@ -41,7 +41,7 @@ const secA = {t:"Fractions et quotients", e:[
   {n:"Exercice 5", t:"Partie entière et fraction", w:"Sur ton cahier", h:`<p>Écris chaque fraction sous la forme « entier + fraction inférieure à 1 ». Aide-toi de la division euclidienne.</p><p>${items(e5.map(([n,d])=>F(n,d)),"  ·  ",true)}</p>`,
    c:`<p>${items(e5.map(([n,d,e,r])=>`${F(n,d)} = <b>${e} + ${F(r,d)}</b> &nbsp; (${n} = ${d} × ${e} + ${r})`),"</p><p>",true)}</p>`},
   {n:"Exercice 6", t:"Prendre une fraction d'une quantité", w:"Sur ton cahier", h:`<p>Calcule.</p><p>${items(e6.map(([a,b,Q])=>`${a===1?"le":"les"} ${F(a,b)} de ${Q}`),"  ·  ",true)}</p>`,
-   c:`<p>${items(e6.map(([a,b,Q])=>`${Q} ÷ ${b} × ${a} = <b>${Q/b*a}</b>`),"</p><p>",true)}</p>`}
+   c:`<p>Je divise par le dénominateur, puis je multiplie par le numérateur.</p><div class="calcs">${e6.map(([a,b,Q],i)=>`<div>${NL("ABCDEF"[i],`${Q} ÷ ${b} × ${a} = ${Q/b} × ${a} = <b>${Q/b*a}</b>`).replace('<p class="calc">',`<p class="calc">${"abcdef"[i]}) `)}</div>`).join("")}</div>`}
  ]};
 
 /* ================= B. Fractions égales et simplification ================= */
@@ -125,7 +125,7 @@ const secD = {t:"Additionner et soustraire des fractions", e:[
   {n:"Exercice 18", t:"Dénominateurs différents", w:"Sur ton cahier", h:`<p>Calcule, puis simplifie le résultat si c'est possible.</p>${cols(e18.map(([a,b,o,c,d],i)=>`${L4[i]} = ${fr(a,b)} ${o} ${fr(c,d)}`))}`,
    c:`<p>On écrit les deux fractions avec le même dénominateur (un multiple commun), puis on calcule et on simplifie.</p><div class="calcs">${e18.map(([a,b,o,c,d],i)=>`<div>${NL(L4[i],steps2(a,b,o,c,d))}</div>`).join("")}</div>`},
   {n:"Exercice 19", t:"Trouver l'erreur", w:"Sur ton cahier", h:`<p>Deux élèves se sont trompés. Explique chaque erreur, puis donne le bon résultat.</p><p>1) Juliette a écrit : ${F(j19[0],j19[1])} + ${F(j19[2],j19[3])} = ${F(j19[0]+j19[2],j19[1]+j19[3])}.</p><p>2) Hugo a écrit : ${F(h19[0],h19[1])} − ${F(h19[2],h19[3])} = ${F(h19[0]-h19[2],h19[1]-h19[3])}.</p>`,
-   c:`<p>1) Juliette a additionné les numérateurs <b>et</b> les dénominateurs. Il faut d'abord mettre les fractions sur le même dénominateur :</p><p class="calc">${steps2(j19[0],j19[1],"+",j19[2],j19[3])}</p><p>2) Hugo a soustrait les numérateurs et les dénominateurs. Le bon calcul est :</p><p class="calc">${steps2(h19[0],h19[1],"−",h19[2],h19[3])}</p>${hugoBig?`<p>Le résultat de Hugo est d'ailleurs supérieur à ${F(h19[0],h19[1])} : impossible pour une soustraction.</p>`:""}`},
+   c:`<p>1) Juliette a additionné les numérateurs <b>et</b> les dénominateurs. Il faut d'abord mettre les fractions sur le même dénominateur :</p>${NL("A",steps2(j19[0],j19[1],"+",j19[2],j19[3]))}<p>2) Hugo a soustrait les numérateurs et les dénominateurs. Le bon calcul est :</p>${NL("B",steps2(h19[0],h19[1],"−",h19[2],h19[3]))}${hugoBig?`<p>Le résultat de Hugo est d'ailleurs supérieur à ${F(h19[0],h19[1])} : impossible pour une soustraction.</p>`:""}`},
   {n:"Exercice 20", t:"Enchaîner les calculs", w:"Sur ton cahier", h:`<p>Calcule en détaillant (de gauche à droite, avec un dénominateur commun).</p>${cols(e20.map((r,i)=>`${L4[i]} = ${r.h}`))}`,
    c:`<div class="calcs">${e20.map((r,i)=>`<div>${NL(L4[i],r.c)}</div>`).join("")}</div>`},
   {n:"Exercice 21", t:"Murs de briques", w:"Sur ton cahier", h:`<p>Dans un mur de briques, chaque brique est égale à la <b>somme</b> des deux briques placées juste en dessous.</p><p>Complète.</p><div class="figs">${wall(w1,[1,1,1,0,0,0])}${wall(w2,[1,0,1,1,0,1])}</div>`,

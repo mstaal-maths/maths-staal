@@ -89,22 +89,6 @@ MJ["graph3"] = {cls:"3e", src:"data/mj-graph.js", name:"MJ_GRAPH", wide:true,
     ${[[160,30],[170,60],[120,90]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="8" fill="#e03131" stroke="#9b1c1c"/><circle cx="${x}" cy="${y}" r="5" fill="#fff"/><circle cx="${x}" cy="${y}" r="2.2" fill="#e03131"/>`).join("")}
     <g transform="translate(6 87) rotate(-26.57)"><rect x="0" y="-4" width="18" height="8" rx="2" fill="#4b4f6b"/><circle r="7" fill="#2b2f45"/></g>
     <rect x="8" y="8" width="84" height="20" rx="6" fill="#fff" stroke="#1b2a44" stroke-width="1.3"/><text x="50" y="22" text-anchor="middle" style="font:700 10.5px Arial,sans-serif" fill="#1b2a44">f(x) = 0,5x + 2</text>`};
-MJ["tuiles3"] = {cls:"3e", src:"data/mj-tuiles.js", name:"MJ_TUILES", wide:true,
-  titre:"Le puzzle des tuiles", tag:"Calcul littéral", badge:"6 niveaux",
-  desc:"Assemble des tuiles x², x et 1 en rectangle : ses côtés donnent la forme factorisée.",
-  intro:"Fais glisser les tuiles x², x et 1 pour construire un rectangle. Ses côtés donnent la forme factorisée, ses tuiles la forme développée.",
-  ill:`<rect width="200" height="110" fill="#f7f8fc"/>
-    <g transform="translate(52 22)" stroke-width="1.5">
-      <rect width="50" height="50" fill="#a9c8fb" stroke="#2d5fc4"/><text x="25" y="31" text-anchor="middle" style="font:italic 700 15px Georgia,serif" fill="#14213d">x²</text>
-      ${[0,1,2].map(i=>`<rect x="${50+i*14}" width="14" height="50" fill="#9fe0b4" stroke="#1f8a4c"/><text x="${57+i*14}" y="29" text-anchor="middle" style="font:italic 700 10px Georgia,serif" fill="#14213d">x</text>`).join("")}
-      ${[0,1].map(j=>`<rect y="${50+j*14}" width="50" height="14" fill="#9fe0b4" stroke="#1f8a4c"/><text x="25" y="${61+j*14}" text-anchor="middle" style="font:italic 700 10px Georgia,serif" fill="#14213d">x</text>`).join("")}
-      ${[0,1].map(j=>[0,1,2].map(i=>`<rect x="${50+i*14}" y="${50+j*14}" width="14" height="14" fill="#fde68a" stroke="#b7791f"/>`).join("")).join("")}
-    </g>
-    <path d="M52 15H144" stroke="#7c3aed" stroke-width="1.5"/><path d="M52 12v6M144 12v6" stroke="#7c3aed" stroke-width="1.5"/>
-    <rect x="77" y="3" width="42" height="15" rx="7.5" fill="#fff" stroke="#7c3aed" stroke-width="1.3"/><text x="98" y="14" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#5b21b6">x + 3</text>
-    <path d="M45 22V100" stroke="#7c3aed" stroke-width="1.5"/><path d="M42 22h6M42 100h6" stroke="#7c3aed" stroke-width="1.5"/>
-    <rect x="2" y="54" width="40" height="15" rx="7.5" fill="#fff" stroke="#7c3aed" stroke-width="1.3"/><text x="22" y="65" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#5b21b6">x + 2</text>
-    <rect x="152" y="40" width="44" height="36" rx="6" fill="#fff" stroke="#c9cfdd"/><text x="174" y="55" text-anchor="middle" style="font:700 8px Arial,sans-serif" fill="#56627d">aire</text><text x="174" y="68" text-anchor="middle" style="font:800 7.5px Arial,sans-serif" fill="#14213d">x²+5x+6</text>`};
 MJ["bombe3"] = {cls:"3e", src:"data/mj-bombe.js", name:"MJ_BOMBE", wide:true,
   titre:"Désamorçage", tag:"Équations produit nul", badge:"7 niveaux",
   desc:"Une bombe, une équation, un compte à rebours : coupe tous les fils solutions, et seulement eux !",

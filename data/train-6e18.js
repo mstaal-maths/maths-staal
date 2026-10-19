@@ -30,8 +30,8 @@ const mot2 = pick(["MATHEMATIQUES","GEOMETRIE","ADDITION","FRACTION","PROBABILIT
 const voy = mot2.split("").filter(c=>"AEIOUY".includes(c)).length;
 const lt = pick([...new Set(mot2.split(""))]);
 const secB = {t:"Calculer des probabilités", e:[
-  {n:"Exercice 4", t:"Le sac de boules", w:"Sur ton cahier", h:`<div class="cpt"><div><p>Un sac contient ${r} boules rouges, ${b} bleue${b>1?"s":""} et ${v} verte${v>1?"s":""}. On tire une boule au hasard.</p><p>a) Probabilité de tirer une rouge ? une bleue ? une verte ? b) Que vaut la somme ?</p></div>${sac([["rouge",r],["bleue",b],["verte",v]])}</div>`,
-   c:`<p>a) ${tot} boules : rouge <b>${P(r,tot)}</b> ; bleue <b>${P(b,tot)}</b> ; verte <b>${P(v,tot)}</b>.</p><p>b) ${F(r,tot)} + ${F(b,tot)} + ${F(v,tot)} = ${F(tot,tot)} = <b>1</b>.</p>`},
+  {n:"Exercice 4", t:"Le sac de boules", w:"Sur ton cahier", h:`<div class="cpt"><div><p>Un sac contient ${r} boules rouges, ${b} bleue${b>1?"s":""} et ${v} verte${v>1?"s":""}. On tire une boule au hasard.</p><p>a) Probabilité de tirer une rouge ? une bleue ? une verte ? b) Que vaut la somme A de ces trois probabilités ?</p></div>${sac([["rouge",r],["bleue",b],["verte",v]])}</div>`,
+   c:`<p>a) ${tot} boules : rouge <b>${P(r,tot)}</b> ; bleue <b>${P(b,tot)}</b> ; verte <b>${P(v,tot)}</b>.</p><p class="calc">b) A = ${F(r,tot)} + ${F(b,tot)} + ${F(v,tot)}<br>A = ${F(tot,tot)}<br>A = <b>1</b></p>`},
   {n:"Exercice 5", t:"L'urne", w:"Sur ton cahier", h:`<p>Une urne contient ${N} étiquettes numérotées de 1 à ${N}. Probabilité de tirer : ${items(evN.map(e=>e[0]),"  ·  ",true)}</p>`,
    c:`<p>Il y a ${N} issues équiprobables.</p><p>${items(evN.map(e=>`${lst(e[1])} : <b>${P(cnt(e[1]),N)}</b>`),"<br>",true)}</p>`},
   {n:"Exercice 6", t:"La roue", w:"Sur ton cahier", h:`<div class="cpt"><div><p>La roue a 8 secteurs égaux, numérotés de 1 à 8. Probabilité de tomber : a) sur le rouge ; b) sur le bleu ; c) sur un nombre pair ; d) sur un nombre plus grand que 5 ; e) sur le violet.</p></div>${roue(wcols,true)}</div>`,

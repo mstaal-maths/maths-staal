@@ -69,23 +69,23 @@ cours:[
   <div class="retenir" data-l="Propriété"><p><b>La double distributivité :</b> quels que soient les nombres ${a}, ${b}, ${c} et ${d}, on a :</p><p class="calc">(${a} + ${b}) × (${c} + ${d}) = ${a} × ${c} + ${a} × ${d} + ${b} × ${c} + ${b} × ${d}</p></div>
   <p><b>Exemple :</b> on entoure les expressions que l'on peut développer, puis on les développe et on les réduit. <b>Méthode : il faut avoir un produit.</b></p>
   <div class="calcs"><span>A = (6${x} + 3)(2 + 3${x}) : produit</span><span>B = (8${x} + 2) − (4 + 12${x}) : somme</span><span>C = (−6 + 4${x}) × (3${x} + 5) : produit</span><span>D = (−2${x} + 9)(−5${x} + 6) : produit</span><span>E = (10${x} + 7) + (${x} + 9) : somme</span></div>
-  <div class="attention"><b>ATTENTION :</b> quand il n'y a pas de signe entre deux parenthèses, cela veut dire qu'il y a un signe multiplié « × ».<p>Donc A = (6${x} + 3)(2 + 3${x}) = (6${x} + 3) × (2 + 3${x}).</p></div>
-  <p>A = (6${x} + 3)(2 + 3${x}) : on a bien (${a} + ${b}) × (${c} + ${d}) avec ${a} = 6${x} ; ${b} = 3 ; ${c} = 2 et ${d} = 3${x}.</p>
-  <p class="calc">A = 6${x} × 2 + 6${x} × 3${x} + 3 × 2 + 3 × 3${x}<br>A = 12${x} + 18${x}<sup>2</sup> + 6 + 9${x}<br>A = ${R([[12,"x"],[18,"x2"],[6,""],[9,"x"]])}</p><p>On regroupe les termes en ${x} : 12${x} + 9${x} = 21${x}.</p>
-  <p>C = (−6 + 4${x}) × (3${x} + 5) : on a bien (${a} + ${b}) × (${c} + ${d}) avec ${a} = −6 ; ${b} = 4${x} ; ${c} = 3${x} et ${d} = 5.</p>
-  <p class="calc">C = −6 × 3${x} + (−6) × 5 + 4${x} × 3${x} + 4${x} × 5<br>C = −18${x} + (−30) + 12${x}<sup>2</sup> + 20${x}<br>C = ${R([[-18,"x"],[-30,""],[12,"x2"],[20,"x"]])}</p>
-  <p>D = (−2${x} + 9)(−5${x} + 6) : on a bien (${a} + ${b}) × (${c} + ${d}) avec ${a} = −2${x} ; ${b} = 9 ; ${c} = −5${x} et ${d} = 6.</p>
-  <p class="calc">D = −2${x} × (−5${x}) + (−2${x}) × 6 + 9 × (−5${x}) + 9 × 6<br>D = 10${x}<sup>2</sup> + (−12${x}) + (−45${x}) + 54<br>D = ${R([[10,"x2"],[-12,"x"],[-45,"x"],[54,""]])}</p>
+  <div class="attention"><b>ATTENTION :</b> quand il n'y a pas de signe entre deux parenthèses, cela veut dire qu'il y a un signe multiplié « × ».<p>Donc (6${x} + 3)(2 + 3${x}) s\'écrit aussi (6${x} + 3) × (2 + 3${x}).</p></div>
+  <p>On a bien (${a} + ${b}) × (${c} + ${d}) avec ${a} = 6${x} ; ${b} = 3 ; ${c} = 2 et ${d} = 3${x}.</p>
+  <p class="calc">A = (6${x} + 3)(2 + 3${x})<br>A = 6${x} × 2 + 6${x} × 3${x} + 3 × 2 + 3 × 3${x}<br>A = 12${x} + 18${x}<sup>2</sup> + 6 + 9${x}<br>A = ${R([[12,"x"],[18,"x2"],[6,""],[9,"x"]])}</p><p>On regroupe les termes en ${x} : 12${x} + 9${x} = 21${x}.</p>
+  <p>On a bien (${a} + ${b}) × (${c} + ${d}) avec ${a} = −6 ; ${b} = 4${x} ; ${c} = 3${x} et ${d} = 5.</p>
+  <p class="calc">C = (−6 + 4${x}) × (3${x} + 5)<br>C = −6 × 3${x} + (−6) × 5 + 4${x} × 3${x} + 4${x} × 5<br>C = −18${x} + (−30) + 12${x}<sup>2</sup> + 20${x}<br>C = ${R([[-18,"x"],[-30,""],[12,"x2"],[20,"x"]])}</p>
+  <p>On a bien (${a} + ${b}) × (${c} + ${d}) avec ${a} = −2${x} ; ${b} = 9 ; ${c} = −5${x} et ${d} = 6.</p>
+  <p class="calc">D = (−2${x} + 9)(−5${x} + 6)<br>D = −2${x} × (−5${x}) + (−2${x}) × 6 + 9 × (−5${x}) + 9 × 6<br>D = 10${x}<sup>2</sup> + (−12${x}) + (−45${x}) + 54<br>D = ${R([[10,"x2"],[-12,"x"],[-45,"x"],[54,""]])}</p>
   <h4>b) Transformer une expression pour qu'elle soit de la forme (${a} + ${b}) × (${c} + ${d})</h4>
   <div class="retenir" data-l="Méthode"><p><b>1)</b> Je transforme chaque soustraction en addition : − 2 devient + (−2).</p><p><b>2)</b> J'utilise la double distributivité, puis la règle des signes, et je réduis.</p></div>
   <p><b>Exemple :</b> je dois développer et réduire A = (8${x} − 2)(4 − 3${x}).</p>
   <p><b>1)</b> Je la transforme pour qu'elle soit de la forme (${a} + ${b}) × (${c} + ${d}) :</p><p class="calc">A = (8${x} + (−2))(4 + (−3${x}))</p><p>avec ${a} = 8${x} ; ${b} = −2 ; ${c} = 4 et ${d} = −3${x}.</p>
   <p><b>2)</b> Je sais maintenant développer ce genre d'expressions :</p><p class="calc">A = 8${x} × 4 + 8${x} × (−3${x}) + (−2) × 4 + (−2) × (−3${x})<br>A = 32${x} + (−24${x}<sup>2</sup>) + (−8) + 6${x}<br>A = ${R([[32,"x"],[-24,"x2"],[-8,""],[6,"x"]])}</p>
   <p><b>Exemples :</b> développe et réduis les expressions suivantes.</p>
-  <p>B = (4 + 2${x})(5${x} − 9) = (4 + 2${x})(5${x} + (−9)) : ${a} = 4 ; ${b} = 2${x} ; ${c} = 5${x} et ${d} = −9.</p>
-  <p class="calc">B = 4 × 5${x} + 4 × (−9) + 2${x} × 5${x} + 2${x} × (−9)<br>B = 20${x} + (−36) + 10${x}<sup>2</sup> + (−18${x})<br>B = ${R([[20,"x"],[-36,""],[10,"x2"],[-18,"x"]])}</p>
-  <p>C = (−${x} − 1)(−6 + 3${x}) = (−${x} + (−1))(−6 + 3${x}) : ${a} = −${x} ; ${b} = −1 ; ${c} = −6 et ${d} = 3${x}.</p>
-  <p class="calc">C = −${x} × (−6) + (−${x}) × 3${x} + (−1) × (−6) + (−1) × 3${x}<br>C = 6${x} + (−3${x}<sup>2</sup>) + 6 + (−3${x})<br>C = ${R([[6,"x"],[-3,"x2"],[6,""],[-3,"x"]])}</p>`}
+  <p>B = (4 + 2${x})(5${x} − 9) : je transforme la soustraction en addition, avec ${a} = 4 ; ${b} = 2${x} ; ${c} = 5${x} et ${d} = −9.</p>
+  <p class="calc">B = (4 + 2${x})(5${x} − 9)<br>B = (4 + 2${x})(5${x} + (−9))<br>B = 4 × 5${x} + 4 × (−9) + 2${x} × 5${x} + 2${x} × (−9)<br>B = 20${x} + (−36) + 10${x}<sup>2</sup> + (−18${x})<br>B = ${R([[20,"x"],[-36,""],[10,"x2"],[-18,"x"]])}</p>
+  <p>C = (−${x} − 1)(−6 + 3${x}) : je transforme la soustraction en addition, avec ${a} = −${x} ; ${b} = −1 ; ${c} = −6 et ${d} = 3${x}.</p>
+  <p class="calc">C = (−${x} − 1)(−6 + 3${x})<br>C = (−${x} + (−1))(−6 + 3${x})<br>C = −${x} × (−6) + (−${x}) × 3${x} + (−1) × (−6) + (−1) × 3${x}<br>C = 6${x} + (−3${x}<sup>2</sup>) + 6 + (−3${x})<br>C = ${R([[6,"x"],[-3,"x2"],[6,""],[-3,"x"]])}</p>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -95,7 +95,7 @@ exos:[
    ${rect4(120,90,120,30,{w:["<i>x</i>","3"],h:["<i>x</i>","1"],pts:true,alt:"Rectangle ABCD : AB = x + 3 et AD = x + 1, partagé en un carré de côté x et trois rectangles"})}
    <p><b>1)</b> Exprime l'aire de ABCD à l'aide des longueurs AB et AD.</p><p><b>2)</b> Exprime l'aire de ABCD en additionnant les aires du carré et des trois rectangles.</p><p><b>3)</b> Réduis l'expression obtenue.</p>`,
    c:`<p><b>1)</b> AB = ${x} + 3 et AD = ${x} + 1, donc aire de ABCD = <b>(${x} + 3) × (${x} + 1)</b>.</p><p><b>2)</b> Aire de ABCD = <b>${x} × ${x} + ${x} × 1 + 3 × ${x} + 3 × 1</b> (on décompose l'aire des trois rectangles et du carré).</p>
-   <p><b>3)</b></p><p class="calc">Aire = ${x}<sup>2</sup> + ${x} + 3${x} + 3<br>Aire = <b>${R([[1,"x2"],[1,"x"],[3,"x"],[3,""]])}</b></p><p>On observe que pour développer (${x} + 3) × (${x} + 1), il faut multiplier chaque terme de la première parenthèse par chaque terme de la seconde :</p><p class="calc">(${x} + 3) × (${x} + 1) = ${x} × ${x} + ${x} × 1 + 3 × ${x} + 3 × 1 = ${x}<sup>2</sup> + 4${x} + 3</p>`}
+   <p><b>3)</b></p><p class="calc">Aire = ${x}<sup>2</sup> + ${x} + 3${x} + 3<br>Aire = <b>${R([[1,"x2"],[1,"x"],[3,"x"],[3,""]])}</b></p><p>On observe que pour développer (${x} + 3) × (${x} + 1), il faut multiplier chaque terme de la première parenthèse par chaque terme de la seconde :</p><p class="calc">A = (${x} + 3) × (${x} + 1)<br>A = ${x} × ${x} + ${x} × 1 + 3 × ${x} + 3 × 1<br>A = ${x}<sup>2</sup> + 4${x} + 3</p>`}
  ]},
 {t:"Développer avec la double distributivité", e:[
   {n:"Exercice 1", t:"Développer avec la double distributivité", w:"Sur ton cahier", h:`<p>Recopie les expressions littérales suivantes, puis développe-les et réduis-les.</p><div class="calcs">${EX1.map(([n,A,B])=>`<span>${n} = ${w2(A,B)}</span>`).join("")}</div>`,
@@ -162,4 +162,6 @@ exos:[
  c:`<p><b>a)</b> Aire = (${x} + 4)(${x} + 2) <i>(0,5 point)</i></p><p><b>b)</b></p><p class="calc">Aire = (${x} + 4)(${x} + 2)<br>Aire = ${x} × ${x} + ${x} × 2 + 4 × ${x} + 4 × 2<br>Aire = ${x}<sup>2</sup> + 2${x} + 4${x} + 8<br>Aire = <b>${R([[1,"x2"],[6,"x"],[8,""]])}</b> <i>(1,5 point)</i></p><p><b>c)</b> Pour ${x} = 3 :</p><p class="calc">avec le produit : (3 + 4)(3 + 2) = 7 × 5 = 35<br>avec la forme développée : 3<sup>2</sup> + 6 × 3 + 8 = 9 + 18 + 8 = 35</p><p>L'aire est 35 m<sup>2</sup>. <i>(1 point)</i></p>`}
 ]}
 };
+/* calculs en chaîne « A = … » dans les explications du QCM (outil défini dans 4e-1.js) */
+CH["4e-13"].quiz.forEach(N=>Object.values(N.q).forEach(list=>list.forEach((it,i)=>{ if(it.g){ const g=it.g; list[i]={g:()=>window.CHN4.qChain(g())}; } else list[i]=window.CHN4.qChain(it); })));
 })();

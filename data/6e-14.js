@@ -12,6 +12,9 @@ const sp = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ");
 /* décimal : entier n et k décimales, sans zéros inutiles */
 const D = (n,k=0) => { const s=String(Math.abs(n)).padStart(k+1,"0"); const a=s.slice(0,s.length-k); let b=k?s.slice(-k):""; b=b.replace(/0+$/,""); return (n<0?"−":"")+sp(+a)+(b?","+b:""); };
 const fr = x => String(x).replace(".",",");
+/* calculs en chaîne : une étape par ligne, chaque ligne commence par « P = » (« P ≈ » pour une valeur arrondie) */
+const KC = (nm, st, lab) => `<p class="calc">${st.map((t,i)=>(i===0&&lab?lab+" ":"")+nm+(t[0]==="≈"?" ≈ "+t.slice(1).trim():" = "+t)).join("<br>")}</p>`;
+const KCS = arr => `<div class="calcs">${arr.map(x=>`<div>${x}</div>`).join("")}</div>`;
 
 /* unités : index 0 = kilo … 6 = milli */
 const U = { L:["km","hm","dam","m","dm","cm","mm"], M:["kg","hg","dag","g","dg","cg","mg"], C:["kL","hL","daL","L","dL","cL","mL"] };
@@ -72,9 +75,9 @@ cours:[
   <div class="cpt"><p class="calc">P = AB + BC + CD + DA<br>P = 6,6 + 3,2 + 4,8 + 7,4<br>P = 22<br>Gustave doit acheter 22 m de grillage.</p>${co("potager","Le potager ABCD",230)}</div>
   <p class="attention"><b>ATTENTION :</b> avant de calculer, toutes les longueurs doivent être exprimées dans la même unité.</p>
   <p><b>Exemple :</b> calculer le périmètre du polygone ABCDE (figure à main levée).</p>
-  <div class="cpt"><div><p>Je convertis tout en cm : 12 mm = 1,2 cm et 23 mm = 2,3 cm.</p><p class="calc">P = 2 + 1 + 1,2 + 2,3 + 1,2 = 7,7</p><p>Le périmètre de ABCDE est 7,7 cm.</p></div>${co("abcde","Le polygone ABCDE à main levée",230)}</div>
+  <div class="cpt"><div><p>Je convertis tout en cm : 12 mm = 1,2 cm et 23 mm = 2,3 cm.</p><p class="calc">P = 2 + 1 + 1,2 + 2,3 + 1,2<br>P = 7,7</p><p>Le périmètre de ABCDE est 7,7 cm.</p></div>${co("abcde","Le polygone ABCDE à main levée",230)}</div>
   <h4>Formules à connaître</h4>
-  <div class="retenir" data-l="Formules"><div class="scroll"><table class="std"><thead><tr><th>Figure</th><th>Périmètre</th><th>Exemple</th></tr></thead><tbody><tr><td>Carré de côté c</td><td><b>P = 4 × c</b></td><td>c = 5 cm : P = 4 × 5 = 20 cm</td></tr><tr><td>Rectangle de longueur L et de largeur l</td><td><b>P = 2 × (L + l)</b></td><td>L = 7,5 cm et l = 4 cm : P = 2 × 11,5 = 23 cm</td></tr><tr><td>Triangle équilatéral de côté c</td><td><b>P = 3 × c</b></td><td>c = 4,5 cm : P = 3 × 4,5 = 13,5 cm</td></tr></tbody></table></div></div>`},
+  <div class="retenir" data-l="Formules"><div class="scroll"><table class="std"><thead><tr><th>Figure</th><th>Périmètre</th><th>Exemple</th></tr></thead><tbody><tr><td>Carré de côté c</td><td><b>P = 4 × c</b></td><td>c = 5 cm :<br>P = 4 × 5<br>P = 20 cm</td></tr><tr><td>Rectangle de longueur L et de largeur l</td><td><b>P = 2 × (L + l)</b></td><td>L = 7,5 cm et l = 4 cm :<br>P = 2 × (7,5 + 4)<br>P = 2 × 11,5<br>P = 23 cm</td></tr><tr><td>Triangle équilatéral de côté c</td><td><b>P = 3 × c</b></td><td>c = 4,5 cm :<br>P = 3 × 4,5<br>P = 13,5 cm</td></tr></tbody></table></div></div>`},
 {k:"IV", t:"La longueur d'un cercle", h:`
   <h4>1. Le nombre π</h4>
   <p>Depuis l'Antiquité, on sait que la longueur d'un cercle est toujours un peu plus de 3 fois son diamètre. Ce nombre, que l'on ne peut pas écrire en entier car il a une infinité de chiffres après la virgule, se note <b>π</b> (on lit « pi ») : π ≈ 3,14159…</p>
@@ -82,8 +85,8 @@ cours:[
   <div class="cpt"><div class="retenir" data-l="Formule"><p>La longueur (ou périmètre) d'un cercle de diamètre d et de rayon r est :</p><p class="calc">P = π × d &nbsp; ou &nbsp; P = 2 × π × r &nbsp; (car d = 2 × r)</p></div>${co("cercle","Un cercle, son rayon r et son diamètre d",190)}</div>
   <p>Sur la calculatrice, on utilise la touche π, puis on arrondit le résultat.</p>
   <p><b>Ordre de grandeur :</b> π ≈ 3, donc la longueur d'un cercle est environ 3 fois son diamètre.</p>
-  <p><b>Exemple 1 :</b> une piscine ronde a un diamètre de 4,5 m. Longueur de son contour, arrondie au centième ?</p><p class="calc">P = π × d = π × 4,5 ≈ 14,14. &nbsp; Le contour de la piscine mesure environ 14,14 m.</p>
-  <p><b>Exemple 2 :</b> une cible a un rayon de 30 cm. Son périmètre, arrondi au dixième ?</p><p class="calc">P = 2 × π × r = 2 × π × 30 ≈ 188,5. &nbsp; Le périmètre de la cible est environ 188,5 cm.</p>`}
+  <p><b>Exemple 1 :</b> une piscine ronde a un diamètre de 4,5 m. Longueur de son contour, arrondie au centième ?</p>${KC("P",["π × d","π × 4,5","≈ 14,14"])}<p>Le contour de la piscine mesure environ 14,14 m.</p>
+  <p><b>Exemple 2 :</b> une cible a un rayon de 30 cm. Son périmètre, arrondi au dixième ?</p>${KC("P",["2 × π × r","2 × π × 30","≈ 188,5"])}<p>Le périmètre de la cible est environ 188,5 cm.</p>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -112,11 +115,11 @@ exos:[
  ]},
 {t:"Calculer un périmètre", e:[
   {n:"Exercice 8", t:"Mesurer puis calculer", w:"Sur ta feuille", h:`<div class="cpt"><div><p>Mesure les côtés du polygone MNPQR, puis calcule son périmètre.</p><p>MN = …… cm · NP = …… cm · PQ = …… cm · QR = …… cm · RM = …… cm</p></div>${ex("e8","Le polygone MNPQR en forme de maison",200)}</div>`,
-   c:`<p>Sur la fiche imprimée : MN = <b>5 cm</b> · NP = <b>3 cm</b> · PQ = <b>3,5 cm</b> · QR = <b>3,5 cm</b> · RM = <b>3 cm</b>.</p><p class="calc">P = 5 + 3 + 3,5 + 3,5 + 3 = 18 cm</p>`},
+   c:`<p>Sur la fiche imprimée : MN = <b>5 cm</b> · NP = <b>3 cm</b> · PQ = <b>3,5 cm</b> · QR = <b>3,5 cm</b> · RM = <b>3 cm</b>.</p><p class="calc">P = MN + NP + PQ + QR + RM<br>P = 5 + 3 + 3,5 + 3,5 + 3<br>P = 18 cm</p>`},
   {n:"Exercice 9", t:"Carrés et rectangles", w:"Sur ta feuille", h:`<p>1) Calcule le périmètre d'une salle carrée de 6,5 m de côté.</p><p>2) Une feuille A4 est un rectangle de 21 cm sur 29,7 cm. Calcule son périmètre.</p><p>3) Calcule le périmètre d'un rectangle de longueur 1,2 m et de largeur 80 cm. Attention aux unités !</p>`,
-   c:`<p>1) P = 4 × 6,5 = <b>26 m</b>.</p><p>2) P = 2 × (29,7 + 21) = 2 × 50,7 = <b>101,4 cm</b>.</p><p>3) 1,2 m = 120 cm. P = 2 × (120 + 80) = 2 × 200 = <b>400 cm</b>, soit 4 m.</p>`},
+   c:`${KCS([KC("P",["4 × 6,5","<b>26 m</b>"],"1)"), KC("P",["2 × (29,7 + 21)","2 × 50,7","<b>101,4 cm</b>"],"2)")])}<p>3) 1,2 m = 120 cm.</p>${KC("P",["2 × (120 + 80)","2 × 200","<b>400 cm</b>, soit 4 m"])}`},
   {n:"Exercice 10", t:"Des polygones", w:"Sur ta feuille", h:`<p>Les figures sont faites à main levée. Calcule le périmètre de chaque polygone. Pour le polygone 1, donne le résultat en cm.</p>${ex("e10","Polygone 1 avec des longueurs en dm, cm et mm ; polygone 2 en forme de L",490)}`,
-   c:`<p><b>Polygone 1 :</b> je convertis en cm : 0,3 dm = 3 cm et 18 mm = 1,8 cm.</p><p class="calc">P = 3 + 4 + 1,8 + 2,5 + 3 + 2 = 16,3 cm</p><p><b>Polygone 2 :</b></p><p class="calc">P = 5 + 4 + 3 + 2 + 8 + 6 = 28 m</p>`},
+   c:`<p><b>Polygone 1 :</b> je convertis en cm : 0,3 dm = 3 cm et 18 mm = 1,8 cm.</p><p class="calc">P = 3 + 4 + 1,8 + 2,5 + 3 + 2<br>P = 16,3 cm</p><p><b>Polygone 2 :</b></p><p class="calc">P = 5 + 4 + 3 + 2 + 8 + 6<br>P = 28 m</p>`},
   {n:"Exercice 11", t:"Retrouver une longueur", w:"Sur ta feuille", h:`<p>1) Un terrain carré a un périmètre de 24 m. Longueur de son côté ?</p><p>2) Un autre terrain carré a un périmètre de 25 m. Longueur de son côté ?</p><p>3) Un rectangle a un périmètre de 30 cm et une longueur de 9 cm. Sa largeur ?</p><p>4) Un triangle équilatéral a un périmètre de 13,5 cm. Longueur de ses côtés ?</p>`,
    c:`<p>1) 24 ÷ 4 = <b>6 m</b>.</p><p>2) 25 ÷ 4 = <b>6,25 m</b>.</p><p>3) La longueur et la largeur font la moitié du périmètre : 30 ÷ 2 = 15 cm. Largeur : 15 − 9 = <b>6 cm</b>.</p><p>4) 13,5 ÷ 3 = <b>4,5 cm</b>.</p>`},
   {n:"Exercice 12", t:"Clôturer un champ", w:"Sur ta feuille", h:`<p>Un champ rectangulaire mesure 120 m sur 75 m. Le fermier veut l'entourer avec 3 rangées de fil.</p><p>1) Quelle longueur de fil lui faut-il ?</p><p>2) Le fil est vendu en rouleaux de 250 m. Combien de rouleaux doit-il acheter ?</p>`,
@@ -126,7 +129,7 @@ exos:[
   {n:"Activité 3", t:"Des objets ronds", w:"Sur ta feuille", h:`<p>Avec un mètre de couturière, mesure le diamètre et le tour de quatre objets ronds (boîte, verre, rouleau…). Complète, puis calcule le quotient du tour par le diamètre à la calculatrice.</p><div class="scroll"><table class="std"><thead><tr><th>Objet</th><th>Diamètre d</th><th>Tour P</th><th>P ÷ d (arrondi au dixième)</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div><p>Que remarques-tu ?</p>`,
    c:`<p>Exemple : un verre de diamètre 7 cm a un tour d'environ 22 cm : 22 ÷ 7 ≈ 3,1.</p><p>Pour tous les objets, on trouve un quotient d'environ <b>3,1</b> : le tour d'un cercle est toujours un peu plus de 3 fois son diamètre. Ce nombre est <b>π</b> (π ≈ 3,14).</p>`},
   {n:"Exercice 13", t:"Calculer la longueur d'un cercle", w:"Sur ta feuille", h:`${ex("e13","a) cercle de centre O et de rayon 3 cm ; b) cercle de centre I et de diamètre 10 cm",330)}<p>1) Sans calculatrice, donne un ordre de grandeur de la longueur de chaque cercle (prends π ≈ 3).</p><p>2) Calcule la longueur de chaque cercle, arrondie à l'unité. Rédige tes calculs.</p>`,
-   c:`<p>1) a) Le diamètre est 6 cm : environ 3 × 6 = <b>18 cm</b>. b) Environ 3 × 10 = <b>30 cm</b>.</p><p>2) a) P = 2 × π × r = 2 × π × 3 ≈ 18,85, soit environ <b>19 cm</b>.</p><p>b) P = π × d = π × 10 ≈ 31,42, soit environ <b>31 cm</b>.</p>`},
+   c:`<p>1) a) Le diamètre est 6 cm : environ 3 × 6 = <b>18 cm</b>. b) Environ 3 × 10 = <b>30 cm</b>.</p><p>2)</p>${KCS([KC("P",["2 × π × r","2 × π × 3","≈ 18,85","≈ <b>19 cm</b>"],"a)"), KC("P",["π × d","π × 10","≈ 31,42","≈ <b>31 cm</b>"],"b)")])}`},
   {n:"Exercice 14", t:"Des problèmes", w:"Sur ta feuille", h:`<p><b>Problème 1 :</b> le cadran de la montre de Nina est un cercle de 2,3 cm de diamètre. Calcule sa longueur, arrondie au dixième.</p><p><b>Problème 2 :</b> le rond central d'un terrain de football a un rayon de 9,15 m. Calcule sa longueur, arrondie au centième.</p><p><b>Problème 3 :</b> une roue de vélo a un diamètre de 70 cm. Quelle distance parcourt le vélo quand la roue fait 1 tour ? Et 100 tours ? Donne les résultats arrondis au dixième.</p>`,
    c:`<p><b>Problème 1 :</b> P = π × 2,3 ≈ 7,23. La longueur du cadran est environ <b>7,2 cm</b>.</p><p><b>Problème 2 :</b> P = 2 × π × 9,15 ≈ 57,491. Le rond central mesure environ <b>57,49 m</b>.</p><p><b>Problème 3 :</b> en 1 tour, le vélo parcourt la longueur de la roue : P = π × 70 ≈ 219,91, soit environ <b>219,9 cm</b>. En 100 tours : 100 × π × 70 ≈ 21 991,15, soit environ <b>21 991,1 cm</b> (environ 220 m).</p>`},
   {n:"Exercice 15", t:"Demi-cercle et piste", w:"Sur ta feuille", h:`<div class="cpt"><p>1) Calcule le périmètre de cette figure, formée d'un demi-cercle et du segment [AB]. Arrondis au dixième.</p>${ex("e15a","Un demi-cercle de diamètre AB = 6 cm",170)}</div><div class="cpt"><p>2) Une piste d'athlétisme est formée de deux lignes droites de 85 m et de deux demi-cercles de 73 m de diamètre. Calcule la longueur d'un tour, arrondie au mètre.</p>${ex("e15b","Une piste : deux lignes droites de 85 m et deux demi-cercles de 73 m de diamètre",210)}</div>`,
@@ -161,6 +164,52 @@ quiz:[
  3:[ {g:()=>{ const r=ri(2,25); return {q:`Longueur d'un cercle de rayon ${r} m, arrondie au dixième (en m) ?`, rep:fr((Math.round(20*Math.PI*r)/10).toFixed(1)).replace(/,0$/,""), ex:`2 × π × ${r} ≈ ${fr((2*Math.PI*r).toFixed(2))}.`, sx:S_CERC}; }},
      {q:"Le nombre π vaut environ…", c:["3,14","4","22"], rep:"3,14", sx:S_CERC} ]
 }}
-]
+],
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+/* petites figures (sans valeur de mesure : figures à main levée) */
+const cerc=d=>`<svg class="fig" viewBox="0 0 190 165" width="190" role="img" aria-label="Un cercle et son diamètre de ${d}"><circle cx="95" cy="82" r="66" style="fill:rgba(31,109,176,.08);stroke:var(--ink);stroke-width:2.5"/><line x1="29" y1="82" x2="161" y2="82" style="stroke:var(--ink);stroke-width:2"/><circle cx="95" cy="82" r="3.5" style="fill:#1f6db0"/><text x="95" y="73" text-anchor="middle" style="font-size:14px;font-weight:700;fill:var(--ink)">${d}</text></svg>`;
+const quad=`<svg class="fig" viewBox="0 0 240 190" width="240" role="img" aria-label="Un quadrilatère à main levée : côtés de 1,2 dm ; 9 cm ; 75 mm et 10 cm"><g transform="translate(45,12)"><polygon points="20,140 140,140 111.2,54.7 37.4,41.5" style="fill:rgba(29,122,70,.12);stroke:#1d7a46;stroke-width:2.5;stroke-linejoin:round"/><text x="80" y="160" text-anchor="middle" style="font-size:14px;font-weight:700;fill:var(--ink)">1,2 dm</text><text x="134" y="98" style="font-size:14px;font-weight:700;fill:var(--ink)">9 cm</text><text x="74" y="38" text-anchor="middle" style="font-size:14px;font-weight:700;fill:var(--ink)">75 mm</text><text x="24" y="95" text-anchor="end" style="font-size:14px;font-weight:700;fill:var(--ink)">10 cm</text></g><text x="120" y="186" text-anchor="middle" style="font-size:12px;font-style:italic;fill:var(--ink)">figure à main levée</text></svg>`;
+const encl=(L,l)=>`<svg class="fig" viewBox="0 0 250 150" width="250" role="img" aria-label="L'enclos rectangulaire de ${L} sur ${l}"><rect x="40" y="15" width="180" height="105" style="fill:rgba(29,122,70,.15);stroke:#1d7a46;stroke-width:2.5;stroke-dasharray:7 4"/><text x="130" y="140" text-anchor="middle" style="font-size:14px;font-weight:700;fill:var(--ink)">${L}</text><text x="34" y="72" text-anchor="end" style="font-size:14px;font-weight:700;fill:var(--ink)">${l}</text></svg>`;
+return {
+titre:"Évaluation d'entraînement — Chapitre 14", duree:25, info:"Durée : 25 min · Calculatrice autorisée",
+comp:[
+  ["CALCULER","Je calcule la longueur d'un cercle.","Ex. 1 (2 points)"],
+  ["CALCULER","Je convertis des longueurs.","Ex. 2 (3 points)"],
+  ["CALCULER","Je calcule le périmètre d'un polygone.","Ex. 3 (3 points)"],
+  ["MODÉLISER","Je résous un problème de périmètre.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"Le cerceau", p:2, h:`<p>Un cerceau de gymnastique est un cercle de 80 cm de diamètre.</p><p>Calcule la longueur du cerceau. Donne le résultat arrondi au centimètre.</p>${cerc("80 cm")}`,
+ c:`<p>Pour un cercle de diamètre d, la longueur est P = π × d. <i>(0,5 point)</i></p>${KC("P",["π × d","π × 80","≈ 251,33","≈ 251"])}<p><i>(1 point pour le calcul)</i></p><p><b>Le cerceau mesure environ 251 cm.</b> <i>(0,5 point pour l'arrondi et la phrase)</i></p>`},
+{t:"Des conversions", p:3, h:`<p>Complète.</p><p>a) 4,7 km = …… m · b) 82 cm = …… m · c) 6 dm = …… mm · d) 3 050 mm = …… m · e) 0,25 m = …… cm · f) 90 m = …… hm</p>`,
+ c:`<p>a) 1 km = 1 000 m : 4,7 × 1 000 = <b>4 700 m</b> · b) 1 m = 100 cm : 82 ÷ 100 = <b>0,82 m</b> · c) 1 dm = 100 mm : 6 × 100 = <b>600 mm</b></p><p>d) 1 m = 1 000 mm : 3 050 ÷ 1 000 = <b>3,05 m</b> · e) 0,25 × 100 = <b>25 cm</b> · f) 1 hm = 100 m : 90 ÷ 100 = <b>0,9 hm</b></p>${tabConv("L",[{cells:["","","","3,","0","5","0"],txt:"3 050 mm = 3,05 m"},{cells:["","0,","9","0","","",""],txt:"90 m = 0,9 hm"}])}<p><i>0,5 point par conversion.</i></p>`},
+{t:"Calculer des périmètres", p:3, h:`<p>Calcule le périmètre de chaque figure. Écris tes calculs.</p><p>a) Une piste carrée de 8,5 m de côté.</p><p>b) Un rectangle de longueur 12,4 cm et de largeur 9 cm.</p><p>c) Un quadrilatère dont les côtés mesurent 1,2 dm ; 9 cm ; 75 mm et 10 cm. Donne le résultat en cm.</p>${quad}`,
+ c:`${KCS([KC("P",["4 × c","4 × 8,5","<b>34 m</b>"],"a)"), KC("P",["2 × (L + l)","2 × (12,4 + 9)","2 × 21,4","<b>42,8 cm</b>"],"b)")])}<p><i>(1 point chacun)</i></p>
+  <p>c) Je convertis tout en cm : 1,2 dm = 12 cm et 75 mm = 7,5 cm.</p>${KC("P",["12 + 9 + 7,5 + 10","<b>38,5 cm</b>"])}<p><i>(0,5 point pour les conversions, 0,5 point pour le calcul)</i></p>`},
+{t:"L'enclos des moutons", p:2, h:`<p>Un enclos pour des moutons a la forme d'un rectangle de 35 m sur 22 m. Le fermier veut en faire le tour avec du grillage. Le grillage est vendu en rouleaux de 25 m.</p><p>Combien de rouleaux doit-il acheter ? Justifie.</p>${encl("35 m","22 m")}`,
+ c:`<p>Je calcule le périmètre de l'enclos :</p>${KC("P",["2 × (35 + 22)","2 × 57","114 m"])}<p><i>(1 point)</i></p><p>114 ÷ 25 = 4,56 : 4 rouleaux font 100 m, ce n'est pas assez. Il faut un rouleau de plus.</p><p><b>Le fermier doit acheter 5 rouleaux.</b> <i>(1 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 14 (version aménagée)", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice autorisée",
+note:"Mêmes exercices et même barème, avec moins de questions, des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+comp:[
+  ["CALCULER","Je calcule la longueur d'un cercle.","Ex. 1 (2 points)"],
+  ["CALCULER","Je convertis des longueurs.","Ex. 2 (3 points)"],
+  ["CALCULER","Je calcule le périmètre d'un polygone.","Ex. 3 (3 points)"],
+  ["MODÉLISER","Je résous un problème de périmètre.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"Le cerceau", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Pour un cercle de diamètre d : P = π × d (touche π de la calculatrice).</p></div><p>Un cerceau est un cercle de 20 cm de diamètre. Calcule sa longueur, arrondie à l'unité.</p>${cerc("20 cm")}`,
+ c:`${KC("P",["π × d","π × 20","≈ 62,83","≈ 63"])}<p><i>(1,5 point pour le calcul)</i></p><p><b>Le cerceau mesure environ 63 cm.</b> <i>(0,5 point)</i></p>`},
+{t:"Des conversions", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>km &nbsp; hm &nbsp; dam &nbsp; m &nbsp; dm &nbsp; cm &nbsp; mm : quand je passe à l'unité juste à droite, je multiplie par 10.</p></div><p>Complète.</p><p>a) 5 km = …… m · b) 3 m = …… cm · c) 60 cm = …… m · d) 25 mm = …… cm</p><p><b>Aide :</b> tu peux utiliser le tableau de conversion.</p>`,
+ c:`<p>a) 5 × 1 000 = <b>5 000 m</b> · b) 3 × 100 = <b>300 cm</b> · c) 60 ÷ 100 = <b>0,6 m</b> · d) 25 ÷ 10 = <b>2,5 cm</b></p>${tabConv("L",[{cells:["","","","0,","6","0",""],txt:"60 cm = 0,6 m"},{cells:["","","","","","2,","5"],txt:"25 mm = 2,5 cm"}])}<p><i>0,75 point par conversion.</i></p>`},
+{t:"Calculer des périmètres", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Périmètre = longueur du tour de la figure. Carré : P = 4 × c. Rectangle : P = 2 × (L + l).</p></div><p>Calcule le périmètre de chaque figure.</p><p>a) Une piste carrée de 8 m de côté.</p><p>b) Un rectangle de longueur 12 cm et de largeur 9 cm.</p>`,
+ c:`${KCS([KC("P",["4 × 8","<b>32 m</b>"],"a)"), KC("P",["2 × (12 + 9)","2 × 21","<b>42 cm</b>"],"b)")])}<p><i>(1,5 point chacun)</i></p>`},
+{t:"L'enclos des moutons", p:2, h:`<p>Un enclos pour des moutons est un rectangle de 30 m sur 20 m. Combien de mètres de grillage sont nécessaires pour entourer tout l'enclos ?</p>${encl("30 m","20 m")}<p><b>Aide :</b> je calcule le périmètre du rectangle.</p>`,
+ c:`${KC("P",["2 × (30 + 20)","2 × 50","100 m"])}<p><i>(1,5 point)</i></p><p><b>Il faut 100 m de grillage.</b> <i>(0,5 point)</i></p>`}
+]}
+};
+})()
 };
 })();

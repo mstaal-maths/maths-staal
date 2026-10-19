@@ -26,7 +26,7 @@ const sch = (t, body) => `<div class="sch"><b class="schT">${t}</b>${body}</div>
 /* ===================== schémas ===================== */
 const S_VOC = sch("Somme, différence, produit", `<p class="calc">12 + 3 = 15 : la <b>somme</b> de 12 et 3 (12 et 3 sont les <b>termes</b>)<br>15 − 3 = 12 : la <b>différence</b> de 15 et 3<br>4 × 2,5 = 10 : le <b>produit</b> de 4 par 2,5 (4 et 2,5 sont les <b>facteurs</b>)</p>`);
 const S_POSE = sch("Poser une addition ou une soustraction", `<div class="figs">${co("add","18,57 + 14,90 = 33,47",150)}${co("sous","45,30 − 33,47 = 11,83",150)}</div><p class="schN">J'aligne les virgules, je complète par des zéros, puis je calcule comme avec des entiers.</p>`);
-const S_GD = sch("De gauche à droite", `<p class="calc">20 − 9 − 5 = 11 − 5 = 6 &nbsp; (et non 20 − 4 = 16)</p><p class="schN">Avec des soustractions, on calcule de gauche à droite. Avec seulement des additions, on peut regrouper comme on veut.</p>`);
+const S_GD = sch("De gauche à droite", `<p class="calc">A = 20 − 9 − 5<br>A = 11 − 5<br>A = 6 &nbsp; (et non 20 − 4 = 16)</p><p class="schN">Avec des soustractions, on calcule de gauche à droite. Avec seulement des additions, on peut regrouper comme on veut.</p>`);
 const S_10 = sch("× 10, × 100, × 1 000", `<p class="calc">3,45 × 10 = 34,5 &nbsp; 3,45 × 100 = 345 &nbsp; 3,45 × 1 000 = 3 450</p><p class="schN">La virgule se déplace de 1, 2 ou 3 rangs vers la <b>droite</b> (autant que de zéros). On complète par des zéros si besoin.</p>`);
 const S_01 = sch("× 0,1, × 0,01, × 0,001", `<p class="calc">275 × 0,1 = 27,5 &nbsp; 275 × 0,01 = 2,75 &nbsp; 275 × 0,001 = 0,275</p><p class="schN">La virgule se déplace de 1, 2 ou 3 rangs vers la <b>gauche</b> : le nombre devient plus petit.</p>`);
 const S_MUL = sch("Multiplier deux décimaux", co("mult","4,25 × 3,6 posé : 15,300",160)+`<p class="schN">Je multiplie sans les virgules, puis je compte les chiffres après la virgule dans les deux facteurs : 2 + 1 = 3 chiffres. 4,25 × 3,6 = 15,300 = 15,3.</p>`);
@@ -55,9 +55,9 @@ cours:[
   <div class="figs">${co("add","18,57 + 14,90 = 33,47 posé",170)}${co("sous","45,30 − 33,47 = 11,83 posé",170)}</div>
   <h4>3. Calculer une suite d'additions et de soustractions</h4>
   <div class="retenir" data-l="Propriété"><p>Dans un calcul sans parenthèses qui ne contient que des <b>additions</b>, on peut effectuer les calculs <b>dans l'ordre que l'on veut</b>.</p></div>
-  <p class="calc">17 + 8,6 + 3 + 1,4 = (17 + 3) + (8,6 + 1,4) = 20 + 10 = 30</p>
+  <p class="calc">A = 17 + 8,6 + 3 + 1,4<br>A = (17 + 3) + (8,6 + 1,4)<br>A = 20 + 10<br>A = <b>30</b></p>
   <div class="retenir" data-l="Propriété"><p>Dans un calcul sans parenthèses qui contient des <b>soustractions</b> (seules ou avec des additions), on effectue les calculs <b>de gauche à droite</b>.</p></div>
-  <p class="calc">20 − 9 − 5 = 11 − 5 = 6. &nbsp; Et non 20 − 4 = 16 : on ne commence pas par 9 − 5.</p>`},
+  <p class="calc">B = 20 − 9 − 5<br>B = 11 − 5<br>B = <b>6</b></p><p>Et non 20 − 4 = 16 : on ne commence pas par 9 − 5.</p>`},
 {k:"II", t:"Multiplier", h:`
   <h4>1. Vocabulaire</h4>
   <div class="retenir" data-l="Définition"><p>Le <b>produit</b> est le résultat d'une multiplication. Les nombres que l'on multiplie s'appellent les <b>facteurs</b>.</p></div>
@@ -73,7 +73,7 @@ cours:[
   ${co("mult","425 × 36 = 15 300, donc 4,25 × 3,6 = 15,300 = 15,3 (2 + 1 = 3 chiffres après la virgule)",200)}
   <h4>5. Calculer astucieusement un produit</h4>
   <div class="retenir" data-l="Propriété"><p>Dans un produit, on peut <b>changer l'ordre des facteurs</b> et les regrouper comme on veut.</p></div>
-  <p class="calc">4 × 7,3 × 25 = (4 × 25) × 7,3 = 100 × 7,3 = 730</p>`},
+  <p class="calc">C = 4 × 7,3 × 25<br>C = (4 × 25) × 7,3<br>C = 100 × 7,3<br>C = <b>730</b></p>`},
 {k:"III", t:"Prévoir et contrôler un résultat : l'ordre de grandeur", h:`
   <div class="retenir" data-l="Définition"><p>Un <b>ordre de grandeur</b> d'un calcul est le résultat que l'on obtient en remplaçant chaque nombre par une valeur proche, plus simple, avant de calculer.</p></div>
   <p class="calc">18,57 + 14,9 ≈ 19 + 15 = 34 : le résultat exact, 33,47, est bien proche de 34.<br>4,25 × 3,6 ≈ 4 × 4 = 16 : le résultat exact, 15,3, est cohérent.</p>
@@ -200,6 +200,70 @@ quiz:[
  3:[ {g:()=>{ const b=ri(11,49), c=ri(2,9); return {q:`B2 contient ${D(b,1)} et C2 contient ${c}. Qu'affiche la cellule D2 qui contient =B2*C2 ?`, rep:D(b*c,1), sx:S_TAB}; }},
      {q:"Que calcule =SOMME(D2:D4) ?", c:["D2 + D3 + D4","D2 + D4","D2 × D3 × D4"], rep:"D2 + D3 + D4", sx:S_TAB} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+/* multiplication posée : chiffres alignés à droite, virgule entre deux colonnes ; ligne = [texte, signe, trait dessous, gras] */
+const mulP = rows => { const cw=13, n=Math.max(...rows.map(r=>r[0].replace(",","").length)), xr=26+n*cw, H=rows.length*26+14;
+  let g=`<svg class="fig" viewBox="0 0 ${xr+8} ${H}" width="${xr+8}" role="img" aria-label="Multiplication posée de ${rows[0][0]} par ${rows[1][0]}">`;
+  rows.forEach(([t,sym,line,b],i)=>{ const y=24+i*26+(b?4:0), s=t.replace(",",""), k=t.includes(",")?t.length-t.indexOf(",")-1:0, st=`font-size:17px;${b?"font-weight:700;":""}fill:var(--ink)`;
+    [...s].forEach((ch,j)=>{ g+=`<text x="${xr-(s.length-j-0.5)*cw}" y="${y}" text-anchor="middle" style="${st}">${ch}</text>`; });
+    if(k) g+=`<text x="${xr-k*cw}" y="${y+2}" text-anchor="middle" style="${st}">,</text>`;
+    if(sym) g+=`<text x="10" y="${y}" text-anchor="middle" style="font-size:17px;fill:var(--ink)">${sym}</text>`;
+    if(line) g+=`<line x1="4" y1="${y+8}" x2="${xr+4}" y2="${y+8}" style="stroke:var(--ink);stroke-width:1.6"/>`; });
+  return g+"</svg>"; };
+const MEM = t => `<div class="retenir" data-l="Je me souviens">${t}</div>`;
+const AIDE = t => `<p><i><b>Aide :</b> ${t}</i></p>`;
+const COMP = [
+  ["CALCULER","Je pose une addition, une soustraction et une multiplication de nombres décimaux.","Ex. 1 (3 points)"],
+  ["RAISONNER","Je contrôle un résultat avec un ordre de grandeur.","Ex. 2 (1 point)"],
+  ["CALCULER","Je multiplie un nombre décimal par 10, 100, 1 000 et par 0,1 ; 0,01 ; 0,001.","Ex. 3 (3 points)"],
+  ["MODÉLISER","Je résous un problème en choisissant les bonnes opérations.","Ex. 4 (3 points)"]
+];
+return {
+titre:"Évaluation d'entraînement — Chapitre 8", duree:30, info:"Durée : 30 min · Calculatrice non autorisée",
+comp:COMP,
+exos:[
+{t:"Je pose les opérations", p:3, h:`<p>Pose chaque opération sur ta feuille, puis effectue-la.</p><p>a) 263,4 + 58,75 · b) 90,3 − 7,48 · c) 5,8 × 2,7</p>`,
+ c:`<p>Pour a) et b), j'aligne les virgules et je complète par des zéros : 263,40 + 58,75 et 90,30 − 7,48.</p><div class="figs" style="align-items:flex-start">${pose(["263,40","58,75"],"+","322,15")}${pose(["90,30","7,48"],"−","82,82")}</div>
+  <p>a) 263,4 + 58,75 = <b>322,15</b> &nbsp;·&nbsp; b) 90,3 − 7,48 = <b>82,82</b></p>
+  <p>c) Je multiplie sans les virgules : 58 × 27 = 1 566. Il y a 1 + 1 = 2 chiffres après la virgule dans les facteurs, donc 2 chiffres après la virgule dans le résultat.</p>${mulP([["5,8"],["2,7","×",true],["406"],["1160","+",true],["15,66","",false,true]])}
+  <p>5,8 × 2,7 = <b>15,66</b>. Contrôle : 5,8 × 2,7 ≈ 6 × 3 = 18 : c'est cohérent.</p>
+  <p><i>1 point par opération juste et bien posée.</i></p>`},
+{t:"Une erreur de virgule ?", p:1, h:`<p>Malo a calculé 48,5 × 6,1. Il trouve 29,585.</p><p>Sans poser l'opération, explique à l'aide d'un ordre de grandeur pourquoi son résultat est faux.</p>`,
+ c:`<p>48,5 est proche de 50, et 6,1 est proche de 6.</p><p class="calc">48,5 × 6,1 ≈ 50 × 6 = 300</p><p>Le résultat doit donc être proche de 300. Or 29,585 est environ dix fois plus petit : <b>Malo s'est trompé de place pour la virgule</b>. (Le bon résultat est 295,85.)</p>
+  <p><i>0,5 point pour l'ordre de grandeur, 0,5 point pour la conclusion.</i></p>`},
+{t:"Calcul mental", p:3, h:`<p>Calcule sans poser l'opération.</p><p>a) 0,75 × 10 = …… · b) 4,08 × 1 000 = …… · c) 0,062 × 100 = …… · d) 61,4 × 0,01 = …… · e) 7 × 0,001 = …… · f) 0,5 × 0,1 = ……</p>`,
+ c:`<p>a) La virgule se déplace d'1 rang vers la droite : 0,75 × 10 = <b>7,5</b>.</p>
+  <p>b) 3 rangs vers la droite, on complète par un zéro : 4,08 × 1 000 = <b>4 080</b>.</p>
+  <p>c) 2 rangs vers la droite : 0,062 × 100 = <b>6,2</b>.</p>
+  <p>d) 2 rangs vers la gauche : 61,4 × 0,01 = <b>0,614</b>.</p>
+  <p>e) 3 rangs vers la gauche, on complète par des zéros : 7 × 0,001 = <b>0,007</b>.</p>
+  <p>f) 1 rang vers la gauche : 0,5 × 0,1 = <b>0,05</b>.</p>
+  <p><i>0,5 point par calcul.</i></p>`},
+{t:"Au marché", p:3, h:`<p>Au marché, Mme Leroy achète 2,5 kg de tomates à 3,40 € le kilo et 3 melons à 2,15 € pièce. Elle paie avec un billet de 20 €.</p><p>Combien la marchande doit-elle lui rendre ? Écris tes calculs et fais une phrase.</p>`,
+ c:`<p>Prix des tomates :</p><p class="calc">2,5 × 3,40 = 8,50 €</p><p><i>(1 point)</i></p>
+  <p>Prix des melons, puis prix total :</p><p class="calc">3 × 2,15 = 6,45 €<br>8,50 + 6,45 = 14,95 €</p><p><i>(1 point)</i></p>
+  <p>Monnaie rendue :</p><p class="calc">20 − 14,95 = 5,05 €</p><p>La marchande doit lui rendre <b>5,05 €</b>. <i>(1 point, avec la phrase)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 8 · version aménagée", duree:30, info:"Version aménagée · Durée : 30 min · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+comp:COMP,
+exos:[
+{t:"Je pose les opérations", p:3, h:`${MEM(`<p>Pour poser + ou −, j'aligne les virgules les unes sous les autres.</p><p>Pour poser ×, je calcule sans les virgules, puis je compte les chiffres après la virgule.</p>`)}<p>Pose chaque opération sur ta feuille, puis effectue-la.</p><p>a) 52,6 + 31,8 · b) 75,4 − 23,1 · c) 3,8 × 5</p>`,
+ c:`<div class="figs" style="align-items:flex-start">${pose(["52,6","31,8"],"+","84,4")}${pose(["75,4","23,1"],"−","52,3")}${mulP([["3,8"],["5","×",true],["19,0","",false,true]])}</div>
+  <p>a) 52,6 + 31,8 = <b>84,4</b> &nbsp;·&nbsp; b) 75,4 − 23,1 = <b>52,3</b></p><p>c) 38 × 5 = 190 ; il y a 1 chiffre après la virgule dans 3,8, donc 3,8 × 5 = 19,0 = <b>19</b>.</p>
+  <p><i>1 point par opération juste et bien posée.</i></p>`},
+{t:"Une erreur de virgule ?", p:1, h:`<p>Malo a calculé 19,9 × 4. Il trouve 7,96.</p><p>Sans poser l'opération, explique pourquoi son résultat est faux.</p>${AIDE("19,9 est proche de 20.")}`,
+ c:`<p class="calc">19,9 × 4 ≈ 20 × 4 = 80</p><p>Le résultat doit être proche de 80. 7,96 est beaucoup trop petit : <b>Malo s'est trompé de place pour la virgule</b>. (Le bon résultat est 79,6.)</p><p><i>0,5 point pour l'ordre de grandeur, 0,5 point pour la conclusion.</i></p>`},
+{t:"Calcul mental", p:3, h:`${MEM(`<p>× 10, × 100, × 1 000 : la virgule se déplace de 1, 2 ou 3 rangs vers la droite.</p><p>× 0,1 et × 0,01 : la virgule se déplace de 1 ou 2 rangs vers la gauche.</p>`)}<p>Calcule sans poser l'opération.</p><p>a) 2,5 × 10 = …… · b) 0,6 × 100 = …… · c) 3,2 × 1 000 = …… · d) 45 × 0,1 = …… · e) 120 × 0,01 = …… · f) 9,1 × 10 = ……</p>`,
+ c:`<p>a) 2,5 × 10 = <b>25</b> · b) 0,6 × 100 = <b>60</b> · c) 3,2 × 1 000 = <b>3 200</b> · d) 45 × 0,1 = <b>4,5</b> · e) 120 × 0,01 = <b>1,2</b> · f) 9,1 × 10 = <b>91</b></p><p><i>0,5 point par calcul.</i></p>`},
+{t:"Au marché", p:3, h:`<p>Au marché, Mme Leroy achète 2 kg de tomates à 3,50 € le kilo et un melon à 2,40 €. Elle paie avec un billet de 20 €.</p><p>Combien la marchande doit-elle lui rendre ?</p>${AIDE("calcule d'abord le prix des tomates, puis le prix total.")}`,
+ c:`<p class="calc">2 × 3,50 = 7 €<br>7 + 2,40 = 9,40 €<br>20 − 9,40 = 10,60 €</p><p>La marchande doit lui rendre <b>10,60 €</b>.</p><p><i>1 point par calcul juste (le dernier avec la phrase).</i></p>`}
+]}
+};
+})()
 };
 })();

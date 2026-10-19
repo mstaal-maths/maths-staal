@@ -174,7 +174,7 @@ const EV8fig = fq({pts:{A:[0,0],B:[4,0],C:[3,1.8],D:[1,1.8]}, poly:["A","B","C",
 const EV9a = geo({pts:{A:[1,5],B:[7,5],C:[9,1],D:[3,1]}, grid:{c:10,r:6}, s:30, w:330, polys:[{v:["A","B","C","D"]}], marks:["A","B","C","D"], alt:"Le parallélogramme ABCD sur quadrillage"});
 const EV9b = geo({pts:{E:[1,4],F:[9,4],G:[13,1],H:[5,1]}, grid:{c:14,r:5}, s:30, w:450, polys:[{v:["E","F","G","H"]}], marks:["E","F","G","H"], alt:"Le parallélogramme EFGH sur quadrillage"});
 const EVAL = {
-titre:"Évaluation d'entraînement n° 2 · chapitres 3 et 4", duree:55, info:"Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
+titre:"Évaluation d'entraînement — Chapitres 3 et 4", duree:55, info:"Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
 comp:[
   ["MODÉLISER","Je passe d'un problème à une expression, et d'une expression à un programme de calcul.","Ex. 3, 4 et 5 (6,5 points)"],
   ["CALCULER","Je connais et j'utilise les priorités opératoires. Je calcule l'aire d'un parallélogramme.","Ex. 1, 2 et 9 (7 points)"],
@@ -184,10 +184,10 @@ comp:[
 exos:[
 {t:"Vrai ou faux ?", p:2, h:`<p>Pour chaque égalité, écris « vrai » ou « faux ». Si elle est fausse, recopie-la en ajoutant des parenthèses pour qu'elle devienne vraie.</p>
   <p>a) 3 + 5 × 2 = 16</p><p>b) 20 − 8 − 2 = 10</p><p>c) 36 ÷ 6 ÷ 2 = 12</p><p>d) {12 + 8/4} = 5</p>`,
- c:`<p>a) <b>Faux</b>, car ${C.inline("3 + 5 × 2")}. Avec des parenthèses : ${C.inline("(3 + 5) × 2")}.</p>
-  <p>b) <b>Vrai</b>, car on calcule de gauche à droite : ${C.inline("20 − 8 − 2")}.</p>
-  <p>c) <b>Faux</b>, car on calcule de gauche à droite : ${C.inline("36 ÷ 6 ÷ 2")}. Avec des parenthèses : ${C.inline("36 ÷ (6 ÷ 2)")}.</p>
-  <p>d) <b>Vrai</b>, car le trait de fraction regroupe le numérateur : {12 + 8/4} = (12 + 8) ÷ 4 = 20 ÷ 4 = 5.</p><p><i>0,5 point par égalité.</i></p>`},
+ c:`<p>a) <b>Faux</b> : la multiplication est prioritaire. Avec des parenthèses : (3 + 5) × 2 = 16.</p><div class="calcs">${C.html("3 + 5 × 2","A")}${C.html("(3 + 5) × 2","B")}</div>
+  <p>b) <b>Vrai</b> : on calcule de gauche à droite.</p><div class="calcs">${C.html("20 − 8 − 2","C")}</div>
+  <p>c) <b>Faux</b> : on calcule de gauche à droite. Avec des parenthèses : 36 ÷ (6 ÷ 2) = 12.</p><div class="calcs">${C.html("36 ÷ 6 ÷ 2","D")}${C.html("36 ÷ (6 ÷ 2)","E")}</div>
+  <p>d) <b>Vrai</b> : le trait de fraction regroupe le numérateur.</p><div class="calcs"><p class="calc">F = {12 + 8/4}<br>F = (12 + 8) ÷ 4<br>F = 20 ÷ 4<br>F = 5</p></div><p><i>0,5 point par égalité.</i></p>`},
 {t:"Le calcul de Théo", p:3, h:`<p>Théo a calculé B ainsi :</p><p class="calc">B = 18 − 2 × 3 + 4<br>B = 16 × 3 + 4<br>B = 48 + 4<br>B = 52</p>
   <p>a) Explique l'erreur de Théo.</p><p>b) Refais le calcul de B correctement, en détaillant tes étapes.</p>
   <p>c) Calcule C et D en détaillant toutes tes étapes.</p><div class="calcs"><span>C = 3 × [20 − (2 + 3) × 2]</span><span>D = 7,5 + 2,5 × 4</span></div>`,
@@ -238,6 +238,70 @@ exos:[
  c:`<p>a) ABCD : la base [AB] mesure 6 carreaux et la hauteur 4 carreaux. Aire = 6 × 4 = 24 cm². EFGH : la base [EF] mesure 8 carreaux et la hauteur 3 carreaux. Aire = 8 × 3 = 24 cm². <i>(1 point)</i></p>
   <p>b) Non, Mila a tort : les deux parallélogrammes ont la même aire, 24 cm². La hauteur se mesure perpendiculairement à la base, pas le long du côté penché. <i>(0,5 point)</i></p>
   <p>c) Aire = base × hauteur, donc 8 × hauteur = 36 et hauteur = 36 ÷ 8 = 4,5 cm. <i>(0,5 point)</i></p>`}
+]};
+/* ---- version aménagée (élèves à besoins éducatifs particuliers), faite comme M. Staal fait les siennes :
+   même durée, environ une question sur cinq retirée (jamais un exercice entier), questions renumérotées, barème recalculé sur 20 ---- */
+EVAL.bep = {
+titre:"Évaluation d'entraînement — Chapitres 3 et 4 · version aménagée", duree:55, info:"Version aménagée · Durée : 55 min · Calculatrice non autorisée · Règle, équerre et compas",
+note:"Même durée et mêmes exercices, avec environ une question sur cinq en moins (réparties dans plusieurs exercices). Les questions sont renumérotées et le barème est recalculé : la note reste sur 20. Les justifications sont toujours demandées.",
+comp:[
+  ["MODÉLISER","Je passe d'un problème à une expression, et d'une expression à un programme de calcul.","Ex. 3, 4 et 5 (7 points)"],
+  ["CALCULER","Je connais et j'utilise les priorités opératoires. Je calcule l'aire d'un parallélogramme.","Ex. 1, 2 et 9 (6 points)"],
+  ["REPRÉSENTER","Je construis un parallélogramme en vraie grandeur.","Ex. 6 (3,5 points)"],
+  ["RAISONNER","J'utilise les propriétés du parallélogramme pour calculer et démontrer, et je repère un raisonnement faux.","Ex. 7 et 8 (3,5 points)"]
+],
+exos:[
+{t:"Vrai ou faux ?", p:1.5, h:`<p>Pour chaque égalité, écris « vrai » ou « faux ». Si elle est fausse, recopie-la en ajoutant des parenthèses pour qu'elle devienne vraie.</p>
+  <p>a) 3 + 5 × 2 = 16</p><p>b) 36 ÷ 6 ÷ 2 = 12</p><p>c) {12 + 8/4} = 5</p>`,
+ c:`<p>a) <b>Faux</b> : la multiplication est prioritaire. Avec des parenthèses : (3 + 5) × 2 = 16.</p><div class="calcs">${C.html("3 + 5 × 2","A")}${C.html("(3 + 5) × 2","B")}</div>
+  <p>b) <b>Faux</b> : on calcule de gauche à droite. Avec des parenthèses : 36 ÷ (6 ÷ 2) = 12.</p><div class="calcs">${C.html("36 ÷ 6 ÷ 2","C")}${C.html("36 ÷ (6 ÷ 2)","D")}</div>
+  <p>c) <b>Vrai</b> : le trait de fraction regroupe le numérateur.</p><div class="calcs"><p class="calc">E = {12 + 8/4}<br>E = (12 + 8) ÷ 4<br>E = 20 ÷ 4<br>E = 5</p></div><p><i>0,5 point par égalité.</i></p>`},
+{t:"Le calcul de Théo", p:2.5, h:`<p>Théo a calculé B ainsi :</p><p class="calc">B = 18 − 2 × 3 + 4<br>B = 16 × 3 + 4<br>B = 48 + 4<br>B = 52</p>
+  <p>a) Explique l'erreur de Théo.</p><p>b) Refais le calcul de B correctement, en détaillant tes étapes.</p>
+  <p>c) Calcule C en détaillant toutes tes étapes.</p><div class="calcs"><span>C = 3 × [20 − (2 + 3) × 2]</span></div>`,
+ c:`<p>a) Théo a fait la soustraction 18 − 2 en premier. Or la multiplication est prioritaire : il fallait d'abord calculer 2 × 3. <i>(0,5 point)</i></p>
+  <p>b) <i>(0,75 point)</i></p>${C.html("18 − 2 × 3 + 4","B")}
+  <p>c) On commence par les parenthèses, à l'intérieur des crochets. <i>(1,25 point)</i></p>${C.html("3 × [20 − (2 + 3) × 2]","C")}`},
+{t:"Le bon calcul pour chaque problème", p:1.5, h:`<p>Pour chaque problème, écris la lettre de l'expression qui permet de le résoudre (attention, il y a des expressions en trop), puis calcule le résultat.</p>
+  <p><b>Problème 1 :</b> je choisis le nombre 6, j'ajoute 4, puis je multiplie le résultat par 3.</p>
+  <p><b>Problème 2 :</b> Sarah a 30 €. Elle achète 6 stylos à 4 € l'un. Combien d'argent lui reste-t-il ?</p>
+  <p><b>Problème 3 :</b> trois amis se partagent équitablement le prix d'un repas à 30 € et d'un gâteau à 6 €. Combien paie chacun ?</p>
+  <div class="calcs"><span><b>A</b> &nbsp; 6 + 4 × 3</span><span><b>B</b> &nbsp; (30 + 6) ÷ 3</span><span><b>C</b> &nbsp; 4 × 6 + 3</span><span><b>D</b> &nbsp; (6 + 4) × 3</span><span><b>E</b> &nbsp; 30 + 6 ÷ 3</span><span><b>F</b> &nbsp; (30 − 6) × 4</span><span><b>G</b> &nbsp; 30 − 6 × 4</span></div>`,
+ c:`<p><b>Problème 1 :</b> expression D.</p>${C.html("(6 + 4) × 3","D")}
+  <p><b>Problème 2 :</b> expression G.</p>${C.html("30 − 6 × 4","G")}<p>Il lui reste 6 €.</p>
+  <p><b>Problème 3 :</b> expression B.</p>${C.html("(30 + 6) ÷ 3","B")}<p>Chacun paie 12 €.</p>
+  <p>Les expressions A, C, E et F ne conviennent pas. Par exemple, dans A = 6 + 4 × 3, on multiplierait 4 par 3 avant d'ajouter 6. <i>(0,25 point par lettre juste, 0,25 point par résultat juste)</i></p>`},
+{t:"Retrouver le programme de calcul", p:2, h:`<p>Nina a choisi un nombre et lui a appliqué un programme de calcul. Elle a écrit tous ses calculs en une seule expression :</p><p class="calc">(9 − 4) × 6 + 2</p>
+  <p>a) Quel nombre Nina a-t-elle choisi ?</p><p>b) Écris son programme de calcul, étape par étape.</p><p>c) Calcule le résultat obtenu par Nina, en détaillant tes étapes.</p>`,
+ c:`<p>a) Nina a choisi le nombre 9. <i>(0,25 point)</i></p>
+  <p>b) <i>(1 point : les étapes doivent être dans le bon ordre)</i></p><div class="pgc"><b>Programme</b><ul><li>Choisir un nombre</li><li>Soustraire 4</li><li>Multiplier par 6</li><li>Ajouter 2</li></ul></div>
+  <p>c) <i>(0,75 point)</i> J'appelle A cette expression.</p>${C.html("(9 − 4) × 6 + 2","A")}`},
+{t:"Sortie au zoo", p:3.5, h:`<p>Les 25 élèves d'une classe vont au zoo. Le car coûte 300 € pour toute la classe, et l'entrée coûte 7 € par élève. Les élèves se partagent équitablement le prix du car. Combien chaque élève paie-t-il en tout ?</p>
+  <p>1) Écris une seule expression qui permet de résoudre le problème.</p><p>2) Effectue le calcul en détaillant tes étapes.</p><p>3) Conclus par une phrase.</p>`,
+ c:`<p>1) Chaque élève paie sa part du car (300 ÷ 25) et son entrée (7 €) : 300 ÷ 25 + 7. <i>(1,25 point)</i></p>
+  <p>2) <i>(1,75 point)</i> J'appelle A cette expression.</p>${C.html("300 ÷ 25 + 7","A")}
+  <p>3) Chaque élève paie 19 €. <i>(0,5 point)</i></p>
+  <p><i>Une autre expression juste :</i></p>${C.html("(300 + 25 × 7) ÷ 25","B")}`},
+{t:"Constructions", p:3.5, h:`<p>Construis ces deux figures en vraie grandeur. Laisse apparents tes traits de construction.</p>
+  <p>a) Le parallélogramme RSTU tel que RS = 6 cm, ST = 4 cm et RT = 8 cm.</p>
+  <p>b) Le losange EFGH de côté 4 cm tel que EG = 6 cm.</p>`,
+ c:`<p><b>a)</b> Je trace [RS] de 6 cm. Je place T avec deux arcs de cercle : centre R, rayon 8 cm, et centre S, rayon 4 cm. Les côtés opposés d'un parallélogramme ont la même longueur : je place U avec deux arcs, centre T, rayon 6 cm, et centre R, rayon 4 cm. <i>(1,75 point)</i></p>${fq({pts:EV6a, poly:["R","S","T","U"], segs:[["R","T"]], lens:[["R","S","6 cm",1],["S","T","4 cm",1],["R","T","8 cm",-1,14,0.4]], s:26})}
+  <p><b>b)</b> Un losange a quatre côtés de 4 cm. Je trace la diagonale [EG] de 6 cm. Je place F avec deux arcs de rayon 4 cm, de centres E et G, d'un côté de [EG], puis H de la même façon de l'autre côté. <i>(1,75 point)</i></p>${fq({pts:EV6b, poly:["E","F","G","H"], segs:[["E","G"]], ticks:[["E","F",1],["F","G",1],["G","H",1],["H","E",1]], lens:[["E","G","6 cm",-1,12]], s:26})}`},
+{t:"Enquête sur KLMN", p:2, h:`<p>KLMN est un parallélogramme de centre O. <i>Figure à main levée.</i></p>${EV7fig}
+  <p>a) Calcule les longueurs KM et LN. Justifie.</p><p>b) Déduis-en la nature précise du parallélogramme KLMN. Justifie.</p>`,
+ c:`<p>a) Je sais que KLMN est un parallélogramme de centre O. Or si un quadrilatère est un parallélogramme, alors ses diagonales se coupent en leur milieu. Donc O est le milieu de [KM] et de [LN] : KM = 2 × 2,5 = 5 cm et LN = 2 × 2,5 = 5 cm. <i>(1 point)</i></p>
+  <p>b) Je sais que KLMN est un parallélogramme qui a des diagonales de même longueur (KM = LN = 5 cm). Or si un parallélogramme a des diagonales de même longueur, alors c'est un rectangle. Donc KLMN est un rectangle. <i>(1 point)</i></p>`},
+{t:"Qui a raison ?", p:1.5, h:`<p>Léo et Inès ont chacun écrit une démonstration.</p>
+  <p><b>Léo :</b> « Je sais que les diagonales de ABCD ont la même longueur. Or si un quadrilatère a ses diagonales de même longueur, alors c'est un parallélogramme. Donc ABCD est un parallélogramme. »</p>
+  <p><b>Inès :</b> « Je sais que les diagonales de IJKL se coupent en leur milieu. Or si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme. Donc IJKL est un parallélogramme. »</p>
+  <p>a) Qui a fait un raisonnement juste ?</p><p>b) Explique l'erreur de l'autre, et dessine à main levée un quadrilatère qui le prouve.</p>`,
+ c:`<p>a) <b>Inès</b> a raison : elle utilise une propriété du cours. <i>(0,5 point)</i></p>
+  <p>b) La « propriété » de Léo est fausse : des diagonales de même longueur ne suffisent pas, il faut qu'elles se coupent en leur milieu. Par exemple, ce quadrilatère a des diagonales de même longueur, mais ce n'est pas un parallélogramme. <i>(1 point)</i></p>${EV8fig}`},
+{t:"Même aire ?", p:2, h:`<p>Sur le quadrillage, chaque carreau représente 1 cm.</p><p><b>Parallélogramme ABCD</b></p>${EV9a}<p><b>Parallélogramme EFGH</b></p>${EV9b}
+  <p>Mila affirme : « EFGH est plus long et plus penché que ABCD, donc son aire est plus grande. »</p>
+  <p>a) Calcule l'aire de ABCD et l'aire de EFGH.</p><p>b) Mila a-t-elle raison ? Explique.</p>`,
+ c:`<p>a) ABCD : la base [AB] mesure 6 carreaux et la hauteur 4 carreaux. Aire = 6 × 4 = 24 cm². EFGH : la base [EF] mesure 8 carreaux et la hauteur 3 carreaux. Aire = 8 × 3 = 24 cm². <i>(1,25 point)</i></p>
+  <p>b) Non, Mila a tort : les deux parallélogrammes ont la même aire, 24 cm². La hauteur se mesure perpendiculairement à la base, pas le long du côté penché. <i>(0,75 point)</i></p>`}
 ]};
 
 /* ====================================================================== */
@@ -453,6 +517,6 @@ quiz:[
 ],
 eval: EVAL
 };
-/* le chapitre 3 a sa propre petite évaluation (5e-3.js) */
+/* le chapitre 3 a sa propre évaluation d'entraînement, plus courte (5e-3.js) */
 window.FIG54 = {fq, P, add, sub, mul, dist, fourth, inter2, MAP};
 })();

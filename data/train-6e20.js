@@ -3,6 +3,10 @@ TRAIN["6e-20"] = function(){
 const {ri, pick, shuf, sp, distinct, items} = TR;
 const {cent, D, F} = window.FIG20;
 const L = "abcdef";
+/* calculs en chaîne : une étape par ligne, chaque ligne commence par « A = » (ou « P = », « l = »…) */
+const KC = (nm, st, lab) => `<p class="calc">${st.map((t,i)=>(i===0&&lab?lab+" ":"")+nm+(t[0]==="≈"?" ≈ "+t.slice(1).trim():" = "+t)).join("<br>")}</p>`;
+const KCS = arr => `<div class="calcs">${arr.map(x=>`<div>${x}</div>`).join("")}</div>`;
+const NM = "ABCDEF";
 
 /* ---------- A. Sens ---------- */
 const cs = distinct(3, ()=>ri(3,97), x=>x);
@@ -44,8 +48,8 @@ const vil = 100*ri(15,60), jeu = pick([8,12,15,18]);
 const secC = {t:"Appliquer un pourcentage", e:[
   {n:"Exercice 7", t:"Calcul mental", w:"Sur ton cahier", h:`<p>Calcule de tête : ${items([50,25,10,20,5,75].map(p=>`${p} % de ${N0}`),"  ·  ",true)}</p>`,
    c:items([50,25,10,20,5,75].map(p=>`${p} % de ${N0} = ${({50:`${N0} ÷ 2`,25:`${N0} ÷ 4`,10:`${N0} ÷ 10`,20:`2 × ${N0/10}`,5:`${N0/10} ÷ 2`,75:`3 × ${N0/4}`})[p]} = <b>${N0*p/100}</b>`),"  ·  ",true)},
-  {n:"Exercice 8", t:"Calculer un pourcentage", w:"Sur ton cahier", h:`<p>Calcule en posant « N × p ÷ 100 » : ${items(ap.map(([p,N],i)=>`${p} % de ${sp(N)} ${unit[i]}`),"  ·  ",true)}</p>`,
-   c:items(ap.map(([p,N],i)=>`${sp(N)} × ${p} ÷ 100 = ${sp(N*p)} ÷ 100 = <b>${D(N*p,2)} ${unit[i]}</b>`),"<br>",true)},
+  {n:"Exercice 8", t:"Calculer un pourcentage", w:"Sur ton cahier", h:`<p>Calcule en posant « N × p ÷ 100 » : ${items(ap.map(([p,N],i)=>`${NM[i]} = ${p} % de ${sp(N)} ${unit[i]}`),"  ·  ",true)}</p>`,
+   c:KCS(ap.map(([p,N],i)=>KC(NM[i],[`${p} % de ${sp(N)} ${unit[i]}`,`${sp(N)} × ${p} ÷ 100`,`${sp(N*p)} ÷ 100`,`<b>${D(N*p,2)} ${unit[i]}</b>`],L[i]+")")))},
   {n:"Exercice 9", t:"Ordre de grandeur", w:"Sur ton cahier", h:`<p>Donne un ordre de grandeur : ${items(og.map(([p],i)=>`${p} % de ${sp(ogN[i]+ri(-3,3))}`),"  ·  ",true)}</p>`,
    c:items(og.map(([p,mot,d],i)=>`≈ ${mot} de ${sp(ogN[i])} : <b>environ ${sp(d===4/3? ogN[i]*3/4 : ogN[i]/d)}</b>`),"  ·  ",true)},
   {n:"Exercice 10", t:"Des problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un pull coûte ${pull} €, avec une remise de ${rem} %. Montant de la remise ? Nouveau prix ?</p><p><b>Problème 2 :</b> une tablette de ${ch} g contient ${cac} % de cacao. Quelle masse de cacao ?</p><p><b>Problème 3 :</b> un village de ${sp(vil)} habitants compte ${jeu} % d'enfants de moins de 10 ans. Combien d'enfants ?</p>`,

@@ -77,8 +77,8 @@ const sym5 = (kind, show, w=74)=>{ let s="", a="";
   if(kind==="E"){ s=`<polygon points="30,25 82,25 82,41 46,41 46,57 78,57 78,73 46,73 46,89 82,89 82,105 30,105" ${ink}/>`; ax([30,65],[82,65]); }
   if(kind==="L"){ s=`<polygon points="35,20 51,20 51,94 80,94 80,110 35,110" ${ink}/>`; }
   if(kind==="X"){ s=`<polygon points="30,25 42,25 80,105 68,105" ${ink}/><polygon points="68,25 80,25 42,105 30,105" ${ink}/>`; ax([55,25],[55,105]); ax([30,65],[80,65]); ctr(55,65); }
-  if(kind==="cœur"){ s=`<path d="M55 104 C40 90 22 74 22 53 C22 38 32 30 42 30 C49 30 53 35 55 40 C57 35 61 30 68 30 C78 30 88 38 88 53 C88 74 70 90 55 104 Z" class="orig"/>`; ax([55,40],[55,104]); }
-  if(kind==="carreau"){ s=`<path d="M55 20 Q62 52 85 65 Q62 78 55 110 Q48 78 25 65 Q48 52 55 20 Z" class="orig"/>`; ax([55,20],[55,110]); ax([25,65],[85,65]); ctr(55,65); }
+  if(kind==="cœur"){ s=`<path d="M55 104 C40 90 22 74 22 53 C22 38 32 30 42 30 C49 30 53 35 55 40 C57 35 61 30 68 30 C78 30 88 38 88 53 C88 74 70 90 55 104 Z" class="orig" style="fill:#b3b9c2;stroke:#6b7280"/>`; ax([55,40],[55,104]); }
+  if(kind==="carreau"){ s=`<path d="M55 20 Q62 52 85 65 Q62 78 55 110 Q48 78 25 65 Q48 52 55 20 Z" class="orig" style="fill:#b3b9c2;stroke:#6b7280"/>`; ax([55,20],[55,110]); ax([25,65],[85,65]); ctr(55,65); }
   return `<svg class="fig geo" viewBox="0 0 110 130" width="${w}" role="img" aria-label="${kind}">${s}${a}</svg>`; };
 /* exemples de l'activité : la lettre M et son axe (d), la lettre H et son centre O */
 const exM = `<svg class="fig geo" viewBox="0 0 88 100" width="72" role="img" aria-label="La lettre M et son axe de symétrie (d)"><polygon points="25,79 25,38.5 31.5,38.5 43.5,63 55.5,38.5 62,38.5 62,79 57.5,79 57.5,46 46.5,71 40.5,71 29.5,46 29.5,79" style="fill:var(--ink)"/>${axeL([43.5,38.5],[43.5,79],14)}<text x="57" y="22" style="font-size:14px;fill:${AXC};font-weight:600">(d)</text></svg>`;

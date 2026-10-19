@@ -97,7 +97,7 @@ exos:[
 {t:"Nature et mesure d'un angle", e:[
   {n:"Exercice 3", t:"La nature d'un angle", w:"Sur ta feuille", h:`<p>À l'aide de ton équerre, indique la nature de chaque angle : aigu, droit ou obtus.</p>${ex("e3","Six angles a à f",400)}`,
    c:`a) <b>aigu</b> · b) <b>droit</b> · c) <b>obtus</b> · d) <b>aigu</b> · e) <b>obtus</b> · f) <b>droit</b><p><i>On place l'angle droit de l'équerre sur le sommet et sur un côté : si l'autre côté est « dans » l'équerre, l'angle est aigu ; s'il est en dehors, il est obtus.</i></p>`},
-  {n:"Exercice 4", t:"Un QCM", w:"Sur ta feuille", h:`<p>Sans rapporteur, entoure la bonne mesure de chaque angle.</p>${ex("e4","Quatre angles avec trois mesures proposées",490)}<p>1) 30° · 80° · 100° &nbsp; 2) 80° · 100° · 150° &nbsp; 3) 80° · 100° · 140° &nbsp; 4) 75° · 85° · 95°</p>`,
+  {n:"Exercice 4", t:"Un QCM", w:"Sur ta feuille", h:`<p>Sans rapporteur, entoure la bonne mesure de chaque angle. Les angles sont numérotés de 1 à 4.</p>${ex("e4","Quatre angles numérotés de 1 à 4",490)}<p>1) 30° · 80° · 100° &nbsp; 2) 80° · 100° · 150° &nbsp; 3) 80° · 100° · 140° &nbsp; 4) 75° · 85° · 95°</p>`,
    c:`1) <b>30°</b> (angle très aigu) · 2) <b>100°</b> (un peu plus qu'un angle droit) · 3) <b>140°</b> (obtus, très ouvert) · 4) <b>85°</b> (un peu moins qu'un angle droit)`},
   {n:"Exercice 5", t:"Estimer la mesure d'un angle", w:"Sur ta feuille", h:`<p>Sans rapporteur, estime la mesure de chaque angle. Tu as droit à une erreur de 10°. Vérifie ensuite au rapporteur.</p>${ex("e5","Quatre angles numérotés de 1 à 4",490)}`,
    c:`<p>Mesures au rapporteur (sur la fiche) : 1) <b>25°</b> · 2) <b>65°</b> · 3) <b>120°</b> · 4) <b>160°</b></p><p>Ton estimation est réussie si elle est à 10° près : par exemple, pour l'angle 2, une estimation entre 55° et 75°.</p>`}
@@ -124,7 +124,7 @@ exos:[
   {n:"Exercice 3", t:"Un éventail", w:"Sur la feuille de constructions", h:`<p>1) Construis la demi-droite [Oy) telle que ${A("xOy")} = 50°.</p><p>2) Construis la demi-droite [Oz) telle que ${A("yOz")} = 70°. La demi-droite [Oz) ne doit pas être à l'intérieur de l'angle ${A("xOy")}.</p><p>3) Sans mesurer, quelle doit être la mesure de l'angle ${A("xOz")} ? Vérifie avec ton rapporteur.</p>${kk("k3","La demi-droite [Ox)",440)}`,
    c:`${kk("k3c","Les demi-droites [Oy) et [Oz)",440)}<p>3) [Oz) est à l'extérieur de l'angle ${A("xOy")} : les deux angles s'ajoutent. ${A("xOz")} = 50° + 70° = <b>120°</b>.</p>`},
   {n:"Exercice 4", t:"L'étoile à cinq branches", w:"Sur la feuille de constructions", h:`${kk("k4s","L'étoile ABCDE : pointes de 36°",160)}<p>On veut construire l'étoile ABCDE : ses cinq segments mesurent <b>8 cm</b> et chacune de ses cinq pointes forme un angle de <b>36°</b>. Le segment [AB] est déjà tracé.</p><p>1) Construis le point C tel que ${A("ABC")} = 36° et BC = 8 cm.</p><p>2) Continue de la même façon : ${A("BCD")} = 36° et CD = 8 cm, puis ${A("CDE")} = 36° et DE = 8 cm. Tourne toujours du même côté.</p><p>3) Trace le segment [EA]. Vérifie : si ta construction est précise, EA = 8 cm et ${A("DEA")} = 36°.</p><p>4) Colorie ton étoile.</p>${kk("k4","Le segment [AB]",400)}`,
-   c:`<p>On répète quatre fois la même construction : rapporteur centré sur le dernier point, 0 sur le segment précédent, petit point en face de 36°, puis on reporte 8 cm.</p>${kk("k4c","L'étoile ABCDE construite",340)}<p>3) Le segment [EA] (en bleu) mesure bien 8 cm, et ${A("DEA")} = 36° : l'étoile se referme.</p>`}
+   c:`<p>On répète quatre fois la même construction : rapporteur centré sur le dernier point, 0 sur le segment précédent, petit point en face de 36°, puis on reporte 8 cm.</p>${kk("k4c","L'étoile ABCDE construite : ses cinq angles de 36° sont codés",340)}<p>3) Le segment [EA] (en bleu) mesure bien 8 cm, et ${A("DEA")} = 36° : l'étoile se referme.</p>`}
  ]},
 {t:"Programmer un déplacement", e:[
   {n:"Exercice 9", t:"Quel tracé ?", w:"Sur ta feuille", h:`<p>Voici deux programmes Scratch.</p>${ex("e9","Programme A : répéter 3 fois avancer de 80 pas, tourner de 120 degrés. Programme B : répéter 6 fois avancer de 80 pas, tourner de 60 degrés.",490)}<p>1) Dessine, à main levée, la figure tracée par chaque programme.</p><p>2) Le programme A trace un triangle dont les trois angles mesurent 60°. Pourtant, le lutin tourne de 120°. Explique pourquoi à l'aide d'un schéma.</p>`,
@@ -181,6 +181,83 @@ quiz:[
  3:[ {q:"Répéter 6 fois : avancer de 80 pas, tourner de 60 degrés. Quelle figure obtient-on ?", c:["un hexagone régulier","un triangle","un carré"], rep:"un hexagone régulier", sx:S_LUTIN},
      {q:"Pour tracer un rectangle avec un motif « avancer, tourner, avancer, tourner », combien de fois faut-il le répéter ?", c:["2","4","1"], rep:"2", sx:S_LUTIN} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const MEM = t => `<div class="retenir" data-l="Je me souviens">${t}</div>`;
+const AIDE = t => `<p><i><b>Aide :</b> ${t}</i></p>`;
+const T = (x,y,t,st="") => `<text x="${x}" y="${y}" text-anchor="middle" style="font-size:15px;font-weight:600;fill:var(--ink)${st}">${t}</text>`;
+const X = (x,y) => `<path d="M${x-4} ${y-4} L${x+4} ${y+4} M${x-4} ${y+4} L${x+4} ${y-4}" style="stroke:var(--ink);stroke-width:1.8"/>`;
+/* angle codé de sommet S (55°) : P sur un côté, K et R sur l'autre */
+const FIG1 = `<svg class="fig" viewBox="0 0 290 170" width="290" role="img" aria-label="Un angle codé de sommet S ; le point P est sur un côté ; les points K et R sont sur l'autre côté">
+  <path d="M60 140 L87.7 136.1 A28 28 0 0 0 72.7 115.1 Z" style="fill:${ORANGE};fill-opacity:.22;stroke:${ORANGE};stroke-width:2"/>
+  <line x1="60" y1="140" x2="273" y2="110.1" class="ln"/><line x1="60" y1="140" x2="125.8" y2="10.8" class="ln"/>
+  ${X(149.1,127.5)}${X(248.1,113.6)}${X(116.8,28.6)}${T(48,158,"S")}${T(152,149,"K")}${T(250,135,"R")}${T(101,28,"P")}</svg>`;
+/* demi-droites déjà tracées pour l'exercice 3 */
+const HL = (cx, dir, nV, nS, w) => { const x2 = dir>0 ? w-12 : 12; return `<svg class="fig" viewBox="0 0 ${w} 150" width="${w}" role="img" aria-label="La demi-droite [${nV}${nS}) déjà tracée">
+  <line x1="${cx}" y1="125" x2="${x2}" y2="125" class="ln"/>${X(cx,125)}${T(cx,146,nV)}${T(x2-dir*8,116,nS)}</svg>`; };
+/* angles agrandis pour pouvoir poser le rapporteur sur la feuille imprimée */
+const BIG = g => g.replace(/width="(\d+)"/, (m,w)=>`width="${Math.round(w*1.45)}"`);
+const COMP = [
+  ["COMMUNIQUER","Je reconnais le sommet et les côtés d'un angle, et j'écris correctement son nom.","Ex. 1 (3 points)"],
+  ["REPRÉSENTER","J'estime la nature d'un angle, puis je le mesure avec le rapporteur.","Ex. 2 (4 points)"],
+  ["REPRÉSENTER","Je construis un angle de mesure donnée avec le rapporteur.","Ex. 3 (3 points)"]
+];
+return {
+titre:"Évaluation d'entraînement — Chapitre 9", duree:30, info:"Durée : 30 min · Règle et rapporteur · Calculatrice non autorisée",
+comp:COMP,
+exos:[
+{t:"Le bon vocabulaire", p:3, h:`${FIG1}<p>Sur la figure, les points K et R sont sur le même côté de l'angle codé.</p>
+  <p>a) Quel est le sommet de l'angle codé ?</p><p>b) Quels sont ses deux côtés ?</p>
+  <p>c) Recopie toutes les écritures qui désignent l'angle codé : ${A("PSR")} · ${A("SPR")} · ${A("KSP")} · ${A("PKS")} · ${A("RSP")}</p>
+  <p>d) Sans le mesurer, dis si cet angle est aigu, droit ou obtus.</p>`,
+ c:`<p>a) Le sommet est le point <b>S</b>. <i>(0,5 point)</i></p>
+  <p>b) Ses côtés sont les demi-droites <b>[SP)</b> et <b>[SR)</b>. Comme K est sur [SR), on peut aussi écrire [SK). <i>(0,5 point)</i></p>
+  <p>c) ${A("PSR")}, ${A("KSP")} et ${A("RSP")} : la lettre du milieu est bien le sommet S. <i>(0,5 point par bonne écriture)</i></p>
+  <p>${A("SPR")} et ${A("PKS")} sont faux : leur lettre du milieu n'est pas S.</p>
+  <p>d) L'angle est plus petit qu'un angle droit : il est <b>aigu</b>. <i>(0,5 point)</i></p>`},
+{t:"Estimer puis mesurer", p:4, h:`<div class="figs">${BIG(angSVG(15,53,{names:["D","E","F"],w:200,h:150,cx:40,cy:120,L:115,alt:"L'angle DEF"}))}${BIG(angSVG(30,155,{names:["M","N","P"],w:230,h:130,cx:120,cy:100,L:95,alt:"L'angle MNP"}))}${BIG(angSVG(-20,51,{names:["X","Y","Z"],w:200,h:172,cx:45,cy:112,L:110,alt:"L'angle XYZ"}))}${BIG(angSVG(62,166,{names:["G","H","I"],w:230,h:150,cx:150,cy:115,L:105,alt:"L'angle GHI"}))}</div>
+  <p>1) Sans rapporteur, indique si chaque angle est aigu ou obtus.</p><p>2) Mesure ensuite chaque angle avec ton rapporteur.</p>
+  <div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("XYZ")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td>……</td><td>……</td><td>……</td><td>……</td></tr><tr><th>Mesure</th><td>……</td><td>……</td><td>……</td><td>……</td></tr></tbody></table></div>`,
+ c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("XYZ")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td><b>aigu</b></td><td><b>obtus</b></td><td><b>aigu</b></td><td><b>obtus</b></td></tr><tr><th>Mesure</th><td><b>38°</b></td><td><b>125°</b></td><td><b>71°</b></td><td><b>104°</b></td></tr></tbody></table></div>
+  <p>Pour mesurer : le centre du rapporteur sur le sommet, le 0 sur un côté, puis je lis sur la graduation qui part de ce 0. La mesure doit être d'accord avec la nature : par exemple ${A("GHI")} est obtus, donc c'est 104° et non 76°.</p>
+  <p><i>Par angle : 0,5 point pour la nature, 0,5 point pour la mesure (une erreur de 2° est acceptée).</i></p>`},
+{t:"Construire des angles", p:3, h:`<p>Les demi-droites [Ax) et [Bu) sont déjà tracées. Sur ta feuille, reproduis-les, puis :</p>
+  <div class="figs">${HL(130,1,"A","x",300)}${HL(220,-1,"B","u",260)}</div>
+  <p>a) construis la demi-droite [Ay) telle que ${A("xAy")} = 140°, et code l'angle ;</p>
+  <p>b) construis la demi-droite [Bv) telle que ${A("uBv")} = 35°, au-dessus de [Bu), et code l'angle ;</p>
+  <p>c) donne la nature de chacun de ces deux angles.</p>`,
+ c:`<p>a) Je place le centre du rapporteur en A et le 0 sur [Ax). Je suis la graduation qui part de ce 0 et je marque un point en face de 140. Je trace [Ay) et je code l'angle.</p>
+  <div class="figs">${angSVG(0,140,{names:["x","A","y"],label:"140°",w:300,h:160,cx:150,cy:130,L:120,alt:"L'angle xAy de 140° construit"})}${angSVG(145,180,{names:["v","B","u"],label:"35°",w:280,h:130,cx:230,cy:110,L:170,alt:"L'angle uBv de 35° construit"})}</div>
+  <p>b) Cette fois, [Bu) part vers la gauche : le 0 à utiliser est celui qui est sur [Bu). Je lis sur la graduation qui part de ce 0 et je marque 35.</p>
+  <p><i>Figures réduites. 1,25 point par angle construit et codé (une erreur de 2° est acceptée).</i></p>
+  <p>c) ${A("xAy")} = 140° : il est <b>obtus</b> (entre 90° et 180°). ${A("uBv")} = 35° : il est <b>aigu</b> (entre 0° et 90°). <i>(0,5 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 9 · version aménagée", duree:30, info:"Version aménagée · Durée : 30 min · Règle et rapporteur · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des angles plus faciles à mesurer, des rappels du cours (« Je me souviens »), des réponses à compléter ou à entourer et des aides.",
+comp:COMP,
+exos:[
+{t:"Le bon vocabulaire", p:3, h:`${MEM(`<p>Un angle se nomme avec trois lettres et un chapeau. La lettre du sommet est toujours au milieu.</p>`)}${FIG1}
+  <p>a) Le sommet de l'angle codé est le point ……</p><p>b) Ses côtés sont [S……) et [S……)</p>
+  <p>c) Entoure les deux écritures qui désignent l'angle codé : ${A("PSR")} · ${A("SPR")} · ${A("RSP")} · ${A("PRS")}</p>
+  <p>d) Entoure la nature de cet angle : aigu · obtus</p>`,
+ c:`<p>a) Le sommet est le point <b>S</b>. <i>(0,5 point)</i></p><p>b) Ses côtés sont <b>[SP)</b> et <b>[SR)</b> (ou [SK)). <i>(0,5 point)</i></p><p>c) ${A("PSR")} et ${A("RSP")} : le sommet S est au milieu. <i>(0,75 point chacune)</i></p><p>d) Il est <b>aigu</b> : plus petit qu'un angle droit. <i>(0,5 point)</i></p>`},
+{t:"Estimer puis mesurer", p:4, h:`${MEM(`<p>Je place le centre du rapporteur sur le sommet et le 0 sur un côté. Je lis sur la graduation qui part de ce 0.</p>`)}<div class="figs">${BIG(angSVG(0,40,{names:["D","E","F"],w:200,h:130,cx:35,cy:105,L:130,alt:"L'angle DEF"}))}${BIG(angSVG(0,130,{names:["M","N","P"],w:240,h:130,cx:120,cy:105,L:95,alt:"L'angle MNP"}))}${BIG(angSVG(0,70,{names:["X","Y","Z"],w:200,h:140,cx:40,cy:115,L:105,alt:"L'angle XYZ"}))}${BIG(angSVG(70,180,{names:["G","H","I"],w:230,h:140,cx:180,cy:115,L:105,alt:"L'angle GHI"}))}</div>
+  <p>1) Sans rapporteur, écris si chaque angle est aigu ou obtus.</p>${AIDE("un angle aigu est plus petit qu'un angle droit ; un angle obtus est plus grand.")}<p>2) Mesure chaque angle avec ton rapporteur.</p>
+  <div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("XYZ")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td>……</td><td>……</td><td>……</td><td>……</td></tr><tr><th>Mesure</th><td>……</td><td>……</td><td>……</td><td>……</td></tr></tbody></table></div>`,
+ c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("XYZ")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td><b>aigu</b></td><td><b>obtus</b></td><td><b>aigu</b></td><td><b>obtus</b></td></tr><tr><th>Mesure</th><td><b>40°</b></td><td><b>130°</b></td><td><b>70°</b></td><td><b>110°</b></td></tr></tbody></table></div>
+  <p>Un angle obtus mesure plus de 90° : si je lis 70° pour ${A("GHI")}, je me suis trompé de graduation (180 − 70 = 110).</p><p><i>Par angle : 0,5 point pour la nature, 0,5 point pour la mesure (une erreur de 2° est acceptée).</i></p>`},
+{t:"Construire des angles", p:3, h:`<p>Les demi-droites [Ax) et [Bu) sont déjà tracées. Sur ta feuille, reproduis-les, puis :</p>
+  <div class="figs">${HL(40,1,"A","x",240)}${HL(180,-1,"B","u",260)}</div>
+  <p>a) construis [Ay) telle que ${A("xAy")} = 50° ;</p><p>b) construis [Bv) telle que ${A("uBv")} = 120°, au-dessus de [Bu) ;</p>${AIDE("pour b), le 0 du rapporteur doit être sur [Bu), qui part vers la gauche.")}
+  <p>c) entoure la nature de chaque angle : ${A("xAy")} est aigu · obtus &nbsp; et &nbsp; ${A("uBv")} est aigu · obtus</p>`,
+ c:`<div class="figs">${angSVG(0,50,{names:["x","A","y"],label:"50°",w:240,h:140,cx:40,cy:120,L:130,alt:"L'angle xAy de 50° construit"})}${angSVG(60,180,{names:["v","B","u"],label:"120°",w:260,h:150,cx:180,cy:125,L:120,alt:"L'angle uBv de 120° construit"})}</div>
+  <p>Pour les deux angles : centre du rapporteur sur le sommet, 0 sur la demi-droite déjà tracée, point en face de la mesure, puis je trace le second côté et je code l'angle. <i>Figures réduites. 1,25 point par angle (une erreur de 2° est acceptée).</i></p>
+  <p>c) ${A("xAy")} est <b>aigu</b> ; ${A("uBv")} est <b>obtus</b>. <i>(0,5 point)</i></p>`}
+]}
+};
+})()
 };
 })();

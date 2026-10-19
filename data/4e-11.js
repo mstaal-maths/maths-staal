@@ -35,6 +35,8 @@ function addSteps(a,b,c,d,op){
   if(n===0) L.push("0");
   return {L, n, m};
 }
+/* calculs en chaîne « A = … » (outils définis dans 4e-1.js) */
+const {chn,chns,qChain}=window.CHN4;
 const calc=(name,L)=>`<p class="calc">${L.map(x=>`${name} = ${x}`).join("<br>")}</p>`;
 const line=L=>L.join(" = ");
 /* comparaison de a/b et c/d en les réduisant au même dénominateur */
@@ -78,10 +80,10 @@ const squares=G=>{ const out=[]; for(let i=0;i<G.length-1;i++) for(let j=0;j<G[0
 window.FR11={gcd,lcm,M,F,R,TY,simp,addSteps,calc,line,cmpSteps,bar,disk,op3,fig,ex,grid,squares,COL};
 
 /* ===================== schémas (rappels en image) ===================== */
-const S_EG=sch("Égalité de quotients",`<p class="calc">{5/8} = {5 × 4/8 × 4} = {20/32}</p><p class="schN">On multiplie (ou on divise) le numérateur <b>et</b> le dénominateur par le <b>même nombre</b> (différent de 0).</p>`);
-const S_SIMP=sch("Simplifier une fraction",`<p class="calc">{21/56} = {21 ÷ 7/56 ÷ 7} = {3/8}</p><p class="schN">On cherche un diviseur commun (tables, critères de divisibilité par 2, 3, 5, 9, 10).</p>`);
+const S_EG=sch("Égalité de quotients",`${chn("A",["{5/8}","{5 × 4/8 × 4}","{20/32}"])}<p class="schN">On multiplie (ou on divise) le numérateur <b>et</b> le dénominateur par le <b>même nombre</b> (différent de 0).</p>`);
+const S_SIMP=sch("Simplifier une fraction",`${chn("A",["{21/56}","{21 ÷ 7/56 ÷ 7}","{3/8}"])}<p class="schN">On cherche un diviseur commun (tables, critères de divisibilité par 2, 3, 5, 9, 10).</p>`);
 const S_CMP=sch("Comparer deux fractions",`<p class="calc">{9/5} = {27/15} et {27/15} &gt; {26/15}</p><p class="schN">On les écrit avec le <b>même dénominateur</b>, puis on compare les numérateurs.</p>`);
-const S_ADD=sch("Additionner, soustraire",`<p class="calc">{1/5} − {4/6} = {6/30} − {20/30} = {−14/30} = {−7/15}</p><p class="schN">1) même dénominateur ; 2) on additionne (ou soustrait) les numérateurs ; 3) on simplifie.</p>`);
+const S_ADD=sch("Additionner, soustraire",`${chn("C",["{1/5} − {4/6}","{6/30} − {20/30}","{−14/30}","{−7/15}"])}<p class="schN">1) même dénominateur ; 2) on additionne (ou soustrait) les numérateurs ; 3) on simplifie.</p>`);
 const S_PB=sch("Problèmes de partage",`<div class="figs">${disk(2,1,34)}${disk(5,2,34)}${disk(10,9,34)}</div><p class="calc">{1/2} + {2/5} = {5/10} + {4/10} = {9/10}</p><p class="schN">Le tout (le gâteau entier) correspond à 1.</p>`);
 
 /* ---------- générateurs du QCM ---------- */
@@ -109,9 +111,7 @@ cours:[
 {k:"1", t:"Égalité de quotients", h:`
   <div class="retenir" data-l="Propriété"><p>Un quotient (ou une fraction) ne change pas lorsqu'on <b>multiplie</b> ou lorsqu'on <b>divise</b> son <b>numérateur</b> et son <b>dénominateur</b> par un <b>même nombre</b> différent de 0.</p></div>
   <p><b>Exemples :</b></p>
-  <p class="calc">{5/8} = {5 × 4/8 × 4} = {20/32}</p>
-  <p class="calc">{11/9} = {11 × 3/9 × 3} = {33/27}</p>
-  <p class="calc">2 = {2/1} = {2 × 7/1 × 7} = {14/7}</p>`},
+  ${chns([["A",["{5/8}","{5 × 4/8 × 4}","{20/32}"]],["B",["{11/9}","{11 × 3/9 × 3}","{33/27}"]],["C",["2","{2/1}","{2 × 7/1 × 7}","{14/7}"]]])}`},
 {k:"2", t:"Simplifier une fraction", h:`
   <div class="retenir" data-l="Définition"><p><b>Simplifier</b> une fraction, c'est écrire une fraction qui lui est égale avec un <b>numérateur</b> et un <b>dénominateur plus petits</b>.</p></div>
   <div class="retenir" data-l="Méthode"><p>Il faut trouver un diviseur commun au numérateur et au dénominateur.</p><p>Pour cela, on peut s'aider des tables de multiplication ou des critères de divisibilité.</p></div>
@@ -130,14 +130,14 @@ cours:[
   <div class="retenir" data-l="Propriété"><p>Pour additionner (ou soustraire) des fractions :</p><p><b>1)</b> tout d'abord, on réduit ces nombres au <b>même dénominateur</b> ;</p><p><b>2)</b> ensuite, on additionne (ou on soustrait) les <b>numérateurs</b> et on garde le dénominateur commun ;</p><p><b>3)</b> enfin, on <b>simplifie</b> le quotient, si possible.</p></div>
   <p><b>Exemples :</b> il y a 4 types de calculs.</p>
   <p><b>1) Les dénominateurs sont les mêmes.</b></p>
-  ${calc("A",["{4/7} + {10/7}","{14/7}","{14 ÷ 7/7 ÷ 7}","{2/1} = 2"])}
+  ${calc("A",["{4/7} + {10/7}","{14/7}","{14 ÷ 7/7 ÷ 7}","{2/1}","2"])}
   <p><b>2) Un dénominateur est un multiple de l'autre.</b> Ici, 24 est un multiple de 8 car 24 = 3 × 8.</p>
   ${calc("B",["{25/24} + {−5/8}","{25/24} + {−5 × 3/8 × 3}","{25/24} + {−15/24}","{10/24}","{10 ÷ 2/24 ÷ 2}","{5/12}"])}
   <p><b>3) Les dénominateurs ne sont pas multiples l'un de l'autre :</b> on multiplie les dénominateurs entre eux. Ici, 30 sera notre dénominateur car 5 × 6 = 30.</p>
   ${calc("C",["{1/5} − {4/6}","{1 × 6/5 × 6} − {4 × 5/6 × 5}","{6/30} − {20/30}","{−14/30}","{−14 ÷ 2/30 ÷ 2}","{−7/15}"])}
   <p><b>4) On cherche un dénominateur plus petit.</b> On pourrait prendre comme dénominateur 9 × 12 = 108, mais on préfère prendre un dénominateur plus petit : 36, car 9 × 4 = 36 et 12 × 3 = 36.</p>
   ${calc("D",["{4/9} + {1/12}","{4 × 4/9 × 4} + {1 × 3/12 × 3}","{16/36} + {3/36}","{19/36}"])}
-  <div class="attention"><b>ATTENTION :</b> on n'additionne jamais les dénominateurs. Par exemple, {1/2} + {2/5} n'est pas égal à {3/7} : {1/2} + {2/5} = {5/10} + {4/10} = {9/10}.</div>`}
+  <div class="attention"><b>ATTENTION :</b> on n'additionne jamais les dénominateurs. Par exemple, {1/2} + {2/5} n'est pas égal à {3/7} :</div>${chn("E",["{1/2} + {2/5}","{5/10} + {4/10}","{9/10}"])}`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -194,10 +194,10 @@ exos:[
    ${calc("D",["{−16/−24}","{16/24}","{16 ÷ 8/24 ÷ 8}","{2/3}"])}<p>(Le quotient de deux nombres négatifs est positif.)</p>${calc("E",["{108/72}","{108 ÷ 36/72 ÷ 36}","{3/2}"])}<p>(On peut aussi simplifier en plusieurs étapes : par 9 puis par 4, ou par 4 puis par 9.)</p>`}
  ]},
 {t:"Pour les plus rapides", e:[
-  {n:"Exercice 12", t:"Défi", w:"Sur ton cahier", h:`<p>Avec deux des quatre nombres suivants :</p><p class="calc">{2/5} &nbsp;&nbsp; {−3/5} &nbsp;&nbsp; −{7/10} &nbsp;&nbsp; {11/20}</p><p>a) calcule la plus grande somme possible ;</p><p>b) calcule la plus petite somme possible ;</p><p>c) calcule la plus grande différence possible ;</p><p>d) calcule la plus petite différence possible.</p>`,
+  {n:"Exercice 12", t:"Défi", w:"Sur ton cahier", h:`<p>Avec deux des quatre nombres suivants :</p><p class="calc">{2/5} &nbsp;&nbsp; {−3/5} &nbsp;&nbsp; −{7/10} &nbsp;&nbsp; {11/20}</p><p>a) calcule la plus grande somme possible A ;</p><p>b) calcule la plus petite somme possible B ;</p><p>c) calcule la plus grande différence possible C ;</p><p>d) calcule la plus petite différence possible D.</p>`,
    c:`<p>On écrit les quatre nombres en vingtièmes : {2/5} = {8/20} ; {−3/5} = {−12/20} ; −{7/10} = {−14/20} ; {11/20}.</p><p>Rangés : {−14/20} &lt; {−12/20} &lt; {8/20} &lt; {11/20}.</p>
-   <p>a) On ajoute les deux plus grands : {2/5} + {11/20} = {8/20} + {11/20} = <b>{19/20}</b></p><p>b) On ajoute les deux plus petits : {−3/5} + (−{7/10}) = {−12/20} + {−14/20} = {−26/20} = <b>{−13/10}</b></p>
-   <p>c) Le plus grand moins le plus petit : {11/20} − (−{7/10}) = {11/20} + {14/20} = {25/20} = <b>{5/4}</b></p><p>d) Le plus petit moins le plus grand : −{7/10} − {11/20} = {−14/20} − {11/20} = {−25/20} = <b>{−5/4}</b></p>`},
+   <p>a) On ajoute les deux plus grands. b) On ajoute les deux plus petits.</p>${chns([["A",["{2/5} + {11/20}","{8/20} + {11/20}","<b>{19/20}</b>"]],["B",["{−3/5} + (−{7/10})","{−12/20} + {−14/20}","{−26/20}","<b>{−13/10}</b>"]]])}
+   <p>c) Le plus grand moins le plus petit. d) Le plus petit moins le plus grand.</p>${chns([["C",["{11/20} − (−{7/10})","{11/20} + {14/20}","{25/20}","<b>{5/4}</b>"]],["D",["−{7/10} − {11/20}","{−14/20} − {11/20}","{−25/20}","<b>{−5/4}</b>"]]])}`},
   {n:"Exercice 13", t:"À vélo", w:"Sur ton cahier", h:`${ex("velo.jpg","Vélo",130)}<p>Coline part du collège à vélo pour rentrer chez elle.</p><p>Elle parcourt les deux cinquièmes de son trajet quand elle s'aperçoit que son cartable est tombé de son porte-bagages.</p><p>Elle fait donc demi-tour et roule en sens inverse sur un sixième du parcours total, ramasse son cartable et remonte sur son vélo.</p><p>Il lui reste 2,3 km à parcourir jusque chez elle.</p><p>Quelle est la distance entre chez elle et son collège ?</p>`,
    c:`<p>Après le demi-tour, Coline se trouve à :</p><p class="calc">{2/5} − {1/6} = {12/30} − {5/30} = {7/30} du trajet</p><p>Il lui reste donc 1 − {7/30} = {23/30} du trajet, qui correspondent à 2,3 km.</p><p class="calc">{1/30} du trajet : 2,3 ÷ 23 = 0,1 km<br>Le trajet entier : 30 × 0,1 = 3 km</p><p>La distance entre chez elle et le collège est <b>3 km</b>.</p>`},
   {n:"Exercice 14", t:"Sommeil", w:"Sur ton cahier", h:`<p>Notre nuit de sommeil se divise en quatre phases : le temps d'endormissement, le sommeil léger, le sommeil lent profond et le sommeil paradoxal.</p><p>Dans un hôpital, on a enregistré les durées des différents types de sommeil d'un patient, en fraction de la durée totale :</p><p>• temps d'endormissement : {1/48} ;</p><p>• sommeil profond : {7/24} ;</p><p>• la phase de sommeil léger est plus longue que celle de sommeil profond ;</p><p>• la différence entre la phase de sommeil léger et celle de sommeil profond représente {1/8} de la durée totale de sommeil.</p><p>Quelle est la part de la phase de sommeil paradoxal ?</p>`,
@@ -261,9 +261,9 @@ comp:[
   ["MODÉLISER","Je résous un problème avec des fractions.","Ex. 4 et 5 (6 points)"]
 ],
 exos:[
-{t:"Fractions égales et simplification", p:4, h:`<p><b>1)</b> Complète.</p><p>a) {3/7} = {…/21} &nbsp;&nbsp; b) 5 = {…/3}</p><p><b>2)</b> Simplifie au maximum en détaillant les calculs.</p><p>a) {18/24} &nbsp;&nbsp; b) {45/60} &nbsp;&nbsp; c) {56/42}</p>`,
+{t:"Fractions égales et simplification", p:4, h:`<p><b>1)</b> Complète.</p><p>a) {3/7} = {…/21} &nbsp;&nbsp; b) 5 = {…/3}</p><p><b>2)</b> Simplifie au maximum en détaillant les calculs.</p><p>A = {18/24} &nbsp;&nbsp; B = {45/60} &nbsp;&nbsp; C = {56/42}</p>`,
  c:`<p><b>1)</b> a) {3/7} = {3 × 3/7 × 3} = {9/21} · b) 5 = {5 × 3/1 × 3} = {15/3} <i>(0,5 point chacun)</i></p>
- <p><b>2)</b> a) {18/24} = {18 ÷ 6/24 ÷ 6} = {3/4} · b) {45/60} = {45 ÷ 15/60 ÷ 15} = {3/4} · c) {56/42} = {56 ÷ 14/42 ÷ 14} = {4/3} <i>(1 point chacune ; on peut simplifier en plusieurs étapes)</i></p>`},
+ <p><b>2)</b></p>${chns([["A",["{18/24}","{18 ÷ 6/24 ÷ 6}","{3/4}"]],["B",["{45/60}","{45 ÷ 15/60 ÷ 15}","{3/4}"]],["C",["{56/42}","{56 ÷ 14/42 ÷ 14}","{4/3}"]]])}<p><i>(1 point chacune ; on peut simplifier en plusieurs étapes)</i></p>`},
 {t:"Comparer", p:4, h:`<p>Compare les deux nombres. Justifie.</p><p>a) {4/9} et {13/27} &nbsp;&nbsp; b) {7/6} et {11/9} &nbsp;&nbsp; c) {3/4} et {15/20} &nbsp;&nbsp; d) 2 et {9/4}</p>`,
  c:`<p>a) {4/9} = {4 × 3/9 × 3} = {12/27} et {12/27} &lt; {13/27}, donc {4/9} &lt; {13/27}. · b) {7/6} = {7 × 3/6 × 3} = {21/18} et {11/9} = {11 × 2/9 × 2} = {22/18}, donc {7/6} &lt; {11/9}. · c) {3/4} = {3 × 5/4 × 5} = {15/20}, donc {3/4} = {15/20}. · d) 2 = {2 × 4/1 × 4} = {8/4} et {8/4} &lt; {9/4}, donc 2 &lt; {9/4}.</p><p><i>(1 point par comparaison justifiée)</i></p>`},
 {t:"Calculer", p:6, h:`<p>Calcule et donne le résultat sous forme d'une fraction la plus simple possible.</p><p>A = {5/9} + {2/9} &nbsp;&nbsp; B = {7/12} − {1/4} &nbsp;&nbsp; C = {3/5} + {1/15}</p><p>D = {2/3} + {3/4} &nbsp;&nbsp; E = {5/6} − {4/9} &nbsp;&nbsp; F = 3 − {5/7}</p>`,
@@ -275,4 +275,6 @@ exos:[
  c:`<p>a) {1/4} = {2/8}. Pelouse : 1 − {2/8} − {3/8} = {8/8} − {5/8} = {3/8} <i>(2 points)</i></p><p>b) Légumes {2/8}, fleurs {3/8}, pelouse {3/8} : les fleurs et la pelouse occupent la même surface, la plus grande ({3/8} chacune). <i>(1 point)</i></p>`}
 ]}
 };
+/* calculs en chaîne « A = … » dans les explications du QCM (simplifier, additionner et soustraire) */
+CH["4e-11"].quiz.forEach((N,ni)=>{ if(ni!==1 && ni!==3) return; Object.values(N.q).forEach(list=>list.forEach((it,i)=>{ if(it.g){ const g=it.g; list[i]={g:()=>qChain(g())}; } else list[i]=qChain(it); })); });
 })();

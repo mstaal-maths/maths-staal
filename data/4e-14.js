@@ -44,11 +44,11 @@ function bande(n,k,v,w=420){ const h=40, u=(w-4)/n; let s=`<svg class="fig" view
 window.FR14={gcd,M,P,F,red,R,TY,FR2,mul,inv,div,calc,line,bande};
 
 /* ===================== schémas ===================== */
-const S_MUL=sch("Multiplier deux fractions",`<p class="calc">{a/b} × {c/d} = {a × c/b × d}</p><p class="calc">{5/8} × {9/4} = {5 × 9/8 × 4} = {45/32}</p><p class="schN">Numérateurs entre eux, dénominateurs entre eux. On simplifie (si possible avant de multiplier).</p>`);
-const S_SIM=sch("Simplifier avant de multiplier",`<p class="calc">{32/45} × {35/24} = {8 × 4 × 5 × 7/5 × 9 × 8 × 3} = {4 × 7/9 × 3} = {28/27}</p><p class="schN">On décompose les nombres pour faire apparaître les mêmes facteurs en haut et en bas, puis on les barre.</p>`);
+const S_MUL=sch("Multiplier deux fractions",`<p class="calc">{a/b} × {c/d} = {a × c/b × d}</p><p class="calc">A = {5/8} × {9/4}<br>A = {5 × 9/8 × 4}<br>A = {45/32}</p><p class="schN">Numérateurs entre eux, dénominateurs entre eux. On simplifie (si possible avant de multiplier).</p>`);
+const S_SIM=sch("Simplifier avant de multiplier",`<p class="calc">D = {32/45} × {35/24}<br>D = {8 × 4 × 5 × 7/5 × 9 × 8 × 3}<br>D = {4 × 7/9 × 3}<br>D = {28/27}</p><p class="schN">On décompose les nombres pour faire apparaître les mêmes facteurs en haut et en bas, puis on les barre.</p>`);
 const S_DE=sch("Prendre une fraction d'un nombre",`${bande(7,3,8,280)}<p class="calc">{3/7} de 56 : 56 ÷ 7 = 8, puis 3 × 8 = 24<br>ou {3/7} × 56 = 24</p>`);
 const S_INV=sch("Inverse d'un nombre",`<p class="calc">L'inverse de {7/6} est {6/7} car {7/6} × {6/7} = 1</p><p class="calc">L'inverse de 9 est {1/9}</p><p class="schN">Deux nombres sont inverses si leur produit vaut 1. 0 n'a pas d'inverse.</p>`);
-const S_DIV=sch("Diviser par une fraction",`<p class="calc">{a/b} ÷ {c/d} = {a/b} × {d/c}</p><p class="calc">{−3/5} ÷ {4/6} = {−3/5} × {6/4} = {−18/20} = {−9/10}</p><p class="schN">Diviser par un nombre, c'est multiplier par son inverse.</p>`);
+const S_DIV=sch("Diviser par une fraction",`<p class="calc">{a/b} ÷ {c/d} = {a/b} × {d/c}</p><p class="calc">C = {−3/5} ÷ {4/6}<br>C = {−3/5} × {6/4}<br>C = {−18/20}<br>C = {−9/10}</p><p class="schN">Diviser par un nombre, c'est multiplier par son inverse.</p>`);
 
 /* ---------- générateurs ---------- */
 const nz=(a,b)=>{ let x; do{ x=ri(a,b); }while(x===0); return x; };
@@ -113,11 +113,11 @@ cours:[
 /* ===================== EXERCICES ===================== */
 exos:[
 {t:"Multiplier des fractions", e:[
-  {n:"Exercice 1", t:"Multiplier puis simplifier", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p><p>a) {3/5} × {7/2}</p><p>b) {1/4} × {3/5}</p><p>c) {−1/5} × {5/−3}</p><p>d) {−3/5} × {7/9}</p><p>e) 6 × {1/5}</p><p>f) (−9) × {−2/3}</p>`,
+  {n:"Exercice 1", t:"Multiplier puis simplifier", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p><p>A = {3/5} × {7/2}</p><p>B = {1/4} × {3/5}</p><p>C = {−1/5} × {5/−3}</p><p>D = {−3/5} × {7/9}</p><p>E = 6 × {1/5}</p><p>F = (−9) × {−2/3}</p>`,
    c:`${calc("A",["{3/5} × {7/2}","{3 × 7/5 × 2}","{21/10}"])}${calc("B",["{1/4} × {3/5}","{1 × 3/4 × 5}","{3/20}"])}
    ${calc("C",["{−1/5} × {5/−3}","{−1 × 5/5 × (−3)}","{−5/−15}","{−5 ÷ 5/−15 ÷ 5}","{−1/−3}","{1/3}"])}<p>Deux nombres négatifs que l'on divise donnent un nombre positif.</p>
    ${calc("D",["{−3/5} × {7/9}","{−3 × 7/5 × 9}","{−21/45}","{−21 ÷ 3/45 ÷ 3}","{−7/15}"])}
-   ${calc("E",["6 × {1/5}","{6/1} × {1/5}","{6/5}"])}${calc("F",["(−9) × {−2/3}","{−9/1} × {−2/3}","{18/3}","{18 ÷ 3/3 ÷ 3}","{6/1} = 6"])}`},
+   ${calc("E",["6 × {1/5}","{6/1} × {1/5}","{6/5}"])}${calc("F",["(−9) × {−2/3}","{−9/1} × {−2/3}","{18/3}","{18 ÷ 3/3 ÷ 3}","{6/1}","6"])}`},
   {n:"Exercice 2", t:"Simplifier avant de multiplier", w:"Sur ton cahier", h:`<p>Calcule en simplifiant avant d'effectuer les multiplications.</p><p>A = {3/7} × {8/3}</p><p>B = {2/15} × {15/11}</p><p>C = {14/23} × {1/7}</p><p>D = {2/11} × {3/4}</p><p>E = {7/8} × {1/21}</p><p>F = {2/3} × {3/4} × {4/5}</p>`,
    c:`${calc("A",["{3/7} × {8/3}","{3 × 8/7 × 3}","{8/7}"])}${calc("B",["{2/15} × {15/11}","{2 × 15/15 × 11}","{2/11}"])}${calc("C",["{14/23} × {1/7}","{14 × 1/23 × 7}","{7 × 2 × 1/23 × 7}","{2/23}"])}
    ${calc("D",["{2/11} × {3/4}","{2 × 3/11 × 4}","{2 × 3/11 × 2 × 2}","{3/22}"])}${calc("E",["{7/8} × {1/21}","{7 × 1/8 × 21}","{7 × 1/8 × 7 × 3}","{1/24}"])}${calc("F",["{2/3} × {3/4} × {4/5}","{2 × 3 × 4/3 × 4 × 5}","{2/5}"])}`},
@@ -143,10 +143,10 @@ exos:[
    c:`${calc("A",["{3/7} ÷ {4/5}","{3/7} × {5/4}","{3 × 5/7 × 4}","{15/28}"])}${calc("B",["{6/11} ÷ {5/4}","{6/11} × {4/5}","{6 × 4/11 × 5}","{24/55}"])}${calc("C",["{11/9} ÷ {1/2}","{11/9} × {2/1}","{22/9}"])}
    ${calc("D",["{15/4} ÷ 2","{15/4} ÷ {2/1}","{15/4} × {1/2}","{15 × 1/4 × 2}","{15/8}"])}${calc("E",["4 ÷ {7/9}","{4/1} ÷ {7/9}","{4/1} × {9/7}","{4 × 9/7}","{36/7}"])}${calc("F",["{3/8} ÷ {5/7}","{3/8} × {7/5}","{3 × 7/8 × 5}","{21/40}"])}`},
   {n:"Exercice 10", t:"Des fractions de fractions", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p>
-   <div class="figs" style="gap:40px"><p>a) ${FR2("{2/9}","−{5/3}")}</p><p>b) ${FR2("{3/5}","{1/5}")}</p><p>c) ${FR2("−3","{6/5}")}</p><p>d) ${FR2("−{3/6}","5")}</p></div>`,
+   <div class="figs" style="gap:40px"><p>A = ${FR2("{2/9}","−{5/3}")}</p><p>B = ${FR2("{3/5}","{1/5}")}</p><p>C = ${FR2("−3","{6/5}")}</p><p>D = ${FR2("−{3/6}","5")}</p></div>`,
    c:`<p><b>Remarque :</b> −{5/3} = {−5/3}.</p>
-   <p class="calc">A = {2/9} ÷ (−{5/3})<br>A = {2/9} ÷ ({−5/3})<br>A = {2/9} × {3/−5}<br>A = {2 × 3/3 × 3 × (−5)}<br>A = {2/−15} = {−2/15}</p>
-   <p class="calc">B = {3/5} ÷ {1/5}<br>B = {3/5} × {5/1}<br>B = {3 × 5/5 × 1}<br>B = {3/1} = 3</p>
+   <p class="calc">A = {2/9} ÷ (−{5/3})<br>A = {2/9} ÷ ({−5/3})<br>A = {2/9} × {3/−5}<br>A = {2 × 3/3 × 3 × (−5)}<br>A = {2/−15}<br>A = {−2/15}</p>
+   <p class="calc">B = {3/5} ÷ {1/5}<br>B = {3/5} × {5/1}<br>B = {3 × 5/5 × 1}<br>B = {3/1}<br>B = 3</p>
    <p class="calc">C = −3 ÷ {6/5}<br>C = {−3/1} ÷ {6/5}<br>C = {−3/1} × {5/6}<br>C = {−15/6}<br>C = {−15 ÷ 3/6 ÷ 3}<br>C = {−5/2}</p>
    <p class="calc">D = −{3/6} ÷ 5<br>D = {−3/6} ÷ {5/1}<br>D = {−3/6} × {1/5}<br>D = {−3/30}<br>D = {−3 ÷ 3/30 ÷ 3}<br>D = {−1/10}</p>`}
  ]}
@@ -172,14 +172,14 @@ quiz:[
      {g:()=>{ const a=ri(2,15); return {q:`Quel est l'inverse de ${a} ?`, c:shuf(uniq(F(1,a),[M(-a),"0",String(a)])), rep:F(1,a), ex:`${a} × ${F(1,a)} = 1.`, sx:S_INV}; }} ],
  2:[ {g:()=>{ let a,b; do{ b=ri(2,9); a=ri(1,9); }while(gcd(a,b)>1); return {q:`Quel est l'inverse de ${F(-a,b)} ?`, c:shuf(uniq(F(-b,a),[F(b,a),F(a,b),F(-a,b)].map(x=>x))), rep:F(-b,a), ex:`L'inverse garde le même signe : ${F(-a,b)} × ${F(-b,a)} = ${F(a*b,a*b)} = 1.`, sx:S_INV}; }} ],
  3:[ {q:"Vrai ou faux : 0 a un inverse.", c:["Vrai","Faux"], rep:"Faux", ex:"0 × n'importe quel nombre = 0, jamais 1 : 0 n'a pas d'inverse.", sx:S_INV},
-     {g:()=>{ const a=ri(2,9), b=ri(2,9); const ok=Math.random()<0.5, c=ok?b:b+1; return {q:`Vrai ou faux : ${F(a,b)} et ${F(c,a)} sont inverses l'un de l'autre.`, c:["Vrai","Faux"], rep:ok?"Vrai":"Faux", ex:`${F(a,b)} × ${F(c,a)} = ${F(a*c,a*b)}${ok?" = 1":", qui n'est pas égal à 1"}.`, sx:S_INV}; }} ]
+     {g:()=>{ const a=ri(2,9); let b; do{ b=ri(2,9); }while(b===a); const ok=Math.random()<0.5, c=ok?b:b+1; return {q:`Vrai ou faux : ${F(a,b)} et ${F(c,a)} sont inverses l'un de l'autre.`, c:["Vrai","Faux"], rep:ok?"Vrai":"Faux", ex:`${F(a,b)} × ${F(c,a)} = ${F(a*c,a*b)}${ok?" = 1":", qui n'est pas égal à 1"}.`, sx:S_INV}; }} ]
 }},
 {nom:"Diviser des fractions", schema:S_DIV, q:{
  1:[ {g:()=>{ let a,b,k; do{ b=ri(2,9); a=ri(1,9); k=ri(2,6); }while(gcd(a,b)>1); const S=div(a,b,k,1,{mid:[`${F(a,b)} ÷ {${k}/1}`]}); return {q:`Calcule : ${F(a,b)} ÷ ${k}`, rep:TY(S.n,S.d), ex:line(S.L)+".", sx:S_DIV}; }},
      {q:"Diviser par un nombre non nul revient à…", c:["multiplier par son inverse","multiplier par son opposé","diviser par son inverse"], rep:"multiplier par son inverse", sx:S_DIV} ],
  2:[ {g:()=>{ let a,b,c,d; do{ b=ri(2,9); a=ri(1,9); d=ri(2,9); c=ri(1,9); }while(gcd(a,b)>1||gcd(c,d)>1||c===d); const S=div(a,b,c,d); return {q:`Calcule : ${F(a,b)} ÷ ${F(c,d)} (fraction simplifiée)`, rep:TY(S.n,S.d), ex:line(S.L)+".", sx:S_DIV}; }} ],
  3:[ {g:()=>{ let a,b,c,d; do{ b=ri(2,9); a=nz(-9,9); d=ri(2,9); c=ri(1,9); }while(gcd(a,b)>1||gcd(c,d)>1||c===d); const S=div(a,b,c,d,{first:FR2(F(a,b),F(c,d))}); S.L.splice(1,0,`${F(a,b)} ÷ ${F(c,d)}`);
-       return {q:`Calcule : ${FR2(F(a,b),F(c,d))}`, rep:TY(S.n,S.d), ex:line(S.L)+".", sx:S_DIV, kb:"text"}; }},
+       return {q:`Calcule : ${FR2(F(a,b),F(c,d))}`, rep:TY(S.n,S.d), ex:line(S.L.slice(1))+".", sx:S_DIV, kb:"text"}; }},   /* la 1re ligne (la fraction de fractions) est reprise de la question par qChain */
      {g:()=>{ let a,c,d; do{ a=nz(-9,9); d=ri(2,9); c=ri(1,9); }while(gcd(c,d)>1||c===d); const S=div(a,1,c,d,{mid:[`{${M(a)}/1} ÷ ${F(c,d)}`]}); return {q:`Calcule : ${M(a)} ÷ ${F(c,d)}`, rep:TY(S.n,S.d), ex:line(S.L)+".", sx:S_DIV, kb:"text"}; }} ]
 }}
 ],
@@ -208,4 +208,6 @@ exos:[
  c:`<p>a) {3/8} × 360 = {3 × 8 × 45/8} = 135 € <i>(1 point)</i></p><p>b) {1/5} × 360 = 360 ÷ 5 = 72 € <i>(1 point)</i></p><p>c) 360 − 135 − 72 = 153 €. Fraction : 1 − {3/8} − {1/5} = {40/40} − {15/40} − {8/40} = {17/40} (et {17/40} × 360 = 153). <i>(2 points)</i></p>`}
 ]}
 };
+/* calculs en chaîne « A = … » dans les explications du QCM (multiplier, inverse, diviser ; outil défini dans 4e-1.js) */
+CH["4e-14"].quiz.forEach((N,ni)=>{ if(ni===1) return; Object.entries(N.q).forEach(([l,list])=>{ if(ni===2 && l==="3") return; list.forEach((it,i)=>{ if(it.g){ const g=it.g; list[i]={g:()=>window.CHN4.qChain(g())}; } else list[i]=window.CHN4.qChain(it); }); }); });
 })();

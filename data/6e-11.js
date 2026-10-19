@@ -83,7 +83,7 @@ cours:[
   <div class="retenir" data-l="Propriété"><p>Si un triangle est <b>rectangle</b>, alors ses deux angles aigus ont pour somme 90° (car 180° − 90° = 90°). Un triangle rectangle isocèle a donc deux angles de 45°.</p></div>
   ${co("part","Triangles équilatéral, isocèle en A, rectangle en A et rectangle isocèle en A",480)}
   <p><b>Remarque :</b> inversement, un triangle qui a deux angles de même mesure est isocèle, et un triangle qui a trois angles de 60° est équilatéral.</p>
-  <p><b>Exemple :</b> ABC est isocèle en A et ${A("ABC")} = 70°. Les angles à la base ont la même mesure, donc ${A("ACB")} = 70°. Puis ${A("BAC")} = 180° − (70° + 70°) = 180° − 140° = 40°.</p>`},
+  <p><b>Exemple :</b> ABC est isocèle en A et ${A("ABC")} = 70°. Les angles à la base ont la même mesure, donc ${A("ACB")} = 70°. Puis :</p><p class="calc">${A("BAC")} = 180° − (70° + 70°)<br>${A("BAC")} = 180° − 140°<br>${A("BAC")} = <b>40°</b></p>`},
 {k:"IV", t:"Construire un triangle", h:`
   <h4>1. Connaissant un côté et les deux angles à ses extrémités</h4>
   <p><b>Exemple :</b> construire le triangle ABC tel que AB = 5 cm, ${A("BAC")} = 40° et ${A("ABC")} = 60°.</p>
@@ -115,25 +115,25 @@ exos:[
  ]},
 {t:"Les angles des triangles particuliers", e:[
   {n:"Exercice 5", t:"Triangles particuliers", w:"Sur ta feuille", h:`<p>Les figures sont codées et faites à main levée. Calcule les mesures des angles demandés.</p>${ex("e5","a) ABC isocèle en A avec 50° en B ; b) KLM isocèle en L avec 100° en L ; c) RST équilatéral ; d) UVW rectangle isocèle en U",490)}<p>a) ${A("ACB")} et ${A("BAC")} · b) ${A("LKM")} et ${A("LMK")} · c) ${A("RST")}, ${A("STR")} et ${A("TRS")} · d) ${A("UVW")} et ${A("VWU")}</p>`,
-   c:`<p>a) ABC est isocèle en A : ses angles à la base sont égaux, ${A("ACB")} = ${A("ABC")} = <b>50°</b>. Puis ${A("BAC")} = 180° − (50° + 50°) = <b>80°</b>.</p><p>b) KLM est isocèle en L : ${A("LKM")} = ${A("LMK")}. Ensemble, ils mesurent 180° − 100° = 80°, donc ${A("LKM")} = ${A("LMK")} = 80° ÷ 2 = <b>40°</b>.</p><p>c) RST est équilatéral : ${A("RST")} = ${A("STR")} = ${A("TRS")} = <b>60°</b>.</p><p>d) UVW est rectangle isocèle en U : ${A("UVW")} = ${A("VWU")} = (180° − 90°) ÷ 2 = <b>45°</b>.</p>`},
+   c:`<p>a) ABC est isocèle en A : ses angles à la base sont égaux, ${A("ACB")} = ${A("ABC")} = <b>50°</b>. Puis :</p><p class="calc">${A("BAC")} = 180° − (50° + 50°)<br>${A("BAC")} = 180° − 100°<br>${A("BAC")} = <b>80°</b></p><p>b) KLM est isocèle en L : ${A("LKM")} = ${A("LMK")}.</p><p class="calc">${A("LKM")} = (180° − 100°) ÷ 2<br>${A("LKM")} = 80° ÷ 2<br>${A("LKM")} = <b>40°</b></p><p>Donc ${A("LMK")} = <b>40°</b> aussi.</p><p>c) RST est équilatéral : ${A("RST")} = ${A("STR")} = ${A("TRS")} = <b>60°</b>.</p><p>d) UVW est rectangle isocèle en U : ${A("UVW")} = ${A("VWU")}.</p><p class="calc">${A("UVW")} = (180° − 90°) ÷ 2<br>${A("UVW")} = 90° ÷ 2<br>${A("UVW")} = <b>45°</b></p><p>Donc ${A("VWU")} = <b>45°</b> aussi.</p>`},
   {n:"Exercice 6", t:"Des problèmes", w:"Sur ta feuille", h:`<p>1) Un triangle isocèle a un angle de 120°. Quelles sont les mesures de ses deux autres angles ? Explique.</p><p>2) Un triangle isocèle a un angle de 70°. Il y a deux possibilités pour ses deux autres angles : trouve-les.</p><p>3) Dans un triangle rectangle, un des angles aigus mesure 27°. Combien mesure l'autre angle aigu ?</p>`,
    c:`<p>1) L'angle de 120° ne peut pas être un angle à la base : il y en aurait deux, et 120 + 120 = 240 &gt; 180. C'est donc l'angle au sommet principal. Les deux angles à la base mesurent (180° − 120°) ÷ 2 = <b>30° chacun</b>.</p><p>2) <b>Si 70° est l'angle au sommet principal :</b> les angles à la base mesurent (180° − 70°) ÷ 2 = <b>55° et 55°</b>.<br><b>Si 70° est un angle à la base :</b> l'autre angle à la base mesure aussi 70°, et le troisième 180° − 140° = <b>40°</b>. Les autres angles sont alors <b>70° et 40°</b>.</p><p>3) Les angles aigus d'un triangle rectangle ont pour somme 90° : 90° − 27° = <b>63°</b>.</p>`},
   {n:"Exercice 7", t:"Vrai ou faux ?", w:"Sur ta feuille", h:`<p>Réponds par vrai ou faux, puis justifie.</p><p>a) Un triangle rectangle peut avoir un angle obtus.</p><p>b) Un triangle qui a deux angles de 45° est rectangle isocèle.</p><p>c) Un triangle qui a trois angles de même mesure est équilatéral.</p><p>d) Un triangle peut avoir deux angles droits.</p>`,
    c:`<p>a) <b>Faux.</b> L'angle droit fait déjà 90° : les deux autres angles ont pour somme 90°, donc ils sont aigus.</p><p>b) <b>Vrai.</b> Le troisième angle mesure 180° − 90° = 90° : le triangle est rectangle ; et il a deux angles égaux : il est isocèle.</p><p>c) <b>Vrai.</b> Chaque angle mesure 180° ÷ 3 = 60° : un triangle qui a trois angles de 60° est équilatéral.</p><p>d) <b>Faux.</b> 90° + 90° = 180° : il ne resterait rien pour le troisième angle.</p>`},
   {n:"Exercice 8", t:"Défi", w:"Sur ta feuille", h:`<div class="cpt"><div><p>Sur cette figure à main levée, ABC est un triangle équilatéral et ACD est un triangle rectangle isocèle en C.</p><p>1) Quelle est la mesure de l'angle ${A("BAC")} ?</p><p>2) Quelle est la mesure de l'angle ${A("CAD")} ?</p><p>3) Déduis-en la mesure de l'angle ${A("BAD")}.</p><p>4) Calcule la mesure de l'angle ${A("BCD")}.</p><p>5) Explique pourquoi le triangle BCD est isocèle en C, puis calcule la mesure de l'angle ${A("CBD")}.</p></div>${ex("e8","ABC équilatéral, ACD rectangle isocèle en C",200)}</div>`,
-   c:`<p>1) ABC est équilatéral : ${A("BAC")} = <b>60°</b>.</p><p>2) ACD est rectangle isocèle en C : ses angles aigus mesurent 45°, donc ${A("CAD")} = <b>45°</b>.</p><p>3) ${A("BAD")} = ${A("BAC")} + ${A("CAD")} = 60° + 45° = <b>105°</b>.</p><p>4) ${A("BCD")} = ${A("BCA")} + ${A("ACD")} = 60° + 90° = <b>150°</b>.</p><p>5) CB = CA (ABC est équilatéral) et CA = CD (ACD est isocèle en C), donc <b>CB = CD</b> : le triangle BCD est isocèle en C.</p><p>Ses angles à la base sont égaux : ${A("CBD")} = ${A("CDB")} = (180° − 150°) ÷ 2 = <b>15°</b>.</p>`}
+   c:`<p>1) ABC est équilatéral : ${A("BAC")} = <b>60°</b>.</p><p>2) ACD est rectangle isocèle en C : ses angles aigus mesurent 45°, donc ${A("CAD")} = <b>45°</b>.</p><p>3)</p><p class="calc">${A("BAD")} = ${A("BAC")} + ${A("CAD")}<br>${A("BAD")} = 60° + 45°<br>${A("BAD")} = <b>105°</b></p><p>4)</p><p class="calc">${A("BCD")} = ${A("BCA")} + ${A("ACD")}<br>${A("BCD")} = 60° + 90°<br>${A("BCD")} = <b>150°</b></p><p>5) CB = CA (ABC est équilatéral) et CA = CD (ACD est isocèle en C), donc <b>CB = CD</b> : le triangle BCD est isocèle en C.</p><p>Ses angles à la base sont égaux : ${A("CBD")} = ${A("CDB")}.</p><p class="calc">${A("CBD")} = (180° − 150°) ÷ 2<br>${A("CBD")} = 30° ÷ 2<br>${A("CBD")} = <b>15°</b></p><p>Donc ${A("CDB")} = <b>15°</b> aussi.</p>`}
  ]},
 {t:"Construire un triangle", note:"Pour chaque construction, fais d'abord un dessin à main levée codé, puis construis le triangle en vraie grandeur sur ton cahier. <i>Les figures des corrections sont réduites.</i>", e:[
   {n:"Exercice 9", t:"Un côté et deux angles", w:"Sur ton cahier", h:`<p>a) Construis le triangle ABC tel que AB = 6 cm, ${A("BAC")} = 50° et ${A("ABC")} = 70°.</p><p>b) Construis le triangle RST tel que ST = 5 cm, ${A("RST")} = 35° et ${A("STR")} = 120°.</p><p>c) Construis un triangle équilatéral de côté 4 cm en utilisant seulement la règle et le rapporteur. Explique ta méthode.</p><p>d) Pour chaque triangle, mesure le troisième angle, puis vérifie ta mesure par un calcul.</p>`,
-   c:`<div class="cgrid"><figure><figcaption>a) ${A("ACB")} = 180° − (50° + 70°) = <b>60°</b></figcaption>${tri(fromASA(6,50,70),{k:30,n:["A","B","C"],arc:[{i:0,t:"50°"},{i:1,t:"70°",c:"o"},{i:2,t:"60°",c:"g"}],side:[{i:0,j:1,t:"6 cm"}]})}</figure>
-   <figure><figcaption>b) ${A("SRT")} = 180° − (35° + 120°) = <b>25°</b></figcaption>${tri(fromASA(5,35,120),{k:26,n:["S","T","R"],arc:[{i:0,t:"35°"},{i:1,t:"120°",c:"o"},{i:2,t:"25°",c:"g",r:30}],side:[{i:0,j:1,t:"5 cm"}]})}</figure>
-   <figure><figcaption>c) Je trace [AB] de 4 cm, puis deux angles de <b>60°</b> en A et en B. Les demi-droites se coupent en C. Calcul : 180° − (60° + 60°) = 60°.</figcaption>${tri(fromASA(4,60,60),{k:34,n:["A","B","C"],arc:[{i:0,t:"60°"},{i:1,t:"60°",c:"o"},{i:2,t:"60°",c:"g"}],ticks:[[0,1,1],[1,2,1],[2,0,1]]})}</figure></div>`},
+   c:`<div class="cgrid"><figure><figcaption>a) <p class="calc">${A("ACB")} = 180° − (50° + 70°)<br>${A("ACB")} = 180° − 120°<br>${A("ACB")} = <b>60°</b></p></figcaption>${tri(fromASA(6,50,70),{k:30,n:["A","B","C"],arc:[{i:0,t:"50°"},{i:1,t:"70°",c:"o"},{i:2,t:"60°",c:"g"}],side:[{i:0,j:1,t:"6 cm"}]})}</figure>
+   <figure><figcaption>b) <p class="calc">${A("SRT")} = 180° − (35° + 120°)<br>${A("SRT")} = 180° − 155°<br>${A("SRT")} = <b>25°</b></p></figcaption>${tri(fromASA(5,35,120),{k:26,n:["S","T","R"],arc:[{i:0,t:"35°"},{i:1,t:"120°",c:"o"},{i:2,t:"25°",c:"g",r:30}],side:[{i:0,j:1,t:"5 cm"}]})}</figure>
+   <figure><figcaption>c) Je trace [AB] de 4 cm, puis deux angles de <b>60°</b> en A et en B. Les demi-droites se coupent en C. Calcul :<p class="calc">${A("ACB")} = 180° − (60° + 60°)<br>${A("ACB")} = 180° − 120°<br>${A("ACB")} = <b>60°</b></p></figcaption>${tri(fromASA(4,60,60),{k:34,n:["A","B","C"],arc:[{i:0,t:"60°"},{i:1,t:"60°",c:"o"},{i:2,t:"60°",c:"g"}],ticks:[[0,1,1],[1,2,1],[2,0,1]]})}</figure></div>`},
   {n:"Exercice 10", t:"Deux côtés et l'angle compris", w:"Sur ton cahier", h:`<p>a) Construis le triangle EFG tel que EF = 5 cm, EG = 4 cm et ${A("FEG")} = 75°.</p><p>b) Construis le triangle KLM tel que KL = 6 cm, KM = 6 cm et ${A("LKM")} = 40°. Quelle est la nature de ce triangle ? Calcule ses deux autres angles, puis vérifie en mesurant.</p><p>c) Construis le triangle PQR rectangle en P tel que PQ = 4 cm et PR = 3 cm. Mesure le côté [QR].</p>`,
    c:`<div class="cgrid"><figure><figcaption>a) [EF] de 5 cm, angle de 75° en E, puis G à 4 cm de E.</figcaption>${tri(fromSAS(5,4,75),{k:30,n:["E","F","G"],arc:[{i:0,t:"75°"}],side:[{i:0,j:1,t:"5 cm"},{i:2,j:0,t:"4 cm"}]})}</figure>
-   <figure><figcaption>b) KL = KM : KLM est <b>isocèle en K</b>. ${A("KLM")} = ${A("KML")} = (180° − 40°) ÷ 2 = <b>70°</b>.</figcaption>${tri(fromSAS(6,6,40),{k:26,n:["K","L","M"],arc:[{i:0,t:"40°",r:30},{i:1,t:"70°",c:"o"},{i:2,t:"70°",c:"o"}],ticks:[[0,1,1],[0,2,1]]})}</figure>
+   <figure><figcaption>b) KL = KM : KLM est <b>isocèle en K</b>. ${A("KLM")} = ${A("KML")}.<p class="calc">${A("KLM")} = (180° − 40°) ÷ 2<br>${A("KLM")} = 140° ÷ 2<br>${A("KLM")} = <b>70°</b></p>Donc ${A("KML")} = <b>70°</b> aussi.</figcaption>${tri(fromSAS(6,6,40),{k:26,n:["K","L","M"],arc:[{i:0,t:"40°",r:30},{i:1,t:"70°",c:"o"},{i:2,t:"70°",c:"o"}],ticks:[[0,1,1],[0,2,1]]})}</figure>
    <figure><figcaption>c) On mesure <b>QR = 5 cm</b>.</figcaption>${tri(fromSAS(4,3,90),{k:34,n:["P","Q","R"],right:[0],side:[{i:0,j:1,t:"4 cm"},{i:2,j:0,t:"3 cm"},{i:1,j:2,t:"5 cm"}]})}</figure></div>`},
   {n:"Exercice 11", t:"Calculer avant de construire", w:"Sur ton cahier", h:`<p>On veut construire le triangle GHI tel que GH = 7 cm, ${A("GHI")} = 40° et ${A("HIG")} = 65°.</p><p>1) Pourquoi ne peut-on pas commencer directement la construction avec ces deux angles ?</p><p>2) Calcule la mesure de l'angle ${A("IGH")}, puis construis le triangle GHI.</p>`,
-   c:`<p>1) L'angle ${A("HIG")} a pour sommet I, qui n'est pas une extrémité du côté connu [GH] : on ne sait pas où le tracer.</p><p>2) ${A("IGH")} = 180° − (40° + 65°) = 180° − 105° = <b>75°</b>. Je trace [GH] de 7 cm, un angle de 75° en G et un angle de 40° en H : les demi-droites se coupent en I.</p>${tri(fromASA(7,75,40),{k:26,n:["G","H","I"],arc:[{i:0,t:"75°"},{i:1,t:"40°",c:"o"},{i:2,t:"65°",c:"g"}],side:[{i:0,j:1,t:"7 cm"}]})}`},
+   c:`<p>1) L'angle ${A("HIG")} a pour sommet I, qui n'est pas une extrémité du côté connu [GH] : on ne sait pas où le tracer.</p><p>2) Dans le triangle GHI, la somme des angles est égale à 180°.</p><p class="calc">${A("IGH")} = 180° − (40° + 65°)<br>${A("IGH")} = 180° − 105°<br>${A("IGH")} = <b>75°</b></p><p>Je trace [GH] de 7 cm, un angle de 75° en G et un angle de 40° en H : les demi-droites se coupent en I.</p>${tri(fromASA(7,75,40),{k:26,n:["G","H","I"],arc:[{i:0,t:"75°"},{i:1,t:"40°",c:"o"},{i:2,t:"65°",c:"g"}],side:[{i:0,j:1,t:"7 cm"}]})}`},
   {n:"Exercice 12", t:"Une construction impossible ?", w:"Sur ton cahier", h:`<p>Tom essaie de construire le triangle ABC tel que AB = 5 cm, ${A("BAC")} = 100° et ${A("ABC")} = 85°. Il n'y arrive pas.</p><p>1) Essaie à ton tour. Que se passe-t-il ?</p><p>2) Explique, sans construire, pourquoi ce triangle n'existe pas.</p>`,
    c:`<p>1) Les deux demi-droites tracées en A et en B s'écartent l'une de l'autre : <b>elles ne se coupent pas</b>, on ne peut pas placer C.</p>
    <svg class="fig" viewBox="0 0 300 170" width="300" role="img" aria-label="Les demi-droites issues de A et de B s'écartent"><line x1="90" y1="140" x2="230" y2="140" class="ln"/><line x1="90" y1="140" x2="66" y2="4" style="stroke:#1e5aa8;stroke-width:2;stroke-dasharray:6 4"/><line x1="230" y1="140" x2="218" y2="4" style="stroke:#e08a00;stroke-width:2;stroke-dasharray:6 4"/><path d="M110 140 A20 20 0 0 0 86.5 120.3" style="fill:none;stroke:#1e5aa8;stroke-width:2"/><path d="M210 140 A20 20 0 0 1 228.3 120.1" style="fill:none;stroke:#e08a00;stroke-width:2"/><text x="80" y="160" style="font-size:15px;font-weight:700;fill:var(--ink)">A</text><text x="232" y="160" style="font-size:15px;font-weight:700;fill:var(--ink)">B</text><text x="96" y="118" style="font-size:13px;font-weight:700;fill:#1e5aa8">100°</text><text x="190" y="118" style="font-size:13px;font-weight:700;fill:#e08a00">85°</text><text x="160" y="160" text-anchor="middle" style="font-size:13px;fill:var(--ink)">5 cm</text></svg>
@@ -168,6 +168,68 @@ quiz:[
  3:[ {g:()=>{ const a=ri(95,120), b=ri(185-a,100); return {q:`Peut-on construire ABC avec AB = 5 cm, ${A("BAC")} = ${a}° et ${A("ABC")} = ${b}° ?`, c:["Non","Oui"], rep:"Non", ex:`${a} + ${b} = ${a+b}, plus que 180°.`}; }},
      {q:"Le triangle PQR est rectangle en P avec PQ = 4 cm et PR = 3 cm. Combien mesure QR ?", c:["5 cm","7 cm","6 cm"], rep:"5 cm", ex:"On le construit, puis on mesure."} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const MEM = t => `<div class="retenir" data-l="Je me souviens">${t}</div>`;
+const AIDE = t => `<p><i><b>Aide :</b> ${t}</i></p>`;
+const tan = d => Math.tan(d*Math.PI/180);
+/* triangle KLM rectangle en K (angle donné en L) et triangle PQR isocèle en P (angle à la base donné en Q) */
+const FK = l => tri([[0,0],[4.5,0],[0,4.5*tan(l)]],{k:30,n:["K","L","M"],right:[0],arc:[{i:1,t:l+"°",c:"o"},{i:2,t:"?",c:"r"}],alt:`Triangle KLM rectangle en K, avec un angle de ${l}° en L`});
+const FP = q => tri([[0,0],[5,0],[2.5,2.3]],{k:34,n:["Q","R","P"],arc:[{i:0,t:q+"°",c:"o"},{i:1,t:"?",c:"r"},{i:2,t:"?",c:"r"}],ticks:[[2,0,1],[2,1,1]],alt:`Triangle PQR isocèle en P, avec un angle de ${q}° en Q`});
+const FIGS = (l,q) => `<div class="cgrid"><figure><figcaption>b)</figcaption>${FK(l)}</figure><figure><figcaption>c)</figcaption>${FP(q)}</figure></div>`;
+const CONS = (a,b,c) => tri(fromASA(5,a,b),{k:30,n:["R","S","T"],arc:[{i:0,t:a+"°"},{i:1,t:b+"°",c:"o"},{i:2,t:c+"°",c:"g"}],side:[{i:0,j:1,t:"5 cm"}],ticks:a===c?[[0,1,1],[1,2,1]]:[],alt:`Le triangle RST construit (figure réduite)`});
+const COMP = [
+  ["RAISONNER","Je sais dire si un triangle peut exister à partir des mesures de ses angles.","Ex. 1 (2 points)"],
+  ["CALCULER","Je calcule un angle d'un triangle avec la somme des angles, y compris dans un triangle rectangle ou isocèle.","Ex. 2 (4 points)"],
+  ["REPRÉSENTER","Je construis un triangle dont je connais un côté et les deux angles à ses extrémités.","Ex. 3 (4 points)"]
+];
+return {
+titre:"Évaluation d'entraînement — Chapitre 11", duree:30, info:"Durée : 30 min · Règle graduée et rapporteur · Calculatrice non autorisée",
+comp:COMP,
+exos:[
+{t:"Ces triangles existent-ils ?", p:2, h:`<p>Lisa et Tom ont chacun donné les mesures des trois angles d'un triangle. Pour chacun, dis si ce triangle peut exister. Justifie par un calcul.</p><p>a) Lisa : 35°, 75° et 70°.</p><p>b) Tom : 110°, 50° et 30°.</p>`,
+ c:`<p>a) 35 + 75 + 70 = 180. La somme est égale à 180° : <b>oui</b>, le triangle de Lisa peut exister.</p>
+  <p>b) 110 + 50 + 30 = 190. La somme n'est pas égale à 180° : <b>non</b>, le triangle de Tom ne peut pas exister.</p>
+  <p><i>Par question : 0,5 point pour le calcul, 0,5 point pour la conclusion.</i></p>`},
+{t:"Calculer des angles", p:4, h:`<p>Rédige comme dans le cours. Les figures b) et c) sont faites à main levée : on ne mesure pas, on calcule.</p>
+  <p>a) DEF est un triangle tel que ${A("DEF")} = 54° et ${A("DFE")} = 73°. Calcule ${A("EDF")}.</p>
+  <p>b) Le triangle KLM est rectangle en K. Calcule ${A("KML")}.</p>
+  <p>c) Le triangle PQR est isocèle en P. Calcule ${A("PRQ")}, puis ${A("QPR")}.</p>${FIGS(28,35)}`,
+ c:`<p>a)</p>${red("DEF",53,54,73,"EDF")}<p><i>(1,5 point)</i></p>
+  <p>b) Le triangle KLM est rectangle en K, donc ${A("LKM")} = 90°.</p>${red("KLM",62,90,28,"KML")}<p><i>(1 point)</i></p>
+  <p>c) Le triangle PQR est isocèle en P : ses deux angles à la base sont égaux, donc ${A("PRQ")} = ${A("PQR")} = <b>35°</b>.</p>${red("PQR",110,35,35,"QPR")}<p><i>(0,5 point pour ${A("PRQ")}, 1 point pour ${A("QPR")})</i></p>`},
+{t:"Construire un triangle", p:4, h:`<p>On veut construire le triangle RST tel que RS = 5 cm, ${A("SRT")} = 35° et ${A("RST")} = 110°.</p>
+  <p>a) Fais un dessin à main levée de ce triangle, et places-y toutes les données.</p><p>b) Construis le triangle RST en vraie grandeur.</p>
+  <p>c) Calcule la mesure de l'angle ${A("RTS")}. Que peux-tu en déduire pour le triangle RST ? Vérifie en mesurant le côté [ST].</p>`,
+ c:`<p>a) Un dessin à main levée avec RS = 5 cm, l'angle de 35° en R et l'angle de 110° en S. <i>(0,5 point)</i></p>
+  <p>b) Je trace [RS] de 5 cm. En R, je trace avec le rapporteur une demi-droite qui forme un angle de 35° avec [RS]. En S, du même côté, je trace une demi-droite qui forme un angle de 110° avec [SR]. Les deux demi-droites se coupent en T.</p>${CONS(35,110,35)}
+  <p><i>Figure réduite. 2 points : [RS] juste (0,5), angle de 35° (0,5), angle de 110° (0,5), point T placé et nommé (0,5).</i></p>
+  <p>c)</p>${red("RST",35,35,110,"RTS")}<p>Les angles ${A("SRT")} et ${A("RTS")} ont la même mesure (35°) : le triangle RST est <b>isocèle en S</b>. On mesure bien ST = 5 cm = RS. <i>(1 point pour le calcul, 0,5 point pour la nature)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 11 · version aménagée", duree:30, info:"Version aménagée · Durée : 30 min · Règle graduée et rapporteur · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+comp:COMP,
+exos:[
+{t:"Ces triangles existent-ils ?", p:2, h:`${MEM(`<p>Dans un triangle, la somme des trois angles est égale à 180°.</p>`)}<p>Lisa et Tom ont donné les mesures des trois angles d'un triangle. Ce triangle peut-il exister ? Justifie par un calcul.</p><p>a) Lisa : 60°, 50° et 70°.</p><p>b) Tom : 100°, 50° et 40°.</p>${AIDE("additionne les trois mesures, puis compare avec 180°.")}`,
+ c:`<p>a) 60 + 50 + 70 = 180 : <b>oui</b>, il peut exister.</p><p>b) 100 + 50 + 40 = 190, ce n'est pas 180 : <b>non</b>, il ne peut pas exister.</p><p><i>Par question : 0,5 point pour le calcul, 0,5 point pour la conclusion.</i></p>`},
+{t:"Calculer des angles", p:4, h:`${MEM(`<p>Dans un triangle, la somme des trois angles est égale à 180°.</p><p>Un angle droit mesure 90°. Dans un triangle isocèle, les deux angles à la base sont égaux.</p>`)}<p>Les figures b) et c) sont à main levée : on calcule.</p>
+  <p>a) DEF est un triangle tel que ${A("DEF")} = 50° et ${A("DFE")} = 60°. Calcule ${A("EDF")}.</p>${AIDE(`${A("EDF")} = 180° − (50° + 60°).`)}
+  <p>b) Le triangle KLM est rectangle en K. Calcule ${A("KML")}.</p>
+  <p>c) Le triangle PQR est isocèle en P. Calcule ${A("PRQ")}, puis ${A("QPR")}.</p>${AIDE(`${A("PRQ")} = ${A("PQR")}.`)}${FIGS(40,40)}`,
+ c:`<p>a)</p>${red("DEF",70,50,60,"EDF")}<p><i>(1,5 point)</i></p>
+  <p>b) KLM est rectangle en K, donc ${A("LKM")} = 90°.</p>${red("KLM",50,90,40,"KML")}<p><i>(1 point)</i></p>
+  <p>c) PQR est isocèle en P, donc ${A("PRQ")} = ${A("PQR")} = <b>40°</b>.</p>${red("PQR",100,40,40,"QPR")}<p><i>(0,5 point pour ${A("PRQ")}, 1 point pour ${A("QPR")})</i></p>`},
+{t:"Construire un triangle", p:4, h:`<p>On veut construire le triangle RST tel que RS = 5 cm, ${A("SRT")} = 40° et ${A("RST")} = 100°.</p>
+  <p>a) Fais un dessin à main levée, et places-y les données.</p><p>b) Construis le triangle RST en vraie grandeur.</p>${AIDE("trace d'abord [RS]. En R, trace l'angle de 40°. En S, trace l'angle de 100°, du même côté. Les deux demi-droites se coupent en T.")}
+  <p>c) Calcule la mesure de l'angle ${A("RTS")}, puis vérifie avec ton rapporteur.</p>`,
+ c:`<p>a) Un dessin à main levée avec RS = 5 cm, 40° en R et 100° en S. <i>(0,5 point)</i></p>
+  <p>b)</p>${CONS(40,100,40)}<p><i>Figure réduite. 2 points : [RS] juste (0,5), angle de 40° (0,5), angle de 100° (0,5), point T placé et nommé (0,5).</i></p>
+  <p>c)</p>${red("RST",40,40,100,"RTS")}<p>Au rapporteur, on trouve bien environ 40°. <i>(1 point pour le calcul, 0,5 point pour la vérification)</i></p>`}
+]}
+};
+})()
 };
 })();

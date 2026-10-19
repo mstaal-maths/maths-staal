@@ -2,7 +2,9 @@
 TRAIN["4e-19"] = function(){
 const {ri, pick, shuf, distinct} = TR;
 const {F, P, pw, PU, fr, dev, dec10, cols, tabH, jetons} = window.PUI19;
-const L="abcdefghij";
+const L="abcdefghij", NM="ABCDEFGHIJ";
+/* calculs en chaîne « A = … » : une ligne par étape */
+const {chns}=window.CHN4, CL=(N,s)=>[N,s.split(" = ")];
 
 /* ===== Exercice 1 : contamination ===== */
 const C1={k:pick([2,3,4,5]), d:ri(5,9)};
@@ -46,18 +48,18 @@ return [
    c:`<p>Jour 1 : ${C1.k}<sup>0</sup> = 1 ; jour 2 : ${C1.k}<sup>1</sup> = ${C1.k} ; jour 3 : ${C1.k}<sup>2</sup> = ${C1.k**2}. L'exposant vaut le numéro du jour moins 1.</p><p class="calc">Jour ${C1.d} : ${C1.k}<sup>${C1.d-1}</sup> = ${F(C1.k**(C1.d-1))}</p>`},
   {n:"Exercice 2", t:"Écrire sous forme d'une puissance", w:"Sur ton cahier", h:`<p>Écris chaque produit sous la forme d'une puissance.</p>${cols(E2.map(([a,n],i)=>`${L[i]}) ${dev(a,n)}`))}`,
    c:cols(E2.map(([a,n],i)=>`${L[i]}) ${dev(a,n)} = ${a}<sup>${n}</sup>`))},
-  {n:"Exercice 3", t:"Calculer des puissances", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(E3.map(([a,n],i)=>`${L[i]}) ${pw(a,n)}`))}`,
-   c:`<p class="calc">${E3.map(([a,n],i)=>`${L[i]}) ${pw(a,n)} = ${a===10?"":dev(a,n)+" = "}${F(a**n)}`).join("<br>")}</p>`}
+  {n:"Exercice 3", t:"Calculer des puissances", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(E3.map(([a,n],i)=>`${NM[i]} = ${pw(a,n)}`))}`,
+   c:chns(E3.map(([a,n],i)=>CL(NM[i],`${pw(a,n)} = ${a===10?"":dev(a,n)+" = "}${F(a**n)}`)))}
  ]},
  {t:"Les puissances négatives", e:[
-  {n:"Exercice 4", t:"Écrire avec un exposant négatif", w:"Sur ton cahier", h:`<p>Écris chaque quotient sous la forme d'une puissance d'exposant négatif.</p>${cols(E4.map(([a,n],i)=>`${L[i]}) ${fr(1,dev(a,n))}`))}`,
-   c:cols(E4.map(([a,n],i)=>`${L[i]}) ${fr(1,dev(a,n))} = ${fr(1,PU(a,n))} = ${a}<sup>−${n}</sup>`))},
-  {n:"Exercice 5", t:"Les puissances négatives", w:"Sur ton cahier", h:`<p>Écris chaque puissance sous la forme d'une fraction simplifiée.</p>${cols(E5.map(([a,n],i)=>`${L[i]}) ${pw(a,-n)}`))}`,
-   c:`<p class="calc">${E5.map(([a,n],i)=>`${L[i]}) ${fracNeg(a,n)}`).join("<br>")}</p>`}
+  {n:"Exercice 4", t:"Écrire avec un exposant négatif", w:"Sur ton cahier", h:`<p>Écris chaque quotient sous la forme d'une puissance d'exposant négatif.</p>${cols(E4.map(([a,n],i)=>`${NM[i]} = ${fr(1,dev(a,n))}`))}`,
+   c:chns(E4.map(([a,n],i)=>CL(NM[i],`${fr(1,dev(a,n))} = ${fr(1,PU(a,n))} = ${a}<sup>−${n}</sup>`)))},
+  {n:"Exercice 5", t:"Les puissances négatives", w:"Sur ton cahier", h:`<p>Écris chaque puissance sous la forme d'une fraction simplifiée.</p>${cols(E5.map(([a,n],i)=>`${NM[i]} = ${pw(a,-n)}`))}`,
+   c:chns(E5.map(([a,n],i)=>CL(NM[i],fracNeg(a,n))))}
  ]},
  {t:"Les puissances de 10 négatives", e:[
-  {n:"Exercice 6", t:"Les puissances de 10", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> donne le résultat sous la forme d'un nombre décimal.</p>${cols(E6.map((n,i)=>`${L[i]}) 10<sup>${F(n)}</sup>`))}<p><b>Partie 2 :</b> associe les jetons par paire (deux jetons égaux).</p>${jetons(J6.t)}`,
-   c:`<p><b>Partie 1 :</b></p><p class="calc">${E6.map((n,i)=>`${L[i]}) 10<sup>${F(n)}</sup> = ${n<0?`${fr(1,PU(10,-n))} = `:""}${dec10(n)} &nbsp; (${n<0?"":"un 1 suivi de "}${Math.abs(n)} zéro${Math.abs(n)>1?"s":""})`).join("<br>")}</p><p><b>Partie 2 :</b></p><p class="calc">${J6.ns.map(n=>`10<sup>${F(n)}</sup> = ${J6.t.find(t=>t!==`10<sup>${F(n)}</sup>` && (t===dec10(n)||t===fr(1,PU(10,-n))))}`).join("<br>")}</p>`}
+  {n:"Exercice 6", t:"Les puissances de 10", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> donne le résultat sous la forme d'un nombre décimal.</p>${cols(E6.map((n,i)=>`${NM[i]} = 10<sup>${F(n)}</sup>`))}<p><b>Partie 2 :</b> associe les jetons par paire (deux jetons égaux).</p>${jetons(J6.t)}`,
+   c:`<p><b>Partie 1 :</b></p>${chns(E6.map((n,i)=>CL(NM[i],`10<sup>${F(n)}</sup> = ${n<0?`${fr(1,PU(10,-n))} = `:""}${dec10(n)} &nbsp; (${n<0?"":"un 1 suivi de "}${Math.abs(n)} zéro${Math.abs(n)>1?"s":""})`)))}<p><b>Partie 2 :</b></p><p class="calc">${J6.ns.map(n=>`10<sup>${F(n)}</sup> = ${J6.t.find(t=>t!==`10<sup>${F(n)}</sup>` && (t===dec10(n)||t===fr(1,PU(10,-n))))}`).join("<br>")}</p>`}
  ]},
  {t:"Les préfixes scientifiques", e:[
   {n:"Activité 1", t:"Choisir une unité adaptée", w:"Sur ton cahier", h:`<p>Rappel : 1 Gm = 10<sup>9</sup> m ; 1 Mm = 10<sup>6</sup> m ; 1 km = 10<sup>3</sup> m ; 1 mm = 10<sup>−3</sup> m ; 1 μm = 10<sup>−6</sup> m ; 1 nm = 10<sup>−9</sup> m.</p><p>Écris chaque longueur avec une unité adaptée (le nombre obtenu doit être simple, entre 1 et 1 000).</p>${cols(A1.map((x,i)=>`${L[i]}) ${x[0]}`))}`,

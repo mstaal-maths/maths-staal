@@ -21,7 +21,7 @@ const ACT1=shuf([
 ]).slice(0,8);
 const secA={t:"Reconnaître une somme ou un produit", e:[
   {n:"Activité rapide", t:"Modéliser par une expression littérale", w:"Sur ton cahier", h:`<p>Quel sera le résultat de chaque programme si ${x} est le nombre choisi au départ ?</p>${progs(prog("1) Programme 1",["Choisir un nombre",...AR[0]]),prog("2) Programme 2",["Choisir un nombre",...AR[1]]),prog("3) Programme 3",["Choisir un nombre",`Multiplier par ${c3}`,`Ajouter ${c4}`,`Multiplier par ${c5}`]))}`,
-   c:`<p>1) A = ${x} × ${a1} − ${a2} = <b>${S([[a1,"x"],[-a2,""]])}</b></p><p>2) B = <b>(${x} + ${a3}) × ${a1}</b> = ${S([[a1,"x"],[a1*a3,""]])}</p><p>3) C = <b>(${c3}${x} + ${c4}) × ${c5}</b> = ${S([[c3*c5,"x"],[c4*c5,""]])}</p>`},
+   c:`<p class="calc">A = ${x} × ${a1} − ${a2}<br>A = <b>${S([[a1,"x"],[-a2,""]])}</b></p><p class="calc">B = <b>(${x} + ${a3}) × ${a1}</b><br>B = ${S([[a1,"x"],[a1*a3,""]])}</p><p class="calc">C = <b>(${c3}${x} + ${c4}) × ${c5}</b><br>C = ${S([[c3*c5,"x"],[c4*c5,""]])}</p>`},
   {n:"Activité 1", t:"Reconnaître une somme algébrique et un produit", w:"Sur ton cahier", h:`<p>Pour chaque expression, dis si c'est une somme ou un produit.</p><div class="calcs">${ACT1.map(([e],i)=>`<span>${L[i]} = ${e}</span>`).join("")}</div>`,
    c:`<p><b>Sommes :</b> ${ACT1.map((t,i)=>t[1]==="S"?L[i]:"").filter(Boolean).join(", ")}.</p><p><b>Produits :</b> ${ACT1.map((t,i)=>t[1]==="P"?L[i]:"").filter(Boolean).join(", ")}.</p><p>On regarde la dernière opération à effectuer.</p>`}
  ]};
@@ -79,7 +79,7 @@ const secC={t:"Factoriser avec la simple distributivité", e:[
   {n:"Activité 3", t:"Aire de rectangles", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> ${x} est un nombre positif.</p>${rect({top:[[`${q1}<i>x</i> + ${r1}`,240]], left:`${p1}<i>x</i>`, H:80, alt:`Rectangle de longueur ${q1}x + ${r1} et de largeur ${p1}x`})}<p>Donne l'expression développée et réduite de l'aire de ce rectangle.</p>
    <p><b>Partie 2 :</b> l'aire d'un rectangle est égale à ${E(A2)}. Donne deux dimensions possibles de ce rectangle.</p>`,
    c:`<p><b>Partie 1 :</b></p><p class="calc">Aire = ${p1}${x} × (${q1}${x} + ${r1})<br>Aire = ${p1}${x} × ${q1}${x} + ${p1}${x} × ${r1}<br>Aire = <b>${S([prod([p1,"x"],[q1,"x"]),prod([p1,"x"],[r1,""])])}</b></p>
-   <p><b>Partie 2 :</b> on factorise : ${E(A2)} = ${k2}${x} × ${x} + ${k2}${x} × ${v2} = <b>${k2}${x}(${x} + ${v2})</b>. Le rectangle peut mesurer ${k2}${x} sur ${x} + ${v2}.</p><p>Autre possibilité : ${E(A2)} = ${x}(${E([[k2,"x"],[k2*v2,""]])}) : ${x} sur ${E([[k2,"x"],[k2*v2,""]])}.</p>`},
+   <p><b>Partie 2 :</b> on factorise :</p><p class="calc">A = ${E(A2)}<br>A = ${k2}${x} × ${x} + ${k2}${x} × ${v2}<br>A = <b>${k2}${x}(${x} + ${v2})</b></p><p>Le rectangle peut mesurer ${k2}${x} sur ${x} + ${v2}.</p><p>Autre possibilité : A = ${x}(${E([[k2,"x"],[k2*v2,""]])}) : ${x} sur ${E([[k2,"x"],[k2*v2,""]])}.</p>`},
   {n:"Exercice 6", t:"Peut-on factoriser ?", w:"Sur ton cahier", h:`<p>Factorise les expressions lorsque c'est possible.</p><div class="calcs">${F7.map((o,i)=>`<span>${"HIJKL"[i]} = ${o.s}</span>`).join("")}</div>`,
    c:F7.map((o,i)=>o.f?`<p class="calc">${"HIJKL"[i]} = ${o.st}<br>${"HIJKL"[i]} = <b>${o.f}</b></p>`:`<p>${"HIJKL"[i]} = ${o.s} : pas de facteur commun, on ne peut pas factoriser.</p>`).join("")}
  ]};

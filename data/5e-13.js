@@ -289,6 +289,92 @@ quiz:[
  3:[ {g:()=>{ let a,b,c,m,x; do{ a=ri(6,18); b=ri(6,18); c=ri(6,18); m=ri(10,14); x=4*m-a-b-c; }while(x<0||x>20); return {q:`Léa a obtenu ${a}, ${b} et ${c} à ses trois premiers devoirs. Quelle note doit-elle obtenir au quatrième pour avoir ${m} de moyenne ?`, rep:String(x), ex:`La somme doit valoir 4 × ${m} = ${4*m}. ${a} + ${b} + ${c} = ${a+b+c}. ${4*m} − ${a+b+c} = ${x}.`, sx:S_MOY}; }},
      {q:"Vrai ou faux : la moyenne d'une série est toujours l'une des valeurs de la série.", c:VF, rep:"Faux", ex:"Par exemple, la moyenne de 7 ; 13 ; 10 ; 6 est 9, qui n'est pas dans la série.", sx:S_MOY} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const MAREE = {xs:[6,7,8,9,10,11,12], ys:[2,3,4.5,5.5,6,5.5,4.5]};
+const G_MAREE = line({...MAREE, title:"Hauteur d'eau dans un port", xlab:"Heure (h)", ylab:"Hauteur d'eau (m)", xmin:5, xmax:13, xstep:1, ymax:7, ystep:0.5, ylabStep:1, w:560, H:340});
+const LIV = {cats:["0 livre","1 livre","2 livres","3 livres","4 livres"], vals:[3,7,6,3,1]};
+const G_LIV = bars({...LIV, title:"Livres lus pendant les vacances", ylab:"Nombre d'élèves", ymax:8, ystep:1, ylabStep:1, w:520, H:290});
+const G_LIVc = bars({...LIV, title:"Livres lus pendant les vacances", ylab:"Nombre d'élèves", ymax:8, ystep:1, ylabStep:1, w:520, H:290, show:true});
+const SORT = {cats:["Musée","Zoo","Cinéma","Piscine"], vals:[9,15,8,4]};
+const G_SORT = bars({cats:SORT.cats, vals:[9,15,0,0], title:"Sortie de fin d'année", ylab:"Nombre de votes", ymax:16, ystep:1, ylabStep:2, w:460, H:320}).replace(/<rect[^>]*height="0.0"[^>]*\/>/g,"");
+const G_SORTc = bars({...SORT, title:"Sortie de fin d'année", ylab:"Nombre de votes", ymax:16, ystep:1, ylabStep:2, w:460, H:320, show:true});
+const P_SORT = pie({...SORT, title:"Sortie de fin d'année", w:330, R:125, lab:i=>[SORT.cats[i], SORT.vals[i]*10+"°"]});
+const SAIS = tab(["Saison préférée","Printemps","Été","Automne","Hiver","Total"],[["Effectif","10","18","4","8",""],["Fréquence (%)","","","","",""]]);
+const SAISc = tab(["Saison préférée","Printemps","Été","Automne","Hiver","Total"],[["Effectif","10","18","4","8","40"],["Fréquence (%)","25 %","45 %","10 %","20 %","100 %"]]);
+const FREQc = `<p class="calc">Printemps : ${F(10,40)} = ${F(1,4)} = ${F(25,100)} = 25 %<br>Été : ${F(18,40)} = ${F(9,20)} = ${F(45,100)} = 45 %<br>Automne : ${F(4,40)} = ${F(1,10)} = ${F(10,100)} = 10 %<br>Hiver : ${F(8,40)} = ${F(1,5)} = ${F(20,100)} = 20 %</p>`;
+const ANGc = `<p class="calc">360 ÷ 36 = 10 : 1 élève correspond à 10°.<br>Musée : 9 × 10 = 90°<br>Zoo : 15 × 10 = 150°<br>Cinéma : 8 × 10 = 80°<br>Piscine : 4 × 10 = 40°</p><p>Vérification : 90 + 150 + 80 + 40 = 360.</p>`;
+const MAREEh = `<p>Le graphique ci-dessous donne la hauteur d'eau relevée toutes les heures dans un port, au cours d'une matinée.</p>${G_MAREE}`;
+const LIVh = `<p>On a demandé aux élèves d'une classe combien de livres ils ont lus pendant les vacances. Voici les résultats.</p>${G_LIV}`;
+const SORTh = `<p>Les 36 élèves d'un atelier ont voté pour la sortie de fin d'année. Voici les résultats :</p>${tab(["Sortie","Musée","Zoo","Cinéma","Piscine"],[["Nombre de votes","9","15","8","4"]])}`;
+const COMP = [
+  ["COMMUNIQUER","Je lis et j'interprète un graphique cartésien et un diagramme en barres.","Ex. 1 et 4 (8 points)"],
+  ["CALCULER","Je calcule une moyenne et des fréquences.","Ex. 2 et 3 (6 points)"],
+  ["REPRÉSENTER","Je complète un diagramme en barres et je calcule les angles d'un diagramme circulaire.","Ex. 5 (4 points)"],
+  ["RAISONNER","Je choisis une représentation adaptée à une situation.","Ex. 6 (2 points)"]
+];
+const COMPb = [
+  ["COMMUNIQUER","Je lis et j'interprète un graphique cartésien et un diagramme en barres.","Ex. 1 et 4 (7 points)"],
+  ["CALCULER","Je calcule une moyenne et des fréquences.","Ex. 2 et 3 (6 points)"],
+  ["REPRÉSENTER","Je complète un diagramme en barres et je calcule les angles d'un diagramme circulaire.","Ex. 5 (5 points)"],
+  ["RAISONNER","Je choisis une représentation adaptée à une situation.","Ex. 6 (2 points)"]
+];
+const INFO = "Durée : 45 min · Calculatrice non autorisée · Règle et crayons de couleur";
+return {
+titre:"Évaluation d'entraînement — Chapitre 13", duree:45, info:INFO,
+comp:COMP,
+exos:[
+{t:"Lire un graphique cartésien", p:4, h:`${MAREEh}
+  <p>a) Quelle était la hauteur d'eau à 8 h ?</p><p>b) À quelle heure la mer a-t-elle été la plus haute ? Quelle était alors la hauteur d'eau ?</p><p>c) À quelles heures la hauteur d'eau relevée était-elle de 5,5 m ?</p><p>d) Un voilier ne peut entrer dans le port que si la hauteur d'eau est d'au moins 4,5 m. Entre quelles heures relevées peut-il entrer ?</p>`,
+ c:`<p>On lit l'heure sur l'axe horizontal et la hauteur d'eau sur l'axe vertical.</p><p>a) À 8 h, la hauteur d'eau était de <b>4,5 m</b>. <i>(1 point)</i></p><p>b) Le point le plus haut est celui de <b>10 h</b> : la hauteur d'eau était de <b>6 m</b>. <i>(1 point : 0,5 pour l'heure, 0,5 pour la hauteur)</i></p><p>c) La hauteur d'eau était de 5,5 m à <b>9 h</b> et à <b>11 h</b>. <i>(1 point : 0,5 par heure)</i></p><p>d) La hauteur d'eau est d'au moins 4,5 m de <b>8 h</b> à <b>12 h</b> (4,5 m ; 5,5 m ; 6 m ; 5,5 m ; 4,5 m). <i>(1 point)</i></p>`},
+{t:"Calculer et interpréter une moyenne", p:3, h:`<p>Inès s'entraîne au 50 m. Voici ses quatre premiers temps, en secondes : 9,2 ; 8,8 ; 9,5 ; 8,5.</p>
+  <p>a) Calcule son temps moyen.</p><p>b) À son cinquième essai, elle court en 7,5 s. Calcule son nouveau temps moyen sur les cinq essais.</p><p>c) Inès dit : « Mon temps moyen est de 8,7 s, donc j'ai couru une fois en 8,7 s. » A-t-elle raison ? Explique.</p>`,
+ c:`<p>Moyenne = somme des valeurs ÷ nombre de valeurs.</p><p>a)</p><p class="calc">Somme : 9,2 + 8,8 + 9,5 + 8,5 = 36<br>Moyenne : 36 ÷ 4 = 9</p><p>Son temps moyen est de <b>9 s</b>. <i>(1 point)</i></p>
+  <p>b)</p><p class="calc">Somme : 36 + 7,5 = 43,5<br>Moyenne : 43,5 ÷ 5 = 8,7</p><p>Son nouveau temps moyen est de <b>8,7 s</b>. <i>(1 point)</i></p>
+  <p>c) <b>Non</b> : ses temps sont 9,2 s ; 8,8 s ; 9,5 s ; 8,5 s et 7,5 s. Aucun n'est égal à 8,7 s. La moyenne résume la série par un seul nombre : ce n'est pas forcément l'une des valeurs. <i>(1 point : 0,5 pour la réponse, 0,5 pour l'explication)</i></p>`},
+{t:"Calculer des fréquences", p:3, h:`<p>On a demandé à 40 élèves leur saison préférée.</p>${SAIS}
+  <p>1. Complète la case « Total », puis calcule chaque fréquence en pourcentage. Écris tes calculs.</p><p>2. Quel pourcentage des élèves préfère l'automne ou l'hiver ?</p>`,
+ c:`<p>Fréquence = ${F("effectif","effectif total")}.</p><p>1. Total : 10 + 18 + 4 + 8 = 40. <i>(0,5 point)</i></p>${FREQc}${SAISc}<p><i>0,5 point par fréquence (2 points).</i></p><p>2. 10 % + 20 % = <b>30 %</b> des élèves. <i>(0,5 point)</i></p>`},
+{t:"Lire un diagramme en barres", p:4, h:`${LIVh}
+  <p>a) Quel nombre de livres a été le plus souvent cité ? Par combien d'élèves ?</p><p>b) Combien d'élèves ont répondu ? Écris ton calcul.</p><p>c) Combien d'élèves ont lu au moins 3 livres ?</p><p>d) Quelle est la fréquence, en pourcentage, des élèves qui n'ont lu aucun livre ?</p>`,
+ c:`${G_LIVc}<p>a) La barre la plus haute est celle de « 1 livre » : <b>7 élèves</b> ont lu 1 livre. <i>(1 point)</i></p><p>b)</p><p class="calc">3 + 7 + 6 + 3 + 1 = 20</p><p><b>20 élèves</b> ont répondu. <i>(1 point)</i></p><p>c) « Au moins 3 livres », c'est 3 livres ou 4 livres : 3 + 1 = <b>4 élèves</b>. <i>(1 point)</i></p><p>d) 3 élèves sur 20 n'ont lu aucun livre :</p><p class="calc">${F(3,20)} = ${F(15,100)} = 15 %</p><p>La fréquence est de <b>15 %</b>. <i>(1 point)</i></p>`},
+{t:"Représenter des données", p:4, h:`${SORTh}${G_SORT}
+  <p>1. Recopie et complète le diagramme en barres pour « Cinéma » et « Piscine ».</p><p>2. On veut aussi représenter ces votes par un diagramme circulaire : les 36 élèves correspondent à 360°. Calcule l'angle du secteur de chaque sortie.</p>`,
+ c:`<p>1. Barre « Cinéma » : hauteur 8 ; barre « Piscine » : hauteur 4. <i>(1 point : 0,5 par barre)</i></p>${G_SORTc}
+  <p>2. Les angles sont proportionnels aux effectifs.</p>${ANGc}<p><i>1 point pour « 1 élève correspond à 10° », puis 0,5 point par angle (3 points).</i></p><p>Voici le diagramme circulaire obtenu (il n'était pas demandé de le tracer) :</p>${P_SORT}`},
+{t:"Choisir une représentation", p:2, h:`<p>Pour chaque situation, quelle représentation choisir : diagramme en barres, diagramme circulaire ou graphique cartésien ?</p>
+  <p>a) La répartition des dépenses d'un club de sport sur une saison (matériel, transport, licences).</p><p>b) L'évolution du nombre de visiteurs d'un musée, mois après mois, pendant une année.</p><p>c) La comparaison du nombre d'adhérents de cinq clubs de la ville.</p><p>d) Explique ton choix pour la situation b).</p>`,
+ c:`<p>a) Un <b>diagramme circulaire</b> : on montre la répartition d'un tout. <i>(0,5 point)</i></p><p>b) Un <b>graphique cartésien</b>. <i>(0,5 point)</i></p><p>c) Un <b>diagramme en barres</b> : on compare des effectifs. <i>(0,5 point)</i></p><p>d) On suit l'évolution d'une grandeur au cours du temps : le graphique cartésien le montre bien. <i>(0,5 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 13 · version aménagée", duree:45, info:"Version aménagée · "+INFO,
+note:"Même durée, avec environ une question sur cinq en moins (les questions restantes sont renumérotées). Toujours sur 20 : les points sont répartis sur les questions gardées. Les justifications restent demandées.",
+comp:COMPb,
+exos:[
+{t:"Lire un graphique cartésien", p:3.5, h:`${MAREEh}
+  <p>a) Quelle était la hauteur d'eau à 8 h ?</p><p>b) À quelle heure la mer a-t-elle été la plus haute ? Quelle était alors la hauteur d'eau ?</p><p>c) À quelles heures la hauteur d'eau relevée était-elle de 5,5 m ?</p>`,
+ c:`<p>On lit l'heure sur l'axe horizontal et la hauteur d'eau sur l'axe vertical.</p><p>a) À 8 h, la hauteur d'eau était de <b>4,5 m</b>. <i>(1 point)</i></p><p>b) Le point le plus haut est celui de <b>10 h</b> : la hauteur d'eau était de <b>6 m</b>. <i>(1,5 point : 0,5 pour l'heure, 1 pour la hauteur)</i></p><p>c) La hauteur d'eau était de 5,5 m à <b>9 h</b> et à <b>11 h</b>. <i>(1 point : 0,5 par heure)</i></p>`},
+{t:"Calculer et interpréter une moyenne", p:2.5, h:`<p>Inès s'entraîne au 50 m. Voici ses quatre temps, en secondes : 9,2 ; 8,8 ; 9,5 ; 8,5.</p>
+  <p>a) Calcule son temps moyen.</p><p>b) Inès dit : « Mon temps moyen est de 9 s, donc j'ai couru une fois en 9 s. » A-t-elle raison ? Explique.</p>`,
+ c:`<p>Moyenne = somme des valeurs ÷ nombre de valeurs.</p><p>a)</p><p class="calc">Somme : 9,2 + 8,8 + 9,5 + 8,5 = 36<br>Moyenne : 36 ÷ 4 = 9</p><p>Son temps moyen est de <b>9 s</b>. <i>(1,5 point)</i></p>
+  <p>b) <b>Non</b> : ses temps sont 9,2 s ; 8,8 s ; 9,5 s et 8,5 s. Aucun n'est égal à 9 s. La moyenne résume la série par un seul nombre : ce n'est pas forcément l'une des valeurs. <i>(1 point : 0,5 pour la réponse, 0,5 pour l'explication)</i></p>`},
+{t:"Calculer des fréquences", p:3.5, h:`<p>On a demandé à 40 élèves leur saison préférée.</p>${SAIS}
+  <p>1. Complète la case « Total », puis calcule chaque fréquence en pourcentage. Écris tes calculs.</p><p>2. Quel pourcentage des élèves préfère l'automne ou l'hiver ?</p>`,
+ c:`<p>Fréquence = ${F("effectif","effectif total")}.</p><p>1. Total : 10 + 18 + 4 + 8 = 40. <i>(0,5 point)</i></p>${FREQc}${SAISc}<p><i>0,5 point par fréquence (2 points).</i></p><p>2. 10 % + 20 % = <b>30 %</b> des élèves. <i>(1 point)</i></p>`},
+{t:"Lire un diagramme en barres", p:3.5, h:`${LIVh}
+  <p>a) Quel nombre de livres a été le plus souvent cité ? Par combien d'élèves ?</p><p>b) Combien d'élèves ont répondu ? Écris ton calcul.</p><p>c) Quelle est la fréquence, en pourcentage, des élèves qui n'ont lu aucun livre ?</p>`,
+ c:`${G_LIVc}<p>a) La barre la plus haute est celle de « 1 livre » : <b>7 élèves</b> ont lu 1 livre. <i>(1 point)</i></p><p>b)</p><p class="calc">3 + 7 + 6 + 3 + 1 = 20</p><p><b>20 élèves</b> ont répondu. <i>(1 point)</i></p><p>c) 3 élèves sur 20 n'ont lu aucun livre :</p><p class="calc">${F(3,20)} = ${F(15,100)} = 15 %</p><p>La fréquence est de <b>15 %</b>. <i>(1,5 point)</i></p>`},
+{t:"Représenter des données", p:5, h:`${SORTh}${G_SORT}
+  <p>1. Recopie et complète le diagramme en barres pour « Cinéma » et « Piscine ».</p><p>2. On veut aussi représenter ces votes par un diagramme circulaire : les 36 élèves correspondent à 360°. Calcule l'angle du secteur de chaque sortie.</p>`,
+ c:`<p>1. Barre « Cinéma » : hauteur 8 ; barre « Piscine » : hauteur 4. <i>(2 points : 1 par barre)</i></p>${G_SORTc}
+  <p>2. Les angles sont proportionnels aux effectifs.</p>${ANGc}<p><i>1 point pour « 1 élève correspond à 10° », puis 0,5 point par angle (3 points).</i></p><p>Voici le diagramme circulaire obtenu (il n'était pas demandé de le tracer) :</p>${P_SORT}`},
+{t:"Choisir une représentation", p:2, h:`<p>Pour chaque situation, quelle représentation choisir : diagramme en barres, diagramme circulaire ou graphique cartésien ?</p>
+  <p>a) La répartition des dépenses d'un club de sport sur une saison (matériel, transport, licences).</p><p>b) L'évolution du nombre de visiteurs d'un musée, mois après mois, pendant une année.</p><p>c) Explique ton choix pour la situation b).</p>`,
+ c:`<p>a) Un <b>diagramme circulaire</b> : on montre la répartition d'un tout. <i>(0,5 point)</i></p><p>b) Un <b>graphique cartésien</b>. <i>(0,5 point)</i></p><p>c) On suit l'évolution d'une grandeur au cours du temps : le graphique cartésien le montre bien. <i>(1 point)</i></p>`}
+]}
+};
+})()
 };
 })();

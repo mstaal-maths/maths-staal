@@ -98,8 +98,8 @@ exos:[
    c:`<p>a) <b>Oui</b> : les 4 couleurs occupent chacune un quart de la roue.</p><p>b) <b>Non</b> : le rouge occupe la moitié de la roue, le jaune un quart, le vert et le bleu seulement un huitième chacun.</p><p>c) <b>Oui</b> : pile et face ont la même chance.</p><p>d) <b>Non</b> : il y a 3 chances sur 4 de tirer rouge et 1 sur 4 de tirer bleu.</p>`},
   {n:"Exercice 6", t:"Le dé", w:"Sur ta feuille", h:`<p>On lance un dé équilibré à 6 faces. Donne la probabilité de chaque événement sous forme de fraction.</p><p>a) Obtenir 4 · b) Obtenir un nombre pair · c) Obtenir un multiple de 3 · d) Obtenir plus de 4 · e) Obtenir 7 · f) Obtenir moins de 7</p>`,
    c:`<p>Il y a 6 issues équiprobables : 1, 2, 3, 4, 5, 6.</p><p>a) une seule issue (4) : <b>${F(1,6)}</b> · b) <b>${F(3,6)} = ${F(1,2)}</b> (2, 4, 6) · c) <b>${F(2,6)} = ${F(1,3)}</b> (3, 6) · d) <b>${F(2,6)} = ${F(1,3)}</b> (5, 6) · e) aucune issue : <b>0</b> (impossible) · f) les 6 issues : <b>${F(6,6)} = 1</b> (certain)</p>`},
-  {n:"Exercice 7", t:"Le sac de boules", w:"Sur ta feuille", h:`<div class="cpt"><div><p>Ce sac contient 6 boules rouges, 3 bleues et 1 verte. On tire une boule au hasard.</p><p>a) Quelle est la probabilité de tirer une boule rouge ? bleue ? verte ?</p><p>b) Calcule la somme de ces trois probabilités. Que remarques-tu ?</p><p>c) Combien de boules vertes faut-il ajouter pour avoir autant de chances de tirer une verte qu'une bleue ?</p></div>${ex("e7","Un sac : 6 boules rouges, 3 bleues, 1 verte",150)}</div>`,
-   c:`<p>a) Il y a 10 boules. Rouge : <b>${F(6,10)} = ${F(3,5)}</b> · bleue : <b>${F(3,10)}</b> · verte : <b>${F(1,10)}</b>.</p><p>b) ${F(6,10)} + ${F(3,10)} + ${F(1,10)} = ${F(10,10)} = <b>1</b>. La somme des probabilités de toutes les issues est égale à 1 (on est certain de tirer une boule d'une de ces couleurs).</p><p>c) Il faut autant de vertes que de bleues : 3 vertes. Il y en a déjà 1 : 3 − 1 = 2. On doit donc <b>ajouter 2 boules vertes</b>.</p>`},
+  {n:"Exercice 7", t:"Le sac de boules", w:"Sur ta feuille", h:`<div class="cpt"><div><p>Ce sac contient 6 boules rouges, 3 bleues et 1 verte. On tire une boule au hasard.</p><p>a) Quelle est la probabilité de tirer une boule rouge ? bleue ? verte ?</p><p>b) Calcule la somme A de ces trois probabilités. Que remarques-tu ?</p><p>c) Combien de boules vertes faut-il ajouter pour avoir autant de chances de tirer une verte qu'une bleue ?</p></div>${ex("e7","Un sac : 6 boules rouges, 3 bleues, 1 verte",150)}</div>`,
+   c:`<p>a) Il y a 10 boules. Rouge : <b>${F(6,10)} = ${F(3,5)}</b> · bleue : <b>${F(3,10)}</b> · verte : <b>${F(1,10)}</b>.</p><p class="calc">b) A = ${F(6,10)} + ${F(3,10)} + ${F(1,10)}<br>A = ${F(10,10)}<br>A = <b>1</b></p><p>La somme des probabilités de toutes les issues est égale à 1 (on est certain de tirer une boule d'une de ces couleurs).</p><p>c) Il faut autant de vertes que de bleues : 3 vertes. Il y en a déjà 1 : 3 − 1 = 2. On doit donc <b>ajouter 2 boules vertes</b>.</p>`},
   {n:"Exercice 8", t:"La roue de la fête", w:"Sur ta feuille", h:`<div class="cpt"><div><p>La roue est partagée en 8 secteurs égaux. On la fait tourner et on regarde le secteur indiqué par la flèche. Donne la probabilité :</p><p>a) de tomber sur le rouge ; b) sur le bleu ; c) sur le jaune ; d) sur un nombre pair ; e) sur un nombre plus grand que 6 ; f) sur le noir.</p></div>${ex("e8","Une roue de 8 secteurs numérotés et colorés",160)}</div>`,
    c:`<p>a) rouge (1, 3, 5, 7) : <b>${F(4,8)} = ${F(1,2)}</b> · b) bleu (2, 6) : <b>${F(2,8)} = ${F(1,4)}</b> · c) jaune (4) : <b>${F(1,8)}</b></p><p>d) pair (2, 4, 6, 8) : <b>${F(4,8)} = ${F(1,2)}</b> · e) plus grand que 6 (7, 8) : <b>${F(2,8)} = ${F(1,4)}</b> · f) noir : <b>0</b> (impossible)</p>`},
   {n:"Exercice 9", t:"L'urne", w:"Sur ta feuille", h:`<p>Une urne contient 20 étiquettes numérotées de 1 à 20. On tire une étiquette au hasard. Donne la probabilité de tirer :</p><p>a) le nombre 13 · b) un multiple de 5 · c) un nombre pair · d) un nombre à deux chiffres · e) un multiple de 3 · f) un nombre inférieur à 25</p>`,
@@ -141,6 +141,95 @@ quiz:[
  3:[ {q:"Un dé lancé 600 fois donne 300 fois le 6. Ce dé est sûrement…", c:["truqué","équilibré"], rep:"truqué", ex:"Pour un dé équilibré, on attend environ 100 fois chaque face.", sx:S_FREQ},
      {q:"J'ai obtenu pile 3 fois de suite. Au prochain lancer, la probabilité d'obtenir face est…", c:[F(1,2),"1","plus grande que " + F(1,2)], rep:F(1,2), ex:"La pièce n'a pas de mémoire.", sx:S_FREQ} ]
 }}
-]
+],
+
+/* ===================== ÉVALUATION D'ENTRAÎNEMENT ===================== */
+eval:(()=>{
+const R8 = ["rouge","bleue","rouge","verte","rouge","bleue","noire","rouge"], R4 = ["rouge","bleue","rouge","verte"];
+const big = (s,w) => s.replace('width="140"', `width="${w}"`);
+const souv = t => `<div class="retenir" data-l="Je me souviens"><p>${t}</p></div>`;
+return {
+titre:"Évaluation d'entraînement — Chapitre 18", duree:25, info:"Durée : 25 min · Calculatrice non autorisée",
+comp:[
+  ["COMMUNIQUER","J'utilise le bon vocabulaire : issue, événement, impossible, possible, certain.","Ex. 1 (3 points)"],
+  ["CALCULER","Je calcule une probabilité quand les issues sont équiprobables.","Ex. 2 (3 points)"],
+  ["REPRÉSENTER","Je place des événements sur l'échelle des probabilités.","Ex. 3 (2 points)"],
+  ["RAISONNER","Je compare une fréquence observée et une probabilité.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"L'urne aux neuf boules", p:3, h:`<p>Une urne contient 9 boules identiques au toucher, numérotées de 1 à 9. On tire une boule au hasard et on lit son numéro.</p>
+  <p>a) Écris toutes les issues de cette expérience.</p><p>b) Quelles issues réalisent l'événement « tirer un multiple de 3 » ?</p>
+  <p>c) Pour chacun de ces événements, écris s'il est impossible, possible ou certain :</p><p>« tirer un nombre plus petit que 10 » ; « tirer le numéro 0 » ; « tirer un nombre pair ».</p>`,
+ c:`<p>a) Les issues sont : 1, 2, 3, 4, 5, 6, 7, 8 et 9. <i>(0,5 point)</i></p>
+  <p>b) Les issues 3, 6 et 9. <i>(1 point)</i></p>
+  <p>c) « Tirer un nombre plus petit que 10 » est <b>certain</b> : tous les numéros sont plus petits que 10. <i>(0,5 point)</i></p>
+  <p>« Tirer le numéro 0 » est <b>impossible</b> : aucune boule ne porte le numéro 0. <i>(0,5 point)</i></p>
+  <p>« Tirer un nombre pair » est <b>possible</b> : les issues 2, 4, 6 et 8 le réalisent, mais pas les autres. <i>(0,5 point)</i></p>`},
+{t:"La roue de la kermesse", p:3, h:`<div class="cpt"><div><p>Cette roue est partagée en 8 secteurs de même taille, numérotés de 1 à 8. On la fait tourner et on regarde le secteur indiqué par la flèche.</p>
+  <p>a) Les 8 issues sont-elles équiprobables ? Pourquoi ?</p><p>b) Quelle est la probabilité de tomber sur un secteur rouge ?</p><p>c) Quelle est la probabilité de tomber sur un secteur bleu ?</p><p>d) Quelle est la probabilité de tomber sur un numéro plus grand que 5 ?</p></div>${big(roue(R8,true),180)}</div>`,
+ c:`<p>a) <b>Oui</b> : les 8 secteurs ont la même taille, ils ont donc tous la même chance d'être indiqués par la flèche. <i>(0,5 point)</i></p>
+  <p>b) Les secteurs rouges sont les numéros 1, 3, 5 et 8 : 4 secteurs sur 8. La probabilité est <b>${F(4,8)} = ${F(1,2)}</b>. <i>(1 point)</i></p>
+  <p>c) Les secteurs bleus sont les numéros 2 et 6 : 2 secteurs sur 8. La probabilité est <b>${F(2,8)} = ${F(1,4)}</b>. <i>(1 point)</i></p>
+  <p>d) Les numéros plus grands que 5 sont 6, 7 et 8 : 3 secteurs sur 8. La probabilité est <b>${F(3,8)}</b>. <i>(0,5 point)</i></p>`},
+{t:"Sur l'échelle", p:2, h:`<div class="cpt"><div><p>Un sac contient 3 boules rouges et 1 boule bleue. On tire une boule au hasard.</p><p>Place la lettre de chaque événement sur l'échelle des probabilités.</p>
+  <p>A : « tirer une boule rouge »</p><p>B : « tirer une boule verte »</p><p>C : « tirer une boule bleue »</p><p>D : « tirer une boule rouge ou bleue »</p></div>${sac([["rouge",3],["bleue",1]])}</div>${echelle([])}`,
+ c:`${echelle([["B",0],["C",0.25],["A",0.75],["D",1]])}
+  <p>B est <b>impossible</b> : il n'y a pas de boule verte. Sa probabilité est 0. <i>(0,5 point)</i></p>
+  <p>C : 1 boule bleue sur 4 boules. Sa probabilité est ${F(1,4)} : c'est peu probable. <i>(0,5 point)</i></p>
+  <p>A : 3 boules rouges sur 4 boules. Sa probabilité est ${F(3,4)} : c'est très probable. <i>(0,5 point)</i></p>
+  <p>D est <b>certain</b> : toutes les boules sont rouges ou bleues. Sa probabilité est 1. <i>(0,5 point)</i></p>`},
+{t:"Les tirages de Malo", p:2, h:`<p>Un sac contient 1 boule rouge et 3 boules blanches, identiques au toucher. Malo tire une boule au hasard, note sa couleur, puis la remet dans le sac.</p><p>Il fait 100 tirages. Il obtient 27 fois une boule rouge.</p>
+  <p>a) Quelle est la fréquence de l'événement « tirer une boule rouge » ?</p><p>b) Quelle est la probabilité de tirer une boule rouge ?</p><p>c) Compare ces deux nombres. Est-ce étonnant ? Explique.</p>`,
+ c:`<p>a) Fréquence : ${F(27,100)} = <b>0,27</b>. <i>(0,5 point)</i></p>
+  <p>b) Il y a 1 boule rouge sur 4 boules : la probabilité est <b>${F(1,4)} = 0,25</b>. <i>(0,5 point)</i></p>
+  <p>c) 0,27 et 0,25 sont <b>proches</b>, mais pas égaux. Ce n'est pas étonnant : Malo a fait beaucoup de tirages, et quand on répète une expérience un grand nombre de fois, la fréquence se rapproche de la probabilité. <i>(1 point)</i></p>`}
+],
+bep:{
+titre:"Évaluation d'entraînement — Chapitre 18 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
+note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+comp:[
+  ["COMMUNIQUER","J'utilise le bon vocabulaire : issue, événement, impossible, possible, certain.","Ex. 1 (3 points)"],
+  ["CALCULER","Je calcule une probabilité quand les issues sont équiprobables.","Ex. 2 (3 points)"],
+  ["REPRÉSENTER","Je place des événements sur l'échelle des probabilités.","Ex. 3 (2 points)"],
+  ["RAISONNER","Je compare une fréquence observée et une probabilité.","Ex. 4 (2 points)"]
+],
+exos:[
+{t:"L'urne aux six boules", p:3, h:`${souv("Une <b>issue</b> est un résultat possible. Un événement <b>impossible</b> ne se réalise jamais. Un événement <b>certain</b> se réalise toujours.")}
+  <p>Une urne contient 6 boules numérotées de 1 à 6. On tire une boule au hasard.</p>
+  <p>a) Écris toutes les issues.</p><p>b) Quelles issues réalisent « tirer un nombre plus grand que 3 » ?</p>
+  <p>c) Écris impossible, possible ou certain :</p><p>« tirer un nombre plus petit que 7 » ; « tirer le numéro 9 » ; « tirer le numéro 5 ».</p>
+  <p><i>Aide : pour c), regarde si des boules portent ce numéro.</i></p>`,
+ c:`<p>a) Les issues sont : 1, 2, 3, 4, 5 et 6. <i>(0,5 point)</i></p>
+  <p>b) Les issues 4, 5 et 6. <i>(1 point)</i></p>
+  <p>c) « Tirer un nombre plus petit que 7 » est <b>certain</b> : tous les numéros sont plus petits que 7. <i>(0,5 point)</i></p>
+  <p>« Tirer le numéro 9 » est <b>impossible</b> : aucune boule ne porte le numéro 9. <i>(0,5 point)</i></p>
+  <p>« Tirer le numéro 5 » est <b>possible</b> : une boule porte le 5, mais ce n'est pas sûr de la tirer. <i>(0,5 point)</i></p>`},
+{t:"La roue de la kermesse", p:3, h:`${souv(`Si les issues sont équiprobables : probabilité = ${F("nombre d'issues favorables","nombre total d'issues")}`)}
+  <div class="cpt"><div><p>La roue a 4 secteurs de même taille, numérotés de 1 à 4.</p>
+  <p>a) Les 4 issues sont-elles équiprobables ? Pourquoi ?</p><p>b) Quelle est la probabilité de tomber sur le rouge ?</p><p>c) Quelle est la probabilité de tomber sur le bleu ?</p><p>d) Quelle est la probabilité de tomber sur un numéro plus grand que 2 ?</p>
+  <p><i>Aide : pour a), regarde la taille des secteurs.</i></p></div>${big(roue(R4,true),180)}</div>`,
+ c:`<p>a) <b>Oui</b> : les 4 secteurs ont la même taille. <i>(0,5 point)</i></p>
+  <p>b) Rouge : les numéros 1 et 3, 2 secteurs sur 4. La probabilité est <b>${F(2,4)} = ${F(1,2)}</b>. <i>(1 point)</i></p>
+  <p>c) Bleu : le numéro 2, 1 secteur sur 4. La probabilité est <b>${F(1,4)}</b>. <i>(1 point)</i></p>
+  <p>d) Plus grand que 2 : les numéros 3 et 4, 2 secteurs sur 4. La probabilité est <b>${F(2,4)} = ${F(1,2)}</b>. <i>(0,5 point)</i></p>`},
+{t:"Sur l'échelle", p:2, h:`${souv("0 : impossible · ½ : une chance sur deux · 1 : certain.")}
+  <div class="cpt"><div><p>Un sac contient 2 boules rouges et 2 boules bleues. On tire une boule au hasard.</p><p>Place chaque lettre sur l'échelle.</p>
+  <p>A : « tirer une boule rouge »</p><p>B : « tirer une boule verte »</p><p>C : « tirer une boule rouge ou bleue »</p><p>D : « tirer une boule bleue »</p>
+  <p><i>Aide : compte les boules de la couleur demandée, sur les 4 boules.</i></p></div>${sac([["rouge",2],["bleue",2]])}</div>${echelle([])}`,
+ c:`${echelle([["B",0],["A",0.5],["D",0.5],["C",1]])}
+  <p>B est <b>impossible</b> : pas de boule verte. Probabilité 0. <i>(0,5 point)</i></p>
+  <p>A : 2 boules rouges sur 4. Probabilité ${F(2,4)} = ${F(1,2)}. <i>(0,5 point)</i></p>
+  <p>D : 2 boules bleues sur 4. Probabilité ${F(2,4)} = ${F(1,2)}. <i>(0,5 point)</i></p>
+  <p>C est <b>certain</b> : toutes les boules sont rouges ou bleues. Probabilité 1. <i>(0,5 point)</i></p>`},
+{t:"Les tirages de Malo", p:2, h:`<p>Un sac contient 1 boule rouge et 1 boule blanche. Malo tire une boule, note sa couleur et la remet dans le sac.</p><p>Il fait 100 tirages. Il obtient 46 fois la boule rouge.</p>
+  <p>a) Quelle est la fréquence de « tirer la boule rouge » ?</p><p><i>Aide : fréquence = nombre de fois où la boule rouge est sortie ÷ nombre de tirages.</i></p>
+  <p>b) Quelle est la probabilité de tirer la boule rouge ?</p><p>c) Ces deux nombres sont-ils proches ? Explique.</p>`,
+ c:`<p>a) Fréquence : ${F(46,100)} = <b>0,46</b>. <i>(0,5 point)</i></p>
+  <p>b) 1 boule rouge sur 2 boules : la probabilité est <b>${F(1,2)} = 0,5</b>. <i>(0,5 point)</i></p>
+  <p>c) 0,46 et 0,5 sont <b>proches</b>. C'est normal : avec beaucoup de tirages, la fréquence se rapproche de la probabilité. <i>(1 point)</i></p>`}
+]}
+};
+})()
+
 };
 })();
