@@ -235,27 +235,35 @@ exos:[
   <p>c) ${A("xAy")} = 140° : il est <b>obtus</b> (entre 90° et 180°). ${A("uBv")} = 35° : il est <b>aigu</b> (entre 0° et 90°). <i>(0,5 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 9 · version aménagée", duree:30, info:"Version aménagée · Durée : 30 min · Règle et rapporteur · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des angles plus faciles à mesurer, des rappels du cours (« Je me souviens »), des réponses à compléter ou à entourer et des aides.",
-comp:COMP,
+titre:"Évaluation d'entraînement — Chapitre 9 · version aménagée", duree:30, info:"Version aménagée (tiers-temps) · Durée : 30 min · Règle et rapporteur · Calculatrice non autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
+comp:[
+  ["COMMUNIQUER","Je reconnais le sommet et les côtés d'un angle, et j'écris correctement son nom.","Ex. 1 (2,5 points)"],
+  ["REPRÉSENTER","J'estime la nature d'un angle, puis je le mesure avec le rapporteur.","Ex. 2 (4,5 points)"],
+  ["REPRÉSENTER","Je construis un angle de mesure donnée avec le rapporteur.","Ex. 3 (3 points)"]
+],
 exos:[
-{t:"Le bon vocabulaire", p:3, h:`${MEM(`<p>Un angle se nomme avec trois lettres et un chapeau. La lettre du sommet est toujours au milieu.</p>`)}${FIG1}
-  <p>a) Le sommet de l'angle codé est le point ……</p><p>b) Ses côtés sont [S……) et [S……)</p>
-  <p>c) Entoure les deux écritures qui désignent l'angle codé : ${A("PSR")} · ${A("SPR")} · ${A("RSP")} · ${A("PRS")}</p>
-  <p>d) Entoure la nature de cet angle : aigu · obtus</p>`,
- c:`<p>a) Le sommet est le point <b>S</b>. <i>(0,5 point)</i></p><p>b) Ses côtés sont <b>[SP)</b> et <b>[SR)</b> (ou [SK)). <i>(0,5 point)</i></p><p>c) ${A("PSR")} et ${A("RSP")} : le sommet S est au milieu. <i>(0,75 point chacune)</i></p><p>d) Il est <b>aigu</b> : plus petit qu'un angle droit. <i>(0,5 point)</i></p>`},
-{t:"Estimer puis mesurer", p:4, h:`${MEM(`<p>Je place le centre du rapporteur sur le sommet et le 0 sur un côté. Je lis sur la graduation qui part de ce 0.</p>`)}<div class="figs">${BIG(angSVG(0,40,{names:["D","E","F"],w:200,h:130,cx:35,cy:105,L:130,alt:"L'angle DEF"}))}${BIG(angSVG(0,130,{names:["M","N","P"],w:240,h:130,cx:120,cy:105,L:95,alt:"L'angle MNP"}))}${BIG(angSVG(0,70,{names:["X","Y","Z"],w:200,h:140,cx:40,cy:115,L:105,alt:"L'angle XYZ"}))}${BIG(angSVG(70,180,{names:["G","H","I"],w:230,h:140,cx:180,cy:115,L:105,alt:"L'angle GHI"}))}</div>
-  <p>1) Sans rapporteur, écris si chaque angle est aigu ou obtus.</p>${AIDE("un angle aigu est plus petit qu'un angle droit ; un angle obtus est plus grand.")}<p>2) Mesure chaque angle avec ton rapporteur.</p>
-  <div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("XYZ")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td>……</td><td>……</td><td>……</td><td>……</td></tr><tr><th>Mesure</th><td>……</td><td>……</td><td>……</td><td>……</td></tr></tbody></table></div>`,
- c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("XYZ")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td><b>aigu</b></td><td><b>obtus</b></td><td><b>aigu</b></td><td><b>obtus</b></td></tr><tr><th>Mesure</th><td><b>40°</b></td><td><b>130°</b></td><td><b>70°</b></td><td><b>110°</b></td></tr></tbody></table></div>
-  <p>Un angle obtus mesure plus de 90° : si je lis 70° pour ${A("GHI")}, je me suis trompé de graduation (180 − 70 = 110).</p><p><i>Par angle : 0,5 point pour la nature, 0,5 point pour la mesure (une erreur de 2° est acceptée).</i></p>`},
+{t:"Le bon vocabulaire", p:2.5, h:`${FIG1}<p>Sur la figure, les points K et R sont sur le même côté de l'angle codé.</p>
+  <p>a) Quel est le sommet de l'angle codé ?</p><p>b) Quels sont ses deux côtés ?</p>
+  <p>c) Recopie toutes les écritures qui désignent l'angle codé : ${A("PSR")} · ${A("SPR")} · ${A("KSP")} · ${A("PKS")} · ${A("RSP")}</p>`,
+ c:`<p>a) Le sommet est le point <b>S</b>. <i>(0,5 point)</i></p>
+  <p>b) Ses côtés sont les demi-droites <b>[SP)</b> et <b>[SR)</b>. Comme K est sur [SR), on peut aussi écrire [SK). <i>(0,5 point)</i></p>
+  <p>c) ${A("PSR")}, ${A("KSP")} et ${A("RSP")} : la lettre du milieu est bien le sommet S. <i>(0,5 point par bonne écriture)</i></p>
+  <p>${A("SPR")} et ${A("PKS")} sont faux : leur lettre du milieu n'est pas S.</p>`},
+{t:"Estimer puis mesurer", p:4.5, h:`<div class="figs">${BIG(angSVG(15,53,{names:["D","E","F"],w:200,h:150,cx:40,cy:120,L:115,alt:"L'angle DEF"}))}${BIG(angSVG(30,155,{names:["M","N","P"],w:230,h:130,cx:120,cy:100,L:95,alt:"L'angle MNP"}))}${BIG(angSVG(62,166,{names:["G","H","I"],w:230,h:150,cx:150,cy:115,L:105,alt:"L'angle GHI"}))}</div>
+  <p>1) Sans rapporteur, indique si chaque angle est aigu ou obtus.</p><p>2) Mesure ensuite chaque angle avec ton rapporteur.</p>
+  <div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td>……</td><td>……</td><td>……</td></tr><tr><th>Mesure</th><td>……</td><td>……</td><td>……</td></tr></tbody></table></div>`,
+ c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>${A("DEF")}</th><th>${A("MNP")}</th><th>${A("GHI")}</th></tr></thead><tbody><tr><th>Aigu ou obtus ?</th><td><b>aigu</b></td><td><b>obtus</b></td><td><b>obtus</b></td></tr><tr><th>Mesure</th><td><b>38°</b></td><td><b>125°</b></td><td><b>104°</b></td></tr></tbody></table></div>
+  <p>Pour mesurer : le centre du rapporteur sur le sommet, le 0 sur un côté, puis je lis sur la graduation qui part de ce 0. La mesure doit être d'accord avec la nature : par exemple ${A("GHI")} est obtus, donc c'est 104° et non 76°.</p>
+  <p><i>Par angle : 0,5 point pour la nature, 1 point pour la mesure (une erreur de 2° est acceptée).</i></p>`},
 {t:"Construire des angles", p:3, h:`<p>Les demi-droites [Ax) et [Bu) sont déjà tracées. Sur ta feuille, reproduis-les, puis :</p>
-  <div class="figs">${HL(40,1,"A","x",240)}${HL(180,-1,"B","u",260)}</div>
-  <p>a) construis [Ay) telle que ${A("xAy")} = 50° ;</p><p>b) construis [Bv) telle que ${A("uBv")} = 120°, au-dessus de [Bu) ;</p>${AIDE("pour b), le 0 du rapporteur doit être sur [Bu), qui part vers la gauche.")}
-  <p>c) entoure la nature de chaque angle : ${A("xAy")} est aigu · obtus &nbsp; et &nbsp; ${A("uBv")} est aigu · obtus</p>`,
- c:`<div class="figs">${angSVG(0,50,{names:["x","A","y"],label:"50°",w:240,h:140,cx:40,cy:120,L:130,alt:"L'angle xAy de 50° construit"})}${angSVG(60,180,{names:["v","B","u"],label:"120°",w:260,h:150,cx:180,cy:125,L:120,alt:"L'angle uBv de 120° construit"})}</div>
-  <p>Pour les deux angles : centre du rapporteur sur le sommet, 0 sur la demi-droite déjà tracée, point en face de la mesure, puis je trace le second côté et je code l'angle. <i>Figures réduites. 1,25 point par angle (une erreur de 2° est acceptée).</i></p>
-  <p>c) ${A("xAy")} est <b>aigu</b> ; ${A("uBv")} est <b>obtus</b>. <i>(0,5 point)</i></p>`}
+  <div class="figs">${HL(130,1,"A","x",300)}${HL(220,-1,"B","u",260)}</div>
+  <p>a) construis la demi-droite [Ay) telle que ${A("xAy")} = 140°, et code l'angle ;</p>
+  <p>b) construis la demi-droite [Bv) telle que ${A("uBv")} = 35°, au-dessus de [Bu), et code l'angle.</p>`,
+ c:`<p>a) Je place le centre du rapporteur en A et le 0 sur [Ax). Je suis la graduation qui part de ce 0 et je marque un point en face de 140. Je trace [Ay) et je code l'angle.</p>
+  <div class="figs">${angSVG(0,140,{names:["x","A","y"],label:"140°",w:300,h:160,cx:150,cy:130,L:120,alt:"L'angle xAy de 140° construit"})}${angSVG(145,180,{names:["v","B","u"],label:"35°",w:280,h:130,cx:230,cy:110,L:170,alt:"L'angle uBv de 35° construit"})}</div>
+  <p>b) Cette fois, [Bu) part vers la gauche : le 0 à utiliser est celui qui est sur [Bu). Je lis sur la graduation qui part de ce 0 et je marque 35.</p>
+  <p><i>Figures réduites. 1,5 point par angle construit et codé (une erreur de 2° est acceptée).</i></p>`}
 ]}
 };
 })()

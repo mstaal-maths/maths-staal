@@ -195,23 +195,21 @@ exos:[
   <p>b) La bissectrice partage l'angle en deux angles de même mesure :</p>${KC(A("uMt"),["76° ÷ 2","<b>38°</b>"])}<p><i>(1 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 15 (version aménagée)", duree:30, info:"Version aménagée · Durée : 30 min · Règle, rapporteur et compas · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec une question en moins, des nombres plus simples, des mots à entourer, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 15 · version aménagée", duree:30, info:"Version aménagée (tiers-temps) · Durée : 30 min · Règle, rapporteur et compas · Calculatrice non autorisée",
+note:"Le même sujet avec 2 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:COMP,
 exos:[
-{t:"Calculer des angles", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Deux angles complémentaires : leurs mesures ont pour somme 90°. Deux angles supplémentaires : leurs mesures ont pour somme 180°. Deux angles opposés par le sommet ont des mesures égales.</p></div>
-  <div class="cpt"><div><p>Les droites (EF) et (GH) se coupent en O. [OL) est perpendiculaire à (EF). ${A("EOG")} = 60°.</p><p>Calcule en justifiant :</p><p>a) ${A("FOG")} · b) ${A("FOH")} · c) ${A("GOL")}</p><p><b>Aide :</b> a) E, O et F sont alignés : ${A("EOG")} + ${A("FOG")} = 180°. c) ${A("EOL")} = 90°.</p></div>${secFig(60)}</div>`,
- c:`<p>a) ${A("EOG")} et ${A("FOG")} sont supplémentaires :</p>${KC(A("FOG"),["180° − 60°","<b>120°</b>"])}<p><i>(1,5 point)</i></p>
-  <p>b) ${A("FOH")} et ${A("EOG")} sont opposés par le sommet : ${A("FOH")} = <b>60°</b>. <i>(1 point)</i></p>
-  <p>c) ${A("EOG")} et ${A("GOL")} sont complémentaires :</p>${KC(A("GOL"),["90° − 60°","<b>30°</b>"])}<p><i>(1,5 point)</i></p>`},
-{t:"Le bon vocabulaire", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Deux angles <b>adjacents</b> ont le même sommet, un côté commun, et sont de part et d'autre de ce côté. Deux angles <b>opposés par le sommet</b> sont formés par deux droites qui se coupent : ils sont face à face, de part et d'autre du point d'intersection.</p></div>
-  <p>Pour chaque figure, entoure le ou les bons mots.</p>
-  <p>a) ${A("xOy")} et ${A("yOz")} : &nbsp; adjacents &nbsp;/&nbsp; opposés par le sommet &nbsp;—&nbsp; complémentaires &nbsp;/&nbsp; supplémentaires</p>${figA}<p>b) ${A("ASB")} et ${A("CSD")} : &nbsp; adjacents &nbsp;/&nbsp; opposés par le sommet</p>${figB}<p>c) ${A("ABC")} et ${A("DEF")} : &nbsp; complémentaires &nbsp;/&nbsp; supplémentaires</p><div class="figs">${figC}</div><p><b>Aide :</b> additionne les deux mesures.</p>`,
- c:`<p>a) <b>adjacents</b> (même sommet O, côté commun [Oy)) <i>(0,5 point)</i> et <b>complémentaires</b> (25° + 65° = 90°). <i>(0,5 point)</i></p><p>b) <b>opposés par le sommet</b>. <i>(1 point)</i></p><p>c) <b>supplémentaires</b> (110° + 70° = 180°). <i>(1 point)</i></p>`},
-{t:"Partager un angle", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>La bissectrice d'un angle partage cet angle en deux angles de même mesure.</p></div>
-  <p>a) Construis la bissectrice [Mt) de l'angle ${A("uMv")}. Choisis ta méthode : rapporteur ou compas.</p><p>b) ${A("uMv")} mesure 80°. Combien mesure ${A("uMt")} ?</p>${bisFig(10,90,false)}<p><b>Aide :</b> avec le rapporteur, je trace un angle ${A("uMt")} qui mesure la moitié de ${A("uMv")}.</p>`,
- c:`${bisFig(10,90,true)}<p>a) Au rapporteur : je trace [Mt) telle que ${A("uMt")} = 40°. Au compas : arc de centre M (points A et B), puis deux arcs de même rayon de centres A et B (point C) ; [MC) est la bissectrice. <i>(2 points)</i></p>
-  <p>b)</p>${KC(A("uMt"),["80° ÷ 2","<b>40°</b>"])}<p><i>(1 point)</i></p>`}
+{t:"Calculer des angles", p:4, h:`<div class="cpt"><div><p>Les droites (EF) et (GH) se coupent en O. La demi-droite [OL) est perpendiculaire à la droite (EF). L'angle ${A("EOG")} mesure 64°.</p><p>Calcule chaque angle en justifiant.</p><p>a) ${A("FOG")} · b) ${A("FOH")} · c) ${A("GOL")}</p></div>${secFig(64)}</div>`,
+ c:`<p>a) E, O et F sont alignés : ${A("EOG")} et ${A("FOG")} sont supplémentaires.</p>${KC(A("FOG"),["180° − 64°","<b>116°</b>"])}<p><i>(1,5 point)</i></p>
+  <p>b) ${A("FOH")} et ${A("EOG")} sont opposés par le sommet, donc ${A("FOH")} = ${A("EOG")} = <b>64°</b>. <i>(1 point)</i></p>
+  <p>c) (OL) est perpendiculaire à (EF), donc ${A("EOL")} = 90°. ${A("EOG")} et ${A("GOL")} sont adjacents et complémentaires :</p>${KC(A("GOL"),["90° − 64°","<b>26°</b>"])}<p><i>(1,5 point)</i></p>`},
+{t:"Le bon vocabulaire", p:3, h:`<p>Pour chaque figure, écris tous les mots qui conviennent parmi : <b>adjacents</b>, <b>complémentaires</b>, <b>supplémentaires</b>, <b>opposés par le sommet</b>. Explique ta réponse.</p>
+  <p>a) Les angles ${A("xOy")} et ${A("yOz")}.</p>${figA}<p>b) Les angles ${A("ASB")} et ${A("CSD")} (les droites (AC) et (BD) se coupent en S).</p>${figB}`,
+ c:`<p>a) Les angles ${A("xOy")} et ${A("yOz")} ont le même sommet O, le côté commun [Oy), et ils sont de part et d'autre de [Oy) : ils sont <b>adjacents</b>. <i>(1 point)</i> De plus, 25° + 65° = 90° : ils sont <b>complémentaires</b>. <i>(0,5 point)</i></p>
+  <p>b) Les angles ${A("ASB")} et ${A("CSD")} sont formés par les droites (AC) et (BD) qui se coupent en S, et ils sont face à face : ils sont <b>opposés par le sommet</b>. <i>(1,5 point)</i></p>`},
+{t:"Partager un angle", p:3, h:`<p>a) Construis <b>au compas</b> la bissectrice [Mt) de l'angle ${A("uMv")}. Tes arcs de cercle doivent rester visibles.</p><p>b) L'angle ${A("uMv")} mesure 76°. Combien mesure l'angle ${A("uMt")} ? Justifie.</p>${bisFig(10,86,false)}`,
+ c:`${bisFig(10,86,true)}<p>a) Un arc de centre M coupe [Mu) en A et [Mv) en B. Deux arcs de même rayon, de centres A et B, se coupent en C. La demi-droite [MC) est la bissectrice [Mt). <i>(2 points : 1 pour les arcs, 1 pour la bissectrice)</i></p>
+  <p>b) La bissectrice partage l'angle en deux angles de même mesure :</p>${KC(A("uMt"),["76° ÷ 2","<b>38°</b>"])}<p><i>(1 point)</i></p>`}
 ]}
 };
 })()

@@ -284,27 +284,27 @@ exos:[
   <p>b) On ne coupe pas une photo : je fais une <b>division euclidienne</b>.</p><p class="calc">86 = 6 × 14 + 2, avec 2 &lt; 6</p><p><b>14 pages</b> seront complètes. Il restera 2 photos : la dernière page (la 15<sup>e</sup>) contiendra <b>2 photos</b>. <i>(1 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 10 · version aménagée", duree:30, info:"Version aménagée · Durée : 30 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 10 · version aménagée", duree:30, info:"Version aménagée (tiers-temps) · Durée : 30 min · Calculatrice non autorisée",
+note:"Le même sujet avec 2 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:COMP,
 exos:[
-{t:"Multiples et diviseurs", p:3, h:`${MEM(`<p>Divisible par 2 : le chiffre des unités est 0, 2, 4, 6 ou 8. Par 5 : il est 0 ou 5.</p><p>Divisible par 3 (ou par 9) : la somme des chiffres est divisible par 3 (ou par 9).</p>`)}
-  <p>a) Complète avec « multiple » ou « diviseur » : 5 est un …… de 35 ; 35 est un …… de 5.</p>
-  <p>b) Voici trois nombres : 45 &nbsp;·&nbsp; 76 &nbsp;·&nbsp; 120. Complète le tableau avec ces nombres.</p>${DIVT()}
-  <p>c) Écris tous les diviseurs de 15.</p>${AIDE("cherche les produits égaux à 15 : 1 × 15 = 15, puis … × … = 15.")}`,
- c:`<p>a) 35 = 5 × 7 : 5 est un <b>diviseur</b> de 35, et 35 est un <b>multiple</b> de 5. <i>(0,5 point)</i></p>
-  <p>b) Sommes des chiffres : 45 → 9 ; 76 → 13 ; 120 → 3.</p>${DIVT(["<b>76 ; 120</b>","<b>45 ; 120</b>","<b>45 ; 120</b>","<b>45</b>"])}<p><i>0,5 point par ligne entièrement juste.</i></p>
-  <p>c) 15 = 1 × 15 = 3 × 5. Les diviseurs de 15 sont : <b>1 ; 3 ; 5 ; 15</b>. <i>(0,5 point)</i></p>`},
-{t:"Une division décimale", p:2, h:`${MEM(`<p>Quand j'abaisse le chiffre des dixièmes, je place la virgule au quotient.</p>`)}<p>Pose la division décimale de 34,5 par 5. Continue jusqu'à obtenir un reste nul.</p>${ZONE}`,
- c:`<div class="figs">${pot("34,5",5)}</div><p>34 en 5 : 6, il reste 4. J'abaisse le 5 des dixièmes et je place la virgule : 45 en 5 : 9, il reste 0.</p><p class="calc">34,5 ÷ 5 = 6,9</p><p><i>1,5 point pour la division bien posée, 0,5 point pour le résultat.</i></p>`},
-{t:"Une division euclidienne", p:3, h:`${MEM(`<p>dividende = diviseur × quotient + reste, avec reste &lt; diviseur.</p>`)}<p>a) Pose la division euclidienne de 274 par 4.</p>${ZONE}<p>b) Complète l'égalité : 274 = 4 × …… + ……</p><p>c) 274 est-il un multiple de 4 ? Justifie.</p>${AIDE("un nombre est un multiple de 4 si le reste de sa division par 4 est égal à 0.")}`,
- c:`<p>a)</p><div class="figs">${pot("274",4,{mode:"euc"})}</div><p>Le quotient est 68 et le reste est 2. <i>(1,5 point)</i></p>
-  <p>b) <span class="calc">274 = 4 × 68 + 2</span>, avec 2 &lt; 4. Vérification : 4 × 68 + 2 = 272 + 2 = 274. <i>(1 point)</i></p>
-  <p>c) <b>Non</b> : le reste n'est pas nul (il vaut 2). <i>(0,5 point)</i></p>`},
-{t:"Quelle division ?", p:2, h:`<p>a) Un ruban de 9 m est coupé en 2 morceaux de même longueur. Quelle est la longueur d'un morceau ?</p>${AIDE("un ruban peut se couper : la réponse peut être un nombre décimal.")}
-  <p>b) Clara range 50 photos dans un album. Chaque page contient 6 photos. Combien de pages seront complètes ? Combien de photos y aura-t-il sur la dernière page ?</p>${AIDE("on ne coupe pas une photo : fais une division euclidienne.")}`,
- c:`<p>a) Division décimale :</p><p class="calc">9 ÷ 2 = 4,5</p><p>Un morceau mesure <b>4,5 m</b>. <i>(1 point)</i></p>
-  <p>b) Division euclidienne :</p><p class="calc">50 = 6 × 8 + 2, avec 2 &lt; 6</p><p><b>8 pages</b> seront complètes, et la dernière page contiendra <b>2 photos</b>. <i>(1 point)</i></p>`}
+{t:"Multiples et diviseurs", p:3, h:`<p>a) Complète avec le mot « multiple » ou le mot « diviseur » : 7 est un …… de 63 ; 63 est un …… de 7.</p>
+  <p>b) Voici cinq nombres : 135 &nbsp;·&nbsp; 248 &nbsp;·&nbsp; 714 &nbsp;·&nbsp; 1 080 &nbsp;·&nbsp; 495. Sans poser de division, complète le tableau avec ces nombres.</p>${DIVT()}`,
+ c:`<p>a) 63 = 7 × 9 : 7 est un <b>diviseur</b> de 63, et 63 est un <b>multiple</b> de 7. <i>(1 point)</i></p>
+  <p>b) Chiffre des unités : 135 → 5 ; 248 → 8 ; 714 → 4 ; 1 080 → 0 ; 495 → 5.</p><p>Somme des chiffres : 135 → 1 + 3 + 5 = 9 ; 248 → 2 + 4 + 8 = 14 ; 714 → 7 + 1 + 4 = 12 ; 1 080 → 1 + 0 + 8 + 0 = 9 ; 495 → 4 + 9 + 5 = 18.</p>
+  ${DIVT(["<b>248 ; 714 ; 1 080</b> (chiffre des unités pair)","<b>135 ; 714 ; 1 080 ; 495</b> (somme des chiffres divisible par 3)","<b>135 ; 1 080 ; 495</b> (chiffre des unités 0 ou 5)","<b>135 ; 1 080 ; 495</b> (somme des chiffres divisible par 9)"])}
+  <p><i>0,5 point par ligne entièrement juste.</i></p>`},
+{t:"Une division décimale", p:2, h:`<p>Pose la division décimale de 58,5 par 6. Continue jusqu'à obtenir un reste nul.</p>${ZONE}`,
+ c:`<div class="figs">${pot("58,5",6)}</div><p>58 en 6 : 9, il reste 4. J'abaisse le 5 des dixièmes et je place la virgule au quotient : 45 en 6 : 7, il reste 3. J'ajoute un zéro (58,5 = 58,50) : 30 en 6 : 5, il reste 0.</p>
+  <p class="calc">58,5 ÷ 6 = 9,75</p><p>Vérification : 6 × 9,75 = 58,5. Ordre de grandeur : 60 ÷ 6 = 10, c'est cohérent.</p>
+  <p><i>1,5 point pour la division bien posée (virgule placée au bon moment, zéro ajouté), 0,5 point pour le résultat.</i></p>`},
+{t:"Une division euclidienne", p:3, h:`<p>a) Pose la division euclidienne de 1 274 par 9.</p>${ZONE}<p>b) Écris l'égalité qui traduit cette division, puis vérifie-la.</p>`,
+ c:`<p>a)</p><div class="figs">${pot("1274",9,{mode:"euc"})}</div><p>Le quotient est 141 et le reste est 5. <i>(1,5 point)</i></p>
+  <p>b) <span class="calc">1 274 = 9 × 141 + 5</span>, avec 5 &lt; 9.</p><p class="calc">9 × 141 + 5 = 1 269 + 5 = 1 274</p><p><i>(1,5 point)</i></p>`},
+{t:"Quelle division ?", p:2, h:`<p>a) Un ruban de 14 m est coupé en 8 morceaux de même longueur. Quelle est la longueur d'un morceau ?</p>
+  <p>b) Clara range 86 photos dans un album. Chaque page contient 6 photos. Combien de pages seront complètes ? Combien de photos y aura-t-il sur la dernière page ?</p>`,
+ c:`<p>a) Une longueur peut se couper : je fais une <b>division décimale</b>.</p><div class="figs">${pot("14",8)}</div><p class="calc">14 ÷ 8 = 1,75</p><p>Un morceau mesure <b>1,75 m</b>. <i>(1 point)</i></p>
+  <p>b) On ne coupe pas une photo : je fais une <b>division euclidienne</b>.</p><p class="calc">86 = 6 × 14 + 2, avec 2 &lt; 6</p><p><b>14 pages</b> seront complètes. Il restera 2 photos : la dernière page (la 15<sup>e</sup>) contiendra <b>2 photos</b>. <i>(1 point)</i></p>`}
 ]}
 };
 })()

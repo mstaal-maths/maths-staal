@@ -354,10 +354,10 @@ exos:[
  c:`<p class="calc">a) (6 + 4) × 5 − 2 = 10 × 5 − 2 = 50 − 2 = 48<br>b) 6 + 4 × (5 − 2) = 6 + 4 × 3 = 6 + 12 = 18<br>c) 36 ÷ 6 − (2 + 1) = 6 − 3 = 3</p><p>Sans parenthèses, 6 + 4 × 5 − 2 = 6 + 20 − 2 = 24. <i>(1 point par égalité)</i></p>`}
 ],
 
-/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+/* ---------- version aménagée (tiers-temps) : le même sujet, environ un quart des questions en moins ---------- */
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 1 · version aménagée", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Version aménagée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 1 · version aménagée", duree:45, info:"Version aménagée (tiers-temps) · Durée : 45 min · Calculatrice non autorisée",
+note:"Le même sujet avec 4 questions en moins, à faire dans le même temps. Le total reste sur 20 points.",
 comp:[
   ["CALCULER","Je calcule en respectant les priorités opératoires.","Ex. 1 (5 points)"],
   ["COMMUNIQUER","Je passe de l'écriture en chiffres à l'écriture en lettres, avec la bonne orthographe.","Ex. 2 (4 points)"],
@@ -365,49 +365,32 @@ comp:[
   ["CHERCHER","Je cherche où placer des parenthèses pour obtenir un résultat.","Ex. 5 (3 points)"]
 ],
 exos:[
-{t:"Calculer avec les priorités", p:5, h:`<div class="retenir" data-l="Je me souviens"><p>1. D'abord les calculs entre parenthèses. 2. Puis × et ÷. 3. Puis + et −.</p></div>
-  <p>Calcule, en écrivant chaque étape.</p>
-  <div class="calcs"><div><p class="calc">A = 15 − 2 × 4<br>A = ……………<br>A = ……………</p></div><div><p class="calc">B = 30 ÷ (1 + 5)<br>B = ……………<br>B = ……………</p></div><div><p class="calc">C = 6 + 12 ÷ 3<br>C = ……………<br>C = ……………</p></div><div><p class="calc">D = 2 × (9 − 4) + 3<br>D = ……………<br>D = ……………<br>D = ……………</p></div></div>
-  <p class="note"><b>Aide :</b> pour D, commence par la parenthèse.</p>
-  <p>Tom a écrit : «&nbsp;10 − 2 × 3 = 24&nbsp;». Entoure : Tom a raison · Tom a tort.</p><p>Écris le bon calcul : 10 − 2 × 3 = …………… = ……………</p>`,
- c:`<div class="calcs"><div><p class="calc">A = 15 − 2 × 4<br>A = 15 − 8<br>A = <b>7</b></p></div><div><p class="calc">B = 30 ÷ (1 + 5)<br>B = 30 ÷ 6<br>B = <b>5</b></p></div><div><p class="calc">C = 6 + 12 ÷ 3<br>C = 6 + 4<br>C = <b>10</b></p></div><div><p class="calc">D = 2 × (9 − 4) + 3<br>D = 2 × 5 + 3<br>D = 10 + 3<br>D = <b>13</b></p></div></div>
-  <p><i>(1 point par calcul, étapes comprises)</i></p>
-  <p>Tom a tort : il a calculé 10 − 2 = 8, puis 8 × 3 = 24. La multiplication passe avant : 10 − 2 × 3 = 10 − 6 = <b>4</b>. <i>(0,5 point pour «&nbsp;Tom a tort&nbsp;», 0,5 point pour le bon calcul)</i></p>`},
-{t:"Des chèques à remplir", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Je mets des traits d'union entre tous les mots. «&nbsp;cent&nbsp;» et «&nbsp;vingt&nbsp;» prennent un s s'ils sont multipliés et si rien ne les suit. «&nbsp;mille&nbsp;» ne prend jamais de s.</p></div>
-  <p>a) Écris en lettres : 300 € · 2 050 € · 40 015 €</p>
-  <p>b) Écris en chiffres : six-mille-quarante euros · trente-mille euros</p>
-  <p class="note"><b>Aide :</b> écris d'abord le nombre de mille, puis le reste avec 3 chiffres.</p>
-  <p>c) Entoure la bonne écriture.</p>
-  <p>90 : quatre-vingt-dix · quatre-vingts-dix</p><p>2 000 : deux-mille · deux-milles</p><p>500 : cinq-cent · cinq-cents</p>`,
- c:`<p>a) trois-cents · deux-mille-cinquante · quarante-mille-quinze <i>(0,5 point par nombre)</i></p>
-  <p>b) 6 mille et 40 unités : 6 040 · 30 mille : 30 000 <i>(0,5 point chacun)</i></p>
-  <p>c) quatre-vingt-dix (vingt est suivi de dix) · deux-mille (mille ne prend jamais de s) · cinq-cents (cent est multiplié par 5 et rien ne le suit) <i>(0,5 point chacun)</i></p>`},
-{t:"Lire et décomposer un nombre", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Le chiffre des centaines est un seul chiffre. Pour le nombre de centaines, je garde tous les chiffres jusqu'à la colonne des centaines.</p></div>
-  <p>1) Voici le nombre 4 625 190 dans le tableau.</p>
-  <div class="scroll"><table class="num"><thead><tr><th colspan="3">Classe des millions</th><th colspan="3">Classe des mille</th><th colspan="3">Classe des unités</th></tr><tr>${"<th>c</th><th>d</th><th>u</th>".repeat(3)}</tr></thead><tbody><tr><td></td><td></td><td>4</td><td>6</td><td>2</td><td>5</td><td>1</td><td>9</td><td>0</td></tr></tbody></table></div>
-  <p>a) Le chiffre des dizaines de mille est …… b) Le nombre de centaines est ……</p>
-  <p>2) Complète : 60 324 = (6 × ……) + (3 × ……) + (2 × ……) + 4</p>
-  <p>3) Quel nombre s'écrit (3 × 1 000 000) + (5 × 1 000) + (2 × 10) ?</p>
-  <p class="note"><b>Aide :</b> place les chiffres dans un tableau de numération, et mets un 0 dans chaque case vide.</p>`,
- c:`<p>1) a) Le chiffre des dizaines de mille est <b>2</b>. b) Je garde 4 6 2 5 1 : le nombre de centaines est <b>46 251</b>. <i>(0,5 point chacun)</i></p>
-  <p class="calc">2) 60 324 = (6 × 10 000) + (3 × 100) + (2 × 10) + 4</p><p><i>(0,5 point par case)</i></p>
-  <p>3) 3 millions, 5 mille et 2 dizaines : 3 000 000 + 5 000 + 20 = <b>3 005 020</b>. <i>(1,5 point)</i></p>`},
-{t:"Lire et placer sur une graduation", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>L'abscisse d'un point est le nombre qui lui correspond. On l'écrit entre parenthèses, par exemple A(3).</p></div>
-  <p>1) Voici une demi-droite graduée.</p>
-  ${axis({n:10, lab:[[0,"0"],[10,"100"]], pts:[["R",3],["S",7],["T",9]]})}
-  <p>a) Combien vaut une petite graduation ?</p><p class="note"><b>Aide :</b> il y a 10 intervalles entre 0 et 100. Calcule 100 ÷ 10.</p>
-  <p>b) Complète : R( …… ) S( …… ) T( …… )</p>
-  <p>2) Place les points U(300) et V(800) sur cette demi-droite graduée.</p>
-  ${axis({n:10, lab:[[0,"0"],[10,"1 000"]]})}
-  <p class="note"><b>Aide :</b> calcule d'abord la valeur d'une petite graduation, puis compte les graduations à partir de 0.</p>`,
- c:`<p>1) a) 100 ÷ 10 = <b>10</b>. <i>(1 point)</i></p><p>b) R(30) ; S(70) ; T(90). <i>(0,5 point chacun)</i></p>
-  <p>2) 1 000 ÷ 10 = 100. U est à la 3<sup>e</sup> graduation, V à la 8<sup>e</sup>. <i>(0,5 point pour l'écart, 0,5 point par point bien placé)</i></p>
-  ${axis({n:10, lab:[[0,"0"],[10,"1 000"]], pts:[["U",3],["V",8]]})}`},
-{t:"Le bon résultat", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>On calcule toujours en premier ce qui est entre parenthèses.</p></div>
-  <p>Mets des parenthèses au bon endroit pour que le résultat soit juste.</p>
-  <p class="calc">a) 6 + 4 × 5 = 50<br>b) 20 − 5 + 3 = 12<br>c) 2 × 3 + 4 = 14</p>
-  <p class="note"><b>Aide :</b> essaie les parenthèses à plusieurs endroits, et calcule à chaque fois.</p>`,
- c:`<p class="calc">a) (6 + 4) × 5 = 10 × 5 = 50<br>b) 20 − (5 + 3) = 20 − 8 = 12<br>c) 2 × (3 + 4) = 2 × 7 = 14</p><p><i>(1 point par égalité)</i></p>`}
+{t:"Calculer avec les priorités", p:5, h:`<p>Calcule. <b>Écris toutes les étapes.</b></p>
+  <div class="calcs"><span>A = 18 − 3 × 4</span><span>B = 7 + 24 ÷ 6 × 2</span><span>C = 3 × (12 − 5) + 9</span></div>
+  <p>Pour finir, Tom a écrit : «&nbsp;20 − 2 × 5 = 90&nbsp;». A-t-il raison ? Explique, puis écris le bon calcul.</p>`,
+ c:`<div class="calcs"><div><p class="calc">A = 18 − 3 × 4<br>A = 18 − 12<br>A = <b>6</b></p></div><div><p class="calc">B = 7 + 24 ÷ 6 × 2<br>B = 7 + 4 × 2<br>B = 7 + 8<br>B = <b>15</b></p></div><div><p class="calc">C = 3 × (12 − 5) + 9<br>C = 3 × 7 + 9<br>C = 21 + 9<br>C = <b>30</b></p></div></div>
+  <p>Pour B : ÷ et × ont la même priorité, donc on calcule de gauche à droite (24 ÷ 6 d'abord). <i>(1 point pour A, 1,5 point pour B, 1,5 point pour C, étapes comprises)</i></p>
+  <p>Tom a tort. Il a calculé 20 − 2 = 18, puis 18 × 5 = 90. Mais la multiplication passe avant la soustraction : 20 − 2 × 5 = 20 − 10 = <b>10</b>. <i>(0,5 point pour l'explication, 0,5 point pour le bon calcul)</i></p>`},
+{t:"Des chèques à remplir", p:4, h:`<p>Mme Diallo remplit des chèques. Sur un chèque, le montant s'écrit aussi en lettres.</p>
+  <p>a) Écris en lettres : 300 € · 1 090 € · 72 015 €</p>
+  <p>b) Écris en chiffres : six-cent-mille-quarante euros · trente-mille-huit-cents euros</p>`,
+ c:`<p>a) trois-cents (cent est multiplié par 3 et rien ne le suit : il prend un s) · mille-quatre-vingt-dix · soixante-douze-mille-quinze <i>(1 point par nombre)</i></p>
+  <p>b) 600 mille et 40 unités : 600 040 · 30 mille et 800 unités : 30 800 <i>(0,5 point chacun)</i></p>`},
+{t:"Lire et décomposer un nombre", p:4, h:`<p>1) On donne le nombre 58 137 260.</p><p>a) Quel est son chiffre des dizaines de mille ? b) Quel est son nombre de centaines ?</p>
+  <p>2) Décompose 70 518 avec des multiplications par 10 000, 1 000, 100 et 10, comme dans le cours.</p>`,
+ c:`<p>1) Je sépare les classes : 58 | 137 | 260. a) Dans la classe des mille (137), le chiffre des dizaines de mille est <b>3</b>. b) Je garde tous les chiffres jusqu'aux centaines : le nombre de centaines est <b>581 372</b>. <i>(1 point chacun)</i></p>
+  <p class="calc">2) 70 518 = (7 × 10 000) + (5 × 100) + (1 × 10) + 8</p><p>On peut aussi écrire (0 × 1 000) : il n'y a pas d'unités de mille. <i>(2 points)</i></p>`},
+{t:"Lire et placer sur une graduation", p:4, h:`<p>1) Voici une demi-droite graduée.</p>
+  ${axis({n:10, lab:[[0,"0"],[10,"200"]], pts:[["R",3],["S",7],["T",9]]})}
+  <p>a) Combien vaut une petite graduation ? b) Donne l'abscisse de R, de S et de T. Utilise la notation du cours.</p>
+  <p>2) Place les points U(1 500) et V(3 500) sur cette demi-droite graduée.</p>
+  ${axis({n:8, lab:[[0,"0"],[8,"4 000"]]})}`,
+ c:`<p>1) a) Il y a 10 intervalles entre 0 et 200 : 200 ÷ 10 = <b>20</b>. <i>(1 point)</i></p><p>b) R(60) ; S(140) ; T(180). <i>(0,5 point chacun)</i></p>
+  <p>2) Il y a 8 intervalles entre 0 et 4 000 : 4 000 ÷ 8 = 500. U est à la 3<sup>e</sup> graduation (3 × 500 = 1 500), V à la 7<sup>e</sup> (7 × 500 = 3 500). <i>(0,5 point pour l'écart, 0,5 point par point bien placé)</i></p>
+  ${axis({n:8, lab:[[0,"0"],[8,"4 000"]], pts:[["U",3],["V",7]]})}`},
+{t:"Le bon résultat", p:3, h:`<p>Où faut-il mettre une paire de parenthèses pour obtenir le résultat indiqué ? Recopie chaque calcul avec les parenthèses, puis vérifie.</p>
+  <p class="calc">a) 6 + 4 × 5 − 2 = 48<br>b) 6 + 4 × 5 − 2 = 18</p>`,
+ c:`<p class="calc">a) (6 + 4) × 5 − 2 = 10 × 5 − 2 = 50 − 2 = 48<br>b) 6 + 4 × (5 − 2) = 6 + 4 × 3 = 6 + 12 = 18</p><p>Sans parenthèses, 6 + 4 × 5 − 2 = 6 + 20 − 2 = 24. <i>(1,5 point par égalité)</i></p>`}
 ]}
 }
 };

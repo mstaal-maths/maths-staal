@@ -147,8 +147,8 @@ exos:[
   <p>c) 100 % − 15 % = <b>85 %</b> des licenciés sont des garçons. <i>(1 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 20 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Crayons de couleur · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, moins de calculs, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 20 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Crayons de couleur · Calculatrice non autorisée",
+note:"Le même sujet avec 4 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
   ["REPRÉSENTER","Je comprends ce que veut dire un pourcentage et je connais les pourcentages usuels.","Ex. 1 (2 points)"],
   ["CALCULER","J'applique un pourcentage de tête.","Ex. 2 (3 points)"],
@@ -156,15 +156,18 @@ comp:[
   ["MODÉLISER","Je résous un problème avec un pourcentage.","Ex. 4 (3 points)"]
 ],
 exos:[
-{t:"Colorier un pourcentage", p:2, h:`${souv("30 % = 30 carreaux sur 100. Une ligne du carré = 10 carreaux.")}
-  <div class="cpt"><div><p>Le carré a 100 carreaux.</p><p>a) Colorie 30 % du carré.</p><p>b) Quel pourcentage du carré reste blanc ?</p><p>c) Complète : la moitié = …… % ; le dixième = …… %.</p></div>${vide}</div>`,
- c:`<div class="cpt"><div><p>a) On colorie 30 carreaux, par exemple 3 lignes. <i>(0,5 point)</i></p><p>b) 100 − 30 = 70 : il reste <b>70 %</b> en blanc. <i>(0,5 point)</i></p><p>c) La moitié = <b>50 %</b> ; le dixième = <b>10 %</b>. <i>(0,5 point chacun)</i></p></div>${cent(30,{c:12})}</div>`},
-{t:"De tête", p:3, h:`${souv("50 % = la moitié ; 25 % = le quart ; 10 % = le dixième.")}<p>Calcule de tête.</p><p>a) 50 % de 36 · b) 10 % de 230 · c) 25 % de 40</p>`,
- c:`<p>a) La moitié de 36 : 36 ÷ 2 = <b>18</b> · b) le dixième de 230 : 230 ÷ 10 = <b>23</b> · c) le quart de 40 : 40 ÷ 4 = <b>10</b></p><p><i>(1 point par calcul)</i></p>`},
-{t:"Le club d'échecs", p:2, h:`<p>Le club d'échecs compte 50 membres, dont 20 filles.</p><p>a) Écris la proportion de filles sous forme de fraction.</p><p>b) Écris-la sous forme de pourcentage.</p><p><i>Aide : pour avoir 100 en bas, multiplie le haut et le bas par 2.</i></p><p>c) Quel pourcentage des membres sont des garçons ?</p>`,
- c:`<p>a) <b>${F(20,50)}</b>. <i>(0,5 point)</i></p><p>b) ${F(20,50)} = ${F(40,100)} = <b>40 %</b>. <i>(1 point)</i></p><p>c) 100 % − 40 % = <b>60 %</b>. <i>(0,5 point)</i></p>`},
-{t:"Le club de football", p:3, h:`<p>Un club de football compte 60 licenciés. 10 % des licenciés sont des filles.</p><p>a) Combien de filles y a-t-il ? Écris ton calcul.</p><p><i>Aide : 10 %, c'est le dixième.</i></p><p>b) Combien de garçons y a-t-il ?</p><p>c) Quel pourcentage des licenciés sont des garçons ?</p><p><i>Aide : tous les licenciés, c'est 100 %.</i></p>`,
- c:`<p>a)</p>${KC("A",["10 % de 60","60 ÷ 10","6"])}<p>Il y a <b>6 filles</b>. <i>(1,5 point)</i></p><p>b) 60 − 6 = 54 : il y a <b>54 garçons</b>. <i>(0,5 point)</i></p><p>c) 100 % − 10 % = <b>90 %</b>. <i>(1 point)</i></p>`}
+{t:"Colorier un pourcentage", p:2, h:`<div class="cpt"><div><p>Ce carré est partagé en 100 carreaux identiques.</p><p>a) Colorie 35 % du carré.</p><p>b) Complète avec un pourcentage : le dixième = …… % ; les trois quarts = …… %.</p></div>${vide}</div>`,
+ c:`<div class="cpt"><div><p>a) On colorie 35 carreaux sur 100 (par exemple 3 lignes de 10 et 5 carreaux). <i>(1 point)</i></p><p>b) Le dixième = <b>10 %</b> ; les trois quarts = <b>75 %</b>. <i>(0,5 point chacun)</i></p></div>${cent(35,{c:12})}</div>`},
+{t:"De tête", p:3, h:`<p>Calcule de tête.</p><p>a) 10 % de 230 · b) 50 % de 36 · c) 20 % de 45 · d) 75 % de 16</p>`,
+ c:`<p>a) 10 %, c'est le dixième : 230 ÷ 10 = <b>23</b> · b) 50 %, c'est la moitié : 36 ÷ 2 = <b>18</b> <i>(0,5 point chacun)</i></p>
+  <p>c) 10 % de 45 = 4,5, et 20 % = 2 × 10 % : 2 × 4,5 = <b>9</b> · d) le quart de 16 = 4, et 75 % = 3 × 25 % : 3 × 4 = <b>12</b> <i>(1 point chacun)</i></p>`},
+{t:"Le club d'échecs", p:2, h:`<p>Le club d'échecs du collège compte 50 membres. Parmi eux, 19 sont des filles.</p><p>a) Écris la proportion de filles sous forme de fraction.</p><p>b) Écris cette proportion sous forme de pourcentage.</p>`,
+ c:`<p>a) Proportion de filles : <b>${F(19,50)}</b>. <i>(0,5 point)</i></p>
+  <p>b) On multiplie le numérateur et le dénominateur par 2 : ${F(19,50)} = ${F(38,100)} = <b>38 %</b>. <i>(1,5 point)</i></p>`},
+{t:"Le club de football", p:3, h:`<p>Un club de football compte 60 licenciés. 15 % des licenciés sont des filles.</p><p>a) Combien de filles y a-t-il dans ce club ? Écris ton calcul.</p><p>b) Combien de garçons y a-t-il ?</p><p>c) Quel pourcentage des licenciés sont des garçons ?</p>`,
+ c:`<p>a)</p>${KC("A",["15 % de 60","60 × 15 ÷ 100","900 ÷ 100","9"])}<p>Il y a <b>9 filles</b>. (De tête : 10 % de 60 = 6 et 5 % de 60 = 3, donc 15 % de 60 = 6 + 3 = 9.) <i>(1,5 point)</i></p>
+  <p>b) 60 − 9 = 51 : il y a <b>51 garçons</b>. <i>(0,5 point)</i></p>
+  <p>c) 100 % − 15 % = <b>85 %</b> des licenciés sont des garçons. <i>(1 point)</i></p>`}
 ]}
 };
 })()

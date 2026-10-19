@@ -231,24 +231,27 @@ exos:[
   <p><i>2 points par problème : 1 point pour la démarche (le bon calcul), 1 point pour le résultat juste avec l'unité et une phrase.</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 7 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 7 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice non autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:COMP,
 exos:[
-{t:"Changer d'unité", p:3, h:`${MEM(`<p>1 h = 60 min &nbsp;·&nbsp; 1 min = 60 s &nbsp;·&nbsp; 1 jour = 24 h</p>`)}<p>Complète.</p><p>a) 4 h = …… min · b) 2 min = …… s · c) 1 h 20 min = …… min · d) 2 min 30 s = …… s · e) 75 min = …… h …… min · f) 0,5 h = …… min</p>${AIDE("0,5 h, c'est la moitié d'une heure.")}`,
- c:`<p>a) 4 h = 4 × 60 = <b>240 min</b>.</p><p>b) 2 min = 2 × 60 = <b>120 s</b>.</p><p>c) 1 h 20 min = 60 + 20 = <b>80 min</b>.</p><p>d) 2 min 30 s = 2 × 60 + 30 = 120 + 30 = <b>150 s</b>.</p><p>e) 75 = 60 + 15, donc 75 min = <b>1 h 15 min</b>.</p><p>f) La moitié de 60 min : 60 ÷ 2 = 30, donc 0,5 h = <b>30 min</b>.</p><p><i>0,5 point par conversion.</i></p>`},
-{t:"Le petit train touristique", p:3, h:`${MEM(`<p>Dans ce tableau, chaque colonne correspond à un même train.</p>`)}<p>Voici les horaires du petit train.</p>${TAB}
-  <p>a) À quelle heure le départ n° 2 arrive-t-il au Phare ?</p>
-  <p>b) Avec le départ n° 1, combien de temps faut-il pour aller du Port à la Plage des Dunes ?</p>
-  <p>c) Nina arrive au Port à 13 h 25. Elle prend le premier petit train qui part. Combien de temps attend-elle ?</p>${AIDE("dans la ligne « Port », cherche le premier horaire après 13 h 25.")}`,
- c:`<p>a) Colonne « Départ n° 2 », ligne « Phare » : il arrive à <b>14 h 16</b>. <i>(1 point)</i></p>
-  <p>b) Départ du Port à 10 h 15, arrivée à la Plage des Dunes à 10 h 32.</p><p class="calc">10 h 32 min − 10 h 15 min = 17 min</p><p>Il faut <b>17 min</b>. <i>(1 point)</i></p>
-  <p>c) Le premier train après 13 h 25 part à 13 h 40.</p><p class="calc">13 h 40 min − 13 h 25 min = 15 min</p><p>Nina attend <b>15 min</b>. <i>(1 point)</i></p>`},
-{t:"Deux problèmes", p:4, h:`<p><b>Problème 1 :</b> Hugo commence une randonnée à 14 h 10. Il revient à 16 h 45. Combien de temps a duré sa randonnée ?</p>${AIDE("retire 14 h 10 à 16 h 45 : les heures d'un côté, les minutes de l'autre.")}
-  <p><b>Problème 2 :</b> le concert de Maëlys commence à 19 h 20. Il dure 1 h 30 min. À quelle heure se termine-t-il ?</p>${AIDE("ajoute la durée à l'horaire du début.")}`,
- c:`<p><b>Problème 1 :</b> on cherche une durée.</p>${tl(14*60+10, 16*60+45, "d")}<p class="calc">16 h 45 min − 14 h 10 min = 2 h 35 min</p><p>La randonnée a duré <b>2 h 35 min</b>.</p>
-  <p><b>Problème 2 :</b> on cherche l'horaire de fin.</p>${tl(19*60+20, 20*60+50, "b")}<p class="calc">19 h 20 min + 1 h 30 min = 20 h 50 min</p><p>Le concert se termine à <b>20 h 50</b>.</p>
-  <p><i>2 points par problème : 1 point pour le bon calcul, 1 point pour le résultat avec l'unité et une phrase.</i></p>`}
+{t:"Changer d'unité", p:3, h:`<p>Complète.</p><p>a) 5 min = …… s · b) 3 h 38 min = …… min · c) 500 min = …… h …… min · d) 2,5 h = …… h …… min</p>`,
+ c:`<p>a) 1 min = 60 s, donc 5 min = 5 × 60 = <b>300 s</b>. <i>(0,5 point)</i></p>
+  <p>b) 3 h 38 min = 3 × 60 + 38 = 180 + 38 = <b>218 min</b>. <i>(0,5 point)</i></p>
+  <p>c) 500 = 8 × 60 + 20, donc 500 min = <b>8 h 20 min</b>. <i>(1 point)</i></p>
+  <p>d) 0,5 h, c'est une demi-heure, soit 30 min. Donc 2,5 h = <b>2 h 30 min</b> (et non 2 h 50 min). <i>(1 point)</i></p>`},
+{t:"Le petit train touristique", p:3, h:`<p>Un petit train fait le tour d'une station balnéaire. Voici ses horaires de la journée.</p>${TAB}
+  <p>a) Avec le départ n° 1, combien de temps dure le tour complet, du Port au Village ?</p>
+  <p>b) Nina arrive au Port à 12 h 50. Elle prend le premier petit train qui part. Combien de temps attend-elle ?</p>`,
+ c:`<p>a) Le départ n° 1 part du Port à 10 h 15 et arrive au Village à 11 h 08.</p><p class="calc">11 h 08 min = 10 h 68 min<br>10 h 68 min − 10 h 15 min = 53 min</p><p>Le tour complet dure <b>53 min</b>. <i>(1,5 point)</i></p>
+  <p>b) Le premier train qui part du Port après 12 h 50 est le départ n° 2, à 13 h 40.</p><p class="calc">13 h 40 min = 12 h 100 min<br>12 h 100 min − 12 h 50 min = 50 min</p><p>Nina attend <b>50 min</b>. <i>(1,5 point)</i></p>`},
+{t:"Deux problèmes", p:4, h:`<p><b>Problème 1 :</b> Hugo commence une randonnée à 9 h 52. Il revient à son point de départ à 15 h 17. Combien de temps a duré sa randonnée ?</p>
+  <p><b>Problème 2 :</b> le concert de Maëlys commence à 19 h 35. Il dure 2 h 48 min. À quelle heure se termine-t-il ?</p>`,
+ c:`<p><b>Problème 1 :</b> on cherche une durée. On retire l'horaire de départ à l'horaire d'arrivée.</p>${tl(9*60+52, 15*60+17, "d")}
+  <p class="calc">15 h 17 min = 14 h 77 min<br>14 h 77 min − 9 h 52 min = 5 h 25 min</p><p>La randonnée a duré <b>5 h 25 min</b>.</p>
+  <p><b>Problème 2 :</b> on cherche l'horaire d'arrivée. On ajoute la durée à l'horaire de départ.</p>${tl(19*60+35, 22*60+23, "b")}
+  <p class="calc">19 h 35 min + 2 h 48 min = 21 h 83 min<br>83 min = 60 min + 23 min = 1 h 23 min<br>21 h 83 min = 22 h 23 min</p><p>Le concert se termine à <b>22 h 23</b>.</p>
+  <p><i>2 points par problème : 1 point pour la démarche (le bon calcul), 1 point pour le résultat juste avec l'unité et une phrase.</i></p>`}
 ]}
 };
 })()

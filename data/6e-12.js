@@ -175,31 +175,32 @@ exos:[
   <p>b) 120 ÷ 15 = 8. <b>Il lui faut 8 minutes pour imprimer 120 pages.</b> <i>(1 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 12 (version aménagée)", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 12 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice non autorisée",
+note:"Le même sujet avec 2 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
   ["CALCULER","Je complète un tableau de proportionnalité.","Ex. 1 (3 points)"],
   ["RAISONNER","Je reconnais une situation de proportionnalité, et je justifie par des calculs.","Ex. 2 (3 points)"],
   ["MODÉLISER","Je résous un problème de proportionnalité en rédigeant.","Ex. 3 (4 points)"]
 ],
 exos:[
-{t:"Le jus d'orange", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Dans un tableau de proportionnalité, il y a un nombre, le coefficient, par lequel je multiplie chaque nombre du haut pour obtenir le nombre du bas.</p></div>
-  <p>1 orange donne 10 cL de jus. La quantité de jus est proportionnelle au nombre d'oranges.</p><p>Complète le tableau.</p>${ptab(["Nombre d'oranges","Jus (en cL)"],[1,3,5,""],[10,"","",80])}
-  <p><b>Aide :</b> pour passer de la 1<sup>re</sup> ligne à la 2<sup>e</sup> ligne, je multiplie par 10.</p>`,
- c:`${ptab(["Nombre d'oranges","Jus (en cL)"],[1,3,5,8],[10,30,50,80],{red:[[1,1],[1,2],[0,3]],coef:"× 10"})}
-  <p>3 × 10 = <b>30 cL</b>. <i>(1 point)</i></p><p>5 × 10 = <b>50 cL</b>. <i>(1 point)</i></p><p>80 ÷ 10 = <b>8 oranges</b>. <i>(1 point)</i></p>`},
-{t:"Proportionnel ou pas ?", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Je divise chaque nombre de la 2<sup>e</sup> ligne par le nombre de la 1<sup>re</sup> ligne. Si je trouve toujours le même résultat, c'est un tableau de proportionnalité.</p></div>
-  <p>Pour chaque tableau, dis si c'est un tableau de proportionnalité. Justifie par des calculs.</p>
-  <p><b>Tableau A :</b> la location d'un kayak.</p>${ptab(["Durée (en h)","Prix (en €)"],[1,2,3],[8,14,20])}
-  <p><b>Tableau B :</b> des pelotes de laine.</p>${ptab(["Nombre de pelotes","Masse (en g)"],[2,4,6],[100,200,300])}
-  <p><b>Aide :</b> pour le tableau A, calcule 8 ÷ 1, puis 14 ÷ 2.</p>`,
- c:`<p><b>Tableau A :</b> 8 ÷ 1 = 8 et 14 ÷ 2 = 7. <i>(1 point)</i></p><p>Les résultats sont différents : <b>ce n'est pas un tableau de proportionnalité</b>. <i>(0,5 point)</i></p>
-  <p><b>Tableau B :</b> 100 ÷ 2 = 50 ; 200 ÷ 4 = 50 ; 300 ÷ 6 = 50. <i>(1 point)</i></p><p>On trouve toujours 50 : <b>c'est un tableau de proportionnalité</b>. <i>(0,5 point)</i></p>`},
+{t:"Le jus d'orange", p:3, h:`<p>Au marché, Inès presse des oranges. La quantité de jus obtenue est proportionnelle au nombre d'oranges pressées.</p><p>Complète le tableau. Écris tes calculs.</p>${ptab(["Nombre d'oranges","Jus (en cL)"],[4,8,2,12],[30,"","",""])}`,
+ c:`${ptab(["Nombre d'oranges","Jus (en cL)"],[4,8,2,12],[30,60,15,90],{red:[[1,1],[1,2],[1,3]]})}
+  <p>8 oranges, c'est 2 fois 4 oranges : 2 × 30 = <b>60 cL</b>. <i>(1 point)</i></p>
+  <p>2 oranges, c'est la moitié de 4 oranges : 30 ÷ 2 = <b>15 cL</b>. <i>(1 point)</i></p>
+  <p>12 oranges, c'est 8 + 4 oranges : 60 + 30 = <b>90 cL</b> (ou 3 × 30 = 90). <i>(1 point)</i></p>
+  <p><i>Toute méthode juste est acceptée, par exemple le passage à l'unité : 1 orange donne 30 ÷ 4 = 7,5 cL de jus.</i></p>`},
+{t:"Proportionnel ou pas ?", p:3, h:`<p>Pour chaque tableau, dis si c'est un tableau de proportionnalité. Justifie par des calculs.</p>
+  <p><b>Tableau A :</b> le prix de la location d'un kayak.</p>${ptab(["Durée (en h)","Prix (en €)"],[1,2,3,5],[8,14,20,32])}
+  <p><b>Tableau B :</b> la masse de pelotes de laine identiques.</p>${ptab(["Nombre de pelotes","Masse (en g)"],[3,4,6,9],[150,200,300,450])}`,
+ c:`<p><b>Tableau A :</b> 8 ÷ 1 = 8 et 14 ÷ 2 = 7. <i>(1 point)</i></p><p>Les résultats sont différents : <b>ce n'est pas un tableau de proportionnalité</b>. Le prix n'est pas proportionnel à la durée. <i>(0,5 point)</i></p><p><i>Autre justification : pour 2 h, on devrait payer 2 × 8 = 16 €, or on paie 14 €.</i></p>
+  <p><b>Tableau B :</b> 150 ÷ 3 = 50 ; 200 ÷ 4 = 50 ; 300 ÷ 6 = 50 ; 450 ÷ 9 = 50. <i>(1 point)</i></p><p>On trouve toujours 50 : <b>c'est un tableau de proportionnalité</b>, de coefficient 50 (une pelote pèse 50 g). <i>(0,5 point)</i></p>`},
 {t:"Deux problèmes", p:4, h:`<p>Écris tes calculs et réponds par une phrase.</p>
-  <p><b>Problème 1 :</b> à la piscine, 2 entrées coûtent 7 €. Combien coûtent 4 entrées ?</p><p><b>Aide :</b> 4 entrées, c'est 2 fois 2 entrées.</p>
-  <p><b>Problème 2 :</b> une imprimante imprime 15 pages en 1 minute. Combien de pages imprime-t-elle en 6 minutes ?</p>`,
- c:`<p><b>Problème 1 :</b> 4 entrées, c'est 2 fois 2 entrées : 2 × 7 = 14. <i>(1,5 point)</i></p><p><b>4 entrées coûtent 14 €.</b> <i>(0,5 point)</i></p>
-  <p><b>Problème 2 :</b> 6 × 15 = 90. <i>(1,5 point)</i></p><p><b>Elle imprime 90 pages en 6 minutes.</b> <i>(0,5 point)</i></p>`}
+  <p><b>Problème 1 :</b> à la piscine, 5 entrées coûtent 17,50 €. Le prix est proportionnel au nombre d'entrées. Combien coûtent 8 entrées ?</p>
+  <p><b>Problème 2 :</b> une imprimante imprime 45 pages en 3 minutes. Elle imprime toujours au même rythme. Combien de pages imprime-t-elle en 7 minutes ?</p>`,
+ c:`<p><b>Problème 1 :</b> je calcule d'abord le prix d'une entrée : 17,50 ÷ 5 = 3,50 €. <i>(1 point)</i></p><p>Pour 8 entrées : 8 × 3,50 = 28. <i>(0,5 point)</i></p><p><b>8 entrées coûtent 28 €.</b> <i>(0,5 point)</i></p>
+  ${ptab(["Nombre d'entrées","Prix (en €)"],[5,1,8],["17,50","3,50",28],{red:[[1,1],[1,2]],arcs:[{a:0,b:1,t:"÷ 5"},{a:1,b:2,t:"× 8"}]})}
+  <p><b>Problème 2 :</b> en 1 minute, l'imprimante imprime 45 ÷ 3 = 15 pages. <i>(1 point)</i></p>
+  <p>En 7 minutes : 7 × 15 = 105. <b>Elle imprime 105 pages en 7 minutes.</b> <i>(1 point)</i></p>`}
 ]}
 }
 };

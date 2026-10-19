@@ -238,24 +238,29 @@ exos:[
 {t:"Le symétrique de points", p:3, h:`<p>Construis, avec l'équerre et le compas, les points E' et F', symétriques des points E et F par rapport à la droite (d). On doit voir tes traits de construction et le codage (angles droits et longueurs égales).</p><p>Le point G est sur la droite (d). Où se trouve son symétrique G' ?</p>${ptsFig({G:true,pts:PTS,alt:"Une droite (d) oblique, le point E au-dessus, le point F en dessous et le point G sur (d)"})}`,
  c:`${C_PTS}<p><i>E' : 1 point · F' : 1 point · codage : 0,5 point.</i></p><p>G est sur (d) : son symétrique est le point lui-même, <b>G' = G</b>. <i>(0,5 point)</i></p>`}
 ],
-bep:{
-titre:"Évaluation d'entraînement — Chapitre 13 (version aménagée)", duree:30, info:"Version aménagée · Durée : 30 min · Règle, équerre et compas · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec une figure plus simple, des réponses à entourer, des rappels du cours (« Je me souviens ») et des aides.",
+bep:(()=>{
+/* les mêmes figures que la version normale, sans le cerf-volant (exercice 3) et sans le point F (exercice 4) */
+const ax3=cor=>axesFig(cor).replace('viewBox="0 0 470 160" width="470"','viewBox="0 0 362 160" width="362"')
+  .replace(/<polygon points="420\.0[^>]*\/>/,"").replace(/<text[^>]*>④<\/text>/,"").replace(/<line x1="420\.0"[^>]*\/>/,"")
+  .replace(/aria-label="[^"]*"/, `aria-label="${cor?"Les axes de symétrie tracés en rouge : 2 pour le losange, aucun pour le triangle quelconque, 3 pour le triangle équilatéral":"Trois figures : un losange, un triangle quelconque et un triangle équilatéral"}"`);
+const PE=[PTS[0]];
+return {
+titre:"Évaluation d'entraînement — Chapitre 13 · version aménagée", duree:30, info:"Version aménagée (tiers-temps) · Durée : 30 min · Règle, équerre et compas · Calculatrice non autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:COMP,
 exos:[
-{t:"Ce que conserve la symétrie", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>La symétrie axiale conserve les longueurs et les angles. Le symétrique d'un cercle est un cercle de même rayon.</p></div>
-  <p>Le triangle R'S'T' est le symétrique du triangle RST par rapport à une droite (d). RS = 5,4 cm et ${A("RST")} = 64°. Le cercle (C) a pour centre R et pour rayon 2,5 cm ; (C') est son symétrique.</p>
-  <p>a) Quelle est la longueur R'S' ? Entoure-la : &nbsp; 2,7 cm &nbsp;&nbsp; 5,4 cm &nbsp;&nbsp; 10,8 cm</p><p>b) Quelle est la mesure de ${A("R'S'T'")} ? Entoure-la : &nbsp; 32° &nbsp;&nbsp; 64° &nbsp;&nbsp; 116°</p><p>c) Quel est le centre de (C') ? Entoure-le : &nbsp; R &nbsp;&nbsp; R' &nbsp;&nbsp; S'</p><p>d) Quel est le rayon de (C') ? Entoure-le : &nbsp; 2,5 cm &nbsp;&nbsp; 5 cm</p>`,
- c:`<p>a) <b>5,4 cm</b> (même longueur que RS). <i>(0,5 point)</i></p><p>b) <b>64°</b> (même mesure que ${A("RST")}). <i>(0,5 point)</i></p><p>c) <b>R'</b>, le symétrique du centre R. <i>(0,5 point)</i></p><p>d) <b>2,5 cm</b> (même rayon). <i>(0,5 point)</i></p>`},
-{t:"Sur le quadrillage", p:2, h:`<p>Trace le symétrique de la figure bleue par rapport à la droite rouge.</p>${qd(Q2,false)}<p><b>Aide :</b> pour chaque sommet, je compte les carreaux jusqu'à la droite rouge, puis je compte le même nombre de carreaux de l'autre côté.</p>`,
- c:`${qd(Q2,true)}<p>Chaque sommet et son symétrique sont à la même distance de la droite rouge.</p><p><i>0,25 point par sommet bien placé (4 sommets), 1 point pour la figure tracée en reliant dans le bon ordre.</i></p>`},
-{t:"Combien d'axes ?", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Un axe de symétrie partage la figure en deux parties qui se superposent quand on plie la figure le long de cet axe.</p></div>
-  <p>Pour chaque figure, dessine en couleur ses axes de symétrie (s'il y en a), puis écris leur nombre.</p>${axesFig(false)}<p>① un losange · ② un triangle quelconque · ③ un triangle équilatéral · ④ un cerf-volant</p><p><b>Aide :</b> une figure peut avoir 0, 1, 2, 3 axes ou plus.</p>`,
- c:C_AXES},
-{t:"Le symétrique de points", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>① L'équerre : je trace une perpendiculaire à (d) qui passe par le point. ② Le compas : je reporte la même distance de l'autre côté de (d).</p></div>
-  <p>Construis les points E' et F', symétriques de E et de F par rapport à la droite (d). Code la figure.</p>${ptsFig({pts:PTS,alt:"Une droite (d) oblique, le point E au-dessus et le point F en dessous"})}`,
- c:`${ptsFig({cor:true,pts:PTS,alt:"E' et F' construits : les perpendiculaires à (d) en pointillés, les angles droits et les longueurs égales codés"})}<p>Perpendiculaire à (d) qui passe par le point, puis report de la distance au compas de l'autre côté.</p><p><i>E' : 1,25 point · F' : 1,25 point · codage : 0,5 point.</i></p>`}
-]}
+{t:"Ce que conserve la symétrie", p:2, h:`<p>Le triangle RST a pour symétrique le triangle R'S'T' par rapport à une droite (d). On sait que RS = 5,4 cm et que l'angle ${A("RST")} mesure 64°.</p><p>On a aussi tracé le cercle (C) de centre R et de rayon 2,5 cm, et son symétrique (C') par rapport à (d).</p>
+  <p>a) Sans mesurer, donne la longueur R'S'.</p><p>b) Quel est le centre du cercle (C') ? Quel est son rayon ?</p><p>c) Écris la propriété du cours qui permet de répondre.</p>`,
+ c:`<p>a) R'S' = RS = <b>5,4 cm</b>. <i>(0,5 point)</i></p><p>b) Le centre de (C') est <b>R'</b>, le symétrique de R, et son rayon est <b>2,5 cm</b>. <i>(1 point : 0,5 pour le centre, 0,5 pour le rayon)</i></p><p>c) La symétrie axiale <b>conserve les longueurs et les angles</b> : le symétrique d'un cercle est un cercle de même rayon. <i>(0,5 point)</i></p>`},
+{t:"Sur le quadrillage", p:2, h:`<p>Trace le symétrique de la figure bleue par rapport à la droite rouge.</p>${qd(Q1,false)}`,
+ c:`${qd(Q1,true)}<p>Je compte les carreaux entre chaque sommet et la droite rouge, puis je reporte le même nombre de carreaux de l'autre côté. Le sommet qui est sur la droite reste à sa place.</p><p><i>0,25 point par sommet bien placé (5 sommets), 0,75 point pour la figure tracée en reliant dans le bon ordre.</i></p>`},
+{t:"Combien d'axes ?", p:3, h:`<p>Pour chaque figure, dessine en couleur ses axes de symétrie (s'il y en a), puis indique leur nombre.</p>${ax3(false)}<p>① un losange · ② un triangle quelconque · ③ un triangle équilatéral</p>`,
+ c:`${ax3(true)}<p>① le losange : <b>2 axes</b> (ses diagonales) · ② le triangle quelconque : <b>aucun axe</b> · ③ le triangle équilatéral : <b>3 axes</b>.</p><p><i>1 point par figure : 0,75 pour les axes bien tracés, 0,25 pour le nombre.</i></p>`},
+{t:"Le symétrique de points", p:3, h:`<p>Construis, avec l'équerre et le compas, le point E', symétrique du point E par rapport à la droite (d). On doit voir tes traits de construction et le codage (angle droit et longueurs égales).</p><p>Le point G est sur la droite (d). Où se trouve son symétrique G' ?</p>${ptsFig({G:true,pts:PE,alt:"Une droite (d) oblique, le point E au-dessus et le point G sur (d)"})}`,
+ c:`${ptsFig({cor:true,G:true,pts:PE,alt:"E' construit : la perpendiculaire à (d) en pointillés, l'angle droit et les longueurs égales codés"})}
+  <p>Avec l'équerre, je trace la droite perpendiculaire à (d) qui passe par E ; elle coupe (d) en un point. Avec le compas, je reporte la distance de E à (d) de l'autre côté : j'obtiens E'.</p><p><i>E' : 2 points (1 pour la perpendiculaire, 1 pour le report au compas) · codage : 0,5 point.</i></p><p>G est sur (d) : son symétrique est le point lui-même, <b>G' = G</b>. <i>(0,5 point)</i></p>`}
+]};
+})()
 };
 })()
 };

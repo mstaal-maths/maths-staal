@@ -327,10 +327,38 @@ const comp = [
 return {
 titre:"Évaluation d'entraînement — Chapitre 4", duree:50, info:"Durée : 50 min · Matériel : règle graduée, équerre, compas, crayon à papier · Calculatrice non autorisée",
 comp, exos:exos(0),
-/* ---------- version aménagée : mêmes exercices, même barème ---------- */
-bep:{titre:"Évaluation d'entraînement — Chapitre 4 · version aménagée", duree:50, info:"Durée : 50 min · Matériel : règle graduée, équerre, compas, crayon à papier · Calculatrice non autorisée · Version aménagée",
-  note:"Mêmes exercices et même barème, avec des nombres plus simples, des consignes découpées en étapes, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
-  comp, exos:exos(1)}
+/* ---------- version aménagée (tiers-temps) : le même sujet, environ un quart des questions en moins ---------- */
+bep:{titre:"Évaluation d'entraînement — Chapitre 4 · version aménagée", duree:50, info:"Version aménagée (tiers-temps) · Durée : 50 min · Matériel : règle graduée, équerre, compas, crayon à papier · Calculatrice non autorisée",
+  note:"Le même sujet avec 5 questions en moins, à faire dans le même temps. Le total reste sur 20 points.",
+  comp, exos:[
+{t:"Un programme à suivre", p:4, h:`<p>Suis ce programme au crayon à papier, sans effacer les traits de construction.</p><p>1) Trace un segment [EF] de 6 cm. Place son milieu O, avec le codage. 2) Trace le cercle (C) de diamètre [EF]. 3) Place un point G sur (C). Trace le rayon [OG] et la corde [FG]. 4) Trace le cercle de centre E et de rayon 2 cm. Il coupe le segment [EF] en un point : nomme-le L.</p>`,
+ c:`<p>Voici la figure, réduite :</p>${prog}
+  <p>O est le milieu de [EF], donc OE = OF = 6 ÷ 2 = 3 cm. Le cercle de diamètre [EF] a pour centre O et pour rayon 3 cm. G peut être placé n'importe où sur (C). L est sur [EF], à 2 cm de E.</p>
+  <p><i>1 point par étape</i></p>`},
+{t:"Règle, compas et équerre", p:5, h:`<p class="note"><b>Sur le sujet imprimé</b>, les figures de cet exercice sont en vraie grandeur.</p>
+  ${segRS(5)}${ray(5,0)}${dM(3,0)}
+  <p>1) Quelle est la longueur RS ? Mesure-la avec ta règle graduée.</p><p>2) Sans utiliser la graduation de la règle, place sur [Ox) le point P tel que OP = RS. Laisse les traces de compas.</p>
+  <p>3) Construis le point K, milieu de [OP]. N'oublie pas le codage.</p>
+  <p>4) À quelle distance de la droite (d) se trouve le point M ? Trace en couleur le segment qui le montre, puis mesure-le.</p>`,
+ c:`<p>1) RS = <b>5 cm</b> (sur le sujet imprimé). <i>(0,5 point)</i></p>
+  <p>2) J'écarte le compas de R à S, je pique en O et je trace un arc qui coupe [Ox) en P : OP = RS = 5 cm. <i>(1 point)</i></p>${ray(5,1)}
+  <p>3) K est à 2,5 cm de O, et je code [OK] et [KP] avec le même petit trait. <i>(1,5 point)</i></p>
+  <p>4) Avec l'équerre, je trace le segment [MH] perpendiculaire à (d) (H est sur (d)). La distance du point M à la droite (d) est MH = <b>3 cm</b>. <i>(1,5 point pour le tracé perpendiculaire, 0,5 point pour la mesure)</i></p>${dM(3,1)}`},
+{t:"Vrai ou faux ?", p:5, h:`${voc}
+  <p>Sur la figure, K est le centre du cercle, et [AB] passe par K. La figure n'est pas en vraie grandeur.</p>
+  <p>1) Vrai ou faux ?</p><p>a) [KC] est un rayon du cercle. b) [BC] est un diamètre du cercle. c) Le point D appartient au cercle. d) Le point D appartient au disque. e) KE est égal au rayon.</p>
+  <p>2) Le rayon du cercle mesure 2 cm. Sans mesurer, donne KA et AB.</p>`,
+ c:`<p>1) ${VF("a) [KC]",1,"il va du centre K à un point C du cercle")} · ${VF("b) [BC]",0,"il ne passe pas par le centre : c'est une corde")} · ${VF("c) D sur le cercle",0,"D est à l'intérieur")} · ${VF("d) D dans le disque",1,"")} · ${VF("e) KE égal au rayon",0,"E est à l'extérieur, donc KE est plus grand que le rayon")}</p><p><i>(0,5 point par réponse)</i></p>
+  <p>2) A est sur le cercle, donc KA = <b>2 cm</b>. [AB] est un diamètre, donc AB = 2 × 2 = <b>4 cm</b>. <i>(1 point pour KA, 1,5 point pour AB)</i></p>`},
+{t:"Deux cercles sur une ligne", p:4, h:`<p>Deux cercles sont tracés le long du segment [OP], qui mesure 9 cm.</p><p>Le premier, (C₁), a pour centre O et pour rayon 4 cm. Le second, (C₂), a pour centre P et pour rayon 2 cm.</p><p>Le segment [OP] coupe (C₁) en M et (C₂) en N.</p>
+  ${cercles(4,2,9)}<p><i>La figure n'est pas en vraie grandeur.</i></p>
+  <p>1) Quelle est la longueur OM ? Pourquoi ? 2) Déduis-en la longueur MP. 3) Calcule MN.</p>`,
+ c:`<p>1) M appartient au cercle (C₁) de centre O et de rayon 4 cm, donc OM = <b>4 cm</b>. <i>(1 point)</i></p>
+  <p>2) M est sur le segment [OP], donc :</p><p class="calc">MP = OP − OM = 9 − 4 = 5 cm</p><p><i>(1,5 point)</i></p>
+  <p>3) N appartient au cercle (C₂) de centre P et de rayon 2 cm, donc PN = 2 cm. N est entre M et P :</p><p class="calc">MN = MP − PN = 5 − 2 = 3 cm</p><p><i>(1,5 point)</i></p>`},
+{t:"Malo a-t-il raison ?", p:2, h:`<p>Malo affirme : «&nbsp;Dans un cercle de rayon 3 cm, toutes les cordes mesurent 6 cm.&nbsp;»</p><p>Est-ce vrai ? Explique pourquoi, en t'aidant d'un dessin si tu veux.</p>`,
+ c:`<p>Malo a tort. Seules les cordes qui passent par le centre, c'est-à-dire les diamètres, mesurent 2 × 3 = 6 cm. Une corde qui ne passe pas par le centre est plus courte. <i>(1 point pour la réponse avec le diamètre, 1 point pour l'exemple d'une corde plus courte)</i></p>${malo}<p>[AB] est un diamètre : AB = 6 cm. [CD] est une corde plus courte.</p>`}
+]}
 };
 })()
 };

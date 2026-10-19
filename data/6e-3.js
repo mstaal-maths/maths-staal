@@ -463,10 +463,10 @@ exos:[
   <p>2) Non. {7/4} = {4/4} + {3/4} = 1 + {3/4} : c'est entre 1 et 2, donc moins que 2. On peut aussi dire : 2 = {8/4}, et 7 &lt; 8. <i>(1 point, même répartition)</i></p>`}
 ],
 
-/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+/* ---------- version aménagée (tiers-temps) : le même sujet, environ un quart des questions en moins ---------- */
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 3 · version aménagée", duree:55, info:"Durée : 55 min · Matériel : règle graduée · Calculatrice non autorisée · Version aménagée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 3 · version aménagée", duree:55, info:"Version aménagée (tiers-temps) · Durée : 55 min · Matériel : règle graduée · Calculatrice non autorisée",
+note:"Le même sujet avec 5 questions en moins, à faire dans le même temps. Le total reste sur 20 points.",
 comp:[
   ["RAISONNER","Je compare une fraction à 1, et je passe d'une fraction à un nombre mixte, et inversement.","Ex. 1 (4 points)"],
   ["REPRÉSENTER","Je lis une fraction sur une figure ou sur une graduation, et je la représente.","Ex. 2 et 4 (8 points)"],
@@ -474,58 +474,41 @@ comp:[
   ["COMMUNIQUER","Je rédige une explication claire.","Ex. 6 (2 points)"]
 ],
 exos:[
-{t:"Plus petit ou plus grand que 1 ?", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Une fraction est plus petite que 1 si le numérateur (en haut) est plus petit que le dénominateur (en bas). Elle est égale à 1 si les deux nombres sont égaux.</p></div>
-  <p>1) Range chaque fraction dans la bonne colonne : {7/5} · {3/4} · {6/6} · {8/9}</p>
+{t:"Plus petit ou plus grand que 1 ?", p:4, h:`<p>1) Recopie le tableau et range chaque fraction dans la bonne colonne : {11/8} · {6/7} · {9/9} · {14/15}</p>
   <div class="scroll"><table class="std"><thead><tr><th>plus petite que 1</th><th>égale à 1</th><th>plus grande que 1</th></tr></thead><tbody><tr><td style="height:46px"></td><td></td><td></td></tr></tbody></table></div>
-  <p>2) Écris {7/3} et {9/4} sous forme de nombre mixte (un entier + une fraction plus petite que 1).</p>
-  <p class="note"><b>Aide :</b> par exemple, {5/2} = {4/2} + {1/2} = 2 + {1/2}.</p>
-  <p>3) Complète : 2 + {1/5} = {…/5} + {1/5} = {…/5}</p>
-  <p>4) Complète : …… &lt; {7/3} &lt; …… et …… &lt; {9/4} &lt; ……</p>
-  <p class="note"><b>Aide :</b> utilise tes réponses de la question 2.</p>`,
- c:`<p>1) 3 &lt; 4 et 8 &lt; 9 ; 6 = 6 ; 7 &gt; 5. <i>(0,25 point par fraction bien placée)</i></p><div class="scroll"><table class="std"><thead><tr><th>plus petite que 1</th><th>égale à 1</th><th>plus grande que 1</th></tr></thead><tbody><tr><td>{3/4} · {8/9}</td><td>{6/6}</td><td>{7/5}</td></tr></tbody></table></div>
-  <p>2) {7/3} = {6/3} + {1/3} = 2 + {1/3} · {9/4} = {8/4} + {1/4} = 2 + {1/4} <i>(0,5 point chacun)</i></p>
-  <p>3) 2 + {1/5} = {10/5} + {1/5} = {11/5} <i>(1 point)</i></p>
-  <p>4) 2 &lt; {7/3} &lt; 3 · 2 &lt; {9/4} &lt; 3 <i>(0,5 point chacun)</i></p>`},
-{t:"Des fractions en images", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Le dénominateur (en bas) dit en combien de parts égales on partage. Le numérateur (en haut) dit combien de parts on prend.</p></div>
-  <p>1) Quelle fraction de chaque objet est coloriée ?</p><div class="figs">${lab("a) la tablette de chocolat",grids(4,2,3))}${lab("b) le verre",verre(4,1))}</div>
-  <p>2) Colorie les {3/4} de ce disque.</p>${discs(4,0)}
-  <p>3) Un disque = une unité. Colorie {5/4} d'unité.</p>${discs(4,0,2)}
-  <p class="note"><b>Aide :</b> un disque entier, c'est {4/4}.</p>
-  <p>4) Le segment [AB] représente une unité. Quelle fraction de l'unité est repassée en couleur ? Donne une fraction plus simple qui lui est égale.</p>${segment(4,2)}
-  <p class="note"><b>Aide :</b> pour la fraction plus simple, divise le numérateur et le dénominateur par 2.</p>`,
- c:`<p>1) a) 8 carreaux égaux, 3 coloriés : {3/8} · b) 4 parts égales, 1 coloriée : {1/4} <i>(0,5 point chacun)</i></p>
-  <p>2) Je colorie 3 parts sur 4. <i>(1 point)</i></p>${discs(4,3)}
-  <p>3) {5/4} = {4/4} + {1/4} : un disque entier et un quart du deuxième. <i>(1 point)</i></p>${discs(4,5,2)}
-  <p>4) 2 parts sur 4 : {2/4}. Et {2/4} = {2 ÷ 2/4 ÷ 2} = {1/2}. <i>(0,5 point + 0,5 point)</i></p>`},
-{t:"Égalités de fractions", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>On obtient une fraction égale en multipliant (ou en divisant) le numérateur et le dénominateur par le même nombre.</p></div>
-  <p>1) Complète : {1/3} = {2/…} = {…/9} = {4/…}</p>
-  <p>2) Simplifie {10/20} le plus possible.</p><p class="note"><b>Aide :</b> divise le numérateur et le dénominateur par 10.</p>
-  <p>3) Trois de ces fractions sont égales à {1/2}. Entoure l'intrus : {2/4} · {3/6} · {4/10} · {5/10}</p>`,
- c:`<p>1) {1/3} = {1 × 2/3 × 2} = {2/6} · {1 × 3/3 × 3} = {3/9} · {1 × 4/3 × 4} = {4/12} <i>(0,5 point par case)</i></p>
-  <p>2) {10/20} = {10 ÷ 10/20 ÷ 10} = {1/2} <i>(1 point)</i></p>
-  <p>3) {2/4}, {3/6} et {5/10} sont égales à {1/2} (le dénominateur est le double du numérateur). L'intrus est <b>{4/10}</b>. <i>(0,5 point)</i></p>`},
-{t:"Des fractions sur une graduation", p:4, h:`<p>1) Sur cette demi-droite, l'unité est partagée en 4 parts égales.</p>${fline(2,4,[["R",3],["S",6]])}
-  <p>a) Complète avec des fractions : R( …… ) S( …… )</p><p>b) Complète : l'abscisse de S est 1 + {…/4}.</p><p>c) Complète : l'abscisse de S est aussi égale à {…/2}.</p>
-  <p>2) Sur cette demi-droite, l'unité est aussi partagée en 4. Place les points K({1/4}), L({1/2}) et M(1 + {3/4}).</p>${fline(2,4)}
-  <p class="note"><b>Aide :</b> {1/2} = {2/4}, et 1 = {4/4}.</p>`,
- c:`<p>1) a) R({3/4}) et S({6/4}) <i>(0,5 point chacun)</i></p>
-  <p>b) {6/4} = {4/4} + {2/4} = 1 + {2/4} <i>(0,5 point)</i> · c) {6/4} = {6 ÷ 2/4 ÷ 2} = {3/2} <i>(0,5 point)</i></p>
-  <p>2) K est à la 1<sup>re</sup> graduation. {1/2} = {2/4} : L est à la 2<sup>e</sup>. 1 + {3/4} = {4/4} + {3/4} = {7/4} : M est à la 7<sup>e</sup>. <i>(0,5 point pour K, 0,5 point pour L, 1 point pour M)</i></p>${fline(2,4,[["K",1],["L",2],["M",7]])}`},
-{t:"Dixièmes, centièmes et pourcentages", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>{1/10} se lit «&nbsp;un dixième&nbsp;», {1/100} «&nbsp;un centième&nbsp;», {1/1 000} «&nbsp;un millième&nbsp;». Un pourcentage est une fraction de dénominateur 100 : 1 % = {1/100}.</p></div>
-  <p>1) Écris sous forme de fraction : «&nbsp;sept centièmes&nbsp;» · «&nbsp;trente-deux millièmes&nbsp;»</p>
-  <p>2) Complète : 3 + {5/10} = {…/10} + {5/10} = {…/10}</p>
-  <p>3) Au collège, {1/2} des élèves mangent à la cantine. Complète : {1/2} = {…/100} = …… %</p>
-  <p>4) Complète : 10 % = {…/100} = {1/…}</p>`,
- c:`<p>1) {7/100} · {32/1 000} <i>(0,5 point chacun)</i></p>
-  <p>2) 3 + {5/10} = {30/10} + {5/10} = {35/10} <i>(0,5 point)</i></p>
-  <p>3) {1/2} = {1 × 50/2 × 50} = {50/100} = 50 % <i>(1 point)</i></p>
-  <p>4) 10 % = {10/100} = {1/10} <i>(0,5 point)</i></p>`},
-{t:"Qui a raison ?", p:2, h:`<p>1) Sacha affirme : «&nbsp;{1/2} et {2/4} ne sont pas égales.&nbsp;» Entoure : il a raison · il a tort. Explique.</p>
-  <p class="note"><b>Aide :</b> multiplie le numérateur et le dénominateur de {1/2} par 2.</p>
-  <p>2) Zoé affirme : «&nbsp;{5/4}, c'est plus que 2.&nbsp;» Entoure : elle a raison · elle a tort. Explique.</p>
-  <p class="note"><b>Aide :</b> 2 = {8/4}.</p>`,
- c:`<p>1) Il a tort : {1/2} = {1 × 2/2 × 2} = {2/4}. <i>(1 point : 0,5 point pour la réponse, 0,5 point pour l'explication)</i></p>
-  <p>2) Elle a tort : 2 = {8/4}, et 5 &lt; 8, donc {5/4} est plus petit que 2. On peut aussi dire : {5/4} = 1 + {1/4}. <i>(1 point, même répartition)</i></p>`}
+  <p>2) Écris {17/5} et {29/4} sous forme de nombre mixte (un entier + une fraction plus petite que 1).</p>
+  <p>3) Écris 5 + {3/8} avec une seule fraction.</p>`,
+ c:`<p>1) On compare le numérateur et le dénominateur : 6 &lt; 7 et 14 &lt; 15 ; 9 = 9 ; 11 &gt; 8. <i>(0,5 point par fraction bien placée)</i></p><div class="scroll"><table class="std"><thead><tr><th>plus petite que 1</th><th>égale à 1</th><th>plus grande que 1</th></tr></thead><tbody><tr><td>{6/7} · {14/15}</td><td>{9/9}</td><td>{11/8}</td></tr></tbody></table></div>
+  <p>2) {17/5} = {15/5} + {2/5} = 3 + {2/5} · {29/4} = {28/4} + {1/4} = 7 + {1/4} <i>(0,5 point chacun)</i></p>
+  <p>3) 5 + {3/8} = {40/8} + {3/8} = {43/8} <i>(1 point)</i></p>`},
+{t:"Des fractions en images", p:4, h:`<p>1) Quelle fraction de la tablette de chocolat est coloriée ?</p><div class="figs">${grids(6,2,5)}</div>
+  <p>2) Colorie les {3/4} de ce disque.</p>${discs(8,0)}
+  <p>3) Un disque = une unité. Colorie {9/4} d'unité.</p>${discs(4,0,3)}
+  <p>4) Le segment [AB] représente une unité. Quelle fraction de l'unité est repassée en couleur ? Donne aussi une fraction plus simple qui lui est égale.</p>${segment(6,4)}`,
+ c:`<p>1) 12 carreaux égaux, 5 coloriés : {5/12} <i>(1 point)</i></p>
+  <p>2) Le disque a 8 parts égales. {3/4} = {3 × 2/4 × 2} = {6/8} : je colorie 6 parts sur 8. <i>(1 point)</i></p>${discs(8,6)}
+  <p>3) Chaque disque est partagé en 4 quarts. {9/4} = {4/4} + {4/4} + {1/4} : deux disques entiers et un quart du troisième. <i>(1 point)</i></p>${discs(4,9,3)}
+  <p>4) [AB] est partagé en 6 parts égales, 4 sont en couleur : {4/6}. Et {4/6} = {4 ÷ 2/6 ÷ 2} = {2/3}. <i>(0,5 point + 0,5 point)</i></p>`},
+{t:"Égalités de fractions", p:3, h:`<p>1) Complète cette suite d'égalités : {5/7} = {10/…} = {…/35} = {45/…}</p>
+  <p>2) Simplifie {24/40} le plus possible.</p>`,
+ c:`<p>1) {5/7} = {5 × 2/7 × 2} = {10/14} · {5/7} = {5 × 5/7 × 5} = {25/35} · {5/7} = {5 × 9/7 × 9} = {45/63} <i>(0,5 point par case)</i></p>
+  <p>2) {24/40} = {24 ÷ 8/40 ÷ 8} = {3/5} <i>(1,5 point ; 0,5 point si la fraction est simplifiée, mais pas au maximum, par exemple {12/20})</i></p>`},
+{t:"Des fractions sur une graduation", p:4, h:`<p>1) Voici une demi-droite graduée.</p>${fline(3,4,[["R",5],["S",10]])}
+  <p>a) Quelle est l'abscisse de R ? Et celle de S ? Réponds par des fractions. b) Écris l'abscisse de S sous forme de nombre mixte.</p>
+  <p>2) Place les points K({3/8}), L({3/4}) et M(1 + {1/2}) sur cette demi-droite graduée.</p>${fline(2,8)}`,
+ c:`<p>1) a) Chaque unité est partagée en 4 : ce sont des quarts. R({5/4}) et S({10/4}). <i>(0,5 point chacun)</i></p>
+  <p>b) {10/4} = {8/4} + {2/4} = 2 + {2/4} (ou 2 + {1/2}) <i>(1 point)</i></p>
+  <p>2) Chaque unité est partagée en 8 : ce sont des huitièmes. K est à la 3<sup>e</sup> graduation. {3/4} = {6/8} : L est à la 6<sup>e</sup>. 1 + {1/2} = {8/8} + {4/8} = {12/8} : M est à la 12<sup>e</sup>. <i>(0,5 point pour K, 0,5 point pour L, 1 point pour M)</i></p>${fline(2,8,[["K",3],["L",6],["M",12]])}`},
+{t:"Dixièmes, centièmes et pourcentages", p:3, h:`<p>1) Écris sous forme de fraction : «&nbsp;soixante-huit centièmes&nbsp;» · «&nbsp;trois-cent-sept millièmes&nbsp;»</p>
+  <p>2) Écris avec une seule fraction décimale : 4 + {6/10} + {3/100}</p>
+  <p>3) Au collège, {3/5} des élèves mangent à la cantine. Quel pourcentage des élèves cela représente-t-il ?</p>`,
+ c:`<p>1) {68/100} · {307/1 000} <i>(0,5 point chacun)</i></p>
+  <p>2) 4 + {6/10} + {3/100} = {400/100} + {60/100} + {3/100} = {463/100} <i>(1 point)</i></p>
+  <p>3) {3/5} = {3 × 20/5 × 20} = {60/100} = 60 %. 60 % des élèves mangent à la cantine. <i>(1 point)</i></p>`},
+{t:"Qui a raison ?", p:2, h:`<p>1) Sacha affirme : «&nbsp;{2/3} et {4/6} ne sont pas égales, car ce ne sont pas les mêmes nombres.&nbsp;» Est-ce vrai ? Explique pourquoi.</p>
+  <p>2) Zoé affirme : «&nbsp;{7/4}, c'est plus que 2.&nbsp;» Est-ce vrai ? Explique pourquoi.</p>`,
+ c:`<p>1) Non. {4/6} = {2 × 2/3 × 2} : on a multiplié le numérateur et le dénominateur par le même nombre, 2. Donc {4/6} = {2/3}. <i>(1 point : 0,5 point pour la réponse, 0,5 point pour l'explication)</i></p>
+  <p>2) Non. {7/4} = {4/4} + {3/4} = 1 + {3/4} : c'est entre 1 et 2, donc moins que 2. On peut aussi dire : 2 = {8/4}, et 7 &lt; 8. <i>(1 point, même répartition)</i></p>`}
 ]}
 }
 };

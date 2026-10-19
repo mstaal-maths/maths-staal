@@ -156,25 +156,27 @@ exos:[
   <p>b) Ligne « 5e » : 8, 11 et 16. Les élèves de 5e ont le plus choisi le <b>gâteau</b> (16 élèves). <i>(0,5 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 21 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, moins de données, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 21 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice non autorisée",
+note:"Le même sujet avec 2 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
-  ["COMMUNIQUER","Je lis et j'exploite un diagramme en barres.","Ex. 1 (4 points)"],
-  ["REPRÉSENTER","Je range des données dans un tableau d'effectifs.","Ex. 2 (3 points)"],
+  ["COMMUNIQUER","Je lis et j'exploite un diagramme en barres.","Ex. 1 (4,5 points)"],
+  ["REPRÉSENTER","Je range des données dans un tableau d'effectifs.","Ex. 2 (2,5 points)"],
   ["COMMUNIQUER","Je lis et je complète un tableau à double entrée.","Ex. 3 (3 points)"]
 ],
 exos:[
-{t:"Les crêpes de la kermesse", p:4, h:`${souv("La hauteur d'une barre donne l'effectif. Je lis la graduation à gauche.")}${DIAG([12,18,8,10,6])}
-  <p>a) Combien de crêpes au chocolat ont été vendues ?</p><p>b) Quel parfum a été le moins vendu ?</p><p>c) Quels parfums ont été vendus plus de 10 fois ?</p><p><i>Aide : « plus de 10 » : 10 ne compte pas.</i></p><p>d) Combien de crêpes ont été vendues en tout ?</p><p><i>Aide : additionne les hauteurs des 5 barres.</i></p>`,
- c:`<p>a) <b>18 crêpes</b>. <i>(1 point)</i></p><p>b) Le <b>citron</b> (6 crêpes). <i>(1 point)</i></p><p>c) Le <b>sucre</b> (12) et le <b>chocolat</b> (18). <i>(1 point)</i></p>
-  <p>d)</p><p class="calc">N = 12 + 18 + 8 + 10 + 6<br>N = 54</p><p><b>54 crêpes</b>. <i>(1 point)</i></p>`},
-{t:"Frères et sœurs", p:3, h:`${souv("L'effectif d'une valeur, c'est le nombre de fois où elle apparaît. Je barre les réponses au fur et à mesure.")}
-  <p>12 élèves ont dit combien ils ont de frères et sœurs :</p><p>1, 2, 0, 1, 1, 3, 0, 2, 1, 0, 2, 1.</p><p>a) Complète le tableau.</p>${TEFF()}<p>b) Combien d'élèves ont au moins 2 frères et sœurs ?</p><p><i>Aide : « au moins 2 », c'est 2 ou 3.</i></p>`,
- c:`<p>a)</p>${TEFF([3,5,3,1,12])}<p>Vérification : 3 + 5 + 3 + 1 = 12. <i>(0,5 point par effectif et 0,5 point pour le total)</i></p><p>b) 3 + 1 = <b>4 élèves</b>. <i>(0,5 point)</i></p>`},
-{t:"Le dessert de la cantine", p:3, h:`${souv("Dans la colonne « Total », j'additionne les nombres de la ligne. Dans la ligne « Total », j'additionne les nombres de la colonne.")}
-  <p>Voici le dessert choisi par les élèves de 6e et de 5e.</p>${TDBL(D2)}<p>a) Complète les cinq cases vides.</p><p><i>Aide : commence par une ligne ou une colonne où il ne manque qu'un nombre.</i></p><p>b) Quel dessert les élèves de 5e ont-ils le plus choisi ?</p>`,
- c:`<p>a)</p>${TDBL(D2,S2)}<p>Gâteau en 6e : 30 − 10 − 10 = 10. Fruit en 5e : 20 − 10 = 10. Total des 5e : 10 + 5 + 15 = 30. Total des yaourts : 10 + 5 = 15. Total général : 30 + 30 = 60. <i>(0,5 point par case)</i></p>
-  <p>b) Ligne « 5e » : 10, 5 et 15. C'est le <b>gâteau</b> (15 élèves). <i>(0,5 point)</i></p>`}
+{t:"Les crêpes de la kermesse", p:4.5, h:`<p>Ce diagramme indique le nombre de crêpes vendues pour chaque parfum.</p>${DIAG([12,18,7,10,5])}
+  <p>a) Combien de crêpes au chocolat ont été vendues ?</p><p>b) Quel parfum a été le moins vendu ?</p><p>c) Combien de crêpes ont été vendues en tout ?</p>`,
+ c:`<p>a) La barre « Chocolat » monte jusqu'à 18 : <b>18 crêpes</b>. <i>(1,5 point)</i></p>
+  <p>b) La barre la plus basse est celle du <b>citron</b> (5 crêpes). <i>(1,5 point)</i></p>
+  <p>c) On additionne les hauteurs des barres :</p><p class="calc">N = 12 + 18 + 7 + 10 + 5<br>N = 52</p><p><b>52 crêpes</b> ont été vendues. <i>(1,5 point)</i></p>`},
+{t:"Frères et sœurs", p:2.5, h:`<p>On a demandé à 22 élèves combien ils ont de frères et sœurs. Voici leurs réponses :</p><p>1, 0, 2, 1, 1, 3, 0, 2, 1, 2, 0, 1, 1, 2, 3, 1, 0, 2, 1, 0, 2, 1.</p>
+  <p>Recopie et complète le tableau d'effectifs.</p>${TEFF()}`,
+ c:`${TEFF([5,9,6,2,22])}<p>Vérification : 5 + 9 + 6 + 2 = 22, c'est bien le nombre d'élèves interrogés. <i>(0,5 point par effectif et 0,5 point pour le total)</i></p>`},
+{t:"Le dessert de la cantine", p:3, h:`<p>Ce tableau indique le dessert choisi par les élèves de 6e et de 5e, un jour à la cantine.</p>${TDBL(D1)}
+  <p>a) Complète les cinq cases vides du tableau.</p><p>b) Quel dessert les élèves de 5e ont-ils le plus choisi ?</p>`,
+ c:`<p>a)</p>${TDBL(D1,S1)}
+  <p>Gâteau en 6e : 35 − 12 − 9 = 14. Fruit en 5e : 20 − 12 = 8. Total des 5e : 8 + 11 + 16 = 35.</p><p>Total des yaourts : 9 + 11 = 20. Total général : 20 + 20 + 30 = 70 (ou 35 + 35 = 70). <i>(0,5 point par case)</i></p>
+  <p>b) Ligne « 5e » : 8, 11 et 16. Les élèves de 5e ont le plus choisi le <b>gâteau</b> (16 élèves). <i>(0,5 point)</i></p>`}
 ]}
 };
 })()

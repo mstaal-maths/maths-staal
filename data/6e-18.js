@@ -185,8 +185,8 @@ exos:[
   <p>c) 0,27 et 0,25 sont <b>proches</b>, mais pas égaux. Ce n'est pas étonnant : Malo a fait beaucoup de tirages, et quand on répète une expérience un grand nombre de fois, la fréquence se rapproche de la probabilité. <i>(1 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 18 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 18 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice non autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
   ["COMMUNIQUER","J'utilise le bon vocabulaire : issue, événement, impossible, possible, certain.","Ex. 1 (3 points)"],
   ["CALCULER","Je calcule une probabilité quand les issues sont équiprobables.","Ex. 2 (3 points)"],
@@ -194,39 +194,29 @@ comp:[
   ["RAISONNER","Je compare une fréquence observée et une probabilité.","Ex. 4 (2 points)"]
 ],
 exos:[
-{t:"L'urne aux six boules", p:3, h:`${souv("Une <b>issue</b> est un résultat possible. Un événement <b>impossible</b> ne se réalise jamais. Un événement <b>certain</b> se réalise toujours.")}
-  <p>Une urne contient 6 boules numérotées de 1 à 6. On tire une boule au hasard.</p>
-  <p>a) Écris toutes les issues.</p><p>b) Quelles issues réalisent « tirer un nombre plus grand que 3 » ?</p>
-  <p>c) Écris impossible, possible ou certain :</p><p>« tirer un nombre plus petit que 7 » ; « tirer le numéro 9 » ; « tirer le numéro 5 ».</p>
-  <p><i>Aide : pour c), regarde si des boules portent ce numéro.</i></p>`,
- c:`<p>a) Les issues sont : 1, 2, 3, 4, 5 et 6. <i>(0,5 point)</i></p>
-  <p>b) Les issues 4, 5 et 6. <i>(1 point)</i></p>
-  <p>c) « Tirer un nombre plus petit que 7 » est <b>certain</b> : tous les numéros sont plus petits que 7. <i>(0,5 point)</i></p>
-  <p>« Tirer le numéro 9 » est <b>impossible</b> : aucune boule ne porte le numéro 9. <i>(0,5 point)</i></p>
-  <p>« Tirer le numéro 5 » est <b>possible</b> : une boule porte le 5, mais ce n'est pas sûr de la tirer. <i>(0,5 point)</i></p>`},
-{t:"La roue de la kermesse", p:3, h:`${souv(`Si les issues sont équiprobables : probabilité = ${F("nombre d'issues favorables","nombre total d'issues")}`)}
-  <div class="cpt"><div><p>La roue a 4 secteurs de même taille, numérotés de 1 à 4.</p>
-  <p>a) Les 4 issues sont-elles équiprobables ? Pourquoi ?</p><p>b) Quelle est la probabilité de tomber sur le rouge ?</p><p>c) Quelle est la probabilité de tomber sur le bleu ?</p><p>d) Quelle est la probabilité de tomber sur un numéro plus grand que 2 ?</p>
-  <p><i>Aide : pour a), regarde la taille des secteurs.</i></p></div>${big(roue(R4,true),180)}</div>`,
- c:`<p>a) <b>Oui</b> : les 4 secteurs ont la même taille. <i>(0,5 point)</i></p>
-  <p>b) Rouge : les numéros 1 et 3, 2 secteurs sur 4. La probabilité est <b>${F(2,4)} = ${F(1,2)}</b>. <i>(1 point)</i></p>
-  <p>c) Bleu : le numéro 2, 1 secteur sur 4. La probabilité est <b>${F(1,4)}</b>. <i>(1 point)</i></p>
-  <p>d) Plus grand que 2 : les numéros 3 et 4, 2 secteurs sur 4. La probabilité est <b>${F(2,4)} = ${F(1,2)}</b>. <i>(0,5 point)</i></p>`},
-{t:"Sur l'échelle", p:2, h:`${souv("0 : impossible · ½ : une chance sur deux · 1 : certain.")}
-  <div class="cpt"><div><p>Un sac contient 2 boules rouges et 2 boules bleues. On tire une boule au hasard.</p><p>Place chaque lettre sur l'échelle.</p>
-  <p>A : « tirer une boule rouge »</p><p>B : « tirer une boule verte »</p><p>C : « tirer une boule rouge ou bleue »</p><p>D : « tirer une boule bleue »</p>
-  <p><i>Aide : compte les boules de la couleur demandée, sur les 4 boules.</i></p></div>${sac([["rouge",2],["bleue",2]])}</div>${echelle([])}`,
- c:`${echelle([["B",0],["A",0.5],["D",0.5],["C",1]])}
-  <p>B est <b>impossible</b> : pas de boule verte. Probabilité 0. <i>(0,5 point)</i></p>
-  <p>A : 2 boules rouges sur 4. Probabilité ${F(2,4)} = ${F(1,2)}. <i>(0,5 point)</i></p>
-  <p>D : 2 boules bleues sur 4. Probabilité ${F(2,4)} = ${F(1,2)}. <i>(0,5 point)</i></p>
-  <p>C est <b>certain</b> : toutes les boules sont rouges ou bleues. Probabilité 1. <i>(0,5 point)</i></p>`},
-{t:"Les tirages de Malo", p:2, h:`<p>Un sac contient 1 boule rouge et 1 boule blanche. Malo tire une boule, note sa couleur et la remet dans le sac.</p><p>Il fait 100 tirages. Il obtient 46 fois la boule rouge.</p>
-  <p>a) Quelle est la fréquence de « tirer la boule rouge » ?</p><p><i>Aide : fréquence = nombre de fois où la boule rouge est sortie ÷ nombre de tirages.</i></p>
-  <p>b) Quelle est la probabilité de tirer la boule rouge ?</p><p>c) Ces deux nombres sont-ils proches ? Explique.</p>`,
- c:`<p>a) Fréquence : ${F(46,100)} = <b>0,46</b>. <i>(0,5 point)</i></p>
-  <p>b) 1 boule rouge sur 2 boules : la probabilité est <b>${F(1,2)} = 0,5</b>. <i>(0,5 point)</i></p>
-  <p>c) 0,46 et 0,5 sont <b>proches</b>. C'est normal : avec beaucoup de tirages, la fréquence se rapproche de la probabilité. <i>(1 point)</i></p>`}
+{t:"L'urne aux neuf boules", p:3, h:`<p>Une urne contient 9 boules identiques au toucher, numérotées de 1 à 9. On tire une boule au hasard et on lit son numéro.</p>
+  <p>a) Écris toutes les issues de cette expérience.</p><p>b) Quelles issues réalisent l'événement « tirer un multiple de 3 » ?</p>
+  <p>c) Pour chacun de ces événements, écris s'il est impossible, possible ou certain :</p><p>« tirer un nombre plus petit que 10 » ; « tirer un nombre pair ».</p>`,
+ c:`<p>a) Les issues sont : 1, 2, 3, 4, 5, 6, 7, 8 et 9. <i>(1 point)</i></p>
+  <p>b) Les issues 3, 6 et 9. <i>(1 point)</i></p>
+  <p>c) « Tirer un nombre plus petit que 10 » est <b>certain</b> : tous les numéros sont plus petits que 10. <i>(0,5 point)</i></p>
+  <p>« Tirer un nombre pair » est <b>possible</b> : les issues 2, 4, 6 et 8 le réalisent, mais pas les autres. <i>(0,5 point)</i></p>`},
+{t:"La roue de la kermesse", p:3, h:`<div class="cpt"><div><p>Cette roue est partagée en 8 secteurs de même taille, numérotés de 1 à 8. On la fait tourner et on regarde le secteur indiqué par la flèche.</p>
+  <p>a) Les 8 issues sont-elles équiprobables ? Pourquoi ?</p><p>b) Quelle est la probabilité de tomber sur un secteur rouge ?</p><p>c) Quelle est la probabilité de tomber sur un numéro plus grand que 5 ?</p></div>${big(roue(R8,true),180)}</div>`,
+ c:`<p>a) <b>Oui</b> : les 8 secteurs ont la même taille, ils ont donc tous la même chance d'être indiqués par la flèche. <i>(0,5 point)</i></p>
+  <p>b) Les secteurs rouges sont les numéros 1, 3, 5 et 8 : 4 secteurs sur 8. La probabilité est <b>${F(4,8)} = ${F(1,2)}</b>. <i>(1,5 point)</i></p>
+  <p>c) Les numéros plus grands que 5 sont 6, 7 et 8 : 3 secteurs sur 8. La probabilité est <b>${F(3,8)}</b>. <i>(1 point)</i></p>`},
+{t:"Sur l'échelle", p:2, h:`<div class="cpt"><div><p>Un sac contient 3 boules rouges et 1 boule bleue. On tire une boule au hasard.</p><p>Place la lettre de chaque événement sur l'échelle des probabilités.</p>
+  <p>A : « tirer une boule rouge »</p><p>B : « tirer une boule verte »</p><p>C : « tirer une boule rouge ou bleue »</p></div>${sac([["rouge",3],["bleue",1]])}</div>${echelle([])}`,
+ c:`${echelle([["B",0],["A",0.75],["C",1]])}
+  <p>B est <b>impossible</b> : il n'y a pas de boule verte. Sa probabilité est 0. <i>(0,5 point)</i></p>
+  <p>A : 3 boules rouges sur 4 boules. Sa probabilité est ${F(3,4)} : c'est très probable. <i>(1 point)</i></p>
+  <p>C est <b>certain</b> : toutes les boules sont rouges ou bleues. Sa probabilité est 1. <i>(0,5 point)</i></p>`},
+{t:"Les tirages de Malo", p:2, h:`<p>Un sac contient 1 boule rouge et 3 boules blanches, identiques au toucher. Malo tire une boule au hasard, note sa couleur, puis la remet dans le sac.</p><p>Il fait 100 tirages. Il obtient 27 fois une boule rouge.</p>
+  <p>a) Quelle est la fréquence de l'événement « tirer une boule rouge » ?</p><p>b) Quelle est la probabilité de tirer une boule rouge ?</p><p>c) Compare ces deux nombres. Est-ce étonnant ? Explique.</p>`,
+ c:`<p>a) Fréquence : ${F(27,100)} = <b>0,27</b>. <i>(0,5 point)</i></p>
+  <p>b) Il y a 1 boule rouge sur 4 boules : la probabilité est <b>${F(1,4)} = 0,25</b>. <i>(0,5 point)</i></p>
+  <p>c) 0,27 et 0,25 sont <b>proches</b>, mais pas égaux. Ce n'est pas étonnant : Malo a fait beaucoup de tirages, et quand on répète une expérience un grand nombre de fois, la fréquence se rapproche de la probabilité. <i>(1 point)</i></p>`}
 ]}
 };
 })()

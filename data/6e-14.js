@@ -191,8 +191,8 @@ exos:[
  c:`<p>Je calcule le périmètre de l'enclos :</p>${KC("P",["2 × (35 + 22)","2 × 57","114 m"])}<p><i>(1 point)</i></p><p>114 ÷ 25 = 4,56 : 4 rouleaux font 100 m, ce n'est pas assez. Il faut un rouleau de plus.</p><p><b>Le fermier doit acheter 5 rouleaux.</b> <i>(1 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 14 (version aménagée)", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice autorisée",
-note:"Mêmes exercices et même barème, avec moins de questions, des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 14 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
   ["CALCULER","Je calcule la longueur d'un cercle.","Ex. 1 (2 points)"],
   ["CALCULER","Je convertis des longueurs.","Ex. 2 (3 points)"],
@@ -200,14 +200,15 @@ comp:[
   ["MODÉLISER","Je résous un problème de périmètre.","Ex. 4 (2 points)"]
 ],
 exos:[
-{t:"Le cerceau", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Pour un cercle de diamètre d : P = π × d (touche π de la calculatrice).</p></div><p>Un cerceau est un cercle de 20 cm de diamètre. Calcule sa longueur, arrondie à l'unité.</p>${cerc("20 cm")}`,
- c:`${KC("P",["π × d","π × 20","≈ 62,83","≈ 63"])}<p><i>(1,5 point pour le calcul)</i></p><p><b>Le cerceau mesure environ 63 cm.</b> <i>(0,5 point)</i></p>`},
-{t:"Des conversions", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>km &nbsp; hm &nbsp; dam &nbsp; m &nbsp; dm &nbsp; cm &nbsp; mm : quand je passe à l'unité juste à droite, je multiplie par 10.</p></div><p>Complète.</p><p>a) 5 km = …… m · b) 3 m = …… cm · c) 60 cm = …… m · d) 25 mm = …… cm</p><p><b>Aide :</b> tu peux utiliser le tableau de conversion.</p>`,
- c:`<p>a) 5 × 1 000 = <b>5 000 m</b> · b) 3 × 100 = <b>300 cm</b> · c) 60 ÷ 100 = <b>0,6 m</b> · d) 25 ÷ 10 = <b>2,5 cm</b></p>${tabConv("L",[{cells:["","","","0,","6","0",""],txt:"60 cm = 0,6 m"},{cells:["","","","","","2,","5"],txt:"25 mm = 2,5 cm"}])}<p><i>0,75 point par conversion.</i></p>`},
-{t:"Calculer des périmètres", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Périmètre = longueur du tour de la figure. Carré : P = 4 × c. Rectangle : P = 2 × (L + l).</p></div><p>Calcule le périmètre de chaque figure.</p><p>a) Une piste carrée de 8 m de côté.</p><p>b) Un rectangle de longueur 12 cm et de largeur 9 cm.</p>`,
- c:`${KCS([KC("P",["4 × 8","<b>32 m</b>"],"a)"), KC("P",["2 × (12 + 9)","2 × 21","<b>42 cm</b>"],"b)")])}<p><i>(1,5 point chacun)</i></p>`},
-{t:"L'enclos des moutons", p:2, h:`<p>Un enclos pour des moutons est un rectangle de 30 m sur 20 m. Combien de mètres de grillage sont nécessaires pour entourer tout l'enclos ?</p>${encl("30 m","20 m")}<p><b>Aide :</b> je calcule le périmètre du rectangle.</p>`,
- c:`${KC("P",["2 × (30 + 20)","2 × 50","100 m"])}<p><i>(1,5 point)</i></p><p><b>Il faut 100 m de grillage.</b> <i>(0,5 point)</i></p>`}
+{t:"Le cerceau", p:2, h:`<p>Un cerceau de gymnastique est un cercle de 80 cm de diamètre.</p><p>Calcule la longueur du cerceau. Donne le résultat arrondi au centimètre.</p>${cerc("80 cm")}`,
+ c:`<p>Pour un cercle de diamètre d, la longueur est P = π × d. <i>(0,5 point)</i></p>${KC("P",["π × d","π × 80","≈ 251,33","≈ 251"])}<p><i>(1 point pour le calcul)</i></p><p><b>Le cerceau mesure environ 251 cm.</b> <i>(0,5 point pour l'arrondi et la phrase)</i></p>`},
+{t:"Des conversions", p:3, h:`<p>Complète.</p><p>a) 4,7 km = …… m · b) 6 dm = …… mm · c) 3 050 mm = …… m · d) 90 m = …… hm</p>`,
+ c:`<p>a) 1 km = 1 000 m : 4,7 × 1 000 = <b>4 700 m</b> · b) 1 dm = 100 mm : 6 × 100 = <b>600 mm</b></p><p>c) 1 m = 1 000 mm : 3 050 ÷ 1 000 = <b>3,05 m</b> · d) 1 hm = 100 m : 90 ÷ 100 = <b>0,9 hm</b></p>${tabConv("L",[{cells:["","","","3,","0","5","0"],txt:"3 050 mm = 3,05 m"},{cells:["","0,","9","0","","",""],txt:"90 m = 0,9 hm"}])}<p><i>0,75 point par conversion.</i></p>`},
+{t:"Calculer des périmètres", p:3, h:`<p>Calcule le périmètre de chaque figure. Écris tes calculs.</p><p>a) Un rectangle de longueur 12,4 cm et de largeur 9 cm.</p><p>b) Un quadrilatère dont les côtés mesurent 1,2 dm ; 9 cm ; 75 mm et 10 cm. Donne le résultat en cm.</p>${quad}`,
+ c:`${KC("P",["2 × (L + l)","2 × (12,4 + 9)","2 × 21,4","<b>42,8 cm</b>"],"a)")}<p><i>(1,5 point)</i></p>
+  <p>b) Je convertis tout en cm : 1,2 dm = 12 cm et 75 mm = 7,5 cm.</p>${KC("P",["12 + 9 + 7,5 + 10","<b>38,5 cm</b>"])}<p><i>(0,5 point pour les conversions, 1 point pour le calcul)</i></p>`},
+{t:"L'enclos des moutons", p:2, h:`<p>Un enclos pour des moutons a la forme d'un rectangle de 35 m sur 22 m. Le fermier veut en faire le tour avec du grillage. Le grillage est vendu en rouleaux de 25 m.</p><p>Combien de rouleaux doit-il acheter ? Justifie.</p>${encl("35 m","22 m")}`,
+ c:`<p>Je calcule le périmètre de l'enclos :</p>${KC("P",["2 × (35 + 22)","2 × 57","114 m"])}<p><i>(1 point)</i></p><p>114 ÷ 25 = 4,56 : 4 rouleaux font 100 m, ce n'est pas assez. Il faut un rouleau de plus.</p><p><b>Le fermier doit acheter 5 rouleaux.</b> <i>(1 point)</i></p>`}
 ]}
 };
 })()

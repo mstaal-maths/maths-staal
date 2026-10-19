@@ -147,36 +147,32 @@ exos:[
   <p>c)</p><p class="calc">L = 36 × 50<br>L = 1 800 cm</p><p>1 800 cm = <b>18 m</b>. Le bateau mesure 18 m de long. <i>(1,5 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 22 · version aménagée", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 22 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice autorisée",
+note:"Le même sujet avec 2 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
   ["CALCULER","J'agrandis ou je réduis des longueurs.","Ex. 1 (3 points)"],
   ["RAISONNER","Je reconnais un agrandissement.","Ex. 2 (2 points)"],
   ["MODÉLISER","J'utilise l'échelle d'un plan, d'une carte ou d'une maquette.","Ex. 3 (5 points)"]
 ],
 exos:[
-{t:"Le quadrilatère de Léo", p:3, h:`${souv("Agrandir ou réduire une figure, c'est multiplier toutes ses longueurs par le même nombre.")}
-  <p>Un quadrilatère ABCD a pour côtés : AB = 6 cm ; BC = 4 cm ; CD = 7 cm ; DA = 3 cm.</p><p>Léo l'agrandit. Le côté qui correspond à [AB] mesure 12 cm.</p>
-  <p>a) Par quel nombre Léo a-t-il multiplié les longueurs ?</p><p><i>Aide : calcule 12 ÷ 6.</i></p><p>b) Calcule les trois autres côtés de la figure de Léo.</p>
-  <p>c) Zoé divise toutes les longueurs de ABCD par 2. Combien mesure le côté qui correspond à [CD] ? Quel est le périmètre de sa figure ?</p>`,
- c:`<p>a) 12 ÷ 6 = 2 : Léo a multiplié par <b>2</b>. <i>(0,5 point)</i></p>
-  <p>b) BC : 4 × 2 = <b>8 cm</b> · CD : 7 × 2 = <b>14 cm</b> · DA : 3 × 2 = <b>6 cm</b> <i>(0,5 point par longueur)</i></p>
-  <p>c) 7 ÷ 2 = <b>3,5 cm</b>. <i>(0,5 point)</i> Périmètre : 3 + 2 + 3,5 + 1,5 = <b>10 cm</b> (c'est aussi 20 ÷ 2). <i>(0,5 point)</i></p>`},
-{t:"Agrandissement ou pas ?", p:2, h:`${souv("Dans un agrandissement, toutes les longueurs sont multipliées par le même nombre.")}
-  <p>Quels triangles sont des agrandissements du modèle ?</p>${GRILLE}
-  <p><i>Aide : compte les carreaux des deux côtés de l'angle droit. Les deux nombres sont-ils multipliés par le même nombre ?</i></p>`,
- c:`<p>Le modèle mesure 2 carreaux sur 3 carreaux.</p>
-  <p>① : 4 sur 6, tout est multiplié par 2 : <b>agrandissement</b>. <i>(0,5 point)</i></p>
-  <p>② : 4 sur 5. 3 × 2 = 6, pas 5 : <b>pas un agrandissement</b>. <i>(0,5 point)</i></p>
-  <p>③ : 6 sur 9, tout est multiplié par 3 : <b>agrandissement</b>. <i>(0,5 point)</i></p>
-  <p>④ : 3 sur 6. 2 × 2 = 4, pas 3 : <b>pas un agrandissement</b>. <i>(0,5 point)</i></p>`},
-{t:"Plan, carte et maquette", p:5, h:`${souv(`Échelle ${F(1,100)} : 1 cm sur le plan représente 100 cm = 1 m en réalité.<br>Échelle ${F(1,"100 000")} : 1 cm sur la carte représente 100 000 cm = 1 km en réalité.`)}
-  <p>a) Une terrasse mesure 5 m sur 3 m. Quelles sont ses dimensions sur un plan à l'échelle ${F(1,100)} ?</p>
-  <p>b) Sur une carte à l'échelle ${F(1,"100 000")}, un sentier mesure 6 cm. Quelle est sa longueur réelle, en km ?</p>
-  <p>c) Une maquette de bateau est à l'échelle ${F(1,10)}. Elle mesure 30 cm. Quelle est la longueur réelle du bateau, en m ?</p><p><i>Aide : multiplie par 10, puis convertis les cm en m.</i></p>`,
- c:`<p>a) 1 m dans la réalité est représenté par 1 cm sur le plan. <i>(0,5 point)</i> La terrasse mesure <b>5 cm sur 3 cm</b> sur le plan. <i>(1,5 point)</i></p>
-  <p>b) 1 cm représente 1 km, donc 6 cm représentent <b>6 km</b>. <i>(1,5 point)</i></p>
-  <p>c)</p><p class="calc">L = 30 × 10<br>L = 300 cm</p><p>300 cm = <b>3 m</b>. <i>(1,5 point)</i></p>`}
+{t:"Le quadrilatère de Léo", p:3, h:`<p>Un quadrilatère ABCD a pour côtés : AB = 6 cm ; BC = 4 cm ; CD = 7 cm ; DA = 3 cm.</p>
+  <p>Léo agrandit ce quadrilatère. Sur sa figure, le côté qui correspond à [AB] mesure 15 cm.</p>
+  <p>a) Par quel nombre Léo a-t-il multiplié les longueurs ?</p><p>b) Calcule les longueurs des trois autres côtés de la figure de Léo.</p>
+  <p>c) Zoé, elle, réduit ABCD en divisant toutes ses longueurs par 2. Combien mesure le côté qui correspond à [CD] sur sa figure ?</p>`,
+ c:`<p>a) 15 ÷ 6 = 2,5 : Léo a multiplié toutes les longueurs par <b>2,5</b>. <i>(1 point)</i></p>
+  <p>b) BC : 4 × 2,5 = <b>10 cm</b> · CD : 7 × 2,5 = <b>17,5 cm</b> · DA : 3 × 2,5 = <b>7,5 cm</b> <i>(0,5 point par longueur)</i></p>
+  <p>c) Côté qui correspond à [CD] : 7 ÷ 2 = <b>3,5 cm</b>. <i>(0,5 point)</i></p>`},
+{t:"Agrandissement ou pas ?", p:2, h:`<p>Parmi les triangles ①, ②, ③ et ④, lesquels sont des agrandissements du modèle ? Explique pour chaque triangle.</p>${GRILLE}`,
+ c:`<p>Le modèle mesure 2 carreaux sur 3 carreaux (les deux côtés de l'angle droit).</p>
+  <p>① : 4 carreaux sur 6 carreaux. 2 × 2 = 4 et 3 × 2 = 6 : c'est un <b>agrandissement</b> (× 2). <i>(0,5 point)</i></p>
+  <p>② : 4 carreaux sur 5 carreaux. 2 × 2 = 4, mais 3 × 2 = 6 et pas 5 (on a ajouté 2 carreaux à chaque côté) : <b>ce n'est pas un agrandissement</b>. <i>(0,5 point)</i></p>
+  <p>③ : 6 carreaux sur 9 carreaux. 2 × 3 = 6 et 3 × 3 = 9 : c'est un <b>agrandissement</b> (× 3). <i>(0,5 point)</i></p>
+  <p>④ : 3 carreaux sur 6 carreaux. 2 × 1,5 = 3, mais 3 × 2 = 6 : les deux côtés ne sont pas multipliés par le même nombre, <b>ce n'est pas un agrandissement</b>. <i>(0,5 point)</i></p>`},
+{t:"Plan, carte et maquette", p:5, h:`<p>a) Une terrasse rectangulaire mesure 5 m sur 2,5 m. Quelles sont ses dimensions sur un plan à l'échelle ${F(1,100)} ?</p>
+  <p>b) Sur une carte de randonnée à l'échelle ${F(1,"25 000")}, un sentier mesure 8 cm. Quelle est sa longueur réelle, en km ?</p>`,
+ c:`<p>a) À l'échelle ${F(1,100)}, 1 cm sur le plan représente 100 cm = 1 m en réalité. <i>(1 point)</i></p>
+  <p>5 m = 500 cm et 500 ÷ 100 = 5 cm ; 2,5 m = 250 cm et 250 ÷ 100 = 2,5 cm. Sur le plan, la terrasse mesure <b>5 cm sur 2,5 cm</b>. <i>(1,5 point)</i></p>
+  <p>b)</p><p class="calc">L = 8 × 25 000<br>L = 200 000 cm</p><p><i>(1,5 point)</i></p><p>200 000 cm = 2 000 m = <b>2 km</b>. <i>(1 point pour la conversion en km)</i></p>`}
 ]}
 };
 })()

@@ -386,10 +386,10 @@ exos:[
  c:`${CORR5}<p>d) Je sais que (x) ⊥ (AB) et (y) ⊥ (AB). Or, si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles. Donc <b>(x) // (y)</b> : oui, elles sont parallèles. <i>(1 point)</i></p>`}
 ],
 
-/* ---------- version aménagée : mêmes exercices, même barème ---------- */
+/* ---------- version aménagée (tiers-temps) : le même sujet, environ un quart des questions en moins ---------- */
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 2 · version aménagée", duree:45, info:"Durée : 45 min · Matériel : règle, équerre, crayon à papier · Version aménagée",
-note:"Mêmes exercices et même barème, avec moins de questions dans les exercices 2 et 3, des réponses à entourer ou à compléter, des rappels du cours («&nbsp;Je me souviens&nbsp;») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 2 · version aménagée", duree:45, info:"Version aménagée (tiers-temps) · Durée : 45 min · Matériel : règle, équerre, crayon à papier",
+note:"Le même sujet avec 5 questions en moins, à faire dans le même temps. Le total reste sur 20 points.",
 comp:[
   ["COMMUNIQUER","Je traduis une phrase en symboles, et des symboles en phrase.","Ex. 1 (3 points)"],
   ["REPRÉSENTER","Je lis une figure avec ∈ et ∉, et je construis perpendiculaires et parallèles à l'équerre.","Ex. 2 et 5 (9 points)"],
@@ -397,36 +397,34 @@ comp:[
   ["RAISONNER","Je rédige une preuve : Je sais que… Or… Donc…","Ex. 4 (4 points)"]
 ],
 exos:[
-{t:"Des mots et des symboles", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>∈ veut dire «&nbsp;appartient à&nbsp;». ∉ veut dire «&nbsp;n'appartient pas à&nbsp;». // veut dire «&nbsp;est parallèle à&nbsp;». ⊥ veut dire «&nbsp;est perpendiculaire à&nbsp;».</p></div>
-  <p>a) Entoure l'écriture qui veut dire «&nbsp;(d) est parallèle à (e)&nbsp;» : (d) ⊥ (e) · (d) // (e) · (d) ∈ (e)</p>
-  <p>Entoure l'écriture qui veut dire «&nbsp;K appartient à la demi-droite [JL)&nbsp;» : K ∈ [JL) · K ∉ [JL) · K ∈ [JL]</p>
-  <p>b) Complète : T ∈ [UV] veut dire «&nbsp;Le point T …………………… au segment ……………&nbsp;».</p>
-  <p>c) Place un point Q sur cette droite, tel que Q ∉ [PR].</p>${pq(0)}`,
- c:`<p>a) (d) // (e) · K ∈ [JL) <i>(0,5 point chacun)</i></p><p>b) Le point T <b>appartient</b> au segment <b>[UV]</b>. <i>(1 point)</i></p>
-  <p>c) Q est sur la droite, mais pas entre P et R :</p>${pq(1)}<p>Q peut aussi être placé avant P. <i>(1 point)</i></p>`},
-{t:"∈ ou ∉ ?", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>[AB] est le segment : il va de A à B. (AB) est la droite : elle ne s'arrête pas. [AB) est la demi-droite : elle part de A, passe par B et ne s'arrête pas.</p></div>
-  ${fig2}<p>Écris le bon symbole : ∈ ou ∉.</p>
-  <p>1. B …… (AC) · 2. A …… [BC] · 3. E …… [DB) · 4. D …… [BE]</p>`,
- c:`<p>1. B ∈ (AC) · 2. A ∉ [BC] (A n'est pas entre B et C) · 3. E ∈ [DB) (elle part de D, passe par B et continue jusqu'à E) · 4. D ∉ [BE] (D n'est pas entre B et E)</p><p><i>(1 point par réponse)</i></p>`},
-{t:"Où sont K, L et N ?", p:4, h:`${fig3}<p>1) Trace la droite (RT). Trace la demi-droite [SU).</p><p>2) Elles se coupent en un point : nomme-le K.</p><p>3) Place un point L tel que L ∈ [SU) et L ∉ [SU].</p>
-  <p class="note"><b>Aide :</b> L est sur la demi-droite [SU), mais plus loin que U.</p>`,
+{t:"Des mots et des symboles", p:3, h:`<p>Recopie et complète le tableau.</p>
+  <div class="scroll"><table class="std"><thead><tr><th>En français</th><th>Avec des symboles</th></tr></thead><tbody>
+   <tr><td>La droite (d) est parallèle à la droite (e).</td><td>……………</td></tr>
+   <tr><td>Le point K appartient à la demi-droite d'origine J qui passe par L.</td><td>……………</td></tr>
+   <tr><td>……………………………………………</td><td>T ∈ [UV]</td></tr></tbody></table></div>`,
+ c:`<div class="scroll"><table class="std"><thead><tr><th>En français</th><th>Avec des symboles</th></tr></thead><tbody>
+   <tr><td>La droite (d) est parallèle à la droite (e).</td><td><b>(d) // (e)</b> <i>(1 point)</i></td></tr>
+   <tr><td>Le point K appartient à la demi-droite d'origine J qui passe par L.</td><td><b>K ∈ [JL)</b> <i>(1 point)</i></td></tr>
+   <tr><td><b>Le point T appartient au segment [UV].</b> <i>(1 point)</i></td><td>T ∈ [UV]</td></tr></tbody></table></div>`},
+{t:"∈ ou ∉ ?", p:3, h:`${fig2}<p>Recopie chaque ligne avec le bon symbole, ∈ ou ∉. Ta règle peut t'aider.</p>
+  <p>1. B …… (AC) · 2. A …… [BC] · 3. C …… [BA) · 4. E …… [DB) · 5. D …… [BE] · 6. F …… (AE)</p>`,
+ c:`<p>1. B ∈ (AC) · 2. A ∉ [BC] (A n'est pas entre B et C) · 3. C ∉ [BA) (la demi-droite part de B vers A, C est de l'autre côté) · 4. E ∈ [DB) (elle part de D, passe par B et continue jusqu'à E) · 5. D ∉ [BE] · 6. F ∈ (AE) (avec la règle : A, F et E sont alignés)</p><p><i>(0,5 point par réponse)</i></p>`},
+{t:"Où sont K et L ?", p:4, h:`${fig3}<p>1) Trace la droite (RT) et la demi-droite [SU).</p><p>2) Elles se coupent en un point : nomme-le K.</p><p>3) Place un point L tel que L ∈ [SU) et L ∉ [SU].</p>`,
  c:`${cor3f(0)}<p>1) La droite (RT) dépasse R et T ; la demi-droite [SU) part de S, passe par U et continue. <i>(1,5 point)</i></p>
-  <p>2) K est le point où (RT) et [SU) se coupent. <i>(1 point)</i></p><p>3) L est sur la demi-droite [SU), plus loin que U : il peut être placé n'importe où après U. <i>(1,5 point)</i></p>`},
-{t:"Le plan du quartier", p:4, h:`<div class="retenir" data-l="Je me souviens"><p>Propriété 1 : si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles.</p><p>Propriété 2 : si deux droites sont parallèles et si une troisième droite est perpendiculaire à l'une, alors elle est perpendiculaire à l'autre.</p></div>
-  <p>Voici le plan d'un quartier : l'avenue (a), le boulevard (b), la rue des Lilas (r) et la rue des Roses (s).</p>${plan}<p>(a) // (b)</p>
-  <p>a) Les rues (r) et (s) vont-elles se croiser ? Complète la preuve.</p><p>Je sais que (r) ⊥ (a) et (s) ⊥ …… . Or …………………………………………… . Donc (r) …… (s).</p>
-  <p class="note"><b>Aide :</b> regarde les angles droits codés sur le plan.</p>
-  <p>b) La rue (r) et le boulevard (b) forment-ils un angle droit ? Complète la preuve.</p><p>Je sais que (a) // (b) et (r) ⊥ …… . Or …………………………………………… . Donc (r) …… (b).</p>
-  <p class="note"><b>Aide :</b> utilise la propriété 2.</p>`,
- c:`<p>a) Je sais que (r) ⊥ (a) et (s) ⊥ (a). Or, si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles. Donc <b>(r) // (s)</b> : les deux rues ne se croiseront jamais. <i>(2 points : 0,5 point pour les données, 1 point pour la propriété, 0,5 point pour la conclusion)</i></p>
+  <p>2) K est le point où (RT) et [SU) se coupent. Il n'y a qu'une seule position possible. <i>(1 point)</i></p>
+  <p>3) L est sur la demi-droite [SU), plus loin que U (pas entre S et U). <i>(1,5 point)</i></p><p>L peut être placé ailleurs, s'il respecte les conditions.</p>`},
+{t:"Le plan du quartier", p:4, h:`<p>Sur le plan d'un quartier, toutes les rues sont droites. On sait que :</p>
+  <ul><li>la rue des Lilas (r) est perpendiculaire à l'avenue (a) ;</li><li>la rue des Roses (s) est perpendiculaire à l'avenue (a) ;</li><li>le boulevard (b) est parallèle à l'avenue (a).</li></ul>
+  <p>a) Les rues (r) et (s) vont-elles se croiser ? Prouve ta réponse en citant une propriété du cours.</p><p>b) La rue (r) et le boulevard (b) forment-ils un angle droit ? Prouve-le.</p><p><i>Tu peux faire un dessin à main levée.</i></p>`,
+ c:`${plan}<p>(a) // (b)</p>
+  <p>a) Je sais que (r) ⊥ (a) et (s) ⊥ (a). Or, si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles. Donc <b>(r) // (s)</b> : les deux rues ne se croiseront jamais. <i>(2 points : 0,5 point pour les données, 1 point pour la propriété, 0,5 point pour la conclusion)</i></p>
   <p>b) Je sais que (a) // (b) et (r) ⊥ (a). Or, si deux droites sont parallèles et si une troisième droite est perpendiculaire à l'une, alors elle est perpendiculaire à l'autre. Donc <b>(r) ⊥ (b)</b> : la rue et le boulevard forment un angle droit. <i>(2 points, même répartition)</i></p>`},
-{t:"Perpendiculaires et parallèle", p:5, h:`<div class="retenir" data-l="Je me souviens"><p>Pour tracer une perpendiculaire : je pose un côté de l'angle droit de l'équerre sur la droite, et l'autre côté sur le point.</p></div>
-  ${fig5}<p>a) Trace la droite (AB). Trace la droite (x) perpendiculaire à (AB) passant par C. N'oublie pas le codage de l'angle droit.</p>
+{t:"Perpendiculaires et parallèle", p:6, h:`${fig5}<p>Constructions à la règle et à l'équerre : ne gomme pas tes traits de construction.</p>
+  <p>a) Trace la droite (AB), puis la droite (x) perpendiculaire à (AB) passant par C. N'oublie pas le codage de l'angle droit.</p>
   <p>b) Trace la droite (y) perpendiculaire à (AB) passant par B, avec le codage de l'angle droit.</p>
-  <p>c) Trace la droite (BC). Trace la droite (z) parallèle à (BC) passant par A.</p>
-  <p class="note"><b>Aide :</b> trace d'abord la perpendiculaire à (BC) passant par A. Puis trace la perpendiculaire à cette droite passant par A.</p>
-  <p>d) Complète : (x) et (y) sont perpendiculaires à la même droite …… . Donc (x) et (y) sont …………………… .</p>`,
- c:`${CORR5}<p>d) (x) et (y) sont perpendiculaires à la même droite <b>(AB)</b>. Donc (x) et (y) sont <b>parallèles</b> : (x) // (y). <i>(1 point)</i></p>`}
+  <p>c) Trace la droite (BC), puis la droite (z) parallèle à (BC) passant par A.</p>`,
+ c:`<p>a) et b) (x) passe par C, (y) passe par B ; les deux angles droits sont codés. <i>(2 points pour (x), 2 points pour (y))</i></p>
+  <p>c) Pour la parallèle : je trace la perpendiculaire à (BC) passant par A (en pointillés), puis la perpendiculaire à cette droite passant par A : c'est (z). <i>(2 points)</i></p>${cor5}<p>(z) // (BC)</p>`}
 ]}
 };
 })()

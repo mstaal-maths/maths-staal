@@ -228,23 +228,25 @@ exos:[
   <p>b) 1 = ${F(8,8)} et 9 &gt; 8, donc <b>${F(9,8)} &gt; 1</b> (le numérateur est plus grand que le dénominateur). <i>(0,5 point)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 16 (version aménagée)", duree:30, info:"Version aménagée · Durée : 30 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec moins de questions, des nombres plus simples, des calculs à compléter, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 16 · version aménagée", duree:30, info:"Version aménagée (tiers-temps) · Durée : 30 min · Calculatrice non autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:[
   ["CALCULER","J'additionne et je soustrais des fractions.","Ex. 1 (3 points)"],
   ["MODÉLISER","Je prends une fraction d'une quantité.","Ex. 2 (3 points)"],
-  ["REPRÉSENTER","Je comprends une fraction comme un quotient.","Ex. 3 (2 points)"],
-  ["RAISONNER","Je compare des fractions.","Ex. 4 (2 points)"]
+  ["REPRÉSENTER","Je comprends une fraction comme un quotient.","Ex. 3 (1,5 point)"],
+  ["RAISONNER","Je compare et je range des fractions.","Ex. 4 (2,5 points)"]
 ],
 exos:[
-{t:"Additions et soustractions", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Même dénominateur : je calcule avec les numérateurs, et le dénominateur ne change pas. Exemple : ${F(1,5)} + ${F(2,5)} = ${F(3,5)}.</p></div><p>Calcule.</p>${ENO([`${F(3,7)} + ${F(2,7)}`, `${F(8,11)} − ${F(5,11)}`, `${F(1,3)} + ${F(2,6)} = ${F("……",6)} + ${F(2,6)}`])}<p><b>Aide :</b> pour C, ${F(1,3)} = ${F("1 × 2","3 × 2")}.</p>`,
- c:`${CALCS([[`${F(3,7)} + ${F(2,7)}`,`<b>${F(5,7)}</b>`],[`${F(8,11)} − ${F(5,11)}`,`<b>${F(3,11)}</b>`],[`${F(1,3)} + ${F(2,6)}`,`${F(2,6)} + ${F(2,6)}`,`<b>${F(4,6)}</b>`]])}<p><i>(1 point par calcul ; ${F(4,6)} = ${F(2,3)} est accepté aussi.)</i></p>`},
-{t:"Une fraction d'une quantité", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Pour prendre ${F(3,4)} de 40, je divise 40 par 4, puis je multiplie par 3.</p></div><p>a) Calcule ${F(1,3)} de 27 km.</p><p>b) Calcule ${F(3,4)} de 40 L.</p><p>c) Le réservoir d'une tondeuse peut contenir 60 L. Il est rempli aux ${F(3,4)}. Combien de litres contient-il ?</p>`,
- c:`<p>a) 27 ÷ 3 = <b>9 km</b>. <i>(1 point)</i></p><p>b) (40 ÷ 4) × 3 = 10 × 3 = <b>30 L</b>. <i>(1 point)</i></p><p>c) (60 ÷ 4) × 3 = 15 × 3 = 45. <b>Le réservoir contient 45 L.</b> <i>(1 point)</i></p>`},
-{t:"La fraction, un quotient", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>b × ${F("a","b")} = a. Exemple : 3 × ${F(2,3)} = 2.</p></div><p>a) Complète par une fraction : 5 × …… = 4</p><p>b) Donne l'écriture décimale de ${F(11,4)}.</p><p><b>Aide :</b> ${F(11,4)} = 11 ÷ 4.</p>`,
- c:`<p>a) 5 × <b>${F(4,5)}</b> = 4. <i>(1 point)</i></p><p>b) ${F(11,4)} = 11 ÷ 4 = <b>2,75</b>. <i>(1 point)</i></p>`},
-{t:"Comparer", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Quand deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.</p></div><p>Écris le bon signe : &lt;, &gt; ou =.</p><p>a) ${F(5,9)} …… ${F(7,9)}</p><p>b) ${F(9,8)} …… 1</p><p><b>Aide :</b> 1 = ${F(8,8)}.</p>`,
- c:`<p>a) 5 &lt; 7, donc <b>${F(5,9)} &lt; ${F(7,9)}</b>. <i>(1 point)</i></p><p>b) 1 = ${F(8,8)} et 9 &gt; 8, donc <b>${F(9,8)} &gt; 1</b>. <i>(1 point)</i></p>`}
+{t:"Additions et soustractions", p:3, h:`<p>Calcule en écrivant les étapes.</p>${ENO([`${F(9,11)} − ${F(4,11)}`, `${F(2,5)} + ${F(7,10)}`])}`,
+ c:`${CALCS([[`${F(9,11)} − ${F(4,11)}`,`${F("9 − 4",11)}`,`<b>${F(5,11)}</b>`],[`${F(2,5)} + ${F(7,10)}`,`${F("2 × 2","5 × 2")} + ${F(7,10)}`,`${F(4,10)} + ${F(7,10)}`,`<b>${F(11,10)}</b>`]])}
+  <p>Pour B, j'écris d'abord les deux fractions avec le même dénominateur (10 est un multiple de 5). <i>(1,5 point par calcul)</i></p>`},
+{t:"Une fraction d'une quantité", p:3, h:`<p>a) Calcule ${F(2,3)} de 27 km.</p><p>b) Le réservoir d'une tondeuse peut contenir 60 L. Il est rempli aux ${F(3,4)}. Combien de litres faut-il encore verser pour le remplir complètement ?</p>`,
+ c:`<p>a) (27 ÷ 3) × 2 = 9 × 2 = <b>18 km</b>. <i>(1,5 point)</i></p><p>b) Le réservoir contient ${F(3,4)} de 60 L : (60 ÷ 4) × 3 = 15 × 3 = 45 L. <i>(1 point)</i></p><p>60 − 45 = 15. <b>Il faut encore verser 15 L.</b> <i>(0,5 point)</i></p><p><i>Autre méthode : il manque ${F(1,4)} du réservoir, et ${F(1,4)} de 60 L = 60 ÷ 4 = 15 L.</i></p>`},
+{t:"La fraction, un quotient", p:1.5, h:`<p>a) Complète par une fraction : 5 × …… = 4</p><p>b) Complète par une fraction : …… × 3 = 7</p><p>c) Donne l'écriture décimale de ${F(11,4)}.</p>`,
+ c:`<p>a) 5 × <b>${F(4,5)}</b> = 4 (c'est aussi 0,8). <i>(0,5 point)</i></p><p>b) <b>${F(7,3)}</b> × 3 = 7. <i>(0,5 point)</i></p><p>c) ${F(11,4)} = 11 ÷ 4 = <b>2,75</b>. <i>(0,5 point)</i></p>`},
+{t:"Comparer et ranger", p:2.5, h:`<p>a) Range ces fractions dans l'ordre croissant. Explique ta méthode.</p><p class="calc">${F(5,6)} &nbsp;;&nbsp; ${F(7,12)} &nbsp;;&nbsp; ${F(2,3)} &nbsp;;&nbsp; ${F(1,4)}</p><p>b) ${F(9,8)} est-il plus grand ou plus petit que 1 ? Justifie.</p>`,
+ c:`<p>a) J'écris toutes les fractions avec le dénominateur 12 :</p><p class="calc">${F(5,6)} = ${F("5 × 2","6 × 2")} = ${F(10,12)} &nbsp;;&nbsp; ${F(2,3)} = ${F("2 × 4","3 × 4")} = ${F(8,12)} &nbsp;;&nbsp; ${F(1,4)} = ${F("1 × 3","4 × 3")} = ${F(3,12)}</p><p>Je compare les numérateurs : 3 &lt; 7 &lt; 8 &lt; 10, donc <b>${F(1,4)} &lt; ${F(7,12)} &lt; ${F(2,3)} &lt; ${F(5,6)}</b>. <i>(2 points : 1 pour les fractions de dénominateur 12, 1 pour le rangement)</i></p>
+  <p>b) 1 = ${F(8,8)} et 9 &gt; 8, donc <b>${F(9,8)} &gt; 1</b> (le numérateur est plus grand que le dénominateur). <i>(0,5 point)</i></p>`}
 ]}
 }
 };

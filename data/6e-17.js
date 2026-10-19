@@ -223,18 +223,18 @@ exos:[
  c:`${tFig({cor:true,alt:"La figure en T découpée en deux rectangles ① et ②"})}<p>Je partage la figure en deux rectangles : la barre du haut ① et le pied ②. <i>(0,5 point)</i></p><p>Hauteur du pied : 7 − 2 = 5 cm. <i>(0,5 point)</i></p>${KC("A",["A<sub>①</sub> + A<sub>②</sub>","8 × 2 + 3 × 5","16 + 15","<b>31 cm²</b>"])}<p><i>(2 points)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 17 (version aménagée)", duree:25, info:"Version aménagée · Durée : 25 min · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec une question en moins, des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 17 · version aménagée", duree:25, info:"Version aménagée (tiers-temps) · Durée : 25 min · Calculatrice non autorisée",
+note:"Le même sujet avec 3 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:COMP,
 exos:[
-{t:"Avec les formules", p:3, h:`<div class="retenir" data-l="Je me souviens"><p>Rectangle : A = L × l. Carré : A = c × c.</p></div><p>a) Calcule l'aire d'un potager rectangulaire de 8 m sur 6 m.</p><p>b) Calcule l'aire d'un carreau carré de 9 dm de côté.</p>`,
- c:`${KCS([KC("A",["8 × 6","<b>48 m²</b>"],"a)"), KC("A",["9 × 9","<b>81 dm²</b>"],"b)")])}<p><i>(1,5 point chacun)</i></p>`},
-{t:"Compter les carreaux", p:2, h:`<p>L'unité d'aire (u.a.) est un carreau du quadrillage. Donne l'aire de la figure H et celle de la figure K, en u.a.</p>${quadri(false)}<p><b>Aide :</b> compte d'abord les carreaux entiers, puis regroupe les demi-carreaux par deux.</p>`,
+{t:"Avec les formules", p:3, h:`<p>a) Calcule l'aire d'un potager rectangulaire de 8 m sur 6,5 m.</p><p>b) Un rectangle a une aire de 36 cm² et une largeur de 4 cm. Quelle est sa longueur ?</p>`,
+ c:`${KC("A",["L × l","8 × 6,5","<b>52 m²</b>"],"a)")}<p><i>(1,5 point)</i></p><p>b) Longueur × 4 = 36, donc la longueur est 36 ÷ 4 = <b>9 cm</b>. <i>(1,5 point)</i></p>`},
+{t:"Compter les carreaux", p:2, h:`<p>L'unité d'aire (u.a.) est un carreau du quadrillage. Donne l'aire de la figure H et celle de la figure K, en u.a.</p>${quadri(false)}`,
  c:C_CARR},
-{t:"Convertir des aires", p:2, h:`<div class="retenir" data-l="Je me souviens"><p>Pour les aires, quand je passe d'une unité à sa voisine, je multiplie ou je divise par 100 (et non par 10). Exemple : 1 m² = 100 dm².</p></div><p>Complète.</p><p>a) 5 dm² = …… cm² · b) 6 m² = …… dm² · c) 700 mm² = …… cm² · d) 400 dm² = …… m²</p>`,
- c:`<p>a) 5 × 100 = <b>500 cm²</b> · b) 6 × 100 = <b>600 dm²</b> · c) 700 ÷ 100 = <b>7 cm²</b> · d) 400 ÷ 100 = <b>4 m²</b></p><p><i>0,5 point par conversion.</i></p>`},
-{t:"La figure en T", p:3, h:`<p>Quelle est l'aire de cette figure ?</p>${tFig({bep:true,alt:"Une figure en forme de T : barre du haut de 8 cm sur 2 cm, pied de 3 cm sur 5 cm"})}<p><b>Aide :</b> coupe la figure en deux morceaux rectangulaires, la barre du haut et le pied. Calcule l'aire de chacun, puis additionne.</p>`,
- c:`${tFig({cor:true,bep:true,alt:"La figure en T découpée en deux rectangles ① et ②"})}<p>Barre du haut ① : 8 × 2 = 16 cm². Pied ② : 3 × 5 = 15 cm². <i>(2 points)</i></p>${KC("A",["16 + 15","<b>31 cm²</b>"])}<p><i>(1 point)</i></p>`}
+{t:"Convertir des aires", p:2, h:`<p>Complète.</p><p>a) 5 dm² = …… cm² · b) 85 dm² = …… m²</p>`,
+ c:`<p>Pour les aires, on multiplie ou on divise par 100.</p><p>a) 5 × 100 = <b>500 cm²</b> · b) 85 ÷ 100 = <b>0,85 m²</b></p><p><i>1 point par conversion.</i></p>`},
+{t:"La figure en T", p:3, h:`<p>Quelle est l'aire de cette figure ? Écris tes calculs.</p>${tFig({alt:"Une figure en forme de T : barre du haut de 8 cm sur 2 cm, pied de 3 cm de large, hauteur totale 7 cm"})}`,
+ c:`${tFig({cor:true,alt:"La figure en T découpée en deux rectangles ① et ②"})}<p>Je partage la figure en deux rectangles : la barre du haut ① et le pied ②. <i>(0,5 point)</i></p><p>Hauteur du pied : 7 − 2 = 5 cm. <i>(0,5 point)</i></p>${KC("A",["A<sub>①</sub> + A<sub>②</sub>","8 × 2 + 3 × 5","16 + 15","<b>31 cm²</b>"])}<p><i>(2 points)</i></p>`}
 ]}
 };
 })()

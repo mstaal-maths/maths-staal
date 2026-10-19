@@ -209,25 +209,25 @@ exos:[
   <p>c)</p>${red("RST",35,35,110,"RTS")}<p>Les angles ${A("SRT")} et ${A("RTS")} ont la même mesure (35°) : le triangle RST est <b>isocèle en S</b>. On mesure bien ST = 5 cm = RS. <i>(1 point pour le calcul, 0,5 point pour la nature)</i></p>`}
 ],
 bep:{
-titre:"Évaluation d'entraînement — Chapitre 11 · version aménagée", duree:30, info:"Version aménagée · Durée : 30 min · Règle graduée et rapporteur · Calculatrice non autorisée",
-note:"Mêmes exercices et même barème, avec des nombres plus simples, des rappels du cours (« Je me souviens ») et des aides.",
+titre:"Évaluation d'entraînement — Chapitre 11 · version aménagée", duree:30, info:"Version aménagée (tiers-temps) · Durée : 30 min · Règle graduée et rapporteur · Calculatrice non autorisée",
+note:"Le même sujet avec 2 questions en moins, à faire dans le même temps. Le total reste sur 10 points.",
 comp:COMP,
 exos:[
-{t:"Ces triangles existent-ils ?", p:2, h:`${MEM(`<p>Dans un triangle, la somme des trois angles est égale à 180°.</p>`)}<p>Lisa et Tom ont donné les mesures des trois angles d'un triangle. Ce triangle peut-il exister ? Justifie par un calcul.</p><p>a) Lisa : 60°, 50° et 70°.</p><p>b) Tom : 100°, 50° et 40°.</p>${AIDE("additionne les trois mesures, puis compare avec 180°.")}`,
- c:`<p>a) 60 + 50 + 70 = 180 : <b>oui</b>, il peut exister.</p><p>b) 100 + 50 + 40 = 190, ce n'est pas 180 : <b>non</b>, il ne peut pas exister.</p><p><i>Par question : 0,5 point pour le calcul, 0,5 point pour la conclusion.</i></p>`},
-{t:"Calculer des angles", p:4, h:`${MEM(`<p>Dans un triangle, la somme des trois angles est égale à 180°.</p><p>Un angle droit mesure 90°. Dans un triangle isocèle, les deux angles à la base sont égaux.</p>`)}<p>Les figures b) et c) sont à main levée : on calcule.</p>
-  <p>a) DEF est un triangle tel que ${A("DEF")} = 50° et ${A("DFE")} = 60°. Calcule ${A("EDF")}.</p>${AIDE(`${A("EDF")} = 180° − (50° + 60°).`)}
-  <p>b) Le triangle KLM est rectangle en K. Calcule ${A("KML")}.</p>
-  <p>c) Le triangle PQR est isocèle en P. Calcule ${A("PRQ")}, puis ${A("QPR")}.</p>${AIDE(`${A("PRQ")} = ${A("PQR")}.`)}${FIGS(40,40)}`,
- c:`<p>a)</p>${red("DEF",70,50,60,"EDF")}<p><i>(1,5 point)</i></p>
-  <p>b) KLM est rectangle en K, donc ${A("LKM")} = 90°.</p>${red("KLM",50,90,40,"KML")}<p><i>(1 point)</i></p>
-  <p>c) PQR est isocèle en P, donc ${A("PRQ")} = ${A("PQR")} = <b>40°</b>.</p>${red("PQR",100,40,40,"QPR")}<p><i>(0,5 point pour ${A("PRQ")}, 1 point pour ${A("QPR")})</i></p>`},
-{t:"Construire un triangle", p:4, h:`<p>On veut construire le triangle RST tel que RS = 5 cm, ${A("SRT")} = 40° et ${A("RST")} = 100°.</p>
-  <p>a) Fais un dessin à main levée, et places-y les données.</p><p>b) Construis le triangle RST en vraie grandeur.</p>${AIDE("trace d'abord [RS]. En R, trace l'angle de 40°. En S, trace l'angle de 100°, du même côté. Les deux demi-droites se coupent en T.")}
-  <p>c) Calcule la mesure de l'angle ${A("RTS")}, puis vérifie avec ton rapporteur.</p>`,
- c:`<p>a) Un dessin à main levée avec RS = 5 cm, 40° en R et 100° en S. <i>(0,5 point)</i></p>
-  <p>b)</p>${CONS(40,100,40)}<p><i>Figure réduite. 2 points : [RS] juste (0,5), angle de 40° (0,5), angle de 100° (0,5), point T placé et nommé (0,5).</i></p>
-  <p>c)</p>${red("RST",40,40,100,"RTS")}<p>Au rapporteur, on trouve bien environ 40°. <i>(1 point pour le calcul, 0,5 point pour la vérification)</i></p>`}
+{t:"Ces triangles existent-ils ?", p:2, h:`<p>Lisa et Tom ont chacun donné les mesures des trois angles d'un triangle. Pour chacun, dis si ce triangle peut exister. Justifie par un calcul.</p><p>a) Lisa : 35°, 75° et 70°.</p><p>b) Tom : 110°, 50° et 30°.</p>`,
+ c:`<p>a) 35 + 75 + 70 = 180. La somme est égale à 180° : <b>oui</b>, le triangle de Lisa peut exister.</p>
+  <p>b) 110 + 50 + 30 = 190. La somme n'est pas égale à 180° : <b>non</b>, le triangle de Tom ne peut pas exister.</p>
+  <p><i>Par question : 0,5 point pour le calcul, 0,5 point pour la conclusion.</i></p>`},
+{t:"Calculer des angles", p:4, h:`<p>Rédige comme dans le cours. Les figures a) et b) sont faites à main levée : on ne mesure pas, on calcule.</p>
+  <p>a) Le triangle KLM est rectangle en K. Calcule ${A("KML")}.</p>
+  <p>b) Le triangle PQR est isocèle en P. Calcule ${A("PRQ")}, puis ${A("QPR")}.</p><div class="cgrid"><figure><figcaption>a)</figcaption>${FK(28)}</figure><figure><figcaption>b)</figcaption>${FP(35)}</figure></div>`,
+ c:`<p>a) Le triangle KLM est rectangle en K, donc ${A("LKM")} = 90°.</p>${red("KLM",62,90,28,"KML")}<p><i>(1,5 point)</i></p>
+  <p>b) Le triangle PQR est isocèle en P : ses deux angles à la base sont égaux, donc ${A("PRQ")} = ${A("PQR")} = <b>35°</b>.</p>${red("PQR",110,35,35,"QPR")}<p><i>(1 point pour ${A("PRQ")}, 1,5 point pour ${A("QPR")})</i></p>`},
+{t:"Construire un triangle", p:4, h:`<p>On veut construire le triangle RST tel que RS = 5 cm, ${A("SRT")} = 35° et ${A("RST")} = 110°.</p>
+  <p>a) Construis le triangle RST en vraie grandeur.</p>
+  <p>b) Calcule la mesure de l'angle ${A("RTS")}. Que peux-tu en déduire pour le triangle RST ? Vérifie en mesurant le côté [ST].</p>`,
+ c:`<p>a) Je trace [RS] de 5 cm. En R, je trace avec le rapporteur une demi-droite qui forme un angle de 35° avec [RS]. En S, du même côté, je trace une demi-droite qui forme un angle de 110° avec [SR]. Les deux demi-droites se coupent en T.</p>${CONS(35,110,35)}
+  <p><i>Figure réduite. 2 points : [RS] juste (0,5), angle de 35° (0,5), angle de 110° (0,5), point T placé et nommé (0,5).</i></p>
+  <p>b)</p>${red("RST",35,35,110,"RTS")}<p>Les angles ${A("SRT")} et ${A("RTS")} ont la même mesure (35°) : le triangle RST est <b>isocèle en S</b>. On mesure bien ST = 5 cm = RS. <i>(1 point pour le calcul, 1 point pour la nature)</i></p>`}
 ]}
 };
 })()
