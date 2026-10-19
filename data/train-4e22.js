@@ -83,7 +83,7 @@ const secD={t:"Résoudre des problèmes avec une équation", e:[
   {n:"Exercice 10", t:"Les programmes de Mélanie", w:"Sur ton cahier", h:`${progs(prog("Programme 1",["Choisir un nombre",`Multiplier par ${mel.a}`,`Ajouter ${mel.bb}`]),prog("Programme 2",["Choisir un nombre",`Soustraire ${mel.m}`,`Multiplier par ${mel.k}`]))}<p>Mélanie trouve le même résultat avec les deux programmes, en partant du même nombre. Quel était ce nombre ?</p>`,
    c:`<p>Programme 1 : ${mel.a}${x} + ${mel.bb}. Programme 2 : (${x} − ${mel.m}) × ${mel.k} = ${mel.k}${x} − ${mel.k*mel.m}.</p>${sol(mel.a,mel.bb,mel.k,-mel.k*mel.m)}`},
   {n:"Exercice 11", t:"Une histoire de périmètre", w:"Sur ton cahier", h:`<p>Le segment [AB] mesure ${F(seg.L)} cm. M est un point de [AB]. On construit un triangle équilatéral de côté [AM] et un carré de côté [MB].</p><p>Où placer M pour que le triangle et le carré aient le même périmètre ?</p>`,
-   c:`<p>On appelle ${x} = AM. Alors MB = ${F(seg.L)} − ${x}. Triangle : 3${x}. Carré : 4(${F(seg.L)} − ${x}) = ${F(4*seg.L)} − 4${x}.</p>${sol(3,0,-4,4*seg.L)}<p>Il faut placer M à ${QS(Q(4*seg.L,7))} cm de A.</p>`}
+   c:`<p>On appelle ${x} = AM. Alors MB = ${F(seg.L)} − ${x}. Triangle : 3${x}. Carré : 4(${F(seg.L)} − ${x}) = ${F(4*seg.L)} − 4${x}.</p>${sol(3,0,-4,4*seg.L,{od:"n"})}<p>Il faut placer M à ${QS(Q(4*seg.L,7))} cm de A.</p>`}
  ]};
 
 return [secA, secB, secC, secD];

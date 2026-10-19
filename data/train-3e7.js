@@ -4,6 +4,8 @@ TRAIN["3e-7"] = function(){
 const {ri, pick, shuf} = TR;
 const {N, N2, pt, tab, rd, hm} = window.GC3;
 const pad = m => String(m).padStart(2,"0");
+/* « = » si la valeur affichée est exacte, « ≈ » sinon */
+const ap = (x,k) => Math.abs(x*10**k-Math.round(x*10**k))<1e-6 ? "=" : "≈";
 
 /* ===== 1. Conversions de durées ===== */
 const C1 = {m:ri(3,25), h:ri(1,6), mm:ri(5,55), d:ri(2,5)};
@@ -18,7 +20,7 @@ const E4 = (()=>{ const V=ri(150,600)*1000000, D=ri(15,40); return {V, D, s:V/D}
 const E5 = {t:ri(2,9)};
 
 /* ===== 3. Sujets de brevet ===== */
-const LM = (()=>{ const L=13.629, tours=ri(360,395), D=rd((tours+ri(5,95)/100)*L,3); let mph, kmh; do{ mph=ri(180,215); kmh=ri(295,345); }while(Math.abs(mph*1.609-kmh)<3); return {L, D, mph, kmh}; })();
+const LM = (()=>{ const L=13.629, tours=ri(360,395), D=rd((tours+ri(5,85)/100)*L,3); let mph, kmh; do{ mph=ri(180,215); kmh=ri(295,345); }while(Math.abs(mph*1.609-kmh)<3); return {L, D, mph, kmh}; })();
 const toursLM = Math.floor(LM.D/LM.L), vLM = Math.round(LM.D/24), mphKm = rd(LM.mph*1.609,3);
 const DU = (()=>{ for(let g=0;g<500;g++){ const ce=pick([5.8,6,6.2,6.4,6.8]), cd=rd(ce-pick([0.8,1,1.2]),1), pe=ri(1500,1900)/1000, pg=ri(1250,1700)/1000, km=ri(150,260)*100, ae=ri(195,235)*100, diff=pick([1800,2000,2200,2400,2600]);
   const eco=rd(ce*km/100*pe,2)-rd(cd*km/100*pg,2); if(pg>pe-0.1 || eco<=0) continue; const n=diff/eco; if(n<2.2||n>9.8||Math.abs(n-Math.round(n))<0.05) continue;
@@ -48,11 +50,11 @@ return [
   {n:"Exercice 4", t:"La vitesse moyenne en km/h", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un routier a parcouru ${N(E1.d)} km en ${E1.t} h. Quelle a été sa vitesse moyenne en km/h ?</p><p><b>Problème 2 :</b> un automobiliste a roulé à une vitesse moyenne de ${N(E1.v2)} km/h et a parcouru ${N(E1.d2)} km. Combien d'heures a-t-il roulé ?</p>`,
    c:`<p><b>Problème 1 :</b> V = {d/t} = ${N(E1.d)} ÷ ${E1.t} = <b>${N(E1.v)} km/h</b>.</p><p><b>Problème 2 :</b> t = {d/V} = ${N(E1.d2)} ÷ ${N(E1.v2)} = <b>${E1.t2} h</b>.</p>`},
   {n:"Exercice 5", t:"Le prix au kilo en €/kg", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> j'ai acheté ${N(E2.m)} kg de poires et j'ai payé ${N2(E2.P)} €. Quel est le prix au kilo des poires ?</p><p><b>Problème 2 :</b> les courgettes sont à ${N2(E2.p2)} €/kg. J'achète ${N(E2.m2)} kg de courgettes. Combien vais-je payer ?</p>`,
-   c:`<p><b>Problème 1 :</b> ${N2(E2.P)} ÷ ${N(E2.m)} ≈ <b>${N2(E2.P/E2.m)} €/kg</b>.</p><p><b>Problème 2 :</b> ${N2(E2.p2)} × ${N(E2.m2)} = ${N(rd(E2.p2*E2.m2,4))} ≈ <b>${N2(E2.p2*E2.m2)} €</b>.</p>`},
+   c:`<p><b>Problème 1 :</b> ${N2(E2.P)} ÷ ${N(E2.m)} ${ap(E2.P/E2.m,2)} <b>${N2(E2.P/E2.m)} €/kg</b>.</p><p><b>Problème 2 :</b> ${N2(E2.p2)} × ${N(E2.m2)} = ${N(rd(E2.p2*E2.m2,4))}${ap(E2.p2*E2.m2,2)==="="?"":` ≈ ${N2(E2.p2*E2.m2)}`}. Je vais payer <b>${N2(E2.p2*E2.m2)} €</b>.</p>`},
   {n:"Exercice 6", t:"Un sprinteur", w:"Sur ton cahier", h:`<p>Un sprinteur court le 100 m en ${N(E3.t)} s.</p><p>Calcule sa vitesse moyenne en m/s. Arrondis au centième.</p>`,
-   c:`<p>V = {d/t} = {100/${N(E3.t)}} ≈ <b>${N2(100/E3.t)} m/s</b>.</p>`},
+   c:`<p>V = {d/t} = {100/${N(E3.t)}} ${ap(100/E3.t,2)} <b>${N2(100/E3.t)} m/s</b>.</p>`},
   {n:"Exercice 7", t:"Le remplissage d'un barrage", w:"Sur ton cahier", h:`<p>Un barrage a une retenue d'eau d'environ ${N(E4.V)} m<sup>3</sup>. Une rivière y déverse son eau avec un débit moyen de ${E4.D} m<sup>3</sup>/s.</p><p>Calcule la durée de remplissage de ce barrage, arrondie à l'unité : <b>a)</b> en secondes ; <b>b)</b> en heures ; <b>c)</b> en jours.</p>`,
-   c:`<p><b>a)</b> t = {V/D} = ${N(E4.V)} ÷ ${E4.D} ≈ <b>${N(Math.round(E4.s))} s</b>.</p><p><b>b)</b> ${N(Math.round(E4.s))} ÷ 3 600 ≈ <b>${N(Math.round(E4.s/3600))} h</b>.</p><p><b>c)</b> ${N(rd(E4.s/3600,2))} ÷ 24 ≈ <b>${N(Math.round(E4.s/86400))} jours</b>.</p>`},
+   c:`<p><b>a)</b> t = {V/D} = ${N(E4.V)} ÷ ${E4.D} ${ap(E4.s,0)} <b>${N(Math.round(E4.s))} s</b>.</p><p><b>b)</b> ${N(Math.round(E4.s))} ÷ 3 600 ≈ <b>${N(Math.round(E4.s/3600))} h</b>.</p><p><b>c)</b> ${N(rd(E4.s/3600,2))} ÷ 24 ≈ <b>${N(Math.round(E4.s/86400))} jours</b>.</p>`},
   {n:"Exercice 8", t:"Orage et vitesse du son", w:"Sur ton cahier", h:`<p>Le son se déplace à la vitesse de 330 m/s.</p><p>On entend le tonnerre ${E5.t} s après avoir vu un éclair. À quelle distance se situe l'orage ? Convertis en kilomètres.</p>`,
    c:`${pt(["Distance (en m)","330","D"],["Temps (en s)","1",String(E5.t)])}<p>D = 330 × ${E5.t} = ${N(330*E5.t)} m, soit <b>${N(330*E5.t/1000)} km</b>.</p>`}
  ]},
@@ -70,7 +72,7 @@ return [
   {n:"Exercice 13", t:"Sous le pont", w:"Sur ton cahier", h:`<p>Sous un pont, une rivière a un débit de ${N(E7.D)} m<sup>3</sup>/s.</p><p>Tom traverse le pont en ${E7.m} min. Combien de litres d'eau sont passés sous le pont pendant ce temps ?</p>`,
    c:`<p>${E7.m} min = ${E7.m*60} s. ${N(E7.D)} × ${E7.m*60} = ${N(E7.D*E7.m*60)} m<sup>3</sup>, soit <b>${N(E7.D*E7.m*60000)} L</b>.</p>`},
   {n:"Exercice 14", t:"Vitesse d'un coureur", w:"Sur ton cahier", h:`<p>Un coureur a une vitesse moyenne de ${E8.v} km/h.</p><p>Quelle est sa vitesse moyenne en m/s ? Arrondis au centième.</p>`,
-   c:`<p>${N(E8.v*1000)} m en 3 600 s : ${N(E8.v*1000)} ÷ 3 600 ≈ <b>${N2(E8.v/3.6)} m/s</b>.</p>`},
+   c:`<p>${N(E8.v*1000)} m en 3 600 s : ${N(E8.v*1000)} ÷ 3 600 ${ap(E8.v/3.6,2)} <b>${N2(E8.v/3.6)} m/s</b>.</p>`},
   {n:"Exercice 15", t:"Débit d'un robinet", w:"Sur ton cahier", h:`<p>Le débit moyen d'un robinet est de ${N(E9.D)} L/s.</p><p>Transforme ce débit : <b>a)</b> en L/min ; <b>b)</b> en L/h ; <b>c)</b> en m<sup>3</sup>/h.</p>`,
    c:`<p><b>a)</b> ${N(E9.D)} × 60 = <b>${N(E9.D*60)} L/min</b>.</p><p><b>b)</b> ${N(E9.D)} × 3 600 = <b>${N(E9.D*3600)} L/h</b>.</p><p><b>c)</b> ${N(E9.D*3600)} L = ${N(E9.D*3.6)} m<sup>3</sup> : le débit est de <b>${N(E9.D*3.6)} m<sup>3</sup>/h</b>.</p>`},
   {n:"Exercice 16", t:"Vitesse d'un marcheur", w:"Sur ton cahier", h:`<p>Un randonneur a parcouru ${E10.d} km en 1 h ${E10.m} min.</p><p>Calcule sa vitesse moyenne en km/h.</p>`,

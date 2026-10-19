@@ -119,11 +119,11 @@ exos:[
    ${calc("D",["{−3/5} × {7/9}","{−3 × 7/5 × 9}","{−21/45}","{−21 ÷ 3/45 ÷ 3}","{−7/15}"])}
    ${calc("E",["6 × {1/5}","{6/1} × {1/5}","{6/5}"])}${calc("F",["(−9) × {−2/3}","{−9/1} × {−2/3}","{18/3}","{18 ÷ 3/3 ÷ 3}","{6/1} = 6"])}`},
   {n:"Exercice 2", t:"Simplifier avant de multiplier", w:"Sur ton cahier", h:`<p>Calcule en simplifiant avant d'effectuer les multiplications.</p><p>A = {3/7} × {8/3}</p><p>B = {2/15} × {15/11}</p><p>C = {14/23} × {1/7}</p><p>D = {2/11} × {3/4}</p><p>E = {7/8} × {1/21}</p><p>F = {2/3} × {3/4} × {4/5}</p>`,
-   c:`${calc("A",["{3 × 8/7 × 3}","{8/7}"])}${calc("B",["{2 × 15/15 × 11}","{2/11}"])}${calc("C",["{14 × 1/23 × 7}","{7 × 2 × 1/23 × 7}","{2/23}"])}
-   ${calc("D",["{2 × 3/11 × 4}","{2 × 3/11 × 2 × 2}","{3/22}"])}${calc("E",["{7 × 1/8 × 21}","{7 × 1/8 × 7 × 3}","{1/24}"])}${calc("F",["{2 × 3 × 4/3 × 4 × 5}","{2/5}"])}`},
+   c:`${calc("A",["{3/7} × {8/3}","{3 × 8/7 × 3}","{8/7}"])}${calc("B",["{2/15} × {15/11}","{2 × 15/15 × 11}","{2/11}"])}${calc("C",["{14/23} × {1/7}","{14 × 1/23 × 7}","{7 × 2 × 1/23 × 7}","{2/23}"])}
+   ${calc("D",["{2/11} × {3/4}","{2 × 3/11 × 4}","{2 × 3/11 × 2 × 2}","{3/22}"])}${calc("E",["{7/8} × {1/21}","{7 × 1/8 × 21}","{7 × 1/8 × 7 × 3}","{1/24}"])}${calc("F",["{2/3} × {3/4} × {4/5}","{2 × 3 × 4/3 × 4 × 5}","{2/5}"])}`},
   {n:"Exercice 3", t:"Décomposer pour simplifier", w:"Sur ton cahier", h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p><p>A = {35/26} × {13/70}</p><p>B = {45/24} × {8/9}</p><p>C = {63/36} × {12/81}</p><p>D = {32/27} × {54/28}</p>`,
-   c:`${calc("A",["{35 × 13/26 × 70}","{35 × 13/13 × 2 × 35 × 2}","{1/4}"])}${calc("B",["{45 × 8/24 × 9}","{9 × 5 × 8/8 × 3 × 9}","{5/3}"])}
-   ${calc("C",["{63 × 12/36 × 81}","{9 × 7 × 12/3 × 12 × 9 × 9}","{7/27}"])}${calc("D",["{32 × 54/27 × 28}","{4 × 8 × 6 × 9/9 × 3 × 7 × 4}","{8 × 6/3 × 7}","{8 × 3 × 2/3 × 7}","{16/7}"])}`}
+   c:`${calc("A",["{35/26} × {13/70}","{35 × 13/26 × 70}","{35 × 13/13 × 2 × 35 × 2}","{1/4}"])}${calc("B",["{45/24} × {8/9}","{45 × 8/24 × 9}","{9 × 5 × 8/8 × 3 × 9}","{5/3}"])}
+   ${calc("C",["{63/36} × {12/81}","{63 × 12/36 × 81}","{9 × 7 × 12/3 × 12 × 9 × 9}","{7/27}"])}${calc("D",["{32/27} × {54/28}","{32 × 54/27 × 28}","{4 × 8 × 6 × 9/9 × 3 × 7 × 4}","{8 × 6/3 × 7}","{8 × 3 × 2/3 × 7}","{16/7}"])}`}
  ]},
 {t:"Prendre une fraction d'un nombre", e:[
   {n:"Exercice 4", t:"Les bonbons", w:"Sur ton cahier", h:`<p>Arthur achète un sachet de 30 bonbons.</p><p>Les {2/5} des bonbons sont au chocolat et le reste des bonbons sont au caramel.</p><p>Combien y a-t-il de bonbons au chocolat ?</p>`,
@@ -195,13 +195,13 @@ comp:[
 ],
 exos:[
 {t:"Multiplier", p:5, h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée (ou d'un entier).</p><p>A = {4/7} × {3/5} &nbsp;&nbsp; B = {−5/6} × {9/10} &nbsp;&nbsp; C = 8 × {3/4}</p><p>D = {14/15} × {25/21} &nbsp;&nbsp; E = {−6/7} × {−14/9}</p>`,
- c:`${calc("A",["{4 × 3/7 × 5}","{12/35}"])}${calc("B",["{−5 × 9/6 × 10}","{−5 × 3 × 3/3 × 2 × 5 × 2}","{−3/4}"])}${calc("C",["{8/1} × {3/4}","{4 × 2 × 3/4}","6"])}
- ${calc("D",["{14 × 25/15 × 21}","{7 × 2 × 5 × 5/5 × 3 × 7 × 3}","{2 × 5/3 × 3}","{10/9}"])}${calc("E",["{(−6) × (−14)/7 × 9}","{6 × 7 × 2/7 × 3 × 3}","{2 × 3 × 2/3 × 3}","{4/3}"])}<p><i>(1 point par calcul juste et simplifié)</i></p>`},
+ c:`${calc("A",["{4/7} × {3/5}","{4 × 3/7 × 5}","{12/35}"])}${calc("B",["{−5/6} × {9/10}","{−5 × 9/6 × 10}","{−5 × 3 × 3/3 × 2 × 5 × 2}","{−3/4}"])}${calc("C",["8 × {3/4}","{8/1} × {3/4}","{8 × 3/4}","{4 × 2 × 3/4}","6"])}
+ ${calc("D",["{14/15} × {25/21}","{14 × 25/15 × 21}","{7 × 2 × 5 × 5/5 × 3 × 7 × 3}","{2 × 5/3 × 3}","{10/9}"])}${calc("E",["{−6/7} × {−14/9}","{(−6) × (−14)/7 × 9}","{6 × 7 × 2/7 × 3 × 3}","{2 × 3 × 2/3 × 3}","{4/3}"])}<p><i>(1 point par calcul juste et simplifié)</i></p>`},
 {t:"Inverses", p:2, h:`<p>Donne l'inverse de chaque nombre.</p><p>a) 7 &nbsp;&nbsp; b) {3/8} &nbsp;&nbsp; c) {−4/9} &nbsp;&nbsp; d) {1/6}</p>`,
  c:`<p>a) {1/7} · b) {8/3} · c) {−9/4} · d) {6/1} = 6</p><p><i>(0,5 point par réponse)</i></p>`},
 {t:"Diviser", p:5, h:`<p>Calcule et donne le résultat sous forme d'une fraction simplifiée.</p><p>A = {2/3} ÷ {5/7} &nbsp;&nbsp; B = {9/4} ÷ 3 &nbsp;&nbsp; C = 5 ÷ {10/3}</p><p>D = {−8/15} ÷ {4/5} &nbsp;&nbsp; E = ${FR2("{3/4}","{9/8}")}</p>`,
- c:`${calc("A",["{2/3} × {7/5}","{14/15}"])}${calc("B",["{9/4} × {1/3}","{3 × 3/4 × 3}","{3/4}"])}${calc("C",["{5/1} × {3/10}","{5 × 3/2 × 5}","{3/2}"])}
- ${calc("D",["{−8/15} × {5/4}","{−4 × 2 × 5/5 × 3 × 4}","{−2/3}"])}${calc("E",["{3/4} ÷ {9/8}","{3/4} × {8/9}","{3 × 4 × 2/4 × 3 × 3}","{2/3}"])}<p><i>(1 point par calcul juste et simplifié)</i></p>`},
+ c:`${calc("A",["{2/3} ÷ {5/7}","{2/3} × {7/5}","{2 × 7/3 × 5}","{14/15}"])}${calc("B",["{9/4} ÷ 3","{9/4} × {1/3}","{3 × 3/4 × 3}","{3/4}"])}${calc("C",["5 ÷ {10/3}","{5/1} × {3/10}","{5 × 3/2 × 5}","{3/2}"])}
+ ${calc("D",["{−8/15} ÷ {4/5}","{−8/15} × {5/4}","{−4 × 2 × 5/5 × 3 × 4}","{−2/3}"])}${calc("E",["{3/4} ÷ {9/8}","{3/4} × {8/9}","{3 × 4 × 2/4 × 3 × 3}","{2/3}"])}<p><i>(1 point par calcul juste et simplifié)</i></p>`},
 {t:"Calcul mental", p:4, h:`<p>Calcule.</p><p>a) {3/8} de 64 élèves &nbsp;&nbsp; b) {2/3} de 45 min</p><p>c) {7/10} de 250 € &nbsp;&nbsp; d) {5/12} de 36 bonbons</p>`,
  c:`<p>a) 64 ÷ 8 = 8 et 3 × 8 = 24 élèves · b) 45 ÷ 3 = 15 et 2 × 15 = 30 min · c) 250 ÷ 10 = 25 et 7 × 25 = 175 € · d) 36 ÷ 12 = 3 et 5 × 3 = 15 bonbons</p><p><i>(1 point par réponse)</i></p>`},
 {t:"La cagnotte de la classe", p:4, h:`<p>Une classe a récolté 360 € pour ses projets.</p><p>Elle utilise les {3/8} de cette somme pour une sortie au cinéma et {1/5} de cette somme pour acheter des livres.</p><p>a) Combien coûte la sortie au cinéma ?</p><p>b) Combien coûtent les livres ?</p><p>c) Quelle somme reste-t-il dans la cagnotte ? Quelle fraction de la cagnotte cela représente-t-il ?</p>`,

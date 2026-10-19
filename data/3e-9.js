@@ -144,7 +144,7 @@ cours:[
   <details><summary>Voir la correction</summary><div class="corr">
    <p><b>1 – a)</b> −3 − 4 = −7 puis (−7)² = 49. Louise obtient bien 49.</p>
    <p><b>b)</b> (−3)² = 9 puis 9 + 2 × (−3) = 9 − 6 = 3. Elle obtient 3.</p>
-   <p><b>2 –</b> Programme 1 : (${$x} − 4)² = (${$x} − 4)(${$x} − 4) = ${$x}² − 4${$x} − 4${$x} + 16 = ${$x}² − 8${$x} + 16.</p>
+   <p><b>2 –</b> On note A le résultat du programme 1 :</p><p class="calc">A = (${$x} − 4)²<br>A = (${$x} − 4)(${$x} − 4)<br>A = ${$x}² − 4${$x} − 4${$x} + 16<br>A = ${$x}² − 8${$x} + 16</p>
    <p><b>3 –</b> Programme 2 : ${$x}² + 2${$x}. On résout l'équation :</p>
    ${calc([`${$x}² − 8${$x} + 16 = ${$x}² + 2${$x}`,[`−8${$x} + 16 = 2${$x}`,"− "+$x+"²"],[`16 = 10${$x}`,"+ 8"+$x],[`{16/10} = ${$x}`,"÷ 10"],`${$x} = 1,6`])}
    <p>Louise cherche le nombre <b>1,6</b>.</p><p><i>Vérification : (1,6 − 4)² = 5,76 et 1,6² + 2 × 1,6 = 2,56 + 3,2 = 5,76.</i></p></div></details>`}
@@ -212,7 +212,7 @@ exos:[
    <p>Tom souhaite trouver un nombre pour lequel les deux programmes de calcul donnent le même résultat. Il choisit ${$x} comme nombre de départ pour les deux programmes.</p>
    <p><b>3.</b> Montre que le résultat du programme A peut s'écrire ${$x}² − 5${$x}.</p><p><b>4.</b> Exprime en fonction de ${$x} le résultat obtenu avec le programme B.</p><p><b>5.</b> Quel est le nombre que Tom cherche ?</p><p><i>Toute trace de recherche, même non aboutie, sera prise en compte dans la notation.</i></p>`,
    c:`<p><b>1.</b> 4 − 5 = −1 puis −1 × 4 = −4. Alice obtient bien −4.</p><p><b>2.</b> (−3)² = 9 puis 9 − 4 = 5. Lucie obtient 5.</p>
-   <p><b>3.</b> (${$x} − 5) × ${$x} = ${$x} × ${$x} − 5 × ${$x} = ${$x}² − 5${$x}.</p><p><b>4.</b> Programme B : ${$x}² − 4.</p>
+   <p><b>3.</b> On note A le résultat du programme A :</p><p class="calc">A = (${$x} − 5) × ${$x}<br>A = ${$x} × ${$x} − 5 × ${$x}<br>A = ${$x}² − 5${$x}</p><p><b>4.</b> Programme B : ${$x}² − 4.</p>
    <p><b>5.</b></p>${calc([`${$x}² − 5${$x} = ${$x}² − 4`,[`−5${$x} = −4`,"− "+$x+"²"],[`${$x} = {−4/−5} = {4/5} = 0,8`,"÷ (−5)"]])}<p>Tom cherche le nombre <b>0,8</b>.</p><p><i>Vérification : (0,8 − 5) × 0,8 = −3,36 et 0,8² − 4 = −3,36.</i></p>`},
   {n:"Exercice 8", t:"Exercice de brevet 2015", w:"Sur ton cahier", h:`<p><b>Partie 1.</b> Mathilde et Paul saisissent sur leur calculatrice un même nombre. Voici leurs programmes de calcul :</p>
    ${prog("Programme de calcul de Mathilde",["Saisir un nombre","Multiplier ce nombre par 9","Soustraire 8 au résultat obtenu"])}${prog("Programme de calcul de Paul",["Saisir un nombre","Multiplier ce nombre par −3","Ajouter 31 au résultat obtenu"])}
@@ -228,12 +228,12 @@ exos:[
    <p><b>2.</b> Pour 3 : Mathilde 19 et Paul 22 (Mathilde &lt; Paul). Pour 4 : Mathilde 28 et Paul 19 (Mathilde &gt; Paul). Le nombre cherché est compris entre 3 et 4.</p>
    <p><b>3.</b> On note ${$x} le nombre saisi. Mathilde : 9${$x} − 8 ; Paul : −3${$x} + 31.</p>${calc(steps(9,-8,-3,31))}<p>Il faut saisir <b>3,25</b>, qui est bien compris entre 3 et 4.</p>
    <p><b>Partie 2. a.</b> Multiplier le résultat par 2 · Soustraire 5.</p><p><b>b.</b> 8 + 3 = 11 ; 11 × 2 = 22 ; 22 − 5 = 17. Le résultat est 17.</p>
-   <p><b>c.</b> (${$x} + 3) × 2 − 5 = 2${$x} + 6 − 5 = 2${$x} + 1.</p><p><b>d.</b></p>${calc(steps(2,1,0,6))}<p>Il faut choisir <b>2,5</b>.</p>`},
+   <p><b>c.</b> On note R le résultat :</p><p class="calc">R = (${$x} + 3) × 2 − 5<br>R = 2${$x} + 6 − 5<br>R = 2${$x} + 1</p><p><b>d.</b></p>${calc(steps(2,1,0,6))}<p>Il faut choisir <b>2,5</b>.</p>`},
   {n:"Exercice 9", t:"Différence entre les deux énoncés", w:"Sur ton cahier", h:`<p>Les deux questions sont indépendantes.</p><div class="attention"><b>ATTENTION :</b> elles sont souvent confondues !</div>
    <p><b>1 –</b> Trouve la valeur de ${$x} pour laquelle 5(4${$x} − 3) = 8${$x} + 6.</p><p><b>2 –</b> Montre que, pour toutes les valeurs de ${$x}, on a 5(4${$x} − 3) = 14${$x} + 3(2${$x} − 5).</p>`,
    c:`<p><b>1 –</b> C'est une équation : on cherche <b>une</b> valeur de ${$x}.</p>${calc([`5(4${$x} − 3) = 8${$x} + 6`,`20${$x} − 15 = 8${$x} + 6`,...steps(20,-15,8,6).slice(1)])}${concl(21,12)}
    <p><b>2 –</b> C'est une égalité vraie pour <b>toutes</b> les valeurs de ${$x} : on développe et on réduit chaque membre séparément.</p>
-   <p class="calc">5(4${$x} − 3) = 20${$x} − 15<br>14${$x} + 3(2${$x} − 5) = 14${$x} + 6${$x} − 15 = 20${$x} − 15</p><p>Les deux membres sont égaux à 20${$x} − 15 : l'égalité est vraie pour toutes les valeurs de ${$x}.</p>`},
+   <p class="calc">A = 5(4${$x} − 3)<br>A = 20${$x} − 15</p><p class="calc">B = 14${$x} + 3(2${$x} − 5)<br>B = 14${$x} + 6${$x} − 15<br>B = 20${$x} − 15</p><p>A et B sont égaux à 20${$x} − 15 : l'égalité est vraie pour toutes les valeurs de ${$x}.</p>`},
   {n:"Exercice 10", t:"Même périmètre", w:"Sur ton cahier", h:`<p>${$x} est une longueur. Le triangle est équilatéral.</p>${carreTri(2,3)}<p>Quelle doit être la valeur de ${$x} pour que le triangle et le carré aient le même périmètre ?</p>`,
    c:`<p>Périmètre du carré : 4 × (${$x} + 2) = 4${$x} + 8.</p><p>Périmètre du triangle équilatéral : 3 × (${$x} + 3) = 3${$x} + 9.</p>${calc(steps(4,8,3,9))}<p>Pour ${$x} = <b>1</b>, le carré et le triangle ont le même périmètre (12).</p>`},
   {n:"Feuille tableur", t:"Retrouver un nombre avec le tableur", w:"Sur ton cahier", h:`<p>Le tableur n'est pas un simple outil de création de tableau : c'est un <b>outil de calcul</b>. On calcule avec le tableur, pas besoin de calculatrice !</p>${RAPPEL}
@@ -311,7 +311,7 @@ exos:[
 {t:"Tester un nombre", p:1.5, h:`<p>On considère l'équation 5${$x} + 3 = 2${$x} − 3.</p><p>a) Le nombre 1 est-il solution de cette équation ?</p><p>b) Le nombre −2 est-il solution de cette équation ?</p>`,
  c:`<p>a) 5 × 1 + 3 = 8 et 2 × 1 − 3 = −1. 8 ≠ −1 : 1 n'est pas solution. <i>(0,5 point)</i></p><p>b) 5 × (−2) + 3 = −7 et 2 × (−2) − 3 = −7. Les deux membres sont égaux : −2 est solution. <i>(1 point)</i></p>`},
 {t:"Résoudre des équations simples", p:4, h:`<p>Résous les équations suivantes.</p>${cols([`a) ${$x} + 12 = 5`,`b) −4${$x} = 18`,`c) ${FX($x,5)} = −3`,`d) 9 = ${$x} − 6`,`e) 6${$x} − 11 = 13`,`f) 7 − 3${$x} = 19`])}`,
- c:`<p>a) ${$x} = 5 − 12 = −7 · b) ${$x} = 18 ÷ (−4) = −4,5 · c) ${$x} = −3 × 5 = −15 · d) ${$x} = 9 + 6 = 15</p><p><i>(0,5 point par équation)</i></p>
+ c:`<p>a)</p>${calc([`${$x} + 12 = 5`,[`${$x} = 5 − 12 = −7`,"− 12"]])}<p>b)</p>${calc([`−4${$x} = 18`,[`${$x} = 18 ÷ (−4) = −4,5`,"÷ (−4)"]])}<p>c)</p>${calc([`${FX($x,5)} = −3`,[`${$x} = −3 × 5 = −15`,"× 5"]])}<p>d)</p>${calc([`9 = ${$x} − 6`,[`15 = ${$x}`,"+ 6"]])}<p>Les solutions sont −7 ; −4,5 ; −15 et 15. <i>(0,5 point par équation)</i></p>
   <p>e)</p>${calc(steps(6,-11,0,13,{first:`6${$x} − 11 = 13`}))}<p>La solution est 4. <i>(1 point)</i></p><p>f)</p>${calc(steps(-3,7,0,19,{first:`7 − 3${$x} = 19`}))}<p>La solution est −4. <i>(1 point)</i></p>`},
 {t:"Résoudre des équations plus difficiles", p:4, h:`<p>Résous les équations suivantes.</p>${cols([`a) 9${$x} + 4 = 2${$x} + 25`,`b) 5${$x} − 8 = 11${$x} + 4`,`c) 3(2${$x} − 5) = 4${$x} + 1`,`d) 7${$x} − (3${$x} + 9) = 2`])}`,
  c:`<p>a)</p>${calc(steps(9,4,2,25))}<p>La solution est 3. <i>(1 point)</i></p><p>b)</p>${calc(steps(5,-8,11,4))}<p>La solution est −2. <i>(1 point)</i></p>

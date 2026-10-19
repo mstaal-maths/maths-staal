@@ -119,7 +119,8 @@ const sc=(P,s)=>Object.fromEntries(Object.entries(P).map(([n,[x,y]])=>[n,[r3(x/s
 const CEX2=sc({C:[134,103],D:[393,142],A:[111,149],E:[189,306],B:[34,355]},40);
 function blank(P, tri, from, to, o={}){
   const pts=tri.split("").map(n=>P[n]), v=sub(P[to],P[from]);
-  const g={k:o.k||40, pad:28, polys:[[pts,"orig"]], pts:[...lab(tri.split(""),pts), ...[from,to].filter(n=>!tri.includes(n)).map(n=>[n,...P[n],10,-10])], w:o.w||360, alt:o.alt||"Figure sur feuille blanche"};
+  /* box : la place de l'image est toujours réservée (l'élève construit l'image sur la figure) */
+  const g={k:o.k||40, pad:28, box:trans(pts,v), polys:[[pts,"orig"]], pts:[...lab(tri.split(""),pts), ...[from,to].filter(n=>!tri.includes(n)).map(n=>[n,...P[n],10,-10])], w:o.w||360, alt:o.alt||"Figure sur feuille blanche"};
   if(o.vec) g.vecs=[[P[from],P[to]]];
   if(o.sol){ const im=trans(pts,v); g.polys.push([im,"img"]); g.pts.push(...lab(tri.split(""),im,"’",C_C).filter(q=>!Object.values(P).some(r=>Math.hypot(r[0]-q[1],r[1]-q[2])<0.05))); pts.forEach((p,i)=>g.lines=(g.lines||[]).concat([[p,im[i],"cons"]])); g.lines.push([P[from],P[to],"cons"]); g.alt=o.altS||"La figure et son image par la translation"; }
   return G(g);
@@ -336,9 +337,9 @@ exos:[
    c:`<p><b>1)</b> De A à A’’ : 6 carreaux vers la droite et 1 vers le bas. On fait glisser chaque sommet de la même façon.</p><p><b>2)</b> Pour A’, il n'y a pas de quadrillage : on reporte la flèche de A vers A’ à partir de chaque sommet (même direction, même sens, même longueur).</p>${telSVG(true)}<p>Le téléphérique ne tourne pas : il glisse le long du câble. C'est une translation.</p>`},
   {n:"Activité 4", t:"Démonstration", w:"Sur ta feuille", h:`<p><b>1)</b> Construis l'image du triangle ABC par la translation qui transforme D en E.</p>${blank(ADEM,"ABC","D","E",{w:340})}`,
    c:`${blank(ADEM,"ABC","D","E",{w:340,sol:true,altS:"Le triangle ABC et son image A’B’C’"})}<p>A’ est tel que DEA’A est un parallélogramme : arc de centre A et de rayon DE, arc de centre E et de rayon DA.</p><p>On fait de même pour B’ et C’.</p>`},
-  {n:"Exercice 8", t:"Construire une image par translation", w:"Sur ta feuille", h:`<p><b>1)</b> Construis l'image du triangle PIC par la translation de vecteur ${vec("AB")}. Nomme-la P’I’C’.</p>${blank(E81,"PIC","A","B",{vec:true,w:300})}
-   <p><b>2)</b> Construis l'image du quadrilatère ABCD par la translation qui transforme E en F. Nomme-la A’B’C’D’.</p>${blank(E82,"ABCD","E","F",{w:380})}
-   <p><b>3)</b> Construis l'image du triangle ABC par la translation de vecteur ${vec("AD")}. Nomme-la A’B’C’.</p>${blank(E83,"ABC","A","D",{w:380})}`,
+  {n:"Exercice 8", t:"Construire une image par translation", w:"Sur ta feuille", h:`<p><b>1)</b> Construis l'image du triangle PIC par la translation de vecteur ${vec("AB")}. Nomme-la P’I’C’.</p>${blank(E81,"PIC","A","B",{vec:true,w:330})}
+   <p><b>2)</b> Construis l'image du quadrilatère ABCD par la translation qui transforme E en F. Nomme-la A’B’C’D’.</p>${blank(E82,"ABCD","E","F",{w:420})}
+   <p><b>3)</b> Construis l'image du triangle ABC par la translation de vecteur ${vec("AD")}. Nomme-la A’B’C’.</p>${blank(E83,"ABC","A","D",{w:400})}`,
    c:`<p><b>1)</b> ABP’P, ABI’I et ABC’C sont des parallélogrammes.</p>${blank(E81,"PIC","A","B",{vec:true,w:330,sol:true,altS:"Le triangle PIC et son image P’I’C’"})}
    <p><b>2)</b> Chaque sommet glisse comme E glisse vers F (vers la gauche et un peu vers le bas).</p>${blank(E82,"ABCD","E","F",{w:420,sol:true,altS:"Le quadrilatère ABCD et son image A’B’C’D’"})}
    <p><b>3)</b> A a pour image D : le point A’ est confondu avec D. Puis ADB’B et ADC’C sont des parallélogrammes.</p>${blank(E83,"ABC","A","D",{w:400,sol:true,altS:"Le triangle ABC et son image A’B’C’"})}`},
@@ -407,7 +408,7 @@ eval:(()=>{
   const HOUSE=[[1,3],[1,2],[2,1],[3,2],[3,3]], R0=[1,4], S0=[5,4];
   const fri=sol=>{ const o={k:28, grid:[0,0,16,5], polys:[[HOUSE,"orig"]], pts:[["R",...R0,0,-12],["S",...S0,0,-12]], vecs:[[R0,S0]], w:470, alt:"Frise : motif en forme de maison, de R vers S"}; if(sol) for(let i=1;i<=2;i++) o.polys.push([trans(HOUSE,[4*i,0]),"img"]); return G(o); };
   const ARROW=[[2,2],[4,2],[4,1],[6,3],[4,5],[4,4],[2,4]], E0=[8,1], F0=[11,3];
-  const fle=sol=>{ const o={k:28, grid:[0,0,12,8], polys:[[ARROW,"orig"]], pts:[["E",...E0,-10,-10],["F",...F0,10,-10],...lab(["K"],[ARROW[3]])], vecs:[[E0,F0]], w:360, alt:"Quadrillage : une flèche et les points E et F"}; if(sol){ o.polys.push([trans(ARROW,sub(F0,E0)),"img"]); o.pts.push(...lab(["K"],[add(ARROW[3],sub(F0,E0))],"’",C_C)); } return G(o); };
+  const fle=sol=>{ const o={k:28, grid:[0,0,12,8], polys:[[ARROW,"orig"]], pts:[["E",...E0,-10,-10],["F",...F0,10,-10],["K",...ARROW[3],14,-8]], vecs:[[E0,F0]], w:360, alt:"Quadrillage : une flèche et les points E et F"}; if(sol){ o.polys.push([trans(ARROW,sub(F0,E0)),"img"]); o.pts.push(["K’",...add(ARROW[3],sub(F0,E0)),16,-8,C_C]); } return G(o); };
   const BL={R:[1,4],S:[4.2,5.6],T:[3,1.5],U:[6,1],V:[8.5,2.3]};
   return {
 titre:"Évaluation d'entraînement · chapitre 2", duree:45, info:"Durée : 45 min · Calculatrice non autorisée · Règle, équerre, compas et crayon",

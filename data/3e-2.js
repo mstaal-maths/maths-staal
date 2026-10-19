@@ -67,7 +67,7 @@ function geo(o){
     const p0=[C[0]+r*Math.cos(a0*Math.PI/180),C[1]+r*Math.sin(a0*Math.PI/180)], p1=[C[0]+r*Math.cos((a0+d)*Math.PI/180),C[1]+r*Math.sin((a0+d)*Math.PI/180)];
     s+=`<path d="M${f(X(C[0]))} ${f(Y(C[1]))} L${f(X(p0[0]))} ${f(Y(p0[1]))} A${f(r*k)} ${f(r*k)} 0 0 ${d>0?0:1} ${f(X(p1[0]))} ${f(Y(p1[1]))} Z" style="fill:${c};fill-opacity:.22;stroke:${c};stroke-width:1.6"/>`;
     if(t){ const am=(a0+d/2)*Math.PI/180, rr=r+0.25+String(t).length*0.09; s+=`<text x="${f(X(C[0]+rr*Math.cos(am)))}" y="${f(Y(C[1]+rr*Math.sin(am))+5)}" text-anchor="middle" style="font-size:14px;font-weight:700;fill:${c}">${t}</text>`; } });
-  (o.x||[]).forEach(n=>{ const p=g(n), x=X(p[0]), y=Y(p[1]); s+=`<path d="M${f(x-5)} ${f(y-5)} L${f(x+5)} ${f(y+5)} M${f(x+5)} ${f(y-5)} L${f(x-5)} ${f(y+5)}" style="stroke:var(--ink);stroke-width:2"/>`; });
+  (o.x||[]).forEach(n=>{ const p=g(n), x=X(p[0]), y=Y(p[1]), xc=(typeof n==="string"&&o.xc&&o.xc[n])||o.xcol||"var(--ink)"; s+=`<path d="M${f(x-5)} ${f(y-5)} L${f(x+5)} ${f(y+5)} M${f(x+5)} ${f(y-5)} L${f(x-5)} ${f(y+5)}" style="stroke:${xc};stroke-width:2"/>`; });
   (o.dots||[]).forEach(n=>{ const p=g(n); s+=`<circle cx="${f(X(p[0]))}" cy="${f(Y(p[1]))}" r="3.4" style="fill:var(--ink)"/>`; });
   const names=o.lab||o.x||[], cen=o.cen?g(o.cen):(()=>{ const T=names.map(n=>P[n]).filter(Boolean); return T.length?[T.reduce((a,p)=>a+p[0],0)/T.length, T.reduce((a,p)=>a+p[1],0)/T.length]:[0,0]; })();
   names.forEach(n=>{ const p=P[n]; if(!p) return; let d=o.off&&o.off[n]; if(!d){ let u=[X(p[0])-X(cen[0]),Y(p[1])-Y(cen[1])]; if(Math.hypot(...u)<1) u=[0.6,-0.8]; u=V.unit(u); d=[u[0]*16,u[1]*16]; }
@@ -104,20 +104,20 @@ function flags(K, T, grid, show, extra={}){
   const a=FLAG(K), b={r:a.r.map(T), m:a.m.map(T)}, c1=[K[0]+2.5,K[1]+2], c2=T(c1);
   const o={grid, k:o0k(grid), pad:12, poly:[[a.r,"orig"],[b.r,"img"]], seg:[[a.m[0],a.m[1],"k"],[b.m[0],b.m[1],"k"]],
     txt:[["Figure 1",c1,0,0,"font-size:14px"],["Figure 2",c2,0,0,"font-size:14px"]], alt:"Figure 1 et figure 2 sur quadrillage"};
-  if(show) Object.entries(extra).forEach(([k,v])=>{ o[k]=(o[k]||[]).concat(v); });
+  if(show) Object.entries(extra).forEach(([k,v])=>{ o[k]=Array.isArray(v)?(o[k]||[]).concat(v):v; });
   return geo(o);
 }
 const o0k=gr=>Math.min(20, 330/(gr[2]-gr[0]));
 /* les six transformations de l'activité 1 (carreaux) */
 const A1=[
  {K:[1,4], grid:[0,-1,16,9], T:p=>[16-p[0],p[1]], ex:{line:[[[8,-1],[8,9],"rd",0,0]], txt:[["(d)",[8,8.6],14,0,"fill:#c0392b"]]},
-  rep:"<b>Symétrie axiale</b> : la figure 1 se retourne. L'axe de symétrie (d) est la droite verticale située à 2 carreaux à droite de la figure 1 (au milieu des deux figures)."},
+  rep:"<b>Symétrie axiale</b> : la figure 1 se retourne. L'axe de symétrie <b style=\"color:#c0392b\">(d)</b> (en rouge) est la droite verticale située à 2 carreaux à droite de la figure 1 (au milieu des deux figures)."},
  {K:[1,8], grid:[0,-1,18,13], T:p=>[p[0]+11,p[1]-4], ex:{vec:[[[1,8],[12,4],"#c0392b"]]},
   rep:"<b>Translation</b> : la figure glisse sans tourner, de 11 carreaux vers la droite et de 4 carreaux vers le bas (flèche rouge)."},
- {K:[1,4], grid:[0,-1,16,19], T:p=>[16-p[0],18-p[1]], ex:{x:[[8,9]], txt:[["O",[8,9],12,-12,"fill:#c0392b"]], seg:[[[1,0],[15,18],"rd"]]},
-  rep:"<b>Symétrie centrale</b> : la figure 1 fait un demi-tour (180°). Le centre de symétrie O est le milieu du segment qui relie un point de la figure 1 à son image (le bas du mât et le haut du mât de la figure 2)."},
+ {K:[1,4], grid:[0,-1,16,19], T:p=>[16-p[0],18-p[1]], ex:{x:[[8,9]], xcol:"#1e5aa8", txt:[["O",[8,9],12,-12,"fill:#1e5aa8"]], seg:[[[1,0],[15,18],"bd"]]},
+  rep:"<b>Symétrie centrale</b> : la figure 1 fait un demi-tour (180°). Le centre de symétrie <b style=\"color:#1e5aa8\">O</b> (en bleu) est le milieu du segment qui relie un point de la figure 1 à son image (le bas du mât et le haut du mât de la figure 2)."},
  {K:[12,4], grid:[0,-1,18,16], T:p=>[p[1]+2,p[0]-2], ex:{line:[[[2,0],[17,15],"rd",0,0]], txt:[["(d)",[16,14],-16,0,"fill:#c0392b"]]},
-  rep:"<b>Symétrie axiale</b> : la figure 1 se retourne. L'axe de symétrie (d) est une droite oblique : elle suit les diagonales des carreaux."},
+  rep:"<b>Symétrie axiale</b> : la figure 1 se retourne. L'axe de symétrie <b style=\"color:#c0392b\">(d)</b> (en rouge) est une droite oblique : elle suit les diagonales des carreaux."},
  {K:[10,6], grid:[0,0,17,12], T:p=>V.rot(p,[10,2],90), ex:{x:[[10,2]], txt:[["O",[10,2],12,14,"fill:#c0392b"]], angs:[[[10,2],[10,6],[6,2],"90°",1.4,"#c0392b"]]},
   rep:"<b>Rotation</b> de centre O (le bas du mât de la figure 1), d'angle 90° dans le sens antihoraire : la figure tourne d'un quart de tour."},
  {K:[13,4], grid:[0,-1,19,10], T:p=>[p[0]-11,p[1]], ex:{vec:[[[13,8],[2,8],"#c0392b"]]},
@@ -132,8 +132,8 @@ const T0={D:[2,3],E:[0,0],C:[4,2]};
 const imgPts=(P,T)=>{ const o={}; ["D","E","C"].forEach(n=>o[n+"'"]=T(P[n])); return o; };
 function ex1Axial(grid, show){
   const A=[4,0], B=[5,1], T=p=>V.refl(p,A,B), I=imgPts(T0,T), P={...T0, ...(show?I:{})};
-  const o={P, grid:grid?[-1,-5,8,3]:null, box:grid?[]:[[-1,-5],[8,3]], k:28, pad:26, poly:[[["D","E","C"],"orig"]], line:[[[-1,-5],[7,3],"ln",0,0]], x:Object.keys(P), cen:[3,-1],
-    txt:[["(d)",[7,3],-16,4]], alt:"Triangle DEC et droite (d)"};
+  const o={P, grid:grid?[-1,-5,8,3]:null, box:grid?[]:[[-1,-5],[8,3]], k:28, pad:26, poly:[[["D","E","C"],"orig"]], line:[[[-1,-5],[7,3],"r",0,0]], x:Object.keys(P), cen:[3,-1],
+    txt:[["(d)",[7,3],-16,4,"fill:#c0392b"]], alt:"Triangle DEC et droite (d)"};
   if(show){ o.poly.push([["D'","E'","C'"],"img"]); o.labc={"D'":"var(--c)","E'":"var(--c)","C'":"var(--c)"};
     if(!grid){ o.seg=["D","E","C"].map(n=>[n,n+"'","d"]); o.right=["D","E","C"].map(n=>{ const m=V.mid(P[n],P[n+"'"]); return [m,P[n],[7,3]]; }); o.ticks=["D","E","C"].flatMap((n,i)=>[[n,n+"'",i+1,.25],[n,n+"'",i+1,.75]]); }
     o.off={"D'":[14,6],"E'":[14,10],"C'":[16,4]}; }
@@ -141,8 +141,8 @@ function ex1Axial(grid, show){
 }
 function ex1Central(grid, show){
   const Fp=[0,-2], T=p=>V.sym(p,Fp), I=imgPts(T0,T), P={...T0, F:Fp, ...(show?I:{})};
-  const o={P, grid:grid?[-5,-8,5,4]:null, box:grid?[]:[[-5,-8],[5,4]], k:26, pad:26, poly:[[["D","E","C"],"orig"]], x:Object.keys(P), cen:[0,-2], off:{F:[14,4]}, alt:"Triangle DEC et point F"};
-  if(show){ o.poly.push([["D'","E'","C'"],"img"]); o.labc={"D'":"var(--c)","E'":"var(--c)","C'":"var(--c)"};
+  const o={P, grid:grid?[-5,-8,5,4]:null, box:grid?[]:[[-5,-8],[5,4]], k:26, pad:26, poly:[[["D","E","C"],"orig"]], x:Object.keys(P), xc:{F:"#1e5aa8"}, labc:{F:"#1e5aa8"}, cen:[0,-2], off:{F:[14,4]}, alt:"Triangle DEC et point F"};
+  if(show){ o.poly.push([["D'","E'","C'"],"img"]); o.labc={F:"#1e5aa8","D'":"var(--c)","E'":"var(--c)","C'":"var(--c)"};
     if(!grid){ o.seg=["D","E","C"].map(n=>[n,n+"'","d"]); o.ticks=["D","E","C"].flatMap((n,i)=>[[n,"F",i+1],["F",n+"'",i+1]]); } }
   return geo(o);
 }
@@ -315,8 +315,8 @@ exos:[
  ]},
 {t:"Symétries et translation (rappels)", e:[
   {n:"Exercice 1", t:"Constructions d'images par symétrie et translation", w:"Sur ta feuille", h:`<div class="attention"><b>CONSIGNES :</b> pour les constructions avec quadrillage, ne laisse pas les traits de construction. Pour les constructions sans quadrillage, laisse les traits de construction.</div>
-   <p><b>Symétrie axiale :</b> dans les deux cas, trace le symétrique du triangle DEC par rapport à la droite (d). Tu le nommeras D'E'C'.</p><div class="figs">${ex1Axial(true,false)}${ex1Axial(false,false)}</div>
-   <p><b>Symétrie centrale :</b> dans les deux cas, trace le symétrique du triangle DEC par rapport au point F. Tu le nommeras D'E'C'.</p><div class="figs">${ex1Central(true,false)}${ex1Central(false,false)}</div>
+   <p><b>Symétrie axiale :</b> dans les deux cas, trace le symétrique du triangle DEC par rapport à la droite <b style="color:#c0392b">(d)</b> (l'axe de symétrie, en rouge). Tu le nommeras D'E'C'.</p><div class="figs">${ex1Axial(true,false)}${ex1Axial(false,false)}</div>
+   <p><b>Symétrie centrale :</b> dans les deux cas, trace le symétrique du triangle DEC par rapport au point <b style="color:#1e5aa8">F</b> (le centre de symétrie, en bleu). Tu le nommeras D'E'C'.</p><div class="figs">${ex1Central(true,false)}${ex1Central(false,false)}</div>
    <p><b>Translation :</b> dans les deux cas, trace l'image du triangle DEC par la translation qui transforme H en I. Tu la nommeras D'E'C'.</p><div class="figs">${ex1Trans(true,false)}${ex1Trans(false,false)}</div>`,
    c:`<p><b>Symétrie axiale :</b> (d) coupe [DD'], [EE'] et [CC'] perpendiculairement en leur milieu. Sur le quadrillage, (d) suit les diagonales des carreaux : on compte les diagonales de chaque côté de (d).</p><div class="figs">${ex1Axial(true,true)}${ex1Axial(false,true)}</div>
    <p><b>Symétrie centrale :</b> F est le milieu de [DD'], de [EE'] et de [CC']. Sur le quadrillage : pour aller de E à F, on descend de 2 carreaux, donc on descend encore de 2 carreaux pour placer E'.</p><div class="figs">${ex1Central(true,true)}${ex1Central(false,true)}</div>
@@ -416,14 +416,14 @@ eval:(()=>{
   const E1=[
     {K:[1,4], grid:[0,-1,14,9], T:p=>[p[0]+7,p[1]+1], r:"Translation : la figure glisse de 7 carreaux vers la droite et de 1 carreau vers le haut.", ex:{vec:[[[1,4],[8,5],"#c0392b"]]}},
     {K:[8,6], grid:[6,-4,17,11], T:p=>V.rot(p,[8,2],-90), r:"Rotation de centre O (le bas du mât de la figure 1), d'angle 90° dans le sens horaire.", ex:{x:[[8,2]], txt:[["O",[8,2],-12,14,"fill:#c0392b"]]}},
-    {K:[3,8], grid:[0,-7,10,13], T:p=>[p[0],6-p[1]], r:"Symétrie axiale d'axe horizontal (d) : la droite située au milieu des deux mâts.", ex:{line:[[[0,3],[10,3],"rd",0,0]], txt:[["(d)",[10,3],-14,-12,"fill:#c0392b"]]}},
-    {K:[1,3], grid:[0,-1,14,16], T:p=>[14-p[0],15-p[1]], r:"Symétrie centrale de centre O : la figure fait un demi-tour ; O est le milieu du segment qui relie un point à son image.", ex:{x:[[7,7.5]], txt:[["O",[7,7.5],12,-12,"fill:#c0392b"]]}}
+    {K:[3,8], grid:[0,-7,10,13], T:p=>[p[0],6-p[1]], r:"Symétrie axiale d'axe horizontal <b style=\"color:#c0392b\">(d)</b> (en rouge) : la droite située au milieu des deux mâts.", ex:{line:[[[0,3],[10,3],"rd",0,0]], txt:[["(d)",[10,3],-14,-12,"fill:#c0392b"]]}},
+    {K:[1,3], grid:[0,-1,14,16], T:p=>[14-p[0],15-p[1]], r:"Symétrie centrale de centre <b style=\"color:#1e5aa8\">O</b> (en bleu) : la figure fait un demi-tour ; O est le milieu du segment qui relie un point à son image.", ex:{x:[[7,7.5]], xcol:"#1e5aa8", txt:[["O",[7,7.5],12,-12,"fill:#1e5aa8"]]}}
   ];
   /* Ex. 2 : triangle sur quadrillage */
   const P2={A:[1,1],B:[4,2],C:[2,4]};
   const ax2=x=>[10-x[0],x[1]], ce2=x=>V.sym(x,[6,0]), tr2=x=>V.tr(x,[12,5],[11,0]);
-  const g2=(show)=>{ const P={...P2, O:[6,0], K:[12,5], L:[11,0]}; const o={P, grid:[-1,-5,13,6], k:24, pad:14, poly:[[["A","B","C"],"orig"]], line:[[[5,-5],[5,6],"ln",0,0]], vec:[["K","L"]], x:["A","B","C","O","K","L"], cen:[3,2], off:{O:[12,12],K:[-10,-10],L:[12,-10]}, txt:[["(d)",[5,6],14,6]], alt:"Triangle ABC, droite (d), point O et points K et L"};
-    if(show){ const I1={}, I2={}, I3={}; ["A","B","C"].forEach(n=>{ I1[n+"1"]=ax2(P2[n]); I2[n+"2"]=ce2(P2[n]); I3[n+"3"]=tr2(P2[n]); }); Object.assign(P,I1,I2,I3); o.poly.push([Object.keys(I1),"img"],[Object.keys(I2),"img"],[Object.keys(I3),"img"]); o.lab=[...o.x,...Object.keys(I1),...Object.keys(I2),...Object.keys(I3)]; o.labc={}; o.lab.slice(6).forEach(n=>o.labc[n]="var(--c)"); o.off={...o.off,A1:[0,16],B1:[-14,0],C1:[0,-12],A2:[0,-12],B2:[0,16],C2:[0,16],A3:[-14,0],B3:[14,0],C3:[0,-12]}; o.name={A1:"A₁",B1:"B₁",C1:"C₁",A2:"A₂",B2:"B₂",C2:"C₂",A3:"A₃",B3:"B₃",C3:"C₃"}; }
+  const g2=(show)=>{ const P={...P2, O:[6,0], K:[12,5], L:[11,0]}; const o={P, grid:[-1,-5,13,6], k:24, pad:14, poly:[[["A","B","C"],"orig"]], line:[[[5,-5],[5,6],"r",0,0]], vec:[["K","L"]], x:["A","B","C","O","K","L"], xc:{O:"#1e5aa8"}, labc:{O:"#1e5aa8"}, cen:[3,2], off:{O:[12,12],K:[-10,-10],L:[12,-10]}, txt:[["(d)",[5,6],14,6,"fill:#c0392b"]], alt:"Triangle ABC, droite (d), point O et points K et L"};
+    if(show){ const I1={}, I2={}, I3={}; ["A","B","C"].forEach(n=>{ I1[n+"1"]=ax2(P2[n]); I2[n+"2"]=ce2(P2[n]); I3[n+"3"]=tr2(P2[n]); }); Object.assign(P,I1,I2,I3); o.poly.push([Object.keys(I1),"img"],[Object.keys(I2),"img"],[Object.keys(I3),"img"]); o.lab=[...o.x,...Object.keys(I1),...Object.keys(I2),...Object.keys(I3)]; o.labc={O:"#1e5aa8"}; o.lab.slice(6).forEach(n=>o.labc[n]="var(--c)"); o.off={...o.off,A1:[0,16],B1:[-14,0],C1:[0,-12],A2:[0,-12],B2:[0,16],C2:[0,16],A3:[-14,0],B3:[14,0],C3:[0,-12]}; o.name={A1:"A₁",B1:"B₁",C1:"C₁",A2:"A₂",B2:"B₂",C2:"C₂",A3:"A₃",B3:"B₃",C3:"C₃"}; }
     return geo(o); };
   /* Ex. 3 : rotations */
   const Q1={P:{O:[0,0],M:[0,-3],N:[3,-3],R:[3,-1]}, cn:"O", deg:90, shape:["M","N","R"], closed:false, grid:[-1,-4,4,4], k:28, cen:[1.5,-0.5], off:{O:[-10,-10]}};
@@ -440,7 +440,7 @@ eval:(()=>{
   exos:[
   {t:"Reconnaître une transformation", p:4, h:`<p>Dans chaque cas, la figure 2 est l'image de la figure 1. Donne la transformation et ses caractéristiques.</p><div class="figs">${E1.map((x,i)=>fig(`Cas ${"abcd"[i]})`,flags(x.K,x.T,x.grid,false))).join("")}</div>`,
    c:`<div class="figs">${E1.map((x,i)=>fig(`Cas ${"abcd"[i]})`,flags(x.K,x.T,x.grid,true,x.ex))).join("")}</div>${E1.map((x,i)=>`<p><b>${"abcd"[i]})</b> ${x.r} <i>(1 point : 0,5 pour la transformation, 0,5 pour ses caractéristiques)</i></p>`).join("")}`},
-  {t:"Constructions sur quadrillage", p:5, h:`<p>Sur la figure ci-dessous (à recopier sur ton cahier en respectant les carreaux) :</p><p><b>a)</b> trace le symétrique A₁B₁C₁ du triangle ABC par rapport à la droite (d) ;</p><p><b>b)</b> trace le symétrique A₂B₂C₂ du triangle ABC par rapport au point O ;</p><p><b>c)</b> trace l'image A₃B₃C₃ du triangle ABC par la translation qui transforme K en L.</p>${g2(false)}`,
+  {t:"Constructions sur quadrillage", p:5, h:`<p>Sur la figure ci-dessous (à recopier sur ton cahier en respectant les carreaux) :</p><p><b>a)</b> trace le symétrique A₁B₁C₁ du triangle ABC par rapport à la droite <b style="color:#c0392b">(d)</b> (en rouge) ;</p><p><b>b)</b> trace le symétrique A₂B₂C₂ du triangle ABC par rapport au point <b style="color:#1e5aa8">O</b> (en bleu) ;</p><p><b>c)</b> trace l'image A₃B₃C₃ du triangle ABC par la translation qui transforme K en L.</p>${g2(false)}`,
    c:`${g2(true)}<p><b>a)</b> (d) coupe [AA₁], [BB₁] et [CC₁] perpendiculairement en leur milieu : A₁(9 ; 1), B₁(6 ; 2), C₁(8 ; 4) en comptant les carreaux. <i>(1,5 point)</i></p><p><b>b)</b> O est le milieu de [AA₂], [BB₂] et [CC₂]. <i>(1,5 point)</i></p><p><b>c)</b> De K à L : 1 carreau vers la gauche et 5 carreaux vers le bas. On fait le même déplacement à partir de A, B et C. <i>(2 points)</i></p>`},
   {t:"Constructions par rotation", p:4, h:`<p><b>1)</b> Recopie la figure sur ton cahier. Trace l'image de la ligne MNR par la rotation de centre O, d'angle 90° dans le sens antihoraire.</p>${rotFig(Q1)}<p><b>2)</b> Construis un triangle STU tel que ST = 4,5 cm, SU = 2,9 cm et ${ang("TSU")} = 59°. Puis construis son image par la rotation de centre S, d'angle 65° dans le sens horaire. Laisse les traits de construction.</p>`,
    c:`<p><b>1)</b> Chaque point tourne d'un quart de tour autour de O dans le sens antihoraire, à la même distance de O. <i>(2 points)</i></p>${rotFig({...Q1,show:true})}<p><b>2)</b> S est le centre : il ne bouge pas. ${ang("TST'")} = ${ang("USU'")} = 65° dans le sens horaire (rapporteur), ST' = ST et SU' = SU (compas). <i>(1 point pour le triangle, 1 point pour son image)</i></p>${rotFig({...Q2,show:true, off:{S:[-12,6]}})}`},

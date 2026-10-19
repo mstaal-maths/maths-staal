@@ -70,8 +70,13 @@ const secD = {t:"Construire et calculer", e:[
   {n:"Exercice 8", t:"Construire des angles", w:"Sur ton cahier", h:`<p>Construis les angles suivants (trace d'abord un côté), puis code-les : ${items(k8.map(([m,n])=>`${A(n.join(""))} = ${m}°`),"  ·  ",true)}</p>`,
    c:`<p>Centre du rapporteur sur le sommet, 0 sur le premier côté, petit point en face de la mesure, puis on trace le second côté.</p><div class="figs">${k8.map(([m,n])=>angSVG(0,m,{w:m>90?230:210,h:m>90?150:140,L:80,r:22,cx:m>90?120:50,names:n,label:m+"°"})).join("")}</div>`},
   {n:"Exercice 9", t:"Un éventail", w:"Sur ton cahier", h:`<p>1) Construis ${A("xOy")} = ${ea}°, puis [Oz) telle que ${A("yOz")} = ${eb}°, à l'extérieur de l'angle ${A("xOy")}.</p><p>2) Sans mesurer, donne la mesure de ${A("xOz")}. Vérifie au rapporteur.</p>`,
-   c:`${angSVG(0,ea+eb,{w:240,h:160,L:100,r:28,cx:70,names:["x","O","z"],label:(ea+eb)+"°"})}<p>Les deux angles sont côte à côte : ${A("xOz")} = ${ea}° + ${eb}° = <b>${ea+eb}°</b>.</p>`},
-  {n:"Exercice 10", t:"Les angles d'une pendule", w:"Sur ton cahier", h:`<p>Quel angle forment les deux aiguilles à ${items(hh.map(hs),"  ·  ",true)} ? Aide : entre deux nombres du cadran, il y a 360° ÷ 12 = 30°.</p>`,
+   c:`${(()=>{ const cx=90, cy=150, L=115, rd=d=>d*Math.PI/180, P=(d,r)=>[(cx+r*Math.cos(rd(d))).toFixed(1),(cy-r*Math.sin(rd(d))).toFixed(1)];
+     const arc=(d1,d2,r,col)=>{ const [x1,y1]=P(d1,r),[x2,y2]=P(d2,r); return `<path d="M${cx} ${cy} L${x1} ${y1} A${r} ${r} 0 0 0 ${x2} ${y2} Z" style="fill:${col};fill-opacity:.2;stroke:${col};stroke-width:2"/>`; };
+     const lab=(d,r,t,col)=>{ const [x,y]=P(d,r); return `<text x="${x}" y="${(+y+5).toFixed(1)}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:${col}">${t}</text>`; };
+     let g=`<svg class="fig" viewBox="0 0 250 175" width="250" role="img" aria-label="Les demi-droites [Ox), [Oy) et [Oz)">`+arc(0,ea,30,"#e08a00")+arc(ea,ea+eb,46,"#1e5aa8");
+     [[0,"x"],[ea,"y"],[ea+eb,"z"]].forEach(([d,n])=>{ const [x,y]=P(d,L), [tx,ty]=P(d,L+13); g+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" class="ln"/><text x="${tx}" y="${(+ty+5).toFixed(1)}" text-anchor="middle" style="font-size:15px;font-weight:600;fill:var(--ink)">${n}</text>`; });
+     return g+lab(ea/2,42,ea+"°","#e08a00")+lab(ea+eb/2,60,eb+"°","#1e5aa8")+`<text x="${cx-4}" y="${cy+20}" text-anchor="middle" style="font-size:15px;font-weight:600;fill:var(--ink)">O</text></svg>`; })()}<p>Les deux angles sont côte à côte : ${A("xOz")} = ${ea}° + ${eb}° = <b>${ea+eb}°</b>.</p>`},
+  {n:"Exercice 10", t:"Les angles d'une pendule", w:"Sur ton cahier", h:`<p>Quel angle forment les deux aiguilles à chacun de ces horaires ?</p><p>${items(hh.map(hs),"  ·  ",true)}</p><p><i>Aide : entre deux nombres du cadran, il y a 360° ÷ 12 = 30°.</i></p>`,
    c:items(hh.map(t=>{ const d=ang(t); return `${hs(t)} : ${t[1]===30?`la petite aiguille est au milieu entre deux nombres, ${fmt(d/30)} × 30 = `:`${d/30} × 30 = `}<b>${fmt(d)}°</b>`; }),"<br>",true)}
  ]};
 

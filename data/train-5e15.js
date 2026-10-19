@@ -53,13 +53,13 @@ const V7 = Q7[0]*Q7[1]*Q7[2];
 
 /* ===== Exercice 8 : conversions ===== */
 const CV = shuf([
-  ()=>{ const n=ri(2,20); return [`${n} dm³ = ……… cm³`, `${n} dm³ = ${N(n*1000)} cm³`]; },
-  ()=>{ const n=ri(2,9); return [`${n} L = ……… cm³`, `${n} L = ${N(n*1000)} cm³`]; },
-  ()=>{ const n=ri(2,30); return [`${N(n*1000)} cm³ = ……… L`, `${N(n*1000)} cm³ = ${n} L`]; },
-  ()=>{ const n=ri(1,9)/10+pick([0,0,1,2]); return [`${N(n)} m³ = ……… L`, `${N(n)} m³ = ${N(n*1000)} L`]; },
-  ()=>{ const n=ri(5,95); return [`${n} cL = ……… L`, `${n} cL = ${N(n/100)} L`]; },
-  ()=>{ const n=10*ri(5,99); return [`${n} mL = ……… cm³`, `${n} mL = ${n} cm³`]; },
-  ()=>{ const n=ri(2,9); return [`${n} m³ = ……… dm³`, `${n} m³ = ${N(n*1000)} dm³`]; }
+  ()=>{ const n=ri(2,20); return [`${n} dm³ = ……… cm³`, `1 dm³ = 1 000 cm³, donc ${n} dm³ = ${n} × 1 000 = ${N(n*1000)} cm³.`]; },
+  ()=>{ const n=ri(2,9); return [`${n} L = ……… cm³`, `1 L = 1 000 cm³, donc ${n} L = ${n} × 1 000 = ${N(n*1000)} cm³.`]; },
+  ()=>{ const n=ri(2,30); return [`${N(n*1000)} cm³ = ……… L`, `1 000 cm³ = 1 L, donc ${N(n*1000)} cm³ = ${N(n*1000)} ÷ 1 000 = ${n} L.`]; },
+  ()=>{ const n=ri(1,9)/10+pick([0,0,1,2]); return [`${N(n)} m³ = ……… L`, `1 m³ = 1 000 L, donc ${N(n)} m³ = ${N(n)} × 1 000 = ${N(n*1000)} L.`]; },
+  ()=>{ const n=ri(5,95); return [`${n} cL = ……… L`, `1 L = 100 cL, donc ${n} cL = ${n} ÷ 100 = ${N(n/100)} L.`]; },
+  ()=>{ const n=10*ri(5,99); return [`${n} mL = ……… cm³`, `1 mL = 1 cm³, donc ${n} mL = ${n} cm³.`]; },
+  ()=>{ const n=ri(2,9); return [`${n} m³ = ……… dm³`, `1 m³ = 1 000 dm³, donc ${n} m³ = ${n} × 1 000 = ${N(n*1000)} dm³.`]; }
 ]).slice(0,6).map(f=>f());
 
 /* ===== Exercice 9 : prisme droit ===== */
@@ -78,7 +78,7 @@ const E11 = (()=>{ for(let g=0; g<2000; g++){ const L=ri(6,15), l=ri(3,8), p=pic
 const FRW = {"2/3":"aux deux tiers","3/4":"aux trois quarts","1/2":"à moitié","3/5":"aux trois cinquièmes"};
 
 /* ===== Exercice 12 : la maquette ===== */
-const E12 = (()=>{ let b,t; do{ b=ri(4,10); t=ri(3,8); }while(b*t%2); return {b,t,H:ri(15,35)}; })();
+const E12 = (()=>{ let b,t; do{ b=ri(4,10); t=ri(3,8); }while(b*t%2); return {b,t,H:ri(15,35),s:Math.min(Math.round(b/3),t-1)}; })();
 
 return [
  {t:"Reconnaître et représenter des solides", e:[
@@ -111,7 +111,7 @@ return [
   {n:"Exercice 7", t:"Volume d'un cube et d'un pavé", w:"Sur ton cahier", h:`<p>Calcule le volume de chaque solide.</p><p><b>a)</b> un cube d'arête ${c7} cm ;</p><p><b>b)</b> un pavé droit de ${P7[0]} cm de longueur, ${P7[1]} cm de largeur et ${P7[2]} cm de hauteur ;</p><p><b>c)</b> un aquarium (pavé droit) de ${Q7[0]} cm de longueur, ${Q7[1]} cm de largeur et ${Q7[2]} cm de hauteur : donne son volume en cm³, puis sa capacité en litres.</p>`,
    c:`<p><b>a)</b> ${c7}³ = ${c7} × ${c7} × ${c7} = ${N(c7**3)} cm³.</p><p><b>b)</b> ${P7.join(" × ")} = ${N(P7[0]*P7[1]*P7[2])} cm³.</p><p><b>c)</b> ${Q7.join(" × ")} = ${N(V7)} cm³ = ${N(V7/1000)} dm³, soit une capacité de ${N(V7/1000)} L.</p>`},
   {n:"Exercice 8", t:"Convertir des unités", w:"Sur ton cahier", h:`<p>Convertis.</p><div class="calcs">${CV.map(([q],i)=>`<span><b>${L6[i]})</b> ${q}</span>`).join("")}</div>`,
-   c:`<p>${CV.map(([,r],i)=>`<b>${L6[i]})</b> ${r}`).join(" · ")}</p>`},
+   c:CV.map(([,r],i)=>`<p><b>${L6[i]})</b> ${r}</p>`).join("")},
   {n:"Exercice 9", t:"Volume d'un prisme droit", w:"Sur ton cahier", h:`<p>La base d'un prisme droit est un triangle rectangle dont les côtés de l'angle droit mesurent ${E9.a} cm et ${E9.b} cm. Sa hauteur est de ${E9.h} cm.</p><p><b>a)</b> Calcule l'aire de la base.</p><p><b>b)</b> Calcule le volume du prisme.</p><p><b>c)</b> Quelle serait la hauteur d'un prisme de même base et de volume ${E9.B*E9.k} cm³ ?</p>`,
    c:`<p><b>a)</b> ${F(`${E9.a} × ${E9.b}`,2)} = ${E9.B} cm².</p><p><b>b)</b> ${E9.B} × ${E9.h} = ${E9.B*E9.h} cm³.</p><p><b>c)</b> ${E9.B*E9.k} ÷ ${E9.B} = ${E9.k} cm.</p>`},
   {n:"Exercice 10", t:"Volume d'un cylindre", w:"Sur ton cahier", h:`<p>Pour ${PI}, utilise la touche de ta calculatrice.</p><p><b>a)</b> Un cylindre a pour rayon ${E10.r} cm et pour hauteur ${E10.h} cm. Calcule son volume (valeur exacte puis arrondi à l'unité), puis sa capacité en litres (arrondie au centième).</p><p><b>b)</b> Une bouteille cylindrique a pour diamètre ${E10.d} cm et pour hauteur ${E10.hb} cm. Peut-elle contenir ${N(E10.cap)} L d'eau ? Justifie.</p><p><b>c)</b> Une boîte de conserve a pour rayon ${E10.r2} cm et pour hauteur ${E10.h2} cm. Calcule sa contenance en mL (arrondie à l'unité).</p>`,
@@ -121,7 +121,7 @@ return [
   {n:"Exercice 11", t:"La piscine", w:"Sur ton cahier", h:`<p>Une piscine a la forme d'un pavé droit de ${E11.L} m de longueur, ${E11.l} m de largeur et ${N(E11.p)} m de profondeur.</p><p><b>a)</b> Calcule son volume en m³, puis sa contenance en litres.</p><p><b>b)</b> On la remplit avec un robinet dont le débit est de ${N(E11.db)} L par heure. Combien d'heures faut-il pour la remplir complètement ?</p><p><b>c)</b> La piscine est remplie seulement ${FRW[E11.fr.join("/")]}. Combien de litres d'eau contient-elle ?</p>`,
    c:`<p><b>a)</b> ${E11.L} × ${E11.l} × ${N(E11.p)} = ${N(E11.V)} m³ = ${N(E11.Li)} L.</p><p><b>b)</b> ${N(E11.Li)} ÷ ${N(E11.db)} = ${E11.Li/E11.db} : il faut ${E11.Li/E11.db} heures.</p><p><b>c)</b> ${F(E11.fr[0],E11.fr[1])} × ${N(E11.Li)} = ${N(E11.Li/E11.fr[1]*E11.fr[0])} L.</p>`},
   {n:"Exercice 12", t:"La maquette", w:"Sur ton cahier", h:`<p>On construit la maquette d'un immeuble en forme de prisme droit à base triangulaire.</p><p>La base est un triangle de base ${E12.b} cm et de hauteur ${E12.t} cm ; la hauteur de la maquette est ${E12.H} cm.</p><p><b>a)</b> Calcule l'aire de la base de la maquette.</p><p><b>b)</b> Calcule le volume de la maquette.</p><p><b>c)</b> Dessine la maquette en perspective cavalière (angle 45°, coefficient ${F(1,2)}).</p>`,
-   c:`<p><b>a)</b> ${F(`${E12.b} × ${E12.t}`,2)} = ${E12.b*E12.t/2} cm².</p><p><b>b)</b> ${E12.b*E12.t/2} × ${E12.H} = ${N(E12.b*E12.t/2*E12.H)} cm³.</p><p><b>c)</b> On dessine le triangle de base ${E12.b} cm et de hauteur ${E12.t} cm en vraie grandeur. Puis on trace les arêtes fuyantes de ${E12.H} × ${F(1,2)} = ${N(E12.H/2)} cm à 45°, et on met en pointillés les arêtes cachées.</p>`}
+   c:`<p><b>a)</b> ${F(`${E12.b} × ${E12.t}`,2)} = ${E12.b*E12.t/2} cm².</p><p><b>b)</b> ${E12.b*E12.t/2} × ${E12.H} = ${N(E12.b*E12.t/2*E12.H)} cm³.</p><p><b>c)</b> On dessine le triangle de base ${E12.b} cm et de hauteur ${E12.t} cm en vraie grandeur. Puis on trace les arêtes fuyantes de ${E12.H} × ${F(1,2)} = ${N(E12.H/2)} cm à 45°, et on met en pointillés les arêtes cachées.</p>${solid("prisme",{p:E12.b,q:E12.t,s:E12.s,L:E12.H,u:Math.min(30,Math.round(440/(E12.b+E12.H*0.354))),lab:{p:E12.b+" cm",t:E12.t+" cm",L:N(E12.H/2)+" cm"},maxw:520,alt:"Maquette en perspective cavalière"})}`}
  ]}
 ];
 };

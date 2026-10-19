@@ -4,7 +4,7 @@ TRAIN["3e-8"] = function(){
 const {ri, pick, shuf} = TR;
 const {geo, F, rd, rac, ang, rtFig, triFig, TRIP, sq} = window.PY3;
 const fig=(cap,body)=>`<figure>${body}${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`;
-const r1=x=>F(x,1), r2=x=>F(x,2), eur=x=>F(Math.floor(x+1e-9))+","+String(Math.round(x*100+1e-6)%100).padStart(2,"0");
+const r1=x=>F(x,1), r2=x=>F(x,2), eur=x=>{ const c=Math.round(x*100+1e-6); return F(Math.floor(c/100))+","+String(c%100).padStart(2,"0"); };
 
 /* côtés d'un triangle rectangle : triplet × k */
 function rt(ks, maxC){ for(let g=0;g<500;g++){ const [a,b,c]=pick(TRIP), k=pick(ks), s=[rd(a*k),rd(b*k),rd(c*k)]; if(s[0]>=1 && s[2]<=maxC) return s; } return [3,4,5]; }
@@ -105,10 +105,10 @@ return [
    <p class="calc"><b>b)</b> ${r1(abA)} × ${eur(abP)} ≈ ${eur(rd(abA,1)*abP)} €</p><p>Mme Dubois devra dépenser environ <b>${eur(rd(abA,1)*abP)} €</b>.</p>`},
   {n:"Exercice 8", t:"Calculer le côté manquant", w:"Sur ton cahier", h:`<p>Dans chacun de ces triangles, calcule la longueur du côté manquant.</p><div class="figs">${fig("a. JMX rectangle en M : calcule JX.",f8a)}${fig("b. PIF rectangle en I : calcule PI.",f8b)}</div>
    <p><b>c.</b> LIN est un triangle rectangle en L tel que : IL = ${F(T8[2][0])} cm et LN = ${F(T8[2][1])} cm. Calcule IN.</p><p><b>d.</b> TER est un triangle rectangle en R tel que : ER = ${F(T8[3][1])} cm et TE = ${F(T8[3][2])} cm. Calcule TR.</p>`,
-   c:`<p><b>a.</b> JX² = JM² + MX² = ${sq(T8[0][0])} + ${sq(T8[0][1])} = ${F(T8[0][0]**2)} + ${F(T8[0][1]**2)} = ${F(T8[0][2]**2)}, donc JX = ${rac(F(T8[0][2]**2))} = <b>${F(T8[0][2])}</b>.</p>
-   <p><b>b.</b> PI² = PF² − IF² = ${sq(T8[1][2])} − ${sq(T8[1][1])} = ${F(T8[1][2]**2)} − ${F(T8[1][1]**2)} = ${F(T8[1][0]**2)}, donc PI = ${rac(F(T8[1][0]**2))} = <b>${F(T8[1][0])} cm</b>.</p>
-   <p><b>c.</b> IN² = IL² + LN² = ${sq(T8[2][0])} + ${sq(T8[2][1])} = ${F(T8[2][0]**2)} + ${F(T8[2][1]**2)} = ${F(T8[2][2]**2)}, donc IN = ${rac(F(T8[2][2]**2))} = <b>${F(T8[2][2])} cm</b>.</p>
-   <p><b>d.</b> TR² = TE² − ER² = ${sq(T8[3][2])} − ${sq(T8[3][1])} = ${F(T8[3][2]**2)} − ${F(T8[3][1]**2)} = ${F(T8[3][0]**2)}, donc TR = ${rac(F(T8[3][0]**2))} = <b>${F(T8[3][0])} cm</b>.</p>`}
+   c:`<p><b>a.</b> JMX est rectangle en M : l'hypoténuse est [JX]. D'après le théorème de Pythagore :</p><p class="calc">JX² = JM² + MX²<br>JX² = ${sq(T8[0][0])} + ${sq(T8[0][1])}<br>JX² = ${F(T8[0][0]**2)} + ${F(T8[0][1]**2)}<br>JX² = ${F(T8[0][2]**2)}<br>JX = ${rac(F(T8[0][2]**2))}<br>JX = ${F(T8[0][2])}</p><p>JX mesure <b>${F(T8[0][2])}</b>.</p>
+   <p><b>b.</b> PIF est rectangle en I : l'hypoténuse est [PF]. D'après le théorème de Pythagore :</p><p class="calc">PF² = PI² + IF²<br>PI² = PF² − IF²<br>PI² = ${sq(T8[1][2])} − ${sq(T8[1][1])}<br>PI² = ${F(T8[1][2]**2)} − ${F(T8[1][1]**2)}<br>PI² = ${F(T8[1][0]**2)}<br>PI = ${rac(F(T8[1][0]**2))}<br>PI = ${F(T8[1][0])}</p><p>PI mesure <b>${F(T8[1][0])} cm</b>.</p>
+   <p><b>c.</b> LIN est rectangle en L : l'hypoténuse est [IN]. D'après le théorème de Pythagore :</p><p class="calc">IN² = IL² + LN²<br>IN² = ${sq(T8[2][0])} + ${sq(T8[2][1])}<br>IN² = ${F(T8[2][0]**2)} + ${F(T8[2][1]**2)}<br>IN² = ${F(T8[2][2]**2)}<br>IN = ${rac(F(T8[2][2]**2))}<br>IN = ${F(T8[2][2])}</p><p>IN mesure <b>${F(T8[2][2])} cm</b>.</p>
+   <p><b>d.</b> TER est rectangle en R : l'hypoténuse est [TE]. D'après le théorème de Pythagore :</p><p class="calc">TE² = TR² + ER²<br>TR² = TE² − ER²<br>TR² = ${sq(T8[3][2])} − ${sq(T8[3][1])}<br>TR² = ${F(T8[3][2]**2)} − ${F(T8[3][1]**2)}<br>TR² = ${F(T8[3][0]**2)}<br>TR = ${rac(F(T8[3][0]**2))}<br>TR = ${F(T8[3][0])}</p><p>TR mesure <b>${F(T8[3][0])} cm</b>.</p>`}
  ]}
 ];
 };

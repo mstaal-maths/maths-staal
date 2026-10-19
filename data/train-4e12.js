@@ -78,7 +78,7 @@ const F7=shuf([
 const secC={t:"Factoriser avec la simple distributivité", e:[
   {n:"Activité 3", t:"Aire de rectangles", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> ${x} est un nombre positif.</p>${rect({top:[[`${q1}<i>x</i> + ${r1}`,240]], left:`${p1}<i>x</i>`, H:80, alt:`Rectangle de longueur ${q1}x + ${r1} et de largeur ${p1}x`})}<p>Donne l'expression développée et réduite de l'aire de ce rectangle.</p>
    <p><b>Partie 2 :</b> l'aire d'un rectangle est égale à ${E(A2)}. Donne deux dimensions possibles de ce rectangle.</p>`,
-   c:`<p><b>Partie 1 :</b> ${p1}${x} × (${q1}${x} + ${r1}) = ${p1}${x} × ${q1}${x} + ${p1}${x} × ${r1} = <b>${S([prod([p1,"x"],[q1,"x"]),prod([p1,"x"],[r1,""])])}</b></p>
+   c:`<p><b>Partie 1 :</b></p><p class="calc">Aire = ${p1}${x} × (${q1}${x} + ${r1})<br>Aire = ${p1}${x} × ${q1}${x} + ${p1}${x} × ${r1}<br>Aire = <b>${S([prod([p1,"x"],[q1,"x"]),prod([p1,"x"],[r1,""])])}</b></p>
    <p><b>Partie 2 :</b> on factorise : ${E(A2)} = ${k2}${x} × ${x} + ${k2}${x} × ${v2} = <b>${k2}${x}(${x} + ${v2})</b>. Le rectangle peut mesurer ${k2}${x} sur ${x} + ${v2}.</p><p>Autre possibilité : ${E(A2)} = ${x}(${E([[k2,"x"],[k2*v2,""]])}) : ${x} sur ${E([[k2,"x"],[k2*v2,""]])}.</p>`},
   {n:"Exercice 6", t:"Peut-on factoriser ?", w:"Sur ton cahier", h:`<p>Factorise les expressions lorsque c'est possible.</p><div class="calcs">${F7.map((o,i)=>`<span>${"HIJKL"[i]} = ${o.s}</span>`).join("")}</div>`,
    c:F7.map((o,i)=>o.f?`<p class="calc">${"HIJKL"[i]} = ${o.st}<br>${"HIJKL"[i]} = <b>${o.f}</b></p>`:`<p>${"HIJKL"[i]} = ${o.s} : pas de facteur commun, on ne peut pas factoriser.</p>`).join("")}

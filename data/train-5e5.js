@@ -82,6 +82,14 @@ const C6 = [];
 { const u=ri(1,9), d=ri(1,9); C6.push(pick([[r3(u+d/10), r3(u+d/100)],[r3(u+d/100), r3(u+d/10)]])); }
 { const u=ri(1,9), d=ri(1,8), a=-r3(u+d/10), b=-r3(u+d/10+ri(1,9)/100); C6.push(pick([[a,b],[b,a]])); }
 const c6txt = ([a,b],i) => i===5 ? [F(a), F(a)+"0"] : [F(a), F(b)];
+/* justification courte : on compare les distances à zéro, écrites avec autant de décimales */
+const dec = x => (F(x).split(",")[1]||"").length;
+const padd = (x,n) => { const t=F(Math.abs(x)), d=dec(x); return n>d ? t+(d?"":",")+"0".repeat(n-d) : t; };
+const c6why = ([a,b],i) => { if(i===5) return "(un 0 à la fin de la partie décimale ne change pas le nombre)";
+  if((a<0)!==(b<0)) return "(un négatif est plus petit qu'un positif)";
+  if(a>0 && dec(a)===dec(b)) return "";
+  const n=Math.max(dec(a),dec(b)), A=Math.abs(a), B=Math.abs(b), s=A<B?LT:A>B?GT:"=";
+  return a<0 ? `(${padd(a,n)} ${s} ${padd(b,n)} : ${F(A<B?a:b)} est plus près de zéro)` : `(${padd(a,n)} ${s} ${padd(b,n)})`; };
 
 /* ===== Exercice 7 : ranger ===== */
 const u7=ri(2,8), R7a = shuf([...distinct(3, ()=>-r3(u7+ri(0,99)/100)), ...distinct(3, ()=>r3(u7+ri(0,99)/100))]);
@@ -128,7 +136,7 @@ const P11a = P11.slice(0,8), P11b = P11.slice(8).map((p,i)=>["MNPQ"[i],p[1],p[2]
 /* ===== Exercice 12 : parallélogrammes ===== */
 const par1 = (()=>{ for(let g=0; g<500; g++){ const A=[ri(-5,0),ri(-4,-1)], B=[A[0]+ri(3,6),A[1]], v=[ri(-2,3),ri(2,4)], C=[B[0]+v[0],B[1]+v[1]], D=[A[0]+v[0],A[1]+v[1]];
   if([B,C,D].every(p=>p[0]>=-5&&p[0]<=5&&p[1]>=-4&&p[1]<=4)) return {A,B,C,D}; } return {A:[-4,-2],B:[1,-2],C:[3,1],D:[-2,1]}; })();
-const par2 = (()=>{ for(let g=0; g<500; g++){ const A=[ri(-4,-1),ri(1,3)], B=[ri(1,4),ri(-1,3)]; if(B[1]===0&&A[1]===0) continue; if(A[0]*B[1]-A[1]*B[0]===0) continue; return {A,B,C:[-A[0],-A[1]],D:[-B[0],-B[1]]}; } return {A:[-3,2],B:[4,1],C:[3,-2],D:[-4,-1]}; })();
+const par2 = (()=>{ for(let g=0; g<500; g++){ const A=[ri(-4,-1),ri(1,3)], B=[ri(1,4),ri(-1,3)]; if(B[1]===0&&A[1]===0) continue; if(Math.abs(A[0]*B[1]-A[1]*B[0])<8) continue; /* pas de parallélogramme écrasé */ return {A,B,C:[-A[0],-A[1]],D:[-B[0],-B[1]]}; } return {A:[-3,2],B:[4,1],C:[3,-2],D:[-4,-1]}; })();
 const C2 = p => `(${F(p[0])} ; ${F(p[1])})`;
 
 return [
@@ -136,13 +144,13 @@ return [
   {n:"Activité 1", t:"Calculer le résultat de soustractions", w:"Sur ton cahier", h:`<p>Recopie et complète.</p>${A1h}`,
    c:`<p>Quand on enlève plus que ce que l'on a, on calcule la différence entre les deux nombres et on met le signe −.</p>${A1c}`},
   {n:"Exercice 1", t:"Les nombres relatifs dans la vie quotidienne", w:"Sur ton cahier", h:`<p>Écris le nombre relatif associé à chaque situation.</p>${sits.map(([s],i)=>`<p>${L[i]}) ${s} : ………</p>`).join("")}`,
-   c:sits.map(([s,v,an],i)=>`<p>${L[i]}) ${an?"+"+v:Fs(v)}</p>`).join("")},
+   c:sits.map(([s,v,an],i)=>`<p>${L[i]}) ${an?"+"+v:Fs(v)}</p>`).join("")+`<p><i>En dessous du niveau 0 (sol, zéro degré, compte vide, naissance de J.-C., niveau de la mer) : nombre négatif. Au-dessus : nombre positif.</i></p>`},
   {n:"Exercice 2", t:"Nombres relatifs et températures", w:"Sur ton cahier", h:`<p>Écris la température indiquée par chaque thermomètre (en °C).</p>${thermo(th)}`,
    c:`<p>Chaque graduation vaut 1 °C.</p><p>${th.map((v,i)=>`${"ABCDEF"[i]} : ${F(v)} °C`).join(" · ")}</p>${thermo(th,true)}`},
   {n:"Exercice 3", t:"Opposé et valeur absolue", w:"Sur ton cahier", h:`<p><b>1)</b> Donne l'opposé de chacun de ces nombres.</p>${cols(op.map((v,i)=>`${L[i]}) ${Fs(v)} : ………`))}
    <p><b>2)</b> Complète.</p>${cols(ab.map((v,i)=>`${L[i]}) |${Fs(v)}| = ………`))}
    <p><b>3)</b> Vrai ou faux ? Justifie.</p>${VF3.map(([s],i)=>`<p>${L[i]}) ${s}</p>`).join("")}`,
-   c:`<p><b>1)</b> ${op.map((v,i)=>`${L[i]}) ${F(-v||0)}`).join(" · ")}</p><p><b>2)</b> ${ab.map((v,i)=>`${L[i]}) |${Fs(v)}| = ${F(Math.abs(v))}`).join(" · ")}</p>
+   c:`<p><b>1)</b> L'opposé d'un nombre a la même distance à zéro, mais le signe contraire.</p><p>${op.map((v,i)=>`${L[i]}) ${F(-v||0)}`).join(" · ")}</p><p><b>2)</b> ${ab.map((v,i)=>`${L[i]}) |${Fs(v)}| = ${F(Math.abs(v))}`).join(" · ")}</p>
    <p><b>3)</b> ${VF3.map(([s,ok,why],i)=>`${L[i]}) <b>${ok?"Vrai":"Faux"}</b> : ${why}`).join(" · ")}</p>`},
   {n:"Exercice 4", t:"Positif, négatif, strictement positif, strictement négatif", w:"Sur ton cahier", h:`<p>Voici des nombres : ${e4.map(Fs).join(" ; ")}. Recopie ceux qui sont :</p><p>a) strictement positifs · b) négatifs · c) à la fois positifs et négatifs · d) ni strictement positifs, ni strictement négatifs</p>`,
    c:`<p>a) strictement positifs : ${lst(x=>x>0)}</p><p>b) négatifs : ${lst(x=>x<=0)} <i>(0 est négatif !)</i></p><p>c) à la fois positifs et négatifs : 0</p><p>d) ni strictement positifs, ni strictement négatifs : 0</p>`},
@@ -159,9 +167,9 @@ return [
    <p>Classe ces jours dans l'ordre croissant de leur température. Tu indiqueras les températures.</p>`,
    c:`<p>Les températures négatives d'abord (de la plus loin de zéro à la plus proche), puis les positives.</p><p>${order.map(([j,t])=>`${j} (${F(t)} °C)`).join(" &lt; ")}</p>`},
   {n:"Exercice 6", t:"Comparaison de nombres relatifs", w:"Sur ton cahier", h:`<p>Compare avec &lt;, &gt; ou =.</p>${cols(C6.map((p,i)=>{ const [x,y]=c6txt(p,i); return `${L[i]}) ${x} …… ${y}`; }))}`,
-   c:cols(C6.map((p,i)=>{ const [x,y]=c6txt(p,i); return `${L[i]}) ${x} ${cmp(p[0],p[1])} ${y}`; }))+`<p><i>Deux négatifs : le plus grand est celui qui a la plus petite distance à zéro.</i></p>`},
+   c:`<p><i>Deux négatifs : le plus grand est celui qui a la plus petite distance à zéro.</i></p>`+C6.map((p,i)=>{ const [x,y]=c6txt(p,i); return `<p>${L[i]}) ${x} ${cmp(p[0],p[1])} ${y} <i>${c6why(p,i)}</i></p>`; }).join("")},
   {n:"Exercice 7", t:"Ranger des nombres relatifs", w:"Sur ton cahier", h:`<p><b>1)</b> Range dans l'ordre croissant : ${R7a.map(F).join(" ; ")}</p><p><b>2)</b> Range dans l'ordre décroissant : ${R7b.map(F).join(" ; ")}</p>`,
-   c:`<p><b>1)</b> ${sortUp(R7a).map(F).join(" &lt; ")}</p><p><b>2)</b> ${sortUp(R7b).reverse().map(F).join(" &gt; ")}</p>`},
+   c:`<p>Les négatifs d'abord : le plus loin de zéro est le plus petit. Puis les positifs, du plus petit au plus grand.</p><p><b>1)</b> ${sortUp(R7a).map(F).join(" &lt; ")}</p><p><b>2)</b> ${sortUp(R7b).reverse().map(F).join(" &gt; ")}</p>`},
   {n:"Exercice 8", t:"Problèmes de rangement", w:"Sur ton cahier", h:`<p><b>1)</b> Relevé de températures à 6 h : ${villesT.map(([v,t])=>`${v} ${F(t)} °C`).join(" ; ")}.</p><p>a) Quelle ville est la plus froide ? la plus chaude ?</p><p>b) Range les villes de la plus chaude à la plus froide.</p>
    <p><b>2)</b> ${alts.map(([n,a])=>`${n} : ${Fs(a)} m`).join(" ; ")}. Range ces altitudes dans l'ordre croissant, puis dis quel est le point le plus bas.</p>`,
    c:(()=>{ const s=[...villesT].sort((a,b)=>b[1]-a[1]), z=[...alts].sort((a,b)=>a[1]-b[1]);
@@ -179,7 +187,7 @@ return [
    <p><b>1)</b> Dans le repère de gauche, place A${C2(par1.A)}, B${C2(par1.B)} et C${C2(par1.C)}. Place le point D pour que ABCD soit un parallélogramme et lis ses coordonnées. Écris deux égalités de parallélisme.</p>
    <p><b>2)</b> Dans le repère de droite, place A${C2(par2.A)}, B${C2(par2.B)} et le point O, origine du repère. ABCD est un parallélogramme de centre O. Place C et D et lis leurs coordonnées. Que remarques-tu ?</p>`,
    c:`<p><b>1)</b> On fait depuis A le même déplacement que pour aller de B à C.</p><div class="figs">${rep({pts:[["A",...par1.A,-8,18],["B",...par1.B,6,18],["C",...par1.C,8,-8],["D",...par1.D,-8,-8]], poly:["A","B","C","D"], grads:true})}</div><p>D${C2(par1.D)} &nbsp; (AB) // (DC) et (AD) // (BC)</p>
-   <p><b>2)</b> O est le milieu des diagonales [AC] et [BD].</p><div class="figs">${rep({pts:[["A",...par2.A],["B",...par2.B],["C",...par2.C],["D",...par2.D],["O",0,0,6,18]], poly:["A","B","C","D"], grads:true})}</div><p>C${C2(par2.C)} &nbsp; D${C2(par2.D)} : les coordonnées de C sont les opposées de celles de A (et celles de D, les opposées de celles de B).</p>`}
+   <p><b>2)</b> O est le milieu des diagonales [AC] et [BD].</p><div class="figs">${rep({pts:[["A",...par2.A],["B",...par2.B],["C",...par2.C],["D",...par2.D]].map(([n,x,y])=>[n,x,y,x<0?-8:8,y<0?18:-8]).concat([["O",0,0,6,18]]), poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], grads:true})}</div><p>C${C2(par2.C)} &nbsp; D${C2(par2.D)} : les coordonnées de C sont les opposées de celles de A (et celles de D, les opposées de celles de B).</p>`}
  ]}
 ];
 };

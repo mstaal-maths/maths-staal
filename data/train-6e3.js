@@ -37,7 +37,7 @@ const [a5,b5]=pick([[2,3],[3,4],[5,6],[1,2],[1,3],[1,4],[5,12],[7,12]]), [c5,d5]
 const eq = (a,b,N) => { const k=N/b; return k===1?`${F(a,b)}`:`${F(a,b)} = ${F(`${a} × ${k}`,`${b} × ${k}`)} = ${F(a*k,N)}`; };
 const secA = {t:"Lire et représenter une fraction", e:[
   {n:"Exercice 1", t:"Quelle fraction a été coloriée ?", w:"Sur ton cahier", h:`<p>Dans chaque cas, écris la fraction de la surface de la figure qui a été coloriée.</p><div class="figs">${f1.map(([f],i)=>lab(LT[i],f)).join("")}</div>`,
-   c:items(f1.map(([,k,d])=>F(k,d)))},
+   c:`<p>Je compte les parts égales (le dénominateur), puis les parts coloriées (le numérateur).</p><p>${items(f1.map(([,k,d])=>`${d} parts égales, ${k} coloriée${k>1?"s":""} : ${F(k,d)}`))}</p>`},
   {n:"Exercice 2", t:"Lire et écrire une fraction", w:"Sur ton cahier", h:`<p>a) Dans la fraction ${F(a2,b2)}, quel est le numérateur ? le dénominateur ?</p><p>b) Écris en lettres : ${f2b.map(([a,b])=>F(a,b)).join(" · ")}</p><p>c) Écris en chiffres : ${f2c.map(([a,b])=>frName(a,b)).join(" · ")}</p><p>d) Complète comme dans l'exemple ${dec(3,4)} : &nbsp; ${f2d.map(([a,b])=>F(a,b)).join(" · ")}</p>`,
    c:`<p>a) Numérateur : ${a2} ; dénominateur : ${b2}.</p><p>b) ${f2b.map(([a,b])=>frName(a,b)).join(" · ")}</p><p>c) ${f2c.map(([a,b])=>F(a,b)).join(" · ")}</p><p>d) ${f2d.map(([a,b])=>dec(a,b)).join(" · ")}</p>`},
   {n:"Exercice 3", t:"QCM", w:"Sur ton cahier", h:`<p>Dans quels cas a-t-on colorié les ${F(a3,b3)} de la surface du rectangle ?</p><div class="figs">${q3.map((x,i)=>lab(LT[i],x.f)).join("")}</div>`,
@@ -81,9 +81,9 @@ const [a12,b12]=pick([[3,4],[2,3],[2,5],[3,5],[1,2]]), k12=ri(2,4);
 const secC = {t:"Fractions égales", e:[
   {n:"Exercice 9", t:"Compléter des égalités", w:"Sur ton cahier", h:`<p>Complète : ${items(f9.map(x=>x.h),"  ·  ",true)}</p>`, c:items(f9.map(x=>x.c),"  ·  ",true)},
   {n:"Exercice 10", t:"Simplifier au maximum", w:"Sur ton cahier", h:`<p>Exemple : ${F(18,24)} = ${F(9,12)} = ${F(3,4)}</p><p>${items(f10.map(([x,y])=>F(x,y)),"  ·  ",true)}</p>`,
-   c:items(f10.map(([x,y,a,b,g])=>`${F(x,y)} = ${F(a,b)} (on divise par ${g})`),"  ·  ",true)},
+   c:items(f10.map(([x,y,a,b,g])=>`${F(x,y)} = ${F(`${x} ÷ ${g}`,`${y} ÷ ${g}`)} = ${F(a,b)} (on divise par ${g})`),"  ·  ",true)},
   {n:"Exercice 11", t:"Ranger des fractions égales", w:"Sur ton cahier", h:`<p>Range ces fractions dans trois groupes : égales à ${f11.map(([[a,b]])=>F(a,b)).join(", égales à ")}.</p><p>${all11.map(([a,b])=>F(a,b)).join(" · ")}</p>`,
-   c:f11.map(([[a,b],l])=>`Égales à ${F(a,b)} : ${l.map(([x,y])=>F(x,y)).join(", ")}`).join(" · ")},
+   c:`<p>Je simplifie chaque fraction.</p>${f11.map(([[a,b],l])=>`<p>${l.map(([x,y])=>`${F(x,y)} = ${F(a,b)} (÷ ${x/a})`).join(" · ")}</p>`).join("")}${f11.map(([[a,b],l])=>`<p><b>Égales à ${F(a,b)} :</b> ${l.map(([x,y])=>F(x,y)).join(", ")}.</p>`).join("")}`},
   {n:"Exercice 12", t:"Qui a raison ?", w:"Sur ton cahier", h:`<p>Léa a mangé les ${F(a12*k12,b12*k12)} d'une tarte. Hugo a mangé les ${F(a12,b12)} d'une tarte identique. Hugo affirme : « J'ai mangé moins que Léa, car ${a12} est plus petit que ${a12*k12}. » A-t-il raison ? Justifie à l'aide d'une propriété du cours.</p>`,
    c:`Non. ${F(a12,b12)} = ${F(`${a12} × ${k12}`,`${b12} × ${k12}`)} = ${F(a12*k12,b12*k12)} : une fraction ne change pas si on multiplie son numérateur et son dénominateur par un même nombre. Léa et Hugo ont mangé la même quantité de tarte.`}
 ]};
@@ -104,19 +104,19 @@ const secD = {t:"Placer une fraction sur une demi-droite graduée", e:[
   {n:"Exercice 14", t:"Quand la graduation ne correspond pas au dénominateur", w:"Sur ton cahier", h:`<p>a) Cette demi-droite est graduée en ${name14}. Place les nombres ${f14.map(([a,b])=>F(a,b)).join(" ; ")}. Transforme d'abord les fractions.</p>${fline(2,D14)}<p>b) Écris trois fractions égales à l'abscisse du point A.</p>${fline(2,D14,[["A",k14]])}`,
    c:`<p>a) ${f14.map(([a,b])=>`${F(a,b)} = ${F(a*D14/b,D14)} : graduation ${a*D14/b}`).join(" · ")}</p>${fline(2,D14,f14.map(([a,b],i)=>[NL[i],a*D14/b]))}<p>b) A(${F(k14,D14)}). Par exemple : ${A14.map(([a,b])=>F(a,b)).join(", ")}.</p>`},
   {n:"Exercice 15", t:"Lire l'abscisse d'un point", w:"Sur ton cahier", h:`<p>Écris l'abscisse de chacun des points A, B, C et D sous forme de fraction.</p>${d15.map((d,i)=>fline(2,d,[[NL4[i],p15[i]]])).join("")}`,
-   c:items(d15.map((d,i)=>`graduée en ${d} parts par unité : ${NL4[i]}(${F(p15[i],d)})`))}
+   c:items(d15.map((d,i)=>`l'unité est partagée en ${d} parts égales, ${NL4[i]} est à la ${p15[i]}<sup>${p15[i]===1?"re":"e"}</sup> graduation : ${NL4[i]}(${F(p15[i],d)})`))}
 ]};
 
 /* ======= E. Comparer à 1 et nombre mixte ======= */
 const f16 = shuf([...distinct(6, ()=>{ const d=ri(2,10), e=ri(1,6), r=ri(1,d-1); return [e*d+r,d]; }, x=>x.join("/")), ...distinct(2, ()=>{ const d=ri(3,12); return [ri(1,d-1),d]; }, x=>x.join("/"))]);
-const mix = ([n,d]) => `${F(n,d)} = ${Math.floor(n/d)} + ${F(n%d,d)}, donc ${Math.floor(n/d)} &lt; ${F(n,d)} &lt; ${Math.floor(n/d)+1}`;
+const mix = ([n,d]) => `${F(n,d)} = ${F(n-n%d,d)} + ${F(n%d,d)} = ${Math.floor(n/d)} + ${F(n%d,d)}, donc ${Math.floor(n/d)} &lt; ${F(n,d)} &lt; ${Math.floor(n/d)+1}`;
 const f17 = distinct(4, ()=>{ const d=ri(2,10), e=ri(1,9), r=ri(1,d-1); return [e*d+r,d]; }, x=>x.join("/"));
 const f18 = distinct(4, ()=>{ const d=ri(2,9), e=ri(1,4); return [e, ri(1,d-1), d]; }, x=>x.join("/"));
 const secE = {t:"Comparer à 1 et nombre mixte", note:`Exemple : ${F(7,4)} = 1 + ${F(3,4)}, donc 1 &lt; ${F(7,4)} &lt; 2.`, e:[
   {n:"Exercice 16", t:"Des fractions supérieures à 1", w:"Sur ton cahier", h:`<p>${f16.map(([a,b])=>F(a,b)).join(" · ")}</p><p>a) Quelles fractions sont supérieures à 1 ? b) Écris chacune comme la somme d'un entier et d'une fraction inférieure à 1, puis encadre-la entre deux entiers consécutifs.</p>`,
    c:`<p>a) ${f16.filter(([a,b])=>a>b).map(([a,b])=>F(a,b)).join(", ")} (le numérateur est plus grand que le dénominateur).</p><p>b) ${f16.filter(([a,b])=>a>b).map(mix).join(" · ")}</p>`},
   {n:"Exercice 17", t:"Encadrer entre deux entiers consécutifs", w:"Sur ton cahier", h:`<p>${items(f17.map(([a,b])=>`…… &lt; ${F(a,b)} &lt; ……`),"  ·  ",true)}</p>`,
-   c:items(f17.map(([a,b])=>`${Math.floor(a/b)} &lt; ${F(a,b)} &lt; ${Math.floor(a/b)+1} (car ${F(a,b)} = ${Math.floor(a/b)} + ${F(a%b,b)})`),"  ·  ",true)},
+   c:items(f17.map(([a,b])=>`${F(a,b)} = ${F(a-a%b,b)} + ${F(a%b,b)} = ${Math.floor(a/b)} + ${F(a%b,b)}, donc ${Math.floor(a/b)} &lt; ${F(a,b)} &lt; ${Math.floor(a/b)+1}`),"  ·  ",true)},
   {n:"Exercice 18", t:"Du nombre mixte à la fraction", w:"Sur ton cahier", h:`<div class="retenir" data-l="Comment faire ?"><p>2 + ${F(1,3)} : 2 unités, c'est ${F(6,3)} (car 2 × 3 = 6). Donc 2 + ${F(1,3)} = ${F(6,3)} + ${F(1,3)} = ${F(7,3)}.</p></div>
    <p>Écris chaque nombre sous la forme d'une seule fraction : ${items(f18.map(([e,a,d])=>`${e} + ${F(a,d)}`),"  ·  ",true)}</p>`,
    c:items(f18.map(([e,a,d])=>`${e} = ${F(e*d,d)} (${e} × ${d} = ${e*d}), donc ${e} + ${F(a,d)} = ${F(e*d,d)} + ${F(a,d)} = ${F(e*d+a,d)}`),"  ·  ",true)}
@@ -129,13 +129,27 @@ const name = ([a,b]) => `${lettres(a)} ${a>1?TR.DEN[b][1]:TR.DEN[b][0]}`;
 const t20 = [ri(1,9),ri(1,9)], t20b=ri(11,99); let t20c; do{ t20c=ri(11,99); }while(t20c===t20b || t20c%10===0); const t20d=ri(101,999), t20e=[ri(1,9),ri(1,9)];
 const f21 = [...distinct(2,()=>ri(11,99)).map(n=>[n,10]), ...distinct(3,()=>ri(101,999)).map(n=>[n,100]), [ri(1001,9999),1000]];
 const decomp = (n,b) => { const s=[]; const e=Math.floor(n/b); let r=n%b; if(e) s.push(String(e)); const parts=b===10?[10]:b===100?[10,100]:[10,100,1000]; parts.forEach(p=>{ const q=Math.floor(r*p/b); r-=q*b/p; s.push(F(q,p)); }); return `${F(n,b)} = ${s.join(" + ")}`; };
+/* décomposition détaillée en trois lignes : découpage, conversions (« Or … »), résultat (« Donc … ») */
+const FS = (a,b) => F(sp(a),b);
+const NOMS = {10:"dixièmes",100:"centièmes",1000:"millièmes"};
+const decSteps = (n,b) => { const e=Math.floor(n/b), ps=b===10?[10]:b===100?[10,100]:[10,100,1000]; let r=n%b;
+  const dg=ps.map(p=>{ const q=Math.floor(r*p/b); r-=q*b/p; return [q,p]; });
+  const cut=[...(e?[FS(e*b,b)]:[]), ...dg.filter(([q])=>q).map(([q,p])=>FS(q*b/p,b))];
+  const or=[...(e?[`${FS(e*b,b)} = ${e}`]:[]), ...dg.filter(([q,p])=>q && p!==b).map(([q,p])=>`${FS(q*b/p,b)} = ${F(q,p)}`)];
+  const zero=dg.filter(([q])=>!q).map(([,p])=>p);
+  const fin=`${FS(n,b)} = ${[...(e?[String(e)]:[]), ...dg.map(([q,p])=>F(q,p))].join(" + ")}`;
+  const l=(cut.length===1&&cut[0]===FS(n,b))?[]:[`${FS(n,b)} = ${cut.join(" + ")}.`];
+  const l2=(or.length?`${l.length?"Or ":""}${or.length>1?or.slice(0,-1).join(", ")+" et "+or[or.length-1]:or[0]}.`:"")+(zero.length?`${or.length?" ":""}Il n'y a pas de ${zero.map(p=>NOMS[p]).join(" ni de ")} : on écrit ${zero.map(p=>F(0,p)).join(" et ")}.`:"");
+  if(l2) l.push(l2);
+  l.push(`Donc ${fin}.`);
+  return l.join("<br>"); };
 const secF = {t:"Fractions décimales", e:[
   {n:"Exercice 19", t:"Reconnaître une fraction décimale", w:"Sur ton cahier", h:`<p>a) Lesquelles sont des fractions décimales ? ${f19a.map(([a,b])=>F(a,b)).join(" · ")}</p><p>b) Écris en lettres : ${f19b.map(([a,b])=>F(a,b)).join(" · ")}</p><p>c) Écris en fraction : ${f19c.map(name).join(" · ")}</p>`,
    c:`<p>a) ${f19a.filter(([,b])=>[10,100,1000].includes(b)).map(([a,b])=>F(a,b)).join(", ")} (dénominateur 10, 100 ou 1 000)</p><p>b) ${f19b.map(name).join(" · ")}</p><p>c) ${f19c.map(([a,b])=>F(a,b)).join(" · ")}</p>`},
   {n:"Exercice 20", t:"Décomposer une fraction décimale", w:"Sur ton cahier", h:`<p>Complète : ${items([`${F(t20[0],10)} + ${F(t20[1],100)} = ${F("……",100)}`, `${F(t20b,100)} = ${F("…",10)} + ${F("…",100)}`, `${F(t20c,100)} = ${F("…",10)} + ${F("…",100)}`, `${F(t20d,1000)} = ${F("…",10)} + ${F("…",100)} + ${F("…",1000)}`, `${F(t20e[0],10)} + ${F(t20e[1],1000)} = ${F("……",1000)}`],"  ·  ",true)}</p>`,
-   c:items([`${F(t20[0]*10+t20[1],100)}`, decomp(t20b,100), decomp(t20c,100), decomp(t20d,1000), `${F(t20e[0]*100+t20e[1],1000)}`],"  ·  ",true)},
+   c:`<p>À retenir : ${F(1,10)} = ${F(10,100)} = ${F(100,1000)} et ${F(1,100)} = ${F(10,1000)}.</p>`+[`J'écris les dixièmes en centièmes : ${F(t20[0],10)} = ${F(`${t20[0]} × 10`,`10 × 10`)} = ${F(t20[0]*10,100)}.<br>Donc ${F(t20[0],10)} + ${F(t20[1],100)} = ${F(t20[0]*10,100)} + ${F(t20[1],100)} = ${F(t20[0]*10+t20[1],100)}.`, decSteps(t20b,100), decSteps(t20c,100), decSteps(t20d,1000), `J'écris les dixièmes en millièmes : ${F(t20e[0],10)} = ${F(`${t20e[0]} × 100`,`10 × 100`)} = ${F(t20e[0]*100,1000)}.<br>Donc ${F(t20e[0],10)} + ${F(t20e[1],1000)} = ${F(t20e[0]*100,1000)} + ${F(t20e[1],1000)} = ${F(t20e[0]*100+t20e[1],1000)}.`].map((x,i)=>`<p>${LT[i]}) ${x}</p>`).join("")},
   {n:"Exercice 21", t:"Fractions décimales supérieures à 1", w:"Sur ton cahier", h:`<p>Exemple : ${F(235,100)} = 2 + ${F(3,10)} + ${F(5,100)}</p><p>${items(f21.map(([a,b])=>F(sp(a),sp(b))),"  ·  ",true)}</p>`,
-   c:items(f21.map(([a,b])=>decomp(a,b).replace(F(a,b),F(sp(a),sp(b))).replace(/\/1000\}/g,"/1 000}")),"  ·  ",true)}
+   c:`<p>À retenir : ${F(10,10)} = 1, ${F(100,100)} = 1 et ${F("1 000",1000)} = 1.</p>`+f21.map(([a,b],i)=>`<p>${LT[i]}) ${decSteps(a,b)}</p>`).join("")}
 ]};
 
 /* ======= G. Pourcentages ======= */

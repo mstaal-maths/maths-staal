@@ -9,11 +9,15 @@ const tab=(head,rows)=>`<div class="scroll"><table class="std"><thead><tr>${head
 /* un nombre dont l'arrondi n'est pas ambigu */
 const draw=(f,ok)=>{ for(let g=0;g<300;g++){ const v=f(); if(ok(v)) return v; } return f(); };
 /* exercice de longueur : types imposés ou au hasard */
-function L1(types, k){ return draw(()=>{ const n=NM(), a=ri(18,72), [kt,ut]=types||shuf(["adj","opp","hyp"]).slice(0,2), kv=ri(25,150)/10; return {n,a,kt,ut,kv,c:lenCalc(n,a,kt,kv,ut,k)}; }, o=>safe(o.c.res,k) && o.c.res<80); }
+function L1(types, k){ return draw(()=>{ const n=NM(), a=ri(18,72), [kt,ut]=types||shuf(["adj","opp","hyp"]).slice(0,2), kv=ri(25,150)/10; return {n,a,kt,ut,kv,rot:ri(-30,30),c:lenCalc(n,a,kt,kv,ut,k)}; }, o=>safe(o.c.res,k) && o.c.res<80); }
 function A1(types){ return draw(()=>{ const n=NM(), [t1,t2]=types||shuf(["adj","opp","hyp"]).slice(0,2); let v1=ri(15,80)/10, v2=ri(15,80)/10; if(t1==="hyp") v1=rd(v2+ri(5,50)/10); if(t2==="hyp") v2=rd(v1+ri(5,50)/10);
-  return {n,t1,t2,v1,v2,c:angCalc(n,t1,v1,t2,v2)}; }, o=>o.c.a>8 && o.c.a<82 && safe(o.c.a,0)); }
-const figL=o=>trig(o.n,o.a,{[o.kt]:F(o.kv)+" cm",[o.ut]:"?"},{mark:o.a+"°", w:260});
-const figA=o=>trig(o.n,o.c.a,{[o.t1]:F(o.v1)+" cm",[o.t2]:F(o.v2)+" cm"},{mark:"?", w:260});
+  return {n,t1,t2,v1,v2,rot:ri(-30,30),c:angCalc(n,t1,v1,t2,v2)}; }, o=>o.c.a>8 && o.c.a<82 && safe(o.c.a,0)); }
+const figL=o=>trig(o.n,o.a,{[o.kt]:F(o.kv)+" cm",[o.ut]:"?"},{mark:o.a+"°", rot:o.rot, w:260});
+const figA=o=>trig(o.n,o.c.a,{[o.t1]:F(o.v1)+" cm",[o.t2]:F(o.v2)+" cm"},{mark:"?", rot:o.rot, w:260});
+/* même triangle, côtés colorés avec H, A, O */
+const LET={hyp:"H",adj:"A",opp:"O"};
+const haoL=o=>trig(o.n,o.a,{[o.kt]:LET[o.kt]+" : "+F(o.kv)+" cm",[o.ut]:LET[o.ut]+" : ?"},{mark:o.a+"°", rot:o.rot, w:300, colors:true});
+const haoA=o=>{ const third=["hyp","adj","opp"].find(t=>t!==o.t1&&t!==o.t2); return trig(o.n,o.c.a,{[o.t1]:LET[o.t1]+" : "+F(o.v1)+" cm",[o.t2]:LET[o.t2]+" : "+F(o.v2)+" cm",[third]:LET[third]},{mark:"?", rot:o.rot, w:300, colors:true}); };
 const nomA=n=>ang(n[2]+n[1]+n[0]);
 
 /* ===== Activité 1 : tyrolienne ===== */
@@ -59,9 +63,9 @@ return [
   {n:"Exercice 1", t:"Calculer le cosinus d'un angle", w:"Sur ton cahier", h:`<p>À l'aide de la calculatrice, complète le tableau. Arrondis au centième près.</p>${tab(["Angle",...e1.map(a=>a+"°")],[["cos(angle)",...e1.map(()=>"")]])}`,
    c:tab(["Angle",...e1.map(a=>a+"°")],[["cos(angle)",...e1.map(a=>F(cosd(a),2))]])},
   {n:"Exercice 2", t:"Calculer une longueur avec le cosinus", w:"Sur ton cahier", h:`<p>Pour chaque triangle, repère l'hypoténuse (<b>H</b>) et le côté adjacent à l'angle donné (<b>A</b>), puis calcule la longueur du côté indiqué. Arrondis au dixième.</p><div class="figs">${e2.map((o,i)=>fig(`${"abcd"[i]}) ${o.n.join("")} rectangle en ${o.n[0]} : calcule ${o.c.X}.`,figL(o))).join("")}</div>`,
-   c:e2.map((o,i)=>`<p><b>${"abcd"[i]})</b></p>${o.c.h}`).join("")},
+   c:`<p><b>H</b> : l'hypoténuse (en rouge) · <b>A</b> : le côté adjacent (en vert).</p>`+e2.map((o,i)=>`<p><b>${"abcd"[i]})</b></p>${haoL(o)}${o.c.h}`).join("")},
   {n:"Exercice 3", t:"Décollage d'un avion", w:"Sur ton cahier", h:`<p>Un avion décolle en ligne droite en faisant un angle de ${av.a}° par rapport au sol.</p><p>Il survole maintenant une ville qui se situe à ${F(av.d)} km de l'aéroport.</p><p>Quelle distance, en km, l'avion a-t-il parcourue ? Arrondis au dixième.</p>`,
-   c:`<p>A : l'aéroport, V : la ville, P : l'avion. AVP est rectangle en V ; AV = ${F(av.d)} km est le côté adjacent à l'angle de ${av.a}°, AP l'hypoténuse.</p><p class="calc">cos(${ang("VAP")}) = {AV/AP}<br>AP = {${F(av.d)}/cos(${av.a}°)} ≈ ${F(av.d/cosd(av.a),1)} km</p>`}
+   c:`<p>A : l'aéroport, V : la ville, P : l'avion. AVP est rectangle en V ; AV = ${F(av.d)} km est le côté adjacent à l'angle de ${av.a}°, AP l'hypoténuse.</p><p class="calc">cos(${ang("VAP")}) = {AV/AP}<br>cos(${av.a}°) = {${F(av.d)}/AP}<br>AP = {${F(av.d)}/cos(${av.a}°)} ≈ ${F(av.d/cosd(av.a),1)} km</p><p>L'avion a parcouru environ <b>${F(av.d/cosd(av.a),1)} km</b>.</p>`}
  ]},
  {t:"Cosinus, sinus et tangente : calculer une longueur", e:[
   {n:"Exercice 4", t:"Calculer le cosinus, le sinus et la tangente d'un angle", w:"Sur ton cahier", h:`<p>À l'aide de la calculatrice, complète le tableau. Arrondis au centième près.</p>${tab(["Angle",...e4.map(a=>a+"°")],["cos","sin","tan"].map(f=>[f+"(angle)","","",""]))}`,
@@ -70,13 +74,13 @@ return [
    <p><b>1 –</b> Un avion A est à ${F(s1.h)} m d'altitude au-dessus du point B. Il descend vers le point C de la piste en suivant une droite qui fait un angle ${ang("BAC")} de ${s1.a}° avec la verticale [AB]. Calcule la distance AC.</p>
    <p><b>2 –</b> Une tyrolienne [NP] mesure ${s2.L} m. Elle fait un angle ${ang("MNP")} de ${s2.a}° avec le tronc vertical [NM] (le triangle NMP est rectangle en M). Calcule la distance MP entre les deux arbres.</p>
    <p><b>3 –</b> Le haut T d'un poteau [AT] est vu depuis le point S du sol, à ${s3.d} m du pied A, sous un angle ${ang("AST")} de ${s3.a}°. Calcule la longueur AT du poteau.</p>`,
-   c:`<p><b>1 –</b> ABC rectangle en B : AB adjacent (A), AC hypoténuse (H) → <b>cosinus</b>.</p><p class="calc">AC = {${F(s1.h)}/cos(${s1.a}°)} ≈ ${F(s1r,0)} m</p>
-   <p><b>2 –</b> NMP rectangle en M : NP hypoténuse (H), MP opposé (O) → <b>sinus</b>.</p><p class="calc">MP = ${s2.L} × sin(${s2.a}°) ≈ ${F(s2r,1)} m</p>
-   <p><b>3 –</b> TAS rectangle en A : AS adjacent (A), AT opposé (O) → <b>tangente</b>.</p><p class="calc">AT = ${s3.d} × tan(${s3.a}°) ≈ ${F(s3r,1)} m</p>`},
+   c:`<p><b>1 –</b> ABC rectangle en B : AB adjacent (A), AC hypoténuse (H) → <b>cosinus</b>.</p><p class="calc">cos(${ang("BAC")}) = {AB/AC}<br>cos(${s1.a}°) = {${F(s1.h)}/AC}<br>AC = {${F(s1.h)}/cos(${s1.a}°)} ≈ ${F(s1r,0)} m</p>
+   <p><b>2 –</b> NMP rectangle en M : NP hypoténuse (H), MP opposé (O) → <b>sinus</b>.</p><p class="calc">sin(${ang("MNP")}) = {MP/NP}<br>sin(${s2.a}°) = {MP/${s2.L}}<br>MP = ${s2.L} × sin(${s2.a}°) ≈ ${F(s2r,1)} m</p>
+   <p><b>3 –</b> TAS rectangle en A : AS adjacent (A), AT opposé (O) → <b>tangente</b>.</p><p class="calc">tan(${ang("AST")}) = {AT/AS}<br>tan(${s3.a}°) = {AT/${s3.d}}<br>AT = ${s3.d} × tan(${s3.a}°) ≈ ${F(s3r,1)} m</p>`},
   {n:"Exercice 6", t:"Au stade", w:"Sur ton cahier", h:`<p>Ivana, dont les yeux sont à ${F(st.y)} m du sol, observe un stade.</p><p>Elle est à ${st.d} m du stade et voit le haut du stade sous un angle de ${st.a}° avec l'horizontale.</p><p>Quelle est la hauteur du stade ? Arrondis au centième.</p>`,
-   c:`<p>O : l'œil d'Ivana, K : le point du stade à la hauteur de ses yeux, S : le haut du stade. OKS est rectangle en K ; OK = ${st.d} m est adjacent à l'angle de ${st.a}°, KS est opposé → <b>tangente</b>.</p><p class="calc">KS = ${st.d} × tan(${st.a}°) ≈ ${F(stK,2)} m<br>Hauteur ≈ ${F(stK,2)} + ${F(st.y)} ≈ ${F(stK+st.y,2)} m</p>`},
+   c:`<p>O : l'œil d'Ivana, K : le point du stade à la hauteur de ses yeux, S : le haut du stade. OKS est rectangle en K ; OK = ${st.d} m est adjacent à l'angle de ${st.a}°, KS est opposé → <b>tangente</b>.</p><p class="calc">tan(${ang("KOS")}) = {KS/OK}<br>tan(${st.a}°) = {KS/${st.d}}<br>KS = ${st.d} × tan(${st.a}°) ≈ ${F(stK,2)} m</p><p>On ajoute la hauteur des yeux d'Ivana : ${F(stK,2)} + ${F(st.y)} ≈ ${F(stK+st.y,2)}.</p><p>Le stade mesure environ <b>${F(stK+st.y,2)} m</b> de haut.</p>`},
   {n:"Exercice 7", t:"Funiculaire", w:"Sur ton cahier", h:`<p>La voie d'un funiculaire mesure ${fu.L} m.</p><p>Elle a un angle d'élévation de ${F(fu.a)}° par rapport à l'horizontale.</p><p>Donne une valeur approchée au centième de la différence d'altitude, en m, entre la gare d'arrivée et la gare de départ.</p>`,
-   c:`<p>La voie (${fu.L} m) est l'hypoténuse ; la différence d'altitude est le côté opposé à l'angle de ${F(fu.a)}° → <b>sinus</b>.</p><p class="calc">h = ${fu.L} × sin(${F(fu.a)}°) ≈ ${F(fuH,2)} m</p>`}
+   c:`<p>La voie (${fu.L} m) est l'hypoténuse ; la différence d'altitude est le côté opposé à l'angle de ${F(fu.a)}° → <b>sinus</b>.</p><p class="calc">sin(angle) = {côté opposé/hypoténuse}<br>sin(${F(fu.a)}°) = {h/${fu.L}}<br>h = ${fu.L} × sin(${F(fu.a)}°) ≈ ${F(fuH,2)} m</p><p>La différence d'altitude est d'environ <b>${F(fuH,2)} m</b>.</p>`}
  ]},
  {t:"Calculer la mesure d'un angle", e:[
   {n:"Activité 3", t:"Trouver l'angle d'inclinaison", w:"Sur ton cahier", h:`<p>Mattéo est perché sur une échelle [ES] de ${F(ec.L)} m appuyée contre un mur vertical [MS].</p><p>Le haut S de l'échelle est à ${F(ec.h)} m du sol (MS = ${F(ec.h)} m).</p><p>Pour être stable, l'échelle doit faire un angle avec le sol de ${ec.lim}° maximum.</p><p>L'échelle est-elle positionnée correctement ?</p>`,
@@ -84,7 +88,7 @@ return [
   {n:"Exercice 8", t:"Savoir utiliser la bonne fonction avec la calculatrice", w:"Sur ton cahier", h:`<p>Complète les tableaux. Arrondis les angles au degré et les autres valeurs au centième.</p><div class="figs">${e8.map(o=>tab(["Angle",o.a+"°",""],[[o.fn+"(angle)","",F(o.x)]])).join("")}</div>`,
    c:`<div class="figs">${e8.map(o=>tab(["Angle",o.a+"°","<b>"+Math.round(o.b)+"°</b>"],[[o.fn+"(angle)","<b>"+F(o.va,2)+"</b>",F(o.x)]])).join("")}</div><p>${e8.map(o=>`${o.fn}<sup>−1</sup>(${F(o.x)}) ≈ ${Math.round(o.b)}°`).join(" ; ")} (touche SECONDE).</p>`},
   {n:"Exercice 9", t:"Déterminer la mesure d'un angle", w:"Sur ton cahier", h:`<p>Indique H, A et O par rapport à l'angle cherché, choisis cos, sin ou tan, puis calcule l'angle. Arrondi au degré.</p><div class="figs">${e9.map((o,i)=>fig(`${"ab"[i]}. ${o.n.join("")} rectangle en ${o.n[0]} : calcule ${nomA(o.n)}.`,figA(o))).join("")}</div>`,
-   c:e9.map((o,i)=>`<p><b>${"ab"[i]}.</b></p>${o.c.h}`).join("")},
+   c:`<p><b>H</b> en rouge, <b>A</b> en vert, <b>O</b> en bleu.</p>`+e9.map((o,i)=>`<p><b>${"ab"[i]}.</b></p>${haoA(o)}${o.c.h}`).join("")},
   {n:"Exercice 10", t:"Une longueur ou un angle", w:"Sur ton cahier", h:`<p>Dans chaque cas, calcule la longueur du côté (au dixième) ou la mesure de l'angle (au degré) indiqué.</p><div class="figs">${fig(`a. Calcule ${e10[0].c.X}.`,figL(e10[0]))}${fig(`b. Calcule ${nomA(e10[1].n)}.`,figA(e10[1]))}</div>`,
    c:`<p><b>a.</b></p>${e10[0].c.h}<p><b>b.</b></p>${e10[1].c.h}`},
   {n:"Exercice 11", t:"Signalisation de pente", w:"Sur ton cahier", h:`<p>Un panneau routier indique une descente dont la pente est de ${pc} % : pour un déplacement horizontal de 100 m, le dénivelé est de ${pc} m.</p><p><b>1)</b> Détermine la mesure de l'angle que fait la route avec l'horizontale. Arrondis au degré près.</p><p><b>2)</b> Le panneau A indique ${pA} %. Le panneau B indique « 1 : ${pB} » (1 m de dénivelé pour ${pB} m de déplacement horizontal). Lequel indique la pente la plus forte ?</p>`,

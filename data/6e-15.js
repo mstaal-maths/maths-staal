@@ -101,7 +101,7 @@ exos:[
   {n:"Exercice 6", t:"Deux droites sécantes", w:"Sur ta feuille", h:`<div class="cpt"><div><p>Les droites (AC) et (BD) se coupent en O, et ${A("AOB")} = 63°. Calcule, en justifiant :</p><p>1) ${A("COD")} · 2) ${A("BOC")} · 3) ${A("DOA")}</p></div>${ex("e6","Les droites (AC) et (BD) sécantes en O",200)}</div>`,
    c:`<p>1) ${A("COD")} = <b>63°</b>, car ${A("COD")} et ${A("AOB")} sont opposés par le sommet.</p><p>2) ${A("BOC")} = 180° − 63° = <b>117°</b>, car ${A("AOB")} et ${A("BOC")} sont supplémentaires (A, O et C sont alignés).</p><p>3) ${A("DOA")} = <b>117°</b>, car ${A("DOA")} et ${A("BOC")} sont opposés par le sommet.</p>`},
   {n:"Exercice 7", t:"Défi — trois droites", w:"Sur ta feuille", h:`<div class="cpt"><div><p>Les droites (AD), (BE) et (CF) se coupent en O. On sait que ${A("AOB")} = 40° et ${A("BOC")} = 75°.</p><p>Calcule la mesure des quatre autres angles en justifiant : ${A("COD")}, ${A("DOE")}, ${A("EOF")}, ${A("FOA")}.</p></div>${ex("e7","Trois droites sécantes en O",210)}</div>`,
-   c:`<p>${A("COD")} = 180° − (40° + 75°) = <b>65°</b>, car A, O et D sont alignés : ${A("AOB")}, ${A("BOC")} et ${A("COD")} forment un angle plat.</p><p>${A("DOE")} = ${A("AOB")} = <b>40°</b> (opposés par le sommet).</p><p>${A("EOF")} = ${A("BOC")} = <b>75°</b> (opposés par le sommet).</p><p>${A("FOA")} = ${A("COD")} = <b>65°</b> (opposés par le sommet).</p><p><i>Vérification : 40 + 75 + 65 + 40 + 75 + 65 = 360, un tour complet.</i></p>`}
+   c:`<p>${A("COD")} = 180° − (40° + 75°) = 180° − 115° = <b>65°</b>, car A, O et D sont alignés : ${A("AOB")}, ${A("BOC")} et ${A("COD")} forment un angle plat.</p><p>${A("DOE")} = ${A("AOB")} = <b>40°</b> (opposés par le sommet).</p><p>${A("EOF")} = ${A("BOC")} = <b>75°</b> (opposés par le sommet).</p><p>${A("FOA")} = ${A("COD")} = <b>65°</b> (opposés par le sommet).</p><p><i>Vérification : 40 + 75 + 65 + 40 + 75 + 65 = 360, un tour complet.</i></p>`}
  ]},
 {t:"La bissectrice d'un angle", e:[
   {n:"Activité 1", t:"Le pliage", w:"Sur ta feuille", h:`<p>Découpe un angle dans une feuille de papier. Plie la feuille pour que les deux côtés de l'angle se superposent, puis déplie.</p><p>1) Que peux-tu dire des deux angles formés par le pli ? Vérifie avec ton rapporteur.</p><p>2) Que représente le pli pour l'angle de départ ?</p>`,
@@ -113,7 +113,7 @@ exos:[
   {n:"Exercice 10", t:"Calculer avec la bissectrice", w:"Sur ta feuille", h:`<p>Dans chaque cas, [Oz) est la bissectrice de l'angle ${A("xOy")}.</p><p>1) ${A("xOz")} = 37°. Calcule ${A("xOy")}.</p><p>2) ${A("xOy")} = 151°. Calcule ${A("zOy")}.</p><p>3) ${A("xOy")} est un angle droit. Calcule ${A("xOz")}.</p>`,
    c:`<p>1) ${A("xOy")} = 2 × 37° = <b>74°</b>.</p><p>2) ${A("zOy")} = 151° ÷ 2 = <b>75,5°</b>.</p><p>3) ${A("xOz")} = 90° ÷ 2 = <b>45°</b>.</p>`},
   {n:"Exercice 11", t:"Pour aller plus loin", w:"Sur ton cahier", h:`<p>1) Construis un triangle ABC tel que AB = 7 cm, BC = 6 cm et AC = 5 cm.</p><p>2) Construis les bissectrices des trois angles du triangle (avec la méthode de ton choix).</p><p>3) Que remarques-tu ? Compare avec les médiatrices d'un triangle (chapitre 6).</p>`,
-   c:`${tri11}<p>1) Règle et compas, comme au chapitre 6 (trois longueurs).</p><p>3) Les trois bissectrices se coupent <b>en un même point</b>, comme les trois médiatrices. Ce point est le centre d'un cercle qui touche les trois côtés du triangle (en pointillés), à l'intérieur du triangle. <i>(Le point de rencontre des médiatrices, lui, est le centre du cercle qui passe par les trois sommets.)</i></p>`}
+   c:`${tri11}<p>1) Règle et compas, comme au chapitre 6 (trois longueurs).</p><p>2) Les trois bissectrices sont tracées en rouge sur la figure.</p><p>3) Les trois bissectrices se coupent <b>en un même point</b>, comme les trois médiatrices. Ce point est le centre d'un cercle qui touche les trois côtés du triangle (en pointillés), à l'intérieur du triangle. <i>(Le point de rencontre des médiatrices, lui, est le centre du cercle qui passe par les trois sommets.)</i></p>`}
  ]}
 ],
 
@@ -121,7 +121,7 @@ exos:[
 quiz:[
 {nom:"Angles adjacents", schema:S_ADJ, q:{
  1:[ {q:"Deux angles adjacents ont…", c:["le même sommet et un côté commun","la même mesure","des côtés parallèles"], rep:"le même sommet et un côté commun", sx:S_ADJ} ],
- 2:[ {g:()=>{ const a=ri(15,70), b=ri(15,70); return {q:`${A("xOy")} = ${a}° et ${A("yOz")} = ${b}° sont adjacents. Combien mesure ${A("xOz")} (en °) ?`, rep:String(a+b), fig:rays([{a:0,n:"x"},{a:a,n:"y"},{a:a+b,n:"z"}],{arcs:[{a0:0,a1:a,t:a+"°"},{a0:a,a1:a+b,t:b+"°",c:"o",r:36}],O:"O",cx:80,w:250}), sx:S_ADJ}; }} ],
+ 2:[ {g:()=>{ const a=ri(15,70), b=ri(15,70); return {q:`${A("xOy")} = ${a}° et ${A("yOz")} = ${b}° sont adjacents. Combien mesure ${A("xOz")} (en °) ?`, rep:String(a+b), fig:rays([{a:0,n:"x"},{a:a,n:"y"},{a:a+b,n:"z"}],{arcs:[{a0:0,a1:a,t:a+"°"},{a0:a,a1:a+b,t:b+"°",c:"o",r:36}],O:"O",cx:a+b>95?110:80,w:250}), sx:S_ADJ}; }} ],
  3:[ {g:()=>{ const t=ri(90,160), a=ri(20,t-20); return {q:`${A("xOz")} = ${t}° et ${A("xOy")} = ${a}°, avec [Oy) entre [Ox) et [Oz). Combien mesure ${A("yOz")} (en °) ?`, rep:String(t-a), ex:`${t} − ${a} = ${t-a}.`, sx:S_ADJ}; }} ]
 }},
 {nom:"Complémentaires et supplémentaires", schema:S_CS, q:{

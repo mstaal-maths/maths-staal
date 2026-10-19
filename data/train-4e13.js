@@ -31,9 +31,9 @@ const w3=o=>o.K?(o.right?`${P(o.ts)} × (${E([o.K])})`:`${E([o.K])}${P(o.ts)}`):
 const N3="MNPQRS";
 return [
  {t:"Découvrir la double distributivité", e:[
-  {n:"Activité 1", t:"L'aire d'un rectangle de deux façons", w:"Sur ton cahier", h:`${rect4(130,30+12*p,110,20+10*q,{w:["<i>x</i>",String(p)],h:["<i>x</i>",String(q)],pts:true,alt:`Rectangle ABCD : AB = x + ${p} et AD = x + ${q}, partagé en quatre parties`})}
+  {n:"Activité 1", t:"L'aire d'un rectangle de deux façons", w:"Sur ton cahier", h:`${rect4(120,24*p,120,24*q,{w:["<i>x</i>",String(p)],h:["<i>x</i>",String(q)],pts:true,alt:`Rectangle ABCD : AB = x + ${p} et AD = x + ${q}, partagé en quatre parties`})}
    <p><b>1)</b> Exprime l'aire de ABCD à l'aide des longueurs AB et AD.</p><p><b>2)</b> Exprime cette aire en additionnant les aires des quatre parties.</p><p><b>3)</b> Réduis l'expression obtenue.</p>`,
-   c:`<p><b>1)</b> (${x} + ${p}) × (${x} + ${q})</p><p><b>2)</b> ${x} × ${x} + ${x} × ${q} + ${p} × ${x} + ${p} × ${q}</p><p><b>3)</b> ${x}<sup>2</sup> + ${q===1?"":q}${x} + ${p}${x} + ${p*q} = <b>${R([[1,"x2"],[p+q,"x"],[p*q,""]])}</b></p>`}
+   c:`<p><b>1)</b> AB = ${x} + ${p} et AD = ${x} + ${q}, donc aire de ABCD = <b>(${x} + ${p}) × (${x} + ${q})</b>.</p><p><b>2)</b> Aire de ABCD = <b>${x} × ${x} + ${x} × ${q} + ${p} × ${x} + ${p} × ${q}</b> (le carré et les trois rectangles).</p><p><b>3)</b></p><p class="calc">Aire = ${x}<sup>2</sup> + ${q===1?"":q}${x} + ${p}${x} + ${p*q}<br>Aire = <b>${R([[1,"x2"],[p+q,"x"],[p*q,""]])}</b></p>`}
  ]},
  {t:"Développer avec la double distributivité", e:[
   {n:"Exercice 1", t:"Développer avec la double distributivité", w:"Sur ton cahier", h:`<p>Développe et réduis.</p><div class="calcs">${E1.map(([A,B],i)=>`<span>${"ABC"[i]} = ${w2(A,B)}</span>`).join("")}</div>`,

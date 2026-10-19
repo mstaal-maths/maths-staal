@@ -27,6 +27,9 @@ const C7b=(()=>{ const k1=pick([0.5,1.5]), k2=pick([-1,-0.5,-2]); const P={O:[0,
   const all=[...Object.values(P), ...Object.values(P).map(p=>V.mul(p,k1)), ...Object.values(P).map(p=>V.mul(p,k2))], xs=all.map(p=>p[0]), ys=all.map(p=>p[1]);
   return {k1,k2,o:{P, cn:"O", tri:["A","B","C"], grid:[Math.min(...xs)-1,Math.min(...ys)-1,Math.max(...xs)+1,Math.max(...ys)+1], k:24, imgs:[[k1,"1"],[k2,"2"]], cen:[2,0]}}; })();
 const dep=(p,k)=>{ const x=r3(k*p[0]), y=r3(k*p[1]); const h=(v,a,b)=>v?`${F(Math.abs(v))} carreau${Math.abs(v)>=2?"x":""} vers ${v>0?a:b}`:""; return [h(x,"la droite","la gauche"),h(y,"le haut","le bas")].filter(Boolean).join(" et "); };
+/* correction d'une construction : déplacements depuis le centre c, puis multipliés par la distance à zéro de k (dans l'autre sens si k < 0) */
+const cons=(o,c,names,k1,k2)=>`<p>On compte les déplacements à partir de ${c} :</p>${names.map((n,j)=>`<p>de ${c} à ${n} : ${dep(o.P[n],1)}${j<names.length-1?" ;":"."}</p>`).join("")}`
+  +[[k1,1,"a"],[k2,2,"b"]].map(([k,i,l])=>`<p><b>${l})</b> Rapport ${F(k)} : on multiplie ces déplacements par ${F(Math.abs(k))}${k<0?", <b>dans l'autre sens</b>":""}.</p>${names.map(n=>`<p>${sub(n,i)} : ${dep(o.P[n],k)} à partir de ${c}.</p>`).join("")}`).join("");
 
 return [
  {t:"Trouver le centre et le rapport d'une homothétie", e:[
@@ -47,9 +50,9 @@ return [
  ]},
  {t:"Construire l'image d'une figure", e:[
   {n:"Exercice 6", t:"Construction (centre A)", w:"Sur ton cahier", h:`<p>Recopie la figure en respectant les carreaux.</p><p><b>a)</b> Trace le triangle ${sub("A",1)}${sub("B",1)}${sub("C",1)}, image du triangle ABC par l'homothétie de centre A et de rapport ${F(C7.k1)}.</p><p><b>b)</b> Trace le triangle ${sub("A",2)}${sub("B",2)}${sub("C",2)}, image du triangle ABC par l'homothétie de centre A et de rapport ${F(C7.k2)}.</p>${homFig(C7.o)}`,
-   c:`<p>A est le centre : il est sa propre image.</p><p><b>a)</b> ${sub("B",1)} : ${dep(C7.o.P.B,C7.k1)} à partir de A. ${sub("C",1)} : ${dep(C7.o.P.C,C7.k1)}.</p><p><b>b)</b> ${sub("B",2)} : ${dep(C7.o.P.B,C7.k2)} à partir de A. ${sub("C",2)} : ${dep(C7.o.P.C,C7.k2)}.</p>${homFig({...C7.o, show:true})}`},
+   c:`<p>A est le centre : il est sa propre image (${sub("A",1)} = ${sub("A",2)} = A).</p>${cons(C7.o,"A",["B","C"],C7.k1,C7.k2)}${homFig({...C7.o, show:true})}`},
   {n:"Exercice 7", t:"Construction (centre O)", w:"Sur ton cahier", h:`<p>Recopie la figure en respectant les carreaux.</p><p><b>a)</b> Trace le triangle ${sub("A",1)}${sub("B",1)}${sub("C",1)}, image du triangle ABC par l'homothétie de centre O et de rapport ${F(C7b.k1)}.</p><p><b>b)</b> Trace le triangle ${sub("A",2)}${sub("B",2)}${sub("C",2)}, image du triangle ABC par l'homothétie de centre O et de rapport ${F(C7b.k2)}.</p>${homFig(C7b.o)}`,
-   c:`<p>On compte les déplacements à partir de O.</p><p><b>a)</b> ${["A","B","C"].map(n=>`${sub(n,1)} : ${dep(C7b.o.P[n],C7b.k1)}`).join(" ; ")}.</p><p><b>b)</b> ${["A","B","C"].map(n=>`${sub(n,2)} : ${dep(C7b.o.P[n],C7b.k2)}`).join(" ; ")}.</p>${homFig({...C7b.o, show:true})}`}
+   c:`${cons(C7b.o,"O",["A","B","C"],C7b.k1,C7b.k2)}${homFig({...C7b.o, show:true})}`}
  ]}
 ];
 };

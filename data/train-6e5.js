@@ -37,7 +37,7 @@ const sans = s => { let t=s.replace(/^0+(?=\d)/,""); if(t.includes(",")) t=t.rep
 const e6 = distinct(4, ()=>{ const a=ri(1,99), b=ri(1,9), c=ri(1,9); return pick([[`0${a},${b}0`,`${a},${b}`],[`${a},${b}0${c}`,`0${a},${b}${c}`],[`00${a}`,`${a},00`],[`${a},${b}${c}`,`${a},${c}${b}`]]); }, x=>x.join());
 const secB = {t:"Les différentes écritures d'un nombre décimal", e:[
   {n:"Exercice 3", t:"Le tableau de numération", w:"Sur ton cahier", h:`<p>On considère le nombre ${D(n3,2)}. Donne le chiffre des dixièmes, des centièmes, des unités, des dizaines, puis le nombre de centièmes en tout.</p>`,
-   c:`dixièmes : ${Math.floor(n3/10)%10} · centièmes : ${n3%10} · unités : ${Math.floor(n3/100)%10} · dizaines : ${Math.floor(n3/1000)%10} · nombre de centièmes : <b>${sp(n3)}</b>`},
+   c:`dixièmes : ${Math.floor(n3/10)%10} · centièmes : ${n3%10} · unités : ${Math.floor(n3/100)%10} · dizaines : ${Math.floor(n3/1000)%10} · nombre de centièmes : <b>${sp(n3)}</b> (on garde tous les chiffres jusqu'aux centièmes : ${D(n3,2)} = {${sp(n3)}/100})`},
   {n:"Exercice 4", t:"Passer d'une écriture à une autre", w:"Sur ton cahier", h:`<p>Écris chaque nombre sous forme de fraction décimale et sous forme décomposée : ${items(e4.map(([n,k])=>D(n,k)),"  ·  ",true)}</p>`,
    c:items(e4.map(([n,k])=>`${D(n,k)} = {${n}/${P(k)}} = ${dec(n,k)}`),"  ·  ",true)},
   {n:"Exercice 5", t:"Les zéros inutiles", w:"Sur ton cahier", h:`<p>Écris ces nombres sans les zéros inutiles (attention, certains zéros sont utiles !) : ${items(z5,"  ·  ",true)}</p>`,
@@ -54,9 +54,9 @@ const secC = {t:"Repérer un nombre décimal sur une demi-droite graduée", e:[
   {n:"Activité 3", t:"Placer des nombres décimaux", w:"Sur ton cahier", h:`<p>Reproduis la demi-droite et place les nombres : ${pl.map(v=>D(v,1)).join(" ; ")}</p>${dixAx(0,3)}`,
    c:dixAx(0,3,pl.map(v=>[D(v,1),v]))},
   {n:"Exercice 7", t:"Lire une abscisse", w:"Sur ton cahier", h:`<p>Donne l'abscisse de chacun des points, en écriture décimale.</p>${dixAx(0,4,lu.map((v,i)=>["ABCDE"[i],v]))}`,
-   c:lu.map((v,i)=>`${"ABCDE"[i]}(${D(v,1)})`).join(" · ")},
+   c:`<p>Une petite graduation vaut 0,1.</p><p>${lu.map((v,i)=>`${"ABCDE"[i]} est ${v%10} graduation${v%10>1?"s":""} après ${Math.floor(v/10)} : <b>${"ABCDE"[i]}(${D(v,1)})</b>.`).join("<br>")}</p>`},
   {n:"Exercice 8", t:"Le zoom au centième", w:"Sur ton cahier", h:`<p>Cette demi-droite est graduée en centièmes. 1) Place ${D(10*zd+zp[0],2)} et ${D(10*zd+zp[1],2)}. 2) Donne l'abscisse des points F et G.</p>${centAx(zd,[["F",10*zd+zp[2]],["G",10*zd+zp[3]]])}`,
-   c:`<p>Une graduation vaut 0,01.</p>${centAx(zd,[[D(10*zd+zp[0],2),10*zd+zp[0]],[D(10*zd+zp[1],2),10*zd+zp[1]]])}<p>F(${D(10*zd+zp[2],2)}) · G(${D(10*zd+zp[3],2)})</p>`}
+   c:`<p>Une graduation vaut 0,01.</p>${centAx(zd,[[D(10*zd+zp[0],2),10*zd+zp[0]],[D(10*zd+zp[1],2),10*zd+zp[1]]])}<p>F est ${zp[2]} graduation${zp[2]>1?"s":""} après ${D(zd,1)} : <b>F(${D(10*zd+zp[2],2)})</b>.<br>G est ${zp[3]} graduation${zp[3]>1?"s":""} après ${D(zd,1)} : <b>G(${D(10*zd+zp[3],2)})</b>.</p>`}
 ]};
 
 /* ---------- D. Comparer et ranger ---------- */
@@ -78,7 +78,7 @@ const ta=ord(tailles,prenoms), mo=ord(moy,mat,true), px=ord(prix,fr);
 const Dt = (n,k) => T(D(n,k));
 const secD = {t:"Comparer et ranger", e:[
   {n:"Exercice 9", t:"Comparer deux nombres décimaux", w:"Sur ton cahier", h:`<p>Complète avec &lt; , &gt; ou = : ${items(c9.map(([x,y])=>`${D(...x)} …… ${D(...y)}`),"  ·  ",true)}</p>`,
-   c:items(c9.map(([x,y])=>`${D(...x)} ${cmp(val(x),val(y))} ${D(...y)}`),"  ·  ",true)},
+   c:items(c9.map(([x,y])=>{ const k=Math.max(x[1],y[1]), px=D(x[0]*P(k-x[1]),k), py=D(y[0]*P(k-y[1]),k); const ex_=Math.floor(x[0]/P(x[1])), ey=Math.floor(y[0]/P(y[1])); return `${D(...x)} ${cmp(val(x),val(y))} ${D(...y)}`+(ex_!==ey?` (parties entières : ${sp(ex_)} ${cmp(ex_,ey)} ${sp(ey)})`:px!==D(...x)||py!==D(...y)?` (on compare ${px} et ${py})`:""); }),"  ·  ",true)},
   {n:"Activité 4", t:"Les tailles", w:"Sur ton cahier", h:`<p>Voici la taille de six enfants : ${tailles.map((t,i)=>`${prenoms[i]} : ${Dt(...t)} m`).join(" · ")}</p><p>Range les tailles dans l'ordre croissant, puis les prénoms dans le même ordre.</p>`,
    c:`<p>${ta.map(([t])=>Dt(...t)).join(" &lt; ")}</p><p>${ta.map(([,p])=>p).join(", ")}</p>`},
   {n:"Exercice 10", t:"Les moyennes", w:"Sur ton cahier", h:`<p>Voici des moyennes : ${moy.map((t,i)=>`${mat[i]} : ${Dt(...t)}`).join(" · ")}</p><p>Range-les dans l'ordre décroissant. Quelle est la meilleure matière ?</p>`,

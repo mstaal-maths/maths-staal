@@ -7,9 +7,9 @@ const L3=["ABC","DEF","MNP","RST","IJK","UVW"];
 
 /* ---------- 1. reconnaître une transformation (drapeaux) ---------- */
 function flagCase(kind){
-  if(kind==="axeV"){ const c=ri(7,9); return {K:[1,5], grid:[0,0,2*c,10], T:p=>[2*c-p[0],p[1]], r:`<b>Symétrie axiale</b> d'axe vertical : l'axe est la droite verticale située à ${c-6} carreau${c-6>1?"x":""} à droite de la figure 1.`, ex:{line:[[[c,0],[c,10],"rd",0,0]]}}; }
-  if(kind==="axeH"){ return {K:[3,8], grid:[0,-7,10,13], T:p=>[p[0],6-p[1]], r:"<b>Symétrie axiale</b> d'axe horizontal : l'axe est la droite horizontale située au milieu des deux mâts.", ex:{line:[[[0,3],[10,3],"rd",0,0]]}}; }
-  if(kind==="centre"){ return {K:[1,4], grid:[0,-1,16,18], T:p=>[16-p[0],17-p[1]], r:"<b>Symétrie centrale</b> : la figure fait un demi-tour. Le centre est le milieu du segment qui relie un point à son image.", ex:{x:[[8,8.5]]}}; }
+  if(kind==="axeV"){ const c=ri(7,9); return {K:[1,5], grid:[0,0,2*c,10], T:p=>[2*c-p[0],p[1]], r:`<b>Symétrie axiale</b> d'axe vertical : l'axe (en rouge) est la droite verticale située à ${c-6} carreau${c-6>1?"x":""} à droite de la figure 1.`, ex:{line:[[[c,0],[c,10],"rd",0,0]]}}; }
+  if(kind==="axeH"){ return {K:[3,8], grid:[0,-7,10,13], T:p=>[p[0],6-p[1]], r:"<b>Symétrie axiale</b> d'axe horizontal : l'axe (en rouge) est la droite horizontale située au milieu des deux mâts.", ex:{line:[[[0,3],[10,3],"rd",0,0]]}}; }
+  if(kind==="centre"){ return {K:[1,4], grid:[0,-1,16,18], T:p=>[16-p[0],17-p[1]], r:"<b>Symétrie centrale</b> : la figure fait un demi-tour. Le centre de symétrie <b style=\"color:#1e5aa8\">O</b> (en bleu) est le milieu du segment qui relie un point à son image.", ex:{x:[[8,8.5]], xcol:"#1e5aa8", txt:[["O",[8,8.5],12,-12,"fill:#1e5aa8"]]}}; }
   if(kind==="trans"){ const dx=ri(7,10)*pick([1,-1]), dy=pick([-3,-2,-1,0,1,2,3]); const K=[dx>0?1:-dx+1,4];
     return {K, grid:[0,Math.min(-1,-1+dy),Math.abs(dx)+7,Math.max(9,9+dy)], T:p=>[p[0]+dx,p[1]+dy], r:`<b>Translation</b> : la figure glisse de ${Math.abs(dx)} carreaux vers la ${dx>0?"droite":"gauche"}${dy?` et de ${Math.abs(dy)} carreau${Math.abs(dy)>1?"x":""} vers le ${dy>0?"haut":"bas"}`:""}.`, ex:{vec:[[K,[K[0]+dx,K[1]+dy],"#c0392b"]]}}; }
   const s=kind==="rotA"?1:-1;
@@ -24,19 +24,19 @@ const imgs=(T,suf)=>{ const o={}; nm.forEach(n=>o[n+suf]=T(P2[n])); return o; };
 const LC=o=>{ const c={}; Object.keys(o).forEach(n=>c[n]="var(--c)"); return c; };
 /* a) axe vertical, horizontal ou oblique */
 const axK=pick(["v","h","o"]);
-const ax=axK==="v"?{A:[7,0],B:[7,1],T:p=>[14-p[0],p[1]],box:[[-1,-1],[15,6]],txt:"la droite (d) verticale"}:axK==="h"?{A:[0,-1],B:[1,-1],T:p=>[p[0],-2-p[1]],box:[[-1,-8],[6,6]],txt:"la droite (d) horizontale"}:{A:[6,0],B:[7,1],T:p=>[p[1]+6,p[0]-6],box:[[-1,-7],[12,6]],txt:"la droite (d) qui suit les diagonales des carreaux"};
+const ax=axK==="v"?{A:[7,0],B:[7,1],T:p=>[14-p[0],p[1]],box:[[-1,-1],[15,6]],txt:'la droite <b style="color:#c0392b">(d)</b> verticale (en rouge)'}:axK==="h"?{A:[0,-1],B:[1,-1],T:p=>[p[0],-2-p[1]],box:[[-1,-8],[6,6]],txt:'la droite <b style="color:#c0392b">(d)</b> horizontale (en rouge)'}:{A:[6,0],B:[7,1],T:p=>[p[1]+6,p[0]-6],box:[[-1,-7],[12,6]],txt:'la droite <b style="color:#c0392b">(d)</b> (en rouge), qui suit les diagonales des carreaux'};
 const axSVG=show=>{ const I=show?imgs(ax.T,"'"):{}; const P={...P2,...I}; const b=ax.box; const u=V.unit(V.sub(ax.B,ax.A));
   const far=[V.add(ax.A,V.mul(u,-30)),V.add(ax.A,V.mul(u,30))], clip=p=>[Math.max(b[0][0],Math.min(b[1][0],p[0])),Math.max(b[0][1],Math.min(b[1][1],p[1]))];
   /* segment de (d) dans le quadrillage */
   let e1, e2; if(axK==="v"){ e1=[7,b[0][1]]; e2=[7,b[1][1]]; } else if(axK==="h"){ e1=[b[0][0],-1]; e2=[b[1][0],-1]; } else { const lo=Math.max(b[0][0],b[0][1]+6), hi=Math.min(b[1][0],b[1][1]+6); e1=[lo,lo-6]; e2=[hi,hi-6]; }
-  return geo({P, grid:[b[0][0],b[0][1],b[1][0],b[1][1]], k:24, pad:14, poly:[[nm,"orig"],...(show?[[Object.keys(I),"img"]]:[])], seg:[[e1,e2,"ln"]], x:Object.keys(P), labc:LC(I), cen:V.mid(P2[nm[0]],ax.T(P2[nm[0]])), txt:[["(d)",e2,14,6]], alt:"Triangle et droite (d) sur quadrillage"}); };
+  return geo({P, grid:[b[0][0],b[0][1],b[1][0],b[1][1]], k:24, pad:14, poly:[[nm,"orig"],...(show?[[Object.keys(I),"img"]]:[])], seg:[[e1,e2,"r"]], x:Object.keys(P), labc:LC(I), cen:V.mid(P2[nm[0]],ax.T(P2[nm[0]])), txt:[["(d)",e2,14,6,"fill:#c0392b"]], alt:"Triangle et droite (d) sur quadrillage"}); };
 /* b) centre O */
 const O2=pick([[6,1],[6,3],[3,-1],[7,0]]);
-const ceSVG=show=>{ const I=show?imgs(p=>V.sym(p,O2),"'"):{}; const P={...P2,O:O2,...I}; const xs=Object.values(P).map(p=>p[0]), ys=Object.values(P).map(p=>p[1]);
-  return geo({P, grid:[Math.min(...xs,-1)-1,Math.min(...ys)-1,Math.max(...xs,12)+1,Math.max(...ys)+1], k:22, pad:14, poly:[[nm,"orig"],...(show?[[Object.keys(I),"img"]]:[])], x:Object.keys(P), labc:LC(I), cen:O2, off:{O:[12,12]}, alt:"Triangle et point O sur quadrillage"}); };
+const ceSVG=show=>{ const I=show?imgs(p=>V.sym(p,O2),"'"):{}; const P={...P2,O:O2,...I}; const ALL=[...Object.values(P2),O2,...Object.values(imgs(p=>V.sym(p,O2),"'"))], xs=ALL.map(p=>p[0]), ys=ALL.map(p=>p[1]); /* quadrillage assez grand pour l'image, même dans l'énoncé */
+  return geo({P, grid:[Math.min(...xs,-1)-1,Math.min(...ys)-1,Math.max(...xs,12)+1,Math.max(...ys)+1], k:22, pad:14, poly:[[nm,"orig"],...(show?[[Object.keys(I),"img"]]:[])], x:Object.keys(P), xc:{O:"#1e5aa8"}, labc:{...LC(I),O:"#1e5aa8"}, cen:O2, off:{O:[12,12]}, alt:"Triangle et point O sur quadrillage"}); };
 /* c) translation qui transforme H en I */
 const dv=[pick([3,4,5,6,7]),pick([-4,-3,-2,2,3])], H2=[7,dv[1]>0?0:5], I2=V.add(H2,dv);
-const trSVG=show=>{ const I=show?imgs(p=>V.add(p,dv),"'"):{}; const P={...P2,H:H2,I:I2,...I}; const xs=Object.values(P).map(p=>p[0]), ys=Object.values(P).map(p=>p[1]);
+const trSVG=show=>{ const I=show?imgs(p=>V.add(p,dv),"'"):{}; const P={...P2,H:H2,I:I2,...I}; const ALL=[...Object.values(P2),H2,I2,...Object.values(imgs(p=>V.add(p,dv),"'"))], xs=ALL.map(p=>p[0]), ys=ALL.map(p=>p[1]); /* quadrillage assez grand pour l'image, même dans l'énoncé */
   return geo({P, grid:[-1,Math.min(...ys)-1,Math.max(...xs)+1,Math.max(...ys)+1], k:22, pad:14, poly:[[nm,"orig"],...(show?[[Object.keys(I),"img"]]:[])], vec:[["H","I"]], x:Object.keys(P), labc:LC(I), cen:[4,2], off:{H:[-10,-12],I:[12,-12]}, alt:"Triangle et points H et I sur quadrillage"}); };
 const N3=nm.join(""), N3p=nm.map(n=>n+"'").join("");
 const car=(n,w)=>`${Math.abs(n)} carreau${Math.abs(n)>1?"x":""} vers ${w}`;
@@ -73,7 +73,7 @@ return [
  {t:"Symétries et translation", e:[
   {n:"Exercice 2", t:"Constructions sur quadrillage", w:"Sur ton cahier", h:`<p>Reproduis chaque figure sur ton cahier, carreau par carreau.</p>
    <p><b>a)</b> Trace le symétrique ${N3p} du triangle ${N3} par rapport à ${ax.txt}.</p>${axSVG(false)}
-   <p><b>b)</b> Trace le symétrique ${N3p} du triangle ${N3} par rapport au point O.</p>${ceSVG(false)}
+   <p><b>b)</b> Trace le symétrique ${N3p} du triangle ${N3} par rapport au point <b style="color:#1e5aa8">O</b> (en bleu).</p>${ceSVG(false)}
    <p><b>c)</b> Trace l'image ${N3p} du triangle ${N3} par la translation qui transforme H en I.</p>${trSVG(false)}`,
    c:`<p><b>a)</b> (d) coupe [${nm[0]}${nm[0]}'], [${nm[1]}${nm[1]}'] et [${nm[2]}${nm[2]}'] perpendiculairement en leur milieu : chaque point et son image sont à la même distance de (d).</p>${axSVG(true)}
    <p><b>b)</b> O est le milieu de [${nm[0]}${nm[0]}'], de [${nm[1]}${nm[1]}'] et de [${nm[2]}${nm[2]}'] : on fait le même déplacement de O vers l'image que du point vers O.</p>${ceSVG(true)}

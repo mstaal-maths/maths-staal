@@ -206,7 +206,7 @@ quiz:[
  1:[ {q:"Trois exemples vérifient une affirmation. Est-elle prouvée pour tous les nombres ?", c:ON, rep:"Non", ex:"Des exemples ne suffisent pas : il faut une preuve avec une lettre.", sx:S_CE} ],
  2:[ {q:"« La somme de quatre nombres entiers consécutifs est un multiple de 4. » Cette affirmation est :", c:["fausse","vraie"], rep:"fausse", ex:"Contre-exemple : 1 + 2 + 3 + 4 = 10, qui n'est pas un multiple de 4.", sx:S_CE},
      {g:()=>{ const a=ri(2,30); return {q:`Le produit de deux entiers consécutifs semble toujours pair. Vérifie sur un exemple : calcule ${a} × ${a+1}.`, rep:String(a*(a+1)), ex:`${a} × ${a+1} = ${a*(a+1)}, qui est bien pair. Mais un exemple ne prouve pas que c'est toujours vrai.`, sx:S_CE}; }} ],
- 3:[ {g:()=>{ const a=ri(2,40); return {q:`Calcule (${a} + 1)² − ${a}². Le résultat est-il égal à ${a} + (${a} + 1) ?`, c:ON, rep:"Oui", ex:`(${a+1})² − ${a}² = ${(a+1)**2} − ${a*a} = ${2*a+1} et ${a} + ${a+1} = ${2*a+1}. En effet, (${n} + 1)² − ${n}² = 2${n} + 1.`, sx:S_CE}; }} ]
+ 3:[ {g:()=>{ const a=ri(2,40), F=v=>String(v).replace(/\B(?=(\d{3})+(?!\d))/g," "); return {q:`Calcule (${a} + 1)² − ${a}². Le résultat est-il égal à ${a} + (${a} + 1) ?`, c:ON, rep:"Oui", ex:`(${a+1})² − ${a}² = ${F((a+1)**2)} − ${F(a*a)} = ${2*a+1} et ${a} + ${a+1} = ${2*a+1}. En effet, (${n} + 1)² − ${n}² = 2${n} + 1.`, sx:S_CE}; }} ]
 }}
 ],
 

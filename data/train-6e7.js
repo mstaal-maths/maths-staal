@@ -4,6 +4,9 @@ const {ri, pick, shuf, sp, distinct, items} = TR;
 const {tl, H, DU, p2} = window.FIG7;
 const hm = m => `${Math.floor(m/60)} h ${p2(m%60)} min`;
 const ms = s => `${Math.floor(s/60)} min ${s%60} s`;
+/* calculs détaillés : ajouter une durée ; retirer (avec une heure transformée en 60 min si besoin) */
+const plus = (a,d) => { const m=(a%60)+(d%60), h=Math.floor(a/60)+Math.floor(d/60); return `${H(a)} + ${DU(d)} = `+(m>=60?`${h} h ${m} = `:"")+H(a+d); };
+const moins = (b,x,X,R) => b%60<x%60 ? `${H(b)} = ${Math.floor(b/60)-1} h ${60+b%60} ; ${Math.floor(b/60)-1} h ${60+b%60} − ${X} = ${R}` : `${H(b)} − ${X} = ${R}`;
 
 /* ---------- A. Convertir ---------- */
 const c1 = shuf([["h",ri(2,9)],["hm",ri(1,7)*60+ri(5,55)],["s",60*ri(2,12)],["hm",ri(1,5)*60+ri(1,9)]]);
@@ -49,9 +52,9 @@ const secB = {t:"Calculer un horaire ou une durée", note:"<b>Rappel :</b> fais 
   {n:"Activité 3", t:"Trouver l'horaire de départ ou la durée", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un gâteau sort du four à ${H(b3)}, après ${d3} min de cuisson. À quelle heure a-t-il été mis au four ?</p><p><b>Problème 2 :</b> une famille part à ${H(a4)} et arrive à ${H(b4)}. Combien de temps a duré le trajet ?</p>`,
    c:`<p><b>Problème 1 :</b></p>${tl(b3-d3,b3,"a")}<p class="calc">${H(b3)} = ${Math.floor(b3/60)-1} h ${60+b3%60} min ; − ${d3} min = <b>${H(b3-d3)}</b></p><p><b>Problème 2 :</b></p>${tl(a4,b4,"d")}<p class="calc">${H(b4)} = ${Math.floor(b4/60)-1} h ${60+b4%60} min ; − ${hm(a4)} = <b>${DU(b4-a4)}</b></p>`},
   {n:"Exercice 7", t:"Compléter un tableau", w:"Sur ton cahier", h:`<div class="scroll"><table class="std"><thead><tr><th>Horaire de départ</th><th>Durée</th><th>Horaire d'arrivée</th></tr></thead><tbody>${rows2.map(r=>`<tr>${[0,1,2].map(k=>`<td>${cel2(r,k)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`,
-   c:`<div class="scroll"><table class="std"><thead><tr><th>Départ</th><th>Durée</th><th>Arrivée</th></tr></thead><tbody>${rows2.map(r=>`<tr>${[0,1,2].map(k=>`<td>${k===r.t?`<b>${sol2(r)}</b>`:cel2(r,k)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`},
+   c:`<div class="scroll"><table class="std"><thead><tr><th>Départ</th><th>Durée</th><th>Arrivée</th><th>Calcul</th></tr></thead><tbody>${rows2.map(r=>`<tr>${[0,1,2].map(k=>`<td>${k===r.t?`<b>${sol2(r)}</b>`:cel2(r,k)}</td>`).join("")}<td>${r.t===2?plus(r.a,r.d):r.t===0?moins(r.b,r.d,DU(r.d),H(r.a)):moins(r.b,r.a,H(r.a),DU(r.d))}</td></tr>`).join("")}</tbody></table></div>`},
   {n:"Exercice 8", t:"Des problèmes à résoudre", w:"Sur ton cahier", h:`<p>1) Une famille part à ${H(a8)} ; le trajet dure ${DU(d8)}. À quelle heure arrive-t-elle ?</p><p>2) Une randonneuse part à ${H(a8b)} et rentre à ${H(b8b)}. Combien de temps a-t-elle marché ?</p><p>3) J'ai rendez-vous à ${H(b8c)}. Le trajet dure ${DU(d8c)}. À quelle heure dois-je partir ?</p><p>4) Un professeur reçoit ${n8} familles, ${k8} min chacune, à partir de ${H(s8)}. À quelle heure aura-t-il terminé ?</p>`,
-   c:`<p>1) ${hm(a8)} + ${DU(d8)} = <b>${H(a8+d8)}</b></p><p>2) ${H(b8b)} − ${H(a8b)} = <b>${DU(b8b-a8b)}</b></p><p>3) ${H(b8c)} = ${Math.floor(b8c/60)-1} h ${60+b8c%60} min ; − ${DU(d8c)} = <b>${H(b8c-d8c)}</b></p><p>4) ${n8} × ${k8} = ${n8*k8} min = ${DU(n8*k8)} ; ${H(s8)} + ${DU(n8*k8)} = <b>${H(s8+n8*k8)}</b></p>`}
+   c:`<p>1) ${plus(a8,d8)}. Elle arrive à <b>${H(a8+d8)}</b>.</p><p>2) ${moins(b8b,a8b,H(a8b),DU(b8b-a8b))}. Elle a marché <b>${DU(b8b-a8b)}</b>.</p><p>3) ${moins(b8c,d8c,DU(d8c),H(b8c-d8c))}. Je dois partir à <b>${H(b8c-d8c)}</b>.</p><p>4) ${n8} × ${k8} = ${n8*k8} min = ${DU(n8*k8)} ; ${H(s8)} + ${DU(n8*k8)} = <b>${H(s8+n8*k8)}</b></p>`}
 ]};
 
 /* ---------- C. Tableau d'horaires ---------- */
@@ -63,7 +66,7 @@ const fast = tot.filter(x=>x===tot[best]).length===1;
 const secC = {t:"Lire un tableau d'horaires", e:[
   {n:"Exercice 9", t:"Les trains", w:"Sur ton cahier", h:`<div class="scroll"><table class="std"><thead><tr><th>Gare</th><th>Train A</th><th>Train B</th><th>Train C</th></tr></thead><tbody>${gares.map((g,i)=>`<tr><th>${g}</th>${tr.map(t=>`<td>${H(t[i])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
    <p>1) Combien de temps dure le trajet Nantes — Cholet avec le train A ? 2) Nantes — Clisson avec le train B ? 3) Je dois être à Cholet avant ${H(lim)}. Quels trains puis-je prendre ? 4) Le train C arrive à Cholet avec ${ret} min de retard. À quelle heure arrive-t-il ? 5) Quel est le train le plus rapide entre Nantes et Cholet ?</p>`,
-   c:`<p>1) ${H(tr[0][2])} − ${H(tr[0][0])} = <b>${DU(tot[0])}</b> · 2) ${H(tr[1][1])} − ${H(tr[1][0])} = <b>${DU(tr[1][1]-tr[1][0])}</b> · 3) <b>${(L=>L.length===0?"aucun train":L.length===1?"le train "+L[0]:"les trains "+L.slice(0,-1).join(", ")+" et "+L[L.length-1])(tr.map((t,i)=>t[2]<lim?"ABC"[i]:null).filter(Boolean))}</b> (arrivée avant ${H(lim)}) · 4) ${H(tr[2][2])} + ${ret} min = <b>${H(tr[2][2]+ret)}</b></p><p>5) Durées : A ${DU(tot[0])}, B ${DU(tot[1])}, C ${DU(tot[2])}. ${fast?`Le plus rapide est le <b>train ${"ABC"[best]}</b>.`:`Plusieurs trains mettent le même temps (${DU(tot[best])}).`}</p>`}
+   c:`<p>1) ${moins(tr[0][2],tr[0][0],H(tr[0][0]),DU(tot[0]))} : <b>${DU(tot[0])}</b> · 2) ${moins(tr[1][1],tr[1][0],H(tr[1][0]),DU(tr[1][1]-tr[1][0]))} : <b>${DU(tr[1][1]-tr[1][0])}</b> · 3) <b>${(L=>L.length===0?"aucun train":L.length===1?"le train "+L[0]:"les trains "+L.slice(0,-1).join(", ")+" et "+L[L.length-1])(tr.map((t,i)=>t[2]<lim?"ABC"[i]:null).filter(Boolean))}</b> (arrivée avant ${H(lim)}) · 4) ${H(tr[2][2])} + ${ret} min = <b>${H(tr[2][2]+ret)}</b></p><p>5) Durées : ${tr.map((t,i)=>`train ${"ABC"[i]} : ${moins(t[2],t[0],H(t[0]),DU(tot[i]))}`).join(" · ")}. ${fast?`Le plus rapide est le <b>train ${"ABC"[best]}</b>.`:`Plusieurs trains mettent le même temps (${DU(tot[best])}).`}</p>`}
 ]};
 return [secA, secB, secC];
 };

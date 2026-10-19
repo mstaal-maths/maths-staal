@@ -46,19 +46,44 @@ const step = (k)=>{ const A=[30,100], O=[150,70], A2=[270,40], X=(p,c)=>`<path d
   return s+"</svg>"; };
 const methode = cg([["1.",step(1),"Je place le point A et le centre O."],["2.",step(2),"Je trace la demi-droite [AO) : elle part de A et passe par O."],["3.",step(3),"Avec le compas, je reporte la longueur OA de l'autre côté de O : j'obtiens A'. O est le milieu de [AA']."]]);
 
-/* ---------- figures usuelles : axes et centre ---------- */
-const usu = (kind, show)=>{ let s=`<svg class="fig geo" viewBox="0 0 160 130" width="160" role="img" aria-label="${kind}">`; const ax=(x1,y1,x2,y2)=>show?`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="axe3"/>`:""; const ctr=(x,y)=>show?`<path d="M${x-5} ${y-5} L${x+5} ${y+5} M${x+5} ${y-5} L${x-5} ${y+5}" class="pt"/>`:"";
-  if(kind==="segment") s+=`<line x1="20" y1="65" x2="140" y2="65" class="axe2"/>`+ax(80,15,80,115)+ax(5,65,155,65)+ctr(80,65);
-  if(kind==="cercle") s+=`<circle cx="80" cy="65" r="50" class="orig" fill-opacity="0"/>`+ax(80,8,80,122)+ax(20,65,140,65)+ax(38,23,122,107)+ax(38,107,122,23)+ctr(80,65);
-  if(kind==="carré") s+=`<rect x="35" y="20" width="90" height="90" class="orig"/>`+ax(80,8,80,122)+ax(23,65,137,65)+ax(25,10,135,120)+ax(25,120,135,10)+ctr(80,65);
-  if(kind==="rectangle") s+=`<rect x="15" y="30" width="130" height="70" class="orig"/>`+ax(80,15,80,115)+ax(5,65,155,65)+ctr(80,65);
-  if(kind==="isocèle") s+=`<polygon points="80,10 45,118 115,118" class="orig"/>`+ax(80,2,80,126);
-  if(kind==="équilatéral") s+=`<polygon points="80,12 22,112 138,112" class="orig"/>`+ax(80,4,80,122)+ax(13,117,119,56)+ax(147,117,41,56);
-  return s+"</svg>"; };
-const USU = [["Le segment","segment","2 axes : la droite qui le porte et sa médiatrice. Centre : son milieu."],["Le cercle","cercle","Une infinité d'axes : tous les diamètres. Centre : son centre."],["Le carré","carré","4 axes : les 2 diagonales et les 2 médiatrices des côtés. Centre : le point d'intersection des diagonales."],["Le rectangle","rectangle","2 axes : les médiatrices des côtés. Centre : le point d'intersection des diagonales."],["Le triangle isocèle","isocèle","1 axe. Pas de centre de symétrie."],["Le triangle équilatéral","équilatéral","3 axes. Pas de centre de symétrie."]];
+/* ---------- axes et centres de symétrie : convention de M. Staal ----------
+   axes de symétrie en ROUGE (pointillés, prolongés au-delà de la figure), centres de symétrie en BLEU (croix).
+   Toutes les figures sont calculées : chaque axe passe exactement par les bons points. */
+const AXC = "#d62424", CTC = "#1d63d8";
+const LEG = `<p>Les axes de symétrie sont en <b style="color:${AXC}">rouge</b>. Les centres de symétrie sont en <b style="color:${CTC}">bleu</b>.</p>`;
+const f1 = v => (Math.round(v*10)/10);
+/* axe passant par p et q (deux points de la figure), prolongé de e px de chaque côté */
+const axeL = (p, q, e=12) => { const d=[q[0]-p[0],q[1]-p[1]], L=Math.hypot(d[0],d[1]), u=[d[0]/L,d[1]/L];
+  return `<line x1="${f1(p[0]-u[0]*e)}" y1="${f1(p[1]-u[1]*e)}" x2="${f1(q[0]+u[0]*e)}" y2="${f1(q[1]+u[1]*e)}" style="stroke:${AXC};stroke-width:2.5;stroke-dasharray:7 4;fill:none"/>`; };
+const ctrP = (x, y) => { const d=`M${x-6} ${y-6} L${x+6} ${y+6} M${x+6} ${y-6} L${x-6} ${y+6}`; return `<path d="${d}" style="stroke:var(--surface);stroke-width:6.5;stroke-linecap:round;fill:none"/><path d="${d}" style="stroke:${CTC};stroke-width:3;stroke-linecap:round;fill:none"/>`; };
 
-/* image + axes tracés par-dessus (coordonnées en %) */
-const over = (src, alt, w, lines=[], c=null) => `<div style="position:relative;display:inline-block;width:${w}px">${img(src,alt,w)}<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">${lines.map(([a,b,c2,d])=>`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}" stroke="var(--c)" stroke-width="2.5" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>`).join("")}${c?`<circle cx="${c[0]}" cy="${c[1]}" r="3.2" fill="var(--c)"/>`:""}</svg></div>`;
+/* ---------- figures usuelles : axes et centre ---------- */
+const usu = (kind, show)=>{ let s="", a="", cc="";
+  const ax=(p,q)=>{ if(show) a+=axeL(p,q); }, ctr=(x,y)=>{ if(show) cc+=ctrP(x,y); };
+  if(kind==="segment"){ s+=`<line x1="20" y1="65" x2="140" y2="65" class="axe2" style="stroke-width:3.5"/><path d="M20 59 V71 M140 59 V71" class="axe2"/>`; if(show) a+=axeL([20,65],[140,65],16); ax([80,30],[80,100]); ctr(80,65); }
+  if(kind==="cercle"){ const c=[80,65], r=48; s+=`<circle cx="80" cy="65" r="${r}" class="orig" fill-opacity="0"/>`;
+    [0,45,90,135].forEach(t=>{ const u=[Math.cos(t*Math.PI/180),Math.sin(t*Math.PI/180)]; ax([c[0]-r*u[0],c[1]-r*u[1]],[c[0]+r*u[0],c[1]+r*u[1]]); }); ctr(80,65); }
+  if(kind==="carré"){ s+=`<rect x="35" y="20" width="90" height="90" class="orig"/>`; ax([80,20],[80,110]); ax([35,65],[125,65]); ax([35,20],[125,110]); ax([35,110],[125,20]); ctr(80,65); }
+  if(kind==="rectangle"){ s+=`<rect x="15" y="30" width="130" height="70" class="orig"/>`; ax([80,30],[80,100]); ax([15,65],[145,65]); ctr(80,65); }
+  if(kind==="isocèle"){ s+=`<polygon points="80,12 45,118 115,118" class="orig"/>`; ax([80,12],[80,118]); }
+  if(kind==="équilatéral"){ const A=[80,112-58*Math.sqrt(3)], B=[22,112], C=[138,112], m=(P,Q)=>[(P[0]+Q[0])/2,(P[1]+Q[1])/2];
+    s+=`<polygon points="${[A,B,C].map(P=>f1(P[0])+","+f1(P[1])).join(" ")}" class="orig"/>`; ax(A,m(B,C)); ax(B,m(A,C)); ax(C,m(A,B)); }
+  /* les axes passent sous la figure (on voit ainsi le segment), le centre est dessiné par-dessus */
+  return `<svg class="fig geo" viewBox="0 0 160 130" width="160" role="img" aria-label="${kind}">${a}${s}${cc}</svg>`; };
+
+/* ---------- Activité 5 : lettres et symboles, dessinés exactement symétriques ---------- */
+const sym5 = (kind, show, w=74)=>{ let s="", a="";
+  const ax=(p,q)=>{ if(show) a+=axeL(p,q); }, ctr=(x,y)=>{ if(show) a+=ctrP(x,y); }, ink=`style="fill:var(--ink)"`;
+  if(kind==="E"){ s=`<polygon points="30,25 82,25 82,41 46,41 46,57 78,57 78,73 46,73 46,89 82,89 82,105 30,105" ${ink}/>`; ax([30,65],[82,65]); }
+  if(kind==="L"){ s=`<polygon points="35,20 51,20 51,94 80,94 80,110 35,110" ${ink}/>`; }
+  if(kind==="X"){ s=`<polygon points="30,25 42,25 80,105 68,105" ${ink}/><polygon points="68,25 80,25 42,105 30,105" ${ink}/>`; ax([55,25],[55,105]); ax([30,65],[80,65]); ctr(55,65); }
+  if(kind==="cœur"){ s=`<path d="M55 104 C40 90 22 74 22 53 C22 38 32 30 42 30 C49 30 53 35 55 40 C57 35 61 30 68 30 C78 30 88 38 88 53 C88 74 70 90 55 104 Z" class="orig"/>`; ax([55,40],[55,104]); }
+  if(kind==="carreau"){ s=`<path d="M55 20 Q62 52 85 65 Q62 78 55 110 Q48 78 25 65 Q48 52 55 20 Z" class="orig"/>`; ax([55,20],[55,110]); ax([25,65],[85,65]); ctr(55,65); }
+  return `<svg class="fig geo" viewBox="0 0 110 130" width="${w}" role="img" aria-label="${kind}">${s}${a}</svg>`; };
+/* exemples de l'activité : la lettre M et son axe (d), la lettre H et son centre O */
+const exM = `<svg class="fig geo" viewBox="0 0 88 100" width="72" role="img" aria-label="La lettre M et son axe de symétrie (d)"><polygon points="25,79 25,38.5 31.5,38.5 43.5,63 55.5,38.5 62,38.5 62,79 57.5,79 57.5,46 46.5,71 40.5,71 29.5,46 29.5,79" style="fill:var(--ink)"/>${axeL([43.5,38.5],[43.5,79],14)}<text x="57" y="22" style="font-size:14px;fill:${AXC};font-weight:600">(d)</text></svg>`;
+const exH = `<svg class="fig geo" viewBox="0 0 70 100" width="62" role="img" aria-label="La lettre H et son centre de symétrie O"><line x1="18" y1="22" x2="52" y2="78" style="stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3"/><line x1="52" y1="22" x2="18" y2="78" style="stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3"/><rect x="14" y="20" width="8" height="60" style="fill:var(--ink)"/><rect x="48" y="20" width="8" height="60" style="fill:var(--ink)"/><rect x="14" y="46" width="42" height="8" style="fill:var(--ink)"/>${ctrP(35,50)}<text x="35" y="41" text-anchor="middle" style="font-size:13px;fill:${CTC};font-weight:700">O</text></svg>`;
+const USU = [["Le segment","segment","2 axes : la droite qui le porte et sa médiatrice. Centre : son milieu."],["Le cercle","cercle","Une infinité d'axes : tous les diamètres. Centre : son centre."],["Le carré","carré","4 axes : les 2 diagonales et les 2 médiatrices des côtés. Centre : le point d'intersection des diagonales."],["Le rectangle","rectangle","2 axes : les médiatrices des côtés. Centre : le point d'intersection des diagonales."],["Le triangle isocèle","isocèle","1 axe. Pas de centre de symétrie."],["Le triangle équilatéral","équilatéral","3 axes. Pas de centre de symétrie."]];
 
 /* grilles pour le quiz */
 const qg = (pts, marks) => geo({pts, marks, grid:{c:8,r:6}, s:GR, w:300});
@@ -101,7 +126,7 @@ cours:[
 {t:"Centre de symétrie d'une figure", h:`
   <div class="retenir" data-l="Définition"><p>Un point est un centre de symétrie d'une figure si celle-ci se superpose à elle-même par un demi-tour autour de ce point.</p></div>
   <p>Exemples : le point A est un centre de symétrie de ces figures.</p>${co("p3-13","Trois logos qui ont un centre de symétrie A",330)}
-  <h4>Centre et axes de symétrie des figures usuelles, à connaître !</h4>
+  <h4>Centre et axes de symétrie des figures usuelles, à connaître !</h4>${LEG}
   ${cg(USU.map(([n,k,t])=>[n,usu(k,true),""]))}
   <div class="scroll"><table class="std"><thead><tr><th>Figure</th><th>Axes de symétrie</th><th>Centre de symétrie</th></tr></thead><tbody>
     <tr><td>Segment</td><td>2</td><td>son milieu</td></tr><tr><td>Cercle</td><td>une infinité (les diamètres)</td><td>son centre</td></tr>
@@ -120,7 +145,7 @@ exos:[
    c:`<p>1) Transformation 2 : la <b>symétrie centrale</b> (le demi-tour).</p>
    <p>2) Figure 1 : symétrie axiale · Figure 2 : symétrie centrale (demi-tour) · Figure 3 : symétrie axiale · Figure 4 : symétrie centrale (demi-tour) · Figure 5 : aucune des deux, la cocotte a seulement glissé : elle n'a été ni retournée, ni tournée · Figure 6 : symétrie centrale (demi-tour)</p>
    ${ex("act1c","Les axes et les centres tracés sur les six paires de cocottes",520)}
-   <p>Les axes de symétrie sont en pointillés rouges, les centres des demi-tours sont les croix rouges.</p>`},
+   <p>Les axes de symétrie sont en pointillés <b style="color:${AXC}">rouges</b>, les centres des demi-tours sont les croix <b style="color:${CTC}">bleues</b>.</p>`},
   {n:"Exercice 1", t:"Le symétrique par rapport à une droite", w:"Sur ta feuille", h:`<p>Construis le symétrique de chaque figure par rapport à la droite (d), avec la technique de ton choix.</p><div class="figs">${ex("p2-03","Triangle ABC et droite (d)",230)}${ex("p2-04","Quadrilatère ABCD et droite (d)",230)}</div>`,
    c:`<p>Pour chaque sommet, la droite (d) est la médiatrice du segment qui le relie à son image : je trace la perpendiculaire à (d) et je reporte la même distance de l'autre côté.</p>
    ${cg([["a)",sa(E1a,["A","B","C"],"d1","d2"),""],["b)",sa(E1b,["A","B","C","D"],"d1","d2"),""]])}`},
@@ -147,7 +172,7 @@ exos:[
    c:`${dt(F9,["A","B","C","D"],"O")}`}
  ],
  aide:{t:"Pour démarrer", w:"Sur ton cahier", h:`<p>Place deux points A et O. Construis A', symétrique de A par rapport à O, en suivant les 3 étapes du cours.</p>`, c:`${methode}`},
- defi:{t:"Retrouver le centre", w:"Sur ta feuille", h:`<p>Les deux triangles ci-dessous sont symétriques par rapport à un point C. Place le centre de symétrie C, en laissant les traits de construction visibles.</p>${co("p3-14","Deux triangles GHIJ et G'H'I'J' symétriques",460)}`,
+ defi:{t:"Retrouver le centre", w:"Sur ta feuille", h:`<p>Les deux figures ci-dessous sont symétriques par rapport à un point C. Place le centre de symétrie C, en laissant les traits de construction visibles.</p>${co("p3-14","Deux quadrilatères GHIJ et G'H'I'J' symétriques",460)}`,
   c:`Je relie G à G', puis H à H' (deux points symétriques). Le centre C est le point d'intersection de [GG'] et [HH'] : c'est le milieu de chacun de ces segments. Je peux vérifier avec [II'] ou [JJ'], qui doit aussi passer par C.`}
 },
 {t:"Le demi-tour sur quadrillage", e:[
@@ -194,11 +219,11 @@ exos:[
 },
 {t:"Repérer des symétriques dans une rosace ou un pavage", e:[
   {n:"Activité 4", t:"Centre de symétrie et rosace", w:"Sur ta feuille", h:`<p><b>Partie 1 : Placer un centre de symétrie.</b> Revenons à l'activité de départ. On sait que les deux cocottes sont symétriques par rapport à un point. Place précisément le centre de symétrie de ces figures, que tu nommeras C. Laisse les traits de construction visibles.</p>
-   ${cg([["Cocottes 2",ex("p4-11","Cocotte 2 et son image",300),""],["Cocottes 4",ex("p4-12","Cocotte 4 et son image",230),""]])}
+   <div class="figs">${lab("Cocottes 2",ex("p4-11","Cocotte 2 et son image",330))}${lab("Cocottes 4",ex("p4-12","Cocotte 4 et son image",260))}</div>
    <p><b>Partie 2 : Repérer des symétriques dans une rosace.</b> On considère l'hexagone régulier ABCDEF de centre O représenté ci-dessous. Complète les phrases suivantes :</p>${ex("p4-13","Hexagone régulier ABCDEF de centre O",220)}
    <p>a) Le symétrique du point A par rapport au point O est …</p><p>b) Le symétrique du point A par rapport à la droite (BO) est …</p><p>c) Le symétrique du triangle FOE par rapport au point O est …</p><p>d) Le symétrique du triangle FOE par rapport à la droite (FO) est …</p>`,
-   c:`<p><b>Partie 1.</b> Le centre de symétrie est le milieu de chaque segment qui relie un point et son symétrique. Je relie deux sommets de la cocotte blanche à leurs symétriques sur la cocotte grise : le centre C est le point d'intersection de ces deux segments (c'est aussi leur milieu).</p>
-   ${cg([["Cocottes 2",ex("p4-11c","Construction du centre C pour la cocotte 2",300),""],["Cocottes 4",ex("p4-12c","Construction du centre C pour la cocotte 4",230),""]])}
+   c:`<p><b>Partie 1.</b> Le centre de symétrie est le milieu de chaque segment qui relie un point et son symétrique.<br>Je relie deux sommets de la cocotte blanche à leurs symétriques sur la cocotte grise (traits gris).<br>Le centre C (en <b style="color:${CTC}">bleu</b>) est le point d'intersection de ces deux segments : c'est aussi leur milieu.</p>
+   <div class="figs">${lab("Cocottes 2",ex("p4-11c","Construction du centre C pour la cocotte 2",380))}${lab("Cocottes 4",ex("p4-12c","Construction du centre C pour la cocotte 4",300))}</div>
    <p><b>Partie 2.</b></p><p>a) Le point D (O est le milieu de [AD]).</p><p>b) Le point C (la droite (BO) passe aussi par E : c'est un axe de symétrie de l'hexagone).</p><p>c) Le triangle COB (F a pour symétrique C, O reste en O, E a pour symétrique B).</p><p>d) Le triangle FOA (F et O sont sur l'axe, E a pour symétrique A).</p>`},
   {n:"Exercice 4", t:"L'hexagone régulier", w:"Sur ton cahier", h:`${ex("p5-17","Hexagone régulier ABCDEF de centre O",260)}<p>Complète : a) Le symétrique du point E par rapport au point O est … b) Le symétrique du triangle COD par rapport au point O est … c) Le symétrique du point B par rapport à la droite (OC) est … d) Le symétrique du triangle ABO par rapport à la droite (AO) est … e) Le symétrique du point D par rapport à la droite (OB) est …</p>`,
    c:`a) B · b) le triangle FOA · c) D · d) le triangle AFO · e) F`},
@@ -211,11 +236,11 @@ exos:[
  defi:{t:"Deux transformations", w:"Sur ton cahier", h:`<p>Dans l'hexagone de l'exercice 4, le symétrique du point A par rapport à la droite (BO) est … ? Et le symétrique du triangle FOE par rapport à la droite (FO) ?</p>`, c:`Le symétrique de A par rapport à (BO) est C. Le symétrique du triangle FOE par rapport à (FO) est le triangle FOA.`}
 },
 {t:"Axes et centres de symétrie", e:[
-  {n:"Activité 5", t:"Axe de symétrie et centre de symétrie", w:"Sur ta feuille", h:`<div class="figs" style="align-items:center"><p style="flex:1;min-width:220px"><b>Propriété :</b> une droite (d) est un <b>axe de symétrie</b> d'une figure lorsque cette figure est son propre symétrique par rapport à cette droite (d).</p>${ex("p6-18","La lettre M et son axe de symétrie (d)",70)}</div><div class="figs" style="align-items:center"><p style="flex:1;min-width:220px"><b>Propriété :</b> un point O est le <b>centre de symétrie</b> d'une figure lorsque cette figure est son propre symétrique par rapport à ce point O.</p>${ex("p6-19","La lettre H et son centre de symétrie O",60)}</div><p><b>Exercice :</b> pour chaque lettre ou symbole, trace au crayon de bois ses axes de symétrie et son centre de symétrie, s'il en possède.</p>
-   <div class="figs" style="align-items:center">${ex("p6-33","Lettre E",70)}${ex("p6-34","Lettre L",60)}${ex("p6-35","Lettre X",62)}${ex("p6-31","Cœur",62)}${ex("p6-32","Carreau",66)}</div>`,
-   c:`${cg([["E",over("5c2ex/p6-33.png","Lettre E",80,[[0,50,100,50]]),"1 axe horizontal, pas de centre."],["L",over("5c2ex/p6-34.png","Lettre L",70),"Ni axe, ni centre."],["X",over("5c2ex/p6-35.png","Lettre X",72,[[50,0,50,100],[0,50,100,50]],[50,50]),"2 axes et un centre."],["Cœur",over("5c2ex/p6-31.png","Cœur",72,[[50,0,50,100]]),"1 axe vertical, pas de centre."],["Carreau",over("5c2ex/p6-32.png","Carreau",76,[[50,0,50,100],[0,50,100,50]],[50,50]),"2 axes et un centre."]])}`},
-  {n:"Exercice 6", t:"Figures usuelles", w:"Sur ta feuille", h:`<p>Trace le (ou les) axe(s) et le centre de symétrie de chaque figure, quand elle en possède.</p>${cg(USU.map(([n,k])=>[n,usu(k,false),""]))}`,
-   c:`${cg(USU.map(([n,k,t])=>[n,usu(k,true),t]))}`}
+  {n:"Activité 5", t:"Axe de symétrie et centre de symétrie", w:"Sur ta feuille", h:`<div class="figs" style="align-items:center"><p style="flex:1;min-width:220px"><b>Propriété :</b> une droite (d) est un <b>axe de symétrie</b> d'une figure lorsque cette figure est son propre symétrique par rapport à cette droite (d).</p>${exM}</div><div class="figs" style="align-items:center"><p style="flex:1;min-width:220px"><b>Propriété :</b> un point O est le <b>centre de symétrie</b> d'une figure lorsque cette figure est son propre symétrique par rapport à ce point O.</p>${exH}</div><p><b>Exercice :</b> pour chaque lettre ou symbole, trace les axes de symétrie <b style="color:${AXC}">en rouge</b> et marque le centre de symétrie <b style="color:${CTC}">en bleu</b>, s'il en possède.</p>
+   <div class="figs" style="align-items:center">${["E","L","X","cœur","carreau"].map(k=>sym5(k,false,70)).join("")}</div>`,
+   c:`${LEG}${cg([["E",sym5("E",true,90),"1 axe horizontal, pas de centre."],["L",sym5("L",true,90),"Ni axe, ni centre."],["X",sym5("X",true,90),"2 axes et un centre."],["Cœur",sym5("cœur",true,90),"1 axe vertical, pas de centre."],["Carreau",sym5("carreau",true,90),"2 axes et un centre."]])}`},
+  {n:"Exercice 6", t:"Figures usuelles", w:"Sur ta feuille", h:`<p>Pour chaque figure, trace les axes de symétrie <b style="color:${AXC}">en rouge</b> et marque le centre de symétrie <b style="color:${CTC}">en bleu</b>, quand elle en possède.</p>${cg(USU.map(([n,k])=>[n,usu(k,false),""]))}`,
+   c:`${LEG}${cg(USU.map(([n,k,t])=>[n,usu(k,true),t]))}`}
  ],
  aide:{t:"Pour démarrer", w:"Sur ton cahier", h:`<p>La lettre H a-t-elle un centre de symétrie ? Fais un demi-tour avec ta feuille pour vérifier.</p>`, c:`Oui : le centre de la lettre H. Après un demi-tour, la lettre se superpose à elle-même. Elle a aussi 2 axes.`},
  defi:{t:"Des lettres sans axe", w:"Sur ton cahier", h:`<p>Trouve deux lettres majuscules qui ont un centre de symétrie mais aucun axe de symétrie.</p>`, c:`Par exemple N, S et Z : elles se superposent à elles-mêmes après un demi-tour, mais aucun pliage ne marche.`}
@@ -228,7 +253,7 @@ exos:[
    <p><b>Question 4.</b> a) Si A est le milieu de [BC], alors B et C sont symétriques par rapport au point A. b) Si A et B sont symétriques par rapport à la droite (d), alors (d) est la médiatrice de [AB]. c) Si les segments [AB] et [CD] sont symétriques par rapport à une droite, alors les droites (AB) et (CD) sont parallèles.</p>
    <p><b>Question 5.</b> a) Si F' est le symétrique de F par rapport au point O, alors F est le symétrique de F' par rapport au point O. b) Si F' est le symétrique de F par rapport à la droite (d), alors F est le symétrique de F' par rapport à (d).</p>
    <p><b>Question 6.</b> ABC est un triangle équilatéral d'aire 10 cm². D et E sont les symétriques de B et A par rapport à C. F et G sont les symétriques de D et C par rapport à E. Quelle est l'aire du triangle FEG ? a) 90 cm² · b) 10 cm² · c) 30 cm² · d) 29,97 cm²</p>`,
-   c:`<p><b>Question 1 :</b> b et d. Dans la figure 1, les deux bonshommes regardent du même côté (ce n'est pas un pliage). Dans la figure 3, l'oiseau n'a tourné que d'un quart de tour.</p>
+   c:`<p><b>Question 1 :</b> b et d. Dans la figure 1, les deux bonshommes regardent du même côté : ce n'est pas un pliage. Dans la figure 3, un demi-tour autour de O ne superpose pas les deux oiseaux : O n'est pas un centre de symétrie.</p>
    <p><b>Question 2 :</b> a, b, c et d (toutes).</p>
    <p><b>Question 3 :</b> d seulement. Par une symétrie axiale, le symétrique d'une droite n'est pas forcément parallèle à cette droite.</p>
    <p><b>Question 4 :</b> a et b. La c est fausse : par une symétrie axiale, les droites ne sont pas forcément parallèles.</p>
@@ -308,5 +333,5 @@ quiz:[
 eval: window.EVAL5_1
 };
 /* figures réutilisées par les schémas de « Je m'entraîne » */
-window.FIG5 = {dt, sa, methode, usu, USU, step};
+window.FIG5 = {dt, sa, methode, usu, USU, step, AXC, CTC, LEG};
 })();

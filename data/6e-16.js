@@ -13,7 +13,12 @@ const simp = (a,b) => { const g=gcd(a,b); return [a/g, b/g]; };
 /* fraction simplifiée, écrite comme un entier si possible */
 const FS = (a,b) => { const [p,q]=simp(a,b); return q===1 ? String(p) : F(p,q); };
 const RS = (a,b) => { const [p,q]=simp(a,b); return q===1 ? String(p) : `${p}/${q}`; };
-window.FIG16 = {F, FS, RS, gcd, simp};
+/* calculs nommés (A, B…) : une étape par ligne, chaque ligne commence par « A = » */
+const NM = "ABCDEFGHIJ";
+const CHN = (steps, i) => `<p class="calc">${steps.map(t=>NM[i]+" = "+t).join("<br>")}</p>`;
+const CALCS = arr => `<div class="calcs">${arr.map((st,i)=>`<div>${CHN(st,i)}</div>`).join("")}</div>`;
+const ENO = arr => `<div class="calcs">${arr.map((e,i)=>`<span>${NM[i]} = ${e}</span>`).join("")}</div>`;
+window.FIG16 = {F, FS, RS, gcd, simp, NM, CHN, CALCS, ENO};
 
 /* deux pizzas partagées en 2 : on colorie 3/2 */
 const pizzas = (()=>{ let s=`<svg class="fig" viewBox="0 0 230 110" width="230" role="img" aria-label="Une pizza entière et une demi-pizza coloriées">`;
@@ -96,12 +101,12 @@ exos:[
    c:`<p>a) 12 ÷ 4 = 3 : un bond mesure <b>3 m</b>.</p><p>b) 1 ÷ 4 = 0,25 : un bond mesure <b>0,25 m</b>.</p><p>c) 1 ÷ 6 = 0,1666… ne s'arrête pas : un bond mesure <b>${F(1,6)} m</b> (6 × ${F(1,6)} = 1).</p><p>d) 4 ÷ 3 = 1,333… ne s'arrête pas : un bond mesure <b>${F(4,3)} m</b> (3 × ${F(4,3)} = 4).</p>`},
   {n:"Exercice 1", t:"Des égalités à compléter", w:"Sur ta feuille", h:`<p>Complète par une fraction, puis par un nombre décimal quand c'est possible.</p><p>a) 7 × …… = 35 · b) 10 × …… = 1 · c) 3 × …… = 4 · d) 24 × …… = 5 · e) 9 × …… = 21 · f) 4 × …… = 10</p>`,
    c:`<p>a) 7 × ${F(35,7)} = 35, et ${F(35,7)} = <b>5</b>.</p><p>b) 10 × ${F(1,10)} = 1, et ${F(1,10)} = <b>0,1</b>.</p><p>c) 3 × ${F(4,3)} = 4 : pas d'écriture décimale (4 ÷ 3 = 1,333…).</p><p>d) 24 × ${F(5,24)} = 5 : pas d'écriture décimale (5 ÷ 24 = 0,208 33…).</p><p>e) 9 × ${F(21,9)} = 21 : pas d'écriture décimale (21 ÷ 9 = 2,333…).</p><p>f) 4 × ${F(10,4)} = 10, et ${F(10,4)} = <b>2,5</b>.</p>`},
-  {n:"Exercice 2", t:"Calculer", w:"Sur ta feuille", h:`<p>a) 4 × ${F(3,4)} · b) ${F(2,5)} × 5 · c) 30 × ${F(29,30)} · d) ${F(12,17)} × 17</p>`,
-   c:`<p>a) <b>3</b> · b) <b>2</b> · c) <b>29</b> · d) <b>12</b> &nbsp;(b × ${F("a","b")} = a)</p>`},
+  {n:"Exercice 2", t:"Calculer", w:"Sur ta feuille", h:`<p>Calcule.</p>${ENO([`4 × ${F(3,4)}`, `${F(2,5)} × 5`, `30 × ${F(29,30)}`, `${F(12,17)} × 17`])}`,
+   c:`<p>On utilise la définition : b × ${F("a","b")} = a.</p>${CALCS([[`4 × ${F(3,4)}`,`<b>3</b>`],[`${F(2,5)} × 5`,`<b>2</b>`],[`30 × ${F(29,30)}`,`<b>29</b>`],[`${F(12,17)} × 17`,`<b>12</b>`]])}`},
   {n:"Exercice 3", t:"Compléter par un nombre décimal", w:"Sur ta feuille", h:`<p>a) 4 × …… = 7 · b) 5 × …… = 2 · c) 10 × …… = 7 · d) 5 × …… = 6</p>`,
    c:`<p>a) 7 ÷ 4 = <b>1,75</b> · b) 2 ÷ 5 = <b>0,4</b> · c) 7 ÷ 10 = <b>0,7</b> · d) 6 ÷ 5 = <b>1,2</b></p>`},
   {n:"Exercice 4", t:"Écriture décimale", w:"Sur ta feuille", h:`<p>Donne l'écriture décimale de chaque fraction. Si elle n'existe pas, donne une valeur approchée au centième.</p><p>a) ${F(7,2)} · b) ${F(3,4)} · c) ${F(9,5)} · d) ${F(1,8)} · e) ${F(2,3)} · f) ${F(10,7)}</p>`,
-   c:`<p>a) ${F(7,2)} = <b>3,5</b> · b) ${F(3,4)} = <b>0,75</b> · c) ${F(9,5)} = <b>1,8</b> · d) ${F(1,8)} = <b>0,125</b></p><p>e) ${F(2,3)} = 0,666… ≈ <b>0,67</b> · f) ${F(10,7)} = 1,428… ≈ <b>1,43</b></p>`},
+   c:`<p>a) ${F(7,2)} = 7 ÷ 2 = <b>3,5</b> · b) ${F(3,4)} = 3 ÷ 4 = <b>0,75</b> · c) ${F(9,5)} = 9 ÷ 5 = <b>1,8</b> · d) ${F(1,8)} = 1 ÷ 8 = <b>0,125</b></p><p>e) ${F(2,3)} = 2 ÷ 3 = 0,666… ≈ <b>0,67</b> · f) ${F(10,7)} = 10 ÷ 7 = 1,428… ≈ <b>1,43</b></p>`},
   {n:"Exercice 5", t:"Rappel — fractions égales", w:"Sur ta feuille", h:`<p>Complète.</p><p>${E5.map(([a,b,o,k,t],i)=>`${"abcdefghi"[i]}) ${F(a,b)} = ${o==="×"?F("……","……")+" = "+F("……",t):F("……","……")+" = "+F("……",t)}`).join(" &nbsp;·&nbsp; ")}</p>`,
    c:`<p>${E5.map(([a,b,o,k,t],i)=>`${"abcdefghi"[i]}) ${F(a,b)} = ${F(`${a} ${o} ${k}`,`${b} ${o} ${k}`)} = <b>${F(op(a,o,k),t)}</b>`).join(" &nbsp;·&nbsp; ")}</p>`}
  ]},
@@ -109,29 +114,54 @@ exos:[
   {n:"Activité 3", t:"Qui est le plus gourmand ?", w:"Sur ta feuille", h:`<p>Mélina et Thomas ont commandé deux pizzas de même taille. Mélina : « J'ai coupé ma pizza en 4 parts égales et j'en ai mangé une. » Thomas : « Moi, je l'ai coupée en 8 parts égales et j'en ai mangé deux : j'ai mangé plus que toi ! »</p><p>Es-tu d'accord avec Thomas ? Explique à l'aide de fractions.</p>`,
    c:`<p>Mélina a mangé ${F(1,4)} de sa pizza, Thomas ${F(2,8)} de la sienne. Or ${F(1,4)} = ${F("1 × 2","4 × 2")} = ${F(2,8)}.</p><p><b>Non, Thomas a tort :</b> ils ont mangé exactement la même quantité. Ses parts sont deux fois plus petites.</p>`},
   {n:"Exercice 6", t:"Comparer", w:"Sur ta feuille", h:`<p>Complète par &lt;, &gt; ou =.</p><p>a) ${F(3,7)} … ${F(5,7)} · b) ${F(11,9)} … ${F(8,9)} · c) ${F(2,3)} … ${F(7,12)} · d) ${F(3,5)} … ${F(7,10)} · e) ${F(4,6)} … ${F(2,3)} · f) ${F(5,4)} … ${F(9,8)} · g) ${F(3,5)} … ${F(3,8)} · h) ${F(7,10)} … ${F(69,100)} · i) ${F(2,3)} … ${F(3,4)} · j) ${F(4,5)} … ${F(5,6)}</p>`,
-   c:`<p>a) ${F(3,7)} <b>&lt;</b> ${F(5,7)} · b) ${F(11,9)} <b>&gt;</b> ${F(8,9)}</p><p>c) ${F(2,3)} = ${F(8,12)}, donc ${F(2,3)} <b>&gt;</b> ${F(7,12)} · d) ${F(3,5)} = ${F(6,10)}, donc ${F(3,5)} <b>&lt;</b> ${F(7,10)}</p><p>e) ${F(4,6)} = ${F(2,3)} : <b>=</b> · f) ${F(5,4)} = ${F(10,8)}, donc ${F(5,4)} <b>&gt;</b> ${F(9,8)}</p><p>g) même numérateur : ${F(3,5)} <b>&gt;</b> ${F(3,8)} · h) ${F(7,10)} = ${F(70,100)}, donc ${F(7,10)} <b>&gt;</b> ${F(69,100)}</p><p>i) ${F(2,3)} = ${F(8,12)} et ${F(3,4)} = ${F(9,12)} : ${F(2,3)} <b>&lt;</b> ${F(3,4)} · j) ${F(4,5)} = ${F(24,30)} et ${F(5,6)} = ${F(25,30)} : ${F(4,5)} <b>&lt;</b> ${F(5,6)}</p>`},
+   c:`<p>a) même dénominateur et 3 &lt; 5 : ${F(3,7)} <b>&lt;</b> ${F(5,7)} · b) même dénominateur et 11 &gt; 8 : ${F(11,9)} <b>&gt;</b> ${F(8,9)}</p><p>c) ${F(2,3)} = ${F(8,12)}, donc ${F(2,3)} <b>&gt;</b> ${F(7,12)} · d) ${F(3,5)} = ${F(6,10)}, donc ${F(3,5)} <b>&lt;</b> ${F(7,10)}</p><p>e) ${F(4,6)} = ${F(2,3)} : <b>=</b> · f) ${F(5,4)} = ${F(10,8)}, donc ${F(5,4)} <b>&gt;</b> ${F(9,8)}</p><p>g) même numérateur : ${F(3,5)} <b>&gt;</b> ${F(3,8)} · h) ${F(7,10)} = ${F(70,100)}, donc ${F(7,10)} <b>&gt;</b> ${F(69,100)}</p><p>i) ${F(2,3)} = ${F(8,12)} et ${F(3,4)} = ${F(9,12)} : ${F(2,3)} <b>&lt;</b> ${F(3,4)} · j) ${F(4,5)} = ${F(24,30)} et ${F(5,6)} = ${F(25,30)} : ${F(4,5)} <b>&lt;</b> ${F(5,6)}</p>`},
   {n:"Exercice 7", t:"Ranger", w:"Sur ta feuille", h:`<p>a) Range dans l'ordre croissant : ${F(5,9)} ; ${F(2,9)} ; ${F(8,9)} ; ${F(1,9)} ; ${F(9,9)}</p><p>b) Range dans l'ordre croissant : ${F(3,4)} ; ${F(5,8)} ; ${F(1,2)} ; ${F(7,8)}</p><p>c) Range dans l'ordre décroissant : ${F(2,3)} ; ${F(5,6)} ; ${F(7,12)} ; ${F(1,2)}</p>`,
-   c:`<p>a) ${F(1,9)} &lt; ${F(2,9)} &lt; ${F(5,9)} &lt; ${F(8,9)} &lt; ${F(9,9)}</p><p>b) Sur 8 : ${F(3,4)} = ${F(6,8)} et ${F(1,2)} = ${F(4,8)}. Donc ${F(1,2)} &lt; ${F(5,8)} &lt; ${F(3,4)} &lt; ${F(7,8)}.</p><p>c) Sur 12 : ${F(2,3)} = ${F(8,12)} ; ${F(5,6)} = ${F(10,12)} ; ${F(1,2)} = ${F(6,12)}. Donc ${F(5,6)} &gt; ${F(2,3)} &gt; ${F(7,12)} &gt; ${F(1,2)}.</p>`},
+   c:`<p>a) Même dénominateur : je range les numérateurs (1 &lt; 2 &lt; 5 &lt; 8 &lt; 9). ${F(1,9)} &lt; ${F(2,9)} &lt; ${F(5,9)} &lt; ${F(8,9)} &lt; ${F(9,9)}</p><p>b) Sur 8 : ${F(3,4)} = ${F(6,8)} et ${F(1,2)} = ${F(4,8)}. Donc ${F(1,2)} &lt; ${F(5,8)} &lt; ${F(3,4)} &lt; ${F(7,8)}.</p><p>c) Sur 12 : ${F(2,3)} = ${F(8,12)} ; ${F(5,6)} = ${F(10,12)} ; ${F(1,2)} = ${F(6,12)}. Donc ${F(5,6)} &gt; ${F(2,3)} &gt; ${F(7,12)} &gt; ${F(1,2)}.</p>`},
   {n:"Exercice 8", t:"Encadrer", w:"Sur ta feuille", h:`<p>1) Encadre chaque fraction par deux nombres entiers consécutifs : a) ${F(17,5)} · b) ${F(25,7)} · c) ${F(9,4)}</p><p>2) Encadre chaque fraction au dixième, à l'aide d'une division : a) ${F(17,6)} · b) ${F(5,3)} · c) ${F(22,7)}</p>`,
    c:`<p>1) a) 17 = 5 × 3 + 2 : <b>3 &lt; ${F(17,5)} &lt; 4</b> · b) 25 = 7 × 3 + 4 : <b>3 &lt; ${F(25,7)} &lt; 4</b> · c) 9 = 4 × 2 + 1 : <b>2 &lt; ${F(9,4)} &lt; 3</b></p><p>2) a) 17 ÷ 6 = 2,83… : <b>2,8 &lt; ${F(17,6)} &lt; 2,9</b> · b) 5 ÷ 3 = 1,66… : <b>1,6 &lt; ${F(5,3)} &lt; 1,7</b> · c) 22 ÷ 7 = 3,14… : <b>3,1 &lt; ${F(22,7)} &lt; 3,2</b></p>`},
   {n:"Exercice 9", t:"Les demi-pensionnaires", w:"Sur ta feuille", h:`<p>En 6e A, ${F(3,5)} des élèves sont demi-pensionnaires. En 6e B, ce sont ${F(7,10)} des élèves. Dans quelle classe la proportion de demi-pensionnaires est-elle la plus grande ? Justifie.</p>`,
    c:`<p>${F(3,5)} = ${F("3 × 2","5 × 2")} = ${F(6,10)}, et ${F(6,10)} &lt; ${F(7,10)}. La proportion est la plus grande en <b>6e B</b>.</p>`}
  ]},
 {t:"Additionner et soustraire", e:[
-  {n:"Exercice 10", t:"Même dénominateur", w:"Sur ta feuille", h:`<p>a) ${F(3,5)} + ${F(1,5)} · b) ${F(7,9)} − ${F(2,9)} · c) ${F(5,11)} + ${F(6,11)} · d) ${F(13,4)} − ${F(5,4)} · e) ${F(2,7)} + ${F(3,7)} + ${F(1,7)} · f) ${F(17,10)} − ${F(9,10)} − ${F(3,10)}</p>`,
-   c:`<p>a) <b>${F(4,5)}</b> · b) <b>${F(5,9)}</b> · c) ${F(11,11)} = <b>1</b> · d) ${F(8,4)} = <b>2</b> · e) <b>${F(6,7)}</b> · f) ${F(5,10)} = <b>${F(1,2)}</b></p>`},
-  {n:"Exercice 11", t:"Un dénominateur multiple de l'autre", w:"Sur ta feuille", h:`<p>Calcule en détaillant les étapes.</p><p>a) ${F(1,2)} + ${F(3,8)} · b) ${F(2,3)} + ${F(1,6)} · c) ${F(5,6)} − ${F(1,3)} · d) ${F(7,10)} − ${F(1,5)} · e) ${F(3,4)} + ${F(5,12)} · f) 2 + ${F(3,4)} · g) 3 − ${F(2,5)}</p>`,
-   c:`<p>a) ${F(4,8)} + ${F(3,8)} = <b>${F(7,8)}</b> · b) ${F(4,6)} + ${F(1,6)} = <b>${F(5,6)}</b> · c) ${F(5,6)} − ${F(2,6)} = ${F(3,6)} = <b>${F(1,2)}</b></p><p>d) ${F(7,10)} − ${F(2,10)} = ${F(5,10)} = <b>${F(1,2)}</b> · e) ${F(9,12)} + ${F(5,12)} = ${F(14,12)} = <b>${F(7,6)}</b></p><p>f) ${F(8,4)} + ${F(3,4)} = <b>${F(11,4)}</b> · g) ${F(15,5)} − ${F(2,5)} = <b>${F(13,5)}</b></p>`},
-  {n:"Exercice 12", t:"Dénominateurs quelconques", w:"Sur ta feuille", h:`<p>Trouve un dénominateur commun, puis calcule.</p><p>a) ${F(1,2)} + ${F(1,3)} · b) ${F(2,3)} + ${F(1,4)} · c) ${F(3,4)} − ${F(2,3)} · d) ${F(1,2)} − ${F(1,5)} · e) ${F(2,5)} + ${F(1,3)} · f) ${F(5,6)} − ${F(3,4)}</p>`,
-   c:`<p>a) ${F(3,6)} + ${F(2,6)} = <b>${F(5,6)}</b> · b) ${F(8,12)} + ${F(3,12)} = <b>${F(11,12)}</b> · c) ${F(9,12)} − ${F(8,12)} = <b>${F(1,12)}</b></p><p>d) ${F(5,10)} − ${F(2,10)} = <b>${F(3,10)}</b> · e) ${F(6,15)} + ${F(5,15)} = <b>${F(11,15)}</b> · f) ${F(10,12)} − ${F(9,12)} = <b>${F(1,12)}</b></p>`},
+  {n:"Exercice 10", t:"Même dénominateur", w:"Sur ta feuille", h:`<p>Calcule.</p>${ENO([`${F(3,5)} + ${F(1,5)}`, `${F(7,9)} − ${F(2,9)}`, `${F(5,11)} + ${F(6,11)}`, `${F(13,4)} − ${F(5,4)}`, `${F(2,7)} + ${F(3,7)} + ${F(1,7)}`, `${F(17,10)} − ${F(9,10)} − ${F(3,10)}`])}`,
+   c:`<p>Même dénominateur : j'additionne (ou je soustrais) les numérateurs et je garde le dénominateur.</p>${CALCS([
+     [`${F(3,5)} + ${F(1,5)}`, F("3 + 1",5), `<b>${F(4,5)}</b>`],
+     [`${F(7,9)} − ${F(2,9)}`, F("7 − 2",9), `<b>${F(5,9)}</b>`],
+     [`${F(5,11)} + ${F(6,11)}`, F("5 + 6",11), F(11,11), `<b>1</b>`],
+     [`${F(13,4)} − ${F(5,4)}`, F("13 − 5",4), F(8,4), `<b>2</b>`],
+     [`${F(2,7)} + ${F(3,7)} + ${F(1,7)}`, F("2 + 3 + 1",7), `<b>${F(6,7)}</b>`],
+     [`${F(17,10)} − ${F(9,10)} − ${F(3,10)}`, F("17 − 9 − 3",10), F(5,10), `<b>${F(1,2)}</b>`]])}`},
+  {n:"Exercice 11", t:"Un dénominateur multiple de l'autre", w:"Sur ta feuille", h:`<p>Calcule en détaillant les étapes.</p>${ENO([`${F(1,2)} + ${F(3,8)}`, `${F(2,3)} + ${F(1,6)}`, `${F(5,6)} − ${F(1,3)}`, `${F(7,10)} − ${F(1,5)}`, `${F(3,4)} + ${F(5,12)}`, `2 + ${F(3,4)}`, `3 − ${F(2,5)}`])}`,
+   c:`<p>J'écris d'abord les deux fractions avec le même dénominateur.</p>${CALCS([
+     [`${F(1,2)} + ${F(3,8)}`, `${F("1 × 4","2 × 4")} + ${F(3,8)}`, `${F(4,8)} + ${F(3,8)}`, `<b>${F(7,8)}</b>`],
+     [`${F(2,3)} + ${F(1,6)}`, `${F("2 × 2","3 × 2")} + ${F(1,6)}`, `${F(4,6)} + ${F(1,6)}`, `<b>${F(5,6)}</b>`],
+     [`${F(5,6)} − ${F(1,3)}`, `${F(5,6)} − ${F("1 × 2","3 × 2")}`, `${F(5,6)} − ${F(2,6)}`, F(3,6), `<b>${F(1,2)}</b>`],
+     [`${F(7,10)} − ${F(1,5)}`, `${F(7,10)} − ${F("1 × 2","5 × 2")}`, `${F(7,10)} − ${F(2,10)}`, F(5,10), `<b>${F(1,2)}</b>`],
+     [`${F(3,4)} + ${F(5,12)}`, `${F("3 × 3","4 × 3")} + ${F(5,12)}`, `${F(9,12)} + ${F(5,12)}`, F(14,12), `<b>${F(7,6)}</b>`],
+     [`2 + ${F(3,4)}`, `${F(8,4)} + ${F(3,4)}`, `<b>${F(11,4)}</b>`],
+     [`3 − ${F(2,5)}`, `${F(15,5)} − ${F(2,5)}`, `<b>${F(13,5)}</b>`]])}`},
+  {n:"Exercice 12", t:"Dénominateurs quelconques", w:"Sur ta feuille", h:`<p>Trouve un dénominateur commun, puis calcule.</p>${ENO([`${F(1,2)} + ${F(1,3)}`, `${F(2,3)} + ${F(1,4)}`, `${F(3,4)} − ${F(2,3)}`, `${F(1,2)} − ${F(1,5)}`, `${F(2,5)} + ${F(1,3)}`, `${F(5,6)} − ${F(3,4)}`])}`,
+   c:`<p>Dénominateurs communs : 6 pour A, 12 pour B, C et F, 10 pour D, 15 pour E.</p>${CALCS([
+     [`${F(1,2)} + ${F(1,3)}`, `${F("1 × 3","2 × 3")} + ${F("1 × 2","3 × 2")}`, `${F(3,6)} + ${F(2,6)}`, `<b>${F(5,6)}</b>`],
+     [`${F(2,3)} + ${F(1,4)}`, `${F("2 × 4","3 × 4")} + ${F("1 × 3","4 × 3")}`, `${F(8,12)} + ${F(3,12)}`, `<b>${F(11,12)}</b>`],
+     [`${F(3,4)} − ${F(2,3)}`, `${F("3 × 3","4 × 3")} − ${F("2 × 4","3 × 4")}`, `${F(9,12)} − ${F(8,12)}`, `<b>${F(1,12)}</b>`],
+     [`${F(1,2)} − ${F(1,5)}`, `${F("1 × 5","2 × 5")} − ${F("1 × 2","5 × 2")}`, `${F(5,10)} − ${F(2,10)}`, `<b>${F(3,10)}</b>`],
+     [`${F(2,5)} + ${F(1,3)}`, `${F("2 × 3","5 × 3")} + ${F("1 × 5","3 × 5")}`, `${F(6,15)} + ${F(5,15)}`, `<b>${F(11,15)}</b>`],
+     [`${F(5,6)} − ${F(3,4)}`, `${F("5 × 2","6 × 2")} − ${F("3 × 3","4 × 3")}`, `${F(10,12)} − ${F(9,12)}`, `<b>${F(1,12)}</b>`]])}`},
   {n:"Exercice 13", t:"Trouver l'erreur", w:"Sur ta feuille", h:`<p>Léo a écrit : ${F(2,5)} + ${F(1,5)} = ${F(3,10)}. Explique son erreur et corrige-la.</p>`,
    c:`<p>Léo a additionné les dénominateurs : c'est interdit. On additionne seulement les numérateurs et on garde le dénominateur : ${F(2,5)} + ${F(1,5)} = <b>${F(3,5)}</b>.</p><p><i>Vérification : 2 cinquièmes + 1 cinquième = 3 cinquièmes. Et ${F(3,10)} est même plus petit que ${F(2,5)} = ${F(4,10)} !</i></p>`},
   {n:"Exercice 14", t:"Des problèmes", w:"Sur ta feuille", h:`<p><b>Problème 1 :</b> Paul mange ${F(1,4)} d'un gâteau et Zoé en mange ${F(3,8)}. Quelle fraction du gâteau ont-ils mangée à eux deux ? Quelle fraction reste-t-il ?</p><p><b>Problème 2 :</b> un réservoir est rempli aux ${F(5,6)}. On utilise ${F(1,3)} du réservoir. Quelle fraction du réservoir est encore remplie ?</p>`,
    c:`<p><b>Problème 1 :</b> ${F(1,4)} + ${F(3,8)} = ${F(2,8)} + ${F(3,8)} = ${F(5,8)}. Ils ont mangé <b>${F(5,8)}</b> du gâteau. Il reste ${F(8,8)} − ${F(5,8)} = <b>${F(3,8)}</b>.</p><p><b>Problème 2 :</b> ${F(5,6)} − ${F(1,3)} = ${F(5,6)} − ${F(2,6)} = ${F(3,6)} = ${F(1,2)}. Le réservoir est encore rempli <b>à moitié</b> (${F(1,2)}).</p>`}
  ]},
 {t:"Multiplier une fraction par un entier", e:[
-  {n:"Exercice 15", t:"Calculer", w:"Sur ta feuille", h:`<p>a) 3 × ${F(2,7)} · b) 5 × ${F(4,9)} · c) ${F(3,10)} × 4 · d) 6 × ${F(5,6)} · e) 8 × ${F(3,4)} · f) 7 × ${F(1,7)}</p>`,
-   c:`<p>a) <b>${F(6,7)}</b> · b) <b>${F(20,9)}</b> · c) ${F(12,10)} = <b>${F(6,5)}</b> (= 1,2) · d) ${F(30,6)} = <b>5</b> · e) ${F(24,4)} = <b>6</b> · f) ${F(7,7)} = <b>1</b></p>`},
+  {n:"Exercice 15", t:"Calculer", w:"Sur ta feuille", h:`<p>Calcule.</p>${ENO([`3 × ${F(2,7)}`, `5 × ${F(4,9)}`, `${F(3,10)} × 4`, `6 × ${F(5,6)}`, `8 × ${F(3,4)}`, `7 × ${F(1,7)}`])}`,
+   c:`<p>Je multiplie le numérateur par le nombre entier et je garde le dénominateur.</p>${CALCS([
+     [`3 × ${F(2,7)}`, F("3 × 2",7), `<b>${F(6,7)}</b>`],
+     [`5 × ${F(4,9)}`, F("5 × 4",9), `<b>${F(20,9)}</b>`],
+     [`${F(3,10)} × 4`, F("3 × 4",10), F(12,10), `<b>${F(6,5)}</b> (= 1,2)`],
+     [`6 × ${F(5,6)}`, F("6 × 5",6), F(30,6), `<b>5</b>`],
+     [`8 × ${F(3,4)}`, F("8 × 3",4), F(24,4), `<b>6</b>`],
+     [`7 × ${F(1,7)}`, F("7 × 1",7), F(7,7), `<b>1</b>`]])}`},
   {n:"Exercice 16", t:"Les bouteilles", w:"Sur ta feuille", h:`<p>Une bouteille contient ${F(3,4)} L de jus. Quelle quantité de jus contiennent 6 bouteilles ? Donne le résultat sous forme de fraction, puis en écriture décimale.</p>`,
    c:`<p>6 × ${F(3,4)} = ${F(18,4)} = ${F(9,2)} = 4,5. Les 6 bouteilles contiennent <b>${F(18,4)} L, soit 4,5 L</b> de jus.</p>`}
  ]},
@@ -155,7 +185,7 @@ quiz:[
 {nom:"Comparer et ranger", schema:S_CMP, q:{
  1:[ {g:()=>{ const d=ri(5,12), a=ri(1,2*d), b=ri(1,2*d); if(a===b) return {q:`${F(a,d)} … ${F(b,d)}`, c:["=","&lt;","&gt;"], rep:"=", sx:S_CMP}; return {q:`Complète par &lt; ou &gt; : ${F(a,d)} … ${F(b,d)}`, c:["&lt;","&gt;"], rep:a<b?"&lt;":"&gt;", sx:S_CMP}; }} ],
  2:[ {g:()=>{ const d=pick([2,3,4,5]), k=pick([2,3,4]), a=ri(1,2*d), b=ri(1,2*d*k); const x=a*k; return {q:`Complète : ${F(a,d)} … ${F(b,d*k)}`, c:["&lt;","&gt;","="], rep:x<b?"&lt;":x>b?"&gt;":"=", ex:`${F(a,d)} = ${F(x,d*k)}.`, sx:S_CMP}; }} ],
- 3:[ {g:()=>{ const n=ri(2,9), d1=ri(3,9), d2=ri(3,9); if(d1===d2) return {q:`Complète : ${F(n,d1)} … ${F(n,d1)}`, c:["=","&lt;","&gt;"], rep:"=", sx:S_CMP}; return {q:`Même numérateur : ${F(n,d1)} … ${F(n,d2)}`, c:["&lt;","&gt;"], rep:d1>d2?"&lt;":"&gt;", ex:"Le plus grand dénominateur donne les plus petites parts.", sx:S_CMP}; }},
+ 3:[ {g:()=>{ const n=ri(2,9), d1=ri(3,9); let d2; do{ d2=ri(3,9); }while(d2===d1); return {q:`Même numérateur : ${F(n,d1)} … ${F(n,d2)}`, c:["&lt;","&gt;"], rep:d1>d2?"&lt;":"&gt;", ex:"Le plus grand dénominateur donne les plus petites parts.", sx:S_CMP}; }},
      {g:()=>{ const b=ri(3,9); let a; do{ a=ri(b+1,6*b); }while(a%b===0); const q=Math.floor(a/b); return {q:`Encadre ${F(a,b)} par deux entiers consécutifs.`, c:shuf(uniq(`${q} et ${q+1}`,[`${q-1} et ${q}`,`${q+1} et ${q+2}`])), rep:`${q} et ${q+1}`, ex:`${a} = ${b} × ${q} + ${a-b*q}.`, sx:S_CMP}; }} ]
 }},
 {nom:"Additionner et soustraire", schema:S_ADD, q:{

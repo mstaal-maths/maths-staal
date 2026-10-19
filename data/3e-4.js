@@ -161,7 +161,7 @@ exos:[
    <p><b>Problème 2 :</b> dans l'exercice 4, la quille en bois a un volume environ égal à 706,9 cm³. Quel est son volume en dm³ ?</p>
    <p><b>Problème 3 :</b> ce verre peut contenir 20 cL d'eau. Avec une bouteille d'un litre, combien puis-je remplir de verres ?</p>${ex("verre.png","Un verre d'eau",60)}
    <p><b>Problème 4 :</b> une baignoire standard a les dimensions suivantes : L = 170 cm, ℓ = 80 cm et h = 55 cm. Son volume est égal à 748 000 cm³. Quelle quantité d'eau, en L, est nécessaire pour remplir totalement la baignoire ?</p>`,
-   c:`<p><b>Problème 1 :</b> 67 021 cm³ = <b>67,021 dm³</b> (on divise par 1 000).</p><p><b>Problème 2 :</b> 706,9 cm³ = <b>0,7069 dm³</b>.</p><p><b>Problème 3 :</b> 1 L = 100 cL et 100 ÷ 20 = 5 : je peux remplir <b>5 verres</b>.</p><p><b>Problème 4 :</b> 748 000 cm³ = 748 dm³ = <b>748 L</b>.</p>`}
+   c:`<p><b>Problème 1 :</b> 1 dm³ = 1 000 cm³, donc 67 021 ÷ 1 000 = 67,021 : 67 021 cm³ = <b>67,021 dm³</b>.</p><p><b>Problème 2 :</b> 1 dm³ = 1 000 cm³, donc 706,9 ÷ 1 000 = 0,706 9 : 706,9 cm³ = <b>0,706 9 dm³</b>.</p><p><b>Problème 3 :</b> 1 L = 100 cL et 100 ÷ 20 = 5 : je peux remplir <b>5 verres</b>.</p><p><b>Problème 4 :</b> 748 000 ÷ 1 000 = 748, donc 748 000 cm³ = 748 dm³. Et 1 dm³ = 1 L : 748 dm³ = <b>748 L</b>.</p>`}
  ]},
 {t:"Problèmes", e:[
   {n:"Exercice 10", t:"Volume de glace dans un cornet", w:"Sur ton cahier", h:`${ex("cornet.png","Cornet de glace : un cône de sommet B surmonté d'une demi-boule de centre A",110)}<p>Un cornet de glace est composé d'un cône surmonté d'une demi-boule.</p><p>Sur le dessin, on donne : AB = 13 cm ; AC = 2,5 cm.</p><p>On suppose que le cône est entièrement rempli de glace.</p><p>Quelle est la quantité de glace dans ce cornet, en cL ? (Arrondi à l'unité.)</p>`,
@@ -227,9 +227,9 @@ comp:[
 ],
 exos:[
 {t:"Deux volumes", p:4, h:`<p>Donne la valeur exacte, puis l'arrondi au dixième de cm³.</p><div class="figs">${fig("a) Boule de rayon 4 cm",bouleSVG("4 cm"))}${fig("b) Cône de rayon 3 cm et de hauteur 8 cm",coneSVG("3 cm","8 cm"))}</div>`,
- c:`<p><b>a)</b> V = {4/3} × π × 4³ = {256/3}π ≈ 268,1 cm³. <i>(2 points)</i></p><p><b>b)</b> V = {π × 3² × 8/3} = {72π/3} = 24π ≈ 75,4 cm³. <i>(2 points)</i></p>`},
+ c:`<p><b>a)</b> V = {4/3} × π × 4³ = {4/3} × π × 64 = {256/3}π ≈ 268,1 cm³. <i>(2 points)</i></p><p><b>b)</b> V = {π × 3² × 8/3} = {72π/3} = 24π ≈ 75,4 cm³. <i>(2 points)</i></p>`},
 {t:"Conversions", p:4, h:`<p>Complète.</p><p>a) 2 500 cm³ = …… dm³ = …… L</p><p>b) 0,75 m³ = …… L</p><p>c) 45 cL = …… cm³</p><p>d) 3,2 hL = …… m³</p>`,
- c:`<p>a) 2 500 cm³ = 2,5 dm³ = 2,5 L · b) 0,75 m³ = 750 dm³ = 750 L · c) 45 cL = 450 mL = 450 cm³ · d) 3,2 hL = 320 L = 0,32 m³</p><p><i>1 point par conversion.</i></p>`},
+ c:`<p>a) 1 dm³ = 1 000 cm³ : 2 500 ÷ 1 000 = 2,5. Donc 2 500 cm³ = 2,5 dm³ = 2,5 L (1 L = 1 dm³).</p><p>b) 1 m³ = 1 000 dm³ : 0,75 × 1 000 = 750. Donc 0,75 m³ = 750 dm³ = 750 L.</p><p>c) 1 cL = 10 mL : 45 × 10 = 450. Donc 45 cL = 450 mL = 450 cm³ (1 mL = 1 cm³).</p><p>d) 1 hL = 100 L : 3,2 × 100 = 320. Donc 3,2 hL = 320 L = 320 dm³, et 320 ÷ 1 000 = 0,32 : 3,2 hL = 0,32 m³.</p><p><i>1 point par conversion.</i></p>`},
 {t:"La gélule", p:5, h:`<p>Une gélule de médicament est formée d'un cylindre de longueur 12 mm et de rayon 3 mm, terminé à chaque bout par une demi-boule de rayon 3 mm.</p>
   ${svgW(350,125,`<path d="M80 20 A40 40 0 0 0 80 100" style="fill:none;stroke:var(--ink);stroke-width:2"/><path d="M240 20 A40 40 0 0 1 240 100" style="fill:none;stroke:var(--ink);stroke-width:2"/>${LN(80,20,240,20)}${LN(80,100,240,100)}${LN(80,20,80,100,1)}${LN(240,20,240,100,1)}${LN(240,60,280,60,0,RED)}<text x="288" y="65" style="font-size:15px;font-weight:700;fill:${RED}">3 mm</text>${T(160,118,"12 mm")}`,"Gélule : cylindre de 12 mm et deux demi-boules de rayon 3 mm")}
   <p><b>1)</b> Calcule la valeur exacte du volume du cylindre.</p><p><b>2)</b> Explique pourquoi les deux demi-boules forment une boule, puis calcule la valeur exacte de son volume.</p><p><b>3)</b> Déduis-en la valeur exacte du volume de la gélule, puis son arrondi au mm³.</p><p><b>4)</b> Convertis ce volume en cm³.</p>`,

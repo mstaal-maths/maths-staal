@@ -293,11 +293,11 @@ exos:[
 {t:"L'aire d'un triangle", e:[
   {n:"Exercice 17", t:"Calculer des aires", w:"Sur ta feuille", h:`<p>Calcule l'aire de chaque triangle (figures non à l'échelle). Écris le calcul.</p><p><b>Attention :</b> une donnée peut être inutile !</p>
    <div class="figs">${fig("Triangle ① : Aire = ……………",ex("e17a","Triangle 1",270))}${fig("Triangle ② : Aire = ……………",ex("e17b","Triangle 2",270))}${fig("Triangle ③ : Aire = ……………",ex("e17c","Triangle 3",270))}${fig("Triangle ④ : Aire = ……………",ex("e17d","Triangle 4",270))}</div>`,
-   c:`<p><b>①</b> 8 × 5 ÷ 2 = <b>20 cm²</b></p><p><b>②</b> Les côtés de l'angle droit sont base et hauteur : 9 × 6 ÷ 2 = <b>27 cm²</b></p><p><b>③</b> La hauteur est à l'extérieur : 7 × 4 ÷ 2 = <b>14 cm²</b></p><p><b>④</b> 8 × 3 ÷ 2 = <b>12 cm²</b> (la longueur 5 cm ne sert pas).</p>`},
+   c:`<p>Aire = base × hauteur ÷ 2, avec la hauteur perpendiculaire à la base.</p><p><b>①</b> Base 8 cm, hauteur 5 cm : 8 × 5 ÷ 2 = 40 ÷ 2 = <b>20 cm²</b></p><p><b>②</b> Les côtés de l'angle droit sont base et hauteur : 9 × 6 ÷ 2 = 54 ÷ 2 = <b>27 cm²</b></p><p><b>③</b> La hauteur est à l'extérieur : 7 × 4 ÷ 2 = 28 ÷ 2 = <b>14 cm²</b></p><p><b>④</b> Base 8 cm, hauteur 3 cm : 8 × 3 ÷ 2 = 24 ÷ 2 = <b>12 cm²</b> (la longueur 5 cm ne sert pas).</p>`},
   {n:"Exercice 18", t:"Retrouver une longueur", w:"Sur ta feuille", h:`<p><b>Rappel :</b> Aire = base × hauteur ÷ 2, donc base × hauteur = Aire × 2.</p><p>Calcule la longueur demandée.</p>
    <p><b>a)</b> Un triangle a pour aire 24 cm² et pour base 8 cm. Calcule la hauteur correspondante.</p><p><b>b)</b> Un triangle a pour aire 18 cm² et pour hauteur 4 cm. Calcule la base correspondante.</p><p><b>c)</b> Un triangle a pour aire 7,5 cm² et pour base 5 cm. Calcule la hauteur correspondante.</p>`,
    c:`<p><b>a)</b> hauteur = 24 × 2 ÷ 8 = 48 ÷ 8 = <b>6 cm</b></p><p><b>b)</b> base = 18 × 2 ÷ 4 = 36 ÷ 4 = <b>9 cm</b></p><p><b>c)</b> hauteur = 7,5 × 2 ÷ 5 = 15 ÷ 5 = <b>3 cm</b></p>`},
-  {n:"Exercice 19", t:"Parallélogramme et triangle", w:"Sur ta feuille", h:`<p>ABCD est un parallélogramme : AB // DC et AD // BC.</p><p>On donne AB = 9 cm et la hauteur issue de D mesure 4 cm.</p>${ex("e19","Parallélogramme ABCD",300)}
+  {n:"Exercice 19", t:"Parallélogramme et triangle", w:"Sur ta feuille", h:`<p>ABCD est un parallélogramme : (AB) // (DC) et (AD) // (BC).</p><p>On donne AB = 9 cm et la hauteur issue de D mesure 4 cm.</p>${ex("e19","Parallélogramme ABCD",300)}
    <p><b>a)</b> Calcule l'aire du parallélogramme ABCD.</p><p><b>b)</b> Trace la diagonale [AC]. Quelle est l'aire du triangle ABC ? Explique.</p>`,
    c:`<p><b>a)</b> Aire(ABCD) = base × hauteur = 9 × 4 = <b>36 cm²</b>.</p><p><b>b)</b> La diagonale [AC] partage le parallélogramme en deux triangles de même aire : Aire(ABC) = 36 ÷ 2 = <b>18 cm²</b>.</p><p>Vérification : 9 × 4 ÷ 2 = 18.</p>`}
  ]},
@@ -310,7 +310,7 @@ exos:[
    c:`${cr("e20","Triangle EFG, son cercle circonscrit, la hauteur [FH] et la médiane [FI]",300)}
    <p><b>1)</b> L'hypoténuse est le côté opposé à l'angle droit : <b>[EG]</b> (le plus long côté). À l'équerre, on vérifie que l'angle ${ang("EFG")} est droit : EFG est rectangle en F.</p>
    <p><b>2)</b> EFG est rectangle en F, donc son cercle circonscrit a pour diamètre l'hypoténuse [EG] : son centre est le milieu I de [EG]. Rayon : 10 ÷ 2 = <b>5 cm</b>.</p>
-   <p><b>3)</b> Aire(EFG) = EF × FG ÷ 2 = 6 × 8 ÷ 2 = <b>24 cm²</b>. Avec la base [EG] : 10 × FH ÷ 2 = 24, donc FH = 24 × 2 ÷ 10 = <b>4,8 cm</b>.</p>
+   <p><b>3)</b> Aire(EFG) = EF × FG ÷ 2 = 6 × 8 ÷ 2 = <b>24 cm²</b>. Avec la base [EG] : 10 × FH ÷ 2 = 24, donc FH = 24 × 2 ÷ 10 = 48 ÷ 10 = <b>4,8 cm</b>.</p>
    <p><b>4)</b> I est le centre du cercle et F est sur le cercle : FI = 5 cm, c'est le rayon (la médiane issue de F mesure la moitié de l'hypoténuse). Aire(EFI) = 24 ÷ 2 = <b>12 cm²</b> (une médiane partage le triangle en deux triangles de même aire).</p>`}
  ]}
 ],

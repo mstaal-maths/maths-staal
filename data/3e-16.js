@@ -44,10 +44,9 @@ const fSol=f=>[-f.b,f.a];
 const same=(f,g)=>f.a*g.b===f.b*g.a;
 /* résolution complète d'une équation produit nul ; k = facteur numérique éventuel, sqr = (f)² */
 function pnul(fA,fB,o={}){ let h="";
-  if(o.k) h+=`<p>${o.k} ≠ 0, donc l'un des deux autres facteurs est nul.</p>`;
-  if(o.sqr){ h+=`<p>${fp(fA)}<sup>2</sup> = ${fp(fA)} × ${fp(fA)} = 0 est une équation « produit nul » : donc ${fs(fA)} = 0.</p>`+calc(fLines(fA));
+  if(o.sqr){ h+=`<p>${fp(fA)}<sup>2</sup> = 0 s'écrit ${fp(fA)} × ${fp(fA)} = 0.</p><p>C'est une équation « produit nul » : donc ${fs(fA)} = 0.</p>`+calc(fLines(fA));
     return h+`<p>La solution de l'équation est <b>${SV(...fSol(fA))}</b>.</p>`; }
-  h+=`<p>Un produit est nul si l'un de ses facteurs est nul.</p><p><b>Soit</b></p>${calc(fLines(fA))}<p><b>soit</b></p>${calc(fLines(fB))}`;
+  h+=`<p>Un produit est nul si l'un de ses facteurs est nul.</p>${o.k?`<p>Ici, ${o.k} ≠ 0 : c'est donc l'un des deux autres facteurs qui est nul.</p>`:""}<p><b>Soit</b></p>${calc(fLines(fA))}<p><b>soit</b></p>${calc(fLines(fB))}`;
   return h+`<p>Les solutions de l'équation sont <b>${SV(...fSol(fA))}</b> et <b>${SV(...fSol(fB))}</b>.</p>`; }
 /* x² = a */
 const isSq=n=>Number.isInteger(Math.sqrt(n));

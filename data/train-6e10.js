@@ -50,9 +50,9 @@ const e9 = distinct(6, ()=>{ const k=pick([0,1]), n=ri(2,999), p=ri(1,3); return
 const env=pick([100,1000]), menv=ri(100,999), fac=ri(1001,9999);
 const secB = {t:"Diviser par 10, 100, 1 000", e:[
   {n:"Exercice 8", t:"Calcul mental", w:"Sur ton cahier", h:`<p>${items(e8.map(([n,k,p])=>`${D(n,k)} ÷ ${P10[p-1]}`),"  ·  ",true)}</p>`,
-   c:items(e8.map(([n,k,p])=>`${D(n,k)} ÷ ${P10[p-1]} = <b>${D(n,k+p)}</b>`),"  ·  ",true)},
+   c:items(e8.map(([n,k,p])=>`${D(n,k)} ÷ ${P10[p-1]} = <b>${D(n,k+p)}</b> (${p} rang${p>1?"s":""} vers la gauche)`),"  ·  ",true)},
   {n:"Exercice 9", t:"Les nombres manquants", w:"Sur ton cahier", h:`<p>${items(e9.map(([n,k,p,t])=>t==="a"?`${D(n,k)} ÷ …… = ${D(n,k+p)}`:`…… ÷ ${P10[p-1]} = ${D(n,k+p)}`),"  ·  ",true)}</p>`,
-   c:items(e9.map(([n,k,p,t])=>t==="a"?`${D(n,k)} ÷ <b>${P10[p-1]}</b> = ${D(n,k+p)}`:`<b>${D(n,k)}</b> ÷ ${P10[p-1]} = ${D(n,k+p)}`),"  ·  ",true)},
+   c:items(e9.map(([n,k,p,t])=>t==="a"?`${D(n,k)} ÷ <b>${P10[p-1]}</b> = ${D(n,k+p)} (la virgule s'est déplacée de ${p} rang${p>1?"s":""} vers la gauche)`:`<b>${D(n,k)}</b> ÷ ${P10[p-1]} = ${D(n,k+p)} (opération inverse : ${D(n,k+p)} × ${P10[p-1]} = ${D(n,k)})`),"  ·  ",true)},
   {n:"Exercice 10", t:"Petits problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un paquet de ${sp(env)} enveloppes identiques pèse ${menv} g. Quelle est la masse d'une enveloppe ?</p><p><b>Problème 2 :</b> dix amis se partagent une facture de ${M(fac*10)} €. Combien paie chacun ?</p>`,
    c:`<p><b>Problème 1 :</b> ${menv} ÷ ${sp(env)} = ${D(menv,env===100?2:3)}. Une enveloppe pèse <b>${D(menv,env===100?2:3)} g</b>.</p><p><b>Problème 2 :</b> ${M(fac*10)} ÷ 10 = ${D(fac,2)}. Chacun paie <b>${M(fac)} €</b>.</p>`}
  ]};

@@ -15,7 +15,7 @@ function convList(units,n){
   return distinct(n, ()=>{ for(let g=0;g<300;g++){ const [a,b]=shuf(units).slice(0,2), v=pick(VALS), r=conv(v,a,b); if(PW[a]===PW[b]||Math.abs(PW[a]-PW[b])>6||r>=1e7||r<0.001) continue; return [v,a,b,r]; } return [2,"m³","dm³",2000]; }, x=>x[0]+x[1]+x[2]);
 }
 const P1=convList(["m³","dm³","cm³","mm³","dam³"],6), P2=convList(["m³","dm³","cm³","L","dL","cL","mL","hL"],6);
-const cl=(L,ans)=>ans ? `<p>${items(L.map(([v,a,b,r])=>`${N(v,6)} ${a} = <b>${N(r,6)}</b> ${b}`)," · ",true)}</p>` : L.map(([v,a,b],i)=>`<p>${TR.L[i]}) ${N(v,6)} ${a} = ………… ${b}</p>`).join("");
+const cl=(L,ans)=>ans ? `<p>${items(L.map(([v,a,b,r])=>`${N(v,6)} ${a} = <b>${N(r,6)}</b> ${b} (${PW[a]>PW[b]?"× ":"÷ "}${N(10**Math.abs(PW[a]-PW[b]))})`)," · ",true)}</p>` : L.map(([v,a,b],i)=>`<p>${TR.L[i]}) ${N(v,6)} ${a} = ………… ${b}</p>`).join("");
 
 /* ---------- Activité 1 : poubelle ---------- */
 const A1=(()=>{ const h=ri(40,70), d=pick([20,22,24,26,28,30,32,34]), r=d/2, V=PI*r*r*h, L=V/1000, near=Math.max(10,Math.round(L/5)*5);

@@ -205,13 +205,13 @@ exos:[
    <p><b>Problème 5 :</b> pendant les soldes, un manteau est passé de 64 € à 48 €. Quel a été le pourcentage de remise ?</p>
    <p><b>Problème 6 :</b> un objet coûte 249,90 € après une hausse de 2 %. Quel était son prix avant la hausse ?</p>
    <p><b>Problème 7 :</b> un abonnement à 60 € augmente de 8 %. Quel est son nouveau montant ?</p>`,
-   c:`<p><b>1)</b> Coefficient 0,88. P<sub>initial</sub> × 0,88 = 66, donc P<sub>initial</sub> = 66 ÷ 0,88 = <b>75 €</b>.</p>
+   c:`<p><b>1)</b> {100/100} − {12/100} = {88/100} = 0,88.</p><p class="calc">P<sub>initial</sub> × 0,88 = 66<br>P<sub>initial</sub> = 66 ÷ 0,88 = 75</p><p>Le jeu coûtait <b>75 €</b> avant la remise.</p>
    <p><b>2)</b> k = 6 510 ÷ 6 200 = 1,05 = {100/100} + {5/100} : augmentation de <b>5 %</b>.</p>
    <p><b>3)</b> k = 126 ÷ 150 = 0,84 = {100/100} − {16/100} : diminution de <b>16 %</b>.</p>
-   <p><b>4)</b> Coefficient 1,30. P<sub>initial</sub> = 70,20 ÷ 1,30 = <b>54 €</b>.</p>
+   <p><b>4)</b> {100/100} + {30/100} = {130/100} = 1,30.</p><p class="calc">P<sub>initial</sub> × 1,30 = 70,20<br>P<sub>initial</sub> = 70,20 ÷ 1,30 = 54</p><p>L'objet coûtait <b>54 €</b> avant la hausse.</p>
    <p><b>5)</b> k = 48 ÷ 64 = 0,75 = {100/100} − {25/100} : remise de <b>25 %</b>.</p>
-   <p><b>6)</b> Coefficient 1,02. P<sub>initial</sub> = 249,90 ÷ 1,02 = <b>245 €</b>.</p>
-   <p><b>7)</b> 1,08 × 60 = <b>64,80 €</b>.</p>`}
+   <p><b>6)</b> {100/100} + {2/100} = {102/100} = 1,02.</p><p class="calc">P<sub>initial</sub> × 1,02 = 249,90<br>P<sub>initial</sub> = 249,90 ÷ 1,02 = 245</p><p>L'objet coûtait <b>245 €</b> avant la hausse.</p>
+   <p><b>7)</b> {100/100} + {8/100} = {108/100} = 1,08.</p><p class="calc">1,08 × 60 = 64,80</p><p>Le nouveau montant est de <b>64,80 €</b>.</p>`}
  ]}
 ],
 
@@ -276,7 +276,7 @@ exos:[
 {t:"Calculer une valeur finale", p:4, h:`<p><b>1)</b> Calcule 35 % de 260 €.</p><p><b>2)</b> Un vélo à 240 € augmente de 15 %. Quel est son nouveau prix ?</p><p><b>3)</b> Pendant les soldes, un téléviseur à 589 € baisse de 30 %. Quel est son prix soldé ?</p>`,
  c:`<p><b>1)</b> {35/100} × 260 = 0,35 × 260 = <b>91 €</b>. <i>(1 point)</i></p><p><b>2)</b> {100/100} + {15/100} = 1,15 et 1,15 × 240 = <b>276 €</b>. <i>(1,5 point : 0,5 pour le coefficient, 1 pour le calcul)</i></p><p><b>3)</b> {100/100} − {30/100} = 0,70 et 0,70 × 589 = <b>412,30 €</b>. <i>(1,5 point : 0,5 pour le coefficient, 1 pour le calcul)</i></p>`},
 {t:"Retrouver un prix initial", p:3, h:`<p><b>1)</b> Après une hausse de 4 %, un abonnement coûte 33,80 €. Quel était son prix avant la hausse ?</p><p><b>2)</b> Après une remise de 15 %, une veste coûte 59,50 €. Quel était son prix avant la remise ?</p>`,
- c:`<p><b>1)</b> Coefficient : 1,04. P<sub>initial</sub> × 1,04 = 33,80, donc P<sub>initial</sub> = 33,80 ÷ 1,04 = <b>32,50 €</b>. <i>(1,5 point)</i></p><p><b>2)</b> Coefficient : 0,85. P<sub>initial</sub> × 0,85 = 59,50, donc P<sub>initial</sub> = 59,50 ÷ 0,85 = <b>70 €</b>. <i>(1,5 point)</i></p>`},
+ c:`<p><b>1)</b> Coefficient : {100/100} + {4/100} = 1,04. P<sub>initial</sub> × 1,04 = 33,80, donc P<sub>initial</sub> = 33,80 ÷ 1,04 = <b>32,50 €</b>. <i>(1,5 point)</i></p><p><b>2)</b> Coefficient : {100/100} − {15/100} = 0,85. P<sub>initial</sub> × 0,85 = 59,50, donc P<sub>initial</sub> = 59,50 ÷ 0,85 = <b>70 €</b>. <i>(1,5 point)</i></p>`},
 {t:"Trouver un pourcentage d'évolution", p:3, h:`<p><b>1)</b> En un an, le nombre d'adhérents d'un club de judo est passé de 250 à 290. Quel est le pourcentage d'augmentation ?</p><p><b>2)</b> Une facture d'électricité est passée de 85 € à 74,80 €. Quel est le pourcentage de diminution ?</p>`,
  c:`<p><b>1)</b> 250 × k = 290, donc k = 290 ÷ 250 = 1,16 = {100/100} + {16/100} : augmentation de <b>16 %</b>. <i>(1,5 point)</i></p><p><b>2)</b> 85 × k = 74,80, donc k = 74,80 ÷ 85 = 0,88 = {100/100} − {12/100} : diminution de <b>12 %</b>. <i>(1,5 point)</i></p>`},
 {t:"Vrai ou faux ?", p:4, h:`<p>Pour chaque affirmation, dis si elle est vraie ou fausse. Justifie avec les coefficients multiplicateurs.</p><p><b>Affirmation 1 :</b> « Augmenter un prix de 20 % puis le baisser de 10 % revient à l'augmenter de 10 %. »</p><p><b>Affirmation 2 :</b> « Baisser un prix de 20 % puis l'augmenter de 25 % ramène au prix de départ. »</p>`,

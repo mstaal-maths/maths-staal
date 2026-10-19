@@ -2,7 +2,7 @@
    Pyramides, cercles et tableaux sont produits à partir des mêmes valeurs que les corrections. */
 TRAIN["4e-1"] = function(){
 const {ri, pick, shuf, distinct} = TR;
-const {F, S, P, cols, pyr, build, ADD, MUL, cercles, etiq, tabH} = window.REL4;
+const {F, S, P, Q, cols, pyr, build, ADD, MUL, cercles, etiq, tabH} = window.REL4;
 const nz=(a,b)=>{ let v; do{ v=ri(a,b); }while(!v); return v; };
 const L="abcdefghijklmno";
 const sum=a=>a.reduce((x,y)=>x+y,0);
@@ -79,7 +79,7 @@ const A13=distinct(6,()=>[nz(-15,15),nz(-15,15)],v=>v.join());
 const E14=(()=>{ const res=distinct(4,()=>nz(-9,9),x=>x); const forme=r=>{ const t=pick([0,1,2]); const b=ri(2,15);
     if(t===0) return `${F(r+b)} − ${P(b)}`.replace(/− \(\+(\d+)\)/,"− (+$1)");
     if(t===1){ const x=ri(-90,90)/10, y=r3(r-x); return `${P(x)} + ${P(y)}`; }
-    const x=ri(-90,90)/10, y=r3(x-r); return `${F(x)} − ${y<0?`(${F(y)})`:F(y)}`; };
+    const x=ri(-90,90)/10, y=r3(x-r); return `${F(x)} − ${y<0?`(${F(y)})`:F(y)}`+(y<0?`\u0001${F(x)} + ${F(-y)}`:""); };
   const et=shuf(res.flatMap(r=>{ let a,b; do{ a=forme(r); b=forme(r); }while(a===b); return [[a,r],[b,r]]; })); return {res, et}; })();
 
 /* ===== Exercice 15 : histoire de simplification ===== */
@@ -96,13 +96,14 @@ return [
   {n:"Exercice 1", t:"Les températures", w:"Sur ton cahier", h:`<p>Marie a relevé les températures tous les matins durant une semaine (en °C) :</p>${tabH(JOURS,[T1.map(F)])}<p>Range ces températures dans l'ordre croissant.</p>`,
    c:`<p class="calc">${T1s.map(F).join(" &lt; ")}</p><p>${T1s.map((v,i)=>{ const j=JOURS[T1.indexOf(v)]; return i? j.toLowerCase() : j; }).join(", ")}.</p>`},
   {n:"Exercice 2", t:"Calculer des sommes", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(A2.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)}`))}`,
-   c:cols(A2.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)} = ${P(a+b)}`))},
-  {n:"Exercice 3", t:"Additions de plus de deux nombres relatifs", w:"Sur ton cahier", h:`<p>Calcule en regroupant les nombres positifs, puis les nombres négatifs.</p><p>Pense à rayer les nombres opposés.</p><p class="calc">${A3.all.map(P).join(" + ")}</p>`,
-   c:`<p>${P(A3.k)} et ${P(-A3.k)} sont opposés : on les raye.</p><p class="calc">${A3.all.map(v=>Math.abs(v)===A3.k?`<s>${P(v)}</s>`:P(v)).join(" + ")}<br>= ${[...A3r.filter(x=>x>0),...A3r.filter(x=>x<0)].map(P).join(" + ")}<br>= ${[A3p,A3n].filter(x=>x).map(P).join(" + ")}<br>= <b>${P(A3p+A3n)}</b></p>`},
+   c:`<p><b>Même signe :</b> on garde le signe et on additionne les distances à zéro.</p>${cols(A2.slice(0,5).map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)} = ${P(a+b)}`))}
+   <p><b>Signes contraires :</b> on soustrait les distances à zéro et on prend le signe du nombre qui a la plus grande distance à zéro.</p>${cols(A2.slice(5).map(([a,b],i)=>`${L[i+5]}) ${P(a)} + ${P(b)} = ${P(a+b)}`))}`},
+  {n:"Exercice 3", t:"Additions de plus de deux nombres relatifs", w:"Sur ton cahier", h:`<p>Calcule en regroupant les nombres positifs, puis les nombres négatifs.</p><p>Pense à rayer les nombres opposés.</p><p class="calc">A = ${A3.all.map(P).join(" + ")}</p>`,
+   c:`<p>${P(A3.k)} et ${P(-A3.k)} sont opposés : on les raye.</p><p class="calc">A = ${A3.all.map(v=>Math.abs(v)===A3.k?`<s>${P(v)}</s>`:P(v)).join(" + ")}<br>A = ${[...A3r.filter(x=>x>0),...A3r.filter(x=>x<0)].map(P).join(" + ")}${A3r.length>2?`<br>A = ${[A3p,A3n].filter(x=>x).map(P).join(" + ")}`:""}<br>A = <b>${P(A3p+A3n)}</b></p>`},
   {n:"Exercice 4", t:"Jeu vidéo", w:"Sur ton cahier", h:`<p>Quatre copains jouent à un jeu vidéo.</p>${J4.map((v,i)=>`<p>${NOMS[i]} ${verbe(v[0],0)} et ${verbe(v[1],1)}.</p>`).join("")}<p><b>1)</b> Écris les quatre additions qui permettent de calculer le score de chacun.</p><p><b>2)</b> Qui a le meilleur score ?</p>`,
-   c:`<p class="calc">${J4.map((v,i)=>`${NOMS[i]} : ${P(v[0])} + ${P(v[1])} = ${P(t4[i])}`).join("<br>")}</p><p>C'est <b>${NOMS[w4]}</b> qui a le meilleur score (${F(t4[w4])} points).</p>`},
+   c:`<p class="calc">${J4.map((v,i)=>`${NOMS[i]} : ${P(v[0])} + ${P(v[1])} = ${P(t4[i])}`).join("<br>")}</p><p>C'est <b>${NOMS[w4]}</b> qui a le meilleur score (${F(t4[w4])} point${Math.abs(t4[w4])>1?"s":""}).</p>`},
   {n:"Exercice 5", t:"Les pyramides additives", w:"Sur ton cahier", h:`<p>Dans chaque brique, le nombre à inscrire est la <b>somme</b> des nombres des deux briques du dessous. Recopie et complète chaque pyramide.</p><div class="figs"><div><p><b>a.</b></p>${pyr(PA)}</div><div><p><b>b.</b></p>${pyr(PB,knownB)}</div></div>`,
-   c:`<p><b>a.</b></p>${pyr(PA,undefined,true)}<p><b>b.</b> On cherche le nombre qui manque dans chaque somme, en partant du haut : ${F(PB[2][0])} + … = ${F(PB[3][0])}, donc … = ${F(PB[2][1])}.</p>${pyr(PB,knownB,true)}`},
+   c:`<p><b>a.</b> ${PA.slice(1).flatMap((row,k)=>row.map((v,i)=>`${F(PA[k][i])} + ${Q(PA[k][i+1])} = ${F(v)}`)).join(" · ")}</p>${pyr(PA,undefined,true)}<p><b>b.</b> On cherche le nombre qui manque dans chaque somme, en partant du haut :</p><p>${[[2,0],[1,0],[1,1],[0,0],[0,1],[0,2]].map(([k,i])=>`${F(PB[k][i])} + … = ${F(PB[k+1][i])}, donc … = ${F(PB[k][i+1])}`).join(" · ")}</p>${pyr(PB,knownB,true)}`},
   {n:"Exercice 6", t:"Envisager tous les cas", w:"Sur ton cahier", h:`<p>Les signes des nombres ont été remplacés par ■. Retrouve les signes en envisageant tous les cas possibles.</p>${cols(E6.map(([x,y,m],i)=>`${L[i]}. ■${F(x)} + (■${F(y)}) = ■${F(m?x+y:Math.abs(x-y))}`))}`,
    c:E6.map(([x,y,m],i)=>{ const r=m?x+y:Math.abs(x-y); return m?`<p><b>${L[i]}.</b> ${F(x)} + ${F(y)} = ${F(r)} : même signe.</p><p class="calc">+${F(x)} + (+${F(y)}) = +${F(r)} &nbsp; ou &nbsp; −${F(x)} + (−${F(y)}) = −${F(r)}</p>`
       : `<p><b>${L[i]}.</b> ${F(Math.max(x,y))} − ${F(Math.min(x,y))} = ${F(r)} : signes contraires.</p><p class="calc">+${F(x)} + (−${F(y)}) = ${S(x-y)} &nbsp; ou &nbsp; −${F(x)} + (+${F(y)}) = ${S(y-x)}</p>`; }).join("")},
@@ -114,13 +115,13 @@ return [
   {n:"Exercice 8", t:"Entraînement aux soustractions", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(A8.map(([a,b],i)=>`${L[i]}) ${P(a)} − ${P(b)}`))}`,
    c:`<p>Soustraire un nombre, c'est ajouter son opposé.</p><p class="calc">${A8.map(([a,b],i)=>`${L[i]}) ${P(a)} − ${P(b)} = ${P(a)} + ${P(-b)} = ${F(a-b)}`).join("<br>")}</p>`},
   {n:"Exercice 9", t:"Les cercles", w:"Sur ton cahier", h:`<p>Un nombre écrit dans un cercle rouge <b>moins</b> le nombre écrit dans le cercle bleu diamétralement opposé doit donner ${F(C9.c)}.</p><p>Exemple : ${F(C9.vals[0])} − ${Q9(C9.vals[4])} = ${F(C9.c)}.</p><p>Trouve les nombres des cercles vides.</p>${cercles(C9.c,C9.vals,C9.known)}`,
-   c:`<p class="calc">Rouge en face de ${F(C9.vals[6])} : ${F(C9.vals[2])} − ${Q9(C9.vals[6])} = ${F(C9.c)}<br>Bleu en face de ${F(C9.vals[1])} : ${F(C9.vals[1])} − ${Q9(C9.vals[5])} = ${F(C9.c)}<br>Bleu en face de ${F(C9.vals[3])} : ${F(C9.vals[3])} − ${Q9(C9.vals[7])} = ${F(C9.c)}</p>${cercles(C9.c,C9.vals,C9.known,true)}`}
+   c:`<p class="calc">Cercle rouge en face de ${F(C9.vals[6])} : … − ${Q9(C9.vals[6])} = ${F(C9.c)}, donc … = ${F(C9.vals[2])} car ${F(C9.vals[2])} − ${Q9(C9.vals[6])} = ${F(C9.vals[2])} + ${Q9(-C9.vals[6])} = ${F(C9.c)}.<br>Cercle bleu en face de ${F(C9.vals[1])} : ${F(C9.vals[1])} − … = ${F(C9.c)}, donc … = ${F(C9.vals[5])} car ${F(C9.vals[1])} − ${Q9(C9.vals[5])} = ${F(C9.vals[1])} + ${Q9(-C9.vals[5])} = ${F(C9.c)}.<br>Cercle bleu en face de ${F(C9.vals[3])} : ${F(C9.vals[3])} − … = ${F(C9.c)}, donc … = ${F(C9.vals[7])} car ${F(C9.vals[3])} − ${Q9(C9.vals[7])} = ${F(C9.vals[3])} + ${Q9(-C9.vals[7])} = ${F(C9.c)}.</p>${cercles(C9.c,C9.vals,C9.known,true)}`}
  ]},
  {t:"La multiplication de deux nombres relatifs", e:[
   {n:"Activité 2", t:"Jeu du lancer de cerceaux", w:"Sur ton cahier", h:`<p>Cerceaux : marron +10 ; violet −8 ; jaune +7 ; vert +5 ; bleu clair −6 ; bleu foncé +3 ; rouge −12.</p><p>On fait la somme de tous les points pour avoir le score final.</p><p>Juliette a lancé <b>${nb(J1)} balles</b> : ${descr(J1)}.</p><p>Alexis a lancé <b>${nb(J2)} balles</b> : ${descr(J2)}.</p><p>Lequel des deux a gagné la partie ?</p>`,
    c:`<p>Juliette : ${calcJ(J1)}</p><p>Alexis : ${calcJ(J2)}</p><p>${J1.tot>J2.tot?`${F(J1.tot)} &gt; ${F(J2.tot)} : c'est <b>Juliette</b> qui a gagné.`:`${F(J2.tot)} &gt; ${F(J1.tot)} : c'est <b>Alexis</b> qui a gagné.`}</p>`},
   {n:"Exercice 10", t:"Les pyramides multiplicatives", w:"Sur ton cahier", h:`<p>Dans chaque brique, le nombre à inscrire est le <b>produit</b> des nombres des deux briques du dessous. Recopie et complète chaque pyramide.</p><div class="figs"><div><p><b>a.</b></p>${pyr(PM1)}</div><div><p><b>b.</b></p>${pyr(PM2)}</div></div>`,
-   c:`<p><b>a.</b> ${PM1[1].map((v,i)=>`${P(PM1[0][i])} × ${P(PM1[0][i+1])} = ${F(v)}`).join(" · ")} · ${P(PM1[1][0])} × ${P(PM1[1][1])} = ${F(PM1[2][0])}</p>${pyr(PM1,undefined,true)}<p><b>b.</b></p>${pyr(PM2,undefined,true)}`},
+   c:`<p><b>a.</b> ${PM1[1].map((v,i)=>`${P(PM1[0][i])} × ${P(PM1[0][i+1])} = ${F(v)}`).join(" · ")} · ${P(PM1[1][0])} × ${P(PM1[1][1])} = ${F(PM1[2][0])}</p>${pyr(PM1,undefined,true)}<p><b>b.</b> ${PM2.slice(1).flatMap((row,k)=>row.map((v,i)=>`${P(PM2[k][i])} × ${P(PM2[k][i+1])} = ${F(v)}`)).join(" · ")}</p>${pyr(PM2,undefined,true)}`},
   {n:"Exercice 11", t:"C'est toi le prof !", w:"Sur ton cahier", h:`<p>Lila obtient 1 point par bonne réponse, 0 point sans réponse et −0,5 point par réponse fausse. Voici sa copie :</p><div class="scroll"><table class="std"><tbody>${E11.map((x,i)=>`<tr><th>${L[i]}.</th><td>${x.t} = ${F(x.w)}</td></tr>`).join("")}</tbody></table></div><p><b>1)</b> Corrige sa copie.</p><p><b>2)</b> Calcule sa note.</p>`,
    c:`<p><b>1)</b> ${E11.map((x,i)=>`${L[i]}. ${x.ok?"juste":`faux : ${x.t} = ${F(x.v)}`}`).join(" · ")}</p><p><b>2)</b> ${nJ} bonne${nJ>1?"s":""} réponse${nJ>1?"s":""} et ${nF} réponse${nF>1?"s":""} fausse${nF>1?"s":""} : ${nJ} × 1 + ${nF} × (−0,5) = ${F(nJ)} + ${P(-nF*0.5)} = <b>${F(note)}</b> point${Math.abs(note)>1?"s":""} sur 8.</p>`}
  ]},
@@ -129,8 +130,8 @@ return [
    c:cols(A12.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)} = ${simpl([a,b])} = ${F(a+b)}`))},
   {n:"Exercice 13", t:"Déjà simplifiées", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(A13.map((v,i)=>`${L[i]}) ${simpl(v)}`))}`,
    c:cols(A13.map((v,i)=>`${L[i]}) ${simpl(v)} = ${F(v[0]+v[1])}`))},
-  {n:"Exercice 14", t:"Étiquettes égales", w:"Sur ton cahier", h:`<p>Regroupe les étiquettes qui ont le même résultat.</p>${etiq(E14.et.map(x=>x[0]))}`,
-   c:`<p class="calc">${E14.et.map(([t,r])=>`${t} = ${F(r)}`).join("<br>")}</p>${E14.res.map(r=>`<p>Égales à ${F(r)} : ${E14.et.filter(x=>x[1]===r).map(x=>x[0]).join(" et ")}.</p>`).join("")}`},
+  {n:"Exercice 14", t:"Étiquettes égales", w:"Sur ton cahier", h:`<p>Regroupe les étiquettes qui ont le même résultat.</p>${etiq(E14.et.map(x=>x[0].split("\u0001")[0]))}`,
+   c:`<p class="calc">${E14.et.map(([t,r])=>`${t.split("\u0001").join(" = ")} = ${F(r)}`).join("<br>")}</p>${E14.res.map(r=>`<p>Égales à ${F(r)} : ${E14.et.filter(x=>x[1]===r).map(x=>x[0].split("\u0001")[0]).join(" et ")}.</p>`).join("")}`},
   {n:"Exercice 15", t:"Histoire de simplification", w:"Sur ton cahier", h:`<p>Associe chaque calcul à son écriture simplifiée, puis effectue chaque calcul.</p>${tabH(["Calcul","Écriture simplifiée"],H15.calc.map((c,i)=>[`${L[i]}. ${c[0]}`,`(${i+1}) ${simpl(H15.calc[H15.order[i]][1])}`]))}`,
    c:`<p class="calc">${H15.calc.map((c,i)=>`${L[i]}. ${c[0]} = ${simpl(c[1])} (${H15.order.indexOf(i)+1}) = ${F(sum(c[1]))}`).join("<br>")}</p>`},
   {n:"Exercice 16", t:"L'ascenseur fou", w:"Sur ton cahier", h:`<p>Maïna est à l'étage ${E16.s}. Elle appuie sur le bouton RDC (rez-de-chaussée, étage 0).</p><p>L'ascenseur monte de ${E16.m[0]} étage${E16.m[0]>1?"s":""}, puis descend de ${-E16.m[1]} et encore de ${-E16.m[2]}, pour enfin monter de ${E16.m[3]}.</p><p>Maïna va-t-elle se retrouver au rez-de-chaussée ?</p>`,

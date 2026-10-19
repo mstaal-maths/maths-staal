@@ -60,8 +60,9 @@ return [
    <p><b>1)</b> ${an("DAB")} = ${t1}° et ${an("ABE")} = ${t1}° : ces angles alternes-internes sont <b>égaux</b>.</p>
    <p><b>2)</b> ${an("SAD")} = ${180-t1}° et ${an("ABF")} = ${180-t1}° : ces angles correspondants sont <b>égaux</b>.</p>`},
   {n:"Exercice 4", t:"Alternes-internes ou correspondants ?", w:"Sur ton cahier", h:`<p>Sur la figure, (d) // (d') et ${an("DAB")} = ${t4}°.</p>${parF(t4,[["DAB",OR,t4+"°"]],{w:440})}
-   <p>Pour chaque angle, dis s'il est alterne-interne ou correspondant à ${an("DAB")}, puis donne sa mesure :</p>${Q4.map(([n],i)=>`<p><b>${L[i]})</b> ${an(n)}</p>`).join("")}`,
-   c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>Position par rapport à ${an("DAB")}</th><th>Mesure</th></tr></thead><tbody>${Q4.map(([n,p,m])=>`<tr><td>${an(n)}</td><td>${p}</td><td>${m}°</td></tr>`).join("")}</tbody></table></div>`},
+   <p>Pour chaque angle, dis s'il est alterne-interne, correspondant ou opposé par le sommet à ${an("DAB")}, puis donne sa mesure :</p>${Q4.map(([n],i)=>`<p><b>${L[i]})</b> ${an(n)}</p>`).join("")}`,
+   c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th><th>Position par rapport à ${an("DAB")}</th><th>Mesure</th></tr></thead><tbody>${Q4.map(([n,p,m])=>`<tr><td>${an(n)}</td><td>${p}</td><td>${m}°</td></tr>`).join("")}</tbody></table></div>
+   ${Q4.map(([n,p])=>/^alt/.test(p) ? `<p>${an(n)} et ${an("DAB")} sont alternes-internes et (d) // (d'), donc ils sont égaux : ${an(n)} = ${t4}°.</p>` : /^corr/.test(p) ? `<p>${an(n)} et ${an("DAB")} sont correspondants et (d) // (d'), donc ils sont égaux : ${an(n)} = ${t4}°.</p>` : `<p>${an(n)} et ${an("DAB")} sont opposés par le sommet, donc ils ont la même mesure : ${an(n)} = ${t4}°.</p>`).join("")}`},
   {n:"Exercice 5", t:"Calculer des angles", w:"Sur ton cahier", h:`<p>Sur la figure, (d) // (d') et ${an("ABE")} = ${t5}°.</p><p>Calcule ${an("DAB")}, ${an("SAD")} et ${an("ABF")} en justifiant chaque réponse.</p>${parF(t5,[["ABE",OR,t5+"°"]],{w:440})}`,
    c:`<p>${an("DAB")} et ${an("ABE")} sont alternes-internes et (d) // (d'), donc ${an("DAB")} = ${an("ABE")} = <b>${t5}°</b>.</p>
    <p>${an("DAB")} et ${an("SAD")} sont supplémentaires :</p><p class="calc">${an("SAD")} = 180° − ${t5}° = ${180-t5}°</p>

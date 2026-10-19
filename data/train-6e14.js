@@ -7,6 +7,7 @@ const r1 = (x,k) => fr((Math.round(x*10**k)/10**k).toFixed(k));
 
 /* ---------- A. Conversions ---------- */
 const mk = (t, near) => { const i=ri(0,6); let j; do{ j=ri(0,6); }while(j===i || (near && Math.abs(i-j)>3)); const k=pick([0,0,1,2]), n=ri(2,k?999:950); return {t,i,j,n,k}; };
+const why = c => { const d=c.j-c.i; return ` (${U[c.t][c.i]} → ${U[c.t][c.j]} : ${d>0?"× "+sp(10**d):"÷ "+sp(10**(-d))})`; };
 const cL = distinct(8, ()=>mk("L",true), x=>[x.i,x.j,x.n].join());
 const cMC = distinct(8, ()=>mk(pick(["M","C"]),true), x=>[x.t,x.i,x.j,x.n].join());
 const lst = (() => { const base = distinct(5, ()=>ri(80,160), x=>x); /* en cm */ const unit = shuf([[3,2],[4,1],[5,0],[6,-1],[2,3]]); return base.map((v,q)=>{ const [j,e]=unit[q]; /* j = unité, e = décalage (cm→unité j) */ return {cm:v, txt: e>=0 ? D(v,e)+" "+U.L[j] : sp(v*10**(-e))+" "+U.L[j]}; }); })();
@@ -15,9 +16,9 @@ const sac = ri(2,5), rec = pick([150,250,300,350,400]);
 const q2 = Math.floor(sac*1000/rec), r2 = sac*1000 - q2*rec;
 const secA = {t:"Unités et conversions", e:[
   {n:"Exercice 1", t:"Convertir des longueurs", w:"Sur ton cahier", h:`<p>${items(cL.map(c=>`${D(c.n,c.k)} ${U[c.t][c.i]} = …… ${U[c.t][c.j]}`),"  ·  ",true)}</p>`,
-   c:items(cL.map(c=>`${D(c.n,c.k)} ${U[c.t][c.i]} = <b>${conv(c.n,c.k,c.i,c.j)} ${U[c.t][c.j]}</b>`),"  ·  ",true)},
+   c:items(cL.map(c=>`${D(c.n,c.k)} ${U[c.t][c.i]} = <b>${conv(c.n,c.k,c.i,c.j)} ${U[c.t][c.j]}</b>${why(c)}`),"  ·  ",true)},
   {n:"Exercice 2", t:"Masses et contenances", w:"Sur ton cahier", h:`<p>${items(cMC.map(c=>`${D(c.n,c.k)} ${U[c.t][c.i]} = …… ${U[c.t][c.j]}`),"  ·  ",true)}</p>`,
-   c:items(cMC.map(c=>`${D(c.n,c.k)} ${U[c.t][c.i]} = <b>${conv(c.n,c.k,c.i,c.j)} ${U[c.t][c.j]}</b>`),"  ·  ",true)},
+   c:items(cMC.map(c=>`${D(c.n,c.k)} ${U[c.t][c.i]} = <b>${conv(c.n,c.k,c.i,c.j)} ${U[c.t][c.j]}</b>${why(c)}`),"  ·  ",true)},
   {n:"Exercice 3", t:"Ranger des longueurs", w:"Sur ton cahier", h:`<p>Range dans l'ordre croissant : ${lst.map(x=>x.txt).join(" ; ")}.</p>`,
    c:`<p>En cm : ${lst.map(x=>`${x.txt} = ${x.cm} cm`).join(" ; ")}.</p><p class="calc"><b>${[...lst].sort((a,b)=>a.cm-b.cm).map(x=>x.txt).join(" &lt; ")}</b></p>`},
   {n:"Exercice 4", t:"Problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> une bouteille contient ${D(bout,2)} L. Combien de verres de ${verre} cL peut-on remplir ?</p><p><b>Problème 2 :</b> un sac contient ${sac} kg de farine. Une recette utilise ${rec} g de farine. Combien de recettes peut-on faire ? Quelle masse reste-t-il ?</p>`,

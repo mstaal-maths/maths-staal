@@ -112,7 +112,7 @@ exos:[
  ]},
 {t:"Construire un angle", e:[
   {n:"Activité 2", t:"Terminer une construction", w:"Sur ta feuille", h:`${ex("act2","Le rapporteur centré en C, avec des points numérotés",260)}<p>Mahé veut tracer l'angle ${A("BCF")}. Elle a tracé le côté [CB) et placé son rapporteur.</p><p>1) Pour que ${A("BCF")} = 40°, par quel point numéroté doit passer [CF) ?</p><p>2) Et pour que ${A("BCF")} = 130° ?</p><p>3) Le point 4 donne un angle de combien de degrés ?</p>`,
-   c:`<p>Le côté [CB) part vers la droite, sur le 0 de la graduation <b>extérieure</b> (en bleu) : c'est elle qu'il faut lire.</p><p>1) 40° : le <b>point 2</b>. &nbsp; 2) 130° : le <b>point 3</b>. &nbsp; 3) Le point 4 donne <b>140°</b>.</p><p><i>Les autres points : le point 1 donne 30°, le point 5 donne 50°.</i></p>`},
+   c:`<p>Le côté [CB) part vers la droite, sur le 0 de la graduation <b>extérieure</b> (en bleu) : c'est elle qu'il faut lire.</p><p>1) 40° : le <b>point 2</b>.</p><p>2) 130° : le <b>point 3</b>.</p><p>3) Le point 4 donne <b>140°</b>.</p><p><i>Les autres points : le point 1 donne 30°, le point 5 donne 50°.</i></p>`},
   {n:"Exercice 8", t:"Construire des angles", w:"Sur la feuille de constructions", h:`<p>Les constructions se font sur la <b>feuille de constructions</b> du chapitre (dans la partie suivante).</p>`,
    c:`<p>Voir les corrections de la feuille de constructions ci-dessous.</p>`}
  ]},

@@ -11,14 +11,15 @@ const red = (t, a, b, x) => `<p class="calc">Dans le triangle ${t}, la somme des
 const e1 = shuf([0,0,0,1,1,1]).map(bad=>{ const a=ri(20,100), b=ri(10,170-a); let c=180-a-b; if(bad) c+= c>25?pick([-20,-10,10,15,20]):pick([10,15,20]); return [a,b,c]; });
 const e2 = distinct(4, ()=>{ const n=nom(), a=ri(20,120), b=ri(15,165-a); return [n,a,b]; }, x=>x[0].join(""));
 const e3 = distinct(3, ()=>{ const t=pick(["q","r","i"]); if(t==="q"){ const a=ri(30,80), b=ri(30,80); return [t,a,b]; } if(t==="r"){ return [t,90,ri(20,70)]; } const b=ri(28,45); return [t,b,b]; }, x=>x.join());
+const N3 = (t,k) => (t==="r"?[["M","N","P"],["U","V","W"],["I","J","K"]]:[["A","B","C"],["R","S","T"],["E","F","G"]])[k];
 const L4 = shuf([ri(40,70), ri(40,70), ri(40,70)]), ok4 = L4[0]+L4[1]+L4[2];
 const secA = {t:"La somme des angles d'un triangle", e:[
   {n:"Exercice 1", t:"Possible ou impossible ?", w:"Sur ton cahier", h:`<p>Ces nombres peuvent-ils être les mesures des angles d'un triangle ?</p><p>${items(e1.map(m=>m.join("° ; ")+"°"),"  ·  ",true)}</p>`,
    c:items(e1.map(m=>{ const s=m[0]+m[1]+m[2]; return `${m.join(" + ")} = ${s} : <b>${s===180?"possible":"impossible"}</b>`; }),"<br>",true)},
   {n:"Exercice 2", t:"Calculer un angle", w:"Sur ton cahier", h:e2.map(([n,a,b],k)=>`<p>${"abcd"[k]}) ${n.join("")} est un triangle tel que ${A(n.join(""))} = ${a}° et ${A(n[1]+n[2]+n[0])} = ${b}°. Calcule ${A(n[2]+n[0]+n[1])}.</p>`).join(""),
    c:e2.map(([n,a,b],k)=>`<p>${"abcd"[k]})</p>${red(n.join(""),a,b,n[2]+n[0]+n[1])}`).join("")},
-  {n:"Exercice 3", t:"Des figures à main levée", w:"Sur ton cahier", h:`<p>Les figures sont à main levée : calcule l'angle marqué « ? ».</p><div class="figs">${e3.map(([t,a,b],k)=>{ const P = t==="r"?fromSAS(4,2.6,90):t==="i"?fromASA(5,a,b):fromASA(4.5,a,b); const o={k:30,n:t==="r"?["M","N","P"]:t==="i"?["R","S","T"]:["A","B","C"]}; o.arc = t==="r"?[{i:1,t:b+"°"},{i:2,t:"?",c:"r"}]:[{i:0,t:a+"°"},{i:1,t:b+"°"},{i:2,t:"?",c:"r"}]; if(t==="r") o.right=[0]; return `<figure><figcaption>${"abc"[k]})</figcaption>${tri(P,o)}</figure>`; }).join("")}</div>`,
-   c:items(e3.map(([t,a,b])=>t==="r"?`Rectangle en M : ${A("MPN")} = 180° − (90° + ${b}°) = <b>${90-b}°</b>`:t==="i"?`${A("RTS")} = 180° − (${a}° + ${b}°) = <b>${180-a-b}°</b>`:`${A("ACB")} = 180° − (${a}° + ${b}°) = <b>${180-a-b}°</b>`),"<br>",true)},
+  {n:"Exercice 3", t:"Des figures à main levée", w:"Sur ton cahier", h:`<p>Les figures sont à main levée : calcule l'angle marqué « ? ».</p><div class="figs">${e3.map(([t,a,b],k)=>{ const P = t==="r"?fromSAS(4,2.6,90):t==="i"?fromASA(5,a,b):fromASA(4.5,a,b); const o={k:30,n:N3(t,k)}; o.arc = t==="r"?[{i:1,t:b+"°"},{i:2,t:"?",c:"r"}]:[{i:0,t:a+"°"},{i:1,t:b+"°"},{i:2,t:"?",c:"r"}]; if(t==="r") o.right=[0]; return `<figure><figcaption>${"abc"[k]})</figcaption>${tri(P,o)}</figure>`; }).join("")}</div>`,
+   c:e3.map(([t,a,b],k)=>{ const [X,Y,Z]=N3(t,k); return `<p>${"abc"[k]})${t==="r"?` Le triangle est rectangle en ${X} : ${A(Y+X+Z)} = 90°.`:""}</p>`+(t==="r"?red(X+Y+Z,90,b,X+Z+Y):red(X+Y+Z,a,b,X+Z+Y)); }).join("")},
   {n:"Exercice 4", t:"Une erreur ?", w:"Sur ton cahier", h:`<p>Sami a mesuré les trois angles d'un triangle : ${L4.join("°, ")}°. A-t-il fait une erreur ?</p>`,
    c:`<p>${L4.join(" + ")} = ${ok4}. ${ok4===180?"La somme vaut 180° : ses mesures sont <b>possibles</b>.":`La somme devrait être 180° : <b>il a fait une erreur</b> (${Math.abs(ok4-180)}° d'écart en tout).`}</p>`}
  ]};

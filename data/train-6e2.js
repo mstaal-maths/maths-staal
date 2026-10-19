@@ -52,10 +52,11 @@ const fig1 = fig({lines:[{p:A,u:u1},{p:A,u:u2}], segs:[[B,D]], pts:Object.entrie
 /* Ex 2 : trois phrases avec de nouvelles lettres */
 const Lt = shuf("CDEFGKLPRSTUV".split(""));
 const [a2,b2,c2,d2,e2,f2,g2,h2,i2]=Lt;
-const mini = (kind)=>{ const P=[20,40], Q=[200,40]; const mid=[110,40], out=[250,40], off=[110,10];
-  if(kind===0) return fig({w:180, segs:[[P,Q]], pts:[{p:P,n:b2},{p:Q,n:c2},{p:mid,n:a2,k:"img"}]}).replace(`viewBox="0 0 ${W} ${H}"`,'viewBox="0 0 240 70"');
-  if(kind===1) return fig({w:180, lines:[{p:P,u:[1,0]}], pts:[{p:[60,52],n:e2},{p:[170,52],n:f2},{p:[120,20],n:d2,k:"img"}]}).replace(`viewBox="0 0 ${W} ${H}"`,'viewBox="0 0 240 70"');
-  return fig({w:180, lines:[{p:P,u:[1,0]}], pts:[{p:[50,52],n:h2},{p:[140,52],n:i2},{p:[215,52],n:g2,k:"img"}]}).replace(`viewBox="0 0 ${W} ${H}"`,'viewBox="0 0 240 70"');
+/* les points d'une droite sont dessinés SUR la droite (même ordonnée que le tracé) */
+const mini = (kind)=>{ const y=48, P=[20,y], Q=[200,y], vb=s=>s.replace(`viewBox="0 0 ${W} ${H}"`,'viewBox="0 0 240 70"');
+  if(kind===0) return vb(fig({w:225, segs:[[P,Q]], pts:[{p:P,n:b2,dx:-5,dy:-12},{p:Q,n:c2,dx:-5,dy:-12},{p:[110,y],n:a2,k:"img",dx:-5,dy:-12}]}));
+  if(kind===1) return vb(fig({w:225, lines:[{p:P,u:[1,0]}], pts:[{p:[60,y],n:e2,dx:-5,dy:-12},{p:[170,y],n:f2,dx:-5,dy:-12},{p:[115,16],n:d2,k:"img",dx:10,dy:6}]}));
+  return vb(fig({w:225, lines:[{p:P,u:[1,0]}], pts:[{p:[50,y],n:h2,dx:-5,dy:-12},{p:[130,y],n:i2,dx:-5,dy:-12},{p:[205,y],n:g2,k:"img",dx:-5,dy:-12}]}));
 };
 
 /* Ex 3 : placer des points */
@@ -77,17 +78,22 @@ const fig3c = fig({lines:[{p:Q3.A,u:sub(Q3.E,Q3.A),k:"cons"},{p:Q3.B,u:sub(Q3.D,
 /* Ex 4 : lettres */
 const [r4,s4,t4,u4]=shuf("RSTUVWXYZ".split("")).slice(0,4);
 const fig4 = fig({w:300, lines:[{p:[40,150],u:[1,-0.15]}], pts:[{p:[130,136.5],n:s4},{p:[230,121.5],n:t4},{p:[320,108],n:r4,k:"img"},{p:[170,60],n:u4,k:"img"}]});
+const fig4b = fig({w:300, lines:[{p:[40,150],u:[1,-0.15]}], pts:[{p:[150,133.5],n:s4},{p:[250,118.5],n:t4},{p:[60,147],n:r4,k:"img"},{p:[260,200],n:u4,k:"img"}]});
 
 const secA = {t:"Appartenance et alignement", e:[
   {n:"Exercice 1", t:"∈ ou ∉ ?", w:"Sur ton cahier", h:`${fig1}<p>Recopie chaque ligne et complète avec le symbole ∈ ou ∉.</p><p>${s1.map((c,i)=>`${i+1}. ${c.t}`).join(" · ")}</p>`,
    c:s1.map((c,i)=>`${i+1}. ${c.ans}`).join(" · ")},
   {n:"Exercice 2", t:"Trois façons de dire la même chose", w:"Sur ton cahier", h:`<p>Complète le tableau : écris chaque phrase mathématique en français, puis fais un dessin.</p>
-   <div class="scroll"><table class="std"><thead><tr><th>Phrase mathématique</th><th>Phrase en français</th><th>Dessin</th></tr></thead><tbody><tr><td>${a2} ∈ [${b2}${c2}]</td><td></td><td></td></tr><tr><td>${d2} ∉ (${e2}${f2})</td><td></td><td></td></tr><tr><td>${g2} ∈ (${h2}${i2}) mais ${g2} ∉ [${h2}${i2}]</td><td></td><td></td></tr></tbody></table></div>`,
-   c:`<ul><li>${a2} ∈ [${b2}${c2}] : le point ${a2} appartient au segment [${b2}${c2}].${mini(0)}</li><li>${d2} ∉ (${e2}${f2}) : le point ${d2} n'appartient pas à la droite (${e2}${f2}).${mini(1)}</li><li>${g2} ∈ (${h2}${i2}) mais ${g2} ∉ [${h2}${i2}] : le point ${g2} est sur la droite (${h2}${i2}), mais pas sur le segment [${h2}${i2}].${mini(2)}</li></ul>`},
+   <div class="scroll"><table class="std"><thead><tr><th style="width:22%">Phrase mathématique</th><th style="width:33%">Phrase en français</th><th style="width:45%">Dessin</th></tr></thead><tbody><tr><td style="height:140px">${a2} ∈ [${b2}${c2}]</td><td></td><td></td></tr><tr><td style="height:140px">${d2} ∉ (${e2}${f2})</td><td></td><td></td></tr><tr><td style="height:140px">${g2} ∈ (${h2}${i2}) mais ${g2} ∉ [${h2}${i2}]</td><td></td><td></td></tr></tbody></table></div>`,
+   c:`<div class="scroll"><table class="std"><thead><tr><th>Phrase mathématique</th><th>Phrase en français</th><th>Dessin</th></tr></thead><tbody>
+   <tr><td>${a2} ∈ [${b2}${c2}]</td><td>Le point ${a2} appartient au segment [${b2}${c2}].</td><td style="min-width:240px">${mini(0)}</td></tr>
+   <tr><td>${d2} ∉ (${e2}${f2})</td><td>Le point ${d2} n'appartient pas à la droite (${e2}${f2}).</td><td style="min-width:240px">${mini(1)}</td></tr>
+   <tr><td>${g2} ∈ (${h2}${i2}) mais ${g2} ∉ [${h2}${i2}]</td><td>Le point ${g2} appartient à la droite (${h2}${i2}), mais il n'appartient pas au segment [${h2}${i2}].</td><td style="min-width:240px">${mini(2)}</td></tr></tbody></table></div>
+   <p>Ce n'est qu'un exemple de dessin. Tu peux placer les points ailleurs, si tu respectes la phrase.</p>`},
   {n:"Exercice 3", t:"Placer des points", w:"Sur ton cahier", h:`${fig3h}<p>Reproduis les points sur ton cahier en comptant les carreaux (<b>un carreau de la figure = un carreau de ton cahier</b>), puis place les points G, H, I, L et M tels que : ${items(["G ∈ (BE) et G ∈ [BE]","H ∈ (AE) et H ∉ [AE]","les points I, A et E sont alignés, et les points I, B et D le sont également","L ∈ (AB) et L ∈ (CD)","M ∈ (CD)"],"  ·  ",true)}</p>`,
    c:`<p>a) G est sur le segment [BE] · b) H est sur la droite (AE), en dehors du segment [AE] · c) I est le point d'intersection des droites (AE) et (BD) · d) L est le point d'intersection des droites (AB) et (CD) · e) M est n'importe quel point de la droite (CD)</p>${fig3c}<p>Les droites tracées en pointillés t'aident à placer les points. G, H et M peuvent être placés ailleurs, tant qu'ils respectent les conditions.</p>`},
   {n:"Exercice 4", t:"Une seule position ?", w:"Sur ton cahier", h:`<p>On sait que : ${r4} ∈ (${s4}${t4}) ; ${u4} ∉ (${s4}${t4}) et ${r4} ∉ [${s4}${t4}].</p><p>1 — Place les points ${r4}, ${s4}, ${t4} et ${u4}. 2 — Y a-t-il une seule position possible ?</p>`,
-   c:`<p>${r4} est sur la droite (${s4}${t4}) mais pas entre ${s4} et ${t4} : il est avant ${s4} ou après ${t4}. ${u4} est n'importe où en dehors de la droite. Il y a donc une infinité de positions possibles. Un exemple :</p>${fig4}`}
+   c:`<p>${r4} est sur la droite (${s4}${t4}) mais pas entre ${s4} et ${t4} : il est avant ${s4} ou après ${t4}. ${u4} est n'importe où en dehors de la droite. Il y a donc une infinité de positions possibles. Deux exemples :</p><div class="figs"><figure>${fig4}<figcaption>${r4} est du côté de ${t4}.</figcaption></figure><figure>${fig4b}<figcaption>${r4} est du côté de ${s4}.</figcaption></figure></div>`}
 ]};
 
 /* ======= B. Perpendiculaires, parallèles et justifications ======= */
@@ -161,19 +167,23 @@ const v10=v10f();
 const H10=G.foot(B10,c10.O,add(c10.O,c10.u,1)), w10=sub(B10,H10), wn10=[w10[0]/len(w10),w10[1]/len(w10)], I10=G.inter(A10,add(A10,c10.u,1),B10,add(B10,v10,1));
 const fig10h = fig({grid:true, lines:[{p:c10.O,u:c10.u,lab:"(d)",at:0.92}], pts:[{p:A10,n:"A"},{p:B10,n:"B"}]});
 const fig10c = fig({grid:true, lines:[{p:c10.O,u:c10.u,lab:"(d)",at:0.92},{p:A10,u:c10.u,lab:"(d₁)",at:0.92,k:"axe3"},{p:B10,u:v10,lab:"(d₂)",at:0.06,k:"axe3"}], rights:[{at:H10,u:c10.u,v:wn10}], pts:[{p:A10,n:"A"},{p:B10,n:"B"}]});
-/* Ex 11 */
+/* Ex 11 : prog = (d₁) ⊥ (d) par M, puis (d₂) ⊥ (d₁) par N ; sinon (comme la fiche de classe) deux perpendiculaires à (d) en M et en N */
 const prog = Math.random()<0.5;
+const u11=dir(ri(-12,12)), v11=perp(u11), O11=[W/2,165];
+const fig11 = prog
+  ? (()=>{ const M=add(O11,v11,-120), N=add(O11,v11,-55); return fig({lines:[{p:O11,u:u11,lab:"(d)",at:0.95},{p:M,u:v11,lab:"(d₁)",at:0.06,k:"axe3"},{p:N,u:u11,lab:"(d₂)",at:0.95,k:"axe3"}], rights:[{at:O11,u:u11,v:[-v11[0],-v11[1]]},{at:N,u:u11,v:[-v11[0],-v11[1]]}], pts:[{p:M,n:"M"},{p:N,n:"N"}]}); })()
+  : (()=>{ const M=add(O11,u11,-80), N=add(O11,u11,80); return fig({lines:[{p:O11,u:u11,lab:"(d)",at:0.95},{p:M,u:v11,lab:"(d₁)",at:0.06,k:"axe3"},{p:N,u:v11,lab:"(d₂)",at:0.06,k:"axe3"}], rights:[{at:M,u:u11,v:[-v11[0],-v11[1]]},{at:N,u:u11,v:[-v11[0],-v11[1]]}], pts:[{p:M,n:"M",dx:-22,dy:22},{p:N,n:"N",dx:-22,dy:22}]}); })();
 const secC = {t:"Constructions", e:[
   {n:"Exercice 8", t:"Tracer des perpendiculaires", w:"Sur ton cahier", h:`<p>Reproduis chaque figure sur ton cahier en comptant les carreaux : la droite (d) passe par des nœuds du quadrillage, et M est sur un nœud. Puis trace, avec ton équerre, la perpendiculaire à (d) passant par M. Nomme-la (d'). N'oublie pas de coder l'angle droit.</p><div class="figs">${perpCases.map(drawStart).join("")}</div>`,
    c:`<p>(d') passe par M et forme un angle droit avec (d), codé par un petit carré.</p><div class="figs">${perpCases.map(drawPerp).join("")}</div>`},
   {n:"Exercice 9", t:"Tracer des parallèles", w:"Sur ton cahier", h:`<p>Reproduis chaque figure sur ton cahier en comptant les carreaux : la droite (d) passe par des nœuds du quadrillage, et M est sur un nœud. Puis trace, avec ton équerre, la parallèle à (d) passant par M. Nomme-la (d').</p><div class="figs">${parCases.map(drawStart).join("")}</div>`,
-   c:`<p>Méthode : je trace la perpendiculaire (k) à (d) passant par M, puis la perpendiculaire à (k) passant par M : c'est (d').</p><div class="figs">${parCases.map(drawPar).join("")}</div>`},
+   c:`<p>Méthode : je trace la perpendiculaire (k) à (d) passant par M, puis la perpendiculaire à (k) passant par M : c'est (d').</p><div class="figs">${parCases.map(c=>`<figure>${drawPar(c)}<figcaption>(d') // (d)</figcaption></figure>`).join("")}</div>`},
   {n:"Exercice 10", t:"Construire puis justifier", w:"Sur ton cahier", h:`${fig10h}<p>Reproduis la figure sur ton cahier en comptant les carreaux. 1 — Trace la droite (d₁) parallèle à (d) passant par A. 2 — Trace la droite (d₂) perpendiculaire à (d) passant par B. 3 — Que peut-on dire des droites (d₁) et (d₂) ? Justifie à l'aide d'une propriété du cours.</p>`,
-   c:`${fig10c}<p>3 — Je sais que (d₁) // (d) et (d₂) ⊥ (d). Or ${P2txt}. Donc (d₂) ⊥ (d₁).</p>`},
+   c:`${fig10c}<p>(d₁) // (d)</p><p>3 — Je sais que (d₁) // (d) et (d₂) ⊥ (d). Or ${P2txt}. Donc (d₂) ⊥ (d₁).</p>`},
   {n:"Exercice 11", t:"Programme de construction", w:"Sur ton cahier", h: prog
      ? `<p>Exécute ce programme : trace une droite (d), puis place un point M qui n'appartient pas à (d). Trace la droite (d₁) perpendiculaire à (d) passant par M. Place un point N sur (d₁), différent de M, puis trace la droite (d₂) perpendiculaire à (d₁) passant par N. Que peut-on dire des droites (d₂) et (d) ? Justifie.</p>`
-     : `<p>Exécute ce programme : trace une droite (d), puis place un point M qui n'appartient pas à (d). Trace la droite (d₁) parallèle à (d) passant par M. Place un point N sur (d₁), puis trace la droite (d₂) perpendiculaire à (d₁) passant par N. Que peut-on dire des droites (d₂) et (d) ? Justifie.</p>`,
-   c: prog ? `Je sais que (d) ⊥ (d₁) et (d₂) ⊥ (d₁). Or ${P1txt}. Donc (d₂) // (d).` : `Je sais que (d₁) // (d) et (d₂) ⊥ (d₁). Or ${P2txt}. Donc (d₂) ⊥ (d).`}
+     : `<p>Exécute ce programme : trace une droite (d), puis place deux points M et N sur (d). Trace la droite (d₁) perpendiculaire à (d) passant par M. Trace la droite (d₂) perpendiculaire à (d) passant par N. Que peut-on dire des droites (d₁) et (d₂) ? Justifie.</p>`,
+   c: prog ? `${fig11}<p>(d₂) // (d)</p><p>Je sais que (d) ⊥ (d₁) et (d₂) ⊥ (d₁). Or ${P1txt}. Donc (d₂) // (d).</p>` : `${fig11}<p>(d₁) // (d₂)</p><p>Je sais que (d₁) ⊥ (d) et (d₂) ⊥ (d). Or ${P1txt}. Donc (d₁) // (d₂).</p>`}
 ]};
 return [secA, secB, secC];
 };

@@ -65,7 +65,7 @@ function tetraA(a,c,h,o={}){
 function cubeTetra(c,lab){
   const V={A:[0,0,0],B:[c,0,0],C:[c,c,0],D:[0,c,0],E:[0,0,c],F:[c,0,c],G:[c,c,c],H:[0,c,c]};
   return sol({V, k:150/c/1.5*1.5, F:[["A","C","H"]], E:[["A","B"],["B","C"],["C","D",1],["D","A",1],["E","F"],["F","G"],["G","H"],["H","E"],["A","E"],["B","F"],["C","G"],["D","H",1],["A","C"],["A","H"],["C","H"]],
-    lab:{A:[-10,16],B:[8,18],C:[14,6],D:[-12,-6],E:[-12,-4],F:[-12,18],G:[10,-8],H:[0,-10]}, txt:[[[c/2,0,0],lab,0,24]], alt:"Cube ABCDEFGH et tétraèdre ADCH"});
+    lab:{A:[-10,16],B:[8,18],C:[14,6],D:[-12,-6],E:[-12,-4],F:[-8,-8],G:[10,-8],H:[0,-10]}, txt:[[[c/2,0,0],lab,0,24]], alt:"Cube ABCDEFGH et tétraèdre ADCH"});
 }
 /* cuve : cube d'arête c posé sur une pyramide régulière à base carrée de hauteur h (sommet en bas) */
 function cuve(c,h,lc,lh){
@@ -102,7 +102,7 @@ function tour(r,h1,h2,lr,l1,l2,o={}){
   s+=hgtL(cx,top,cy2);
   s+=`<line x1="${cx+R+14}" y1="${top}" x2="${cx+R+14}" y2="${cy1}" class="thin"/><line x1="${cx+R+14}" y1="${cy1}" x2="${cx+R+14}" y2="${cy2}" class="thin"/>`;
   [top,cy1,cy2].forEach(y=>{ s+=`<line x1="${cx+R+8}" y1="${y}" x2="${cx+R+20}" y2="${y}" class="thin"/>`; });
-  s+=T(cx+R+24,(top+cy1)/2+5,l2,"fill:var(--c);font-weight:700","start")+T(cx+R+24,(cy1+cy2)/2+5,l1,"fill:var(--c);font-weight:700","start")+T(cx+R/2,cy2+ry+22,lr,"fill:var(--c);font-weight:700");
+  s+=T(cx+R+24,(top+cy1)/2+5,l2,"fill:var(--c);font-weight:700","start")+T(cx+R+24,(cy1+cy2)/2+5,l1,"fill:var(--c);font-weight:700","start")+T(cx+R/2,ry>=22?cy2+ry/2+6:cy2+ry+22,lr,"fill:var(--c);font-weight:700");   /* rayon écrit juste sous le rayon en pointillés quand il y a la place */
   return s+"</svg>";
 }
 /* tronc de cône (cavité de muffin) : grand cône R, H ; on retire le petit cône r, H − e ; e = hauteur du tronc */
@@ -234,8 +234,8 @@ exos:[
    c:`<p>Rayon : 26,5 ÷ 2 = 13,25 cm.</p><p class="calc">V = π × r² × h = π × 13,25² × 55 ≈ 30 335 cm³</p><p>1 L = 1 dm³ = 1 000 cm³, donc V ≈ 30,3 L.</p><p>Elle doit choisir des <b>sacs de 30 L</b> (10 L est trop petit, 50 L est beaucoup trop grand).</p>`},
   {n:"Exercice 1", t:"Conversions", w:"Sur ta feuille", h:`<p><b>Partie 1</b></p><p>a) 45 m³ = ………… dm³</p><p>b) 3,1 m³ = ………… dm³</p><p>c) 500 dm³ = ………… m³</p><p>d) 0,0053 m³ = ………… dm³</p><p>e) 48,5 dm³ = ………… m³</p><p>f) 5,67 cm³ = ………… mm³</p><p>g) 78 dam³ = ………… m³</p><p>h) 0,00024 m³ = ………… cm³</p><p>i) 86 cm³ = ………… dm³</p>
    <p><b>Partie 2</b></p><p>a) 86 dm³ = ………… L</p><p>b) 4 m³ = ………… L</p><p>c) 500 cm³ = ………… L</p><p>d) 63 L = ………… m³</p><p>e) 7 854 cm³ = ………… L</p><p>f) 3 000 cm³ = ………… mL</p><p>g) 12,5 hL = ………… cm³</p><p>h) 0,73 dL = ………… dm³</p><p>i) 25 cm³ = ………… L</p>`,
-   c:`<p><b>Partie 1</b></p><p>a) 45 m³ = 45 000 dm³ · b) 3,1 m³ = 3 100 dm³ · c) 500 dm³ = 0,5 m³ · d) 0,0053 m³ = 5,3 dm³ · e) 48,5 dm³ = 0,0485 m³ · f) 5,67 cm³ = 5 670 mm³ · g) 78 dam³ = 78 000 m³ · h) 0,00024 m³ = 240 cm³ · i) 86 cm³ = 0,086 dm³</p>
-   <p><b>Partie 2</b></p><p>a) 86 dm³ = 86 L · b) 4 m³ = 4 000 L · c) 500 cm³ = 0,5 L · d) 63 L = 0,063 m³ · e) 7 854 cm³ = 7,854 L · f) 3 000 cm³ = 3 000 mL · g) 12,5 hL = 1 250 L = 1 250 dm³ = 1 250 000 cm³ · h) 0,73 dL = 0,073 L = 0,073 dm³ · i) 25 cm³ = 25 mL = 0,025 L</p>`},
+   c:`<p><b>Partie 1</b> (1 m³ = 1 000 dm³ ; 1 dm³ = 1 000 cm³ ; 1 cm³ = 1 000 mm³ ; 1 dam³ = 1 000 m³)</p><p>a) 45 × 1 000 = 45 000 : 45 m³ = <b>45 000 dm³</b> · b) 3,1 × 1 000 = 3 100 : 3,1 m³ = <b>3 100 dm³</b> · c) 500 ÷ 1 000 = 0,5 : 500 dm³ = <b>0,5 m³</b> · d) 0,0053 × 1 000 = 5,3 : 0,0053 m³ = <b>5,3 dm³</b> · e) 48,5 ÷ 1 000 = 0,0485 : 48,5 dm³ = <b>0,0485 m³</b> · f) 5,67 × 1 000 = 5 670 : 5,67 cm³ = <b>5 670 mm³</b> · g) 78 × 1 000 = 78 000 : 78 dam³ = <b>78 000 m³</b> · h) 1 m³ = 1 000 000 cm³ et 0,00024 × 1 000 000 = 240 : 0,00024 m³ = <b>240 cm³</b> · i) 86 ÷ 1 000 = 0,086 : 86 cm³ = <b>0,086 dm³</b></p>
+   <p><b>Partie 2</b> (1 L = 1 dm³ ; 1 m³ = 1 000 L ; 1 cm³ = 1 mL)</p><p>a) 1 dm³ = 1 L : 86 dm³ = <b>86 L</b> · b) 4 × 1 000 = 4 000 : 4 m³ = <b>4 000 L</b> · c) 500 cm³ = 0,5 dm³ (500 ÷ 1 000) : 500 cm³ = <b>0,5 L</b> · d) 63 L = 63 dm³ et 63 ÷ 1 000 = 0,063 : 63 L = <b>0,063 m³</b> · e) 7 854 cm³ = 7,854 dm³ (7 854 ÷ 1 000) : 7 854 cm³ = <b>7,854 L</b> · f) 1 cm³ = 1 mL : 3 000 cm³ = <b>3 000 mL</b> · g) 1 hL = 100 L : 12,5 hL = 1 250 L = 1 250 dm³ = <b>1 250 000 cm³</b> (1 250 × 1 000) · h) 1 L = 10 dL : 0,73 dL = 0,073 L = <b>0,073 dm³</b> · i) 25 cm³ = 25 mL et 1 L = 1 000 mL : 25 cm³ = <b>0,025 L</b></p>`},
   {n:"Exercice 2", t:"Un intrus", w:"Sur ton cahier", h:`<p>Parmi la liste de volumes suivante, il y a un intrus ! Retrouve-le.</p>
    <p class="calc">380 000 dm³ &nbsp;·&nbsp; 3 800 000 dL &nbsp;·&nbsp; 0,380 dam³ &nbsp;·&nbsp; 380 m³ &nbsp;·&nbsp; 380 000 L &nbsp;·&nbsp; 3 800 000 cm³</p>`,
    c:`<p>On convertit tout en m³ :</p><p>380 000 dm³ = 380 m³ · 3 800 000 dL = 380 000 L = 380 m³ · 0,380 dam³ = 380 m³ · 380 000 L = 380 m³</p><p>Mais 3 800 000 cm³ = 3 800 dm³ = 3,8 m³.</p><p>L'intrus est <b>3 800 000 cm³</b>.</p>`},

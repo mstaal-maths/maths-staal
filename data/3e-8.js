@@ -191,10 +191,10 @@ exos:[
   {n:"Exercice 8", t:"Calculer le côté manquant", w:"Sur ton cahier", h:`<p>Dans chacun de ces triangles, calcule la longueur du côté manquant.</p>
    <div class="figs">${fig("a. JMX rectangle en M : calcule JX.",ex("e8a","Triangle JMX rectangle en M : JM = 4,2 et MX = 5,6",200))}${fig("b. PIF rectangle en I : calcule PI.",ex("e8b","Triangle PIF rectangle en I : IF = 4,2 cm et PF = 5,8 cm",200))}</div>
    <p><b>c.</b> LIN est un triangle rectangle en L tel que : IL = 2,8 cm et LN = 9,6 cm.</p><p><b>d.</b> TER est un triangle rectangle en R tel que : ER = 4,8 cm et TE = 5,2 cm.</p>`,
-   c:`<p><b>a.</b> JX² = JM² + MX² = 4,2² + 5,6² = 17,64 + 31,36 = 49, donc JX = ${rac("49")} = <b>7</b>.</p>
-   <p><b>b.</b> PF² = PI² + IF², donc PI² = 5,8² − 4,2² = 33,64 − 17,64 = 16, donc PI = ${rac("16")} = <b>4 cm</b>.</p>
-   <p><b>c.</b> L'hypoténuse est [IN] : IN² = IL² + LN² = 2,8² + 9,6² = 7,84 + 92,16 = 100, donc IN = ${rac("100")} = <b>10 cm</b>.</p>
-   <p><b>d.</b> L'hypoténuse est [TE] : TR² = TE² − ER² = 5,2² − 4,8² = 27,04 − 23,04 = 4, donc TR = ${rac("4")} = <b>2 cm</b>.</p>`}
+   c:`<p><b>a.</b> JMX est rectangle en M : l'hypoténuse est [JX]. D'après le théorème de Pythagore :</p><p class="calc">JX² = JM² + MX²<br>JX² = 4,2² + 5,6²<br>JX² = 17,64 + 31,36<br>JX² = 49<br>JX = ${rac("49")}<br>JX = 7</p><p>JX mesure <b>7</b>.</p>
+   <p><b>b.</b> PIF est rectangle en I : l'hypoténuse est [PF]. D'après le théorème de Pythagore :</p><p class="calc">PF² = PI² + IF²<br>PI² = PF² − IF²<br>PI² = 5,8² − 4,2²<br>PI² = 33,64 − 17,64<br>PI² = 16<br>PI = ${rac("16")}<br>PI = 4</p><p>PI mesure <b>4 cm</b>.</p>
+   <p><b>c.</b> LIN est rectangle en L : l'hypoténuse est [IN]. D'après le théorème de Pythagore :</p><p class="calc">IN² = IL² + LN²<br>IN² = 2,8² + 9,6²<br>IN² = 7,84 + 92,16<br>IN² = 100<br>IN = ${rac("100")}<br>IN = 10</p><p>IN mesure <b>10 cm</b>.</p>
+   <p><b>d.</b> TER est rectangle en R : l'hypoténuse est [TE]. D'après le théorème de Pythagore :</p><p class="calc">TE² = TR² + ER²<br>TR² = TE² − ER²<br>TR² = 5,2² − 4,8²<br>TR² = 27,04 − 23,04<br>TR² = 4<br>TR = ${rac("4")}<br>TR = 2</p><p>TR mesure <b>2 cm</b>.</p>`}
  ]}
 ],
 
@@ -273,7 +273,7 @@ exos:[
   <p><b>3)</b> 170 − 130 = <b>40 m</b>. <i>(1 point)</i></p><p><b>4)</b> 40 ÷ 1,25 = <b>32 s</b>. Lina gagne 32 secondes. <i>(1,5 point)</i></p>`},
 {t:"L'échelle", p:4, h:`<p>Une échelle [PH] de 5 m est posée contre un mur vertical [MH]. Le sol est horizontal.</p><p>Le pied P de l'échelle est à 1,4 m du mur.</p>${ech}<p><b>a)</b> À quelle hauteur MH le haut de l'échelle touche-t-il le mur ?</p><p><b>b)</b> Le pied de l'échelle glisse : il est maintenant à 3 m du mur. À quelle hauteur arrive maintenant le haut de l'échelle ?</p>`,
  c:`<p><b>a)</b> Le mur est vertical et le sol horizontal : le triangle MPH est rectangle en M. L'hypoténuse est l'échelle [PH].</p><p class="calc">PH² = MP² + MH²<br>MH² = 5² − 1,4²<br>MH² = 25 − 1,96<br>MH² = 23,04<br>MH = ${rac("23,04")} = 4,8 m</p><p>Le haut de l'échelle touche le mur à <b>4,8 m</b>. <i>(2,5 points)</i></p>
-  <p><b>b)</b> MH² = 5² − 3² = 25 − 9 = 16, donc MH = ${rac("16")} = <b>4 m</b>. <i>(1,5 point)</i></p>`},
+  <p><b>b)</b> Le triangle MPH est toujours rectangle en M, avec maintenant MP = 3 m :</p><p class="calc">MH² = PH² − MP²<br>MH² = 5² − 3²<br>MH² = 25 − 9<br>MH² = 16<br>MH = ${rac("16")} = 4 m</p><p>Le haut de l'échelle arrive à <b>4 m</b>. <i>(1,5 point)</i></p>`},
 {t:"Deux triangles", p:4, h:`<p>Sur la figure ci-dessous (qui n'est pas en vraie grandeur), le triangle ABC est rectangle en B.</p>${fig5}<p>On donne AB = 4,8 cm, BC = 6,4 cm, CD = 6 cm et AD = 10 cm.</p><p><b>a)</b> Calcule la longueur AC.</p><p><b>b)</b> Le triangle ACD est-il rectangle ? Justifie.</p>`,
  c:`<p><b>a)</b> ABC est rectangle en B. D'après le théorème de Pythagore :</p><p class="calc">AC² = AB² + BC²<br>AC² = 4,8² + 6,4²<br>AC² = 23,04 + 40,96<br>AC² = 64<br>AC = ${rac("64")} = 8 cm</p><p><i>(2 points)</i></p>
   <p><b>b)</b> Dans ACD, le plus grand côté est [AD].</p><div class="figs"><p class="calc">AD² = 10²<br>AD² = 100</p><p class="calc">AC² + CD² = 8² + 6²<br>AC² + CD² = 64 + 36<br>AC² + CD² = 100</p></div><p>AD² = AC² + CD², donc <b>ACD est rectangle en C</b>. <i>(2 points)</i></p>`}

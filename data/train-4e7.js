@@ -86,14 +86,14 @@ const secB={t:"Réduire une expression littérale", e:[
   {n:"Activité 2", t:"Un « + » ou un « − » devant une parenthèse", w:"Sur ton cahier", h:`<p>Dans chaque cas, ${s} représente une somme d'argent en €. Lundi, ${who} a gagné ${g} € au jeu. Le mardi :</p>${CAS.map(([o1,o2,t],i)=>`<p><b>Cas n° ${i+1} :</b> ${who} ${t}. Le total de ses gains est ${"ABC"[i]} = ${cas(o1,o2).q}.</p>`).join("")}<p><b>Cas n° 4 :</b> D = ${cas("−","−").q}.</p><p>Réduis A, B, C et D.</p>`,
    c:[["+","+"],["+","−"],["−","+"],["−","−"]].map(([o1,o2],i)=>{ const C=cas(o1,o2), L="ABCD"[i]; return `<p class="calc">${L} = ${C.q}<br>${L} = ${C.l2}<br>${L} = <b>${C.r}</b></p>`; }).join("")},
   {n:"Exercice 7", t:"Réductions de toutes sortes d'expressions", w:"Sur ton cahier", h:`<p>Réduis chaque expression.</p><div class="calcs">${e7.map(([q],i)=>`<span>${"ABCDEFGHIJ"[i]} = ${q}</span>`).join("")}</div>`,
-   c:e7.map(([q,t],i)=>`<p class="calc">${"ABCDEFGHIJ"[i]} = ${E(t)!==q&&E(t)!==R(t)?E(t)+" = ":""}<b>${R(t)}</b></p>`).join("")}
+   c:`<div class="figs" style="gap:28px">${e7.map(([q,t],i)=>{ const L="ABCDEFGHIJ"[i], st=[q]; if(E(t)!==q && E(t)!==R(t)) st.push(E(t)); st.push(`<b>${R(t)}</b>`); return `<p class="calc">${st.map(z=>`${L} = ${z}`).join("<br>")}</p>`; }).join("")}</div>`}
  ]};
 
 /* ===== C. Expressions et figures ===== */
 const p9=ri(2,9), k9=ri(2,5);
 const secC={t:"Pour aller plus loin : expressions et figures", e:[
   {n:"Exercice 9", t:"Périmètre d'une figure", w:"Sur ton cahier", h:`${fleche(`${x} + ${p9}`,`${k9}${x}`)}<p>Exprime en fonction de ${x} le périmètre de la figure, puis réduis l'expression.</p><p>Les côtés codés de la même façon ont la même longueur.</p>`,
-   c:`<p>2 côtés de longueur ${x} + ${p9} et 4 côtés de longueur ${k9}${x} :</p><p class="calc">${x} + ${p9} + ${x} + ${p9} + ${k9}${x} + ${k9}${x} + ${k9}${x} + ${k9}${x} = <b>${R([[1,"x"],[p9,""],[1,"x"],[p9,""],[k9,"x"],[k9,"x"],[k9,"x"],[k9,"x"]])}</b></p>`}
+   c:`<p>2 côtés de longueur ${x} + ${p9} et 4 côtés de longueur ${k9}${x} :</p><p>On note P le périmètre.</p><p class="calc">P = ${x} + ${p9} + ${x} + ${p9} + ${k9}${x} + ${k9}${x} + ${k9}${x} + ${k9}${x}<br>P = <b>${R([[1,"x"],[p9,""],[1,"x"],[p9,""],[k9,"x"],[k9,"x"],[k9,"x"],[k9,"x"]])}</b></p>`}
  ]};
 
 return [secA, secB, secC];

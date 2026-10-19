@@ -24,7 +24,7 @@ function rtri(p,q,names,labels={},o={}){
   const s=o.flip?-1:1, P={R:[0,0],X:[s*p,0],Y:[0,q]}, rot=o.rot||0, c=Math.cos(rot*Math.PI/180), sn=Math.sin(rot*Math.PI/180);
   Object.keys(P).forEach(n=>{ const [x,y]=P[n]; P[n]=[x*c-y*sn, x*sn+y*c]; });
   const xs=Object.values(P).map(v=>v[0]), ys=Object.values(P).map(v=>v[1]), mx=Math.min(...xs), Mx=Math.max(...xs), my=Math.min(...ys), My=Math.max(...ys);
-  const k=o.k||Math.min(230/(Mx-mx), 160/(My-my)), pad=58, X=v=>pad+(v-mx)*k, Y=v=>pad+(My-v)*k, f=v=>v.toFixed(1);
+  const k=o.k||Math.min(230/(Mx-mx), 160/(My-my)), pad=66, X=v=>pad+(v-mx)*k, Y=v=>pad+(My-v)*k, f=v=>v.toFixed(1);
   const W=Math.round((Mx-mx)*k+2*pad), H=Math.round((My-my)*k+2*pad), G=[(P.R[0]+P.X[0]+P.Y[0])/3,(P.R[1]+P.X[1]+P.Y[1])/3];
   let s2=`<svg class="fig" viewBox="0 0 ${W} ${H}" width="${Math.min(o.w||260,W)}" role="img" aria-label="${o.alt||`Triangle ${names.R}${names.X}${names.Y} rectangle en ${names.R}`}">`;
   s2+=`<polygon points="${["R","X","Y"].map(n=>f(X(P[n][0]))+","+f(Y(P[n][1]))).join(" ")}" style="fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round"/>`;
@@ -32,8 +32,13 @@ function rtri(p,q,names,labels={},o={}){
   const q1=[P.R[0]+a[0]*z,P.R[1]+a[1]*z], q2=[q1[0]+b[0]*z,q1[1]+b[1]*z], q3=[P.R[0]+b[0]*z,P.R[1]+b[1]*z];
   s2+=`<path d="M${f(X(q1[0]))} ${f(Y(q1[1]))} L${f(X(q2[0]))} ${f(Y(q2[1]))} L${f(X(q3[0]))} ${f(Y(q3[1]))}" style="fill:none;stroke:#d0342c;stroke-width:1.8"/>`;
   ["R","X","Y"].forEach(n=>{ let d=[P[n][0]-G[0],P[n][1]-G[1]]; const L=Math.hypot(...d)||1; d=[d[0]/L,d[1]/L]; s2+=`<text x="${f(X(P[n][0])+d[0]*17)}" y="${f(Y(P[n][1])-d[1]*17+6)}" text-anchor="middle" style="font-weight:700;font-size:17px;fill:var(--ink)">${names[n]}</text>`; });
-  [["R","X","RX"],["R","Y","RY"],["X","Y","XY"]].forEach(([m,n,key])=>{ const t=labels[key]; if(!t) return; const M=[(P[m][0]+P[n][0])/2,(P[m][1]+P[n][1])/2]; let d=[M[0]-G[0],M[1]-G[1]]; const L=Math.hypot(...d)||1; d=[d[0]/L,d[1]/L];
-    s2+=`<text x="${f(X(M[0])+d[0]*(14+Math.abs(d[0])*String(t).length*4))}" y="${f(Y(M[1])-d[1]*16+5)}" text-anchor="middle" style="font-size:15px;font-weight:600;fill:${t==="?"?"#d0342c":"var(--ink)"}">${t}</text>`; });
+  /* longueur écrite à côté du milieu du côté, vers l'extérieur du triangle (perpendiculaire au côté) */
+  [["R","X","RX","Y"],["R","Y","RY","X"],["X","Y","XY","R"]].forEach(([m,n,key,o3])=>{ const t=labels[key]; if(!t) return;
+    const A=[X(P[m][0]),Y(P[m][1])], B=[X(P[n][0]),Y(P[n][1])], C=[X(P[o3][0]),Y(P[o3][1])], M=[(A[0]+B[0])/2,(A[1]+B[1])/2];
+    let nv=[-(B[1]-A[1]), B[0]-A[0]]; const L=Math.hypot(...nv)||1; nv=[nv[0]/L,nv[1]/L]; if(nv[0]*(C[0]-M[0])+nv[1]*(C[1]-M[1])>0) nv=[-nv[0],-nv[1]];
+    const sl=Math.hypot(B[0]-A[0],B[1]-A[1]), off=sl<String(t).length*8+34?24:9; /* côté court : on écarte la longueur des noms des sommets */
+    const anc=nv[0]>0.45?"start":nv[0]<-0.45?"end":"middle", tx=M[0]+nv[0]*off, ty=M[1]+nv[1]*off+(nv[1]>0.45?13:nv[1]<-0.45?-3:5);
+    s2+=`<text x="${f(tx)}" y="${f(ty)}" text-anchor="${anc}" style="font-size:15px;font-weight:600;fill:${t==="?"?"#d0342c":"var(--ink)"}">${t}</text>`; });
   return s2+"</svg>";
 }
 
@@ -229,8 +234,8 @@ comp:[
 ],
 exos:[
 {t:"Racines carrées", p:3, h:`<p><b>a)</b> Donne la valeur exacte de ${rac("49")}, ${rac("121")} et ${rac("0,64")}.</p><p><b>b)</b> 50 est-il un carré parfait ? Justifie.</p><p><b>c)</b> À la calculatrice, donne la valeur approchée de ${rac("30")} au dixième près.</p>`,
- c:`<p><b>a)</b> ${rac("49")} = 7 ; ${rac("121")} = 11 ; ${rac("0,64")} = 0,8 (car 0,8 × 0,8 = 0,64). <i>(1,5 point)</i></p><p><b>b)</b> 7 × 7 = 49 et 8 × 8 = 64 : aucun nombre entier multiplié par lui-même ne donne 50. 50 n'est pas un carré parfait. <i>(1 point)</i></p><p><b>c)</b> ${rac("30")} ≈ 5,477… ≈ 5,5. <i>(0,5 point)</i></p>`},
-{t:"Écrire l'égalité de Pythagore", p:3, h:`<p>Pour chaque triangle rectangle, écris l'égalité de Pythagore.</p><div class="figs">${fig("a)",rtri(3,2,{R:"L",X:"K",Y:"M"},{},{w:170}))}${fig("b)",rtri(2.5,3,{R:"V",X:"U",Y:"W"},{},{w:170,flip:true}))}${fig("c)",rtri(3.2,2.2,{R:"E",X:"F",Y:"G"},{},{w:170,rot:180}))}</div>`,
+ c:`<p><b>a)</b> ${rac("49")} = 7 car 7 × 7 = 49.</p><p>${rac("121")} = 11 car 11 × 11 = 121.</p><p>${rac("0,64")} = 0,8 car 0,8 × 0,8 = 0,64. <i>(1,5 point)</i></p><p><b>b)</b> 7 × 7 = 49 et 8 × 8 = 64 : aucun nombre entier multiplié par lui-même ne donne 50. 50 n'est pas un carré parfait. <i>(1 point)</i></p><p><b>c)</b> À la calculatrice : ${rac("30")} ≈ 5,477… donc ${rac("30")} ≈ 5,5 au dixième près. <i>(0,5 point)</i></p>`},
+{t:"Écrire l'égalité de Pythagore", p:3, h:`<p>Pour chaque triangle rectangle, écris l'égalité de Pythagore.</p><div class="figs">${fig("a)",rtri(3,2,{R:"L",X:"K",Y:"M"},{},{w:240,k:30}))}${fig("b)",rtri(2.5,3,{R:"V",X:"U",Y:"W"},{},{w:240,k:30,flip:true}))}${fig("c)",rtri(3.2,2.2,{R:"E",X:"F",Y:"G"},{},{w:240,k:30,rot:180}))}</div>`,
  c:`<p><b>a)</b> KLM est rectangle en L : LK² + LM² = KM². <i>(1 point)</i></p><p><b>b)</b> UVW est rectangle en V : VU² + VW² = UW². <i>(1 point)</i></p><p><b>c)</b> EFG est rectangle en E : EF² + EG² = FG². <i>(1 point)</i></p>`},
 {t:"Calculer des longueurs", p:6, h:`<p>Calcule la longueur demandée en rédigeant comme dans le cours.</p><p><b>a)</b> DEF est rectangle en E, DE = 3,6 cm et EF = 4,8 cm. Calcule DF.</p><p><b>b)</b> GHI est rectangle en H, GI = 8,5 cm et GH = 4 cm. Calcule HI.</p><p><b>c)</b> RST est rectangle en S, RS = 5 cm et ST = 7 cm. Calcule RT, arrondi au dixième.</p>`,
  c:`<p><b>a)</b></p>${pyth("DEF","E",{DE:3.6,EF:4.8},"DF").h}<p><i>(2 points)</i></p><p><b>b)</b></p>${pyth("GHI","H",{GH:4,GI:8.5},"HI").h}<p><i>(2 points)</i></p><p><b>c)</b></p>${pyth("RST","S",{RS:5,ST:7},"RT","cm",1).h}<p><i>(2 points)</i></p>`},

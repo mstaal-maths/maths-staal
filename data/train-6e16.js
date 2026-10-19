@@ -1,7 +1,10 @@
 /* 6e · chapitre 16 — fiche d'entraînement : les exercices de la fiche de M. Staal, avec d'autres nombres */
 TRAIN["6e-16"] = function(){
 const {ri, pick, shuf, distinct, items} = TR;
-const {F, FS, gcd, simp} = window.FIG16;
+const {F, FS, gcd, simp, CALCS, ENO} = window.FIG16;
+/* fin d'un calcul : simplification éventuelle, dernière ligne en gras */
+const fin = (st, n, d) => { st.push(n===0?"0":F(n,d)); if(n!==0){ const [p,q]=simp(n,d); if(p!==n) st.push(q===1?String(p):F(p,q)); } st[st.length-1]=`<b>${st[st.length-1]}</b>`; return st; };
+const tr3 = (a,b) => fr((Math.floor(a*1000/b)/1000).toFixed(3));
 const fr = x => String(x).replace(".",",");
 const dec = (a,b) => { for(const k of [0,1,2,3]){ if((a*10**k)%b===0) { const n=a*10**k/b; const s=String(n).padStart(k+1,"0"); return k? (String(+s.slice(0,-k))+","+s.slice(-k)) : String(n); } } return null; };
 const appr = (a,b) => fr((Math.round(a*100/b)/100).toFixed(2));
@@ -12,9 +15,9 @@ const L5 = distinct(6, ()=>{ const b=ri(2,9), a=ri(1,2*b), k=ri(2,6); return [a,
 const e4 = distinct(6, ()=>{ const b=pick([2,3,4,5,6,7,8,9,20,25]); return [ri(1,3*b), b]; }, x=>x.join());
 const secA = {t:"La fraction, un quotient", e:[
   {n:"Exercice 1", t:"Des égalités à compléter", w:"Sur ton cahier", h:`<p>Complète par une fraction, puis par un nombre décimal quand c'est possible : ${items(eg.map(([b,a])=>`${b} × …… = ${a}`),"  ·  ",true)}</p>`,
-   c:items(eg.map(([b,a])=>{ const d=dec(a,b); return `${b} × ${F(a,b)} = ${a}${d!==null?` ; ${F(a,b)} = <b>${d}</b>`:" : pas d'écriture décimale"}`; }),"<br>",true)},
+   c:items(eg.map(([b,a])=>{ const d=dec(a,b); return `${b} × ${F(a,b)} = ${a}${d!==null?` ; ${F(a,b)} = <b>${d}</b>`:` : pas d'écriture décimale (${a} ÷ ${b} = ${tr3(a,b)}…)`}`; }),"<br>",true)},
   {n:"Exercice 2", t:"Écriture décimale", w:"Sur ton cahier", h:`<p>Donne l'écriture décimale de chaque fraction, ou une valeur approchée au centième : ${items(e4.map(([a,b])=>F(a,b)),"  ·  ",true)}</p>`,
-   c:items(e4.map(([a,b])=>{ const d=dec(a,b); return d!==null?`${F(a,b)} = <b>${d}</b>`:`${F(a,b)} ≈ <b>${appr(a,b)}</b>`; }),"  ·  ",true)},
+   c:items(e4.map(([a,b])=>{ const d=dec(a,b); return d!==null?`${F(a,b)} = ${a} ÷ ${b} = <b>${d}</b>`:`${F(a,b)} = ${a} ÷ ${b} = ${tr3(a,b)}… ≈ <b>${appr(a,b)}</b>`; }),"  ·  ",true)},
   {n:"Exercice 3", t:"Fractions égales", w:"Sur ton cahier", h:`<p>Complète : ${items(L5.map(([a,b,k,o])=>o==="×"?`${F(a,b)} = ${F("……",b*k)}`:`${F(a*k,b*k)} = ${F("……",b)}`),"  ·  ",true)}</p>`,
    c:items(L5.map(([a,b,k,o])=>o==="×"?`${F(a,b)} = ${F(`${a} × ${k}`,`${b} × ${k}`)} = <b>${F(a*k,b*k)}</b>`:`${F(a*k,b*k)} = ${F(`${a*k} ÷ ${k}`,`${b*k} ÷ ${k}`)} = <b>${F(a,b)}</b>`),"  ·  ",true)}
  ]};
@@ -38,20 +41,19 @@ const secB = {t:"Comparer, encadrer et ranger", e:[
 const same = distinct(4, ()=>{ const d=ri(4,12), a=ri(1,d), b=ri(1,d), o=pick(["+","−"]); return o==="−"&&a<b?[b,a,d,o]:[a,b,d,o]; }, x=>x.join());
 const mult = distinct(4, ()=>{ const d=pick([2,3,4,5,6]), k=pick([2,3,4]), a=ri(1,2*d), b=ri(1,d*k), o=pick(["+","−"]); return o==="−"&&a*k<b?[a,d,b,d*k,"+"]:[a,d,b,d*k,o]; }, x=>x.join());
 const quel = distinct(3, ()=>pick([[1,2,1,3],[2,3,1,4],[1,2,1,5],[2,5,1,3],[1,3,1,4],[3,4,1,5],[3,4,2,3],[5,6,3,4],[1,2,2,5]]), x=>x.join());
+const qo = quel.map(([a,b,c,d])=>a/b>c/d?pick(["+","−"]):"+");
 const mE = distinct(4, ()=>{ const b=ri(2,9), a=ri(1,b+3), n=ri(2,8); return [n,a,b]; }, x=>x.join());
 const res = (n,d) => { if(n===0) return " = 0"; const [p,q]=simp(n,d); return (p!==n? ` = ${q===1?p:F(p,q)}`:"") ; };
 const secC = {t:"Calculer avec des fractions", e:[
-  {n:"Exercice 7", t:"Même dénominateur", w:"Sur ton cahier", h:`<p>${items(same.map(([a,b,d,o])=>`${F(a,d)} ${o} ${F(b,d)}`),"  ·  ",true)}</p>`,
-   c:items(same.map(([a,b,d,o])=>{ const n=o==="+"?a+b:a-b; return `${F(a,d)} ${o} ${F(b,d)} = <b>${F(n,d)}</b>${res(n,d)}`; }),"  ·  ",true)},
-  {n:"Exercice 8", t:"Un dénominateur multiple de l'autre", w:"Sur ton cahier", h:`<p>${items(mult.map(([a,d,b,D,o])=>`${F(a,d)} ${o} ${F(b,D)}`),"  ·  ",true)}</p>`,
-   c:items(mult.map(([a,d,b,D,o])=>{ const k=D/d, n=o==="+"?a*k+b:a*k-b; return `${F(a*k,D)} ${o} ${F(b,D)} = <b>${F(n,D)}</b>${res(n,D)}`; }),"<br>",true)},
-  {n:"Exercice 9", t:"Dénominateurs quelconques", w:"Sur ton cahier", h:`<p>${items(quel.map(([a,b,c,d])=>`${F(a,b)} ${a/b>c/d?pick(["+","−"]):"+"} ${F(c,d)}`),"  ·  ",true)}</p>`, c:""},
-  {n:"Exercice 10", t:"Multiplier par un entier", w:"Sur ton cahier", h:`<p>${items(mE.map(([n,a,b])=>`${n} × ${F(a,b)}`),"  ·  ",true)}</p>`,
-   c:items(mE.map(([n,a,b])=>`${n} × ${F(a,b)} = <b>${F(n*a,b)}</b>${res(n*a,b)}`),"  ·  ",true)}
+  {n:"Exercice 7", t:"Même dénominateur", w:"Sur ton cahier", h:`<p>Calcule.</p>${ENO(same.map(([a,b,d,o])=>`${F(a,d)} ${o} ${F(b,d)}`))}`,
+   c:CALCS(same.map(([a,b,d,o])=>{ const n=o==="+"?a+b:a-b; return fin([`${F(a,d)} ${o} ${F(b,d)}`, F(`${a} ${o} ${b}`,d)], n, d); }))},
+  {n:"Exercice 8", t:"Un dénominateur multiple de l'autre", w:"Sur ton cahier", h:`<p>Calcule.</p>${ENO(mult.map(([a,d,b,D,o])=>`${F(a,d)} ${o} ${F(b,D)}`))}`,
+   c:CALCS(mult.map(([a,d,b,D,o])=>{ const k=D/d, n=o==="+"?a*k+b:a*k-b; return fin([`${F(a,d)} ${o} ${F(b,D)}`, `${F(`${a} × ${k}`,`${d} × ${k}`)} ${o} ${F(b,D)}`, `${F(a*k,D)} ${o} ${F(b,D)}`], n, D); }))},
+  {n:"Exercice 9", t:"Dénominateurs quelconques", w:"Sur ton cahier", h:`<p>Trouve un dénominateur commun, puis calcule.</p>${ENO(quel.map(([a,b,c,d],i)=>`${F(a,b)} ${qo[i]} ${F(c,d)}`))}`,
+   c:CALCS(quel.map(([a,b,c,d],i)=>{ const o=qo[i], m=b*d, n=o==="+"?a*d+c*b:a*d-c*b; return fin([`${F(a,b)} ${o} ${F(c,d)}`, `${F(`${a} × ${d}`,`${b} × ${d}`)} ${o} ${F(`${c} × ${b}`,`${d} × ${b}`)}`, `${F(a*d,m)} ${o} ${F(c*b,m)}`], n, m); }))},
+  {n:"Exercice 10", t:"Multiplier par un entier", w:"Sur ton cahier", h:`<p>Calcule.</p>${ENO(mE.map(([n,a,b])=>`${n} × ${F(a,b)}`))}`,
+   c:CALCS(mE.map(([n,a,b])=>fin([`${n} × ${F(a,b)}`, F(`${n} × ${a}`,b)], n*a, b)))}
  ]};
-/* correction de l'exercice 9 (les signes sont tirés dans l'énoncé) */
-{ const txt = secC.e[2].h; const ops = [...txt.matchAll(/\} (\+|−) \{/g)].map(m=>m[1]);
-  secC.e[2].c = items(quel.map(([a,b,c,d],i)=>{ const o=ops[i]||"+", m=b*d, n=o==="+"?a*d+c*b:a*d-c*b; return `${F(a*d,m)} ${o} ${F(c*b,m)} = <b>${F(n,m)}</b>${res(n,m)}`; }),"<br>",true); }
 
 /* ---------- D. Fraction d'une quantité ---------- */
 const q1 = distinct(6, ()=>{ const b=pick([2,3,4,5,6,8,10]), a=ri(1,b-1), k=ri(2,12); return [a,b,b*k]; }, x=>x.join());

@@ -100,7 +100,7 @@ const C_G3 = `<div class="figs">${EXg([[2,1],[4,2],[6,3]],[[0,0],[2,1],[4,2],[6,
 const PV1o = {a:1,b:1,c:1, ex:[150,0], ey:[48,-40], ez:[0,-95], V:{"0,0,0":"A","1,0,0":"B","1,1,0":"C","0,1,0":"D","0,0,1":"E","1,0,1":"F","1,1,1":"G","0,1,1":"H"}, hid:"0,1,0", red:[["0,0,0","1,0,0"],["0,0,0","0,1,0"],["0,0,0","0,0,1"]]};
 const PV1 = pave({...PV1o, pts:[["M",1,1,0.5,BLUE,16,4]], alt:"Pavé droit ABCDEFGH ; M est le milieu de [CG]"});
 const PV1c = pave({...PV1o, pts:[["M",1,1,0.5,BLUE,16,4],["K",0.5,0,0,RED,0,22],["L",0,0.5,0.5,RED,-14,-6],["P",0.5,1,1,RED,0,-12]], alt:"Les points K, L et P placés dans le pavé"});
-const PV2o = {a:4,b:3,c:3, ex:[52,0], ey:[20,-17], ez:[0,-40], grid:true, hid:"0,3,0", V:{"0,0,0":"O","1,0,0":"I","0,1,0":"J","0,0,1":"K","4,0,0":"A","4,3,0":"B","0,3,0":"C","0,0,3":"D","4,0,3":"E","4,3,3":"F","0,3,3":"G"}, red:[["0,0,0","1,0,0"]]};
+const PV2o = {a:4,b:3,c:3, ex:[46,0], ey:[20,-17], ez:[0,-46], grid:true, hid:"0,3,0", V:{"0,0,0":"O","1,0,0":"I","0,1,0":"J","0,0,1":"K","4,0,0":"A","4,3,0":"B","0,3,0":"C","0,0,3":"D","4,0,3":"E","4,3,3":"F","0,3,3":"G"}, red:[["0,0,0","1,0,0"]]};
 const PV2 = pave({...PV2o, pts:[["S",1,2,3,RED,-10,-8]], alt:"Pavé droit découpé en cubes unités, repère (O ; I, J, K)"});
 const PV2c = pave({...PV2o, pts:[["S",1,2,3,RED,-10,-8],["T",2,1,3,BLUE,0,-10],["M",3,1,0,BLUE,0,20],["R",4,2,2,BLUE,14,-6]], alt:"Les points T, M et R placés"});
 
@@ -236,7 +236,7 @@ const CUBE2 = pave({...CUBEo, alt:"Cube ABCDEFGH"});
 const EX2 = {n:"Exercice 2", t:"Les coordonnées des sommets d'un cube", w:"Sur ton cahier", h:`<p>ABCDEFGH est le cube représenté ci-contre.</p>${CUBE2}<p>Écris les coordonnées de tous les points de la figure, dans le repère (A ; B, D, E).</p>`,
  c:`<p>A(0 ; 0 ; 0) ; B(1 ; 0 ; 0) ; C(1 ; 1 ; 0) ; D(0 ; 1 ; 0)</p><p>E(0 ; 0 ; 1) ; F(1 ; 0 ; 1) ; G(1 ; 1 ; 1) ; H(0 ; 1 ; 1)</p>`};
 const MN = {"0,0,0":"M","1,0,0":"N","1,1,0":"P","0,1,0":"Q","0,0,1":"R","1,0,1":"S","1,1,1":"T","0,1,1":"U"};
-const PV3 = pave({a:1,b:1,c:1, ex:[330,0], ey:[60,-48], ez:[0,-55], V:MN, hid:"0,1,0", alt:"Parallélépipède rectangle MNPQRSTU"});
+const PV3 = pave({a:1,b:1,c:1, ex:[330,0], ey:[60,-48], ez:[0,-90], V:MN, hid:"0,1,0", alt:"Parallélépipède rectangle MNPQRSTU"});
 const EX3 = {n:"Exercice 3", t:"Changer de repère", w:"Sur ton cahier", h:`<p>MNPQRSTU est le parallélépipède rectangle représenté ci-dessous.</p>${PV3}
   <p>Lis les coordonnées de tous les points de la figure :</p><p><b>a)</b> dans le repère (M ; N, Q, R) ;</p><p><b>b)</b> dans le repère (P ; Q, N, T).</p>
   <div class="retenir" data-l="Aide"><p>Travailler dans le repère <b>(M ; N, Q, R)</b> veut dire que :</p><p>• <b>M</b> est l'origine du repère ;</p><p>• l'arête <b>[MN]</b> représente une unité en abscisse ;</p><p>• l'arête <b>[MQ]</b> représente une unité en ordonnée ;</p><p>• l'arête <b>[MR]</b> représente une unité en altitude.</p></div>
@@ -288,7 +288,7 @@ const EV1 = rep({xmin:-4,xmax:4,ymin:-4,ymax:4,gx:0.5,lx:1,kx:52,ky:28, pts:[["A
 const EV1c = rep({xmin:-4,xmax:4,ymin:-4,ymax:4,gx:0.5,lx:1,kx:52,ky:28, pts:[["A",2,3,RED],["B",-3,1,RED],["C",-1.5,-2,RED],["D",0,-3,RED,16,6],["E",3.5,-1,BLUE],["F",-2,0,BLUE,0,-12]], alt:"Les points E et F placés"});
 const EV2 = [["a",[[1,1.5],[2,2.5],[3,3.5],[4,4.5]]],["b",[[1,1.25],[2,2.5],[3,3.75],[4,5]]],["c",[[1,0.5],[2,1.5],[3,3],[4,5]]],["d",[[1,0.5],[2,1],[3,1.5],[4,2]]]];
 const JUS=(join)=>rep({xmin:0,xmax:14,ymin:0,ymax:22,gx:1,gy:2,lx:2,ly:2,kx:26,ky:10, pts:[[2,3],[5,7.5],[8,12],[12,18]].map(p=>["",p[0],p[1],RED]), lines:join?[{p:[[0,0],[14,21]],col:GRN},{p:[[10,0],[10,15],[0,15]],col:BLUE,dash:true}]:[], xt:"Volume (L)", yt:"Prix (€)"});
-const EVPo = {a:3,b:2,c:2, ex:[60,0], ey:[24,-20], ez:[0,-48], grid:true, hid:"0,2,0", V:{"0,0,0":"A","3,0,0":"B","3,2,0":"C","0,2,0":"D","0,0,2":"E","3,0,2":"F","3,2,2":"G","0,2,2":"H"}};
+const EVPo = {a:3,b:2,c:2, ex:[56,0], ey:[24,-20], ez:[0,-56], grid:true, hid:"0,2,0", V:{"0,0,0":"A","3,0,0":"B","3,2,0":"C","0,2,0":"D","0,0,2":"E","3,0,2":"F","3,2,2":"G","0,2,2":"H"}};
 CH["4e-16"].eval={
 titre:"Évaluation d'entraînement · chapitre 16", duree:50, info:"Durée : 50 min · Calculatrice autorisée · Règle et crayon à papier",
 comp:[

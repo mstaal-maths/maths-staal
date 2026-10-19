@@ -7,7 +7,12 @@ const sum=a=>a.reduce((x,y)=>x+y,0);
 const r3=x=>Math.round(x*1000)/1000;
 const L="ABCDEFGH";
 const simpl=v=>v.map((x,i)=>i?(x<0?"− ":"+ ")+F(Math.abs(x)):F(x)).join(" ");
-const grp=v=>{ const p=v.filter(x=>x>0), n=v.filter(x=>x<0); return `${[...p,...n].map((x,i)=>i?(x<0?"− ":"+ ")+F(Math.abs(x)):F(x)).join(" ")} = ${F(sum(p))} − ${F(-sum(n))} = <b>${F(sum(v))}</b>`; };
+/* étapes après l'expression : positifs puis négatifs, puis « positifs − négatifs », puis le résultat */
+const grpSt=v=>{ const p=v.filter(x=>x>0), n=v.filter(x=>x<0), st=[[...p,...n].map((x,i)=>i?(x<0?"− ":"+ ")+F(Math.abs(x)):F(x)).join(" ")];
+  if(p.length && n.length && p.length+n.length>2) st.push(`${F(sum(p))} − ${F(-sum(n))}`); st.push(`<b>${F(sum(v))}</b>`); return st; };
+const grp=v=>grpSt(v).join(" = ");
+/* calcul en chaîne : une étape par ligne, chaque ligne commence par « A = » */
+const chain=(nm,first,st)=>`<p class="calc">${[first,...st].map(x=>`${nm} = ${x}`).join("<br>")}</p>`;
 
 /* ===== Activité 1 : cerceaux (division) ===== */
 const CER=[["marron",10],["violet",-8],["jaune",7],["vert",5],["bleu clair",-6],["bleu foncé",3],["rouge",-12]];
@@ -39,7 +44,7 @@ const affP=v=>v.map((x,i)=>i?(x<0?`+ (${F(x)})`:`+ ${x}`):F(x)).join(" ");
 
 /* ===== Exercice 5 : jeu vidéo ===== */
 const E5=(()=>{ let a,b; do{ a=Array.from({length:4},()=>nz(-45,45)); b=Array.from({length:4},()=>nz(-45,45)); }while(sum(a)===sum(b)); return [a,b]; })();
-const gp=v=>v>0?`Gagne ${v} points`:`Perd ${-v} points`;
+const gp=v=>`${v>0?"Gagne":"Perd"} ${Math.abs(v)} point${Math.abs(v)>1?"s":""}`;
 
 /* ===== Exercice 6 : priorités ===== */
 const E6=[prioQ(1),prioQ(1),prioQ(2),prioQ(2),prioQ(2),prioQ(3)];
@@ -76,19 +81,19 @@ return [
   {n:"Exercice 1", t:"Le signe du résultat d'une suite de multiplications", w:"Sur ton cahier", h:`<p>Pour chaque calcul, indique le signe du résultat (« + » ou « − »).</p><p class="calc">${E1.map((f,i)=>`${L[i]} = ${prodTxt(f)}`).join("<br>")}</p>`,
    c:`<p class="calc">${E1.map((f,i)=>{ const k=nNeg(f); return `${L[i]} : ${k} facteur${k>1?"s":""} négatif${k>1?"s":""} (${k%2?"impair":"pair"}) → <b>${k%2?"−":"+"}</b>`; }).join("<br>")}</p>`},
   {n:"Exercice 2", t:"Suite de multiplications", w:"Sur ton cahier", h:`<p>Pour A et B, écris directement le résultat. Pour C, D et E, écris tes étapes.</p><p class="calc">A = ${prodTxt(E2a[0])}<br>B = ${prodTxt(E2a[1])}</p><p class="calc">${E2b.map((x,i)=>`${"CDE"[i]} = ${prodTxt(x.f)}`).join("<br>")}</p>`,
-   c:`<p class="calc">${E2a.map((f,i)=>{ const k=nNeg(f); return `${"AB"[i]} = <b>${F(prod(f))}</b> &nbsp; (${k} facteur${k>1?"s":""} négatif${k>1?"s":""})`; }).join("<br>")}</p><p class="calc">${E2b.map((x,i)=>`${"CDE"[i]} = ${P(x.a)} × ${P(x.b)} × ${P(x.x)} = ${F(x.c)} × ${P(x.x)} = <b>${F(x.p)}</b>`).join("<br>")}</p>`}
+   c:`<p class="calc">${E2a.map((f,i)=>{ const k=nNeg(f); return `${"AB"[i]} = <b>${F(prod(f))}</b> &nbsp; (${k} facteur${k>1?"s":""} négatif${k>1?"s":""})`; }).join("<br>")}</p><div class="figs" style="gap:28px">${E2b.map((x,i)=>chain("CDE"[i],prodTxt(x.f),[`${P(x.a)} × ${P(x.b)} × ${P(x.x)}`,`${F(x.c)} × ${P(x.x)}`,`<b>${F(x.p)}</b>`])).join("")}</div>`}
  ]},
  {t:"Additions successives de nombres relatifs", e:[
   {n:"Activité 3", t:"Compte bancaire", w:"Sur ton cahier", h:`<p>Voici le compte bancaire de Lili pour le mois de décembre.</p>${tabH(["Libellé","Montant (en €)"],A3.map(([l,v])=>[l,(v>0?"+ ":"− ")+Math.abs(v)]))}<p>A-t-elle gagné ou perdu de l'argent ? Calcule la somme gagnée ou perdue.</p>`,
    c:`<p class="calc">${simpl(A3.map(x=>x[1]))}<br>= ${grp(A3.map(x=>x[1]))}</p><p>${A3t>0?`Lili a <b>gagné ${A3t} €</b>.`:A3t<0?`Lili a <b>perdu ${-A3t} €</b>.`:"Lili n'a ni gagné ni perdu d'argent."}</p>`},
   {n:"Exercice 4", t:"Suite d'additions de nombres relatifs", w:"Sur ton cahier", h:`<p>Sans calculatrice. Écris tes étapes.</p><p class="calc">A = ${affP(E4[0])}<br>B = ${affP(E4[1])}<br>C = ${simpl(E4[2])}<br>D = ${simpl(E4[3])}</p>`,
-   c:`<p class="calc">${E4.map((v,i)=>`${"ABCD"[i]} = ${grp(v)}`).join("<br>")}</p>`},
+   c:`<div class="figs" style="gap:28px">${E4.map((v,i)=>chain("ABCD"[i],i<2?affP(v):simpl(v),grpSt(v))).join("")}</div>`},
   {n:"Exercice 5", t:"Jeu vidéo", w:"Sur ton cahier", h:`<p>Deux copains font 4 parties d'un jeu vidéo.</p>${tabH(["","Elie","Maxence"],[0,1,2,3].map(i=>[`<b>Partie ${i+1}</b>`,gp(E5[0][i]),gp(E5[1][i])]))}<p>Écris le calcul des points de chacun, puis dis lequel a le meilleur score.</p>`,
-   c:`<p class="calc">Elie : ${grp(E5[0])}<br>Maxence : ${grp(E5[1])}</p><p>C'est <b>${sum(E5[0])>sum(E5[1])?"Elie":"Maxence"}</b> qui a le meilleur score.</p>`}
+   c:`<p class="calc">Elie : ${simpl(E5[0])} = ${grp(E5[0])}<br>Maxence : ${simpl(E5[1])} = ${grp(E5[1])}</p><p>C'est <b>${sum(E5[0])>sum(E5[1])?"Elie":"Maxence"}</b> qui a le meilleur score.</p>`}
  ]},
  {t:"Enchaînements d'opérations et priorités opératoires", e:[
   {n:"Exercice 6", t:"Respecter les priorités !", w:"Sur ton cahier", h:`<p>Recopie les calculs et écris tes étapes.</p>${cols(E6.map((p,i)=>`${L[i]} = ${p.e}`))}`,
-   c:`<p class="calc">${E6.map((p,i)=>`${L[i]} = ${p.e} = ${p.st.join(" = ")} = <b>${F(p.v)}</b>`).join("<br>")}</p>`},
+   c:`<div class="figs" style="gap:28px">${E6.map((p,i)=>chain(L[i],p.e,[...p.st,`<b>${F(p.v)}</b>`])).join("")}</div>`},
   {n:"Exercice 7", t:"Teste !", w:"Sur ton cahier", h:`<p>Complète les pointillés avec +, −, × ou ÷ pour que l'égalité soit vraie.</p><p class="calc">${E7.map((x,i)=>`${"abcd"[i]}. ${e7(x)}`).join("<br>")}</p>`,
    c:`<p class="calc">${E7.map((x,i)=>`${"abcd"[i]}. ${e7c(x)}`).join("<br>")}</p>`},
   {n:"Exercice 8", t:"Fais des essais", w:"Sur ton cahier", h:`<p>Place des parenthèses pour que l'égalité soit vraie.</p><p class="calc">${E8.map((x,i)=>`${"abc"[i]}. ${x.a} − ${x.b} × ${x.c} − ${x.d} = ${F(x.t)}`).join("<br>")}</p>`,

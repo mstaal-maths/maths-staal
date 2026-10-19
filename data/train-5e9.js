@@ -3,7 +3,7 @@
 TRAIN["5e-9"] = function(){
 const {ri, pick, shuf} = TR;
 const {F, Fs, cols} = window.REL;
-const {P, R, suite, addEx, sgn} = window.REL9;
+const {P, R, suite, addEx, sgn, addWhy, NL} = window.REL9;
 const r3=x=>Math.round(x*1000)/1000;
 const L="abcdefghijkl";
 const nz=(a,b)=>{ let x; do{ x=ri(a,b); }while(!x); return x; };
@@ -70,13 +70,13 @@ return [
   {n:"Activité 1", t:"Le jeu des gains et des pertes", w:"Sur ton cahier", h:`<p>Noé commence un jeu avec un score de 0 point. À chaque manche, il gagne des points (nombre positif) ou il en perd (nombre négatif).</p><p>Recopie et complète le tableau.</p>${actTab(false)}<p><b>1)</b> Quelle règle permet de trouver le score après la manche 2 ?</p><p><b>2)</b> Quel est le score final de Noé ?</p>`,
    c:`${actTab(true)}<p><b>1)</b> ${addEx(v1,v2)} ${P(v1)} + ${P(v2)} = ${R(s2)}.</p><p><b>2)</b> Le score final de Noé est de <b>${R(s3+v4)} points</b>.</p>`},
   {n:"Exercice 1", t:"Même signe", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(e1.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)}`))}`,
-   c:`<p>On garde le signe commun et on additionne les valeurs absolues.</p>${cols(e1.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)} = ${R(a+b)}`))}`},
+   c:`<p>On garde le signe commun et on additionne les valeurs absolues.</p>${e1.map(([a,b],i)=>`<p>${L[i]}) ${P(a)} + ${P(b)} = <b>${R(a+b)}</b> &nbsp; <i>${addWhy(a,b)}</i></p>`).join("")}`},
   {n:"Exercice 2", t:"Signes contraires", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(e2.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)}`))}`,
-   c:`<p>On soustrait les valeurs absolues et on garde le signe du nombre qui a la plus grande valeur absolue.</p>${cols(e2.map(([a,b],i)=>`${L[i]}) ${P(a)} + ${P(b)} = ${R(a+b)}`))}`},
+   c:`<p>On soustrait les valeurs absolues et on garde le signe du nombre qui a la plus grande valeur absolue.</p>${e2.map(([a,b],i)=>`<p>${L[i]}) ${P(a)} + ${P(b)} = <b>${R(a+b)}</b> &nbsp; <i>${addWhy(a,b)}</i></p>`).join("")}`},
   {n:"Exercice 3", t:"Le signe du résultat", w:"Sur ton cahier", h:`<p>Sans calculer, donne le signe de chaque somme : positive, négative ou nulle.</p>${e3Tab(false)}`,
    c:`${e3Tab(true)}<p>Le résultat a le signe du nombre qui a la plus grande valeur absolue (quand les deux nombres ont le même signe, c'est ce signe). Il vaut 0 si les nombres sont opposés.</p>`},
   {n:"Exercice 4", t:"Additions à trous", w:"Sur ton cahier", h:`<p>Complète par le nombre relatif qui convient.</p>${cols(e4.map((o,i)=>`${L[i]}) ${trou(o,false)}`))}`,
-   c:cols(e4.map((o,i)=>`${L[i]}) ${trou(o,true)}`))}
+   c:`<p>On peut s'aider d'une droite graduée : de combien faut-il avancer (+) ou reculer (−) ?</p>${e4.map((o,i)=>`<p>${L[i]}) ${trou(o,true)} &nbsp; <i>(de ${Fs(o.a)} à ${Fs(o.s)}, on ${o.x>0?"avance":"recule"} de ${F(Math.abs(o.x))})</i></p>`).join("")}`}
  ]},
  {t:"Soustraire un nombre relatif", e:[
   {n:"Exercice 5", t:"Soustraire, c'est ajouter l'opposé", w:"Sur ton cahier", h:`<p>Transforme chaque soustraction en addition, puis calcule.</p>${e5Tab(false)}`,
@@ -86,9 +86,9 @@ return [
  ]},
  {t:"Enchaîner des calculs et simplifier l'écriture", e:[
   {n:"Exercice 7", t:"Supprimer les parenthèses", w:"Sur ton cahier", h:`<p>Écris chaque expression sans parenthèses, puis calcule.</p>${cols(e7.map((e,i)=>`${NOMS7[i]} = ${avec(e)}`))}`,
-   c:`<p class="calc">${e7.map((e,i)=>`${NOMS7[i]} = ${avec(e)} = ${suite(e.eff)} = <b>${F(e.s)}</b>`).join("<br>")}</p>`},
+   c:`<p>+ (+b) devient + b ; + (−b) devient − b ; − (+b) devient − b ; − (−b) devient + b.</p><div class="calcs">${e7.map((e,i)=>`<div>${NL(NOMS7[i],`${avec(e)} = ${suite(e.eff)} = <b>${F(e.s)}</b>`)}</div>`).join("")}</div>`},
   {n:"Exercice 8", t:"Suites d'additions et de soustractions", w:"Sur ton cahier", h:`<p>Calcule en regroupant astucieusement les nombres.</p>${cols(e8.map((e,i)=>`${NOMS8[i]} = ${suite(e.t)}`))}`,
-   c:`<p>On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p><p class="calc">${e8.map((e,i)=>`${NOMS8[i]} = ${suite(e.t)} = ${grp(e.pos)} − ${grp(e.neg)} = ${F(e.ps)} − ${F(e.ns)} = <b>${F(e.s)}</b>`).join("<br>")}</p>`},
+   c:`<p>On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p><div class="calcs">${e8.map((e,i)=>`<div>${NL(NOMS8[i],`${suite(e.t)} = ${grp(e.pos)} − ${grp(e.neg)}${e.pos.length>1||e.neg.length>1?` = ${F(e.ps)} − ${F(e.ns)}`:""} = <b>${F(e.s)}</b>`)}</div>`).join("")}</div>`},
   {n:"Exercice 9", t:"Trouver l'erreur", w:"Sur ton cahier", h:`<p>Chaque élève a fait une erreur. Explique laquelle et donne le bon résultat.</p><p><b>1)</b> Léa a écrit : −${e9a} + ${e9b} = −${e9a+e9b}.</p><p><b>2)</b> Karim a écrit : (+${e9c}) − (+${e9d}) = +${e9d-e9c}.</p><p><b>3)</b> Inès a écrit : ${e9e} − (−${e9f}) = ${F(e9e-e9f)}.</p>`,
    c:`<p><b>1)</b> Léa a additionné les valeurs absolues alors que les signes sont contraires. On soustrait ${e9a} − ${e9b} = ${e9a-e9b} et on garde le signe de −${e9a} : <b>−${e9a} + ${e9b} = ${F(e9b-e9a)}</b>.</p><p><b>2)</b> Karim a oublié que (+${e9c}) − (+${e9d}) = (+${e9c}) + (−${e9d}). On soustrait ${e9d} − ${e9c} = ${e9d-e9c} et on garde le signe − : <b>(+${e9c}) − (+${e9d}) = −${e9d-e9c}</b>.</p><p><b>3)</b> Inès n'a pas ajouté l'opposé de −${e9f} : <b>${e9e} − (−${e9f}) = ${e9e} + ${e9f} = ${e9e+e9f}</b>.</p>`},
   {n:"Exercice 10", t:"Problèmes", w:"Sur ton cahier", h:`<p>Écris le calcul, puis réponds.</p><p><b>1)</b> Au début du mois, le compte de Mme Martin affiche ${money(c0)} €. Elle reçoit ${money(c1)} €, puis elle paie une facture de ${money(c2)} €, puis une facture de ${money(c3)} €. Quel est son solde à la fin ?</p><p><b>2)</b> Il fait ${F(tm)} °C à 6 h. À midi, la température a monté de ${tu} °C. Le soir, elle a baissé de ${tb} °C par rapport à midi. Quelle est la température le soir ?</p>`,

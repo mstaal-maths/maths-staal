@@ -1,7 +1,7 @@
 /* 5e · chapitre 2 — fiche d'entraînement : mêmes exercices que les fiches de classe, avec de nouvelles figures */
 TRAIN["5e-2"] = function(){
 const {ri, pick, shuf, items} = TR;
-const {dt, sa, usu, USU} = window.FIG5;
+const {dt, sa, usu, USU, AXC, CTC, LEG} = window.FIG5;
 const S = G.sym;
 const dist = (a,b) => Math.hypot(a[0]-b[0], a[1]-b[1]);
 const area = (P) => Math.abs(P.reduce((s,p,i)=>{ const q=P[(i+1)%P.length]; return s + p[0]*q[1]-q[0]*p[1]; },0))/2;
@@ -185,8 +185,8 @@ return [
   {n:"Exercice 4", t:"L'hexagone régulier", w:"Sur ton cahier", h:`${img("5c2ex/p5-17.png","Hexagone régulier ABCDEF de centre O",260)}<p>Complète :<br>${items(qh.map(q=>q[0]),"<br>",true)}</p>`, c:items(qh.map(q=>q[1]),"  ·  ",true)}
  ]},
  {t:"Axes et centres de symétrie", e:[
-  {n:"Exercice 6", t:"Figures usuelles", w:"Sur ton cahier", h:`<p>Trace le (ou les) axe(s) et le centre de symétrie de chaque figure, quand elle en possède.</p><div class="cgrid">${us3.map(([n,k])=>`<figure><figcaption><b>${n}</b></figcaption>${usu(k,false)}</figure>`).join("")}</div>`,
-   c:`<div class="cgrid">${us3.map(([n,k,t])=>`<figure><figcaption><b>${n}</b> ${t}</figcaption>${usu(k,true)}</figure>`).join("")}</div>`}
+  {n:"Exercice 6", t:"Figures usuelles", w:"Sur ton cahier", h:`<p>Pour chaque figure, trace les axes de symétrie <b style="color:${AXC}">en rouge</b> et marque le centre de symétrie <b style="color:${CTC}">en bleu</b>, quand elle en possède.</p><div class="cgrid">${us3.map(([n,k])=>`<figure><figcaption><b>${n}</b></figcaption>${usu(k,false)}</figure>`).join("")}</div>`,
+   c:`${LEG}<div class="cgrid">${us3.map(([n,k,t])=>`<figure><figcaption><b>${n}</b> ${t}</figcaption>${usu(k,true)}</figure>`).join("")}</div>`}
  ]}
 ];
 };

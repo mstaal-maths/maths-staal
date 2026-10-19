@@ -5,7 +5,7 @@ const {ri, pick, shuf} = TR;
 const {fq, P, add, sub, mul, dist, fourth, inter2, MAP} = window.FIG54;
 const fr = x => String(Math.round(x*100)/100).replace(".",",");
 const ov = t => `<span class="ang">${t}</span>`;
-const d10 = (a,b) => ri(a*10,b*10)/10;                         /* longueur au mm près */
+const d10 = (a,b) => ri(Math.ceil(a*10-1e-9), Math.floor(b*10+1e-9))/10;   /* bornes arrondies au dixième : jamais de longueur à 2 décimales */                         /* longueur au mm près */
 const tri = (a,b,c) => a+b>c+0.6 && a+c>b+0.6 && b+c>a+0.6;     /* triangle bien formé */
 const S4 = 26, FIT = 170;
 const LET = "ABCDEFGHJKLMNPRSTUVXYZ";
@@ -63,9 +63,9 @@ const A3 = shuf([
  ["Si un quadrilatère a deux côtés opposés parallèles, alors c'est un parallélogramme.", false, "un trapèze a deux côtés opposés parallèles, mais ce n'est pas un parallélogramme."],
  ["Si un quadrilatère a ses côtés opposés parallèles, alors c'est un parallélogramme.", true, "c'est la définition."],
  ["Si un quadrilatère a deux côtés opposés de même longueur, alors c'est un parallélogramme.", false, "un trapèze peut avoir deux côtés opposés de même longueur sans être un parallélogramme."],
- ["Si un quadrilatère a ses côtés opposés de même longueur, alors c'est un parallélogramme.", true, ""],
- ["Si un quadrilatère a deux côtés opposés parallèles et de même longueur, alors c'est un parallélogramme.", true, ""],
- ["Si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme.", true, ""],
+ ["Si un quadrilatère a ses côtés opposés de même longueur, alors c'est un parallélogramme.", true, "c'est la propriété 2 du cours."],
+ ["Si un quadrilatère a deux côtés opposés parallèles et de même longueur, alors c'est un parallélogramme.", true, "c'est la propriété 3 du cours."],
+ ["Si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme.", true, "c'est la propriété 4 du cours."],
  ["Si un quadrilatère a des diagonales de même longueur, alors c'est un parallélogramme.", false, "il faut aussi que les diagonales se coupent en leur milieu."]
 ]).slice(0,6);
 
@@ -77,7 +77,7 @@ const K5 = {
  pareq:  ()=>{ const n=pick(["4","5","3,5","6"]); return {cap:"(LI) // (ER)", f:fq({pts:(()=>{ const p=PG(); return {L:p.D,I:p.C,R:p.B,E:p.A}; })(), poly:["L","I","R","E"], lens:[["L","I",n],["E","R",n]], s:24}), ok:true, why:`(LI) // (ER) et LI = ER = ${n}. Or si un quadrilatère a deux côtés opposés parallèles et de même longueur, alors c'est un parallélogramme.`}; },
  diag:   ()=>{ const p=PG(); p.O=mul(add(p.A,p.C),.5); return {f:fq({pts:p, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], ticks:[["A","O",2],["O","C",2],["B","O",1],["O","D",1]], hide:["A","B","C","D","O"], s:24, m:16}), ok:true, why:"Ses diagonales se coupent en leur milieu (codages). Or si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme."}; },
  consec: ()=>{ const n=pick(["5","4","6"]); return {f:fq({pts:{A:[0,0],B:[3.4,0],C:[2.8,1.7],D:[0,1.7]}, poly:["A","B","C","D"], lens:[["D","C",n],["A","D",n]], hide:["A","B","C","D"], s:24, m:20}), ok:false, why:"Deux côtés <b>consécutifs</b> de même longueur ne suffisent pas."}; },
- diageq: ()=>{ const n=pick(["8","7","6"]); return {f:fq({pts:{A:[0,0],B:[4,0],C:[3.1,1.7],D:[0.9,1.7]}, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], lens:[["A","C",n,1],["B","D",n,-1]], hide:["A","B","C","D"], s:24, m:16}), ok:false, why:"Des diagonales de même longueur ne suffisent pas : il faut qu'elles se coupent en leur milieu."}; },
+ diageq: ()=>{ const n=pick(["8","7","6"]); return {f:fq({pts:{A:[0,0],B:[4,0],C:[3.1,1.7],D:[0.9,1.7]}, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], lens:[["A","C",n,1,12,0.78],["B","D",n,-1,12,0.78]], hide:["A","B","C","D"], s:24, m:16}), ok:false, why:"Des diagonales de même longueur ne suffisent pas : il faut qu'elles se coupent en leur milieu."}; },
  onepar: ()=>({cap:"(AB) // (DC)", f:fq({pts:{A:[0,0],B:[4,0],C:[3,1.7],D:[0.7,1.7]}, poly:["A","B","C","D"], s:24}), ok:false, why:"Une seule paire de côtés parallèles ne suffit pas (c'est peut-être un trapèze, comme ici)."})
 };
 const k5 = shuf(["opp","pareq","diag", pick(["none","onepar"]), "consec","diageq"]);
@@ -120,7 +120,7 @@ const x8a = (()=>{ const c=d10(3,5), a=ri(25,50); const K=[0,0], J=P(c,180-a/2),
 const x8b = (()=>{ const no=d10(3,4.5), ni=d10(no+0.8,no+2); const h=Math.sqrt(ni*ni-no*no); return {no,ni,pts:{N:[0,0],O:[no,0],I:[no,h],L:[0,h]}}; })();
 const x9a = (()=>{ const a=d10(2.5,4), b=d10(1.5,2.5); return {a,b,pts:{E:[0,a],F:[-b,0],G:[0,-a],H:[b,0],O:[0,0]}}; })();
 const x9b = (()=>{ const ad=d10(4.5,6.5), h2=d10(ad/2+0.5, ad/2+1.5); const h=Math.sqrt(4*h2*h2-ad*ad); return {ad,h2,pts:{A:[0,h],D:[ad,h],C:[ad,0],B:[0,0],O:[ad/2,h/2]}}; })();
-const x9c = (()=>{ const d=d10(3,6); const c=d/Math.SQRT2; return {d,pts:{M:[0,c],N:[c,c],O:[c,0],P:[0,0],K:[c/2,c/2]}}; })();
+const x9c = (()=>{ const d=2*d10(1.5,3);   /* PN pair en dixièmes : la moitié PK reste au mm près */ const c=d/Math.SQRT2; return {d,pts:{M:[0,c],N:[c,c],O:[c,0],P:[0,0],K:[c/2,c/2]}}; })();
 
 return [
  {t:"Repérer et tracer des parallélogrammes", e:[
@@ -134,7 +134,7 @@ return [
    <div class="figs">${fq({pts:e3.P1, poly:["A","B","C","D"], arcs:[["B","A","C",e3.ang+"°"]], lens:[["A","B",fr(e3.ab)+" cm"],["B","C",fr(e3.bc)+" cm"]], s:30})}${fq({pts:e3.P2, poly:["L","I","R","E"], segs:[["L","R"],["I","E"]], marks:["O"], lens:[["O","I",fr(e3.a)],["O","R",fr(e3.b)],["I","R",fr(e3.c)]], s:30})}</div>
    <p>En t'aidant des propriétés du cours, recopie chaque figure et écris dessus le maximum d'informations.</p>`,
    c:`<p><b>ABCD :</b> (AB) // (DC) et (AD) // (BC) · DC = AB = ${fr(e3.ab)} cm et AD = BC = ${fr(e3.bc)} cm · ${ov("ADC")} = ${ov("ABC")} = ${e3.ang}°, et ${ov("DAB")} = ${ov("BCD")}.</p>
-   <p><b>LIRE :</b> (LI) // (ER) et (LE) // (IR) · LE = IR = ${fr(e3.c)} cm · OE = OI = ${fr(e3.a)} cm et OL = OR = ${fr(e3.b)} cm, donc IE = ${fr(2*e3.a)} cm et LR = ${fr(2*e3.b)} cm.</p>
+   <p><b>LIRE :</b> (LI) // (ER) et (LE) // (IR) · LE = IR = ${fr(e3.c)} cm · OE = OI = ${fr(e3.a)} cm et OL = OR = ${fr(e3.b)} cm, donc IE = 2 × ${fr(e3.a)} = ${fr(2*e3.a)} cm et LR = 2 × ${fr(e3.b)} = ${fr(2*e3.b)} cm.</p>
    ${fq({pts:e3.P2, poly:["L","I","R","E"], segs:[["L","R"],["I","E"]], marks:["O"], lens:[["O","I",fr(e3.a)],["O","R",fr(e3.b)],["I","R",fr(e3.c)],["O","E",fr(e3.a)],["O","L",fr(e3.b)],["L","E",fr(e3.c)]], ticks:[["O","I",1],["O","E",1],["O","R",2],["O","L",2]], s:44})}`},
   {n:"Activité 2", t:"Utiliser les propriétés pour démontrer et construire", w:"Sur ton cahier", h:`<p>ABCD est un parallélogramme de centre E. On donne : EC = ${fr(a2.a)} cm, EB = ${fr(a2.b)} cm et BC = ${fr(a2.c)} cm. <i>La figure n'est pas en vraie grandeur.</i></p>
    ${fq({pts:a2.pts, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["E"], lens:[["E","C",fr(a2.a)],["E","B",fr(a2.b)],["B","C",fr(a2.c)]], s:30})}<p>1. Donne les longueurs DE et EA. Justifie. 2. Construis ce parallélogramme en vraie grandeur.</p>`,
@@ -155,7 +155,7 @@ return [
     <figure><figcaption><b>b)</b> [IJ] de ${fr(X4.b.ij)} cm. K est à ${fr(X4.b.jk)} cm de J et à ${fr(X4.b.ik)} cm de I. L est à ${fr(X4.b.ij)} cm de K et à ${fr(X4.b.jk)} cm de I.</figcaption>${fq({pts:X4.b.pts, poly:["L","K","J","I"], segs:[["I","K","cons"]], s:S4, fit:FIT})}</figure>
     <figure><figcaption><b>c)</b> [SI] de ${fr(X4.c.si)} cm, angle de ${X4.c.ang}° en S, G à ${fr(X4.c.gs)} cm de S. R est à ${fr(X4.c.si)} cm de G et à ${fr(X4.c.gs)} cm de I.</figcaption>${fq({pts:X4.c.pts, poly:["G","R","I","S"], arcs:[["S","I","G",X4.c.ang+"°"]], s:S4, fit:FIT})}</figure>
     <figure><figcaption><b>d)</b> Triangle FJG (FG = ${fr(X4.d.fg)} cm, FJ = ${fr(X4.d.fj)} cm, JG = ${fr(X4.d.jg)} cm). Puis H sur [FJ) avec JH = ${fr(X4.d.fj)} cm, et I sur [GJ) avec JI = ${fr(X4.d.jg)} cm.</figcaption>${fq({pts:X4.d.pts, poly:["F","G","H","I"], segs:[["F","H"],["G","I"]], marks:["J"], s:S4, fit:FIT})}</figure>
-    <figure><figcaption><b>e)</b> DB = ${fr(2*X4.e.de)} cm et AC = ${fr(2*X4.e.ec)} cm. Je trace [DB] et son milieu E, puis une droite qui fait un angle de ${X4.e.ang}° avec [ED] en E ; C et A sont à ${fr(X4.e.ec)} cm de E.</figcaption>${fq({pts:X4.e.pts, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["E"], arcs:[["E","D","C",X4.e.ang+"°","#7fb2e5"]], s:S4, fit:FIT})}</figure>
+    <figure><figcaption><b>e)</b> Les diagonales se coupent en leur milieu : DB = 2 × ${fr(X4.e.de)} = ${fr(2*X4.e.de)} cm et AC = 2 × ${fr(X4.e.ec)} = ${fr(2*X4.e.ec)} cm. Je trace [DB] et son milieu E, puis une droite qui fait un angle de ${X4.e.ang}° avec [ED] en E ; C et A sont à ${fr(X4.e.ec)} cm de E.</figcaption>${fq({pts:X4.e.pts, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["E"], arcs:[["E","D","C",X4.e.ang+"°","#7fb2e5"]], s:S4, fit:FIT})}</figure>
     <figure><figcaption><b>f)</b> Triangle ROM (RO = ${fr(X4.f.ro)} cm, RM = ${fr(X4.f.rm)} cm, OM = ${fr(X4.f.om)} cm). E est à ${fr(X4.f.om)} cm de R et à ${fr(X4.f.ro)} cm de M.</figcaption>${fq({pts:X4.f.pts, poly:["R","O","M","E"], segs:[["R","M","cons"]], s:S4, fit:FIT})}</figure>
     <figure><figcaption><b>g)</b> [UN] de ${fr(X4.g.un)} cm, angle de ${X4.g.ang}° en U, L à ${fr(X4.g.lu)} cm de U. E est à ${fr(X4.g.un)} cm de L et à ${fr(X4.g.lu)} cm de N.</figcaption>${fq({pts:X4.g.pts, poly:["L","U","N","E"], arcs:[["U","N","L",X4.g.ang+"°","#e57fb0"]], s:S4, fit:FIT})}</figure>
    </div>`}
@@ -183,9 +183,9 @@ return [
    <div class="figs"><figure><figcaption>1. Le losange EFGH de centre O</figcaption>${fq({pts:x9a.pts, poly:["E","F","G","H"], segs:[["E","G"],["F","H"]], marks:["O"], rights:[["O","H","E"]],  s:22})}<p class="dat">${"EO = "+fr(x9a.a)+" cm"} · ${"OH = "+fr(x9a.b)+" cm"}</p></figure>
    <figure><figcaption>2. Le rectangle ABCD de centre O</figcaption>${fq({pts:x9b.pts, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["O"],  s:24})}<p class="dat">${"AD = "+fr(x9b.ad)+" cm"} · ${"AO = "+fr(x9b.h2)+" cm"}</p></figure>
    <figure><figcaption>3. Le carré MNOP</figcaption>${fq({pts:x9c.pts, poly:["M","N","O","P"], segs:[["P","N","ln"]],  hide:["K"], s:28})}<p class="dat">${"PN = "+fr(x9c.d)+" cm"}</p></figure></div>`,
-   c:`<p><b>1.</b> Je trace [EG] de ${fr(2*x9a.a)} cm et son milieu O, puis la perpendiculaire à (EG) en O. F et H sont sur cette perpendiculaire, à ${fr(x9a.b)} cm de O.</p>${fq({pts:x9a.pts, poly:["E","F","G","H"], segs:[["E","G"],["F","H"]], marks:["O"], rights:[["O","H","E"]], ticks:[["E","O",2],["O","G",2],["F","O",1],["O","H",1]], s:22})}
+   c:`<p><b>1.</b> Je trace [EG] de 2 × ${fr(x9a.a)} = ${fr(2*x9a.a)} cm et son milieu O, puis la perpendiculaire à (EG) en O. F et H sont sur cette perpendiculaire, à ${fr(x9a.b)} cm de O.</p>${fq({pts:x9a.pts, poly:["E","F","G","H"], segs:[["E","G"],["F","H"]], marks:["O"], rights:[["O","H","E"]], ticks:[["E","O",2],["O","G",2],["F","O",1],["O","H",1]], s:22})}
    <p><b>2.</b> Je trace [AD] de ${fr(x9b.ad)} cm. Deux arcs de rayon ${fr(x9b.h2)} cm, de centres A et D, se coupent en O. Je prolonge [AO) et [DO) de ${fr(x9b.h2)} cm : j'obtiens C et B.</p>${fq({pts:x9b.pts, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["O"], ticks:[["A","O",1],["O","C",1],["B","O",1],["O","D",1]], s:24})}
-   <p><b>3.</b> Je trace [PN] de ${fr(x9c.d)} cm et son milieu K, puis la perpendiculaire à (PN) en K. M et O sont sur cette perpendiculaire, à ${fr(x9c.d/2)} cm de K.</p>${fq({pts:x9c.pts, poly:["M","N","O","P"], segs:[["P","N"],["M","O"]], marks:["K"], rights:[["K","N","M"]], ticks:[["P","K",1],["K","N",1],["M","K",1],["K","O",1]], s:28})}`}
+   <p><b>3.</b> Je trace [PN] de ${fr(x9c.d)} cm et son milieu K, puis la perpendiculaire à (PN) en K. M et O sont sur cette perpendiculaire, à ${fr(x9c.d/2)} cm de K (MO = PN = ${fr(x9c.d)} cm, et ${fr(x9c.d)} ÷ 2 = ${fr(x9c.d/2)}).</p>${fq({pts:x9c.pts, poly:["M","N","O","P"], segs:[["P","N"],["M","O"]], marks:["K"], rights:[["K","N","M"]], ticks:[["P","K",1],["K","N",1],["M","K",1],["K","O",1]], s:28})}`}
  ]}
 ];
 };

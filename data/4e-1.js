@@ -175,10 +175,10 @@ exos:[
    c:`<p><b>Même signe :</b> on garde le signe et on additionne les distances à zéro.</p>${cols(["a) (+2) + (+2) = (+4)","b) (−1) + (−3) = (−4)","c) (+4) + (+5) = (+9)","d) (−5) + (−2) = (−7)","e) (+3) + (+6) = (+9)","f) (−2) + (−7) = (−9)"])}
    <p><b>Signes contraires :</b> on soustrait les distances à zéro et on prend le signe du nombre qui a la plus grande distance à zéro.</p>${cols(["g) (−5) + (+2) = (−3)","h) (−1) + (+4) = (+3)","i) (+5) + (−3) = (+2)","j) (−3) + (+7) = (+4)","k) (+3) + (−2) = (+1)","l) (−7) + (+5) = (−2)","m) (+5) + (−8) = (−3)","n) (−6) + (+3) = (−3)","o) (+5) + (−1) = (+4)"])}`},
   {n:"Exercice 3", t:"Additions de plus de deux nombres relatifs", w:"Sur ton cahier", h:`<p><b>Exemple :</b> on regroupe les nombres positifs, puis les nombres négatifs.</p>
-   <p class="calc">(−4) + (+2) + (−3) + (+5) + (+2) + (−3)<br>= (+2) + (+5) + (+2) + (−4) + (−3) + (−3)<br>= (+9) + (−10)<br>= (−1)</p>
+   <p class="calc">A = (−4) + (+2) + (−3) + (+5) + (+2) + (−3)<br>A = (+2) + (+5) + (+2) + (−4) + (−3) + (−3)<br>A = (+9) + (−10)<br>A = (−1)</p>
    <div class="retenir" data-l="Remarque"><p>Lorsqu'il y a deux nombres opposés dans une somme, on peut les rayer : leur somme est 0.</p></div>
-   <p>Calcule à ton tour : (−5) + (−3) + (+2) + (+3) + (−4).</p>`,
-   c:`<p>(−3) et (+3) sont opposés : on les raye.</p><p class="calc">(−5) + <s>(−3)</s> + (+2) + <s>(+3)</s> + (−4)<br>= (−5) + (+2) + (−4)<br>= (+2) + (−9)<br>= (−7)</p>`},
+   <p>Calcule à ton tour : B = (−5) + (−3) + (+2) + (+3) + (−4).</p>`,
+   c:`<p>(−3) et (+3) sont opposés : on les raye.</p><p class="calc">B = (−5) + <s>(−3)</s> + (+2) + <s>(+3)</s> + (−4)<br>B = (−5) + (+2) + (−4)<br>B = (+2) + (−5) + (−4)<br>B = (+2) + (−9)<br>B = (−7)</p>`},
   {n:"Exercice 4", t:"Jeu vidéo", w:"Sur ton cahier", h:`<p>Quatre copains jouent à un jeu vidéo.</p><p>Richard gagne 25 points à la première partie et perd 18 points à la deuxième.</p><p>Nicolas perd 2 points à la première manche et perd 11 points à la seconde.</p><p>Jean-Baptiste gagne 9 points à la première partie et perd 24 points à la deuxième.</p><p>Dylan perd 27 points à la première manche et gagne 33 points à la seconde.</p>
    <p><b>1)</b> Écris les quatre additions qui permettent de calculer le score de chacun.</p><p><b>2)</b> Qui a gagné le plus de points ?</p>`,
    c:`<p><b>1)</b></p><p class="calc">Richard : (+25) + (−18) = (+7)<br>Nicolas : (−2) + (−11) = (−13)<br>Jean-Baptiste : (+9) + (−24) = (−15)<br>Dylan : (−27) + (+33) = (+6)</p><p><b>2)</b> −15 &lt; −13 &lt; +6 &lt; +7 : c'est <b>Richard</b> qui a gagné le plus de points (7 points).</p>`},

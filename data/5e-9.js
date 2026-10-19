@@ -23,7 +23,15 @@ function addEx(a,b){ const s=r3(a+b), A=Math.abs(a), B=Math.abs(b);
   if((a>0)===(b>0)) return `Même signe : on garde le signe commun (${sgn(a)}) et on additionne les valeurs absolues : ${F(A)} + ${F(B)} = ${F(A+B)}.`;
   if(r3(A)===r3(B)) return `Les deux nombres sont opposés : leur somme est 0.`;
   const g=A>B?a:b; return `Signes contraires : on soustrait les valeurs absolues (${F(Math.max(A,B))} − ${F(Math.min(A,B))} = ${F(r3(Math.abs(A-B)))}) et on garde le signe de ${F(g)}, qui a la plus grande valeur absolue.`; }
-window.REL9={P, R, suite, dAdd, addEx, sgn};
+/* justification courte d'une addition de deux relatifs, entre parenthèses */
+function addWhy(a,b){ const A=Math.abs(a), B=Math.abs(b);
+  if(a===0||b===0) return "(ajouter 0 ne change rien)";
+  if((a>0)===(b>0)) return `(${F(A)} + ${F(B)} = ${F(r3(A+B))} ; signe ${sgn(a)})`;
+  if(r3(A)===r3(B)) return "(nombres opposés)";
+  return `(${F(Math.max(A,B))} − ${F(Math.min(A,B))} = ${F(r3(Math.abs(A-B)))} ; signe de ${Fs(A>B?a:b)})`; }
+/* calcul nommé : une étape par ligne, chaque ligne commence par « A = » */
+const NL=(n,ch)=>`<p class="calc">${n} = ${ch.split(" = ").join(`<br>${n} = `)}</p>`;
+window.REL9={P, R, suite, dAdd, addEx, sgn, addWhy, NL};
 
 /* ===================== schémas ===================== */
 const S_MEME=sch("Deux nombres de même signe", `<p class="calc">(−4) + (−3) = −7</p><p class="schN">On garde le signe commun (−) et on additionne les valeurs absolues : 4 + 3 = 7.</p>`);
@@ -72,24 +80,24 @@ cours:[
 {k:"II", t:"Soustraire un nombre relatif", h:`
   <div class="retenir" data-l="Règle"><p><b>Soustraire</b> un nombre relatif, c'est <b>ajouter son opposé</b>.</p><p class="calc"><i>a</i> − <i>b</i> = <i>a</i> + (−<i>b</i>)</p></div>
   <p><b>Exemples :</b></p>
-  <p class="calc">(+5) − (+8) = (+5) + (−8) = −3<br>(−3) − (−7) = (−3) + (+7) = +4<br>(+2) − (−6) = (+2) + (+6) = +8</p>
-  <p><b>À toi de jouer :</b> calcule (−6) − (+2) et (+1,5) − (−2,5) en les transformant d'abord en additions.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">(−6) − (+2) = (−6) + (−2) = −8<br>(+1,5) − (−2,5) = (+1,5) + (+2,5) = +4</p></div></details>`},
+  <div class="calcs"><div>${NL("A","(+5) − (+8) = (+5) + (−8) = −3")}</div><div>${NL("B","(−3) − (−7) = (−3) + (+7) = +4")}</div><div>${NL("C","(+2) − (−6) = (+2) + (+6) = +8")}</div></div>
+  <p><b>À toi de jouer :</b> calcule D = (−6) − (+2) et E = (+1,5) − (−2,5) en les transformant d'abord en additions.</p>
+  <details><summary>Voir la correction</summary><div class="corr"><div class="calcs"><div>${NL("D","(−6) − (+2) = (−6) + (−2) = −8")}</div><div>${NL("E","(+1,5) − (−2,5) = (+1,5) + (+2,5) = +4")}</div></div></div></details>`},
 {k:"III", t:"Enchaîner des calculs et simplifier l'écriture", h:`
   <h4>1. Supprimer les parenthèses</h4>
   <div class="retenir" data-l="Propriétés"><p>Additionner un nombre, c'est écrire son signe devant lui.</p><p>Soustraire un nombre, c'est écrire le signe contraire devant lui.</p>
   <p class="calc"><i>a</i> + (+<i>b</i>) = <i>a</i> + <i>b</i><br><i>a</i> + (−<i>b</i>) = <i>a</i> − <i>b</i><br><i>a</i> − (+<i>b</i>) = <i>a</i> − <i>b</i><br><i>a</i> − (−<i>b</i>) = <i>a</i> + <i>b</i></p></div>
-  <p><b>Exemples :</b></p><p class="calc">(+5) + (−3) − (−2) = 5 − 3 + 2 = 4<br>(−4) − (+6) + (−1) = −4 − 6 − 1 = −11</p>
+  <p><b>Exemples :</b></p><div class="calcs"><div>${NL("A","(+5) + (−3) − (−2) = 5 − 3 + 2 = 4")}</div><div>${NL("B","(−4) − (+6) + (−1) = −4 − 6 − 1 = −11")}</div></div>
   <div class="attention"><b>ATTENTION :</b> on n'écrit jamais deux signes l'un à côté de l'autre : « 5 + −3 » est faux. On met des parenthèses : 5 + (−3). Les parenthèses sont indispensables autour d'un nombre négatif qui n'est pas au début du calcul.</div>
   <h4>2. Calculer une suite d'additions et de soustractions</h4>
   <p>Une écriture comme −3 + 5 − 8 + 2 est la somme des nombres −3, +5, −8 et +2.</p>
   <div class="retenir" data-l="Méthode"><p>On peut effectuer une suite d'additions et de soustractions dans l'ordre que l'on veut.</p><p>On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p></div>
-  <p><b>Exemple :</b></p><p class="calc">−3 + 5 − 8 + 2 = (5 + 2) + (−3 − 8) = 7 − 11 = −4</p>
+  <p><b>Exemple :</b></p>${NL("C","−3 + 5 − 8 + 2 = (5 + 2) + (−3 − 8) = 7 − 11 = −4")}
   <h4>3. Résoudre un problème</h4>
   <div class="retenir" data-l="À retenir"><p>Pour les températures, les altitudes, les soldes de compte ou les scores :</p><ul><li>une <b>augmentation</b> s'ajoute (nombre positif) ;</li><li>une <b>baisse</b> se soustrait, ou s'ajoute avec un nombre négatif.</li></ul></div>
   <p><b>Exemple :</b> il fait −7 °C le matin. La température monte de 5 °C, puis baisse de 9 °C.</p><p class="calc">Température finale : −7 + 5 − 9 = −2 − 9 = −11 °C</p>
-  <p><b>À toi de jouer :</b> calcule −4 + 9 − 7.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">−4 + 9 − 7 = 5 − 7 = −2</p></div></details>`}
+  <p><b>À toi de jouer :</b> calcule D = −4 + 9 − 7.</p>
+  <details><summary>Voir la correction</summary><div class="corr">${NL("D","−4 + 9 − 7 = 5 − 7 = −2")}</div></details>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -99,13 +107,13 @@ exos:[
    <p><b>1)</b> Quelle règle permet de trouver le score après la manche 2 ?</p><p><b>2)</b> Quel est le score final de Mia ?</p>`,
    c:`${actTab(true)}<p><b>1)</b> Les nombres de la manche 2 sont de signes contraires : on soustrait les valeurs absolues (9 − 6 = 3) et on garde le signe de celui qui a la plus grande valeur absolue (−9) : (+6) + (−9) = −3.</p><p><b>2)</b> Le score final de Mia est de <b>+3 points</b>.</p>`},
   {n:"Exercice 1", t:"Même signe", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["a) (+4) + (+9)","b) (−6) + (−5)","c) (−3,5) + (−2)","d) (+7,2) + (+0,8)","e) (−12) + (−18)","f) (−0,4) + (−0,9)"])}`,
-   c:`<p>On garde le signe commun et on additionne les valeurs absolues.</p>${cols(["a) (+4) + (+9) = +13","b) (−6) + (−5) = −11","c) (−3,5) + (−2) = −5,5","d) (+7,2) + (+0,8) = +8","e) (−12) + (−18) = −30","f) (−0,4) + (−0,9) = −1,3"])}`},
+   c:`<p>On garde le signe commun et on additionne les valeurs absolues.</p>${[[4,9],[-6,-5],[-3.5,-2],[7.2,0.8],[-12,-18],[-0.4,-0.9]].map(([a,b],i)=>`<p>${"abcdef"[i]}) ${P(a)} + ${P(b)} = <b>${R(a+b)}</b> &nbsp; <i>${addWhy(a,b)}</i></p>`).join("")}`},
   {n:"Exercice 2", t:"Signes contraires", w:"Sur ton cahier", h:`<p>Calcule.</p>${cols(["a) (−7) + (+4)","b) (+9) + (−12)","c) (−15) + (+15)","d) (+6,5) + (−2,5)","e) (−8) + (+10)","f) (−1,2) + (+0,7)","g) (+3) + (−3,8)","h) (−20) + (+13)"])}`,
-   c:`<p>On soustrait les valeurs absolues et on garde le signe du nombre qui a la plus grande valeur absolue.</p>${cols(["a) (−7) + (+4) = −3","b) (+9) + (−12) = −3","c) (−15) + (+15) = 0","d) (+6,5) + (−2,5) = +4","e) (−8) + (+10) = +2","f) (−1,2) + (+0,7) = −0,5","g) (+3) + (−3,8) = −0,8","h) (−20) + (+13) = −7"])}`},
+   c:`<p>On soustrait les valeurs absolues et on garde le signe du nombre qui a la plus grande valeur absolue.</p>${[[-7,4],[9,-12],[-15,15],[6.5,-2.5],[-8,10],[-1.2,0.7],[3,-3.8],[-20,13]].map(([a,b],i)=>`<p>${"abcdefgh"[i]}) ${P(a)} + ${P(b)} = <b>${R(a+b)}</b> &nbsp; <i>${addWhy(a,b)}</i></p>`).join("")}`},
   {n:"Exercice 3", t:"Le signe du résultat", w:"Sur ta feuille", h:`<p>Sans calculer, donne le signe de chaque somme : coche la bonne case.</p>${e3Tab(false)}`,
    c:`${e3Tab(true)}<p>On compare les valeurs absolues : le résultat a le signe du nombre qui a la plus grande valeur absolue.</p><p>Il vaut 0 si les nombres sont opposés.</p>`},
   {n:"Exercice 4", t:"Additions à trous", w:"Sur ta feuille", h:`<p>Complète par le nombre relatif qui convient.</p>${cols(["a) (−3) + (……) = +4","b) (+5) + (……) = −2","c) (……) + (−4) = −10","d) (……) + (+6) = 0","e) (−2,5) + (……) = −4","f) (……) + (+3,5) = +1"])}`,
-   c:cols(["a) (−3) + (<b>+7</b>) = +4","b) (+5) + (<b>−7</b>) = −2","c) (<b>−6</b>) + (−4) = −10","d) (<b>−6</b>) + (+6) = 0","e) (−2,5) + (<b>−1,5</b>) = −4","f) (<b>−2,5</b>) + (+3,5) = +1"])}
+   c:`<p>On peut s'aider d'une droite graduée : de combien faut-il avancer (+) ou reculer (−) ?</p><p>a) (−3) + (<b>+7</b>) = +4 &nbsp; <i>(de −3 à +4, on avance de 7)</i></p><p>b) (+5) + (<b>−7</b>) = −2 &nbsp; <i>(de +5 à −2, on recule de 7)</i></p><p>c) (<b>−6</b>) + (−4) = −10 &nbsp; <i>(6 + 4 = 10 et le signe est −)</i></p><p>d) (<b>−6</b>) + (+6) = 0 &nbsp; <i>(deux nombres opposés ont une somme nulle)</i></p><p>e) (−2,5) + (<b>−1,5</b>) = −4 &nbsp; <i>(de −2,5 à −4, on recule de 1,5)</i></p><p>f) (<b>−2,5</b>) + (+3,5) = +1 &nbsp; <i>(on recule de 3,5 depuis +1 : on arrive à −2,5)</i></p>`}
  ]},
 {t:"Soustraire un nombre relatif", e:[
   {n:"Exercice 5", t:"Soustraire, c'est ajouter l'opposé", w:"Sur ta feuille", h:`<p>Transforme chaque soustraction en addition, puis calcule.</p>${e5Tab(false)}`,
@@ -116,9 +124,9 @@ exos:[
  ]},
 {t:"Enchaîner des calculs et simplifier l'écriture", e:[
   {n:"Exercice 7", t:"Supprimer les parenthèses", w:"Sur ton cahier", h:`<p>Écris chaque expression sans parenthèses, puis calcule.</p>${cols(["A = (+5) + (−3) − (−2)","B = (−4) − (+6) + (−1)","C = (−7) − (−7) + (+2)","D = (+2,5) − (−1,5) − (+6)"])}`,
-   c:`<p class="calc">A = (+5) + (−3) − (−2) = 5 − 3 + 2 = <b>4</b><br>B = (−4) − (+6) + (−1) = −4 − 6 − 1 = <b>−11</b><br>C = (−7) − (−7) + (+2) = −7 + 7 + 2 = <b>2</b><br>D = (+2,5) − (−1,5) − (+6) = 2,5 + 1,5 − 6 = <b>−2</b></p>`},
+   c:`<p>+ (+b) devient + b ; + (−b) devient − b ; − (+b) devient − b ; − (−b) devient + b.</p><div class="calcs"><div>${NL("A","(+5) + (−3) − (−2) = 5 − 3 + 2 = <b>4</b>")}</div><div>${NL("B","(−4) − (+6) + (−1) = −4 − 6 − 1 = <b>−11</b>")}</div><div>${NL("C","(−7) − (−7) + (+2) = −7 + 7 + 2 = <b>2</b>")}</div><div>${NL("D","(+2,5) − (−1,5) − (+6) = 2,5 + 1,5 − 6 = <b>−2</b>")}</div></div>`},
   {n:"Exercice 8", t:"Suites d'additions et de soustractions", w:"Sur ton cahier", h:`<p>Calcule en regroupant astucieusement les nombres.</p>${cols(["F = −3 + 5 − 8 + 2","G = 12 − 15 + 7 − 9","H = −2,5 + 4 − 1,5 + 3","I = −10 + 4 − 6 + 8 − 2","J = 7,5 − 10 + 2,5 − 4","K = −0,8 − 1,2 + 3 − 1"])}`,
-   c:`<p>On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p><p class="calc">F = −3 + 5 − 8 + 2 = (5 + 2) − (3 + 8) = 7 − 11 = <b>−4</b><br>G = 12 − 15 + 7 − 9 = (12 + 7) − (15 + 9) = 19 − 24 = <b>−5</b><br>H = −2,5 + 4 − 1,5 + 3 = (4 + 3) − (2,5 + 1,5) = 7 − 4 = <b>3</b><br>I = −10 + 4 − 6 + 8 − 2 = (4 + 8) − (10 + 6 + 2) = 12 − 18 = <b>−6</b><br>J = 7,5 − 10 + 2,5 − 4 = (7,5 + 2,5) − (10 + 4) = 10 − 14 = <b>−4</b><br>K = −0,8 − 1,2 + 3 − 1 = 3 − (0,8 + 1,2 + 1) = 3 − 3 = <b>0</b></p>`},
+   c:`<p>On regroupe les nombres positifs d'un côté, les nombres négatifs de l'autre.</p><div class="calcs"><div>${NL("F","−3 + 5 − 8 + 2 = (5 + 2) − (3 + 8) = 7 − 11 = <b>−4</b>")}</div><div>${NL("G","12 − 15 + 7 − 9 = (12 + 7) − (15 + 9) = 19 − 24 = <b>−5</b>")}</div><div>${NL("H","−2,5 + 4 − 1,5 + 3 = (4 + 3) − (2,5 + 1,5) = 7 − 4 = <b>3</b>")}</div><div>${NL("I","−10 + 4 − 6 + 8 − 2 = (4 + 8) − (10 + 6 + 2) = 12 − 18 = <b>−6</b>")}</div><div>${NL("J","7,5 − 10 + 2,5 − 4 = (7,5 + 2,5) − (10 + 4) = 10 − 14 = <b>−4</b>")}</div><div>${NL("K","−0,8 − 1,2 + 3 − 1 = 3 − (0,8 + 1,2 + 1) = 3 − 3 = <b>0</b>")}</div></div>`},
   {n:"Exercice 9", t:"Trouver l'erreur", w:"Sur ton cahier", h:`<p>Chaque élève a fait une erreur. Explique laquelle et donne le bon résultat.</p><p><b>1)</b> Léa a écrit : −5 + 3 = −8.</p><p><b>2)</b> Karim a écrit : (+4) − (+6) = +2.</p><p><b>3)</b> Inès a écrit : 7 − (−2) = 5.</p>`,
    c:`<p><b>1)</b> Léa a additionné les valeurs absolues alors que les signes sont contraires. On soustrait 5 − 3 = 2 et on garde le signe de −5 : <b>−5 + 3 = −2</b>.</p><p><b>2)</b> Karim a oublié que (+4) − (+6) = (+4) + (−6). On soustrait 6 − 4 = 2 et on garde le signe − : <b>(+4) − (+6) = −2</b>.</p><p><b>3)</b> Inès n'a pas ajouté l'opposé de −2 : <b>7 − (−2) = 7 + 2 = 9</b>.</p>`},
   {n:"Exercice 10", t:"Problèmes", w:"Sur ton cahier", h:`<p>Écris le calcul, puis réponds.</p><p><b>1)</b> Au début du mois, le compte de M. Durand affiche −45 €. Il reçoit 120 €, puis il paie une facture de 38,50 €, puis une facture de 62 €. Quel est son solde à la fin ?</p><p><b>2)</b> À Chamonix, il fait −7 °C à 6 h. À midi, la température a monté de 12 °C. Le soir, elle a baissé de 15 °C par rapport à midi. Quelle est la température le soir ?</p>`,

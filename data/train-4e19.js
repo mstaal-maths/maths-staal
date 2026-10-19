@@ -31,12 +31,12 @@ const CONV=[
 const E7=shuf(CONV).slice(0,5).map(f=>f());
 /* ===== Activité : unité adaptée ===== */
 const ADP=[
-  ()=>{ const x=ri(1001,9999)/10; return [`${F(x*1e6)} m`, `${F(x)} Mm`]; },
-  ()=>{ const x=ri(101,999); return [`${F(x*1000)} m`, `${F(x)} km`]; },
-  ()=>{ const x=ri(2,9); return [`${F(x/1000)} m`, `${x} mm`]; },
-  ()=>{ const x=ri(2,90); return [`${F(x/1e6)} m`, `${x} μm`]; },
-  ()=>{ const x=ri(2,900); return [`${F(x/1e9)} m`, `${x} nm`]; },
-  ()=>{ const x=ri(11,999)/10; return [`${F(x*1e9)} m`, `${F(x)} Gm`]; }
+  ()=>{ const x=ri(1001,9999)/10; return [`${F(x*1e6)} m`, `${F(x)} Mm`, "1 Mm = 1 000 000 m"]; },
+  ()=>{ const x=ri(101,999); return [`${F(x*1000)} m`, `${F(x)} km`, "1 km = 1 000 m"]; },
+  ()=>{ const x=ri(2,9); return [`${F(x/1000)} m`, `${x} mm`, "1 mm = 0,001 m"]; },
+  ()=>{ const x=ri(2,90); return [`${F(x/1e6)} m`, `${x} μm`, "1 μm = 0,000 001 m"]; },
+  ()=>{ const x=ri(2,900); return [`${F(x/1e9)} m`, `${x} nm`, "1 nm = 0,000 000 001 m"]; },
+  ()=>{ const x=ri(11,999)/10; return [`${F(x*1e9)} m`, `${F(x)} Gm`, "1 Gm = 1 000 000 000 m"]; }
 ];
 const A1=shuf(ADP).slice(0,4).map(f=>f());
 
@@ -57,11 +57,11 @@ return [
  ]},
  {t:"Les puissances de 10 négatives", e:[
   {n:"Exercice 6", t:"Les puissances de 10", w:"Sur ton cahier", h:`<p><b>Partie 1 :</b> donne le résultat sous la forme d'un nombre décimal.</p>${cols(E6.map((n,i)=>`${L[i]}) 10<sup>${F(n)}</sup>`))}<p><b>Partie 2 :</b> associe les jetons par paire (deux jetons égaux).</p>${jetons(J6.t)}`,
-   c:`<p><b>Partie 1 :</b></p><p class="calc">${E6.map((n,i)=>`${L[i]}) 10<sup>${F(n)}</sup> = ${dec10(n)}`).join("<br>")}</p><p><b>Partie 2 :</b></p><p class="calc">${J6.ns.map(n=>`10<sup>${F(n)}</sup> = ${J6.t.find(t=>t!==`10<sup>${F(n)}</sup>` && (t===dec10(n)||t===fr(1,PU(10,-n))))}`).join("<br>")}</p>`}
+   c:`<p><b>Partie 1 :</b></p><p class="calc">${E6.map((n,i)=>`${L[i]}) 10<sup>${F(n)}</sup> = ${n<0?`${fr(1,PU(10,-n))} = `:""}${dec10(n)} &nbsp; (${n<0?"":"un 1 suivi de "}${Math.abs(n)} zéro${Math.abs(n)>1?"s":""})`).join("<br>")}</p><p><b>Partie 2 :</b></p><p class="calc">${J6.ns.map(n=>`10<sup>${F(n)}</sup> = ${J6.t.find(t=>t!==`10<sup>${F(n)}</sup>` && (t===dec10(n)||t===fr(1,PU(10,-n))))}`).join("<br>")}</p>`}
  ]},
  {t:"Les préfixes scientifiques", e:[
   {n:"Activité 1", t:"Choisir une unité adaptée", w:"Sur ton cahier", h:`<p>Rappel : 1 Gm = 10<sup>9</sup> m ; 1 Mm = 10<sup>6</sup> m ; 1 km = 10<sup>3</sup> m ; 1 mm = 10<sup>−3</sup> m ; 1 μm = 10<sup>−6</sup> m ; 1 nm = 10<sup>−9</sup> m.</p><p>Écris chaque longueur avec une unité adaptée (le nombre obtenu doit être simple, entre 1 et 1 000).</p>${cols(A1.map((x,i)=>`${L[i]}) ${x[0]}`))}`,
-   c:cols(A1.map((x,i)=>`${L[i]}) ${x[0]} = ${x[1]}`))},
+   c:`<p class="calc">${A1.map((x,i)=>`${L[i]}) ${x[2]}, donc ${x[0]} = ${x[1]}`).join("<br>")}</p>`},
   {n:"Exercice 7", t:"Des conversions", w:"Sur ton cahier", h:`<p>Complète les conversions.</p>${cols(E7.map((x,i)=>`${L[i]}) ${x[0]} = … ${x[1]}`))}`,
    c:`<p class="calc">${E7.map((x,i)=>`${L[i]}) ${x[2]}`).join("<br>")}</p>`}
  ]}

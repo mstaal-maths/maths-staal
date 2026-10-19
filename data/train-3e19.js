@@ -75,9 +75,9 @@ return [
 <p><b>1 –</b> Complète le tableau suivant.</p>${vt($x,[0,1,B.u,"",""],fx("p"),["","","",F(B.P1),F(B.P2)])}
 <p><b>2 –</b> Vérifie que ${fx("p",F(B.v))} = ${F(B.Pv)}. Interprète cette valeur.</p>
 <p><b>3 –</b> a) Donne la relation algébrique de la fonction ${$p}. b) La fonction ${$p} est-elle linéaire ? Si oui, indique son coefficient.</p>`,
-   c:`<p><b>1 –</b></p>${vt($x,[0,1,B.u,B.m1,B.m2],fx("p"),[0,F(B.p),F(B.Pu),F(B.P1),F(B.P2)])}<p>${F(B.p)} × ${F(B.u)} = ${F(B.Pu)} · ${F(B.P1)} ÷ ${F(B.p)} = ${F(B.m1)} · ${F(B.P2)} ÷ ${F(B.p)} = ${F(B.m2)}</p>
-<p><b>2 –</b> ${fx("p",F(B.v))} = ${F(B.p)} × ${F(B.v)} = ${F(B.Pv)}. ${F(B.v)} kg coûtent ${F(B.Pv)} €.</p>
-<p><b>3 –</b> a) ${fx("p")} = ${F(B.p)}${$x} · b) Oui, ${$p} est une fonction linéaire de coefficient ${F(B.p)}.</p>`},
+   c:`<p><b>1 –</b></p>${vt($x,[0,1,B.u,B.m1,B.m2],fx("p"),[0,F(B.p),F(B.Pu),F(B.P1),F(B.P2)])}<p class="calc">${F(B.p)} × ${F(B.u)} = ${F(B.Pu)}<br>${F(B.P1)} ÷ ${F(B.p)} = ${F(B.m1)}<br>${F(B.P2)} ÷ ${F(B.p)} = ${F(B.m2)}</p>
+<p><b>2 –</b> ${fx("p",F(B.v))} = ${F(B.p)} × ${F(B.v)} = ${F(B.Pv)}.</p><p>${F(B.v)} kg coûtent ${F(B.Pv)} €${Math.abs(B.Pv*100-Math.round(B.Pv*100))>1e-6?` (environ ${F(Math.round(B.Pv*100)/100)} €)`:""}.</p>
+<p><b>3 –</b> a) ${fx("p")} = ${F(B.p)}${$x}</p><p>b) Oui, ${$p} est une fonction linéaire de coefficient ${F(B.p)}.</p>`},
   {n:"Exercice 3", t:"Image et antécédent", w:"Sur ton cahier", h:`<p>On note ${X("f")} la fonction linéaire telle que ${fx("f")} = ${mono(C.a)}.</p>
 <p><b>1 –</b> Calcule l'image de ${F(C.x)} par la fonction ${X("f")}.</p><p><b>2 –</b> Calcule l'antécédent de ${F(C.y2)} par la fonction ${X("f")}.</p>`,
    c:`<p><b>1 –</b></p>${calc([`${fx("f",F(C.x))} = ${F(C.a)} × ${P(C.x)}`,`${fx("f",F(C.x))} = ${F(C.y)}`])}<p>L'image de ${F(C.x)} est ${F(C.y)}.</p>
@@ -98,11 +98,11 @@ ${plot({x:[-3,3],y:[-9,9],u:40,v:14,ys:2,gy:1,c:[D(Dk,0)],p:pts([[0,0],[2,2*Dk]]
 <p><b>3 –</b> On résout ${fx("h")} = ${F(Fp.y)}.</p>${calc([`${lin(Fp.m,Fp.b)} = ${F(Fp.y)}`,[`${mono(Fp.m)} = ${F(Fp.y-Fp.b)}`,(Fp.b>0?"− ":"+ ")+Fp.n],...(Fp.m===1?[]:[[`${$x} = ${Fp.ok?F((Fp.y-Fp.b)/Fp.m):Fp.ant}`,"÷ "+P(Fp.m)]])])}<p>L'antécédent de ${F(Fp.y)} est ${Fp.ant}.</p>`},
   {n:"Exercice 7", t:"Image d'une fraction et antécédent", w:"Sur ton cahier", h:`<p>On a la fonction affine ${X("g")} telle que ${fx("g")} = ${F(G.b)} ${G.a<0?"−":"+"} ${mono(Math.abs(G.a))}.</p>
 <p><b>1 –</b> Quelle est l'image de {${G.p}/${G.q}} par la fonction ${X("g")} ?</p><p><b>2 –</b> Quel est l'antécédent de ${F(G.y)} par la fonction ${X("g")} ?</p>`,
-   c:`<p><b>1 –</b></p>${calc([`${fx("g",`{${G.p}/${G.q}}`)} = ${F(G.b)} ${G.a<0?"−":"+"} ${Math.abs(G.a)} × {${G.p}/${G.q}}`,`${fx("g",`{${G.p}/${G.q}}`)} = ${G.b<0?"−":""}{${Math.abs(G.b*G.q)}/${G.q}} ${G.a<0?"−":"+"} {${Math.abs(G.a)*G.p}/${G.q}}`,`${fx("g",`{${G.p}/${G.q}}`)} = ${FR(G.b*G.q+G.a*G.p,G.q)}`])}<p>L'image de {${G.p}/${G.q}} est ${SV(G.b*G.q+G.a*G.p,G.q)}.</p>
+   c:`<p><b>1 –</b></p>${calc([`${fx("g",`{${G.p}/${G.q}}`)} = ${F(G.b)} ${G.a<0?"−":"+"} ${Math.abs(G.a)} × {${G.p}/${G.q}}`,`${fx("g",`{${G.p}/${G.q}}`)} = ${G.b<0?"−":""}{${Math.abs(G.b*G.q)}/${G.q}} ${G.a<0?"−":"+"} {${Math.abs(G.a)*G.p}/${G.q}}`,...(()=>{ const n=G.b*G.q+G.a*G.p, raw=(n<0?"−":"")+`{${Math.abs(n)}/${G.q}}`; return FR(n,G.q)===raw?[]:[`${fx("g",`{${G.p}/${G.q}}`)} = ${raw}`]; })(),`${fx("g",`{${G.p}/${G.q}}`)} = ${FR(G.b*G.q+G.a*G.p,G.q)}`])}<p>L'image de {${G.p}/${G.q}} est ${SV(G.b*G.q+G.a*G.p,G.q)}.</p>
 <p><b>2 –</b> On résout ${fx("g")} = ${F(G.y)}.</p>${calc([`${F(G.b)} ${G.a<0?"−":"+"} ${mono(Math.abs(G.a))} = ${F(G.y)}`,[`${mono(G.a)} = ${F(G.y-G.b)}`,(G.b>0?"− ":"+ ")+F(Math.abs(G.b))],[`${$x} = ${SV(G.y-G.b,G.a)}`,"÷ "+P(G.a)]])}<p>L'antécédent de ${F(G.y)} est ${SV(G.y-G.b,G.a)}.</p>`},
   {n:"Exercice 8", t:"Tableau de valeurs et représentation graphique", w:"Sur ton cahier", h:`<p>Soit ${X("f")} la fonction telle que ${fx("f")} = ${lin(H.a,H.b)}.</p>
 <p><b>1 –</b> Complète le tableau de valeurs.</p>${vt($x,H.xs,fx("f"),["","",""])}<p><b>2 –</b> Trace la représentation graphique de la fonction ${X("f")}.</p>`,
-   c:`<p><b>1 –</b></p>${vt($x,H.xs,fx("f"),H.xs.map(x=>H.a*x+H.b))}<p>${H.xs.map(x=>`${fx("f",F(x))} = ${F(H.a)} × ${P(x)} ${H.b<0?"−":"+"} ${F(Math.abs(H.b))} = ${F(H.a*x+H.b)}`).join(" · ")}</p>
+   c:`<p><b>1 –</b></p>${vt($x,H.xs,fx("f"),H.xs.map(x=>H.a*x+H.b))}<p class="calc">${H.xs.map(x=>`${fx("f",F(x))} = ${H.a===1?F(x):`${F(H.a)} × ${P(x)}`} ${H.b<0?"−":"+"} ${F(Math.abs(H.b))} = ${F(H.a*x+H.b)}`).join("<br>")}</p>
 <p><b>2 –</b> On place les points du tableau et on trace la droite. Elle coupe l'axe des ordonnées en ${F(H.b)} (l'ordonnée à l'origine) et elle ${H.a>0?"« monte » (a &gt; 0)":"« descend » (a &lt; 0)"}.</p>
 ${plot({x:[-3,3],y:[-11,11],u:40,v:12,ys:2,gy:1,c:[D(H.a,H.b)],p:pts(H.xs.map(x=>[x,H.a*x+H.b])),xl:"x",yl:fx("f"),alt:`Droite de f(x) = ${F(H.a)}x + ${F(H.b)}`})}`}
  ]},

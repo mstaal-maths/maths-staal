@@ -16,7 +16,7 @@ const COL = {b:"#1e5aa8", o:"#e08a00", g:"#1d7a46", r:"#d0342c"};
    tri(P, o) : P = trois sommets en cm (repère mathématique, y vers le haut)
    o.n = noms, o.arc = [{i, t, c}] (angle au sommet i), o.right = [i], o.side = [{i,j,t}], o.ticks = [[i,j,nb]], o.k = px par cm */
 function tri(P, o={}){
-  const k=o.k||34, pad=o.pad||30;
+  const k=o.k||34, pad=o.pad||42;
   const xs=P.map(p=>p[0]), ys=P.map(p=>p[1]);
   const x0=Math.min(...xs), y1=Math.max(...ys);
   const W=(Math.max(...xs)-x0)*k+2*pad, H=(y1-Math.min(...ys))*k+2*pad;
@@ -28,13 +28,13 @@ function tri(P, o={}){
   (o.arc||[]).forEach(a=>{ const V=S[a.i], p=S[(a.i+1)%3], q=S[(a.i+2)%3], e1=u(V,p), e2=u(V,q), r=a.r||22, c=COL[a.c||"b"];
     const cr=e1[0]*e2[1]-e1[1]*e2[0];
     s+=`<path d="M${f(V[0])} ${f(V[1])} L${f(V[0]+r*e1[0])} ${f(V[1]+r*e1[1])} A${r} ${r} 0 0 ${cr>0?1:0} ${f(V[0]+r*e2[0])} ${f(V[1]+r*e2[1])} Z" style="fill:${c};fill-opacity:.2;stroke:none"/><path d="M${f(V[0]+r*e1[0])} ${f(V[1]+r*e1[1])} A${r} ${r} 0 0 ${cr>0?1:0} ${f(V[0]+r*e2[0])} ${f(V[1]+r*e2[1])}" style="fill:none;stroke:${c};stroke-width:2"/>`;
-    if(a.t){ const bx=e1[0]+e2[0], by=e1[1]+e2[1], bl=Math.hypot(bx,by), d=r+15; s+=`<text x="${f(V[0]+d*bx/bl)}" y="${f(V[1]+d*by/bl+5)}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:${c}">${a.t}</text>`; } });
+    if(a.t){ const bx=e1[0]+e2[0], by=e1[1]+e2[1], bl=Math.hypot(bx,by), ag=Math.acos(Math.max(-1,Math.min(1,e1[0]*e2[0]+e1[1]*e2[1])))*180/Math.PI, d=r+15+(ag<50?(50-ag)*0.8:0); s+=`<text x="${f(V[0]+d*bx/bl)}" y="${f(V[1]+d*by/bl+5)}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:${c}">${a.t}</text>`; } });
   (o.right||[]).forEach(i=>{ const V=S[i], e1=u(V,S[(i+1)%3]), e2=u(V,S[(i+2)%3]), m=10;
     s+=`<path d="M${f(V[0]+m*e1[0])} ${f(V[1]+m*e1[1])} L${f(V[0]+m*e1[0]+m*e2[0])} ${f(V[1]+m*e1[1]+m*e2[1])} L${f(V[0]+m*e2[0])} ${f(V[1]+m*e2[1])}" style="fill:none;stroke:var(--ink);stroke-width:1.5"/>`; });
   (o.ticks||[]).forEach(([i,j,nb])=>{ const a=S[i], b=S[j], e=u(a,b), n=[-e[1],e[0]], m=[(a[0]+b[0])/2,(a[1]+b[1])/2];
     for(let t=0;t<(nb||1);t++){ const o2=(t-((nb||1)-1)/2)*5; const c=[m[0]+o2*e[0], m[1]+o2*e[1]]; s+=`<line x1="${f(c[0]-6*n[0])}" y1="${f(c[1]-6*n[1])}" x2="${f(c[0]+6*n[0])}" y2="${f(c[1]+6*n[1])}" style="stroke:var(--ink);stroke-width:1.6"/>`; } });
   s+=`<polygon points="${S.map(p=>f(p[0])+","+f(p[1])).join(" ")}" style="fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round"/>`;
-  (o.side||[]).forEach(({i,j,t})=>{ const a=S[i], b=S[j], m=[(a[0]+b[0])/2,(a[1]+b[1])/2], e=u(G,m); s+=`<text x="${f(m[0]+15*e[0])}" y="${f(m[1]+15*e[1]+5)}" text-anchor="middle" style="font-size:13px;fill:var(--ink)">${t}</text>`; });
+  (o.side||[]).forEach(({i,j,t})=>{ const a=S[i], b=S[j], m=[(a[0]+b[0])/2,(a[1]+b[1])/2], e=u(G,m), an=e[0]<-0.6?"end":e[0]>0.6?"start":"middle", dd=an==="middle"?15:8; s+=`<text x="${f(m[0]+dd*e[0])}" y="${f(m[1]+dd*e[1]+5)}" text-anchor="${an}" style="font-size:13px;fill:var(--ink)">${t}</text>`; });
   (o.n||[]).forEach((nm,i)=>{ const e=u(G,S[i]); s+=`<text x="${f(S[i][0]+15*e[0])}" y="${f(S[i][1]+15*e[1]+5)}" text-anchor="middle" style="font-size:15px;font-weight:700;fill:var(--ink)">${nm}</text>`; });
   return s+"</svg>";
 }
@@ -109,7 +109,7 @@ exos:[
   {n:"Exercice 2", t:"Calculer un angle", w:"Sur ta feuille", h:`<p>Calcule la mesure demandée. Rédige comme dans le cours.</p><p>a) ABC est un triangle tel que ${A("ABC")} = 35° et ${A("BCA")} = 85°. Calcule ${A("CAB")}.</p><p>b) MNP est un triangle tel que ${A("MNP")} = 112° et ${A("NPM")} = 27°. Calcule ${A("PMN")}.</p><p>c) RST est un triangle tel que ${A("RST")} = 90° et ${A("STR")} = 38°. Calcule ${A("TRS")}.</p><p>d) IJK est un triangle tel que ${A("IJK")} = 64,5° et ${A("JKI")} = 71,5°. Calcule ${A("KIJ")}.</p>`,
    c:`<p>a)</p>${red("ABC",60,35,85,"CAB")}<p>b)</p>${red("MNP",41,112,27,"PMN")}<p>c)</p>${red("RST",52,90,38,"TRS")}<p>d)</p>${red("IJK",44,64.5,71.5,"KIJ")}`},
   {n:"Exercice 3", t:"Des figures à main levée", w:"Sur ta feuille", h:`<p>Les figures sont faites à main levée : on ne mesure pas, on calcule. Trouve la mesure de chaque angle marqué « ? ».</p>${ex("e3","a) triangle ABC avec 72° et 48° ; b) triangle MNP rectangle en M avec 34° ; c) triangle RST avec deux angles de 25°",490)}`,
-   c:`<p>a) ${A("ACB")} = 180° − (72° + 48°) = 180° − 120° = <b>60°</b></p><p>b) Le triangle est rectangle en M : ${A("MPN")} = 180° − (90° + 34°) = 180° − 124° = <b>56°</b></p><p>c) ${A("RTS")} = 180° − (25° + 25°) = 180° − 50° = <b>130°</b></p>`},
+   c:`<p>a)</p>${red("ABC",60,72,48,"ACB")}<p>b) Le triangle est rectangle en M : ${A("NMP")} = 90°.</p>${red("MNP",56,90,34,"MPN")}<p>c)</p>${red("RST",130,25,25,"RTS")}`},
   {n:"Exercice 4", t:"Une erreur ?", w:"Sur ta feuille", h:`<p>Lina a mesuré les trois angles d'un triangle. Elle trouve 48°, 67° et 75°. A-t-elle fait une erreur ? Explique.</p>`,
    c:`<p>48 + 67 + 75 = 190. La somme des angles d'un triangle doit être égale à 180° : <b>Lina a fait une erreur</b> (d'au moins un angle, de 10° en tout).</p>`}
  ]},
@@ -136,7 +136,7 @@ exos:[
    c:`<p>1) L'angle ${A("HIG")} a pour sommet I, qui n'est pas une extrémité du côté connu [GH] : on ne sait pas où le tracer.</p><p>2) ${A("IGH")} = 180° − (40° + 65°) = 180° − 105° = <b>75°</b>. Je trace [GH] de 7 cm, un angle de 75° en G et un angle de 40° en H : les demi-droites se coupent en I.</p>${tri(fromASA(7,75,40),{k:26,n:["G","H","I"],arc:[{i:0,t:"75°"},{i:1,t:"40°",c:"o"},{i:2,t:"65°",c:"g"}],side:[{i:0,j:1,t:"7 cm"}]})}`},
   {n:"Exercice 12", t:"Une construction impossible ?", w:"Sur ton cahier", h:`<p>Tom essaie de construire le triangle ABC tel que AB = 5 cm, ${A("BAC")} = 100° et ${A("ABC")} = 85°. Il n'y arrive pas.</p><p>1) Essaie à ton tour. Que se passe-t-il ?</p><p>2) Explique, sans construire, pourquoi ce triangle n'existe pas.</p>`,
    c:`<p>1) Les deux demi-droites tracées en A et en B s'écartent l'une de l'autre : <b>elles ne se coupent pas</b>, on ne peut pas placer C.</p>
-   <svg class="fig" viewBox="0 0 300 170" width="300" role="img" aria-label="Les demi-droites issues de A et de B s'écartent"><line x1="90" y1="140" x2="230" y2="140" class="ln"/><line x1="90" y1="140" x2="66" y2="4" style="stroke:#1e5aa8;stroke-width:2;stroke-dasharray:6 4"/><line x1="230" y1="140" x2="218" y2="4" style="stroke:#e08a00;stroke-width:2;stroke-dasharray:6 4"/><text x="80" y="160" style="font-size:15px;font-weight:700;fill:var(--ink)">A</text><text x="232" y="160" style="font-size:15px;font-weight:700;fill:var(--ink)">B</text><text x="96" y="118" style="font-size:13px;font-weight:700;fill:#1e5aa8">100°</text><text x="190" y="118" style="font-size:13px;font-weight:700;fill:#e08a00">85°</text><text x="160" y="160" text-anchor="middle" style="font-size:13px;fill:var(--ink)">5 cm</text></svg>
+   <svg class="fig" viewBox="0 0 300 170" width="300" role="img" aria-label="Les demi-droites issues de A et de B s'écartent"><line x1="90" y1="140" x2="230" y2="140" class="ln"/><line x1="90" y1="140" x2="66" y2="4" style="stroke:#1e5aa8;stroke-width:2;stroke-dasharray:6 4"/><line x1="230" y1="140" x2="218" y2="4" style="stroke:#e08a00;stroke-width:2;stroke-dasharray:6 4"/><path d="M110 140 A20 20 0 0 0 86.5 120.3" style="fill:none;stroke:#1e5aa8;stroke-width:2"/><path d="M210 140 A20 20 0 0 1 228.3 120.1" style="fill:none;stroke:#e08a00;stroke-width:2"/><text x="80" y="160" style="font-size:15px;font-weight:700;fill:var(--ink)">A</text><text x="232" y="160" style="font-size:15px;font-weight:700;fill:var(--ink)">B</text><text x="96" y="118" style="font-size:13px;font-weight:700;fill:#1e5aa8">100°</text><text x="190" y="118" style="font-size:13px;font-weight:700;fill:#e08a00">85°</text><text x="160" y="160" text-anchor="middle" style="font-size:13px;fill:var(--ink)">5 cm</text></svg>
    <p>2) 100° + 85° = 185°. C'est déjà plus que 180°, alors que la somme des <b>trois</b> angles d'un triangle doit être égale à 180° : ce triangle n'existe pas.</p>`}
  ]}
 ],

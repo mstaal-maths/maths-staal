@@ -42,9 +42,11 @@ function solid(type, o){
     if(lab.l){ const m=[(B[0]+B2[0])/2+15, (B[1]+B2[1])/2+15]; body+=`<text transform="translate(${fx(m[0])} ${fx(m[1])}) rotate(-45)" text-anchor="middle" style="${LAB}">${lab.l}</text>`; }
     P=[A,B,C,Dd,A2,B2,C2,D2];
   } else if(type==="prisme"){
-    const A=[0,0], B=[o.p*u,0], C=[0,-o.q*u], A2=D(A), B2=D(B), C2=D(C);
+    /* o.s : décalage du sommet (en cm, 0 = triangle rectangle) ; il doit rester inférieur à q pour que les arêtes cachées soient les mêmes */
+    const sx=(o.s||0)*u, A=[0,0], B=[o.p*u,0], C=[sx,-o.q*u], A2=D(A), B2=D(B), C2=D(C);
     body+=`<polygon points="${[A,B,C].map(p=>p.map(fx).join(",")).join(" ")}" style="${FACE}"/>`;
     body+=seg(A2,B2,1)+seg(A2,C2,1)+seg(A,A2,1)+seg(A,B)+seg(B,C)+seg(C,A)+seg(B,B2)+seg(C,C2)+seg(B2,C2);
+    if(lab.t) body+=`<line x1="${fx(sx)}" y1="${fx(-o.q*u)}" x2="${fx(sx)}" y2="0" style="stroke:var(--c);stroke-width:1.6"/><polyline points="${fx(sx)},-9 ${fx(sx+9)},-9 ${fx(sx+9)},0" style="fill:none;stroke:var(--c);stroke-width:1.4"/>`+txt(sx/2-8, -o.q*u/2+5, lab.t, "", "end");
     if(lab.p) body+=txt(o.p*u/2, 24, lab.p);
     if(lab.q) body+=txt(-10, -o.q*u/2+5, lab.q, "", "end");
     if(lab.r){ const a=Math.atan2(o.q,o.p)*180/Math.PI, nn=Math.hypot(o.p,o.q), m=[o.p*u/2+9*o.q/nn, -o.q*u/2-9*o.p/nn]; body+=`<text transform="translate(${fx(m[0])} ${fx(m[1])}) rotate(${fx(a)})" text-anchor="middle" style="${LAB}">${lab.r}</text>`; }
@@ -212,7 +214,7 @@ exos:[
    c:`<p><b>a)</b> 6³ = 6 × 6 × 6 = 216 cm³.</p><p><b>b)</b> 8 × 5 × 3 = 120 cm³.</p><p><b>c)</b> 60 × 30 × 40 = 72 000 cm³ = 72 dm³, soit une capacité de 72 L.</p>`},
   {n:"Exercice 8", t:"Convertir des unités", w:"Sur ta feuille", h:`<p>Convertis directement sur la fiche.</p>
    <div class="scroll"><table class="std"><tbody><tr><td><b>a)</b> 3 dm³ = ……… cm³</td><td><b>b)</b> 2 L = ……… cm³</td><td><b>c)</b> 5 000 cm³ = ……… L</td></tr><tr><td><b>d)</b> 0,4 m³ = ……… L</td><td><b>e)</b> 75 cL = ……… L</td><td><b>f)</b> 250 mL = ……… cm³</td></tr></tbody></table></div>`,
-   c:`<p><b>a)</b> 3 dm³ = 3 000 cm³ · <b>b)</b> 2 L = 2 000 cm³ · <b>c)</b> 5 000 cm³ = 5 L · <b>d)</b> 0,4 m³ = 400 L · <b>e)</b> 75 cL = 0,75 L · <b>f)</b> 250 mL = 250 cm³</p>`},
+   c:`<p><b>a)</b> 1 dm³ = 1 000 cm³, donc 3 dm³ = 3 × 1 000 = 3 000 cm³.</p><p><b>b)</b> 1 L = 1 000 cm³, donc 2 L = 2 × 1 000 = 2 000 cm³.</p><p><b>c)</b> 1 000 cm³ = 1 L, donc 5 000 cm³ = 5 000 ÷ 1 000 = 5 L.</p><p><b>d)</b> 1 m³ = 1 000 L, donc 0,4 m³ = 0,4 × 1 000 = 400 L.</p><p><b>e)</b> 1 L = 100 cL, donc 75 cL = 75 ÷ 100 = 0,75 L.</p><p><b>f)</b> 1 mL = 1 cm³, donc 250 mL = 250 cm³.</p>`},
   {n:"Exercice 9", t:"Volume d'un prisme droit", w:"Sur ton cahier", h:`<p>La base d'un prisme droit est un triangle rectangle dont les côtés de l'angle droit mesurent 3 cm et 4 cm. Sa hauteur est de 8 cm.</p><p><b>a)</b> Calcule l'aire de la base.</p><p><b>b)</b> Calcule le volume du prisme.</p><p><b>c)</b> Quelle serait la hauteur d'un prisme de même base et de volume 30 cm³ ?</p>`,
    c:`<p><b>a)</b> ${F("3 × 4",2)} = 6 cm².</p><p><b>b)</b> 6 × 8 = 48 cm³.</p><p><b>c)</b> 30 ÷ 6 = 5 cm.</p>`},
   {n:"Exercice 10", t:"Volume d'un cylindre", w:"Sur ton cahier", h:`<p>Pour ${PI}, utilise la touche de ta calculatrice.</p><p><b>a)</b> Un cylindre a pour rayon 5 cm et pour hauteur 10 cm. Calcule son volume (valeur exacte puis arrondi à l'unité), puis sa capacité en litres (arrondie au centième).</p><p><b>b)</b> Une bouteille cylindrique a pour diamètre 6 cm et pour hauteur 20 cm. Peut-elle contenir 0,5 L d'eau ? Justifie.</p><p><b>c)</b> Une boîte de conserve a pour rayon 4 cm et pour hauteur 11 cm. Calcule sa contenance en mL (arrondie à l'unité).</p>`,
@@ -220,7 +222,7 @@ exos:[
   {n:"Exercice 11", t:"La piscine", w:"Sur ton cahier", h:`<p>Une piscine a la forme d'un pavé droit de 10 m de longueur, 5 m de largeur et 1,5 m de profondeur.</p><p><b>a)</b> Calcule son volume en m³, puis sa contenance en litres.</p><p><b>b)</b> On la remplit avec un robinet dont le débit est de 1 500 L par heure. Combien d'heures faut-il pour la remplir complètement ?</p><p><b>c)</b> La piscine est remplie seulement aux deux tiers. Combien de litres d'eau contient-elle ?</p>`,
    c:`<p><b>a)</b> 10 × 5 × 1,5 = 75 m³ = 75 000 L.</p><p><b>b)</b> 75 000 ÷ 1 500 = 50 : il faut 50 heures.</p><p><b>c)</b> ${F(2,3)} × 75 000 = 50 000 L.</p>`},
   {n:"Exercice 12", t:"Pour aller plus loin : le Flatiron", w:"Sur ton cahier", h:`<p>Le Flatiron Building, à New York, est un célèbre immeuble dont la forme rappelle un prisme droit à base triangulaire.</p><p>On en construit une maquette : la base est un triangle de base 6 cm et de hauteur 4 cm ; la hauteur de la maquette est 25 cm.</p><p><b>a)</b> Calcule l'aire de la base de la maquette.</p><p><b>b)</b> Calcule le volume de la maquette.</p><p><b>c)</b> Dessine la maquette en perspective cavalière (angle 45°, coefficient ${F(1,2)}).</p>`,
-   c:`<p><b>a)</b> ${F("6 × 4",2)} = 12 cm².</p><p><b>b)</b> 12 × 25 = 300 cm³.</p><p><b>c)</b> On dessine le triangle de base 6 cm et de hauteur 4 cm en vraie grandeur. Puis on trace les arêtes fuyantes de 25 × ${F(1,2)} = 12,5 cm à 45°, et on met en pointillés les arêtes cachées.</p>`}
+   c:`<p><b>a)</b> ${F("6 × 4",2)} = 12 cm².</p><p><b>b)</b> 12 × 25 = 300 cm³.</p><p><b>c)</b> On dessine le triangle de base 6 cm et de hauteur 4 cm en vraie grandeur. Puis on trace les arêtes fuyantes de 25 × ${F(1,2)} = 12,5 cm à 45°, et on met en pointillés les arêtes cachées.</p>${solid("prisme",{p:6,q:4,s:2,L:25,u:24,lab:{p:"6 cm",t:"4 cm",L:"12,5 cm"},maxw:520,alt:"Maquette en perspective cavalière : triangle de base 6 cm et de hauteur 4 cm, arêtes fuyantes de 12,5 cm"})}`}
  ]}
 ],
 

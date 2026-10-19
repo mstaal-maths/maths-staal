@@ -14,12 +14,12 @@ const secA = {t:"Angles adjacents", e:[
 
 /* ---------- B. Complémentaires, supplémentaires ---------- */
 const tb = shuf([ri(5,85), ri(5,85), ri(91,175), ri(10,80)+0.5, ri(91,175), ri(5,85)]);
-const cA = ri(20,160), cB = ri(10,80), cC = ri(15,70);
+const cA = ri(30,150), cB = ri(20,70), cC = ri(15,70);
 const secB = {t:"Complémentaires et supplémentaires", e:[
-  {n:"Exercice 2", t:"Compléter un tableau", w:"Sur ton cahier", h:`<p>Donne le complémentaire et le supplémentaire de chaque angle (une croix si c'est impossible) : ${items(tb.map(x=>fr(x)+"°"),"  ·  ",true)}</p>`,
-   c:`<div class="scroll"><table class="std"><thead><tr><th>Angle</th>${tb.map(x=>`<th>${fr(x)}°</th>`).join("")}</tr></thead><tbody><tr><th>Complémentaire</th>${tb.map(x=>`<td>${x<90?fr(90-x)+"°":"✗"}</td>`).join("")}</tr><tr><th>Supplémentaire</th>${tb.map(x=>`<td>${fr(180-x)}°</td>`).join("")}</tr></tbody></table></div><p>Un angle de plus de 90° n'a pas de complémentaire.</p>`},
+  {n:"Exercice 2", t:"Compléter un tableau", w:"Sur ton cahier", h:`<p>Complète le tableau. Si ce n'est pas possible, écris une croix.</p><div class="scroll"><table class="std"><thead><tr><th>Mesure de l'angle</th>${tb.map(x=>`<th>${fr(x)}°</th>`).join("")}</tr></thead><tbody><tr><th>Angle complémentaire</th>${tb.map(()=>`<td style="height:2.6em;min-width:3.6em"></td>`).join("")}</tr><tr><th>Angle supplémentaire</th>${tb.map(()=>`<td style="height:2.6em;min-width:3.6em"></td>`).join("")}</tr></tbody></table></div>`,
+   c:`<div class="scroll"><table class="std"><thead><tr><th>Mesure de l'angle</th>${tb.map(x=>`<th>${fr(x)}°</th>`).join("")}</tr></thead><tbody><tr><th>Angle complémentaire</th>${tb.map(x=>`<td>${x<90?fr(90-x)+"°":"✗"}</td>`).join("")}</tr><tr><th>Angle supplémentaire</th>${tb.map(x=>`<td>${fr(180-x)}°</td>`).join("")}</tr></tbody></table></div><p>Un angle de plus de 90° n'a pas de complémentaire.</p>`},
   {n:"Exercice 3", t:"Calculer un angle", w:"Sur ton cahier", h:`<div class="figs"><figure><figcaption>a) A, O et B alignés</figcaption>${rays([{a:0,n:"B"},{a:180,n:"A"},{a:180-cA,n:"C"}],{arcs:[{a0:180-cA,a1:180,t:cA+"°"},{a0:0,a1:180-cA,t:"?",c:"r",r:22}],O:"O",w:260,cx:130})}</figure><figure><figcaption>b) ${A("xOz")} droit</figcaption>${rays([{a:0,n:"x"},{a:cB,n:"y"},{a:90,n:"z"}],{arcs:[{a0:0,a1:cB,t:cB+"°"},{a0:cB,a1:90,t:"?",c:"r",r:36}],right:[0],O:"O",w:200,cx:40,h:160})}</figure><figure><figcaption>c) A, O et B alignés</figcaption>${rays([{a:0,n:"B"},{a:180,n:"A"},{a:180-cC,n:"C"},{a:90-cC,n:"D"}],{arcs:[{a0:180-cC,a1:180,t:cC+"°"},{a0:0,a1:90-cC,t:"?",c:"r",r:24}],right:[90-cC],O:"O",w:260,cx:130})}</figure></div><p>Les figures sont à main levée. Calcule les angles marqués « ? » en justifiant.</p>`,
-   c:`<p>a) ${A("COB")} = 180° − ${cA}° = <b>${180-cA}°</b> (angles supplémentaires).</p><p>b) ${A("yOz")} = 90° − ${cB}° = <b>${90-cB}°</b> (angles complémentaires).</p><p>c) ${A("DOB")} = 180° − (${cC}° + 90°) = <b>${90-cC}°</b> (les trois angles forment un angle plat).</p>`}
+   c:`<p>a) ${A("COB")} = 180° − ${cA}° = <b>${180-cA}°</b> (angles supplémentaires).</p><p>b) ${A("yOz")} = 90° − ${cB}° = <b>${90-cB}°</b> (angles complémentaires).</p><p>c) ${A("DOB")} = 180° − (${cC}° + 90°) = 180° − ${cC+90}° = <b>${90-cC}°</b> (les trois angles forment un angle plat).</p>`}
  ]};
 
 /* ---------- C. Opposés par le sommet ---------- */
@@ -37,7 +37,7 @@ const secD = {t:"La bissectrice", e:[
   {n:"Exercice 6", t:"Calculer avec la bissectrice", w:"Sur ton cahier", h:`<p>[Oz) est la bissectrice de ${A("xOy")}.</p><p>1) ${A("xOz")} = ${bz}°. Calcule ${A("xOy")}. 2) ${A("xOy")} = ${by}°. Calcule ${A("zOy")}.</p>`,
    c:`<p>1) ${A("xOy")} = 2 × ${bz}° = <b>${2*bz}°</b>. 2) ${A("zOy")} = ${by}° ÷ 2 = <b>${fr(by/2)}°</b>.</p>`},
   {n:"Exercice 7", t:"Construire une bissectrice", w:"Sur ton cahier", h:`<p>Construis un angle ${A("xOy")} de ${bang}°, puis sa bissectrice [Oz) : d'abord avec le rapporteur, puis vérifie au compas.</p>`,
-   c:`${rays([{a:0,n:"x"},{a:bang,n:"y"},{a:bang/2,n:"z",c:"r"}],{arcs:[{a0:0,a1:bang/2,t:bang/2+"°"},{a0:bang/2,a1:bang,t:bang/2+"°",r:40}],O:"O",w:260,cx:60,h:170})}<p>${bang}° ÷ 2 = ${bang/2}° : je trace [Oz) telle que ${A("xOz")} = <b>${bang/2}°</b>.</p>`}
+   c:`${rays([{a:0,n:"x"},{a:bang,n:"y"},{a:bang/2,n:"z",c:"r"}],{arcs:[{a0:0,a1:bang/2,t:bang/2+"°"},{a0:bang/2,a1:bang,t:bang/2+"°",r:40}],O:"O",w:260,cx:bang>90?125:60,h:170})}<p>${bang}° ÷ 2 = ${bang/2}° : je trace [Oz) telle que ${A("xOz")} = <b>${bang/2}°</b>.</p>`}
  ]};
 
 return [secA, secB, secC, secD];

@@ -27,7 +27,7 @@ const T = (x,y,txt,st="",a="middle") => `<text x="${x}" y="${y}" text-anchor="${
 function bars(o){
   const {cats, vals, title="", ylab="", ymax, ystep=1, ylabStep=2, w=520, H=300} = o;
   const ml=66, mr=14, mt=(title?42:16)+(o.show?18:0), mb=44, pw=w-ml-mr, ph=H-mt-mb;
-  const Y=v=>mt+ph-(v/ymax)*ph, n=cats.length, slot=pw/n, bw=Math.min(slot*0.56, 90);
+  const Y=v=>mt+ph-(v/ymax)*ph, n=cats.length, slot=pw/n, bw=o.bwr ? slot*o.bwr : Math.min(slot*0.56, 90);   /* bwr : largeur de barre / place d'une barre */
   let s=`<svg class="fig" viewBox="0 0 ${w} ${H}" width="${w}" role="img" aria-label="Diagramme en barres${title?" : "+title:""}">`;
   if(title) s+=T(ml+pw/2, 24, title, "font-weight:700;font-size:17px");
   const nk=Math.round(ymax/ystep);
@@ -85,7 +85,7 @@ function line(o){
   if(ylab) s+=`<text transform="translate(17 ${mt+ph/2}) rotate(-90)" text-anchor="middle" style="font-size:15px;fill:var(--ink)">${ylab}</text>`;
   s+=`<polyline points="${xs.map((x,i)=>X(x).toFixed(1)+","+Y(ys[i]).toFixed(1)).join(" ")}" style="fill:none;stroke:${RED};stroke-width:2.6;stroke-linejoin:round"/>`;
   xs.forEach((x,i)=>{ s+=`<circle cx="${X(x).toFixed(1)}" cy="${Y(ys[i]).toFixed(1)}" r="5.5" style="fill:${RED}"/>`;
-    if(o.show) s+=T((X(x)+(x===xmin?9:0)).toFixed(1), (Y(ys[i])-11).toFixed(1), N(ys[i]), "fill:var(--c);font-weight:700", x===xmin?"start":"middle"); });
+    if(o.show) s+=T((X(x)+(x===xmin?9:0)).toFixed(1), (Y(ys[i])+(x===xmin&&ys[i+1]>ys[i]?20:-11)).toFixed(1), N(ys[i]), "fill:var(--c);font-weight:700", x===xmin?"start":"middle"); });   /* 1er point : valeur écrite sous la courbe si elle monte */
   return s+"</svg>";
 }
 
@@ -103,13 +103,15 @@ const C_LINE = line({xs:[6,8,10,12,14,16,18], ys:[8,11,14,17,19,18,15], title:"T
 const CDI = {cats:["Lundi","Mardi","Jeudi","Vendredi"], vals:[12,8,15,5]};
 const E3 = bars({...CDI, title:"Livres empruntés au CDI", ylab:"Nombre de livres", ymax:16, ystep:1, ylabStep:2});
 const CLUB = {cats:["Football","Basket","Judo","Danse"], vals:[12,8,6,4]};
-const E4c = bars({...CLUB, title:"Sport pratiqué au club", ylab:"Nombre d'élèves", ymax:12, ystep:2, ylabStep:2, show:true});
+/* à l'échelle de la consigne : 1 cm pour 2 élèves, barres de 1 cm espacées de 1 cm (1 cm = 45 px) */
+const E4c = bars({...CLUB, title:"Sport pratiqué au club", ylab:"Nombre d'élèves", ymax:12, ystep:2, ylabStep:2, show:true, bwr:0.5, w:80+8*45, H:104+6*45});
 const CANT = {cats:["Poisson","Viande","Végétarien","Œufs"], vals:[6,9,6,3]};
 const E5c = pie({...CANT, title:"Plat choisi à la cantine", lab:i=>[CANT.cats[i], CANT.vals[i]*15+"°"]});
 const TRANS = {cats:["Bus","Vélo","À pied","Voiture"], vals:[40,15,25,20]};
 const E6 = pie({...TRANS, title:"Moyen de transport", lab:i=>[TRANS.cats[i], TRANS.vals[i]+" %"]});
 const E7 = line({xs:[6,8,10,12,14,16,18], ys:[7,10,13,16,18,17,13], title:"Températures relevées à Cholet", xlab:"Heure (h)", ylab:"Température (°C)", xmax:20, xstep:2, ymax:20, ystep:1, ylabStep:2});
-const E8c = line({xs:[0,1,2,3,4], ys:[2,5,9,12,14], title:"Croissance de la plante", xlab:"Semaine", ylab:"Taille (cm)", xmax:5, xstep:1, ymax:16, ystep:2, ylabStep:2, w:480, show:true});
+/* à l'échelle de la consigne : 1 cm pour 1 semaine en abscisse, 1 cm pour 2 cm en ordonnée (1 cm = 44 px) */
+const E8c = line({xs:[0,1,2,3,4], ys:[2,5,9,12,14], title:"Croissance de la plante", xlab:"Semaine", ylab:"Taille (cm)", xmax:5, xstep:1, ymax:16, ystep:2, ylabStep:2, w:88+5*44, H:116+8*44, show:true});
 
 /* ===================== schémas (rappels en image) ===================== */
 const S_FREQ = sch("Effectif et fréquence", tab(["Sport","Foot","Basket","Total"],[["Effectif","8","5","20"],["Fréquence",`${F(8,20)} = 40 %`,`${F(5,20)} = 25 %`,"100 %"]])+`<p class="schN">Fréquence = effectif de la valeur ÷ effectif total. La somme des fréquences vaut 1 (100 %).</p>`);
@@ -199,7 +201,7 @@ exos:[
   {n:"Exercice 2", t:"Fréquences et comparaison", w:"Sur ton cahier", h:`<p>Dans une classe de 28 élèves, 7 portent des lunettes, 14 ont les cheveux bruns et 21 sont nés avant juillet.</p>
    <p><b>a)</b> Calcule la fréquence de chaque caractéristique sous forme de fraction irréductible, puis en pourcentage.</p>
    <p><b>b)</b> Dans une autre classe, 9 élèves sur 30 portent des lunettes. Dans quelle classe la proportion d'élèves qui portent des lunettes est-elle la plus grande ?</p>`,
-   c:`<p><b>a)</b> Lunettes : ${F(7,28)} = ${F(1,4)} = 25 % · Cheveux bruns : ${F(14,28)} = ${F(1,2)} = 50 % · Nés avant juillet : ${F(21,28)} = ${F(3,4)} = 75 %</p>
+   c:`<p>Fréquence = ${F("effectif","effectif total")}. On simplifie la fraction, puis on l'écrit sur 100.</p><p><b>a)</b> Lunettes : ${F(7,28)} = ${F(1,4)} = ${F(25,100)} = 25 %</p><p>Cheveux bruns : ${F(14,28)} = ${F(1,2)} = ${F(50,100)} = 50 %</p><p>Nés avant juillet : ${F(21,28)} = ${F(3,4)} = ${F(75,100)} = 75 %</p>
    <p><b>b)</b> ${F(9,30)} = 0,3 = 30 % et 30 % &gt; 25 % : la proportion est plus grande dans l'autre classe.</p>`}
  ]},
 {t:"Lire et construire des représentations", e:[
@@ -208,7 +210,7 @@ exos:[
    c:`<p><b>a)</b> Jeudi : 15 livres ; vendredi : 5 livres.</p><p><b>b)</b> Le jeudi (15 livres). 15 ÷ 5 = 3 : trois fois plus que le vendredi.</p><p><b>c)</b> Total : 12 + 8 + 15 + 5 = 40 livres. Fréquence du lundi : ${F(12,40)} = 0,3 = 30 %.</p>`},
   {n:"Exercice 4", t:"Construire un diagramme en barres", w:"Sur ton cahier", h:`<p>Les élèves d'un club choisissent leur sport :</p>${tab(["Sport","Football","Basket","Judo","Danse"],[["Nombre d'élèves","12","8","6","4"]])}
    <p>Construis un diagramme en barres :</p><p>axe vertical : 1 cm pour 2 élèves ;</p><p>barres de 1 cm de largeur, espacées de 1 cm.</p><p>N'oublie pas le titre et les graduations.</p>`,
-   c:`<p>Les barres mesurent respectivement 12 ÷ 2 = 6 cm, 8 ÷ 2 = 4 cm, 6 ÷ 2 = 3 cm et 4 ÷ 2 = 2 cm.</p>${E4c}`},
+   c:`<p>1 cm pour 2 élèves : on divise chaque effectif par 2 pour avoir la hauteur de la barre.</p><p>Football : 12 ÷ 2 = 6 cm ; Basket : 8 ÷ 2 = 4 cm.</p><p>Judo : 6 ÷ 2 = 3 cm ; Danse : 4 ÷ 2 = 2 cm.</p>${E4c}`},
   {n:"Exercice 5", t:"Construire un diagramme circulaire", w:"Sur ta feuille et sur ton cahier", h:`<p>À la cantine, 24 élèves ont choisi leur plat : voici les effectifs. Le diagramme circulaire complet représente 24 élèves, soit 360°.</p>
    ${tab(["Plat","Poisson","Viande","Végétarien","Œufs","Total"],[["Effectif","6","9","6","3","24"],["Angle (en degrés)","","","","","360"]])}
    <p><b>1)</b> Complète directement sur la fiche le tableau des angles (proportionnalité).</p><p><b>2)</b> Construis sur ton cahier le diagramme circulaire (rayon 4 cm, rapporteur).</p>`,
@@ -218,14 +220,14 @@ exos:[
   {n:"Exercice 6", t:"Lire un diagramme circulaire", w:"Sur ton cahier", h:`<p>Le diagramme circulaire représente le moyen de transport des 200 élèves d'un collège.</p>${E6}
    <p><b>a)</b> Quel moyen de transport est le plus utilisé ? le moins utilisé ?</p><p><b>b)</b> Calcule le nombre d'élèves pour chaque moyen de transport.</p><p><b>c)</b> Quelle fraction des élèves vient à pied ou à vélo ?</p>`,
    c:`<p><b>a)</b> Le plus utilisé : le bus (40 %). Le moins utilisé : le vélo (15 %).</p>
-   <p><b>b)</b> Bus : 200 × ${F(40,100)} = 80 · Vélo : 200 × ${F(15,100)} = 30 · À pied : 200 × ${F(25,100)} = 50 · Voiture : 200 × ${F(20,100)} = 40 élèves.</p><p>Total : 80 + 30 + 50 + 40 = 200.</p>
+   <p><b>b)</b> Bus : 200 × ${F(40,100)} = 80 élèves.</p><p>Vélo : 200 × ${F(15,100)} = 30 élèves.</p><p>À pied : 200 × ${F(25,100)} = 50 élèves.</p><p>Voiture : 200 × ${F(20,100)} = 40 élèves.</p><p>Total : 80 + 30 + 50 + 40 = 200.</p>
    <p><b>c)</b> 25 % + 15 % = 40 %, soit ${F(40,100)} = ${F(2,5)} des élèves.</p>`},
   {n:"Exercice 7", t:"Lire un graphique cartésien", w:"Sur ton cahier", h:`<p>On a relevé la température à Cholet un jour de printemps.</p>${E7}
    <p><b>a)</b> Quelle était la température à 10 h ? à 16 h ?</p><p><b>b)</b> À quelle heure la température relevée est-elle maximale ? Quelle est cette température ?</p><p><b>c)</b> Pendant quelle période de relevés la température a-t-elle baissé ?</p><p><b>d)</b> De combien de degrés la température a-t-elle augmenté entre 6 h et 14 h ?</p>`,
    c:`<p><b>a)</b> À 10 h : 13 °C ; à 16 h : 17 °C.</p><p><b>b)</b> Maximum à 14 h : 18 °C.</p><p><b>c)</b> Entre 14 h et 18 h (de 18 °C à 13 °C).</p><p><b>d)</b> 18 − 7 = 11 : la température a augmenté de 11 °C.</p>`},
   {n:"Exercice 8", t:"Construire un graphique cartésien", w:"Sur ton cahier", h:`<p>On mesure la taille d'une plante chaque semaine.</p>${tab(["Semaine","0","1","2","3","4"],[["Taille (cm)","2","5","9","12","14"]])}
    <p>Construis un graphique cartésien :</p><p>en abscisse, la semaine (1 cm pour 1 semaine) ;</p><p>en ordonnée, la taille (1 cm pour 2 cm).</p><p>Place les points puis relie-les.</p>`,
-   c:`<p>On place un point pour chaque colonne du tableau : semaine 0 et 2 cm, semaine 1 et 5 cm, semaine 2 et 9 cm, semaine 3 et 12 cm, semaine 4 et 14 cm.</p>${E8c}`},
+   c:`<p>On place un point pour chaque colonne du tableau :</p><p>(0 ; 2), (1 ; 5), (2 ; 9), (3 ; 12) et (4 ; 14).</p><p>L'abscisse est la semaine, l'ordonnée est la taille en cm.</p>${E8c}`},
   {n:"Exercice 9", t:"Choisir une représentation", w:"Sur ton cahier", h:`<p>Pour chaque situation, indique en une phrase la représentation la plus adaptée : diagramme en barres, diagramme circulaire ou graphique cartésien.</p>
    <p><b>a)</b> L'évolution de la population d'une ville de 1950 à 2020.</p><p><b>b)</b> La comparaison du nombre de médailles de 5 pays aux Jeux olympiques.</p><p><b>c)</b> La répartition du budget d'une famille (logement, nourriture, loisirs, autres).</p>`,
    c:`<p><b>a)</b> Un graphique cartésien : on suit une évolution au cours du temps.</p><p><b>b)</b> Un diagramme en barres : on compare des effectifs.</p><p><b>c)</b> Un diagramme circulaire : on montre la répartition d'un tout.</p>`}

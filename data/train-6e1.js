@@ -11,6 +11,14 @@ const withZeros = d => { let s=""+ri(1,9); for(let i=1;i<d;i++) s+= Math.random(
 const big = () => { let s=""+ri(1,9); for(let i=1;i<11;i++) s+=ri(0,9); return s; };   /* 11 chiffres, en texte */
 const digS = (s,r) => +s[s.length-1-r];
 const spS = s => s.replace(/\B(?=(\d{3})+(?!\d))/g," ");
+/* découpage d'un nombre en classes, pour les corrections : « 7 milliards, 559 millions, 288 mille et 300 unités » */
+const classes = n => { const g=Math.floor(n/1e9), m=Math.floor(n/1e6)%1000, k=Math.floor(n/1000)%1000, u=n%1000, p=[];
+  if(g) p.push(`${g} milliard${g>1?"s":""}`); if(m) p.push(`${m} million${m>1?"s":""}`); if(k) p.push(`${k} mille`); if(u) p.push(`${u} unité${u>1?"s":""}`);
+  return p.length>1 ? p.slice(0,-1).join(", ")+" et "+p[p.length-1] : p[0]; };
+/* raison d'une comparaison */
+const RG = ["unités","dizaines","centaines","unités de mille","dizaines de mille","centaines de mille","unités de millions","dizaines de millions","centaines de millions"];
+const cmpWhy = (a,b) => { const la=String(a).length, lb=String(b).length; if(la!==lb) return `${la} chiffres contre ${lb}`;
+  for(let r=la-1;r>=0;r--){ const x=Math.floor(a/10**r)%10, y=Math.floor(b/10**r)%10; if(x!==y) return `même nombre de chiffres ; on compare les ${RG[r]} : ${x} ${x<y?"&lt;":"&gt;"} ${y}`; } return "ce sont les mêmes chiffres, dans le même ordre"; };
 
 /* ---------- A. La numération décimale ---------- */
 const n1=big(), r1=shuf([2,7,5,9,4,6,8]).slice(0,4);
@@ -19,7 +27,7 @@ const n2b=ri(10000000,99999999), t2b=Math.random()<.5, d2b=t2b?dig(n2b,5):(dig(n
 const q3={dm:ri(1,9), um:0, c:ri(1,9), d:ri(1,9)}; q3.u=Math.min(9,2*q3.dm); if(2*q3.dm>9){ q3.dm=ri(1,4); q3.u=2*q3.dm; }
 const ref3=ri(10,99)*1000+q3.c*100+ri(10,99), sol3=q3.dm*10000+q3.c*100+q3.d*10+q3.u;
 const secA = {t:"La numération décimale", e:[
-  {n:"Exercice 1", t:"La position des chiffres", w:"Sur ton cahier", h:`<p>Dans le nombre ${spS(n1)}, quel est le chiffre : ${items(r1.map(r=>`des ${RANG[r]} ?`)," ",true)}</p>`, c:items(r1.map(r=>String(digS(n1,r)))," · ",true)},
+  {n:"Exercice 1", t:"La position des chiffres", w:"Sur ton cahier", h:`<p>Dans le nombre ${spS(n1)}, quel est le chiffre : ${items(r1.map(r=>`des ${RANG[r]} ?`)," ",true)}</p>`, c:`<p>Je sépare le nombre en classes de trois chiffres : ${spS(n1)}.</p><p>${items(r1.map(r=>`le chiffre des ${RANG[r]} est <b>${digS(n1,r)}</b>`)," · ",true)}</p>`},
   {n:"Exercice 2", t:"Vrai ou faux ?", w:"Sur ton cahier", h:`<p>${items([`Dans ${sp(n2)}, le chiffre ${d2} est le chiffre des ${RANG[r2]}.`, `Dans ${sp(n2b)}, le chiffre des centaines de mille est ${d2b}.`, `Dans « trois-cent-cinq-millions », on met un « s » à millions.`])}</p>`,
    c:items([t2?`Vrai : le chiffre des ${RANG[r2]} de ${sp(n2)} est bien ${d2}.`:`Faux : le chiffre des ${RANG[r2]} de ${sp(n2)} est ${dig(n2,r2)}.`, t2b?`Vrai : c'est bien ${d2b}.`:`Faux : c'est ${dig(n2b,5)}.`, "Vrai : « million » est un nom, il prend un « s » au pluriel."])},
   {n:"Exercice 3", t:"Qui suis-je ?", w:"Sur ton cahier", h:`<p>Je suis un nombre de cinq chiffres. Mon chiffre des dizaines est ${q3.d}. Mon chiffre des centaines est le même que celui de ${sp(ref3)}. Mon chiffre des dizaines de mille est ${q3.dm}. Mon chiffre des unités est le double de mon chiffre des dizaines de mille. Mon chiffre des unités de mille est 0. Qui suis-je ?</p>`,
@@ -39,7 +47,7 @@ const pieges = [
 const secB = {t:"Lire et écrire les grands nombres", note:"<b>Rappels :</b> un trait d'union entre tous les mots ; « cent » et « vingt » prennent un « s » quand ils sont multipliés et que rien ne les suit ; « mille » ne prend jamais de « s » ; « million » et « milliard » prennent un « s » au pluriel.", e:[
   {n:"Activité 2", t:"Séparer les classes", w:"Sur ton cahier", h:`<p>Réécris chaque nombre en séparant les classes, puis écris-le en lettres : ${items(a4.map(String))}</p>`, c:items(a4.map(n=>`<b>${sp(n)}</b> : ${L(n)}`))},
   {n:"Exercice 4", t:"Écrire en lettres", w:"Sur ton cahier", h:`<p>Écris ces nombres en lettres : ${items(e4.map(sp),"  ·  ",true)}</p>`, c:items(e4.map(L),"  ·  ",true)},
-  {n:"Exercice 5", t:"Écrire en chiffres", w:"Sur ton cahier", h:`<p>Écris ces nombres en chiffres : ${items(e5.map(L),"  ·  ",true)}</p>`, c:items(e5.map(sp),"  ·  ",true)},
+  {n:"Exercice 5", t:"Écrire en chiffres", w:"Sur ton cahier", h:`<p>Écris ces nombres en chiffres : ${items(e5.map(L),"  ·  ",true)}</p>`, c:`<p>Je repère chaque classe (milliards, millions, mille, unités). Chaque classe s'écrit avec 3 chiffres : je complète avec des zéros si besoin.</p><p>${items(e5.map(n=>`${classes(n)} : <b>${sp(n)}</b>`),"  ·  ",true)}</p>`},
   {n:"Exercice 6", t:"Corrige l'erreur", w:"Sur ton cahier", h:`<p>${items(pieges.map(([w,n])=>`« ${w} » (${sp(n)})`),"  ·  ",true)}</p>`, c:items(pieges.map(([,n,why])=>`${L(n)} : ${why}.`),"  ·  ",true)}
 ]};
 
@@ -51,7 +59,7 @@ const c10a=ri(101,999), c10b=ri(1001,9999), c10c=ri(10101,99999);
 const secC = {t:"Décomposer un nombre", e:[
   {n:"Exercice 7", t:"Décomposer", w:"Sur ton cahier", h:`<p>Décompose ces nombres de deux façons (avec des additions, puis avec des multiplications) : ${items(e7.map(sp),"  ·  ",true)}</p>`,
    c:`<p>${e7.map((n,i)=>`${"abc"[i]}) ${sp(n)} = ${add(n)}<br>${sp(n)} = ${mul(n)}`).join("</p><p>")}</p>`},
-  {n:"Exercice 8", t:"Retrouver le nombre", w:"Sur ton cahier", h:`<p>a) ${mul(n8)} = …… En lettres : …… · b) ${add(n8b)} = ……</p>`, c:`a) <b>${sp(n8)}</b> : ${L(n8)} · b) <b>${sp(n8b)}</b>`},
+  {n:"Exercice 8", t:"Retrouver le nombre", w:"Sur ton cahier", h:`<p>a) ${mul(n8)} = …… En lettres : …… · b) ${add(n8b)} = ……</p>`, c:`a) ${add(n8)} = <b>${sp(n8)}</b> : ${L(n8)} · b) ${add(n8b)} = <b>${sp(n8b)}</b> (${classes(n8b)})`},
   {n:"Exercice 9", t:"Chiffre des… ou nombre de… ?", w:"Sur ton cahier", h:`<p>Pour le nombre ${sp(n9)}, donne le chiffre et le nombre de dizaines, de centaines et d'unités de mille.</p>`,
    c:`<div class="scroll"><table class="std"><thead><tr><th>Dans ${sp(n9)}</th><th>le chiffre des…</th><th>le nombre de…</th></tr></thead><tbody>${[[1,"dizaines"],[2,"centaines"],[3,"unités de mille"]].map(([r,nm])=>`<tr><th>${nm}</th><td>${dig(n9,r)}</td><td>${sp(Math.floor(n9/P10(r)))}</td></tr>`).join("")}</tbody></table></div>`},
   {n:"Exercice 10", t:"Des problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un jardinier plante ${c10a} salades en rangées de 10. Combien de rangées complètes fait-il ?</p><p><b>Problème 2 :</b> on range ${sp(c10b)} feuilles. Combien de paquets complets de 1 000 feuilles peut-on faire ? Et de paquets de 100 ?</p><p><b>Problème 3 :</b> un chocolatier a fabriqué ${sp(c10c)} bonbons. Il remplit d'abord le plus de cartons de 1 000 possible, puis des boîtes de 100 avec le reste, puis des sachets de 10. Combien de cartons, de boîtes et de sachets prépare-t-il ? Reste-t-il des bonbons ?</p>`,
@@ -67,14 +75,14 @@ const c12 = distinct(6, ()=>{ const t=ri(0,2); const a=ri(10000,999999);
 const cmp = (a,b) => a<b?"&lt;":a>b?"&gt;":"=";
 const tags = distinct(5, ()=>String(ri(1,9)*Math.pow(10,ri(0,2))+(Math.random()<.5?ri(0,9):0)), x=>x);
 const perm=a=>a.length<=1?[a]:a.flatMap((x,i)=>perm([...a.slice(0,i),...a.slice(i+1)]).map(r=>[x,...r]));
-const all13 = perm(tags).map(q=>q.join("")).sort(); const mn13=all13[0], mx13=all13[all13.length-1];
+const P13 = perm(tags).sort((x,y)=>x.join("")<y.join("")?-1:1); const mn13=P13[0].join(""), mx13=P13[P13.length-1].join("");
 const e14 = [ri(11,99)*10, ri(2,9)*100-1, ri(11,99)*1000-1, ri(2,9)*100000, ri(100,999)*1000+99];
 const secD = {t:"Comparer et ranger", e:[
   {n:"Activité 3", t:"Des villes de France", w:"Sur ton cahier", h:`<p>Range ces villes de la plus peuplée à la moins peuplée.</p><div class="scroll"><table class="std"><thead><tr><th>Ville</th><th>Habitants</th></tr></thead><tbody>${villes.map(([v,n])=>`<tr><td>${v}</td><td>${sp(n)}</td></tr>`).join("")}</tbody></table></div><p><i>(nombres inventés pour l'exercice)</i></p>`,
    c:dec.map(([v,n])=>`<b>${v}</b> (${sp(n)})`).join(" &gt; ")},
-  {n:"Exercice 12", t:"Comparer", w:"Sur ton cahier", h:`<p>Complète par &lt;, &gt; ou = : ${items(c12.map(([a,b])=>`${sp(a)} …… ${sp(b)}`),"  ·  ",true)}</p>`, c:items(c12.map(([a,b])=>`${sp(a)} ${cmp(a,b)} ${sp(b)}`),"  ·  ",true)},
+  {n:"Exercice 12", t:"Comparer", w:"Sur ton cahier", h:`<p>Complète par &lt;, &gt; ou = : ${items(c12.map(([a,b])=>`${sp(a)} …… ${sp(b)}`),"  ·  ",true)}</p>`, c:items(c12.map(([a,b])=>`${sp(a)} ${cmp(a,b)} ${sp(b)} (${cmpWhy(a,b)})`),"  ·  ",true)},
   {n:"Exercice 13", t:"Les étiquettes", w:"Sur ton cahier", h:`<p>Voici cinq étiquettes : <b>${tags.join(" · ")}</b>. En les mettant toutes bout à bout, écris : a) le plus petit nombre possible ; b) le plus grand nombre possible.</p>`,
-   c:`a) ${spS(mn13.replace(/^0+/,""))} · b) ${spS(mx13)}`},
+   c:`<p>Les étiquettes donnent toujours un nombre de ${mn13.length} chiffres : on compare les chiffres de gauche à droite.</p><p>a) On commence par les étiquettes qui donnent les plus petits chiffres : ${P13[0].join(" | ")}, soit <b>${spS(mn13)}</b>.</p><p>b) On commence par les étiquettes qui donnent les plus grands chiffres : ${P13[P13.length-1].join(" | ")}, soit <b>${spS(mx13)}</b>.</p>`},
   {n:"Exercice 14", t:"Avant et après", w:"Sur ton cahier", h:`<p>Écris l'entier précédent et l'entier suivant de : ${items(e14.map(sp),"  ·  ",true)}</p>`, c:items(e14.map(n=>`${sp(n-1)} &lt; ${sp(n)} &lt; ${sp(n+1)}`),"  ·  ",true)}
 ]};
 
@@ -147,7 +155,7 @@ const secF = {t:"Les priorités opératoires", note:"<b>Rappel :</b> les parenth
   {n:"Exercice 21", t:"En détaillant les étapes", w:"Sur ton cahier", h:`<p>${f3.map((e,i)=>`${NOMS[i]} = ${e}`).join("  ·  ")}</p>`,
    c:`<p class="calc" style="white-space:normal">${f3.map((e,i)=>prioSteps(e).map(l=>`${NOMS[i]} = ${l}`).join("<br>")).join("<br><br>")}</p>`},
   {n:"Exercice 22", t:"Placer des parenthèses", w:"Sur ton cahier", h:`<p>Recopie et place des parenthèses pour que l'égalité soit vraie : ${items(f4.map(([s,w])=>`${s} = ${TR.evalExpr(w)}`),"  ·  ",true)}</p>`,
-   c:items(f4.map(([,w])=>`${w} = ${TR.evalExpr(w)}`),"  ·  ",true)},
+   c:items(f4.map(([,w])=>steps(w)),"  ·  ",true)},
   {n:"Exercice 23", t:"Calculer astucieusement", w:"Sur ton cahier", h:`<p>Exemple : 13 × 7 + 13 × 3 = 13 × (7 + 3) = 13 × 10 = 130.</p><p>${items(f5.map(x=>x[0]),"  ·  ",true)}</p>`, c:items(f5.map(x=>`${x[0]} = ${x[1]}`),"  ·  ",true)},
   {n:"Exercice 24", t:"Les signes manquants", w:"Sur ton cahier", h:`<p>Remplace chaque ? par +, −, × ou ÷ : ${items(f6.map(x=>x[0]),"  ·  ",true)}</p>`, c:items(f6.map(x=>x[1]+" (une solution possible)"),"  ·  ",true)}
 ]};

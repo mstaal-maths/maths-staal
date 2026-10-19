@@ -283,7 +283,7 @@ ${cols([`${fx("f")} = −5${$x} + 3`,`${fx("g")} = 3${$x} − 2`,`${fx("h")} = �
 <p>d) Par lecture graphique, détermine le résultat obtenu en choisissant −3 comme nombre de départ dans le programme de calcul. Laisse les traits de construction apparents.</p>`,
    c:`<p><b>1.</b> 4 → 4 + 1 = 5 → 5<sup>2</sup> = 25 → 25 − 4<sup>2</sup> = 25 − 16 = 9.</p>
 <p><b>2.</b> a) ${$x} → ${$x} + 1 → (${$x} + 1)<sup>2</sup> → (${$x} + 1)<sup>2</sup> − ${sq($x)}.</p>
-<p>b)</p>${calc([`(${$x} + 1)<sup>2</sup> − ${sq($x)} = (${$x} + 1)(${$x} + 1) − ${sq($x)}`,`= ${sq($x)} + ${$x} + ${$x} + 1 − ${sq($x)}`,`= 2${$x} + 1`])}
+<p>b) On note R le résultat.</p>${calc([`R = (${$x} + 1)<sup>2</sup> − ${sq($x)}`,`R = (${$x} + 1)(${$x} + 1) − ${sq($x)}`,`R = ${sq($x)} + ${$x} + ${$x} + 1 − ${sq($x)}`,`R = 2${$x} + 1`])}
 <p><b>3.</b> a) ${fx("f","0")} = 2 × 0 + 1 = 1. L'image de 0 est égale à 1.</p>
 <p>b) On cherche ${$x} tel que ${fx("f")} = 5.</p>${calc([`2${$x} + 1 = 5`,[`2${$x} = 4`,"− 1"],[`${$x} = 2`,"÷ 2"]])}<p>L'antécédent de 5 par ${$f} est 2.</p>
 <p>c) ${$f} est affine : on place (0 ; 1) et (2 ; 5) (car ${fx("f","2")} = 5), puis on trace la droite.</p>${G_NC(1)}
@@ -357,13 +357,13 @@ ${cols([`${fx("f")} = −7${$x} + 2`,`${fx("g")} = 0,6${$x}`,`${fx("h")} = 3${sq
 <p>3) On résout 2,8${$x} = 15,4 : ${$x} = 15,4 ÷ 2,8 = 5,5. Avec 15,40 €, on achète 5,5 kg de poires. <i>(1,5 point)</i></p>`},
 {t:"Images et antécédents", p:4, h:`<p>Soit ${$f} la fonction affine définie par ${fx("f")} = −3${$x} + 7.</p>
 <p>1) Calcule l'image de −2 par ${$f}.</p><p>2) Calcule ${fx("f","{2/3}")}.</p><p>3) Calcule l'antécédent de −8 par ${$f}.</p>`,
- c:`<p>1)</p>${calc([`${fx("f","−2")} = −3 × (−2) + 7`,`${fx("f","−2")} = 6 + 7 = 13`])}<p>L'image de −2 est 13. <i>(1 point)</i></p>
-<p>2)</p>${calc([`${fx("f","{2/3}")} = −3 × {2/3} + 7`,`${fx("f","{2/3}")} = −2 + 7 = 5`])}<p><i>(1,5 point)</i></p>
+ c:`<p>1)</p>${calc([`${fx("f","−2")} = −3 × (−2) + 7`,`${fx("f","−2")} = 6 + 7`,`${fx("f","−2")} = 13`])}<p>L'image de −2 est 13. <i>(1 point)</i></p>
+<p>2)</p>${calc([`${fx("f","{2/3}")} = −3 × {2/3} + 7`,`${fx("f","{2/3}")} = −2 + 7`,`${fx("f","{2/3}")} = 5`])}<p>L'image de {2/3} est 5. <i>(1,5 point)</i></p>
 <p>3)</p>${calc([`−3${$x} + 7 = −8`,[`−3${$x} = −15`,"− 7"],[`${$x} = 5`,"÷ (−3)"]])}<p>L'antécédent de −8 est 5. <i>(1,5 point)</i></p>`},
 {t:"Un programme de calcul", p:3, h:`${prog("",["Choisir un nombre","Multiplier ce nombre par 5","Soustraire 4"])}<p>On note ${$h} la fonction qui, au nombre choisi, associe le résultat du programme.</p>
 <p>1) Donne l'expression de ${fx("h")}. Quelle est la nature de la fonction ${$h} ?</p><p>2) Quel résultat obtient-on en choisissant −3 ?</p><p>3) Quel nombre faut-il choisir pour obtenir 21 ?</p>`,
  c:`<p>1) ${fx("h")} = 5${$x} − 4 : c'est une fonction affine (${$a} = 5 et ${$b} = −4). <i>(1 point)</i></p>
-<p>2) ${fx("h","−3")} = 5 × (−3) − 4 = −15 − 4 = −19. <i>(1 point)</i></p>
+<p>2)</p>${calc([`${fx("h","−3")} = 5 × (−3) − 4`,`${fx("h","−3")} = −15 − 4`,`${fx("h","−3")} = −19`])}<p>On obtient −19. <i>(1 point)</i></p>
 <p>3) 5${$x} − 4 = 21, donc 5${$x} = 25, donc ${$x} = 5. Il faut choisir 5. <i>(1 point)</i></p>`},
 {t:"Associer droites et fonctions", p:3, h:`${plot({x:[-3,4],y:[-4,5],u:40,v:30,c:[D(2,-1,{col:RED}),D(-1,3,{col:BLUE}),D(0.5,0,{col:GRN})],lab:[{x:2,y:4.6,t:"(d1)",col:RED},{x:-1.2,y:4.7,t:"(d2)",col:BLUE},{x:3.4,y:2.3,t:"(d3)",col:GRN}],xl:"x",yl:"y",alt:"Trois droites : (d1) monte vite et coupe l'axe des ordonnées en −1 ; (d2) descend et le coupe en 3 ; (d3) passe par l'origine et monte doucement"})}
 <p>Associe chaque fonction à sa droite. Justifie à chaque fois.</p>${cols([`${fx("f")} = −${$x} + 3`,`${fx("g")} = 0,5${$x}`,`${fx("h")} = 2${$x} − 1`])}`,

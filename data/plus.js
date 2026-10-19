@@ -270,7 +270,10 @@ function steps(A){
     el.dataset.steps=1;
     const bar=document.createElement("div"); bar.className="stepbar";
     bar.innerHTML=`<button type="button" class="stepbtn" data-a="start">▶ Pas à pas</button>`;
-    el.parentNode.insertBefore(bar, el);
+    /* calculs côte à côte (grille ou flex) : le bouton reste collé à son calcul, dans la même case */
+    const pd=getComputedStyle(el.parentNode).display;
+    if(/grid|flex/.test(pd)){ const w=document.createElement("div"); w.className="stepwrap"; el.parentNode.insertBefore(w, el); w.appendChild(bar); w.appendChild(el); }
+    else el.parentNode.insertBefore(bar, el);
     let k=items.length;
     const draw=()=>{ items.forEach((it,i)=>it.classList.toggle("st-hide", i>=k));
       bar.innerHTML = k>=items.length ? `<button type="button" class="stepbtn" data-a="start">▶ Pas à pas</button>`

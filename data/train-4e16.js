@@ -59,7 +59,7 @@ const PVo = {a:1,b:1,c:1, ex:[180,0], ey:[56,-46], ez:[0,-100], V:NAMES, hid:"0,
 /* ===== pavé droit : milieux et centres ===== */
 const MIL = [["le milieu de l'arête [AB]",[0.5,0,0]],["le milieu de l'arête [EF]",[0.5,0,1]],["le milieu de l'arête [CG]",[1,1,0.5]],["le milieu de l'arête [BC]",[1,0.5,0]],["le milieu de l'arête [GH]",[0.5,1,1]],["le milieu de l'arête [CD]",[0.5,1,0]],["le milieu de l'arête [AE]",[0,0,0.5]],["le centre de la face EFGH",[0.5,0.5,1]],["le centre de la face ADHE",[0,0.5,0.5]],["le centre de la face ABFE",[0.5,0,0.5]],["le centre de la face BCGF",[1,0.5,0.5]]];
 const M3 = shuf(MIL).slice(0,3), MN3=["M","N","P"];
-const CUBEo = {a:1,b:1,c:1, ex:[150,0], ey:[54,-45], ez:[0,-130], V:{"0,0,0":"A","1,0,0":"B","1,1,0":"C","0,1,0":"D","0,0,1":"E","1,0,1":"F","1,1,1":"G","0,1,1":"H"}, hid:"0,1,0", red:[["0,0,0","1,0,0"],["0,0,0","0,1,0"],["0,0,0","0,0,1"]]};
+const CUBEo = {a:1,b:1,c:1, ex:[140,0], ey:[54,-45], ez:[0,-140], V:{"0,0,0":"A","1,0,0":"B","1,1,0":"C","0,1,0":"D","0,0,1":"E","1,0,1":"F","1,1,1":"G","0,1,1":"H"}, hid:"0,1,0", red:[["0,0,0","1,0,0"],["0,0,0","0,1,0"],["0,0,0","0,0,1"]]};
 
 return [
  {t:"Repérage dans le plan", e:[

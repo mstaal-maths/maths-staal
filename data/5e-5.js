@@ -64,6 +64,7 @@ function rep(o={}){
   if(!(o.pts||[]).some(p=>!p[1]&&!p[2])) s+=t(X(0)+5,Y(0)+17,o.O?"O":"0","start");
   if(o.axes){ s+=t(X(0),Y(yb)-30,"axe des ordonnées")+t(X(xb)+mr-4,Y(0)+30,"axe des","end")+t(X(xb)+mr-4,Y(0)+46,"abscisses","end"); }
   if(o.poly) s+=`<polygon points="${o.poly.map(n=>X(P[n][1])+","+Y(P[n][2])).join(" ")}" style="fill:color-mix(in srgb,var(--c) 12%,transparent);stroke:var(--c);stroke-width:2.2"/>`;
+  (o.segs||[]).forEach(([a,b,col])=>{ s+=`<line x1="${X(P[a][1])}" y1="${Y(P[a][2])}" x2="${X(P[b][1])}" y2="${Y(P[b][2])}" style="stroke:${col||"var(--c)"};stroke-width:1.8;stroke-dasharray:7 5"/>`; });
   (o.proj||[]).forEach(n=>{ const [,x,y]=P[n]; const st="stroke:"+RED+";stroke-width:1.6;stroke-dasharray:6 4";
     if(y) s+=`<line x1="${X(x)}" y1="${Y(y)}" x2="${X(x)}" y2="${Y(0)}" style="${st}"/>`;
     if(x) s+=`<line x1="${X(x)}" y1="${Y(y)}" x2="${X(0)}" y2="${Y(y)}" style="${st}"/>`;
@@ -286,7 +287,7 @@ exos:[
    <p><b>1)</b> Donne l'opposé de chacun de ces nombres.</p>${cols(["a) 9 : ………","b) −4 : ………","c) 0 : ………","d) −2,7 : ………","e) +6,5 : ………"])}
    <p><b>2)</b> Complète.</p>${cols(["a) |+15| = ………","b) |−7,2| = ………","c) |−100| = ………","d) |0| = ………"])}
    <p><b>3)</b> Vrai ou faux ? Justifie sur ton cahier.</p><p>a) |−5| = |5| &nbsp;&nbsp; b) |−5| = −5 &nbsp;&nbsp; c) Un nombre et son opposé ont la même valeur absolue.</p>`,
-   c:`<p><b>1)</b> a) −9 · b) 4 · c) 0 · d) 2,7 · e) −6,5</p>
+   c:`<p><b>1)</b> L'opposé d'un nombre a la même distance à zéro, mais le signe contraire.</p><p>a) −9 · b) 4 · c) 0 · d) 2,7 · e) −6,5</p>
    <p><b>2)</b> a) |+15| = 15 · b) |−7,2| = 7,2 · c) |−100| = 100 · d) |0| = 0</p>
    <p><b>3)</b> a) <b>Vrai</b> : |−5| = 5 et |5| = 5. · b) <b>Faux</b> : |−5| = 5 ; une valeur absolue n'est jamais négative. · c) <b>Vrai</b> : un nombre et son opposé ont la même distance à zéro.</p>`},
   {n:"Exercice 4", t:"Positif, négatif, strictement positif, strictement négatif", w:"Sur ta feuille", h:`<p>Voici des nombres : −3 ; 0 ; +5,2 ; −0,8 ; 12 ; −10 ; 0,4. Recopie ceux qui sont :</p>
@@ -311,11 +312,11 @@ exos:[
    ${dg({min:-2,max:2,step:0.1,lab:1,pts:[["J",-1.8],["Ma",-1.45],["D",-0.7],["V",-0.5,0,1],["L",1.07],["S",1.32,0,1],["Me",1.5]],alt:"Les sept températures sur une droite graduée"})}`},
   {n:"Exercice 6", t:"Comparaison de nombres relatifs", w:"Sur ta feuille", h:`<p>Compare avec &lt;, &gt; ou = (complète directement).</p>
    ${cols(["a) −3,5 …… 3,2","b) −10 …… −2","c) 5,8 …… 5,17","d) −7,3 …… −7,9","e) −4 …… −6","f) 9,2 …… 9,20","g) 1,4 …… 1,04","h) −6,1 …… −6,25"])}`,
-   c:`<p>a) −3,5 &lt; 3,2 <i>(un négatif est plus petit qu'un positif)</i></p><p>b) −10 &lt; −2 <i>(10 &gt; 2)</i></p><p>c) 5,8 &gt; 5,17 <i>(5,80 &gt; 5,17)</i></p><p>d) −7,3 &gt; −7,9 <i>(7,3 &lt; 7,9 : −7,3 est plus près de zéro)</i></p><p>e) −4 &gt; −6</p><p>f) 9,2 = 9,20</p><p>g) 1,4 &gt; 1,04 <i>(1,40 &gt; 1,04)</i></p><p>h) −6,1 &gt; −6,25 <i>(6,10 &lt; 6,25)</i></p>`},
+   c:`<p>a) −3,5 &lt; 3,2 <i>(un négatif est plus petit qu'un positif)</i></p><p>b) −10 &lt; −2 <i>(10 &gt; 2)</i></p><p>c) 5,8 &gt; 5,17 <i>(5,80 &gt; 5,17)</i></p><p>d) −7,3 &gt; −7,9 <i>(7,3 &lt; 7,9 : −7,3 est plus près de zéro)</i></p><p>e) −4 &gt; −6 <i>(4 &lt; 6)</i></p><p>f) 9,2 = 9,20</p><p>g) 1,4 &gt; 1,04 <i>(1,40 &gt; 1,04)</i></p><p>h) −6,1 &gt; −6,25 <i>(6,10 &lt; 6,25)</i></p>`},
   {n:"Exercice 7", t:"Ranger des nombres relatifs", w:"Sur ta feuille", h:`<p>Complète directement.</p>
    <p><b>1)</b> Range dans l'ordre croissant : 3,25 ; −3,12 ; 3,6 ; 3,09 ; −3,7 ; −3</p><p>………… &lt; ………… &lt; ………… &lt; ………… &lt; ………… &lt; …………</p>
    <p><b>2)</b> Range dans l'ordre décroissant : −4,10 ; 4,52 ; 4,7 ; 4,3 ; −4,25 ; 4,09 ; −4,3</p><p>……… &gt; ……… &gt; ……… &gt; ……… &gt; ……… &gt; ……… &gt; ………</p>`,
-   c:`<p><b>1)</b> −3,7 &lt; −3,12 &lt; −3 &lt; 3,09 &lt; 3,25 &lt; 3,6</p><p><b>2)</b> 4,7 &gt; 4,52 &gt; 4,3 &gt; 4,09 &gt; −4,10 &gt; −4,25 &gt; −4,3</p><p><i>Astuce : on écrit tous les nombres avec deux chiffres après la virgule (−3,70 ; −3,12 ; −3,00…) pour bien les comparer.</i></p>`},
+   c:`<p>Les négatifs d'abord : le plus loin de zéro est le plus petit. Puis les positifs, du plus petit au plus grand.</p><p><b>1)</b> −3,7 &lt; −3,12 &lt; −3 &lt; 3,09 &lt; 3,25 &lt; 3,6</p><p><b>2)</b> 4,7 &gt; 4,52 &gt; 4,3 &gt; 4,09 &gt; −4,10 &gt; −4,25 &gt; −4,3</p><p><i>Astuce : on écrit tous les nombres avec deux chiffres après la virgule (−3,70 ; −3,12 ; −3,00…) pour bien les comparer.</i></p>`},
   {n:"Exercice 8", t:"Problèmes de rangement", w:"Sur ton cahier", h:`<p><b>1)</b> Relevé de températures à 6 h : Briançon −8,5 °C ; Lille 1,5 °C ; Strasbourg −3,2 °C ; Brest 4 °C ; Grenoble −3,25 °C ; Nice 9 °C.</p><p>a) Quelle ville est la plus froide ? la plus chaude ?</p><p>b) Range les villes de la plus chaude à la plus froide.</p>
    <p><b>2)</b> Fosse des Mariannes : −10 994 m ; Lac Assal : −155 m ; Mont Blanc : +4 810 m ; Paris : +35 m ; mer Morte : −430 m. Range ces altitudes dans l'ordre croissant, puis dis quel est le point le plus bas.</p>`,
    c:`<p><b>1) a)</b> La ville la plus froide est Briançon (−8,5 °C). La ville la plus chaude est Nice (9 °C).</p>
@@ -351,7 +352,7 @@ exos:[
    <div class="figs">${rep({pts:[["A",-4,-2,-8,18],["B",1,-2,6,18],["C",3,1,8,-8],["D",-2,1,-8,-8]], poly:["A","B","C","D"], grads:true})}</div>
    <p>D(−2 ; 1). &nbsp; (AB) // (DC) et (AD) // (BC)</p>
    <p><b>2)</b> Les diagonales d'un parallélogramme se coupent en leur milieu. O est donc le milieu de [AC] et de [BD] : C est le symétrique de A par rapport à O, et D le symétrique de B.</p>
-   <div class="figs">${rep({pts:[["A",-3,2,-8,-8],["B",4,1,8,-8],["C",3,-2,8,18],["D",-4,-1,-8,18],["O",0,0,6,18]], poly:["A","B","C","D"], grads:true})}</div>
+   <div class="figs">${rep({pts:[["A",-3,2,-8,-8],["B",4,1,8,-8],["C",3,-2,8,18],["D",-4,-1,-8,18],["O",0,0,6,18]], poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], grads:true})}</div>
    <p>C(3 ; −2) &nbsp; D(−4 ; −1)</p><p>Les coordonnées de C sont les <b>opposées</b> de celles de A : A(−3 ; 2) et C(3 ; −2).</p>`}
  ]},
 {t:"Exercice en plus", e:[
@@ -451,7 +452,7 @@ exos:[
 {t:"Vrai ou faux ?", p:3, h:`<p>Réponds par Vrai ou Faux. Aucune justification n'est demandée.</p><p>a) −12 est un nombre relatif de distance à zéro 12.</p><p>b) L'opposé de −0,8 est 0,8.</p><p>c) |−9| = −9</p><p>d) 0 est à la fois positif et négatif.</p><p>e) −4,5 est strictement positif.</p><p>f) −2 &gt; −1</p>`,
  c:`<p>a) Vrai · b) Vrai · c) Faux (|−9| = 9) · d) Vrai · e) Faux (son signe est « − ») · f) Faux (−2 &lt; −1 : 2 &gt; 1)</p><p><i>0,5 point par réponse.</i></p>`},
 {t:"Des soustractions qui passent sous zéro", p:2, h:`<p>Calcule.</p>${cols(["a) 7 − 15","b) 40 − 100","c) 2,5 − 4","d) 1 − 3,7"])}`,
- c:`<p>a) 7 − 15 = −8 · b) 40 − 100 = −60 · c) 2,5 − 4 = −1,5 · d) 1 − 3,7 = −2,7</p><p><i>0,5 point par calcul.</i></p>`},
+ c:`<p>On enlève plus que ce que l'on a : on calcule « le plus grand moins le plus petit », puis on met le signe −.</p><p>a) 15 − 7 = 8, donc 7 − 15 = −8</p><p>b) 100 − 40 = 60, donc 40 − 100 = −60</p><p>c) 4 − 2,5 = 1,5, donc 2,5 − 4 = −1,5</p><p>d) 3,7 − 1 = 2,7, donc 1 − 3,7 = −2,7</p><p><i>0,5 point par calcul.</i></p>`},
 {t:"Une nouvelle graduation", p:3.5, h:`<p>Observe bien la droite graduée : une unité est partagée en <b>5</b>.</p>${dg({min:-2,max:2,step:0.2,lab:1,pts:[["A",-1.4],["B",-0.6],["C",0.8]]})}
   <p>a) Lis l'abscisse des points A, B et C.</p><p>b) Place les points D(1,6) et E(−1,8).</p><p>c) Place le point F dont l'abscisse est l'opposé de l'abscisse de B.</p><p>d) Range les abscisses des points A, B, C, D et E dans l'ordre croissant.</p>`,
  c:`<p>Une unité est partagée en 5 : une graduation vaut 1 ÷ 5 = 0,2.</p><p>a) A(−1,4) ; B(−0,6) ; C(0,8) <i>(1,5 point)</i></p><p>b) D et E sont placés sur la figure. <i>(1 point)</i></p><p>c) L'opposé de −0,6 est 0,6 : F(0,6). <i>(0,5 point)</i></p>

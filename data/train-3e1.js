@@ -4,6 +4,8 @@ TRAIN["3e-1"] = function(){
 const {ri, pick, shuf, distinct} = TR;
 const {gcd, isPrime, PRIMES, divisors, spf, factors, pow, flat, steps, stepLines, common, pgcdLine, divTxt, digitSum, digitTxt, comTxt, sp, X, tab, critTab} = window.ARI3;
 const listTxt = L => L.length>1 ? L.slice(0,-1).join(", ")+" et "+L[L.length-1] : String(L[0]);
+/* « 24 = 1 × 24 = 2 × 12 = 3 × 8 = 4 × 6 » : les produits qui donnent n (on trouve les diviseurs deux par deux) */
+const pairs = n => `${sp(n)} = `+divisors(n).filter(d=>d*d<=n).map(d=>`${d} × ${sp(n/d)}`).join(" = ");
 const RICH = [12,18,20,24,28,30,32,36,40,42,44,45,48,50,52,54,56,60,63,64,66,70,72,75,80,84,90,96,100];
 
 /* ===== Activité 1 : partage de ballons ===== */
@@ -50,9 +52,9 @@ const prix = ri(35,80);
 return [
  {t:"Multiples, diviseurs et critères de divisibilité", e:[
   {n:"Activité 1", t:"Partage de ballons", w:"Sur ton cahier", h:`<p><b>1.</b> À la fin d'une fête, les ${A1.k} enfants présents se partagent équitablement ${A1.N} ballons. Combien reste-t-il de ballons ?</p><p><b>2.</b> L'année suivante, les enfants présents se partagent équitablement la <b>totalité</b> de ${A1.M} ballons. Combien pouvait-il y avoir d'enfants ? Donne toutes les possibilités.</p>`,
-   c:`<p><b>1.</b> ${A1.N} = ${A1.k} × ${Math.floor(A1.N/A1.k)} + ${A1.N%A1.k} : il reste <b>${A1.N%A1.k} ballon${A1.N%A1.k>1?"s":""}</b>.</p><p><b>2.</b> Le nombre d'enfants est un diviseur de ${A1.M} : ${divTxt(A1.M)}.</p><p>Il y a plusieurs enfants : <b>${listTxt(divisors(A1.M).slice(1))}</b> enfants.</p>`},
+   c:`<p><b>1.</b> ${A1.N} = ${A1.k} × ${Math.floor(A1.N/A1.k)} + ${A1.N%A1.k} : il reste <b>${A1.N%A1.k} ballon${A1.N%A1.k>1?"s":""}</b>.</p><p><b>2.</b> Le nombre d'enfants est un diviseur de ${A1.M} (le partage tombe juste).</p><p class="calc">${pairs(A1.M)}</p><p>Les diviseurs de ${A1.M} sont : ${divTxt(A1.M)}.</p><p>Il y a plusieurs enfants : <b>${listTxt(divisors(A1.M).slice(1))}</b> enfants.</p>`},
   {n:"Exercice 1", t:"Diviseurs et multiples", w:"Sur ton cahier", h:`<p><b>a)</b> Cite tous les diviseurs de ${E1[0]}.</p><p><b>b)</b> Cite tous les diviseurs de ${E1[1]}.</p><p><b>c)</b> Cite tous les diviseurs de ${E1[2]}.</p><p><b>d)</b> Cite trois multiples de ${m1}.</p><p><b>e)</b> Cite les <b>trois premiers multiples</b> de ${m1}.</p>`,
-   c:`<p><b>a)</b> ${divTxt(E1[0])}</p><p><b>b)</b> ${divTxt(E1[1])}</p><p><b>c)</b> ${divTxt(E1[2])}</p><p><b>d)</b> Par exemple ${m1}, ${2*m1} et ${3*m1}.</p><p><b>e)</b> 0, ${m1} et ${2*m1}</p>`},
+   c:`${E1.map((n,i)=>`<p><b>${"abc"[i]})</b> ${pairs(n)}.</p><p>Les diviseurs de ${n} sont ${divTxt(n)}.</p>`).join("")}<p><b>d)</b> ${m1} × 1 = ${m1} ; ${m1} × 2 = ${2*m1} ; ${m1} × 3 = ${3*m1}. Par exemple ${m1}, ${2*m1} et ${3*m1}.</p><p><b>e)</b> ${m1} × 0 = 0 ; ${m1} × 1 = ${m1} ; ${m1} × 2 = ${2*m1}. Les trois premiers multiples de ${m1} sont 0, ${m1} et ${2*m1}.</p>`},
   {n:"Exercice 2", t:"Critères de divisibilité", w:"Sur ton cahier", h:`<p>Recopie et complète le tableau en mettant une croix lorsque le nombre est divisible par 2, 3, 5, 9 ou 10.</p>${critTab(E2,false)}`,
    c:`${critTab(E2,true)}<p>Sommes des chiffres : ${E2.map(n=>`${sp(n)} → ${digitTxt(n)}`).join(" · ")}</p>`},
   {n:"Activité rapide", t:"Vrai ou faux ?", w:"Sur ton cahier", h:`<p><b>a)</b> Vrai ou faux ? ${sp(V1)} est un multiple de 5. Justifie.</p><p><b>b)</b> Vrai ou faux ? 3 est un diviseur de ${V2}. Justifie.</p>`,

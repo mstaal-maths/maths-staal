@@ -41,7 +41,7 @@ const ZC = Z.ok
 /* ===== Ex 3 : type brevet ===== */
 const V = pick([
   {t:"Léa pense qu'en multipliant deux nombres impairs consécutifs et en ajoutant 1, on obtient toujours un multiple de 4.", ex:a=>{ const u=2*a+1, v=2*a+3; return [`${u} × ${v} + 1 = ${sp(u*v+1)}`, u*v+1]; }, src:"(2n+1)(2n+3)+1", f:`4(${n}² + 2${n} + 1)`, w:`Deux nombres impairs consécutifs s'écrivent 2${n} + 1 et 2${n} + 3.`, div:4},
-  {t:"Hugo pense que la différence entre les carrés de deux entiers qui encadrent un nombre entier (le précédent et le suivant) est toujours un multiple de 4.", ex:a=>[`${a+1}² − ${a-1}² = ${(a+1)**2} − ${(a-1)**2} = ${4*a}`, 4*a], src:"(n+1)2-(n-1)2", f:`4${n}`, w:`Le précédent et le suivant de ${n} s'écrivent ${n} − 1 et ${n} + 1.`, div:4},
+  {t:"Hugo pense que la différence entre les carrés de deux entiers qui encadrent un nombre entier (le précédent et le suivant) est toujours un multiple de 4.", ex:a=>[`${a+1}² − ${a-1}² = ${sp((a+1)**2)} − ${sp((a-1)**2)} = ${sp(4*a)}`, 4*a], src:"(n+1)2-(n-1)2", lines:[`R = (${n} + 1)² − (${n} − 1)²`,`R = (${n} + 1)(${n} + 1) − (${n} − 1)(${n} − 1)`,`R = (${n}² + ${n} + ${n} + 1) − (${n}² − ${n} − ${n} + 1)`,`R = ${n}² + 2${n} + 1 − ${n}² + 2${n} − 1`,`R = 4${n}`], f:`4${n}`, w:`Le précédent et le suivant de ${n} s'écrivent ${n} − 1 et ${n} + 1.`, div:4},
   {t:"Inès pense que le produit de deux nombres pairs consécutifs est toujours un multiple de 4.", ex:a=>[`${2*a} × ${2*a+2} = ${sp(2*a*(2*a+2))}`, 2*a*(2*a+2)], src:"2n(2n+2)", f:`4(${n}² + ${n})`, w:`Deux nombres pairs consécutifs s'écrivent 2${n} et 2${n} + 2.`, div:4}
 ]);
 const Va = ri(2,9), Vb = ri(10,25), E1 = V.ex(Va), E2 = V.ex(Vb);
@@ -55,7 +55,7 @@ return [
   {n:"Ex 2", t:"Vrai ou faux ?", w:"Sur ton cahier", h:`<p>Zoé affirme : « ${Z.txt[0].toUpperCase()+Z.txt.slice(1)}. »</p><p>Qu'en penses-tu ? Explique.</p>`,
    c:`<p>Exemple : ${consec(Za,Z.k).join(" + ")} = ${sumC(Za,Z.k)} et ${Z.k} × ${Za+Z.m} = ${Z.k*(Za+Z.m)}.${Z.ok?"":" C'est déjà un contre-exemple."}</p><p>Avec ${n} le premier nombre :</p>${ZC}`},
   {n:"Ex 3", t:"Le résultat est-il toujours un multiple de 4 ?", w:"Sur ton cahier", h:`<p>${V.t}</p><p>Dans tout l'exercice, ${n} est un nombre entier. ${V.w}</p><p><b>1.</b> Teste l'affirmation avec ${n} = ${Va}, puis avec ${n} = ${Vb}.</p><p><b>2.</b> Écris le résultat avec ${n}, développe et réduis.</p><p><b>3.</b> Prouve que le résultat est toujours un multiple de 4.</p>`,
-   c:`<p><b>1.</b> Avec ${n} = ${Va} : ${E1[0]} = 4 × ${sp(E1[1]/4)}. Avec ${n} = ${Vb} : ${E2[0]} = 4 × ${sp(E2[1]/4)}.</p><p><b>2.</b></p>${dv("R",V.src)}<p><b>3.</b> R = ${V.f} : c'est de la forme 4 × (un entier), donc toujours un <b>multiple de 4</b>.</p>`}
+   c:`<p><b>1.</b> Avec ${n} = ${Va} : ${E1[0]} = 4 × ${sp(E1[1]/4)}. Avec ${n} = ${Vb} : ${E2[0]} = 4 × ${sp(E2[1]/4)}.</p><p><b>2.</b></p>${V.lines?calc(V.lines):dv("R",V.src)}<p><b>3.</b> R = ${V.f} : c'est de la forme 4 × (un entier), donc toujours un <b>multiple de 4</b>.</p>`}
  ]}
 ];
 };

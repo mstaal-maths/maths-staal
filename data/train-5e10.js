@@ -2,7 +2,11 @@
    Toutes les corrections sont calculées par le code. */
 TRAIN["5e-10"] = function(){
 const {ri, pick, shuf, distinct, items} = TR;
-const {F, X, mono, lin, par, r3} = window.ALG;
+const {F, X, mono, lin, par, r3, NL} = window.ALG;
+const NM = "ABCDEFGHI";
+const cols = arr => `<div class="calcs">${arr.map(x=>`<span>${x}</span>`).join("")}</div>`;
+const grid = arr => `<div class="calcs">${arr.map(([n,ch])=>`<div>${NL(n,ch)}</div>`).join("")}</div>`;
+const sg = b => b<0 ? "−" : "+";
 const tab = (head, rows) => `<div class="scroll"><table class="std"><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>i?`<td>${c}</td>`:`<th>${c}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 const NB = ["","un","deux","trois","quatre","cinq","six"];
 
@@ -45,11 +49,11 @@ const secA = {t:"Expressions littérales", e:[
    c:`<p><b>1)</b></p>${tab(["Nombre de carrés",...NS.map(String)],[["Nombre d'allumettes",...NS.map(n=>String(3*n+1))]])}<p><b>2)</b> On ajoute 3 allumettes par carré, le premier en demande 4 : <b>3${X("n")} + 1</b>.</p>
    <p><b>3)</b> On cherche ${X("n")} tel que 3${X("n")} + 1 = ${target} : 3${X("n")} = ${target-1}.</p>${tOk?`<p>${X("n")} = ${target-1} ÷ 3 = ${(target-1)/3}. <b>Oui</b>, avec ${(target-1)/3} carrés : 3 × ${(target-1)/3} + 1 = ${target}.</p>`:`<p>${target-1} n'est pas un multiple de 3 : ${target-1} ÷ 3 ne tombe pas juste. <b>Non</b>, c'est impossible.</p>`}`},
   {n:"Exercice 1", t:"Traduire par une expression", w:"Sur ton cahier", h:`<p>Écris chaque expression avec la lettre indiquée.</p><p>${items(TRAD.map(([t])=>t+" : ………")," ",true)}</p>`,
-   c:`<p>${items(TRAD.map(([t,r])=>t+" : "+r)," · ",true)}</p>`},
+   c:`<p>On supprime le signe × devant une lettre.</p><p>${items(TRAD.map(([t,r])=>t+" : <b>"+r+"</b>"),"</p><p>",true)}</p>`},
   {n:"Exercice 2", t:"Calculer la valeur d'une expression", w:"Sur ton cahier", h:`<p>Recopie et complète le tableau.</p>${tab(["Valeur de "+X("x"),...xs.map(F)], E2.map(([e])=>[e,"","","",""]))}`,
    c:`${tab(["Valeur de "+X("x"),...xs.map(F)], E2.map(([e,f])=>[e,...xs.map(x=>F(f(x)))]))}<p>On remplace ${X("x")} par sa valeur en remettant le signe ×, puis on respecte les priorités.</p>`},
   {n:"Exercice 3", t:"Programme de calcul", w:"Sur ton cahier", h:`<p>« Choisis un nombre ; ajoute ${p3.a} ; multiplie le résultat par ${p3.k} ; soustrais ${p3.b}. »</p><p><b>1)</b> Applique ce programme au nombre ${F(n3[0])}, puis au nombre ${F(n3[1])}.</p><p><b>2)</b> Écris une expression qui donne le résultat pour un nombre ${X("x")}.</p><p><b>3)</b> Réduis cette expression, puis vérifie avec ${F(n3[0])}.</p>`,
-   c:`<p><b>1)</b> Avec ${F(n3[0])} : ${run3(n3[0])}.</p><p>Avec ${F(n3[1])} : ${run3(n3[1])}.</p><p><b>2)</b> ${par(p3.k,p3.a)} − ${p3.b}</p><p><b>3)</b> ${par(p3.k,p3.a)} − ${p3.b} = ${lin(p3.k,p3.k*p3.a)} − ${p3.b} = <b>${lin(p3.k,p3.k*p3.a-p3.b)}</b>.</p><p>Avec ${X("x")} = ${F(n3[0])} : ${p3.k} × ${F(n3[0])} + ${p3.k*p3.a-p3.b} = ${F(p3.k*n3[0]+p3.k*p3.a-p3.b)} ✓</p>`},
+   c:`<p><b>1)</b> Avec ${F(n3[0])} : ${run3(n3[0])}.</p><p>Avec ${F(n3[1])} : ${run3(n3[1])}.</p><p><b>2)</b> ${par(p3.k,p3.a)} − ${p3.b}</p><p><b>3)</b></p>${NL("A",`${par(p3.k,p3.a)} − ${p3.b} = ${p3.k} × ${X("x")} + ${p3.k} × ${p3.a} − ${p3.b} = ${lin(p3.k,p3.k*p3.a)} − ${p3.b} = <b>${lin(p3.k,p3.k*p3.a-p3.b)}</b>`)}<p>Avec ${X("x")} = ${F(n3[0])} : ${p3.k} × ${F(n3[0])} + ${p3.k*p3.a-p3.b} = ${F(p3.k*n3[0]+p3.k*p3.a-p3.b)} ✓</p>`},
   {n:"Exercice 4", t:"Tester une égalité", w:"Sur ton cahier", h:`<p>Teste l'égalité ${lin(a4,b4)} = ${lin(1,d4b)} pour chaque valeur de ${X("x")}.</p>${tab(["Valeur de "+X("x"),"Valeur de "+lin(a4,b4),"Valeur de "+lin(1,d4b),"Égalité vraie ou fausse ?"], T4.map(x=>[String(x),"","",""]))}`,
    c:tab(["Valeur de "+X("x"),"Valeur de "+lin(a4,b4),"Valeur de "+lin(1,d4b),"Égalité vraie ou fausse ?"], T4.map(x=>[String(x),String(a4*x+b4),String(x+d4b),a4*x+b4===x+d4b?"<b>vraie</b>":"fausse"]))}
  ]};
@@ -74,22 +78,22 @@ const facC = ([k,b],v) => k==="L" ? `${b}(${X("a")}+${X("b")})` : par(k,b,v);
 /* réduire : 8 expressions comme sur la fiche */
 const R = [];
 { const a=ri(2,9), b=ri(2,9); R.push([`${mono(a)} + ${mono(b)}`, `(${a}+${b})${X("x")} = ${mono(a+b)}`]); }
-{ const a=ri(5,12), b=ri(1,a-2), c=ri(1,9); R.push([`${mono(a)} − ${mono(b)} + ${c}`, lin(a-b,c)]); }
-{ const c=ri(2,9), a=ri(2,6), d=ri(1,6); R.push([`${c} + ${mono(a)} + ${X("x")} + ${d}`, lin(a+1,c+d)]); }
-{ const a=ri(7,12), b=ri(1,a-3); R.push([`${mono(a,"a")} − ${mono(b,"a")} − ${X("a")}`, mono(a-b-1,"a")]); }
-{ const a=ri(2,6), b=ri(3,9), c=ri(2,6), d=ri(1,b-1); R.push([`${mono(a)} + ${b} + ${mono(c)} − ${d}`, lin(a+c,b-d)]); }
+{ const a=ri(5,12), b=ri(1,a-2), c=ri(1,9); R.push([`${mono(a)} − ${mono(b)} + ${c}`, `(${a}−${b})${X("x")} + ${c} = ${lin(a-b,c)}`]); }
+{ const c=ri(2,9), a=ri(2,6), d=ri(1,6); R.push([`${c} + ${mono(a)} + ${X("x")} + ${d}`, `${mono(a)} + ${X("x")} + ${c} + ${d} = ${lin(a+1,c+d)}`]); }
+{ const a=ri(7,12), b=ri(1,a-3); R.push([`${mono(a,"a")} − ${mono(b,"a")} − ${X("a")}`, `(${a}−${b}−1)${X("a")} = ${mono(a-b-1,"a")}`]); }
+{ const a=ri(2,6), b=ri(3,9), c=ri(2,6), d=ri(1,b-1); R.push([`${mono(a)} + ${b} + ${mono(c)} − ${d}`, `${mono(a)} + ${mono(c)} + ${b} − ${d} = ${lin(a+c,b-d)}`]); }
 { const k=ri(2,5), b=ri(1,6), c=ri(1,6); R.push([`${par(k,b)} + ${mono(c)}`, `${lin(k,k*b)} + ${mono(c)} = ${lin(k+c,k*b)}`]); }
 { const k=ri(4,7), b=ri(1,6), c=ri(1,k-1); R.push([`${par(k,b)} − ${mono(c)}`, `${lin(k,k*b)} − ${mono(c)} = ${lin(k-c,k*b)}`]); }
 { const c=ri(9,14), k=ri(2,4), b=ri(1,Math.floor((c-1)/k)); R.push([`${c} + ${par(k,-b)}`, `${c} + ${lin(k,-k*b)} = ${lin(k,c-k*b)}`]); }
 const secB = {t:"Développer, factoriser, réduire", e:[
-  {n:"Exercice 5", t:"Développer", w:"Sur ton cahier", h:`<p>Développe chaque expression.</p><p>${items(dev.map(([k,b,v])=>par(k,b,v))," ",true)}</p>`,
-   c:`<p>${items(dev.map(([k,b,v])=>`${par(k,b,v)} = ${lin(k,r3(k*b),v)}`)," · ",true)}</p>`},
-  {n:"Exercice 6", t:"Calcul mental", w:"Sur ton cahier", h:`<p>Calcule mentalement en utilisant la distributivité, comme dans l'exemple : 7 × 102 = 7 × (100+2) = 700 + 14 = 714.</p><p>${items(ment.map(([a,h,d])=>`${a} × ${h+d}`)," ",true)}</p>`,
-   c:`<p>${items(ment.map(([a,h,d])=>`${a} × ${h+d} = ${a} × (${h}${d<0?"−"+(-d):"+"+d}) = ${F(a*h)} ${d<0?"−":"+"} ${F(a*Math.abs(d))} = <b>${F(a*(h+d))}</b>`)," · ",true)}</p>`},
-  {n:"Exercice 7", t:"Factoriser", w:"Sur ton cahier", h:`<p>Factorise chaque expression.</p><p>${items(fac.map((f,i)=>facH(f,VV[i]))," ",true)}</p>`,
-   c:`<p>${items(fac.map((f,i)=>`${facH(f,VV[i])} = ${facC(f,VV[i])}`)," · ",true)}</p>`},
-  {n:"Exercice 8", t:"Réduire une expression", w:"Sur ton cahier", h:`<p>Réduis chaque expression (développe d'abord si nécessaire).</p><p>${items(R.map(([e])=>e)," ",true)}</p>`,
-   c:`<p>${items(R.map(([e,r])=>`${e} = ${r}`)," · ",true)}</p>`}
+  {n:"Exercice 5", t:"Développer", w:"Sur ton cahier", h:`<p>Développe chaque expression.</p>${cols(dev.map(([k,b,v],i)=>`${NM[i]} = ${par(k,b,v)}`))}`,
+   c:`<p>${X("k")}(${X("a")}+${X("b")}) = ${X("k")}${X("a")} + ${X("k")}${X("b")} et ${X("k")}(${X("a")}−${X("b")}) = ${X("k")}${X("a")} − ${X("k")}${X("b")}.</p>${grid(dev.map(([k,b,v],i)=>[NM[i], `${par(k,b,v)} = ${F(k)} × ${X(v)} ${sg(b)} ${F(k)} × ${F(Math.abs(b))} = ${lin(k,r3(k*b),v)}`]))}`},
+  {n:"Exercice 6", t:"Calcul mental", w:"Sur ton cahier", h:`<p>Calcule mentalement en utilisant la distributivité, comme dans l'exemple : 7 × 102 = 7 × (100+2) = 700 + 14 = 714.</p>${cols(ment.map(([a,h,d],i)=>`${NM[i]} = ${a} × ${h+d}`))}`,
+   c:grid(ment.map(([a,h,d],i)=>[NM[i], `${a} × ${h+d} = ${a} × (${h}${sg(d)}${Math.abs(d)}) = ${a} × ${h} ${sg(d)} ${a} × ${Math.abs(d)} = ${F(a*h)} ${sg(d)} ${F(a*Math.abs(d))} = <b>${F(a*(h+d))}</b>`]))},
+  {n:"Exercice 7", t:"Factoriser", w:"Sur ton cahier", h:`<p>Factorise chaque expression.</p>${cols(fac.map((f,i)=>`${NM[i]} = ${facH(f,VV[i])}`))}`,
+   c:`<p>On cherche le facteur commun, puis on le met devant la parenthèse.</p>${grid(fac.map(([k,b],i)=>[NM[i], `${facH([k,b],VV[i])} = ${k==="L" ? `${b} × ${X("a")} + ${b} × ${X("b")}` : `${F(k)} × ${X(VV[i])} ${sg(b)} ${F(k)} × ${F(Math.abs(b))}`} = ${facC([k,b],VV[i])}`]))}`},
+  {n:"Exercice 8", t:"Réduire une expression", w:"Sur ton cahier", h:`<p>Réduis chaque expression (développe d'abord si nécessaire).</p>${cols(R.map(([e],i)=>`${NM[i]} = ${e}`))}`,
+   c:`<p>Je regroupe les termes en ${X("x")} entre eux, et les nombres entre eux. Je développe d'abord s'il y a une parenthèse.</p>${grid(R.map(([e,r],i)=>[NM[i], `${e} = ${r}`]))}`}
  ]};
 
 /* ===== C. Démontrer et réfuter ===== */
@@ -105,11 +109,11 @@ const c10 = (()=>{ const n=ri(2,20), d=ri(1,9)/10, a=ri(2,12); return shuf([
 const t11 = distinct(3, ()=>ri(1,40), x=>x).sort((a,b)=>a-b);
 const secC = {t:"Démontrer et réfuter", e:[
   {n:"Exercice 9", t:"Un programme qui cache un secret", w:"Sur ton cahier", h:`<p>« Choisis un nombre ; ajoute ${b9} ; multiplie par ${k9} ; soustrais ${k9*b9}. »</p><p><b>1)</b> Applique le programme aux nombres ${F(n9[0])}, ${F(n9[1])} et ${F(n9[2])}. Que remarques-tu ?</p><p><b>2)</b> Démontre ta conjecture en appelant ${X("x")} le nombre choisi.</p>`,
-   c:`<p><b>1)</b> ${n9.map(x=>`Avec ${F(x)} : ${run9(x)}.`).join("</p><p>")}</p><p>Le résultat est toujours <b>${MUL(k9)}</b>${k9>3?" le":" du"} nombre choisi.</p><p><b>2)</b> ${par(k9,b9)} − ${k9*b9} = ${lin(k9,k9*b9)} − ${k9*b9} = ${mono(k9)} : c'est ${MUL(k9)}${k9>3?"":" de"} ${X("x")}, quel que soit le nombre choisi.</p>`},
+   c:`<p><b>1)</b> ${n9.map(x=>`Avec ${F(x)} : ${run9(x)}.`).join("</p><p>")}</p><p>Le résultat est toujours <b>${MUL(k9)}</b>${k9>3?" le":" du"} nombre choisi.</p><p><b>2)</b></p>${NL("A",`${par(k9,b9)} − ${k9*b9} = ${lin(k9,k9*b9)} − ${k9*b9} = ${mono(k9)}`)}<p>C'est ${MUL(k9)}${k9>3?"":" de"} ${X("x")}, quel que soit le nombre choisi.</p>`},
   {n:"Exercice 10", t:"Contre-exemples", w:"Sur ton cahier", h:`<p>Dis si chaque affirmation est vraie ou fausse. Si elle est fausse, donne un contre-exemple.</p>${c10.map(([s],i)=>`<p>${"abc"[i]}) ${s}</p>`).join("")}`,
    c:c10.map(([,r],i)=>`<p>${"abc"[i]}) <b>Faux.</b> ${r}</p>`).join("")+`<p><i>D'autres contre-exemples sont possibles.</i></p>`},
   {n:"Exercice 11", t:"Trois entiers consécutifs", w:"Sur ton cahier", h:`<p><b>1)</b> Teste avec les entiers consécutifs qui commencent par ${t11.join(", puis par ")} : la somme de trois entiers consécutifs est-elle toujours un multiple de 3 ?</p><p><b>2)</b> Démontre-le avec une lettre : si ${X("n")} est le plus petit des trois entiers, écris la somme et factorise-la.</p>`,
-   c:`<p><b>1)</b> ${t11.map(n=>`${n} + ${n+1} + ${n+2} = ${3*n+3} = 3 × ${n+1}`).join(" ; ")} : ce sont des multiples de 3.</p><p><b>2)</b> ${X("n")} + (${X("n")}+1) + (${X("n")}+2) = 3${X("n")} + 3 = 3(${X("n")}+1) : c'est un multiple de 3.</p>`}
+   c:`<p><b>1)</b> ${t11.map(n=>`${n} + ${n+1} + ${n+2} = ${3*n+3} = 3 × ${n+1}`).join(" ; ")} : ce sont des multiples de 3.</p><p><b>2)</b> Les trois entiers sont ${X("n")}, ${X("n")} + 1 et ${X("n")} + 2.</p>${NL("S",`${X("n")} + (${X("n")}+1) + (${X("n")}+2) = ${X("n")} + ${X("n")} + ${X("n")} + 1 + 2 = 3${X("n")} + 3 = 3(${X("n")}+1)`)}<p>C'est un multiple de 3.</p>`}
  ]};
 
 /* ===== D. Équations ===== */
@@ -131,9 +135,9 @@ const sib = pick([["Ali","sa sœur","sa sœur a","Il"],["Léa","son frère","son
 const T15 = (()=>{ const a=pick([2,4,5]), b=ri(1,9), n=ri(13,30); return {a,b,n,v:a*n+b}; })();
 const secD = {t:"Équations", e:[
   {n:"Exercice 12", t:`Équations ${X("x")} + ${X("b")} = ${X("c")}`, w:"Sur ton cahier", h:`<p>Résous chaque équation et vérifie ta solution.</p><p>${items(e12.map(([e])=>e)," ",true)}</p>`,
-   c:`<p>${items(e12.map(([e,r])=>`${e} donc ${r}`)," · ",true)}</p>`},
+   c:`<p>${items(e12.map(([e,r])=>`${e} donc ${r}`),"</p><p>",true)}</p>`},
   {n:"Exercice 13", t:`Équations ${X("a")}${X("x")} = ${X("c")}`, w:"Sur ton cahier", h:`<p>Résous chaque équation et vérifie ta solution.</p><p>${items(e13.map(([a,c])=>`${mono(a)} = ${F(c)}`)," ",true)}</p>`,
-   c:`<p>${items(e13.map(([a,c])=>`${mono(a)} = ${F(c)} donc ${X("x")} = ${F(c)} ÷ ${F(a)} = <b>${F(c/a)}</b>`)," · ",true)}</p>`},
+   c:`<p>${items(e13.map(([a,c])=>`${mono(a)} = ${F(c)} donc ${X("x")} = ${F(c)} ÷ ${F(a)} = <b>${F(c/a)}</b>`),"</p><p>",true)}</p>`},
   {n:"Exercice 14", t:"Mettre en équation", w:"Sur ton cahier", h:`<p>Pour chaque problème, écris une équation, résous-la, puis réponds par une phrase.</p><p>a) ${sib[0]} a ${p14.d} € de plus que ${sib[1]}. ${sib[3]} a ${p14.t} €. Combien a ${sib[1]} ?</p><p>b) ${NB[p14.k][0].toUpperCase()+NB[p14.k].slice(1)} paquets identiques de billes pèsent ${F(p14.k*p14.m)} g en tout. Combien pèse un paquet ?</p><p>c) Le périmètre d'un carré est de ${p14.P} cm. Quelle est la longueur de son côté ?</p>`,
    c:`<p>a) ${X("x")} + ${p14.d} = ${p14.t} donc ${X("x")} = ${p14.t} − ${p14.d} = ${p14.t-p14.d} : ${sib[2]} <b>${p14.t-p14.d} €</b>.</p><p>b) ${p14.k}${X("x")} = ${F(p14.k*p14.m)} donc ${X("x")} = ${F(p14.k*p14.m)} ÷ ${p14.k} = ${F(p14.m)} : un paquet pèse <b>${F(p14.m)} g</b>.</p><p>c) 4${X("x")} = ${p14.P} donc ${X("x")} = ${p14.P} ÷ 4 = ${F(p14.P/4)} : le côté mesure <b>${F(p14.P/4)} cm</b>.</p>`},
   {n:"Exercice 15", t:"Le tableur", w:"En salle informatique", h:`<p><b>1)</b> Dans la cellule A2, écris 1, puis dans A3 la formule <b>=A2+1</b>. Recopie vers le bas.</p><p><b>2)</b> Dans la cellule B2, écris la formule <b>=${T15.a}*A2+${T15.b}</b> et recopie-la vers le bas. Quelle expression en ${X("n")} calcule la colonne B ?</p><p><b>3)</b> Trouve la valeur de ${X("n")} pour laquelle ${lin(T15.a,T15.b,"n")} = ${T15.v}. Dans quelle ligne la lis-tu ?</p>`,

@@ -45,12 +45,12 @@ const E4 = evs.slice(0,2), Q4 = evs.slice(2,5).map(([a,b])=>[a,b, Math.random()<
 const PI1 = (()=>{ const t=pick([10,12,15,20,25]), pi=ri(6,40)*5; return {t, pi, f:rd(pi*(100-t)/100,2)}; })();
 const EV1 = (()=>{ const a=pick([40,45,50,60,75,80]), t=pick([12,16,24,36,44]); return {a, t, b:rd(a*(100+t)/100,2)}; })();
 const PB = shuf([
-  (()=>{ const t=pick([8,12,15,20]), pi=ri(8,30)*5, f=rd(pi*(100-t)/100,2); return {h:`Après une remise de ${P(t)}, un jeu coûte ${E(f)}. Quel était son prix avant la remise ?`, c:`Coefficient ${N(K(-t))}. P<sub>initial</sub> = ${E0(f)} ÷ ${N(K(-t))} = <b>${E(pi)}</b>.`}; })(),
+  (()=>{ const t=pick([8,12,15,20]), pi=ri(8,30)*5, f=rd(pi*(100-t)/100,2); return {h:`Après une remise de ${P(t)}, un jeu coûte ${E(f)}. Quel était son prix avant la remise ?`, c:`${kLine(-t)}.</p><p class="calc">P<sub>initial</sub> × ${N(K(-t))} = ${E0(f)}<br>P<sub>initial</sub> = ${E0(f)} ÷ ${N(K(-t))} = ${E0(pi)}</p><p>Le jeu coûtait <b>${E(pi)}</b>.`}; })(),
   (()=>{ const a=ri(20,90)*100, t=pick([2,3,4,5,6]), b=a*(100+t)/100; return {h:`En une année, la population d'une ville est passée de ${N(a)} à ${N(b)} habitants. Quel est le pourcentage d'augmentation ?`, c:`k = ${N(b)} ÷ ${N(a)} = ${N(K(t))} = {100/100} + {${t}/100} : augmentation de <b>${P(t)}</b>.`}; })(),
   (()=>{ const a=pick([100,120,150,200,250]), t=pick([8,12,14,16,18]), b=a*(100-t)/100; return {h:`En une année, la consommation d'eau d'une famille est passée de ${N(a)} m<sup>3</sup> à ${N(b)} m<sup>3</sup>. Calcule le pourcentage de diminution.`, c:`k = ${N(b)} ÷ ${N(a)} = ${N(K(-t))} = {100/100} − {${t}/100} : diminution de <b>${P(t)}</b>.`}; })(),
-  (()=>{ const t=pick([2,4,5,10,30]), pi=ri(10,80)*5, f=rd(pi*(100+t)/100,2); return {h:`Un objet coûte ${E(f)} après une hausse de ${P(t)}. Quel était son prix avant la hausse ?`, c:`Coefficient ${N(K(t))}. P<sub>initial</sub> = ${E0(f)} ÷ ${N(K(t))} = <b>${E(pi)}</b>.`}; })(),
+  (()=>{ const t=pick([2,4,5,10,30]), pi=ri(10,80)*5, f=rd(pi*(100+t)/100,2); return {h:`Un objet coûte ${E(f)} après une hausse de ${P(t)}. Quel était son prix avant la hausse ?`, c:`${kLine(t)}.</p><p class="calc">P<sub>initial</sub> × ${N(K(t))} = ${E0(f)}<br>P<sub>initial</sub> = ${E0(f)} ÷ ${N(K(t))} = ${E0(pi)}</p><p>L'objet coûtait <b>${E(pi)}</b>.`}; })(),
   (()=>{ const a=pick([40,48,60,64,80,120]), t=pick([10,15,20,25,30,40]), b=a*(100-t)/100; return {h:`Pendant les soldes, un manteau est passé de ${E(a)} à ${E(b)}. Quel a été le pourcentage de remise ?`, c:`k = ${E0(b)} ÷ ${N(a)} = ${N(K(-t))} = {100/100} − {${t}/100} : remise de <b>${P(t)}</b>.`}; })(),
-  (()=>{ const t=pick([3,6,8,12]), p=ri(4,30)*5, f=rd(p*(100+t)/100,2); return {h:`Un abonnement à ${E(p)} augmente de ${P(t)}. Quel est son nouveau montant ?`, c:`${N(K(t))} × ${N(p)} = <b>${E(f)}</b>.`}; })()
+  (()=>{ const t=pick([3,6,8,12]), p=ri(4,30)*5, f=rd(p*(100+t)/100,2); return {h:`Un abonnement à ${E(p)} augmente de ${P(t)}. Quel est son nouveau montant ?`, c:`${kLine(t)}. ${N(K(t))} × ${N(p)} = <b>${E(f)}</b>.`}; })()
 ]);
 
 return [
@@ -88,7 +88,7 @@ return [
   {n:"Exercice 14", t:"Coefficient multiplicateur : QCM", w:"Sur ton cahier", h:`<p>Pour chaque question, choisis la bonne réponse.</p>${tab(["Question","A","B","C"],Q3.map((x,i)=>[`<b>${i+1})</b> ${x.q}`,...x.c]))}`,
    c:Q3.map((x,i)=>`<p><b>${i+1})</b> Réponse ${"ABC"[x.g]} : ${x.e}.</p>`).join("")},
   {n:"Exercice 15", t:"Bilan", w:"Sur ton cahier", h:`<p>Recopie et complète le tableau.</p>${tab(["","Calculs"],[[`Prendre ${P(B3.t)} de ${E(B3.p)}`,""],[`Augmenter ${E(B3.p)} de ${P(B3.t)}`,""],[`Diminuer ${E(B3.p)} de ${P(B3.t)}`,""]])}`,
-   c:tab(["","Calculs"],[[`Prendre ${P(B3.t)} de ${E(B3.p)}`,`${N(B3.t/100)} × ${N(B3.p)} = ${E(B3.t*B3.p/100)}`],[`Augmenter ${E(B3.p)} de ${P(B3.t)}`,`${N(K(B3.t))} × ${N(B3.p)} = ${E(B3.p*K(B3.t))}`],[`Diminuer ${E(B3.p)} de ${P(B3.t)}`,`${N(K(-B3.t))} × ${N(B3.p)} = ${E(B3.p*K(-B3.t))}`]])}
+   c:tab(["","Calculs"],[[`Prendre ${P(B3.t)} de ${E(B3.p)}`,`{${B3.t}/100} × ${N(B3.p)} = ${N(B3.t/100)} × ${N(B3.p)} = ${E(B3.t*B3.p/100)}`],[`Augmenter ${E(B3.p)} de ${P(B3.t)}`,`{100/100} + {${B3.t}/100} = ${N(K(B3.t))} ; ${N(K(B3.t))} × ${N(B3.p)} = ${E(B3.p*K(B3.t))}`],[`Diminuer ${E(B3.p)} de ${P(B3.t)}`,`{100/100} − {${B3.t}/100} = ${N(K(-B3.t))} ; ${N(K(-B3.t))} × ${N(B3.p)} = ${E(B3.p*K(-B3.t))}`]])}
  ]},
  {t:"Évolutions successives", e:[
   {n:"Exercice 16", t:"Hausse puis baisse", w:"Sur ton cahier", h:`<p>Un gérant augmente ses prix de ${P(A4.t)} en janvier. Un mois après, il les baisse de ${P(A4.t)}.</p><p>Une planche de surf coûtait ${E(A4.p)}.</p><p><b>a)</b> Calcule son prix après chaque évolution. A-t-il baissé, augmenté ou est-il resté le même ?</p><p><b>b)</b> Calcule le pourcentage d'évolution global.</p>`,

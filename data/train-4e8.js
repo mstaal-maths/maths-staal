@@ -29,8 +29,10 @@ const DESC=shuf([
 /* ================= 3. Perspective cavalière ================= */
 function pyrRand(){
   const a=ri(3,6), r=ri(1,3), x0=ri(0,1), y0=ri(7,8), base=[[x0,y0],[x0+a,y0],[x0+a+r,y0-r],[x0+r,y0-r]];
-  const S=[x0+ri(1,a), ri(0,2)], size=[x0+a+r+1, y0+1];
-  const mode=ri(0,2), given= mode===0 ? [[base[0],base[1]],[base[1],base[2]]] : mode===1 ? [[base[0],base[1]],[base[1],base[2]],[S,base[1]]] : [[base[0],base[1]],[base[0],base[3],"h"],[base[3],base[2],"h"]];
+  const mode=ri(0,2);
+  /* S ne doit pas être dans le prolongement d'un côté de la base ; si l'on donne l'arête gauche de la base en pointillés (mode 2), la face de gauche doit être cachée */
+  let S; do{ S=[x0+ri(1,a), ri(0,2)]; }while(S[0]+S[1]===x0+y0 || (mode===2 && S[0]+S[1]>x0+y0));
+  const size=[x0+a+r+1, y0+1], given= mode===0 ? [[base[0],base[1]],[base[1],base[2]]] : mode===1 ? [[base[0],base[1]],[base[1],base[2]],[S,base[1]]] : [[base[0],base[1]],[base[0],base[3],"h"],[base[3],base[2],"h"]];
   return {size, base, S, given, cross:true, Sd:[0,-14]};
 }
 const PYs=[pyrRand(),pyrRand()];
@@ -60,7 +62,7 @@ return [
  ]},
  {t:"Patrons", e:[
   {n:"Exercice 5", t:"Patron d'une pyramide", w:"Sur ta feuille", h:`<p>SABCD est une pyramide à base rectangulaire : AB = ${pa} cm et BC = ${pb} cm.</p><p>L'arête [SA] est perpendiculaire à la base et SA = ${ph} cm. Les triangles SBC et SDC sont rectangles en B et en D.</p><p>Construis le patron de cette pyramide.</p>`,
-   c:`${netSA(pa,pb,ph,{len:[["A","B",pa+" cm",0,14],["B","C",pb+" cm",14,0],["A","S1",ph+" cm",-22,0]]})}<p>Base ABCD ; faces SAB et SAD rectangles en A (SA = ${ph} cm) ; faces SBC et SDC rectangles en B et en D, en reportant SB et SD au compas.</p>`},
+   c:`${netSA(pa,pb,ph,{len:[["A","B",pa+" cm",0,14],["B","C",pb+" cm",26,0],["A","S1",ph+" cm",-32,0]]})}<p>Base ABCD ; faces SAB et SAD rectangles en A (SA = ${ph} cm) ; faces SBC et SDC rectangles en B et en D, en reportant SB et SD au compas.</p>`},
   {n:"Exercice 6", t:"Patron d'une pyramide régulière", w:"Sur ta feuille", h:`<p>SABCD est une pyramide régulière à base carrée de côté ${tc} cm. Ses arêtes latérales mesurent ${tl} cm.</p><p>Construis un patron de cette pyramide.</p>`,
    c:`${netReg(tc,tl)}<p>Le carré de ${tc} cm, puis sur chaque côté un triangle isocèle de côtés ${tc} cm, ${tl} cm et ${tl} cm (arcs de rayon ${tl} cm au compas).</p>`},
   {n:"Exercice 7", t:"Patron d'un tétraèdre", w:"Sur ta feuille", h:`<p>HDCB est un tétraèdre : HD = DC = CB = ${ta} cm. L'arête [HD] est perpendiculaire à la base DCB et le triangle DCB est rectangle en C.</p><p>Construis le patron de ce tétraèdre.</p>`,

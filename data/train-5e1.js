@@ -3,10 +3,12 @@ TRAIN["5e-1"] = function(){
 const {ri, pick, shuf, sp, gcd, distinct, items} = TR;
 const divs = n => { const a=[]; for(let d=1;d<=n;d++) if(n%d===0) a.push(d); return a; };
 const isP = n => n>1 && divs(n).length===2;
+/* « 60 = 1 × 60 = 2 × 30 = … » : les produits qui donnent n */
+const prods = n => n+" = "+divs(n).filter(d=>d*d<=n).map(d=>`${d} × ${n/d}`).join(" = ");
 const sum = n => String(n).split("").reduce((a,c)=>a+ +c,0);
 const pot = (N,d) => `<div class="figs" style="align-items:center">${potence(N,d)}<p>${d} × ${Math.floor(N/d)} + ${N%d} = ${sp(N)}</p></div>`;
-const crit = n => { const s=sum(n); return [n%2===0?"oui":"non", n%5===0?"oui":"non", n%10===0?"oui":"non", `${n%3===0?"oui":"non"} (${String(n).split("").join(" + ")} = ${s})`, `${n%9===0?"oui":"non"}${n%3===0&&n%9!==0?` (${s} n'est pas un multiple de 9)`:""}`]; };
-const critTable = ns => `<div class="scroll"><table class="std"><thead><tr><th></th><th>par 2</th><th>par 5</th><th>par 10</th><th>par 3</th><th>par 9</th></tr></thead><tbody>${ns.map(n=>`<tr><td><b>${sp(n)}</b></td>${crit(n).map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+const crit = n => { const s=sum(n); return [n%2===0?"oui":"non", n%5===0?"oui":"non", n%10===0?"oui":"non", `${n%3===0?"oui":"non"} (${String(n).split("").join(" + ")} = ${s})`, n%9===0?`oui (${s} = 9 × ${s/9})`:`non (${s} n'est pas un multiple de 9)`]; };
+const critTable = ns => `<div class="scroll"><table class="std"><thead><tr><th></th><th>par 2</th><th>par 5</th><th>par 10</th><th>par 3</th><th>par 9</th></tr></thead><tbody>${ns.map(n=>`<tr><td><b>${sp(n)}</b></td>${crit(n).map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p>Par 2, par 5 et par 10 : je regarde le chiffre des unités (${ns.map(n=>`${n%10} pour ${sp(n)}`).join(", ")}).</p>`;
 const commonTable = (a,b,ha,hb,hn) => { const c=divs(gcd(a,b)); return `<div class="scroll"><table class="std"><thead><tr><th>${hn}</th><th>${ha}</th><th>${hb}</th></tr></thead><tbody>${c.map(k=>`<tr><td>${k}</td><td>${a/k}</td><td>${b/k}</td></tr>`).join("")}</tbody></table></div>`; };
 
 /* ---------- A. Division euclidienne ---------- */
@@ -29,12 +31,12 @@ const ce = (()=>{ let x=pa; while(x%pb===0) x+=pa; return x; })();
 const n7 = pick([24,36,40,42,45,48,50,54,60]);
 const n7b = ri(1000,9999);
 const secB = {t:"Diviseurs et critères de divisibilité", e:[
-  {n:"Exercice 3", t:"Liste de diviseurs", w:"Sur ton cahier", h:`<p>Cite tous les diviseurs de : ${items(f3.map(String))}</p>`, c:items(f3.map(n=>divs(n).join(", ")))},
+  {n:"Exercice 3", t:"Liste de diviseurs", w:"Sur ton cahier", h:`<p>Cite tous les diviseurs de : ${items(f3.map(String))}</p>`, c:items(f3.map(n=>`${prods(n)} : <b>${divs(n).join(", ")}</b>`),"<br>")},
   {n:"Exercice 4", t:"Les critères de divisibilité", w:"Sur ton cahier", h:`<p>Réponds par oui ou non. Le nombre ${sp(f4[0])} est-il divisible par 2 ? par 5 ? par 10 ? par 3 ? par 9 ? Même question pour ${sp(f4[1])}.</p>`, c:critTable(f4)},
   {n:"Exercice 5", t:"Pour aller plus loin", w:"Sur ton cahier", h:`<p>1. Vrai ou faux ? Justifie. a) Un multiple de ${pa} est forcément un multiple de ${pb}. b) Un multiple de ${pb} est forcément un multiple de ${pa}.</p><p>2. Complète : « Un nombre multiple de ${pb} est forcément multiple de … »</p>`,
    c:`<p>1. a) Faux : ${ce} est un multiple de ${pa} (${pa} × ${ce/pa}), mais pas de ${pb}. Un seul contre-exemple suffit.</p><p>b) Vrai : ${pb} = ${pa} × ${pb/pa}. Un multiple de ${pb} s'écrit ${pb} × un nombre, c'est donc aussi ${pa} × ${pb/pa} × ce nombre : c'est un multiple de ${pa}.</p><p>2. … de ${divs(pb).filter(d=>d!==1&&d!==pb).join(" et de ")} (et aussi de 1 et de ${pb}).</p>`},
   {n:"Exercice 6", t:"Vocabulaire de la divisibilité", w:"Sur ton cahier", h:`<p>a) Cite tous les diviseurs de ${n7}. b) Cite des multiples de ${n7}. c) Cite les trois premiers multiples de ${n7}. d) Le nombre ${sp(n7b)} est-il divisible par 2 ? par 5 ? par 10 ? par 3 ? par 9 ?</p>`,
-   c:`<p>a) ${divs(n7).join(", ")}</p><p>b) Par exemple ${n7*2}, ${n7*3}, ${n7*10} (${n7} × 2, ${n7} × 3, ${n7} × 10)</p><p>c) 0, ${n7} et ${2*n7} (car ${n7} × 0 = 0). Si on ne compte pas 0 : ${n7}, ${2*n7} et ${3*n7}.</p><p>d)</p>${critTable([n7b])}`}
+   c:`<p>a) ${prods(n7)} : ${divs(n7).join(", ")}</p><p>b) Par exemple ${n7*2}, ${n7*3}, ${n7*10} (${n7} × 2, ${n7} × 3, ${n7} × 10)</p><p>c) 0, ${n7} et ${2*n7} (car ${n7} × 0 = 0). Si on ne compte pas 0 : ${n7}, ${2*n7} et ${3*n7}.</p><p>d)</p>${critTable([n7b])}`}
 ]};
 
 /* ---------- C. Problèmes de partage ---------- */
@@ -50,14 +52,14 @@ const secC = {t:"Problèmes de partage", e:[
    <p><b>Problème 2.</b> Au goûter, ${P2} crêpes ont été mangées et chaque personne en a mangé le même nombre. Combien pouvait-il y avoir de personnes ? Donne toutes les possibilités.</p>
    <p><b>Problème 3.</b> Un fleuriste a ${r3a} roses rouges et ${r3b} roses blanches. Il veut faire des bouquets identiques avec toutes ses fleurs. Combien de bouquets, et quelle composition ? Donne toutes les possibilités.</p>`,
    c:`<p><b>Problème 1.</b> ${r13} × ${Math.floor(P1/r13)} + ${P1%r13} = ${P1} : le reste n'est pas nul, ${r13} rangées complètes c'est impossible. ${r9} × ${P1/r9} = ${P1} : c'est possible, avec ${P1/r9} pommiers par rangée.</p>
-   <p><b>Problème 2.</b> Le nombre de personnes est un diviseur de ${P2} : ${divs(P2).join(", ")} personnes.</p>
-   <p><b>Problème 3.</b> Diviseurs communs à ${r3a} et ${r3b} : ${divs(gcd(r3a,r3b)).join(", ")}.</p>${commonTable(r3a,r3b,"Roses rouges","Roses blanches","Bouquets")}`}
+   <p><b>Problème 2.</b> Le nombre de personnes est un diviseur de ${P2}. ${prods(P2)} : ${divs(P2).join(", ")} personnes.</p>
+   <p><b>Problème 3.</b> Diviseurs de ${r3a} : ${divs(r3a).join(", ")}. Diviseurs de ${r3b} : ${divs(r3b).join(", ")}.</p><p>Diviseurs communs à ${r3a} et ${r3b} : ${divs(gcd(r3a,r3b)).join(", ")}.</p>${commonTable(r3a,r3b,"Roses rouges","Roses blanches","Bouquets")}`}
 ]};
 
 /* ---------- D. Nombres premiers ---------- */
 const f9 = shuf([pick([13,17,19,23,29,31,37,41,43,47]), ...shuf([15,21,22,25,27,33,35,39,45,49,51]).slice(0,3)]);
 const lo = pick([50,60,70,80]), primes = [...Array(20)].map((_,i)=>lo+i).filter(isP);
-const st9 = pick([["Tous les nombres premiers sont impairs.","Faux : 2 est un nombre premier, et il est pair."],["Tout nombre impair est un nombre premier.","Faux : 9 est impair, mais il est divisible par 3."],["Un nombre premier a exactement deux diviseurs.","Vrai : 1 et lui-même."],["1 est un nombre premier.","Faux : 1 n'a qu'un seul diviseur."]]);
+const st9 = pick([["Tous les nombres premiers sont impairs.","Faux : 2 est un nombre premier, et il est pair."],["Tout nombre impair est un nombre premier.","Faux : 9 est impair, mais il est divisible par 3."],["Un nombre premier a exactement deux diviseurs.","Vrai : ses deux seuls diviseurs sont 1 et lui-même."],["1 est un nombre premier.","Faux : 1 n'a qu'un seul diviseur."]]);
 /* Ex 10 : code du coffre, énigme avec une seule solution */
 /* toutes les énigmes valides sont listées une fois : une seule solution, et comme l'énigme de M. Staal,
    après ③ il reste au moins 3 nombres ; ④ et ⑤ en éliminent chacun au moins un */
@@ -71,7 +73,7 @@ if(!TR.codes){ TR.codes=[];
 const ind = pick(TR.codes), code = ind.code, L1 = ind.L1, L2 = ind.L2;
 const secD = {t:"Nombres premiers", e:[
   {n:"Exercice 9", t:"À la chasse aux nombres premiers", w:"Sur ton cahier", h:`<p>1) Parmi ${f9.join(", ")}, lequel est un nombre premier ? Justifie avec sa liste de diviseurs.</p><p>2) Trouve tous les nombres premiers compris entre ${lo} et ${lo+19}.</p><p>3) Vrai ou faux, justifie : « ${st9[0]} »</p>`,
-   c:`<p>1) ${f9.filter(isP)[0]}, car ses seuls diviseurs sont 1 et ${f9.filter(isP)[0]}. Les autres : ${f9.filter(n=>!isP(n)).map(n=>`${n} = ${divs(n)[1]} × ${n/divs(n)[1]}`).join(" ; ")}.</p><p>2) ${primes.join(", ")}</p><p>3) ${st9[1]}</p>`},
+   c:`<p>1) ${f9.filter(isP)[0]}, car ses seuls diviseurs sont 1 et ${f9.filter(isP)[0]}. Les autres : ${f9.filter(n=>!isP(n)).map(n=>`${n} = ${divs(n)[1]} × ${n/divs(n)[1]}`).join(" ; ")}.</p><p>2) Les nombres pairs ne sont pas premiers (ils sont divisibles par 2). Parmi les impairs : ${[...Array(20)].map((_,i)=>lo+i).filter(n=>n%2&&!isP(n)).map(n=>`${n} = ${divs(n)[1]} × ${n/divs(n)[1]}`).join(" ; ")} ne sont pas premiers. Il reste : <b>${primes.join(", ")}</b>.</p><p>3) ${st9[1]}</p>`},
   {n:"Exercice 10", t:"Le code du coffre au trésor", w:"Sur ton cahier", h:`<p>Le code est un nombre à 2 chiffres. Indices : ① je suis compris entre ${ind.lo} et ${ind.hi} ; ② je suis un multiple de ${ind.m} ; ③ la division euclidienne de mon nombre par ${ind.q} donne un reste de ${ind.r} ; ④ la somme de mes deux chiffres est un multiple de ${ind.s} ; ⑤ je ne suis pas un multiple de ${ind.not}.</p><p>a) Liste les nombres qui vérifient ① et ②. b) Élimine ceux qui ne vérifient pas ③. c) Utilise ④ et ⑤ pour trouver le code.</p>`,
    c:`<p>a) ${L1.join(", ")}</p><p>b) On garde ceux dont le reste par ${ind.q} est ${ind.r} : ${L2.map(x=>`${x} (${ind.q} × ${Math.floor(x/ind.q)} + ${ind.r})`).join(", ")}.</p><p>c) ${L2.map(x=>{ const d=String(x).split("").join(" + ")+" = "+sum(x); return x%ind.not===0 ? `${x} est un multiple de ${ind.not} : éliminé par ⑤.` : sum(x)%ind.s!==0 ? `${x} : ${d}, pas un multiple de ${ind.s} : éliminé par ④.` : `${x} : ${d}, multiple de ${ind.s}, et ${x} n'est pas un multiple de ${ind.not}.`; }).join(" · ")} <b>Le code est ${code}.</b></p>`}
 ]};

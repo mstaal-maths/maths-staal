@@ -34,8 +34,15 @@ function triSVG(P, o={}){
   if(o.right){ const [c,a,b]=o.right.map(n=>typeof n==="string"?P[n]:n), q=10/k, ua=[(a[0]-c[0]),(a[1]-c[1])], ub=[(b[0]-c[0]),(b[1]-c[1])], la=Math.hypot(...ua), lb=Math.hypot(...ub);
     const p1=[c[0]+ua[0]/la*q,c[1]+ua[1]/la*q], p3=[c[0]+ub[0]/lb*q,c[1]+ub[1]/lb*q], p2=[p1[0]+ub[0]/lb*q,p1[1]+ub[1]/lb*q];
     s+=`<path d="M${X(p1)} ${Y(p1)} L${X(p2)} ${Y(p2)} L${X(p3)} ${Y(p3)}" style="fill:none;stroke:${RED};stroke-width:1.6"/>`; }
-  (o.lens||[]).forEach(([a,b,t])=>{ const A=P[a],B=P[b],m=[(A[0]+B[0])/2,(A[1]+B[1])/2],v=[m[0]-G[0],m[1]-G[1]],L=Math.hypot(...v)||1,q=[m[0]+v[0]/L*0.55,m[1]+v[1]/L*0.55];
+  /* longueurs : à côté du côté, sans chevaucher le trait ; décalées vers une extrémité si le milieu porte un codage ou une médiatrice */
+  const busy=(a,b)=>[...(o.ticks||[]).filter(t=>t[2]>0),...(o.med||[])].some(([p,q])=>(p===a&&q===b)||(p===b&&q===a));
+  (o.lens||[]).forEach(([a,b,t,f])=>{ const A=P[a],B=P[b]; f=f??(busy(a,b)?0.28:0.5);
+    const m=[A[0]+(B[0]-A[0])*f,A[1]+(B[1]-A[1])*f], L=Math.hypot(B[0]-A[0],B[1]-A[1])||1; let n=[-(B[1]-A[1])/L,(B[0]-A[0])/L];
+    if(n[0]*(m[0]-G[0])+n[1]*(m[1]-G[1])<0) n=[-n[0],-n[1]];
+    const cl=(Math.abs(n[0])*String(t).length*4.3+Math.abs(n[1])*7+7)/k, q=[m[0]+n[0]*cl,m[1]+n[1]*cl];
     s+=`<text x="${X(q)}" y="${Y(q)+5}" text-anchor="middle" style="font-size:14px;fill:${BLUE};font-weight:600">${t}</text>`; });
+  /* points en plus (ex. centre O) : [nom, [x,y], [dx,dy] décalage de l'étiquette en cm, couleur] */
+  (o.dots||[]).forEach(([n,p,d,col])=>{ s+=cross(X(p),Y(p),"ln")+`<text x="${X([p[0]+d[0],p[1]+d[1]])}" y="${Y([p[0]+d[0],p[1]+d[1]])+6}" text-anchor="middle" style="font-size:16px;font-weight:600;fill:${col||"var(--ink)"}">${n}</text>`; });
   names.forEach(n=>{ const p=P[n], v=[p[0]-G[0],p[1]-G[1]], L=Math.hypot(...v)||1, q=[p[0]+v[0]/L*0.45,p[1]+v[1]/L*0.45];
     s+=cross(X(p),Y(p),"ln")+`<text x="${X(q)}" y="${Y(q)+6}" text-anchor="middle" style="font-size:16px;font-weight:600;fill:var(--ink)">${n}</text>`; });
   return s+"</svg>";
@@ -137,13 +144,13 @@ exos:[
    c:`<p><b>Cas 1 : non.</b> (m) est perpendiculaire à [MN] (angle droit codé), mais elle ne passe pas par le milieu de [MN].</p>
    <p><b>Cas 2 : non.</b> (m) passe par le milieu de [MN] (codage), mais elle n'est pas perpendiculaire à [MN].</p>
    <p><b>Cas 3 : oui.</b> (m) est perpendiculaire à [MN] et passe par son milieu : c'est la médiatrice de [MN].</p>
-   <p><b>Cas 4 : non.</b> (m) n'est ni perpendiculaire à [MN], ni codée comme passant par son milieu.</p>`},
+   <p><b>Cas 4 : non.</b> (m) n'est pas perpendiculaire à [MN]. Et aucun codage n'indique le milieu de [MN].</p>`},
   {n:"Activité 2", t:"Découverte d'une propriété", w:"Sur ta feuille", h:`<p>1) Reprends la médiatrice (d) que tu as tracée à l'activité 1.</p><p>2) Place trois points différents R, S et T sur la droite (d).</p><p>3) Mesure, puis compare : AR et RB ; AS et SB ; AT et TB.</p><p>4) Que semblent vérifier tous les points de la médiatrice ?</p><p>5) Complète la propriété : « La médiatrice d'un segment est formée de tous les points situés … »</p>`,
    c:`<p>3) Les mesures dépendent de l'endroit où tu as placé R, S et T, mais tu trouves à chaque fois <b>AR = RB</b>, <b>AS = SB</b> et <b>AT = TB</b>.</p><p>4) Chaque point de la médiatrice est à la <b>même distance</b> de A et de B.</p><p>5) « La médiatrice d'un segment est formée de tous les points situés <b>à la même distance des deux extrémités du segment</b>. »</p>`},
   {n:"Exercice 2", t:"Ces points sont-ils sur la médiatrice ?", w:"Sur ta feuille", h:`<p>Dans chaque cas, réponds à la question en justifiant à l'aide de la propriété.</p>${ex("e2","Trois triangles avec les longueurs des côtés",490)}<p>Cas 1 : le point K est-il sur la médiatrice de [TR] ? · Cas 2 : le point H appartient-il à la médiatrice de [AB] ? · Cas 3 : le point P appartient-il à la médiatrice de [ZR] ?</p>`,
-   c:`<p><b>Cas 1 :</b> KT = KR = 3,5 cm. Le point K est équidistant de T et de R, donc <b>K appartient à la médiatrice de [TR]</b>.</p>
-   <p><b>Cas 2 :</b> HA = 4 cm et HB = 5 cm. HA ≠ HB : le point H n'est pas équidistant de A et de B, donc <b>H n'appartient pas à la médiatrice de [AB]</b>.</p>
-   <p><b>Cas 3 :</b> PZ = PR = 6 cm. Le point P est équidistant de Z et de R, donc <b>P appartient à la médiatrice de [ZR]</b>.</p>`},
+   c:`<p><b>Cas 1 :</b> KT = KR = 3,5 cm. K est à la même distance de T et de R.<br>Donc <b>K appartient à la médiatrice de [TR]</b>.</p>
+   <p><b>Cas 2 :</b> HA = 4 cm et HB = 5 cm. H n'est pas à la même distance de A et de B.<br>Donc <b>H n'appartient pas à la médiatrice de [AB]</b>.</p>
+   <p><b>Cas 3 :</b> PZ = PR = 6 cm. P est à la même distance de Z et de R.<br>Donc <b>P appartient à la médiatrice de [ZR]</b>.</p>`},
   {n:"Activité 3", t:"Tracer la médiatrice au compas", w:"Sur ta feuille", h:`<p>Trace la médiatrice de chacun de ces segments, <b>uniquement au compas et à la règle</b>. Laisse les traces de construction apparentes.</p>${ex("act3","Les segments [MN], [RS] et [EF]",480)}`,
    c:`<p>Pour chaque segment : j'écarte le compas de plus de la moitié du segment, je trace deux arcs depuis chaque extrémité (au-dessus et en dessous), puis je relie les deux points d'intersection à la règle.</p>${ex("act3c","Les trois médiatrices tracées au compas",480)}`},
   {n:"Exercice 3", t:"Calculer une longueur", w:"Sur ton cahier", h:`<p>1) d est la médiatrice du segment [BW]. Le point S appartient à d et SB = 7 cm. Combien mesure le segment [SW] ? Justifie.</p><p>2) La médiatrice de [EF] coupe le segment [EF] au point I, et EF = 9 cm. Combien mesure le segment [EI] ? Justifie.</p>`,
@@ -178,10 +185,10 @@ exos:[
   {n:"Exercice 9", t:"Construire un cercle circonscrit", w:"Sur ta feuille", h:`<p>Construis le cercle circonscrit au triangle RST. Laisse les traces de construction apparentes.</p>${ex("e9","Le triangle RST",320)}`,
    c:`<p>Je trace au compas la médiatrice de deux côtés (la troisième sert à vérifier). Elles se coupent en O. Je trace le cercle de centre O qui passe par R : il passe aussi par S et T.</p>${ex("e9c","Le cercle circonscrit au triangle RST",320)}<p><i>Sur la fiche, son rayon mesure environ 3,9 cm.</i></p>`},
   {n:"Exercice 10", t:"Raisonner", w:"Sur ta feuille", h:`<p>Sur la figure ci-contre, le codage indique que MT = MN et que I est le milieu de [TN].</p>${ex("e10","Triangle MTN isocèle en M, I milieu de [TN]",230)}<p>1) Que peux-tu dire de la droite (MI) pour le segment [TN] ? Justifie.</p><p>2) Que peux-tu dire des droites (MI) et (TN) ? Justifie.</p>`,
-   c:`<p>1) MT = MN : M est équidistant de T et de N, donc M appartient à la médiatrice de [TN]. I est le milieu de [TN], donc I appartient aussi à la médiatrice de [TN]. La médiatrice est une droite qui passe par M et par I : <b>(MI) est la médiatrice de [TN]</b>.</p><p>2) La médiatrice d'un segment est perpendiculaire à ce segment, donc <b>(MI) ⊥ (TN)</b> : les droites (MI) et (TN) sont perpendiculaires.</p>`},
+   c:`<p>1) MT = MN : M est à la même distance de T et de N.<br>Donc M est sur la médiatrice de [TN].</p><p>I est le milieu de [TN].<br>Donc I est aussi sur la médiatrice de [TN].</p><p>La médiatrice de [TN] passe par M et par I.<br>Donc <b>(MI) est la médiatrice de [TN]</b>.</p><p>2) La médiatrice de [TN] est perpendiculaire à [TN].<br>Donc <b>les droites (MI) et (TN) sont perpendiculaires</b> : (MI) ⊥ (TN).</p>`},
   {n:"Exercice 11", t:"Pour aller plus loin", w:"Sur ton cahier", h:`<p>1) Construis un triangle ABC rectangle en A tel que AB = 4 cm et AC = 3 cm.</p><p>2) Construis son cercle circonscrit.</p><p>3) Où se trouve le centre de ce cercle ?</p>`,
-   c:`${triSVG({A:[0,3],B:[4,3],C:[0,0]},{k:30,right:["A","B","C"],med:[["A","B"],["A","C"]],medExt:2.0,circ:[[2,1.5],2.5],lens:[["A","B","4 cm"],["A","C","3 cm"]],alt:"Triangle ABC rectangle en A et son cercle circonscrit"})}
-   <p>1) Je trace l'angle droit en A, puis AB = 4 cm et AC = 3 cm.</p><p>2) Je trace les médiatrices de [AB] et de [AC] : elles se coupent en O. Je trace le cercle de centre O passant par A.</p><p>3) Le centre O est <b>le milieu de l'hypoténuse [BC]</b> (le côté opposé à l'angle droit). Ici BC = 5 cm, donc le rayon du cercle est 2,5 cm.</p>`}
+   c:`${triSVG({A:[0,3],B:[4,3],C:[0,0]},{k:30,right:["A","B","C"],med:[["A","B"],["A","C"]],medExt:2.0,circ:[[2,1.5],2.5],lens:[["A","B","4 cm"],["A","C","3 cm"]],dots:[["O",[2,1.5],[0.35,-0.35],RED]],alt:"Triangle ABC rectangle en A, les médiatrices de [AB] et [AC] et le cercle circonscrit de centre O"})}
+   <p>1) Je trace l'angle droit en A. Puis je place B et C : AB = 4 cm et AC = 3 cm.</p><p>2) Je trace la médiatrice de [AB] et celle de [AC]. Elles se coupent en O.<br>Je trace le cercle de centre O qui passe par A.</p><p>3) Le centre O est <b>le milieu du côté [BC]</b>. [BC] est le côté opposé à l'angle droit.<br>Je mesure : BC = 5 cm. Donc le rayon du cercle est 5 ÷ 2 = 2,5 cm.</p>`}
  ]}
 ],
 

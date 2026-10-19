@@ -50,7 +50,7 @@ return [
  ]},
  {t:"Calculs et priorités opératoires", e:[
   {n:"Exercice 3", t:"Priorités opératoires", w:"Sur ton cahier", h:`<p>Recopie chaque calcul, puis calcule en tenant compte des priorités opératoires.</p>${cols(E3.map((x,i)=>`${"ABCDEFG"[i]} = ${x[0]}`))}`,
-   c:`<p class="calc">${E3.map((x,i)=>`${"ABCDEFG"[i]} = ${x[0]} = ${x[1].join(" = ")} = <b>${F(x[2])}</b>`).join("<br>")}</p>`},
+   c:`<div class="figs" style="gap:28px">${E3.map((x,i)=>`<p class="calc">${[x[0],...x[1],`<b>${F(x[2])}</b>`].map(t=>`${"ABCDEFG"[i]} = ${t}`).join("<br>")}</p>`).join("")}</div>`},
   {n:"Exercice 4", t:"Vrai ou faux ?", w:"Sur ton cahier", h:`<p>Dis si chaque égalité est vraie ou fausse. Justifie.</p>${cols(E4.map((x,i)=>`${L[i]}. ${x[0]}`))}`,
    c:E4.map((x,i)=>`<p><b>${L[i]}. ${x[1]?"Vrai":"Faux"} :</b> ${x[2]}.</p>`).join("")}
  ]},

@@ -2,7 +2,7 @@
    Les figures des corrections sont calculées à partir des mêmes longueurs (outils window.TRI de data/5e-6.js). */
 TRAIN["5e-6"] = function(){
 const {ri, pick, shuf} = TR;
-const {V, geo, F, ang, natureFig, NAT, traitFig, TRAIT_EX, aireFig, ISO3, NOMS, GRN} = window.TRI;
+const {V, geo, F, ang, natureFig, NAT, natEx, traitFig, TRAIT_EX, aireFig, ISO3, NOMS, GRN} = window.TRI;
 const fig=(cap,body)=>`<figure>${body}${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`;
 const half=(a,b)=>ri(a*2,b*2)/2;
 const ANG={A:"BAC",B:"ABC",C:"ACB"};
@@ -125,7 +125,7 @@ const synSVG=(()=>{ const P={E:[0,sa],F:[0,0],G:[sb,0]}; P.I=V.mid(P.E,P.G); P.H
 return [
  {t:"Rappels de 6e : les triangles particuliers", e:[
   {n:"Exercice 1", t:"Nature d'un triangle", w:"Sur ton cahier", h:`<p>Donne la nature de chaque triangle d'après le codage de la figure.</p><div class="figs">${nat.map((x,i)=>fig(`${"①②③④"[i]} ${x.nom}`, x.f.svg)).join("")}</div>`,
-   c:nat.map((x,i)=>`<p>${"①②③④"[i]} ${x.nom} est ${natTxt(x)}.</p>`).join("")},
+   c:nat.map((x,i)=>`<p>${"①②③④"[i]} ${x.nom} est ${natTxt(x)}. ${natEx(x.t,x.nom,x.f)}</p>`).join("")},
   {n:"Exercice 2", t:"Constructions de triangles", w:"Sur ton cahier", h:`<p>Construis chaque triangle (règle graduée, équerre et compas).</p>
    <p><b>a)</b> ABC est un triangle isocèle en A tel que AB = AC = ${F(isoA)} cm et BC = ${F(isoB)} cm.</p><p><b>b)</b> DEF est un triangle équilatéral de côté ${F(equS)} cm.</p><p><b>c)</b> MNP est un triangle rectangle en N tel que NM = ${F(rx)} cm et NP = ${F(ry)} cm.</p><p><b>d)</b> Mesure l'hypoténuse : MP = ……… cm.</p>`,
    c:`<div class="figs">${fig("a)",isoSVG)}${fig("b)",eqSVG)}${fig("c)",reSVG)}</div>
@@ -169,15 +169,15 @@ return [
  ]},
  {t:"L'aire d'un triangle", e:[
   {n:"Exercice 16", t:"Calculer des aires", w:"Sur ton cahier", h:`<p>Calcule l'aire de chaque triangle (figures non à l'échelle). Attention : une donnée peut être inutile !</p><div class="figs">${a17.map((x,i)=>fig(`Triangle ${"①②③"[i]}`, aireFig(x.t,x.b,x.h,x.e))).join("")}${fig("Triangle ④", aireFig("iso",iso17[0],iso17[1],iso17[2]))}</div>`,
-   c:`<p><b>①</b> ${a17[0].b} × ${a17[0].h} ÷ 2 = <b>${F(a17[0].b*a17[0].h/2)} cm²</b></p><p><b>②</b> Les côtés de l'angle droit sont base et hauteur : ${a17[1].b} × ${a17[1].h} ÷ 2 = <b>${F(a17[1].b*a17[1].h/2)} cm²</b></p><p><b>③</b> La hauteur est à l'extérieur : ${a17[2].b} × ${a17[2].h} ÷ 2 = <b>${F(a17[2].b*a17[2].h/2)} cm²</b></p><p><b>④</b> ${F(iso17[0])} × ${F(iso17[1])} ÷ 2 = <b>${F(iso17[0]*iso17[1]/2)} cm²</b> (la longueur ${F(iso17[2])} cm ne sert pas).</p>`},
+   c:`<p>Aire = base × hauteur ÷ 2, avec la hauteur perpendiculaire à la base.</p><p><b>①</b> ${a17[0].b} × ${a17[0].h} ÷ 2 = ${a17[0].b*a17[0].h} ÷ 2 = <b>${F(a17[0].b*a17[0].h/2)} cm²</b></p><p><b>②</b> Les côtés de l'angle droit sont base et hauteur : ${a17[1].b} × ${a17[1].h} ÷ 2 = ${a17[1].b*a17[1].h} ÷ 2 = <b>${F(a17[1].b*a17[1].h/2)} cm²</b></p><p><b>③</b> La hauteur est à l'extérieur : ${a17[2].b} × ${a17[2].h} ÷ 2 = ${a17[2].b*a17[2].h} ÷ 2 = <b>${F(a17[2].b*a17[2].h/2)} cm²</b></p><p><b>④</b> ${F(iso17[0])} × ${F(iso17[1])} ÷ 2 = ${F(iso17[0]*iso17[1])} ÷ 2 = <b>${F(iso17[0]*iso17[1]/2)} cm²</b> (la longueur ${F(iso17[2])} cm ne sert pas).</p>`},
   {n:"Exercice 17", t:"Retrouver une longueur", w:"Sur ton cahier", h:`<p>Rappel : base × hauteur = Aire × 2.</p><p><b>a)</b> Un triangle a pour aire ${F(e18[0].A)} cm² et pour base ${e18[0].b} cm. Calcule la hauteur correspondante.</p><p><b>b)</b> Un triangle a pour aire ${F(e18[1].A)} cm² et pour hauteur ${e18[1].h} cm. Calcule la base correspondante.</p><p><b>c)</b> Un triangle a pour aire ${F(e18[2].A)} cm² et pour base ${e18[2].b} cm. Calcule la hauteur correspondante.</p>`,
    c:`<p><b>a)</b> hauteur = ${F(e18[0].A)} × 2 ÷ ${e18[0].b} = ${F(2*e18[0].A)} ÷ ${e18[0].b} = <b>${e18[0].h} cm</b></p><p><b>b)</b> base = ${F(e18[1].A)} × 2 ÷ ${e18[1].h} = ${F(2*e18[1].A)} ÷ ${e18[1].h} = <b>${e18[1].b} cm</b></p><p><b>c)</b> hauteur = ${F(e18[2].A)} × 2 ÷ ${e18[2].b} = ${F(2*e18[2].A)} ÷ ${e18[2].b} = <b>${e18[2].h} cm</b></p>`},
-  {n:"Exercice 18", t:"Parallélogramme et triangle", w:"Sur ton cahier", h:`<p>ABCD est un parallélogramme : AB // DC et AD // BC. AB = ${pb} cm et la hauteur issue de D mesure ${ph} cm.</p>${parSVG}<p><b>a)</b> Calcule l'aire du parallélogramme ABCD.</p><p><b>b)</b> Quelle est l'aire du triangle ABC ? Explique.</p>`,
+  {n:"Exercice 18", t:"Parallélogramme et triangle", w:"Sur ton cahier", h:`<p>ABCD est un parallélogramme : (AB) // (DC) et (AD) // (BC). AB = ${pb} cm et la hauteur issue de D mesure ${ph} cm.</p>${parSVG}<p><b>a)</b> Calcule l'aire du parallélogramme ABCD.</p><p><b>b)</b> Quelle est l'aire du triangle ABC ? Explique.</p>`,
    c:`<p><b>a)</b> Aire(ABCD) = ${pb} × ${ph} = <b>${pb*ph} cm²</b>.</p><p><b>b)</b> La diagonale [AC] partage le parallélogramme en deux triangles de même aire : Aire(ABC) = ${pb*ph} ÷ 2 = <b>${F(pb*ph/2)} cm²</b>.</p>`}
  ]},
  {t:"Problème de synthèse", e:[
   {n:"Exercice 19", t:"Un triangle qui sait tout faire", w:"Sur ton cahier", h:`<p>Construis le triangle EFG tel que EF = ${F(sa)} cm, FG = ${F(sb)} cm et EG = ${F(sc2)} cm.</p><p><b>1)</b> Vérifie à l'équerre que EFG est rectangle en F. Quel côté est l'hypoténuse ?</p><p><b>2)</b> Trace son cercle circonscrit sans tracer de médiatrice. Donne son rayon.</p><p><b>3)</b> Trace la hauteur issue de F (pied H). Calcule l'aire de EFG avec EF et FG, puis déduis-en FH.</p><p><b>4)</b> Trace la médiane issue de F. I est le milieu de [EG]. Combien mesure FI ? Quelle est l'aire du triangle EFI ?</p>`,
-   c:`${synSVG}<p><b>1)</b> L'angle ${ang("EFG")} est droit : l'hypoténuse est <b>[EG]</b>, le côté opposé à l'angle droit.</p><p><b>2)</b> Le cercle circonscrit a pour diamètre [EG] : son centre est le milieu I de [EG]. Rayon : ${F(sc2)} ÷ 2 = <b>${F(sc2/2)} cm</b>.</p><p><b>3)</b> Aire(EFG) = ${F(sa)} × ${F(sb)} ÷ 2 = <b>${F(sA)} cm²</b>. Avec la base [EG] : ${F(sc2)} × FH ÷ 2 = ${F(sA)}, donc FH = ${F(sA)} × 2 ÷ ${F(sc2)} = <b>${F(sFH)} cm</b>.</p><p><b>4)</b> F est sur le cercle de centre I : FI = <b>${F(sc2/2)} cm</b> (le rayon). Aire(EFI) = ${F(sA)} ÷ 2 = <b>${F(sA/2)} cm²</b>.</p>`}
+   c:`${synSVG}<p><b>1)</b> L'angle ${ang("EFG")} est droit : l'hypoténuse est <b>[EG]</b>, le côté opposé à l'angle droit.</p><p><b>2)</b> Le cercle circonscrit a pour diamètre [EG] : son centre est le milieu I de [EG]. Rayon : ${F(sc2)} ÷ 2 = <b>${F(sc2/2)} cm</b>.</p><p><b>3)</b> Aire(EFG) = ${F(sa)} × ${F(sb)} ÷ 2 = <b>${F(sA)} cm²</b>. Avec la base [EG] : ${F(sc2)} × FH ÷ 2 = ${F(sA)}, donc FH = ${F(sA)} × 2 ÷ ${F(sc2)} = ${F(2*sA)} ÷ ${F(sc2)} = <b>${F(sFH)} cm</b>.</p><p><b>4)</b> F est sur le cercle de centre I : FI = <b>${F(sc2/2)} cm</b> (le rayon). Aire(EFI) = ${F(sA)} ÷ 2 = <b>${F(sA/2)} cm²</b>.</p>`}
  ]}
 ];
 };

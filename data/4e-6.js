@@ -133,7 +133,11 @@ exos:[
    <p><b>3) a)</b> Le périmètre d'un carré vaut 36 cm. Quelle est la longueur de son côté ?</p><p><b>b)</b> L'aire d'un carré vaut 36 cm². Quelle est la longueur de son côté ?</p>
    <p><b>4) a)</b> Le périmètre d'un carré vaut 100 cm. Quelle est la longueur de son côté ?</p><p><b>b)</b> L'aire d'un carré vaut 100 cm². Quelle est la longueur de son côté ?</p>
    <p><b>5)</b> Je suis un carré. Mon aire est comprise entre 40 cm² et 50 cm². La longueur de mon côté est un nombre entier. Quelle est la longueur de mes côtés ?</p>`,
-   c:`<p><b>Partie 1 (un exemple parmi d'autres) :</b></p><p><b>1)</b> Un rectangle de 2 carreaux sur 6 et un rectangle de 3 carreaux sur 4 : même aire (12 carreaux), mais périmètres 16 et 14.</p><p><b>2)</b> Un rectangle de 1 carreau sur 5 et un carré de 3 carreaux sur 3 : même périmètre (12), mais aires 5 et 9 carreaux.</p>
+   c:`<p><b>Partie 1 (un exemple parmi d'autres) :</b></p><p><b>1)</b> Un rectangle de 2 carreaux sur 6 et un rectangle de 3 carreaux sur 4 : même aire (12 carreaux), mais périmètres 16 et 14.</p><p><b>2)</b> Un rectangle de 1 carreau sur 5 et un carré de 3 carreaux sur 3 : même périmètre (12), mais aires 5 et 9 carreaux.</p>${(()=>{ const k=24, X=x=>8+x*k, Y=y=>8+y*k, W=25, H=8; let s=`<svg class="fig" viewBox="0 0 ${X(W)+8} ${Y(H)+8}" width="${X(W)+8}" role="img" aria-label="Sur quadrillage : un rectangle de 2 sur 6 et un rectangle de 3 sur 4 (même aire) ; un rectangle de 1 sur 5 et un carré de 3 sur 3 (même périmètre)">`;
+     for(let x=0;x<=W;x++) s+=`<line x1="${X(x)}" y1="${Y(0)}" x2="${X(x)}" y2="${Y(H)}" class="gridl"/>`; for(let y=0;y<=H;y++) s+=`<line x1="${X(0)}" y1="${Y(y)}" x2="${X(W)}" y2="${Y(y)}" class="gridl"/>`;
+     const R=(x,y,w,h,c)=>`<rect x="${X(x)}" y="${Y(y)}" width="${w*k}" height="${h*k}" style="fill:${c}55;stroke:${c};stroke-width:2.2"/>`, T=(x,y,t)=>`<text x="${X(x)}" y="${Y(y)}" text-anchor="middle" style="font-size:14px;font-weight:700;fill:var(--ink)">${t}</text>`;
+     s+=R(1,1,2,6,"#4a86c5")+R(4,1,4,3,"#4a86c5")+T(4.5,7.75,"1)")+R(14,1,5,1,"#d6457a")+R(14,3,3,3,"#d6457a")+T(16.5,7.75,"2)");
+     return s+"</svg>"; })()}
    <p><b>Partie 2 :</b></p>
    <p><b>1) a)</b> 4 × 5 = <b>20 cm</b> · <b>b)</b> 5 × 5 = <b>25 cm²</b></p>
    <p><b>2) a)</b> 4 × 8 = <b>32 dm</b> · <b>b)</b> 8 × 8 = <b>64 dm²</b></p>

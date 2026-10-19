@@ -81,7 +81,7 @@ return [
   {n:"Exercice 5", t:"Les puissances de 10", w:"Sur ta feuille", h:`<p>Donne directement le résultat en écriture décimale.</p>${cols(E6.map((n,i)=>`${L[i]}) ${P10(n)}`))}`,
    c:cols(E6.map((n,i)=>`${L[i]}) ${P10(n)} = ${dec(1,n)}`))},
   {n:"Exercice 6", t:"Multiplier un nombre par une puissance de 10", w:"Sur ta feuille", h:`<p>Donne l'écriture décimale de chaque expression.</p>${cols(E8.map(([M,q,n],i)=>`${"ABCDEF"[i]} = ${dec(M,q)} × ${P10(n)}`))}`,
-   c:cols(E8.map(([M,q,n],i)=>`${"ABCDEF"[i]} = ${dec(M,q)} × ${P10(n)} = ${dec(M,q+n)}`))+`<p>Multiplier par ${pw("10","<i>n</i>")} décale la virgule de ${"<i>n</i>"} rangs vers la droite ; par ${pw("10","−<i>n</i>")}, de ${"<i>n</i>"} rangs vers la gauche.</p>`}
+   c:cols(E8.map(([M,q,n],i)=>{ const A="ABCDEF"[i]; return calc([`${A} = ${dec(M,q)} × ${P10(n)}`,`${A} = ${dec(M,q)} × ${dec(1,n)}`,`${A} = ${dec(M,q+n)}`]); }))+`<p>Multiplier par ${pw("10","<i>n</i>")} décale la virgule de ${"<i>n</i>"} rangs vers la droite ; par ${pw("10","−<i>n</i>")}, de ${"<i>n</i>"} rangs vers la gauche.</p>`}
  ]},
  {t:"Préfixes scientifiques", e:[
   {n:"Exercice 7", t:"Conversion d'unités avec les préfixes scientifiques", w:"Sur ton cahier", h:`<p>Convertis dans l'unité demandée. Donne l'écriture décimale et la notation scientifique.</p>${cols(PR.map((v,i)=>`${L[i]}) ${dec(v.M,v.q)} ${v.a[0]}${v.unit} = … ${v.b[0]}${v.unit}`))}`,
@@ -89,7 +89,7 @@ return [
  ]},
  {t:"Calculer avec des puissances", e:[
   {n:"Exercice 8", t:"Calculs avec des puissances", w:"Sur ton cahier", h:`<p>Exprime le résultat sous la forme d'une puissance.</p>${cols(R.map((v,i)=>`${L[i]}) ${rH(v)}`))}`,
-   c:cols(R.map((v,i)=>`${L[i]}) ${rC(v)}`))}
+   c:cols(R.map((v,i)=>`${L[i]}) ${rH(v)} = ${rC(v)}`))}
  ]},
  {t:"Notation scientifique", e:[
   {n:"Exercice 9", t:"De l'écriture décimale à la notation scientifique", w:"Sur ton cahier", h:`<p>Écris chacun de ces nombres en notation scientifique.</p>${cols(S12.map(([M,p],i)=>`${L[i]}) ${dec(M,p)}`))}`,
@@ -97,7 +97,7 @@ return [
   {n:"Exercice 10", t:"Écrire un produit en notation scientifique", w:"Sur ton cahier", h:`<p>Écris le résultat de chaque produit en notation scientifique.</p>${cols(S13.map((v,i)=>`${L[i]}) ${dec(v[0],v[1])} × ${P10(v[2])}`))}`,
    c:cols(S13.map((v,i)=>`${L[i]}) ${s13c(v)}`))},
   {n:"Exercice 11", t:"Calculer un quotient d'écritures scientifiques", w:"Sur ton cahier", h:`<p>Exprime le résultat de chaque calcul en notation scientifique.</p>${cols(S14.map((v,i)=>`${"AB"[i]} = ${FRH(`${v.a} × ${P10(v.m)} × ${v.b} × ${P10(v.n)}`,`${v.c} × ${P10(v.p)}`)}`))}`,
-   c:S14.map((v,i)=>`<p>${"AB"[i]} = ${s14c(v)}</p>`).join("")}
+   c:cols(S14.map((v,i)=>{ const A="AB"[i]; return calc([`${A} = ${FRH(`${v.a} × ${P10(v.m)} × ${v.b} × ${P10(v.n)}`,`${v.c} × ${P10(v.p)}`)}`,...s14c(v).split(" = ").map(t=>`${A} = ${t}`)]); }))}
  ]}
 ];
 function X_n(){ return "<i>n</i>"; }

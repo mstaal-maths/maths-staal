@@ -56,12 +56,12 @@ function fq(o){
     const D2=dd||15, anc = Math.abs(nx)>0.75 ? (nx>0?"start":"end") : "middle", D3 = anc==="middle" ? D2 : Math.min(D2,9); svg+=`<text x="${(mx+nx*D3).toFixed(1)}" y="${(my+ny*D3+5).toFixed(1)}" class="glab" text-anchor="${anc}" style="font-size:14px;fill:var(--c);font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:4px">${t}</text>`; });
   (o.arrows||[]).forEach(([a,b,n])=>{ const A=Q[a], B=Q[b], d=Math.hypot(B[0]-A[0],B[1]-A[1]), ux=(B[0]-A[0])/d, uy=(B[1]-A[1])/d; for(let i=0;i<(n||1);i++){ const cx=(A[0]+B[0])/2+ux*(i*7-((n||1)-1)*3.5), cy=(A[1]+B[1])/2+uy*(i*7-((n||1)-1)*3.5);
     svg+=`<path d="M${(cx-ux*5-uy*5).toFixed(1)} ${(cy-uy*5+ux*5).toFixed(1)} L${(cx+ux*3).toFixed(1)} ${(cy+uy*3).toFixed(1)} L${(cx-ux*5+uy*5).toFixed(1)} ${(cy-uy*5-ux*5).toFixed(1)}" style="fill:none;stroke:#1e5aa8;stroke-width:2"/>`; } });
-  (o.marks||[]).forEach(n=>{ const [x,y]=Q[n]; svg+=`<path d="M${x-5} ${y-5} L${x+5} ${y+5} M${x+5} ${y-5} L${x-5} ${y+5}" class="gx"/>`; });
+  (o.marks||[]).forEach(n=>{ const [x,y]=Q[n]; svg+=`<path d="M${x-5} ${y-5} L${x+5} ${y+5} M${x+5} ${y-5} L${x-5} ${y+5}" class="gx"${(o.blue||[]).includes(n)?' style="stroke:#1d63d8;stroke-width:2.2"':""}/>`; });
   const hide=new Set(o.hide||[]);
   used.forEach(n=>{ if(hide.has(n)) return; const [x,y]=Q[n]; let dx=x-cen[0], dy=y-cen[1], d=Math.hypot(dx,dy);
     if(o.lab&&o.lab[n]){ [dx,dy]=o.lab[n]; d=Math.hypot(dx,dy); } else if(d<1 || (o.marks||[]).includes(n) && !poly.includes(n)){ dx=11; dy=-11; d=Math.hypot(dx,dy); }
     const k=(o.marks||[]).includes(n)&&!poly.includes(n)?19:17;
-    svg+=`<text x="${(x+dx/d*k).toFixed(1)}" y="${(y+dy/d*k+5).toFixed(1)}" class="glab" text-anchor="middle">${(o.names&&o.names[n])||n}</text>`; });
+    svg+=`<text x="${(x+dx/d*k).toFixed(1)}" y="${(y+dy/d*k+5).toFixed(1)}" class="glab" text-anchor="middle"${(o.blue||[]).includes(n)?' style="fill:#1d63d8;font-weight:700"':""}>${(o.names&&o.names[n])||n}</text>`; });
   return svg+(o.extra||"")+"</svg>";
 }
 /* parallélogramme « standard » ABCD de centre O (pour le cours) */
@@ -73,7 +73,7 @@ const rn = (pts, map) => { const o={}; for(const k in map) o[map[k]]=pts[k]; ret
 ------------------------------------------------------------------ */
 const F_DEF = fq({pts:STD, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["O"], alt:"Parallélogramme ABCD de centre O"});
 const LKJI = rn(STD,{D:"L",C:"K",B:"J",A:"I",O:"M"});
-const F_SYM = fq({pts:LKJI, poly:["L","K","J","I"], segs:[["L","J","cons"],["K","I","cons"]], marks:["M"], alt:"LKJI parallélogramme de centre M"});
+const F_SYM = fq({pts:LKJI, poly:["L","K","J","I"], segs:[["L","J","cons"],["K","I","cons"]], marks:["M"], blue:["M"], alt:"LKJI parallélogramme de centre M"});   /* centre de symétrie en bleu (convention de M. Staal) */
 const F_P2 = fq({pts:STD, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], ticks:[["A","O",1],["O","C",1],["B","O",2],["O","D",2]], hide:["O"], marks:["O"], alt:"Les diagonales se coupent en leur milieu"});
 const F_P3 = fq({pts:STD, poly:["A","B","C","D"], ticks:[["A","B",1],["D","C",1],["B","C",2],["A","D",2]], alt:"Côtés opposés de même longueur"});
 const F_P4 = fq({pts:STD, poly:["A","B","C","D"], arcs:[["A","B","D","","#8bc34a"],["C","D","B","","#8bc34a"],["B","C","A","","#e57fb0"],["D","A","C","","#e57fb0"]], alt:"Angles opposés égaux"});
@@ -200,22 +200,22 @@ exos:[
   <p><b>Problème 3 :</b> trois amis se partagent équitablement le prix d'un repas à 30 € et d'un gâteau à 6 €. Combien paie chacun ?</p>
   <p><b>Problème 4 :</b> une fleuriste prépare 4 bouquets de 6 roses, et il lui reste 3 roses. Combien avait-elle de roses ?</p>
   <div class="calcs"><span><b>A</b> &nbsp; 6 + 4 × 3</span><span><b>B</b> &nbsp; (30 + 6) ÷ 3</span><span><b>C</b> &nbsp; 4 × 6 + 3</span><span><b>D</b> &nbsp; (6 + 4) × 3</span><span><b>E</b> &nbsp; 30 + 6 ÷ 3</span><span><b>F</b> &nbsp; (30 − 6) × 4</span><span><b>G</b> &nbsp; 30 − 6 × 4</span></div>`,
- c:`<p><b>Problème 1 :</b> expression D. ${C.inline("(6 + 4) × 3")}.</p>
-  <p><b>Problème 2 :</b> expression G. ${C.inline("30 − 6 × 4")}. Il lui reste 6 €.</p>
-  <p><b>Problème 3 :</b> expression B. ${C.inline("(30 + 6) ÷ 3")}. Chacun paie 12 €.</p>
-  <p><b>Problème 4 :</b> expression C. ${C.inline("4 × 6 + 3")}. Elle avait 27 roses.</p>
+ c:`<p><b>Problème 1 :</b> expression D.</p>${C.html("(6 + 4) × 3","D")}
+  <p><b>Problème 2 :</b> expression G.</p>${C.html("30 − 6 × 4","G")}<p>Il lui reste 6 €.</p>
+  <p><b>Problème 3 :</b> expression B.</p>${C.html("(30 + 6) ÷ 3","B")}<p>Chacun paie 12 €.</p>
+  <p><b>Problème 4 :</b> expression C.</p>${C.html("4 × 6 + 3","C")}<p>Elle avait 27 roses.</p>
   <p>Les expressions A, E et F ne conviennent pas. Par exemple, dans A = 6 + 4 × 3, on multiplierait 4 par 3 avant d'ajouter 6. <i>(0,25 point par lettre juste, 0,25 point par résultat juste)</i></p>`},
 {t:"Retrouver le programme de calcul", p:1.5, h:`<p>Nina a choisi un nombre et lui a appliqué un programme de calcul. Elle a écrit tous ses calculs en une seule expression :</p><p class="calc">(9 − 4) × 6 + 2</p>
   <p>a) Quel nombre Nina a-t-elle choisi ?</p><p>b) Écris son programme de calcul, étape par étape.</p><p>c) Calcule le résultat obtenu par Nina, en détaillant tes étapes.</p>`,
  c:`<p>a) Nina a choisi le nombre 9. <i>(0,25 point)</i></p>
   <p>b) <i>(0,75 point : les étapes doivent être dans le bon ordre)</i></p><div class="pgc"><b>Programme</b><ul><li>Choisir un nombre</li><li>Soustraire 4</li><li>Multiplier par 6</li><li>Ajouter 2</li></ul></div>
-  <p>c) <i>(0,5 point)</i></p>${C.html("(9 − 4) × 6 + 2")}`},
+  <p>c) <i>(0,5 point)</i> J'appelle A cette expression.</p>${C.html("(9 − 4) × 6 + 2","A")}`},
 {t:"Sortie au zoo", p:3, h:`<p>Les 25 élèves d'une classe vont au zoo. Le car coûte 300 € pour toute la classe, et l'entrée coûte 7 € par élève. Les élèves se partagent équitablement le prix du car. Combien chaque élève paie-t-il en tout ?</p>
   <p>1) Écris une seule expression qui permet de résoudre le problème.</p><p>2) Effectue le calcul en détaillant tes étapes.</p><p>3) Conclus par une phrase.</p>`,
  c:`<p>1) Chaque élève paie sa part du car (300 ÷ 25) et son entrée (7 €) : 300 ÷ 25 + 7. <i>(1 point)</i></p>
-  <p>2) <i>(1,5 point)</i></p>${C.html("300 ÷ 25 + 7")}
+  <p>2) <i>(1,5 point)</i> J'appelle A cette expression.</p>${C.html("300 ÷ 25 + 7","A")}
   <p>3) Chaque élève paie 19 €. <i>(0,5 point)</i></p>
-  <p><i>Une autre expression juste : (300 + 25 × 7) ÷ 25 = (300 + 175) ÷ 25 = 475 ÷ 25 = 19.</i></p>`},
+  <p><i>Une autre expression juste :</i></p>${C.html("(300 + 25 × 7) ÷ 25","B")}`},
 {t:"Constructions", p:3, h:`<p>Construis ces deux figures en vraie grandeur. Laisse apparents tes traits de construction.</p>
   <p>a) Le parallélogramme RSTU tel que RS = 6 cm, ST = 4 cm et RT = 8 cm.</p>
   <p>b) Le losange EFGH de côté 4 cm tel que EG = 6 cm.</p>`,
@@ -346,7 +346,7 @@ exos:[
    <p>b) <b>Vraie</b> (c'est la définition).</p>
    <p>c) <b>Fausse</b> : ce trapèze a deux côtés opposés de même longueur, mais ce n'est pas un parallélogramme.</p>
    ${fq({pts:{A:[0,0],B:[5,0],C:[3.8,2],D:[1.2,2]}, poly:["A","B","C","D"], ticks:[["A","D",1],["B","C",1]], s:22, alt:"Trapèze isocèle"})}
-   <p>d) <b>Vraie</b>. e) <b>Vraie</b>. f) <b>Vraie</b>.</p>`},
+   <p>d) <b>Vraie</b> : c'est la propriété 2 du cours.</p><p>e) <b>Vraie</b> : c'est la propriété 3 du cours.</p><p>f) <b>Vraie</b> : c'est la propriété 4 du cours.</p>`},
   {n:"Exercice 5", t:"Prouver qu'un quadrilatère est un parallélogramme", w:"Sur ton cahier", h:`<p>a) Parmi les 6 quadrilatères ci-dessous, lesquels sont des parallélogrammes ? b) Justifie rigoureusement pourquoi ces quadrilatères sont des parallélogrammes. <i>On ne peut utiliser que les codages et les informations écrites.</i></p>
    <div class="cgrid">
     <figure><figcaption><b>a.</b></figcaption>${fq({pts:{A:[0,0],B:[3.4,0],C:[4.4,1.6],D:[1,1.6]}, poly:["A","B","C","D"], hide:["A","B","C","D"], s:24, m:16})}</figure>
@@ -354,7 +354,7 @@ exos:[
     <figure><figcaption><b>c.</b> (LI) // (ER)</figcaption>${fq({pts:{L:[0,2],I:[3,2],R:[3,0],E:[0,0]}, poly:["L","I","R","E"], lens:[["L","I","4"],["E","R","4"]], s:24})}</figure>
     <figure><figcaption><b>d.</b></figcaption>${fq({pts:{A:[0,0],B:[3.4,0],C:[4.6,1.6],D:[1.2,1.6],O:[2.3,0.8]}, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], ticks:[["A","O",2],["O","C",2],["B","O",1],["O","D",1]], hide:["A","B","C","D","O"], s:24, m:16})}</figure>
     <figure><figcaption><b>e.</b></figcaption>${fq({pts:{A:[0,0],B:[3.4,0],C:[2.8,1.7],D:[0,1.7]}, poly:["A","B","C","D"], lens:[["D","C","5"],["A","D","5"]], hide:["A","B","C","D"], s:24, m:20})}</figure>
-    <figure><figcaption><b>f.</b></figcaption>${fq({pts:{A:[0,0],B:[3.6,0],C:[4.4,1.6],D:[0.8,1.6]}, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], lens:[["A","C","8",1],["B","D","8",-1]], hide:["A","B","C","D"], s:24, m:16})}</figure>
+    <figure><figcaption><b>f.</b></figcaption>${fq({pts:{A:[0,0],B:[3.6,0],C:[4.4,1.6],D:[0.8,1.6]}, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], lens:[["A","C","8",1,12,0.78],["B","D","8",-1,12,0.78]], hide:["A","B","C","D"], s:24, m:16})}</figure>
    </div>`,
    c:`<p>a) Les parallélogrammes sont <b>b</b>, <b>c</b> et <b>d</b>.</p>
    <p>b) <b>b.</b> Je sais que ses côtés opposés sont de même longueur (codages). Or si un quadrilatère a ses côtés opposés de même longueur, alors c'est un parallélogramme. Donc le quadrilatère b est un parallélogramme.</p>
@@ -389,7 +389,7 @@ exos:[
    ${fq({pts:X9a, poly:["E","F","G","H"], segs:[["E","G"],["F","H"]], marks:["O"], rights:[["O","H","E"]], ticks:[["E","O",2],["O","G",2],["F","O",1],["O","H",1]], s:22})}
    <p><b>2.</b> Un rectangle a des diagonales de même longueur qui se coupent en leur milieu. Je trace [AD] de 6 cm. A et D sont à 3,5 cm de O : deux arcs de rayon 3,5 cm, de centres A et D, se coupent en O. Je prolonge [AO) et [DO) de 3,5 cm : j'obtiens C et B.</p>
    ${fq({pts:X9b, poly:["A","B","C","D"], segs:[["A","C"],["B","D"]], marks:["O"], ticks:[["A","O",1],["O","C",1],["B","O",1],["O","D",1]], s:24})}
-   <p><b>3.</b> Un carré a des diagonales perpendiculaires, de même longueur, qui se coupent en leur milieu. Je trace [PN] de 4 cm et son milieu K, puis la perpendiculaire à (PN) en K. Je place M et O sur cette perpendiculaire, à 2 cm de K.</p>
+   <p><b>3.</b> Un carré a des diagonales perpendiculaires, de même longueur, qui se coupent en leur milieu. Je trace [PN] de 4 cm et son milieu K, puis la perpendiculaire à (PN) en K. Je place M et O sur cette perpendiculaire, à 2 cm de K (MO = PN = 4 cm, donc KM = KO = 4 ÷ 2 = 2 cm).</p>
    ${fq({pts:X9c, poly:["M","N","O","P"], segs:[["P","N"],["M","O"]], marks:["K"], rights:[["K","N","M"]], ticks:[["P","K",1],["K","N",1],["M","K",1],["K","O",1]], s:34})}`}
  ]}
 ],
@@ -421,7 +421,7 @@ quiz:[
      {q:"Un quadrilatère a deux côtés opposés parallèles et de même longueur. C'est :", c:["un parallélogramme","on ne peut pas savoir"], rep:"un parallélogramme"},
      {q:"Un quadrilatère a ses côtés opposés de même longueur. C'est :", c:["un parallélogramme","on ne peut pas savoir"], rep:"un parallélogramme"} ],
  3:[ {q:"Vrai ou faux : un quadrilatère qui a des diagonales de même longueur est un parallélogramme.", c:VF, rep:"Faux", ex:"Il faut que les diagonales se coupent en leur milieu."},
-     {q:"Vrai ou faux : un quadrilatère qui a deux côtés consécutifs de même longueur est un parallélogramme.", c:VF, rep:"Faux"},
+     {q:"Vrai ou faux : un quadrilatère qui a deux côtés consécutifs de même longueur est un parallélogramme.", c:VF, rep:"Faux", ex:"Il faut que les côtés <b>opposés</b> soient de même longueur (les deux paires)."},
      {q:"Les diagonales [EG] et [FH] du quadrilatère EFGH ont le même milieu. Quelle propriété permet de dire que EFGH est un parallélogramme ?", c:["Les diagonales se coupent en leur milieu","Les côtés opposés sont parallèles","Les angles opposés sont égaux"], rep:"Les diagonales se coupent en leur milieu"} ]
 }},
 {nom:"Rectangle, losange, carré", schema:SC_PART, q:{

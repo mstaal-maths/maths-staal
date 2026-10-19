@@ -94,7 +94,13 @@ exos: [
    <p><b>Situation 2 :</b> la tablette a 3 colonnes de 6 carrés, soit 18 carrés. Je la partage en 3 parts égales et j'en hachure 2 : par exemple 2 colonnes sur 3, ou 12 carrés sur 18 (4 rangées sur 6).</p>${grids(3,6,12,1,22)}`},
   {n:"Exercice 1", t:"Quelle fraction a été coloriée ?", w:"Sur ton cahier", h:`<p>Dans chaque cas, écris la fraction de la surface de la figure qui a été coloriée ou hachurée.</p>
    <div class="figs">${lab("a",ex("p1-02","Disque en 6 parts",110))}${lab("b",ex("p1-03","Bande en 5 parts",170))}${lab("c",ex("p1-04","Heptagone en 7 parts",110))}${lab("d",ex("p1-05","Rectangle en 8 parts",150))}${lab("e",ex("p1-06","Bande en 2 parts",30))}${lab("f",ex("p1-07","Polygone en 9 parts",120))}</div>`,
-   c:`a. {1/6} · b. {3/5} · c. {3/7} · d. {3/8} · e. {1/2} · f. {4/9}`},
+   c:`<p>Je compte les parts égales (le dénominateur), puis les parts coloriées ou hachurées (le numérateur).</p>
+   <p>a. 6 parts égales, 1 coloriée : {1/6}.</p>
+   <p>b. 5 parts égales, 3 coloriées : {3/5}.</p>
+   <p>c. 7 parts égales, 3 coloriées : {3/7}.</p>
+   <p>d. 8 parts égales, 3 hachurées : {3/8}.</p>
+   <p>e. 2 parts égales, 1 coloriée : {1/2}.</p>
+   <p>f. 9 parts égales, 4 hachurées : {4/9}.</p>`},
   {n:"Exercice 2", t:"Lire et écrire une fraction", w:"Sur ton cahier", h:`<p>a) Dans la fraction {5/8}, quel est le numérateur ? le dénominateur ?</p>
    <p>b) Écris en lettres : {1/2} · {3/4} · {2/3}</p><p>c) Écris en chiffres : un tiers · quatre cinquièmes · neuf sixièmes</p>
    <p>d) Complète comme dans l'exemple {3/4} = {1/4} + {1/4} + {1/4} = 3 × {1/4} : &nbsp; {2/5} · {4/7} · {5/3}</p>`,
@@ -102,7 +108,9 @@ exos: [
    <p>d) {2/5} = {1/5} + {1/5} = 2 × {1/5} &nbsp;·&nbsp; {4/7} = {1/7} + {1/7} + {1/7} + {1/7} = 4 × {1/7} &nbsp;·&nbsp; {5/3} = {1/3} + {1/3} + {1/3} + {1/3} + {1/3} = 5 × {1/3}</p>`},
   {n:"Exercice 3", t:"QCM", w:"Sur ta feuille", h:`<p>Entoure les cas où on a colorié les {2/3} de la surface du rectangle.</p>
    <div class="figs">${ex("p2-08","Rectangles a et b",260)}${ex("p2-09","Rectangles c et d",250)}</div>`,
-   c:`Les cas c et d. Dans le cas a, les parts ne sont pas égales (la partie coloriée est la moitié). Dans le cas b, il y a 5 parts égales, 2 coloriées : c'est {2/5}.`},
+   c:`<p>On entoure les cas <b>c</b> et <b>d</b> : le rectangle est partagé en 3 parts égales et 2 parts sont coloriées. C'est bien {2/3}.</p>
+   <p>Cas a : les parts ne sont pas égales (la partie coloriée est la moitié).</p>
+   <p>Cas b : il y a 5 parts égales, 2 coloriées : c'est {2/5}.</p>`},
   {n:"Exercice 4", t:"Représenter la fraction d'une quantité", w:"Sur ta feuille", h:`
    <div class="retenir" data-l="Comment faire ?"><ol>
      <li>Je regarde le nombre du <b>bas</b> (le dénominateur) : je partage la figure en autant de <b>parts égales</b>.</li>
@@ -120,16 +128,22 @@ exos: [
  aide:{t:"Pour démarrer", w:"Sur ton cahier", h:`<p>Quelle fraction de chaque figure est coloriée ?</p><div class="figs">${lab("a",discs(4,1))}${lab("b",grids(3,1,2))}</div>`,
   c:`a. {1/4} (1 part sur 4) · b. {2/3} (2 parts sur 3)`},
  defi:{t:"Un rectangle de 12 carreaux", w:"Sur ton cahier", h:`<p>Dessine un rectangle de 4 carreaux sur 3, puis colorie les {3/4} de ce rectangle. Combien de carreaux as-tu coloriés ?</p>`,
-  c:`{3/4} = {9/12} : il faut colorier 9 carreaux sur 12.`}
+  c:`Le rectangle a 4 × 3 = 12 carreaux. {3/4} = {3 × 3/4 × 3} = {9/12} : il faut colorier 9 carreaux sur 12.`}
 },
 {t:"Plus d'une unité", e:[
   {n:"Activité 2", t:"Plus d'une unité ?", w:"Sur ton cahier", h:`<p>À une soirée entre amis, Tom a mangé {5/4} de pizza. Est-ce possible ? Combien de pizzas ont été entamées ?</p><p>Représente la situation par un dessin à main levée, sur lequel tu hachureras la portion de pizza mangée par Tom.</p>`,
    c:`<p>Oui, c'est possible : {5/4} = {4/4} + {1/4} = 1 + {1/4}. Tom a mangé une pizza entière et un quart d'une deuxième pizza.</p><p>Deux pizzas ont été entamées. Je partage chaque pizza en 4 parts égales et je hachure 5 parts.</p>${discs(4,5)}`},
   {n:"Exercice 6", t:"Quelle fraction a été coloriée ?", w:"Sur ton cahier", h:`<p>Dans chaque cas, écris la fraction d'une figure qui a été coloriée ou hachurée.</p>
    <div class="figs">${lab("a",ex("p3-24","Deux hexagones en 6 parts",230))}${lab("b",ex("p3-25","Pentagone en 5 parts",130))}
-   ${lab("c",`<div class="figs">${ex("p3-26","Rectangle en 3 parts entièrement colorié",110)}${ex("p3-27","Bande en 3 parts",150)}${ex("p3-28","Rectangle en 3 parts entièrement colorié",110)}</div>`)}
+   ${lab("c",`<div class="figs">${ex("p3-26","Rectangle en 3 parts égales, les 3 parts coloriées",120)}${ex("p3-27","Rectangle en 3 parts égales, 2 parts coloriées",120)}${ex("p3-28","Rectangle en 3 parts égales, les 3 parts coloriées",120)}</div>`)}
    ${lab("d",ex("p3-29","Rectangle en 8 parts",140))}${lab("e",`<div class="figs">${ex("p3-30","Triangle en 3 parts",90)}${ex("p3-31","Triangle en 3 parts",90)}</div>`)}${lab("f",ex("p3-32","Trois losanges en 4 parts",200))}</div>`,
-   c:`a. {8/6} (6 + 2 sixièmes) · b. {2/5} · c. {8/3} (3 + 2 + 3 tiers) · d. {7/8} · e. {4/3} (3 + 1 tiers) · f. {11/4} (4 + 4 + 3 quarts)`},
+   c:`<p>Méthode : je compte en combien de parts égales est partagée <b>une</b> figure (le dénominateur). Puis je compte toutes les parts coloriées (le numérateur).</p>
+   <p>a. Chaque hexagone est partagé en 6 : ce sont des sixièmes. 6 + 2 = 8 sixièmes coloriés&nbsp;: {8/6}</p>
+   <p>b. Le pentagone est partagé en 5 : ce sont des cinquièmes. 2 parts sont hachurées&nbsp;: {2/5}</p>
+   <p>c. Chaque rectangle est partagé en 3 : ce sont des tiers. 3 + 2 + 3 = 8 tiers coloriés&nbsp;: {8/3}</p>
+   <p>d. Le rectangle est partagé en 8 : ce sont des huitièmes. 7 parts sont coloriées&nbsp;: {7/8}</p>
+   <p>e. Chaque triangle est partagé en 3 : ce sont des tiers. 3 + 1 = 4 tiers hachurés&nbsp;: {4/3}</p>
+   <p>f. Chaque losange est partagé en 4 : ce sont des quarts. 4 + 4 + 3 = 11 quarts coloriés&nbsp;: {11/4}</p>`},
   {n:"Exercice 7", t:"Représenter une fraction plus grande que 1", w:"Sur ta feuille", h:`
    <div class="retenir" data-l="Exemple"><p>Pour {5/4} d'une pizza : chaque pizza est partagée en <b>4</b>, et il faut hachurer <b>5</b> parts. Une pizza ne suffit pas (elle n'a que 4 parts) : je dessine une deuxième pizza.</p>
    <div class="figs" style="margin-top:8px">${discs(4,5)}</div><p>{5/4} = 1 pizza entière + 1 part de la deuxième.</p></div>
@@ -156,9 +170,23 @@ exos: [
    <p>g) {18/81} = {…/…} = {…/9} · h) {15/40} = {…/…} = {…/8} · i) {1/4} = {…/…} = {…/20}</p>`,
    c:`a) {2 × 8/3 × 8} = {16/24} · b) {9 × 3/7 × 3} = {27/21} · c) {2 × 5/5 × 5} = {10/25} · d) {7 × 6/6 × 6} = {42/36} · e) {30 ÷ 2/10 ÷ 2} = {15/5} · f) {40 ÷ 8/32 ÷ 8} = {5/4} · g) {18 ÷ 9/81 ÷ 9} = {2/9} · h) {15 ÷ 5/40 ÷ 5} = {3/8} · i) {1 × 5/4 × 5} = {5/20}`},
   {n:"Exercice 10", t:"Simplifier au maximum", w:"Sur ton cahier", h:`<p>Exemple : {18/24} = {9/12} = {3/4}</p><p>a) {12/18} · b) {20/25} · c) {24/36} · d) {36/48} · e) {45/60} · f) {30/100} · g) {42/56} · h) {60/90}</p>`,
-   c:`a) {2/3} · b) {4/5} · c) {2/3} · d) {3/4} · e) {3/4} · f) {3/10} · g) {3/4} · h) {2/3}`},
+   c:`<p>Je divise le numérateur et le dénominateur par un même nombre, jusqu'à ce que ce ne soit plus possible.</p>
+   <p>a) {12/18} = {6/9} = {2/3} (÷ 2, puis ÷ 3)</p>
+   <p>b) {20/25} = {4/5} (÷ 5)</p>
+   <p>c) {24/36} = {6/9} = {2/3} (÷ 4, puis ÷ 3)</p>
+   <p>d) {36/48} = {9/12} = {3/4} (÷ 4, puis ÷ 3)</p>
+   <p>e) {45/60} = {9/12} = {3/4} (÷ 5, puis ÷ 3)</p>
+   <p>f) {30/100} = {3/10} (÷ 10)</p>
+   <p>g) {42/56} = {6/8} = {3/4} (÷ 7, puis ÷ 2)</p>
+   <p>h) {60/90} = {6/9} = {2/3} (÷ 10, puis ÷ 3)</p>`},
   {n:"Exercice 11", t:"Ranger des fractions égales", w:"Sur ton cahier", h:`<p>Range ces fractions dans trois groupes : égales à {2/3}, égales à {3/4}, égales à {5/6}.</p><p>{15/18} · {6/9} · {12/18} · {10/12} · {21/28} · {6/8} · {10/15} · {20/24}</p>`,
-   c:`Égales à {2/3} : {6/9}, {12/18}, {10/15} · Égales à {3/4} : {21/28}, {6/8} · Égales à {5/6} : {15/18}, {10/12}, {20/24}`},
+   c:`<p>Je simplifie chaque fraction.</p>
+   <p>{6/9} = {2/3} (÷ 3) · {12/18} = {2/3} (÷ 6) · {10/15} = {2/3} (÷ 5)</p>
+   <p>{21/28} = {3/4} (÷ 7) · {6/8} = {3/4} (÷ 2)</p>
+   <p>{15/18} = {5/6} (÷ 3) · {10/12} = {5/6} (÷ 2) · {20/24} = {5/6} (÷ 4)</p>
+   <p><b>Égales à {2/3} :</b> {6/9}, {12/18}, {10/15}.</p>
+   <p><b>Égales à {3/4} :</b> {21/28}, {6/8}.</p>
+   <p><b>Égales à {5/6} :</b> {15/18}, {10/12}, {20/24}.</p>`},
   {n:"Exercice 12", t:"Qui a raison ?", w:"Sur ton cahier", h:`<p>Léa a mangé les {6/8} d'une tarte. Hugo a mangé les {3/4} d'une tarte identique. Hugo affirme : « J'ai mangé moins que Léa, car 3 est plus petit que 6. » A-t-il raison ? Justifie à l'aide d'une propriété du cours.</p>`,
    c:`Non. {3/4} = {3 × 2/4 × 2} = {6/8} : une fraction ne change pas si on multiplie son numérateur et son dénominateur par un même nombre. Léa et Hugo ont mangé la même quantité de tarte.`}
  ],
@@ -184,7 +212,11 @@ exos: [
    <p>d) A est à la 4<sup>e</sup> graduation en sixièmes : A({4/6}). Fractions égales : {2/3}, {8/12}, {12/18}…</p>`},
   {n:"Exercice 15", t:"Lire l'abscisse d'un point", w:"Sur ta feuille", h:`${ex("p6-60","Quatre demi-droites graduées avec les points A, B, C, D",560)}
    <p>a) Place chaque nombre sur la demi-droite qui convient : {1/4} ; {7/10} ; {5/6} ; {4/5}.</p><p>b) Écris l'abscisse de chacun des points A, B, C et D sous forme de fraction.</p>`,
-   c:`<p>a) n°1 est graduée en cinquièmes : {4/5}. n°2 en quarts : {1/4}. n°3 en dixièmes : {7/10}. n°4 en sixièmes : {5/6}.</p><p>b) A({2/5}) · B({7/4}) · C({14/10}) · D({7/6})</p>`}
+   c:`<p>a) n°1 est graduée en cinquièmes : {4/5}. n°2 en quarts : {1/4}. n°3 en dixièmes : {7/10}. n°4 en sixièmes : {5/6}.</p><p>b) Je compte les graduations à partir de 0.</p>
+   <p>A : n°1, graduée en cinquièmes, 2<sup>e</sup> graduation : A({2/5}).</p>
+   <p>B : n°2, graduée en quarts, 7<sup>e</sup> graduation : B({7/4}).</p>
+   <p>C : n°3, graduée en dixièmes, 14<sup>e</sup> graduation : C({14/10}).</p>
+   <p>D : n°4, graduée en sixièmes, 7<sup>e</sup> graduation : D({7/6}).</p>`}
  ],
  aide:{t:"Pour démarrer", w:"Sur ton cahier", h:`<p>Quelle est l'abscisse du point M ?</p>${fline(1,4,[["M",3]])}`, c:`L'unité est partagée en 4 : chaque graduation vaut {1/4}. M est à la 3<sup>e</sup> graduation : M({3/4}).`},
  defi:{t:"Au-delà de 2", w:"Sur ton cahier", h:`<p>Sur une demi-droite graduée en tiers, de 0 à 3, à quelles graduations (comptées à partir de 0) places-tu {5/3}, 2 et {8/3} ?</p>`,
@@ -200,9 +232,19 @@ exos: [
    <p>b) {10/4} = {8/4} + {2/4} = 2 + {2/4}, donc 2 &lt; {10/4} &lt; 3.</p><p>{9/5} = {5/5} + {4/5} = 1 + {4/5}, donc 1 &lt; {9/5} &lt; 2.</p><p>{13/6} = {12/6} + {1/6} = 2 + {1/6}, donc 2 &lt; {13/6} &lt; 3.</p>`},
   {n:"Exercice 16", t:"Des fractions supérieures à 1", w:"Sur ton cahier", h:`<p>{11/8} · {12/5} · {4/9} · {15/4} · {7/2} · {47/10} · {32/5} · {125/100}</p><p>a) Entoure les fractions supérieures à 1. b) Écris chacune comme la somme d'un entier et d'une fraction inférieure à 1, puis encadre-la entre deux entiers consécutifs.</p>`,
    c:`<p>a) Toutes sauf {4/9}, car 4 est plus petit que 9.</p>
-   <p>b) {11/8} = 1 + {3/8}, donc 1 &lt; {11/8} &lt; 2 · {12/5} = 2 + {2/5}, donc 2 &lt; {12/5} &lt; 3 · {15/4} = 3 + {3/4}, donc 3 &lt; {15/4} &lt; 4 · {7/2} = 3 + {1/2}, donc 3 &lt; {7/2} &lt; 4 · {47/10} = 4 + {7/10}, donc 4 &lt; {47/10} &lt; 5 · {32/5} = 6 + {2/5}, donc 6 &lt; {32/5} &lt; 7 · {125/100} = 1 + {25/100}, donc 1 &lt; {125/100} &lt; 2</p>`},
+   <p>b) {11/8} = {8/8} + {3/8} = 1 + {3/8}, donc 1 &lt; {11/8} &lt; 2.</p>
+   <p>{12/5} = {10/5} + {2/5} = 2 + {2/5}, donc 2 &lt; {12/5} &lt; 3.</p>
+   <p>{15/4} = {12/4} + {3/4} = 3 + {3/4}, donc 3 &lt; {15/4} &lt; 4.</p>
+   <p>{7/2} = {6/2} + {1/2} = 3 + {1/2}, donc 3 &lt; {7/2} &lt; 4.</p>
+   <p>{47/10} = {40/10} + {7/10} = 4 + {7/10}, donc 4 &lt; {47/10} &lt; 5.</p>
+   <p>{32/5} = {30/5} + {2/5} = 6 + {2/5}, donc 6 &lt; {32/5} &lt; 7.</p>
+   <p>{125/100} = {100/100} + {25/100} = 1 + {25/100}, donc 1 &lt; {125/100} &lt; 2.</p>`},
   {n:"Exercice 17", t:"Encadrer entre deux entiers consécutifs", w:"Sur ton cahier", h:`<p>a) …… &lt; {8/6} &lt; …… · b) …… &lt; {25/4} &lt; …… · c) …… &lt; {37/10} &lt; …… · d) …… &lt; {9/2} &lt; ……</p>`,
-   c:`a) 1 &lt; {8/6} &lt; 2 · b) 6 &lt; {25/4} &lt; 7 · c) 3 &lt; {37/10} &lt; 4 · d) 4 &lt; {9/2} &lt; 5`},
+   c:`<p>J'écris la fraction comme un entier plus une fraction inférieure à 1.</p>
+   <p>a) {8/6} = {6/6} + {2/6} = 1 + {2/6}, donc 1 &lt; {8/6} &lt; 2.</p>
+   <p>b) {25/4} = {24/4} + {1/4} = 6 + {1/4}, donc 6 &lt; {25/4} &lt; 7.</p>
+   <p>c) {37/10} = {30/10} + {7/10} = 3 + {7/10}, donc 3 &lt; {37/10} &lt; 4.</p>
+   <p>d) {9/2} = {8/2} + {1/2} = 4 + {1/2}, donc 4 &lt; {9/2} &lt; 5.</p>`},
   {n:"Exercice 18", t:"Du nombre mixte à la fraction", w:"Sur ton cahier", h:`
    <div class="retenir" data-l="Comment faire ?"><p>Je veux écrire 2 + {1/3} avec une seule fraction.</p><ol>
      <li>Une unité partagée en 3, c'est {3/3}. Donc <b>2 unités, c'est {6/3}</b> (car 2 × 3 = 6).</li>
@@ -223,14 +265,27 @@ exos: [
    <p>2) Il faut 10 petits carreaux pour recouvrir une bande : {1/10} = {10/100} et {3/10} = {30/100}.</p>
    <p>3) Je colorie 27 petits carreaux : 2 bandes entières de 10 carreaux et 7 carreaux de plus.</p>${grids(10,10,27,1,16)}<p>{27/100} = {2/10} + {7/100}</p>`},
   {n:"Exercice 19", t:"Reconnaître une fraction décimale", w:"Sur ton cahier", h:`<p>a) Lesquelles sont des fractions décimales ? {3/10} · {7/4} · {45/100} · {10/3} · {8/1 000} · {5/20} · {13/10}</p><p>b) Écris en lettres : {3/10} · {45/100} · {8/1 000}</p><p>c) Écris en fraction : sept dixièmes · douze centièmes · neuf millièmes</p>`,
-   c:`a) {3/10}, {45/100}, {8/1 000}, {13/10} · b) trois dixièmes · quarante-cinq centièmes · huit millièmes · c) {7/10} · {12/100} · {9/1 000}`},
+   c:`<p>a) Une fraction décimale a pour dénominateur 10, 100, 1 000… Ce sont : {3/10}, {45/100}, {8/1 000} et {13/10}. Les fractions {7/4}, {10/3} et {5/20} ne sont pas décimales.</p>
+   <p>b) trois dixièmes · quarante-cinq centièmes · huit millièmes</p>
+   <p>c) {7/10} · {12/100} · {9/1 000}</p>`},
   {n:"Exercice 20", t:"Décomposer une fraction décimale", w:"Sur ton cahier", h:`<p>a) {4/10} + {9/100} = {…/100} · b) {36/100} = {…/10} + {…/100} · c) {72/100} = {…/10} + {…/100} · d) {253/1 000} = {…/10} + {…/100} + {…/1 000} · e) {3/10} + {7/1 000} = {…/1 000}</p>`,
-   c:`a) {49/100} · b) {3/10} + {6/100} · c) {7/10} + {2/100} · d) {2/10} + {5/100} + {3/1 000} · e) {307/1 000}`},
+   c:`<p>À retenir : {1/10} = {10/100} = {100/1 000} et {1/100} = {10/1 000}.</p>
+   <p>a) J'écris les dixièmes en centièmes : {4/10} = {4 × 10/10 × 10} = {40/100}.<br>Donc {4/10} + {9/100} = {40/100} + {9/100} = {49/100}.</p>
+   <p>b) 36 centièmes, c'est 30 centièmes et 6 centièmes : {36/100} = {30/100} + {6/100}.<br>Or {30/100} = {30 ÷ 10/100 ÷ 10} = {3/10}.<br>Donc {36/100} = {3/10} + {6/100}.</p>
+   <p>c) {72/100} = {70/100} + {2/100}.<br>Or {70/100} = {70 ÷ 10/100 ÷ 10} = {7/10}.<br>Donc {72/100} = {7/10} + {2/100}.</p>
+   <p>d) {253/1 000} = {200/1 000} + {50/1 000} + {3/1 000}.<br>Or {200/1 000} = {200 ÷ 100/1 000 ÷ 100} = {2/10} et {50/1 000} = {50 ÷ 10/1 000 ÷ 10} = {5/100}.<br>Donc {253/1 000} = {2/10} + {5/100} + {3/1 000}.</p>
+   <p>e) J'écris les dixièmes en millièmes : {3/10} = {3 × 100/10 × 100} = {300/1 000}.<br>Donc {3/10} + {7/1 000} = {300/1 000} + {7/1 000} = {307/1 000}.</p>`},
   {n:"Exercice 21", t:"Fractions décimales supérieures à 1", w:"Sur ton cahier", h:`<p>Exemple : {235/100} = 2 + {3/10} + {5/100}</p><p>a) {34/10} · b) {58/10} · c) {125/100} · d) {347/100} · e) {406/100} · f) {2 431/1 000}</p>`,
-   c:`a) 3 + {4/10} · b) 5 + {8/10} · c) 1 + {2/10} + {5/100} · d) 3 + {4/10} + {7/100} · e) 4 + {0/10} + {6/100} · f) 2 + {4/10} + {3/100} + {1/1 000}`}
+   c:`<p>À retenir : {10/10} = 1, {100/100} = 1 et {1 000/1 000} = 1.</p>
+   <p>a) {34/10} = {30/10} + {4/10}.<br>Or {30/10} = 3 (car 3 × 10 = 30).<br>Donc {34/10} = 3 + {4/10}.</p>
+   <p>b) {58/10} = {50/10} + {8/10}.<br>Or {50/10} = 5 (car 5 × 10 = 50).<br>Donc {58/10} = 5 + {8/10}.</p>
+   <p>c) {125/100} = {100/100} + {20/100} + {5/100}.<br>Or {100/100} = 1 et {20/100} = {2/10}.<br>Donc {125/100} = 1 + {2/10} + {5/100}.</p>
+   <p>d) {347/100} = {300/100} + {40/100} + {7/100}.<br>Or {300/100} = 3 et {40/100} = {4/10}.<br>Donc {347/100} = 3 + {4/10} + {7/100}.</p>
+   <p>e) {406/100} = {400/100} + {6/100}.<br>Or {400/100} = 4. Il n'y a pas de dixièmes : on écrit {0/10}.<br>Donc {406/100} = 4 + {0/10} + {6/100}.</p>
+   <p>f) {2 431/1 000} = {2 000/1 000} + {400/1 000} + {30/1 000} + {1/1 000}.<br>Or {2 000/1 000} = 2, {400/1 000} = {4/10} et {30/1 000} = {3/100}.<br>Donc {2 431/1 000} = 2 + {4/10} + {3/100} + {1/1 000}.</p>`}
  ],
  aide:{t:"Pour démarrer", w:"Sur ton cahier", h:`<p>Écris en fraction : a) cinq dixièmes · b) trois centièmes · c) onze millièmes</p>`, c:`a) {5/10} · b) {3/100} · c) {11/1 000}`},
- defi:{t:"Avec un zéro caché", w:"Sur ton cahier", h:`<p>Décompose {3 058/1 000} en un entier, des dixièmes, des centièmes et des millièmes.</p>`, c:`{3 058/1 000} = 3 + {0/10} + {5/100} + {8/1 000}`}
+ defi:{t:"Avec un zéro caché", w:"Sur ton cahier", h:`<p>Décompose {3 058/1 000} en un entier, des dixièmes, des centièmes et des millièmes.</p>`, c:`<p>{3 058/1 000} = {3 000/1 000} + {50/1 000} + {8/1 000}.</p><p>Or {3 000/1 000} = 3 et {50/1 000} = {5/100}. Il n'y a pas de dixièmes : on écrit {0/10}.</p><p>Donc {3 058/1 000} = 3 + {0/10} + {5/100} + {8/1 000}.</p>`}
 },
 {t:"Pourcentages", e:[
   {n:"Activité 7", t:"Qu'est-ce qu'un pourcentage ?", w:"Sur ton cahier", h:`<p>On a demandé à <b>100 élèves</b> du collège comment ils viennent : 45 viennent à pied, 30 en bus et 25 en voiture.</p>
@@ -243,7 +298,7 @@ exos: [
    c:`<p>a) 40 carreaux sur 100 : {40/100} = 40 % · b) 75 carreaux sur 100 : {75/100} = 75 % · c) 7 carreaux sur 100 : {7/100} = 7 %</p>
    <p>d) 30 % = {30/100} : je colorie 30 carreaux sur 100, par exemple 3 lignes de 10.</p>${grids(10,10,30,1,14)}`},
   {n:"Exercice 23", t:"D'une fraction à un pourcentage", w:"Sur ton cahier", h:`<p>Exemple : {1/2} = {50/100} = 50 %</p><p>a) {1/4} · b) {3/4} · c) {1/10} · d) {1/5} · e) {7/10} · f) {2/5}</p>`,
-   c:`a) {25/100} = 25 % · b) {75/100} = 75 % · c) {10/100} = 10 % · d) {20/100} = 20 % · e) {70/100} = 70 % · f) {40/100} = 40 %`}
+   c:`<p>J'écris une fraction égale de dénominateur 100.</p><p>a) {1/4} = {1 × 25/4 × 25} = {25/100} = 25 % · b) {3/4} = {3 × 25/4 × 25} = {75/100} = 75 % · c) {1/10} = {1 × 10/10 × 10} = {10/100} = 10 % · d) {1/5} = {1 × 20/5 × 20} = {20/100} = 20 % · e) {7/10} = {7 × 10/10 × 10} = {70/100} = 70 % · f) {2/5} = {2 × 20/5 × 20} = {40/100} = 40 %</p>`}
  ],
  aide:{t:"Pour démarrer", w:"Sur ton cahier", h:`<p>Complète : 50 % = {…/100} = {1/…}</p>`, c:`50 % = {50/100} = {1/2} : prendre 50 %, c'est prendre la moitié.`},
  defi:{t:"Du plus petit au plus grand", w:"Sur ton cahier", h:`<p>Range du plus petit au plus grand : 30 % · {1/4} · {7/10} · {50/100}</p>`, c:`On écrit tout en centièmes : 30 % = {30/100}, {1/4} = {25/100}, {7/10} = {70/100}. Donc {1/4} &lt; 30 % &lt; {50/100} &lt; {7/10}.`}
@@ -369,41 +424,41 @@ exos:[
   <p>2) Reproduis ce rectangle et colorie les {3/4} de ce rectangle.</p>${grids(4,2,0)}
   <p>3) Chaque rectangle représente une unité. Reproduis-les et hachure {5/3} d'unité.</p>${grids(3,1,0,2)}
   <p>4) Complète : {5/3} = … + {…/…} et {5/3} = … × {…/…}</p>`,
- c:`<p>1) a. {5/12} · b. {4/6} (ou {2/3}) <i>(0,5 point chacun)</i></p>
-  <p>2) {3/4} = {6/8} : 6 carreaux sur 8 <i>(1 point)</i></p>${grids(4,2,6)}
-  <p>3) Un rectangle entier et 2 tiers du second <i>(1 point)</i></p>${grids(3,1,5,2)}
+ c:`<p>1) a. 12 carreaux égaux, 5 coloriés : {5/12} · b. 6 parts égales, 4 coloriées : {4/6} (ou {2/3}) <i>(0,5 point chacun)</i></p>
+  <p>2) Le rectangle a 8 carreaux. {3/4} = {3 × 2/4 × 2} = {6/8} : je colorie 6 carreaux sur 8 <i>(1 point)</i></p>${grids(4,2,6)}
+  <p>3) Chaque rectangle est partagé en 3 tiers. {5/3} = {3/3} + {2/3} : un rectangle entier et 2 tiers du second <i>(1 point)</i></p>${grids(3,1,5,2)}
   <p>4) {5/3} = 1 + {2/3} et {5/3} = 5 × {1/3} <i>(0,5 point chacun)</i></p>`},
 {t:"Fractions égales", p:3, h:`<p>1) Complète : a) {2/5} = {…/40} · b) {35/42} = {5/…} · c) {3/8} = {…/56} · d) {36/…} = {4/7}</p>
   <p>2) Simplifie au maximum : {30/45}</p>
   <p>3) Quelles fractions sont égales à {2/3} ? {4/6} · {6/12} · {10/15} · {22/33} · {8/9}</p>`,
- c:`<p>1) a) {16/40} · b) {5/6} · c) {21/56} · d) {36/63} <i>(0,25 point chacun)</i></p>
+ c:`<p>1) a) {2/5} = {2 × 8/5 × 8} = {16/40} · b) {35/42} = {35 ÷ 7/42 ÷ 7} = {5/6} · c) {3/8} = {3 × 7/8 × 7} = {21/56} · d) {4/7} = {4 × 9/7 × 9} = {36/63} <i>(0,25 point chacun)</i></p>
   <p>2) {30/45} = {30 ÷ 15/45 ÷ 15} = {2/3} <i>(1 point)</i></p>
-  <p>3) {4/6}, {10/15} et {22/33} <i>(1 point)</i></p>`},
+  <p>3) {4/6} = {2/3} (÷ 2) · {10/15} = {2/3} (÷ 5) · {22/33} = {2/3} (÷ 11). Mais {6/12} = {1/2} et {8/9} ne se simplifie pas. Réponse : {4/6}, {10/15} et {22/33} <i>(1 point)</i></p>`},
 {t:"Demi-droite graduée", p:4, h:`<p>1) Écris l'abscisse des points A et B sous forme de fraction.</p>${fline(2,5,[["A",3],["B",8]])}
   <p>2) Écris l'abscisse de B sous la forme d'un nombre entier plus une fraction inférieure à 1.</p>
   <p>3) Reproduis la demi-droite et place les points C, D et E d'abscisses {1/2} ; {4/5} et {13/10}.</p>${fline(2,10)}
   <p>4) Écris deux fractions égales à l'abscisse du point A.</p>`,
- c:`<p>1) A({3/5}) · B({8/5}) <i>(0,5 point chacun)</i></p>
-  <p>2) {8/5} = 1 + {3/5} <i>(1 point)</i></p>
+ c:`<p>1) L'unité est partagée en 5 : ce sont des cinquièmes. A est à la 3<sup>e</sup> graduation, B à la 8<sup>e</sup> : A({3/5}) et B({8/5}) <i>(0,5 point chacun)</i></p>
+  <p>2) {8/5} = {5/5} + {3/5} = 1 + {3/5} <i>(1 point)</i></p>
   <p>3) La demi-droite est graduée en dixièmes : {1/2} = {5/10}, {4/5} = {8/10}, {13/10} <i>(0,5 point par point)</i></p>${fline(2,10,[["C",5],["D",8],["E",13]])}
-  <p>4) Par exemple {6/10} et {9/15} <i>(0,5 point)</i></p>`},
+  <p>4) Par exemple {3/5} = {3 × 2/5 × 2} = {6/10} et {3/5} = {3 × 3/5 × 3} = {9/15} <i>(0,5 point)</i></p>`},
 {t:"Comparer à 1 et nombre mixte", p:4, h:`<p>On donne les fractions : {19/6} · {5/8} · {12/12} · {31/4} · {3/7} · {11/10}</p>
   <p>1) Quelles fractions sont supérieures à 1 ? Laquelle est égale à 1 ?</p>
   <p>2) Écris {19/6} et {31/4} sous la forme d'un nombre entier plus une fraction inférieure à 1.</p>
   <p>3) À l'inverse, écris 4 + {1/3} sous la forme d'une seule fraction.</p>
   <p>4) Encadre {31/4} entre deux entiers consécutifs : …… &lt; {31/4} &lt; ……</p>`,
- c:`<p>1) Supérieures à 1 : {19/6}, {31/4}, {11/10}. Égale à 1 : {12/12} <i>(1 point)</i></p>
-  <p>2) {19/6} = 3 + {1/6} · {31/4} = 7 + {3/4} <i>(0,5 point chacun)</i></p>
+ c:`<p>1) Supérieures à 1 (numérateur plus grand que le dénominateur) : {19/6}, {31/4}, {11/10}. Égale à 1 (numérateur égal au dénominateur) : {12/12} <i>(1 point)</i></p>
+  <p>2) {19/6} = {18/6} + {1/6} = 3 + {1/6} · {31/4} = {28/4} + {3/4} = 7 + {3/4} <i>(0,5 point chacun)</i></p>
   <p>3) 4 + {1/3} = {12/3} + {1/3} = {13/3} <i>(1 point)</i></p>
-  <p>4) 7 &lt; {31/4} &lt; 8 <i>(1 point)</i></p>`},
+  <p>4) {31/4} = 7 + {3/4}, donc 7 &lt; {31/4} &lt; 8 <i>(1 point)</i></p>`},
 {t:"Fractions décimales et pourcentage", p:3, h:`<p>1) Écris ces fractions en lettres : {37/100} · {209/1 000}</p>
   <p>2) Complète : {3/10} = {…/100} = {…/1 000}</p>
   <p>3) Décompose : {258/100} = … + {…/10} + {…/100}</p>
   <p>4) Complète : {2/5} = {…/100}, c'est-à-dire …… % de l'unité.</p>`,
  c:`<p>1) trente-sept centièmes · deux-cent-neuf millièmes <i>(0,5 point chacun)</i></p>
-  <p>2) {30/100} = {300/1 000} <i>(0,5 point)</i></p>
-  <p>3) 2 + {5/10} + {8/100} <i>(0,5 point)</i></p>
-  <p>4) {40/100}, c'est-à-dire 40 % <i>(1 point)</i></p>`},
+  <p>2) {3/10} = {3 × 10/10 × 10} = {30/100} et {3/10} = {3 × 100/10 × 100} = {300/1 000} <i>(0,5 point)</i></p>
+  <p>3) {258/100} = {200/100} + {50/100} + {8/100} = 2 + {5/10} + {8/100} <i>(0,5 point)</i></p>
+  <p>4) {2/5} = {2 × 20/5 × 20} = {40/100}, c'est-à-dire 40 % <i>(1 point)</i></p>`},
 {t:"Raisonner et expliquer", p:2, h:`<p>1) Nina affirme que la partie coloriée représente {1/4} de cette figure. A-t-elle raison ? Explique.</p>${parts([180,60,60,60],[1])}
   <p>2) Inès affirme que {9/8} est plus petit que 1, « car 9 et 8 sont tous les deux plus petits que 10 ». A-t-elle raison ? Explique.</p>`,
  c:`<p>1) Non : la figure est partagée en 4 parts, mais elles ne sont pas égales. Une fraction correspond à un partage en parts égales. <i>(1 point)</i></p>
