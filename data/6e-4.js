@@ -78,10 +78,13 @@ cours:[
   <h4>1. Mesurer et tracer un segment</h4>
   <p>On place le zéro de la règle graduée sur la première extrémité du segment, puis on lit la graduation sur la seconde.</p>
   ${co("p1-regle","Mesurer EF = 6 cm avec la règle",380)}
+  <div class="anim" data-anim="6e4-mesurer-segment"></div>
   <p>Pour tracer un segment [CD] tel que CD = 7 cm : on place le point C sur le zéro de la règle, on marque le point D à la graduation 7, puis on trace le segment à la règle.</p>
+  <div class="anim" data-anim="6e4-tracer-segment"></div>
   <h4>2. Reporter une longueur au compas</h4>
   <p>Le compas permet de reporter une longueur sans la mesurer.</p>
   <div class="cgrid"><figure><figcaption><b>Étape 1 :</b> on écarte le compas de A jusqu'à B.</figcaption>${co("p2-compas1","Écarter le compas de A à B",230)}</figure><figure><figcaption><b>Étape 2 :</b> sans changer l'écartement, on pique en C et on trace un arc qui coupe la droite en D. On a alors CD = AB.</figcaption>${co("p2-compas2","Reporter la longueur à partir de C",230)}</figure></div>
+  <div class="anim" data-anim="6e4-report-compas"></div>
   <h4>3. Calculer une longueur</h4>
   ${co("p2-calc","C est entre A et M",200)}
   <p><b>Exemple :</b> le point C appartient au segment [AM], avec AC = 8 cm et CM = 5 cm. Comme C est entre A et M :</p>
@@ -92,6 +95,7 @@ cours:[
   ${co("p2-milieu","I est le milieu de [AB]",300)}
   <p><b>Codage :</b> on marque les longueurs égales par un même petit trait. Ici, I est le milieu de [AB] : AI = IB, et AB = 2 × AI.</p>
   <div class="retenir" data-l="Méthode"><p><b>Construire le milieu d'un segment</b></p><ol><li>Je mesure la longueur du segment avec la règle graduée.</li><li>Je divise cette longueur par 2.</li><li>Je place le point à cette graduation, à partir d'une extrémité, et je code les deux longueurs égales.</li></ol></div>
+  <div class="anim" data-anim="6e4-milieu-regle"></div>
   <p><b>Exemple :</b> si AB = 8 cm, alors le milieu I est à 4 cm de A.</p>`},
 {k:"III", t:"Cercle et disque", h:`
   <h4>1. Définitions</h4>
@@ -118,6 +122,7 @@ cours:[
   ${co("p4-diam","EF = 2 × r",160)}
   <h4>3. Construire un cercle au compas</h4>
   <div class="cgrid"><figure><figcaption><b>Étape 1 :</b> j'écarte le compas de la longueur du rayon, en m'aidant de la règle graduée (ici 3 cm).</figcaption>${co("p4-regle","Écartement de 3 cm",220)}</figure><figure><figcaption><b>Étape 2 :</b> je pique la pointe du compas sur le centre O, puis je tourne sans changer l'écartement.</figcaption>${co("p4-compas","Tracer le cercle de centre O",120)}</figure></div>
+  <div class="anim" data-anim="cercle-compas"></div>
   <h4>4. Utiliser le cercle pour calculer une longueur</h4>
   <div class="retenir" data-l="Propriété"><p>Si un point M appartient au cercle de centre O et de rayon r, alors <b>OM = r</b>.</p></div>
   ${co("p4-prop","M sur le cercle de centre O : OM = r",130)}

@@ -86,6 +86,7 @@ cours:[
   <h4>2. Le patron</h4>
   <div class="retenir" data-l="Définition"><p>Un <b>patron</b> d'un solide est une figure plane qui, après pliage, permet de fabriquer ce solide, sans que deux faces se superposent.</p></div>
   ${co("patron","Un patron du cube ; un patron du pavé droit de 4 cm, 3 cm et 2 cm",480)}
+  <div class="anim" data-anim="6e19-patron-pave"></div>
   <p><b>Remarque :</b> un même solide peut avoir plusieurs patrons. Le cube en a 11 différents.</p>`},
 {k:"III", t:"Volume d'un solide", h:`
   <div class="retenir" data-l="Définition"><p>Le <b>volume</b> d'un solide est la mesure de l'espace qu'il occupe. <b>1 cm³</b> (« un centimètre cube ») est le volume d'un cube de 1 cm d'arête.</p></div>

@@ -136,6 +136,7 @@ cours:[
   <p><b>Compétences :</b> lire les coordonnées d'un point dans un repère ; placer un point dans un repère lorsqu'on connaît ses coordonnées.</p>
   <p><b>Exemples :</b></p>${R1}
   <p>• Le point A a pour abscisse <b>4</b> et pour ordonnée <b>3</b>. On note <b>A(4 ; 3)</b>.</p><p>• Le point B a pour coordonnées <b>B(−4 ; −2)</b>.</p><p>• Place le point C tel que <b>C(0 ; 4)</b>.</p>
+  <div class="anim" data-anim="4e16-placer-point"></div>
   <details><summary>Voir la correction</summary><div class="corr">${R1c}<p>C a pour abscisse 0 : il est sur l'axe des ordonnées, à la hauteur 4.</p></div></details>
   ${R2}
   <p>• Les points D et E ont pour coordonnées <b>D(−1 ; −3)</b> et <b>E(1,5 ; 4)</b>.</p><p>• Place le point F tel que <b>F(2 ; −2)</b>.</p>

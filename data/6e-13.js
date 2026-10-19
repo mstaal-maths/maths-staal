@@ -73,15 +73,18 @@ savoir:[
 /* ===================== COURS ===================== */
 cours:[
 {k:"I", t:"Figures symétriques par rapport à une droite", h:`
-  <div class="cpt"><div><p>Les deux figures ci-contre se superposent quand on plie la feuille le long de la droite (d).</p><div class="retenir" data-l="Définition"><p>On dit qu'elles sont <b>symétriques par rapport à la droite (d)</b>. La droite (d) s'appelle l'<b>axe de symétrie</b>.</p></div><p><b>Rappel :</b> sur un quadrillage, on compte les carreaux de part et d'autre de l'axe : chaque point et son symétrique sont à la même distance de l'axe.</p></div>${co("fig","Deux figures symétriques par rapport à la droite (d)",280)}</div>`},
+  <div class="cpt"><div><p>Les deux figures ci-contre se superposent quand on plie la feuille le long de la droite (d).</p><div class="retenir" data-l="Définition"><p>On dit qu'elles sont <b>symétriques par rapport à la droite (d)</b>. La droite (d) s'appelle l'<b>axe de symétrie</b>.</p></div><p><b>Rappel :</b> sur un quadrillage, on compte les carreaux de part et d'autre de l'axe : chaque point et son symétrique sont à la même distance de l'axe.</p></div>${co("fig","Deux figures symétriques par rapport à la droite (d)",280)}</div>
+  <div class="anim" data-anim="6e13-sym-quadrillage"></div>`},
 {k:"II", t:"Le symétrique d'un point", h:`
   <h4>1. Définition</h4>
   <div class="cpt"><div><div class="retenir" data-l="Définition"><p>Le symétrique d'un point A par rapport à une droite (d) est le point A' tel que la droite (d) est la <b>médiatrice</b> du segment [AA'] (voir le chapitre 6).</p></div><p>Cela veut dire que :</p><ul><li>les droites (AA') et (d) sont perpendiculaires ;</li><li>la droite (d) coupe le segment [AA'] en son milieu.</li></ul><p><b>Remarque :</b> si un point est sur la droite (d), son symétrique est le point lui-même.</p></div>${co("def","A et A' symétriques par rapport à (d)",210)}</div>
   <h4>2. Construire le symétrique d'un point avec l'équerre et le compas</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Avec l'équerre, je trace la perpendiculaire à (d) passant par A. Elle coupe (d) en H.</li><li>Avec le compas, je reporte la longueur AH de l'autre côté de (d), sur la perpendiculaire.</li><li>J'obtiens le point A', symétrique de A : HA' = HA. Je code la figure.</li></ol></div>
+  <div class="anim" data-anim="6e13-sym-equerre"></div>
   ${co("equ","Les trois étapes de la construction à l'équerre et au compas",480)}
   <h4>3. Construire le symétrique d'un point avec le compas seulement</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Je place un point M sur (d). Je trace un arc de cercle de centre M passant par A, et je le prolonge de l'autre côté de (d).</li><li>Je place un deuxième point N sur (d). Je trace un arc de cercle de centre N passant par A, de l'autre côté de (d).</li><li>Les deux arcs se coupent en A', le symétrique de A.</li></ol></div>
+  <div class="anim" data-anim="symetrique-axial-compas"></div>
   ${co("comp","Les trois étapes de la construction au compas seul",480)}
   <p><b>Remarque :</b> cette méthode fonctionne car MA = MA' et NA = NA' : les points M et N sont sur la médiatrice de [AA'].</p>`},
 {k:"III", t:"Les propriétés de la symétrie axiale", h:`
@@ -89,7 +92,8 @@ cours:[
   <ul><li>Le symétrique d'un segment est un segment de même longueur.</li><li>Le symétrique d'une droite est une droite.</li><li>Le symétrique d'un cercle est un cercle de même rayon ; son centre est le symétrique du centre.</li><li>Le symétrique d'un angle est un angle de même mesure.</li></ul>
   ${co("prop","Un segment, un cercle, un angle et leurs symétriques",480)}
   <h4>Construire le symétrique d'un polygone</h4>
-  <div class="cpt"><div><div class="retenir" data-l="Méthode"><ol><li>Je construis le symétrique de chaque sommet.</li><li>Je relie les points obtenus dans le même ordre.</li></ol></div><p><b>Exemple :</b> le symétrique du triangle IJK par rapport à (d) est le triangle I'J'K'. Il a les mêmes longueurs et les mêmes angles : I'J' = IJ, J'K' = JK, I'K' = IK.</p><p><b>Remarque :</b> si un sommet est sur l'axe, il est son propre symétrique : je n'ai rien à construire pour lui.</p></div>${co("poly","Le triangle IJK et son symétrique I'J'K'",230)}</div>`},
+  <div class="cpt"><div><div class="retenir" data-l="Méthode"><ol><li>Je construis le symétrique de chaque sommet.</li><li>Je relie les points obtenus dans le même ordre.</li></ol></div><p><b>Exemple :</b> le symétrique du triangle IJK par rapport à (d) est le triangle I'J'K'. Il a les mêmes longueurs et les mêmes angles : I'J' = IJ, J'K' = JK, I'K' = IK.</p><p><b>Remarque :</b> si un sommet est sur l'axe, il est son propre symétrique : je n'ai rien à construire pour lui.</p></div>${co("poly","Le triangle IJK et son symétrique I'J'K'",230)}</div>
+  <div class="anim" data-anim="6e13-sym-triangle"></div>`},
 {k:"IV", t:"Les axes de symétrie d'une figure", h:`
   <div class="retenir" data-l="Définition"><p>Une droite (d) est un <b>axe de symétrie</b> d'une figure si le symétrique de la figure par rapport à (d) est la figure elle-même : la figure se superpose à elle-même par pliage le long de (d).</p></div>
   ${co("axes","Une figure avec 1 axe, une avec 2 axes, une sans axe de symétrie",470)}

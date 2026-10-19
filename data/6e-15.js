@@ -73,8 +73,10 @@ cours:[
   <div class="cpt"><div><div class="retenir" data-l="Définition"><p>La <b>bissectrice</b> d'un angle est la demi-droite qui partage cet angle en deux angles adjacents de même mesure.</p></div><p>Ici, [Oz) est la bissectrice de ${A("xOy")} : ${A("xOz")} = ${A("zOy")} = 70° ÷ 2 = 35°.</p><p><b>Remarque :</b> la bissectrice d'un angle est l'axe de symétrie de cet angle (voir le chapitre 13).</p></div>${co("biss","La bissectrice [Oz) de l'angle xOy",200)}</div>
   <h4>1. Avec le rapporteur</h4>
   <p>Je mesure l'angle, je divise sa mesure par 2, puis je construis un angle de cette mesure à partir de l'un des côtés. <b>Exemple :</b> ${A("xOy")} = 70°, donc je trace [Oz) telle que ${A("xOz")} = 35°.</p>
+  <div class="anim" data-anim="6e15-bissectrice-rapporteur"></div>
   <h4>2. Avec le compas</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Je trace un arc de cercle de centre O : il coupe [Ox) en A et [Oy) en B.</li><li>Sans changer l'écartement, je trace deux arcs de centres A et B : ils se coupent en C.</li><li>Je trace la demi-droite [OC) : c'est la bissectrice de l'angle ${A("xOy")}.</li></ol></div>
+  <div class="anim" data-anim="6e15-bissectrice-compas"></div>
   ${co("compas","Les trois étapes de la construction de la bissectrice au compas",480)}
   <p><b>Remarque :</b> comme pour la médiatrice (chapitre 6), on utilise des arcs de même rayon : OA = OB et CA = CB, donc la droite (OC) est la médiatrice du segment [AB].</p>`}
 ],

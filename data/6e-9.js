@@ -66,6 +66,7 @@ cours:[
   <p><b>Remarque :</b> un angle plat est formé de deux demi-droites qui forment une droite : il vaut deux angles droits.</p>`},
 {k:"III", t:"Mesurer un angle avec un rapporteur", h:`
   <div class="retenir" data-l="Méthode"><ol><li>J'estime d'abord la nature de l'angle : aigu ou obtus ? Je sais ainsi si la mesure est entre 0° et 90° ou entre 90° et 180°.</li><li>Je place le centre du rapporteur sur le sommet de l'angle.</li><li>Je fais tourner le rapporteur pour placer le 0 sur l'un des côtés.</li><li>Je suis la graduation qui part de ce 0, jusqu'à l'autre côté, et je lis la mesure.</li></ol></div>
+  <div class="anim" data-anim="6e9-mesurer-rapporteur"></div>
   ${co("rapp","Le rapporteur posé sur l'angle ABC",470)}
   <p>On lit : ${A("ABC")} = 40°. C'est cohérent : l'angle est aigu.</p>
   <p class="attention"><b>ATTENTION :</b> un rapporteur a deux graduations. Si le 0 utilisé est celui de la graduation extérieure, je lis sur la graduation extérieure, et inversement. Si la mesure lue ne correspond pas à la nature de l'angle (par exemple 140° pour un angle aigu), je me suis trompé de graduation.</p>
@@ -73,6 +74,7 @@ cours:[
 {k:"IV", t:"Construire un angle de mesure donnée", h:`
   <p><b>Exemple :</b> construire l'angle ${A("AOB")} tel que ${A("AOB")} = 30°. C'est un angle aigu.</p>
   <div class="retenir" data-l="Méthode"><ol><li>Je trace un premier côté, la demi-droite [OA).</li><li>Je place le centre du rapporteur en O et le 0 sur [OA).</li><li>En suivant la graduation qui part de ce 0, je marque un petit point en face de 30.</li><li>Je retire le rapporteur, je trace la demi-droite [OB) qui passe par ce point, et je code l'angle.</li></ol></div>
+  <div class="anim" data-anim="6e9-construire-angle"></div>
   ${co("constr","Les étapes de la construction de l'angle AOB = 30°",470)}`},
 {k:"V", t:"Programmer un déplacement", h:`
   <p>Dans un logiciel de programmation comme Scratch, un lutin se déplace grâce à des instructions :</p>

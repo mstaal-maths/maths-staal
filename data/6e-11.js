@@ -88,10 +88,12 @@ cours:[
   <h4>1. Connaissant un côté et les deux angles à ses extrémités</h4>
   <p><b>Exemple :</b> construire le triangle ABC tel que AB = 5 cm, ${A("BAC")} = 40° et ${A("ABC")} = 60°.</p>
   <div class="cpt"><div class="retenir" data-l="Méthode"><ol><li>Je fais un dessin à main levée codé.</li><li>Je trace le côté connu : [AB] = 5 cm.</li><li>Avec le rapporteur, je trace en A une demi-droite qui forme un angle de 40° avec [AB].</li><li>En B, je trace une demi-droite qui forme un angle de 60° avec [BA], du même côté.</li><li>Les deux demi-droites se coupent en C.</li></ol></div>${co("c1","Le triangle ABC construit",220)}</div>
+  <div class="anim" data-anim="6e11-triangle-cote-2-angles"></div>
   <p><b>Remarque :</b> si l'un des deux angles connus n'est pas au bout du côté connu, je calcule d'abord le troisième angle avec la somme des angles.</p>
   <h4>2. Connaissant deux côtés et l'angle compris entre eux</h4>
   <p><b>Exemple :</b> construire le triangle DEF tel que DE = 4,5 cm, DF = 3,5 cm et ${A("EDF")} = 110°.</p>
   <div class="cpt"><div class="retenir" data-l="Méthode"><ol><li>Je fais un dessin à main levée codé.</li><li>Je trace un des côtés connus : [DE] = 4,5 cm.</li><li>Avec le rapporteur, je trace en D une demi-droite qui forme un angle de 110° avec [DE].</li><li>Sur cette demi-droite, je place F tel que DF = 3,5 cm.</li><li>Je trace le côté [EF].</li></ol></div>${co("c2","Le triangle DEF construit",220)}</div>
+  <div class="anim" data-anim="6e11-triangle-2-cotes-angle"></div>
   <h4>3. Bilan : quels instruments utiliser ?</h4>
   <div class="retenir" data-l="À retenir"><div class="scroll"><table class="std"><thead><tr><th>Je connais…</th><th>J'utilise…</th><th>Exemple</th></tr></thead><tbody><tr><td>les trois longueurs</td><td>la règle et le compas (chapitre 6)</td><td>AB = 5 cm, BC = 4 cm, AC = 3 cm</td></tr><tr><td>un côté et les deux angles à ses extrémités</td><td>la règle et le rapporteur</td><td>AB = 5 cm, ${A("BAC")} = 40°, ${A("ABC")} = 60°</td></tr><tr><td>deux côtés et l'angle compris entre eux</td><td>la règle et le rapporteur</td><td>DE = 4,5 cm, DF = 3,5 cm, ${A("EDF")} = 110°</td></tr></tbody></table></div></div>
   <p><b>Remarque :</b> avant toute construction, je fais un dessin à main levée sur lequel je place toutes les informations.</p>`}

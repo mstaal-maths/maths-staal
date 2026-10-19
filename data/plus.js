@@ -159,7 +159,7 @@ const BLOCKS = "h2,h3,h4,p,li,tr,figcaption,.retenir,.choice,.attention,.calc,.s
 function units(root, opt={}){
   const inCorr = !!root.closest("details,[data-corr]") || root.matches(".corr,[data-corr]");
   let c=$$(BLOCKS, root); if(root.matches(BLOCKS)) c.unshift(root);
-  c=c.filter(e=>!e.closest("svg,.toc,.ttsbar,.printbar") && !e.closest(".tts-btn") && !(e.closest("details:not([open])") && !inCorr) && !(!inCorr && e.closest("details,[data-corr]")) && e.offsetParent!==null);
+  c=c.filter(e=>!e.closest("svg,.toc,.ttsbar,.printbar,.anim") && !e.closest(".tts-btn") && !(e.closest("details:not([open])") && !inCorr) && !(!inCorr && e.closest("details,[data-corr]")) && e.offsetParent!==null);
   /* on garde les blocs « feuilles » ; un encadré est lu par son titre, puis par son contenu */
   const out=[];
   c.forEach(e=>{

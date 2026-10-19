@@ -68,6 +68,7 @@ cours: [
   <h4>1. Tracer une perpendiculaire</h4>
   <p>Exemple : trace la perpendiculaire à (d) passant par le point M. Nomme-la (d').</p>
   ${co("p6-19","Méthode en trois étapes pour tracer une perpendiculaire à l'équerre",760)}
+  <div class="anim" data-anim="6e2-perp-equerre"></div>
   <h4>2. Tracer une parallèle</h4>
   <p>Exemple : trace la parallèle à (d) passant par le point M. Nomme-la (d'). Méthode : on utilise deux fois la perpendiculaire.</p>
   <div class="figs">
@@ -75,8 +76,10 @@ cours: [
     <figure>${co("p7-25","Étape 2",220)}<figcaption>Étape 2 : on trace la perpendiculaire (k) à (d) passant par M.</figcaption></figure>
     <figure>${co("p7-27","Étape 3",220)}<figcaption>Étape 3 : on trace la perpendiculaire à (k) passant par M. C'est la droite (d') cherchée.</figcaption></figure>
   </div>
+  <div class="anim" data-anim="6e2-parallele-perp"></div>
   <div class="retenir" data-l="Pourquoi ça marche"><p>(d) et (d') sont toutes les deux perpendiculaires à (k), donc elles sont parallèles (propriété 1).</p></div>
-  <p><b>Autre méthode :</b> on peut aussi poser un côté de l'équerre sur (d), placer la règle contre l'autre côté, puis faire glisser l'équerre le long de la règle jusqu'au point M.</p>`}
+  <p><b>Autre méthode :</b> on peut aussi poser un côté de l'équerre sur (d), placer la règle contre l'autre côté, puis faire glisser l'équerre le long de la règle jusqu'au point M.</p>
+  <div class="anim" data-anim="6e2-parallele-glissement"></div>`}
 ],
 
 /* ===================== EXERCICES ===================== */

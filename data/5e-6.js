@@ -151,6 +151,8 @@ cours:[
   <p><b>Exemple :</b> ici, (m) est la médiatrice de [AB] et P est sur (m). Donc PA = PB.</p>
   <div class="retenir" data-l="Méthode"><p><b>Construction à l'équerre</b> (on utilise la définition) :</p><ul><li>je place le milieu I de [LT] ;</li><li>je trace la perpendiculaire à [LT] passant par I.</li></ul>
   <p><b>Construction au compas</b> (on utilise la propriété 2) :</p><ul><li>je prends une ouverture plus grande que la moitié de LT ;</li><li>avec cette même ouverture, je trace deux arcs centrés en L, puis deux arcs centrés en T ;</li><li>je relie les deux points d'intersection des arcs.</li></ul></div>
+  <div class="anim" data-anim="5e6-mediatrice-equerre"></div>
+  <div class="anim" data-anim="5e6-mediatrice-compas"></div>
   <h4>Exemple de démonstration</h4>
   <div class="figs">${co("demo","Triangle ABC isocèle en A, I milieu de [BC]",220)}</div>
   <p>ABC est isocèle en A et I est le milieu de [BC]. Montrons que (AI) est la médiatrice de [BC].</p>
@@ -160,6 +162,7 @@ cours:[
   <div class="retenir" data-l="Propriété"><p>Son centre est le point de concours des trois médiatrices des côtés du triangle. Deux médiatrices suffisent pour le placer.</p></div>
   ${co("cc","Cercle circonscrit au triangle ABC, de centre O",300)}
   <p>Ici, O est le point où se coupent les médiatrices des côtés de ABC. Donc OA = OB = OC.</p><p>Le cercle de centre O qui passe par A passe aussi par B et par C.</p>
+  <div class="anim" data-anim="5e6-cercle-circonscrit"></div>
   <div class="figs">${fig("Trois angles aigus : O est <b>à l'intérieur</b> du triangle.",co("cc1","Centre à l'intérieur du triangle",170))}${fig("Triangle rectangle : O est le <b>milieu de l'hypoténuse</b>.",co("cc2","Centre au milieu de l'hypoténuse",170))}${fig("Un angle obtus : O est <b>à l'extérieur</b> du triangle.",co("cc3","Centre à l'extérieur du triangle",170))}</div>
   <div class="retenir" data-l="Propriétés"><p>Si un triangle est rectangle, alors son cercle circonscrit a pour diamètre l'hypoténuse.</p><p>Si un côté d'un triangle est un diamètre de son cercle circonscrit, alors ce triangle est rectangle.</p></div>
   ${co("demi","C est sur le demi-cercle de diamètre [AB] et de centre O",280)}
@@ -172,7 +175,9 @@ cours:[
   <div class="figs">${fig("(h) est la hauteur issue de A. Son pied est H : AH est la distance du point A à la droite (BC).",co("h1","Hauteur (h) issue de A",250))}${fig("(h') est la hauteur issue de C : son pied H est à l'extérieur de [AB], on prolonge le côté en pointillés.",co("h2","Hauteur (h') issue de C",250))}</div>
   ${co("ortho","Les trois hauteurs du triangle ABC se coupent en H",280)}
   <div class="retenir" data-l="Propriété"><p>Les trois hauteurs d'un triangle se coupent en un même point H, appelé <b>orthocentre</b> du triangle. Deux hauteurs suffisent pour le trouver.</p><ul><li>Si le triangle est rectangle, l'orthocentre est le sommet de l'angle droit.</li><li>Si un angle est obtus, l'orthocentre est à l'extérieur du triangle.</li></ul></div>
-  <div class="retenir" data-l="Méthode"><p><b>Construire la hauteur issue d'un sommet :</b></p><p><b>1)</b> je place un côté de l'angle droit de l'équerre sur le côté opposé au sommet (je le prolonge si besoin) ;</p><p><b>2)</b> je fais glisser l'équerre jusqu'à ce que l'autre côté de l'angle droit passe par le sommet ;</p><p><b>3)</b> je trace la droite et je code l'angle droit au pied H.</p></div>`},
+  <div class="retenir" data-l="Méthode"><p><b>Construire la hauteur issue d'un sommet :</b></p><p><b>1)</b> je place un côté de l'angle droit de l'équerre sur le côté opposé au sommet (je le prolonge si besoin) ;</p><p><b>2)</b> je fais glisser l'équerre jusqu'à ce que l'autre côté de l'angle droit passe par le sommet ;</p><p><b>3)</b> je trace la droite et je code l'angle droit au pied H.</p></div>
+  <div class="anim" data-anim="5e6-hauteur-equerre"></div>
+  <div class="anim" data-anim="5e6-hauteur-exterieur"></div>`},
 {k:"4", t:"Les médianes d'un triangle", h:`
   <div class="retenir" data-l="Définition"><p>Une <b>médiane</b> d'un triangle est la droite qui passe par un sommet et par le milieu du côté opposé à ce sommet.</p></div>
   ${co("mediane","Médiane (AI) issue de A dans le triangle ABC",280)}

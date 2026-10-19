@@ -73,6 +73,7 @@ cours:[
   <p>La droite (d) est la médiatrice du segment [AB] : elle coupe [AB] en son milieu I et forme un angle droit avec lui.</p>
   <h4>2. Construire la médiatrice à la règle et à l'équerre</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Je mesure [LT] et je place précisément son milieu I.</li><li>Je trace, à l'équerre, la droite perpendiculaire à [LT] passant par I.</li></ol></div>
+  <div class="anim" data-anim="6e6-mediatrice-equerre"></div>
   ${co("equerre","1. Je place le milieu I de [LT]. 2. Je trace la perpendiculaire à [LT] passant par I.",470)}
   <h4>3. Une propriété de la médiatrice</h4>
   <div class="retenir" data-l="Propriété"><p>La médiatrice d'un segment est formée de <b>tous les points situés à la même distance</b> (on dit <b>équidistants</b>) des deux extrémités du segment.</p></div>
@@ -80,6 +81,7 @@ cours:[
   <p>Quel que soit le point M choisi sur la médiatrice, on a toujours MA = MB.</p>
   <h4>4. Construire la médiatrice au compas</h4>
   <div class="retenir" data-l="Méthode"><ol><li>J'écarte le compas de plus de la moitié de [LT].</li><li>Je pique en L et je trace deux arcs, de part et d'autre du segment.</li><li>Sans changer l'écartement, je pique en T et je trace deux arcs : ils coupent les premiers en A et B.</li><li>Je trace la droite (AB) : c'est la médiatrice de [LT].</li></ol></div>
+  <div class="anim" data-anim="mediatrice-compas"></div>
   ${co("compas","La médiatrice (m) de [LT] construite au compas",240)}
   <p><b>Remarque :</b> A et B sont à la même distance de L et de T : d'après la propriété, ils sont donc bien sur la médiatrice.</p>
   <h4>5. Deux propriétés pour justifier</h4>
@@ -102,12 +104,14 @@ cours:[
   <h4>4. Construire un triangle dont on connaît les trois longueurs</h4>
   <p><b>Exemple :</b> construire le triangle ABC tel que BC = 4 cm, AB = 3 cm et AC = 3,5 cm.</p>
   ${co("etapes","Étape 1 : je trace [BC] = 4 cm. Étape 2 : arc de 3 cm depuis B, de 3,5 cm depuis C. Étape 3 : A est le point d'intersection.",470)}
+  <div class="anim" data-anim="6e6-triangle-3-longueurs"></div>
   <p><b>Remarque :</b> on trace toujours en premier le côté dont on connaît la longueur, puis on cherche le troisième sommet avec le compas.</p>
   <h4>5. Les autres constructions</h4>
   <div class="scroll"><table class="std"><thead><tr><th>Triangle</th><th>Ce que je trace</th></tr></thead><tbody>
    <tr><td><b>isocèle en A</b> (AB = AC)</td><td>je trace [BC], puis deux arcs de même écartement depuis B et depuis C : ils se coupent en A.</td></tr>
    <tr><td><b>équilatéral de côté 5 cm</b></td><td>je trace [BC] = 5 cm, puis deux arcs de 5 cm depuis B et depuis C.</td></tr>
-   <tr><td><b>rectangle en A</b></td><td>je trace l'angle droit à l'équerre en A, puis je reporte les deux longueurs sur ses côtés.</td></tr></tbody></table></div>`},
+   <tr><td><b>rectangle en A</b></td><td>je trace l'angle droit à l'équerre en A, puis je reporte les deux longueurs sur ses côtés.</td></tr></tbody></table></div>
+  <div class="anim" data-anim="6e6-triangle-rectangle"></div>`},
 {k:"III", t:"Les médiatrices d'un triangle et le cercle circonscrit", h:`
   <h4>1. Les trois médiatrices sont concourantes</h4>
   <div class="retenir" data-l="Propriété"><p>Les trois médiatrices d'un triangle se coupent en un même point : on dit qu'elles sont <b>concourantes</b>.</p></div>
@@ -120,6 +124,7 @@ cours:[
   ${co("circ","Le cercle circonscrit au triangle ABC",220)}
   <h4>3. Méthode de construction</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Je trace la médiatrice d'un premier côté.</li><li>Je trace la médiatrice d'un deuxième côté.</li><li>Je note O leur point d'intersection.</li><li>Je trace le cercle de centre O qui passe par un sommet : il passe aussi par les deux autres.</li></ol></div>
+  <div class="anim" data-anim="6e6-cercle-circonscrit"></div>
   <p><b>Remarque :</b> deux médiatrices suffisent pour trouver O. La troisième sert à vérifier : elle doit passer par O.</p>`}
 ],
 

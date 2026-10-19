@@ -282,6 +282,7 @@ cours:[
   <div class="figs">${co("tr1","Figure F et flèche de A vers B",120)}<p>→</p>${co("tr2","La figure F' est l'image de F par la translation qui transforme A en B",190)}</div>
   <p>La figure F' est l'image de la figure F par la translation <b>qui transforme A en B</b>.</p><p>Ou : la figure F' est l'image de la figure F par la translation <b>de vecteur ${vec("AB")}</b>.</p>
   <div class="retenir" data-l="Méthode"><p>Pour tracer le point M', il faut que :</p><ul><li>(AB) // (MM') ;</li><li>AB = MM' ;</li><li>et le sens de A vers B soit le même que de M vers M'.</li></ul></div>
+  <div class="anim" data-anim="3e2-translation-compas"></div>
   <h4>La rotation</h4>
   <div class="retenir" data-l="Définition"><p>Transformer une figure par rotation, <b>c'est la faire tourner autour d'un point, selon un angle et un sens donnés</b>.</p><p><b>Caractéristiques :</b></p><ul><li>un point, appelé « <b>centre de rotation</b> » ;</li><li>un <b>angle</b> ;</li><li>un <b>sens</b> (sens horaire ou sens antihoraire).</li></ul></div>
   <div class="figs">${co("ro2","Figure F et point O",110)}<p>→</p>${co("ro1","La figure F' est l'image de F par la rotation de centre O, d'angle 60° dans le sens antihoraire",170)}</div>
@@ -292,6 +293,7 @@ cours:[
   <div class="figs">${co("abc","Le triangle ABC de départ",110)}</div>
   ${co("meth","Les trois étapes de la construction",620)}
   <div class="retenir" data-l="Méthode"><p><b>①</b> On construit, à l'aide du rapporteur et du compas, l'image A' du point A : ${ang("ACA'")} = 70° dans le sens antihoraire et CA' = CA.</p><p><b>②</b> On construit de façon analogue l'image B' du point B : ${ang("BCB'")} = 70° et CB' = CB.</p><p><b>③</b> Le triangle A'B'C est l'image du triangle ABC (le centre C est sa propre image).</p></div>
+  <div class="anim" data-anim="3e2-rotation-rapporteur"></div>
   <p>Quand <b>le centre de rotation n'appartient pas à la figure</b> :</p>
   ${co("rotO","Rotation de centre O d'angle 70° : la figure F et son image F'",330)}
   <p>Ici, la figure F' est l'image de la figure F par la rotation de centre O, d'angle 70° dans le sens antihoraire.</p>`},

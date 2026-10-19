@@ -82,7 +82,9 @@ cours:[
   <p><b>Remarque :</b> le centre de symétrie O est le <b>milieu</b> de chaque segment reliant un point et son symétrique : O est le milieu de [MM'].</p>
   <h4>b) Tracer le symétrique d'un point par un demi-tour</h4>
   <p>Méthode : construire le point A', symétrique du point A par rapport au point O.</p>${methode}
-  <p>Pour une figure, je construis le symétrique de chaque sommet, puis je relie les points dans le même ordre.</p>`},
+  <div class="anim" data-anim="5e2-sym-point"></div>
+  <p>Pour une figure, je construis le symétrique de chaque sommet, puis je relie les points dans le même ordre.</p>
+  <div class="anim" data-anim="5e2-sym-triangle"></div>`},
 {t:"Propriétés du demi-tour", h:`
   <div class="retenir" data-l="Propriété"><p>Le demi-tour conserve : les <b>longueurs</b>, l'<b>alignement</b>, les <b>mesures d'angles</b>, les <b>aires</b> et le <b>parallélisme</b>.</p></div>
   <div class="retenir" data-l="Propriété 1"><p>Si deux segments sont symétriques par rapport à un point, alors ils sont <b>parallèles et de même longueur</b>.</p></div>

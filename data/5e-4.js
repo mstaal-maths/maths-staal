@@ -265,7 +265,9 @@ cours:[
   <div class="retenir" data-l="Propriétés"><p><b>Propriété 1 : Si</b> un quadrilatère a ses côtés opposés parallèles, <b>alors</b> c'est un parallélogramme.</p>
    <p><b>Propriété 2 : Si</b> un quadrilatère a ses côtés opposés de même longueur, <b>alors</b> c'est un parallélogramme.</p>
    <p><b>Propriété 3 : Si</b> un quadrilatère a deux côtés opposés parallèles et de même longueur, <b>alors</b> c'est un parallélogramme.</p>
-   <p><b>Propriété 4 : Si</b> un quadrilatère a ses diagonales qui se coupent en leur milieu, <b>alors</b> c'est un parallélogramme.</p></div>`},
+   <p><b>Propriété 4 : Si</b> un quadrilatère a ses diagonales qui se coupent en leur milieu, <b>alors</b> c'est un parallélogramme.</p></div>
+  <div class="anim" data-anim="5e4-para-compas"></div>
+  <div class="anim" data-anim="5e4-para-diagonales"></div>`},
 {t:"Parallélogrammes particuliers", h:`
   <h4>a) Rappels de 6<sup>e</sup></h4>
   <div class="cgrid"><figure><figcaption>Un <b>rectangle</b> est un quadrilatère qui a quatre angles droits.</figcaption>${F_RECT}</figure><figure><figcaption>Un <b>losange</b> est un quadrilatère qui a quatre côtés de même longueur.</figcaption>${F_LOS}</figure><figure><figcaption>Un <b>carré</b> est un quadrilatère qui a quatre angles droits et quatre côtés de même longueur.</figcaption>${F_CAR}</figure></div>

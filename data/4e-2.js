@@ -254,11 +254,13 @@ cours:[
   <p><b>Exercice 1 :</b> dans les deux cas suivants, trace la figure F’, image de la figure F par la translation qui transforme D en H.</p>
   <div class="figs">${fig("Cas n°1",oie([1,3],[1,1],[2,4],[0,0,9,8],false,true))}${fig("Cas n°2",oie([-3,4],[4,3],[1,7],[0,0,8,8]))}</div>
   <div class="retenir" data-l="Méthode"><p><b>Sur quadrillage :</b> je compte les carreaux pour aller de D à H. Puis je fais le même déplacement à partir de chaque sommet de la figure.</p></div>
+  <div class="anim" data-anim="4e2-translation-quadrillage"></div>
   <details><summary>Voir la correction</summary><div class="corr"><p><b>Cas n°1 :</b> de D à H, 1 carreau vers la droite et 3 carreaux vers le bas.</p><p><b>Cas n°2 :</b> de D à H, 3 carreaux vers la gauche et 4 carreaux vers le bas.</p><div class="figs">${fig("Cas n°1",oie([1,3],[1,1],[2,4],[0,0,9,8],true,true))}${fig("Cas n°2",oie([-3,4],[4,3],[1,7],[0,0,8,8],true))}</div></div></details>
   <h4>Sur feuille blanche</h4>
   <p><b>Exercice 2 :</b> trace l'image du triangle AEB par la translation de vecteur ${vec("CD")} (la translation qui transforme C en D). On la notera A’E’B’.</p>
   ${blank(CEX2,"AEB","C","D",{w:340})}
   <div class="retenir" data-l="Méthode"><p><b>Sur feuille blanche</b>, pour placer A’, l'image de A :</p><ul><li>je trace un arc de cercle de centre A et de rayon CD ;</li><li>je trace un arc de cercle de centre D et de rayon CA ;</li><li>A’ est le point d'intersection de ces deux arcs, du même côté que D : CDA’A est un parallélogramme.</li></ul><p>Je recommence pour E’ et B’, puis je relie A’, E’ et B’.</p></div>
+  <div class="anim" data-anim="4e2-translation-compas"></div>
   <details><summary>Voir la correction</summary><div class="corr">${blank(CEX2,"AEB","C","D",{w:340,sol:true,altS:"Le triangle AEB et son image A’E’B’"})}<p>Les segments [AA’], [EE’] et [BB’] ont la même direction, le même sens et la même longueur que [CD].</p></div></details>`},
 {k:"4", t:"Propriétés de conservation", h:`
   <div class="retenir" data-l="Propriétés"><p>Une translation conserve :</p><ul><li>les longueurs,</li><li>l'alignement,</li><li>les mesures d'angles,</li><li>les aires.</li></ul></div>
