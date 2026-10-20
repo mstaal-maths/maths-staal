@@ -15,10 +15,10 @@ head=f'''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Révimaths – Révisions de maths de la 6e à la 3e</title>
-<meta name="description" content="Créé par Johann Staal, professeur de maths : cours, exercices corrigés pas à pas, QCM, évaluations d'entraînement et mini-jeux de la 6e à la 3e. Gratuit, adapté DYS.">
+<meta name="description" content="Créé par Johann STAAL, professeur de maths : cours, exercices corrigés pas à pas, QCM, évaluations d'entraînement et mini-jeux de la 6e à la 3e. Gratuit, adapté DYS.">
 <link rel="canonical" href="{URL}">
 <meta property="og:title" content="Révimaths – Révisions de maths de la 6e à la 3e">
-<meta property="og:description" content="Créé par Johann Staal, professeur de maths : cours, exercices corrigés pas à pas, QCM, évaluations d'entraînement et mini-jeux de la 6e à la 3e. Gratuit, adapté DYS.">
+<meta property="og:description" content="Créé par Johann STAAL, professeur de maths : cours, exercices corrigés pas à pas, QCM, évaluations d'entraînement et mini-jeux de la 6e à la 3e. Gratuit, adapté DYS.">
 <meta property="og:url" content="{URL}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Révimaths">
@@ -34,7 +34,7 @@ head=f'''<!doctype html>
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-title" content="Révimaths">
-<meta name="author" content="Johann Staal">
+<meta name="author" content="Johann STAAL">
 <meta name="google-site-verification" content="FbK-a01abS9KfgRM0RR3wsXvcssGQ3GlBl0Y_OxGacg">
 '''
 open(os.path.join(DST,'index.html'),'w',encoding='utf-8').write(head+html)
