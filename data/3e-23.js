@@ -139,7 +139,7 @@ quiz:[
 {nom:"Ratios égaux", schema:S_EG, q:{
  1:[ {g:()=>{ let a,b; do{ a=ri(1,6); b=ri(2,9); }while(a===b||gcd(a,b)>1); const k=ri(2,5); return {q:`Partager une somme dans le ratio ${R([a,b])} revient à la partager dans le ratio…`, c:uniq(R([a*k,b*k]),[R([b,a]),R([a+k,b+k]),R([a*k,b])]), rep:R([a*k,b*k]), ex:`On multiplie ${a} et ${b} par ${k} : ${R([a*k,b*k])}.`, sx:S_EG}; }} ],
  2:[ {g:()=>{ const r=pick([[2,3],[3,4],[1,2],[3,5],[4,5]]), p=ri(4,30), ok=Math.random()<0.5, a=r[0]*p, b=ok?r[1]*p:r[1]*p+pick([1,2,-1]); return {q:`Les nombres ${a} et ${b} sont-ils dans le ratio ${R(r)} ?`, c:["Oui","Non"], rep:ok?"Oui":"Non", ex:`{${a}/${r[0]}} = ${N(a/r[0],3)} et {${b}/${r[1]}} ${Number.isInteger(b/r[1])?"=":"≈"} ${N(b/r[1],3)} : ${ok?"les quotients sont égaux.":"les quotients ne sont pas égaux."}`, sx:S_EG}; }} ],
- 3:[ {g:()=>{ const r=pick([[2,3],[1,4],[3,5],[2,7],[4,3]]), a=r[0]*ri(2,15); const b=a/r[0]*r[1]; return {q:`Les nombres ${a} et b sont dans le ratio ${R(r)}. Combien vaut b ?`, rep:[N(b)], ex:`{${a}/${r[0]}} = {b/${r[1]}}, donc b = ${a/r[0]} × ${r[1]} = ${N(b)}.`, sx:S_EG}; }},
+ 3:[ {g:()=>{ const r=pick([[2,3],[1,4],[3,5],[2,7],[4,3]]), a=r[0]*ri(2,15); const b=a/r[0]*r[1]; return {q:`Les nombres ${a} et b sont dans le ratio ${R(r)}. Combien vaut b ?`, rep:[N(b)], ex:`{${a}/${r[0]}} = {b/${r[1]}}, donc :<br>b = ${a/r[0]} × ${r[1]}<br>b = ${N(b)}`, sx:S_EG}; }},
      {g:()=>{ const r=pick([[2,3,7],[1,2,3],[2,5,6],[3,4,5]]), p=ri(2,9), ok=Math.random()<0.5, v=r.map(x=>x*p); if(!ok) v[2]+=1; return {q:`Les nombres ${v.join(", ")} sont-ils dans le ratio ${R(r)} ?`, c:["Oui","Non"], rep:ok?"Oui":"Non", ex:`{${v[0]}/${r[0]}} = ${p}, {${v[1]}/${r[1]}} = ${p} et {${v[2]}/${r[2]}} ${ok?"=":"≈"} ${N(v[2]/r[2],2)}.`, sx:S_EG}; }} ]
 }}
 ],

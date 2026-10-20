@@ -11,6 +11,10 @@ const rd = (x,k=3) => Math.round(x*10**k)/10**k;
 const N = (x,k=3) => { const v=rd(x,k); const [i,d]=String(Math.abs(v)).split("."); return (v<0?"−":"")+i.replace(/\B(?=(\d{3})+(?!\d))/g," ")+(d?","+d:""); };
 const F = (a,b) => `{${a}/${b}}`;
 const PI = "<i>π</i>";
+/* calcul en chaîne (choix de M. Staal) : une étape par ligne, chaque ligne commence par le nom de la grandeur ; « ≈ … » pour une valeur arrondie */
+const KCl = (n, L) => L.map(String).filter((x,i,a)=>i===0||x!==a[i-1]).map(x=>/^≈/.test(String(x))?`${n} ${x}`:`${n} = ${x}`).join("<br>");
+const KC = (n, L) => `<p class="calc">${KCl(n,L)}</p>`;
+const KCi = (n, L) => `<span class="calc" style="display:block;margin:6px 0">${KCl(n,L)}</span>`;
 const co = (p,alt,w) => img("5k15co/"+p+".png", alt, w);
 const ex = (p,alt,w) => img("5k15ex/"+p+".png", alt, w);
 const cr = (p,alt,w) => img("5k15cr/"+p+".png", alt, w);
@@ -123,7 +127,7 @@ const turn = cells => { let c=cells.map(p=>[...p]); if(Math.random()<0.5) c=c.ma
   if(Math.max(...c.map(p=>p[1]))>Math.max(...c.map(p=>p[0]))) c=c.map(([x,y])=>[y,x]); return c; };
 
 /* outils réutilisés par la fiche d'entraînement */
-window.GEO15 = {solid, patPave, patPrisme, pile, nets, NETS_OK, NETS_KO, turn, N, F, rd, PI};
+window.GEO15 = {solid, patPave, patPrisme, pile, nets, NETS_OK, NETS_KO, turn, N, F, rd, PI, KC, KCi};
 
 /* ===================== figures de la fiche ===================== */
 const E2N = [[[1,0],[0,1],[1,1],[2,1],[3,1],[1,2]],[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1],[2,2],[3,2]],[[0,0],[1,0],[2,0],[0,1],[0,2],[1,2]],[[1,0],[0,1],[1,1],[2,1],[1,2],[1,3]],[[1,0],[0,1],[1,1],[2,1],[1,2],[2,2]]];
@@ -134,7 +138,7 @@ const E5G = [[3,1,0],[2,2,1],[1,0,0]];
 const S_SOL = sch("Les solides du chapitre", `<div class="figs">${solid("pave",{L:3,l:2,h:1.6,u:26,pad:14})}${solid("prisme",{p:2.2,q:1.8,L:2.4,u:26,pad:14})}${solid("cyl",{r:1,h:2.4,u:26,pad:14})}</div><p class="schN">Pavé droit, cube et prisme droit : deux bases polygones, faces latérales rectangles. Cylindre : deux bases disques.</p>`);
 const S_CAV = sch("Perspective cavalière", solid("pave",{L:4,l:3,h:2,u:30,lab:{L:"4 cm",h:"2 cm",l:"1,5 cm"}})+`<p class="schN">Face avant en vraie grandeur. Arêtes fuyantes à 45°, réduites de moitié : 3 cm → 1,5 cm. Arêtes cachées en pointillés.</p>`);
 const S_PAT = sch("Patrons", `${nets([NETS_OK[2]]).replace(/<text[^>]*>1<\/text>/,"")}<p class="schN">Un patron se découpe et se plie pour fabriquer le solide. Cylindre : deux disques et un rectangle. Prisme droit : deux bases et autant de rectangles que la base a de côtés.</p>`);
-const S_DISQ = sch("Aire d'un disque", `<p class="calc">A = ${PI} × r × r<br>r = 3 cm : A = ${PI} × 3² = 9${PI} ≈ 28,3 cm²</p><p class="schN">Si on donne le diamètre, on le divise par 2 pour avoir le rayon.</p>`);
+const S_DISQ = sch("Aire d'un disque", `<p class="calc">A = ${PI} × r × r<br>r = 3 cm :<br>A = ${PI} × 3²<br>A = 9${PI}<br>A ≈ 28,3 cm²</p><p class="schN">Si on donne le diamètre, on le divise par 2 pour avoir le rayon.</p>`);
 const S_VOL = sch("Volumes", `<p class="calc">Prisme droit, cylindre : V = aire de la base × hauteur<br>Pavé : V = L × l × h &nbsp; Cube : V = c³<br>Cylindre : V = ${PI} × r² × h</p>`);
 const S_UNIT = sch("Unités de volume et de capacité", `<p class="calc">1 m³ = 1 000 dm³ = 1 000 L<br>1 dm³ = 1 000 cm³ = 1 L<br>1 cm³ = 1 mL &nbsp; 1 L = 100 cL = 1 000 mL</p>`);
 
@@ -172,15 +176,15 @@ cours:[
 {k:"III", t:"Aire du disque et volumes", h:`
   <h4>1. Aire d'un disque</h4>
   <div class="retenir" data-l="Définition"><p>L'<b>aire d'un disque</b> de rayon <i>r</i> est :</p><p class="calc"><i>A</i> = ${PI} × <i>r</i> × <i>r</i> = ${PI}<i>r</i>²</p></div>
-  <p><b>Exemple :</b> pour <i>r</i> = 3 cm : <i>A</i> = ${PI} × 3² = 9${PI} ≈ 28,3 cm².</p>
+  <p><b>Exemple :</b> pour <i>r</i> = 3 cm :</p>${KC("<i>A</i>",[`${PI} × 3²`,`9${PI}`,"≈ 28,3 cm²"])}
   <h4>2. Volumes</h4>
   <div class="retenir" data-l="Définition"><p>Le volume d'un <b>prisme droit</b> (ou d'un <b>cylindre</b>) est :</p><p class="calc"><i>V</i> = aire de la base × hauteur</p>
    <p>Pavé droit de longueur <i>L</i>, largeur <i>l</i>, hauteur <i>h</i> : <i>V</i> = <i>L</i> × <i>l</i> × <i>h</i></p><p>Cube d'arête <i>c</i> : <i>V</i> = <i>c</i>³</p><p>Cylindre de rayon <i>r</i> : <i>V</i> = ${PI}<i>r</i>² × <i>h</i></p></div>
-  <p><b>Exemple :</b> un cylindre de rayon 5 cm et de hauteur 10 cm a pour volume ${PI} × 5² × 10 = 250${PI} ≈ 785 cm³.</p>
+  <p><b>Exemple :</b> le volume <i>V</i> d'un cylindre de rayon 5 cm et de hauteur 10 cm :</p>${KC("<i>V</i>",[`${PI} × 5² × 10`,`250${PI}`,"≈ 785 cm³"])}
   <h4>3. Unités</h4>
   <div class="retenir" data-l="À retenir"><div class="scroll"><table class="std"><thead><tr><th>m³</th><th>dm³</th><th>cm³</th></tr></thead><tbody><tr><td>1 m³ = 1 000 dm³</td><td>1 dm³ = 1 000 cm³</td><td>1 L = 1 dm³</td></tr><tr><td>1 L = 100 cL = 1 000 mL</td><td>1 mL = 1 cm³</td><td>1 m³ = 1 000 L</td></tr></tbody></table></div></div>
   <p><b>À toi de jouer :</b> calcule le volume d'un pavé de 5 cm sur 4 cm sur 3 cm, et exprime-le en mL.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">V = 5 × 4 × 3 = 60 cm³ = 60 mL (car 1 cm³ = 1 mL)</p></div></details>`}
+  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">V = 5 × 4 × 3<br>V = 60 cm³<br>V = 60 mL</p><p>(car 1 cm³ = 1 mL)</p></div></details>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -196,7 +200,7 @@ exos:[
    c:`<p>Les figures <b>1, 3 et 5</b> sont des patrons de cube.</p><p>Les figures 2, 4 et 6 n'en sont pas : en pliant, deux carrés se superposeraient et une face du cube resterait vide (par exemple, un bloc de 2 carrés sur 2 ne peut pas se plier).</p>${nets(E2N,E2ok)}`},
   {n:"Exercice 3", t:"Patron d'un pavé", w:"Sur ton cahier", h:`<p>Un pavé droit mesure 5 cm de longueur, 3 cm de largeur et 2 cm de hauteur.</p><p><b>1)</b> Dessine un patron de ce pavé à l'échelle 1 (carreaux de 1 cm).</p><p><b>2)</b> Combien de faces a ce pavé ? Quelles sont leurs dimensions ?</p><p><b>3)</b> Calcule l'aire totale du patron.</p>`,
    c:`<p><b>1)</b> Par exemple : une bande de quatre rectangles (5 × 2, 3 × 2, 5 × 2, 3 × 2) avec, au-dessus et en dessous du premier rectangle 5 × 2, un rectangle de 5 × 3 (dimensions en cm).</p>${patPave(5,3,2)}
-   <p><b>2)</b> 6 faces : deux de 5 × 3, deux de 5 × 2, deux de 3 × 2.</p><p><b>3)</b> 2 × (5 × 3) + 2 × (5 × 2) + 2 × (3 × 2) = 30 + 20 + 12 = 62 cm².</p>`},
+   <p><b>2)</b> 6 faces : deux de 5 × 3, deux de 5 × 2, deux de 3 × 2.</p><p><b>3)</b> L'aire totale A :</p>${KC("A",["2 × (5 × 3) + 2 × (5 × 2) + 2 × (3 × 2)","30 + 20 + 12","62 cm²"])}`},
   {n:"Exercice 4", t:"Relier un prisme et son patron", w:"Sur ta feuille", h:`<p>Voici un prisme droit dont la base est un triangle rectangle, et un patron de ce prisme. Complète directement sur la fiche.</p>
    <div class="figs">${ex("e4a","Prisme droit : triangle de côtés 3 cm, 4 cm et 5 cm, longueur 6 cm",300)}${ex("e4b","Patron du prisme avec les longueurs a, b, c et d",320)}</div>
    <p><i>a</i> = ……… cm ; <i>b</i> = ……… cm ; <i>c</i> = ……… cm ; <i>d</i> = ……… cm.</p><p>Combien le patron comporte-t-il de faces ? ………</p><p>Quelle est la nature des faces latérales ? ………</p>`,
@@ -208,19 +212,19 @@ exos:[
 {t:"Aire du disque et volumes", e:[
   {n:"Exercice 6", t:"Aire d'un disque", w:"Sur ton cahier", h:`<p>Calcule l'aire de chaque disque.</p><p>Donne la valeur exacte (avec ${PI}), puis une valeur approchée au dixième.</p>
    <div class="scroll"><table class="std"><tbody><tr><td><b>a)</b> rayon 3 cm</td><td><b>b)</b> rayon 5 cm</td><td><b>c)</b> rayon 10 cm</td></tr><tr><td><b>d)</b> diamètre 8 cm</td><td><b>e)</b> rayon 1,5 cm</td><td><b>f)</b> diamètre 14 cm</td></tr></tbody></table></div>`,
-   c:`<p><b>a)</b> ${PI} × 3² = 9${PI} ≈ 28,3 cm² · <b>b)</b> ${PI} × 5² = 25${PI} ≈ 78,5 cm² · <b>c)</b> ${PI} × 10² = 100${PI} ≈ 314,2 cm² · <b>d)</b> ${PI} × 4² = 16${PI} ≈ 50,3 cm² · <b>e)</b> ${PI} × 1,5² = 2,25${PI} ≈ 7,1 cm² · <b>f)</b> ${PI} × 7² = 49${PI} ≈ 153,9 cm²</p>
+   c:`<p>L'aire A de chaque disque :</p><div class="calcs">${[["3","9","28,3"],["5","25","78,5"],["10","100","314,2"],["4","16","50,3"],["1,5","2,25","7,1"],["7","49","153,9"]].map(([r,e,a],i)=>`<div><p><b>${"abcdef"[i]})</b></p>${KC("A",[`${PI} × ${r}²`,`${e}${PI}`,`≈ ${a} cm²`])}</div>`).join("")}</div>
    <p>Pour d) et f), le rayon est la moitié du diamètre : 4 cm et 7 cm.</p>`},
   {n:"Exercice 7", t:"Volume d'un cube et d'un pavé", w:"Sur ton cahier", h:`<p>Calcule le volume de chaque solide.</p><p><b>a)</b> un cube d'arête 6 cm ;</p><p><b>b)</b> un pavé droit de 8 cm de longueur, 5 cm de largeur et 3 cm de hauteur ;</p><p><b>c)</b> un aquarium (pavé droit) de 60 cm de longueur, 30 cm de largeur et 40 cm de hauteur : donne son volume en cm³, puis sa capacité en litres.</p>`,
-   c:`<p><b>a)</b> 6³ = 6 × 6 × 6 = 216 cm³.</p><p><b>b)</b> 8 × 5 × 3 = 120 cm³.</p><p><b>c)</b> 60 × 30 × 40 = 72 000 cm³ = 72 dm³, soit une capacité de 72 L.</p>`},
+   c:`<p><b>a)</b></p>${KC("V",["6³","6 × 6 × 6","216 cm³"])}<p><b>b)</b> 8 × 5 × 3 = 120 cm³.</p><p><b>c)</b></p>${KC("V",["60 × 30 × 40","72 000 cm³","72 dm³"])}<p>Soit une capacité de 72 L.</p>`},
   {n:"Exercice 8", t:"Convertir des unités", w:"Sur ta feuille", h:`<p>Convertis directement sur la fiche.</p>
    <div class="scroll"><table class="std"><tbody><tr><td><b>a)</b> 3 dm³ = ……… cm³</td><td><b>b)</b> 2 L = ……… cm³</td><td><b>c)</b> 5 000 cm³ = ……… L</td></tr><tr><td><b>d)</b> 0,4 m³ = ……… L</td><td><b>e)</b> 75 cL = ……… L</td><td><b>f)</b> 250 mL = ……… cm³</td></tr></tbody></table></div>`,
    c:`<p><b>a)</b> 1 dm³ = 1 000 cm³, donc 3 dm³ = 3 × 1 000 = 3 000 cm³.</p><p><b>b)</b> 1 L = 1 000 cm³, donc 2 L = 2 × 1 000 = 2 000 cm³.</p><p><b>c)</b> 1 000 cm³ = 1 L, donc 5 000 cm³ = 5 000 ÷ 1 000 = 5 L.</p><p><b>d)</b> 1 m³ = 1 000 L, donc 0,4 m³ = 0,4 × 1 000 = 400 L.</p><p><b>e)</b> 1 L = 100 cL, donc 75 cL = 75 ÷ 100 = 0,75 L.</p><p><b>f)</b> 1 mL = 1 cm³, donc 250 mL = 250 cm³.</p>`},
   {n:"Exercice 9", t:"Volume d'un prisme droit", w:"Sur ton cahier", h:`<p>La base d'un prisme droit est un triangle rectangle dont les côtés de l'angle droit mesurent 3 cm et 4 cm. Sa hauteur est de 8 cm.</p><p><b>a)</b> Calcule l'aire de la base.</p><p><b>b)</b> Calcule le volume du prisme.</p><p><b>c)</b> Quelle serait la hauteur d'un prisme de même base et de volume 30 cm³ ?</p>`,
    c:`<p><b>a)</b> ${F("3 × 4",2)} = 6 cm².</p><p><b>b)</b> 6 × 8 = 48 cm³.</p><p><b>c)</b> 30 ÷ 6 = 5 cm.</p>`},
   {n:"Exercice 10", t:"Volume d'un cylindre", w:"Sur ton cahier", h:`<p>Pour ${PI}, utilise la touche de ta calculatrice.</p><p><b>a)</b> Un cylindre a pour rayon 5 cm et pour hauteur 10 cm. Calcule son volume (valeur exacte puis arrondi à l'unité), puis sa capacité en litres (arrondie au centième).</p><p><b>b)</b> Une bouteille cylindrique a pour diamètre 6 cm et pour hauteur 20 cm. Peut-elle contenir 0,5 L d'eau ? Justifie.</p><p><b>c)</b> Une boîte de conserve a pour rayon 4 cm et pour hauteur 11 cm. Calcule sa contenance en mL (arrondie à l'unité).</p>`,
-   c:`<p><b>a)</b> <i>V</i> = ${PI} × 5² × 10 = 250${PI} ≈ 785 cm³. 785 cm³ = 0,785 dm³, soit environ 0,79 L.</p><p><b>b)</b> Rayon : 3 cm. <i>V</i> = ${PI} × 3² × 20 = 180${PI} ≈ 565 cm³ ≈ 0,57 L. Comme 0,57 &gt; 0,5 : oui, la bouteille peut contenir 0,5 L.</p><p><b>c)</b> <i>V</i> = ${PI} × 4² × 11 = 176${PI} ≈ 553 cm³, soit environ 553 mL.</p>`},
+   c:`<p><b>a)</b></p>${KC("<i>V</i>",[`${PI} × 5² × 10`,`250${PI}`,"≈ 785 cm³"])}<p>785 cm³ = 0,785 dm³, soit environ 0,79 L.</p><p><b>b)</b> Rayon : 3 cm.</p>${KC("<i>V</i>",[`${PI} × 3² × 20`,`180${PI}`,"≈ 565 cm³","≈ 0,57 L"])}<p>Comme 0,57 &gt; 0,5 : oui, la bouteille peut contenir 0,5 L.</p><p><b>c)</b></p>${KC("<i>V</i>",[`${PI} × 4² × 11`,`176${PI}`,"≈ 553 cm³"])}<p>Soit environ 553 mL.</p>`},
   {n:"Exercice 11", t:"La piscine", w:"Sur ton cahier", h:`<p>Une piscine a la forme d'un pavé droit de 10 m de longueur, 5 m de largeur et 1,5 m de profondeur.</p><p><b>a)</b> Calcule son volume en m³, puis sa contenance en litres.</p><p><b>b)</b> On la remplit avec un robinet dont le débit est de 1 500 L par heure. Combien d'heures faut-il pour la remplir complètement ?</p><p><b>c)</b> La piscine est remplie seulement aux deux tiers. Combien de litres d'eau contient-elle ?</p>`,
-   c:`<p><b>a)</b> 10 × 5 × 1,5 = 75 m³ = 75 000 L.</p><p><b>b)</b> 75 000 ÷ 1 500 = 50 : il faut 50 heures.</p><p><b>c)</b> ${F(2,3)} × 75 000 = 50 000 L.</p>`},
+   c:`<p><b>a)</b></p>${KC("V",["10 × 5 × 1,5","75 m³","75 000 L"])}<p><b>b)</b> 75 000 ÷ 1 500 = 50 : il faut 50 heures.</p><p><b>c)</b> ${F(2,3)} × 75 000 = 50 000 L.</p>`},
   {n:"Exercice 12", t:"Pour aller plus loin : le Flatiron", w:"Sur ton cahier", h:`<p>Le Flatiron Building, à New York, est un célèbre immeuble dont la forme rappelle un prisme droit à base triangulaire.</p><p>On en construit une maquette : la base est un triangle de base 6 cm et de hauteur 4 cm ; la hauteur de la maquette est 25 cm.</p><p><b>a)</b> Calcule l'aire de la base de la maquette.</p><p><b>b)</b> Calcule le volume de la maquette.</p><p><b>c)</b> Dessine la maquette en perspective cavalière (angle 45°, coefficient ${F(1,2)}).</p>`,
    c:`<p><b>a)</b> ${F("6 × 4",2)} = 12 cm².</p><p><b>b)</b> 12 × 25 = 300 cm³.</p><p><b>c)</b> On dessine le triangle de base 6 cm et de hauteur 4 cm en vraie grandeur. Puis on trace les arêtes fuyantes de 25 × ${F(1,2)} = 12,5 cm à 45°, et on met en pointillés les arêtes cachées.</p>${solid("prisme",{p:6,q:4,s:2,L:25,u:24,lab:{p:"6 cm",t:"4 cm",L:"12,5 cm"},maxw:520,alt:"Maquette en perspective cavalière : triangle de base 6 cm et de hauteur 4 cm, arêtes fuyantes de 12,5 cm"})}`}
  ]}
@@ -239,19 +243,19 @@ quiz:[
  1:[ {q:"Le patron d'un cylindre est formé…", c:["de deux disques et d'un rectangle","d'un disque et d'un rectangle","de deux disques et de deux rectangles"], rep:"de deux disques et d'un rectangle", sx:S_PAT},
      {g:()=>{ const [nm,n]=pick(POLY); return {q:`Le patron d'un prisme droit dont la base est un ${nm} comporte combien de rectangles (faces latérales) ?`, rep:String(n), ex:`Autant de rectangles que la base a de côtés : ${n}.`, sx:S_PAT}; }} ],
  2:[ {g:()=>{ const ok=Math.random()<0.5, c=turn(pick(ok?NETS_OK:NETS_KO)); return {q:"Cette figure est-elle un patron de cube ?", fig:nets([c]).replace(/<text[^>]*>1<\/text>/,""), c:["Oui","Non"], rep:ok?"Oui":"Non", ex:ok?"En la pliant, on obtient bien les 6 faces du cube.":"En la pliant, deux carrés se superposeraient et une face du cube resterait vide.", sx:S_PAT}; }} ],
- 3:[ {g:()=>{ const [L,l,h]=shuf([ri(2,9),ri(2,9),ri(2,9)]); const A=2*(L*l+L*h+l*h); return {q:`Un pavé droit mesure ${L} cm × ${l} cm × ${h} cm. Quelle est l'aire totale de son patron (en cm²) ?`, rep:[String(A), A+" cm²"], ex:`2 × (${L} × ${l}) + 2 × (${L} × ${h}) + 2 × (${l} × ${h}) = ${2*L*l} + ${2*L*h} + ${2*l*h} = ${A} cm².`, sx:S_PAT}; }},
+ 3:[ {g:()=>{ const [L,l,h]=shuf([ri(2,9),ri(2,9),ri(2,9)]); const A=2*(L*l+L*h+l*h); return {q:`Un pavé droit mesure ${L} cm × ${l} cm × ${h} cm. Quelle est l'aire totale de son patron (en cm²) ?`, rep:[String(A), A+" cm²"], ex:KCi("A",[`2 × (${L} × ${l}) + 2 × (${L} × ${h}) + 2 × (${l} × ${h})`,`${2*L*l} + ${2*L*h} + ${2*l*h}`,`${A} cm²`]), sx:S_PAT}; }},
      {q:"Dans le patron d'un cylindre, une dimension du rectangle est la hauteur du cylindre. L'autre est…", c:["le périmètre du disque de base","le rayon du disque de base","l'aire du disque de base"], rep:"le périmètre du disque de base", sx:S_PAT} ]
 }},
 {nom:"Aire d'un disque", schema:S_DISQ, q:{
  1:[ {g:()=>{ const r=ri(3,12); return {q:`Quelle est l'aire exacte d'un disque de rayon ${r} cm ?`, c:shuf(uniq(`${r*r}${PI} cm²`,[`${2*r}${PI} cm²`,`${r}${PI} cm²`,`${r*r} cm²`])), rep:`${r*r}${PI} cm²`, ex:`${PI} × ${r} × ${r} = ${r*r}${PI} cm².`, sx:S_DISQ}; }} ],
  2:[ {g:()=>{ const d=2*ri(2,10), r=d/2; return {q:`Quelle est l'aire exacte d'un disque de diamètre ${d} cm ?`, c:shuf(uniq(`${r*r}${PI} cm²`,[`${d*d}${PI} cm²`,`${d}${PI} cm²`,`${r}${PI} cm²`])), rep:`${r*r}${PI} cm²`, ex:`Le rayon vaut ${d} ÷ 2 = ${r} cm. ${PI} × ${r}² = ${r*r}${PI} cm².`, sx:S_DISQ}; }} ],
- 3:[ {g:()=>{ const r=ri(3,25)/2, A=Math.PI*r*r; return {q:`Aire d'un disque de rayon ${N(r)} cm, arrondie au dixième (en cm²) ?`, rep:[N(A,1), N(A,1)+" cm²"], ex:`${PI} × ${N(r)}² = ${N(r*r)}${PI} ≈ ${N(A,1)} cm².`, sx:S_DISQ}; }} ]
+ 3:[ {g:()=>{ const r=ri(3,25)/2, A=Math.PI*r*r; return {q:`Aire d'un disque de rayon ${N(r)} cm, arrondie au dixième (en cm²) ?`, rep:[N(A,1), N(A,1)+" cm²"], ex:KCi("A",[`${PI} × ${N(r)}²`,`${N(r*r)}${PI}`,`≈ ${N(A,1)} cm²`]), sx:S_DISQ}; }} ]
 }},
 {nom:"Volumes", schema:S_VOL, q:{
  1:[ {g:()=>{ const c=ri(2,10); return {q:`Quel est le volume d'un cube d'arête ${c} cm (en cm³) ?`, rep:[String(c**3), c**3+" cm³"], ex:`${c} × ${c} × ${c} = ${c**3} cm³.`, sx:S_VOL}; }},
      {g:()=>{ const L=ri(3,12), l=ri(2,9), h=ri(2,9); return {q:`Quel est le volume d'un pavé droit de ${L} cm × ${l} cm × ${h} cm (en cm³) ?`, rep:[String(L*l*h), L*l*h+" cm³"], ex:`${L} × ${l} × ${h} = ${L*l*h} cm³.`, sx:S_VOL}; }} ],
  2:[ {g:()=>{ let a,b; do{ a=ri(2,10); b=ri(2,10); }while(a*b%2); const h=ri(3,15), B=a*b/2; return {q:`La base d'un prisme droit est un triangle rectangle de côtés de l'angle droit ${a} cm et ${b} cm. Sa hauteur est ${h} cm. Volume (en cm³) ?`, rep:[String(B*h), B*h+" cm³"], ex:`Aire de la base : ${F(`${a} × ${b}`,2)} = ${B} cm². Volume : ${B} × ${h} = ${B*h} cm³.`, sx:S_VOL}; }} ],
- 3:[ {g:()=>{ const r=ri(2,8), h=ri(3,15), V=Math.PI*r*r*h; return {q:`Volume d'un cylindre de rayon ${r} cm et de hauteur ${h} cm, arrondi à l'unité (en cm³) ?`, rep:[String(Math.round(V)), Math.round(V)+" cm³"], ex:`${PI} × ${r}² × ${h} = ${r*r*h}${PI} ≈ ${Math.round(V)} cm³.`, sx:S_VOL}; }},
+ 3:[ {g:()=>{ const r=ri(2,8), h=ri(3,15), V=Math.PI*r*r*h; return {q:`Volume d'un cylindre de rayon ${r} cm et de hauteur ${h} cm, arrondi à l'unité (en cm³) ?`, rep:[String(Math.round(V)), Math.round(V)+" cm³"], ex:KCi("V",[`${PI} × ${r}² × ${h}`,`${r*r*h}${PI}`,`≈ ${Math.round(V)} cm³`]), sx:S_VOL}; }},
      {g:()=>{ let a,b; do{ a=ri(2,10); b=ri(2,10); }while(a*b%2); const B=a*b/2, k=ri(2,12); return {q:`Un prisme droit a pour base un triangle rectangle de côtés de l'angle droit ${a} cm et ${b} cm. Son volume est ${B*k} cm³. Quelle est sa hauteur (en cm) ?`, rep:[String(k), k+" cm"], ex:`Aire de la base : ${B} cm². ${B*k} ÷ ${B} = ${k} cm.`, sx:S_VOL}; }} ]
 }},
 {nom:"Unités de volume et de capacité", schema:S_UNIT, q:{
@@ -259,8 +263,8 @@ quiz:[
      {g:()=>{ const n=ri(5,999); return {q:`${n} mL = … cm³`, rep:String(n), ex:"1 mL = 1 cm³.", sx:S_UNIT}; }} ],
  2:[ {g:()=>{ const n=ri(1,29)/10; return {q:`${N(n)} m³ = … L`, rep:N(n*1000), ex:`1 m³ = 1 000 L, donc ${N(n)} × 1 000 = ${N(n*1000)} L.`, sx:S_UNIT}; }},
      {g:()=>{ const n=ri(5,99); return {q:`${n} cL = … L`, rep:N(n/100), ex:`1 L = 100 cL, donc ${n} ÷ 100 = ${N(n/100)} L.`, sx:S_UNIT}; }} ],
- 3:[ {g:()=>{ const L=10*ri(3,10), l=10*ri(2,5), h=10*ri(2,5), V=L*l*h; return {q:`Un aquarium (pavé droit) mesure ${L} cm × ${l} cm × ${h} cm. Quelle est sa capacité en litres ?`, rep:[N(V/1000), N(V/1000)+" L"], ex:`${L} × ${l} × ${h} = ${N(V)} cm³ = ${N(V/1000)} dm³ = ${N(V/1000)} L.`, sx:S_UNIT}; }},
-     {g:()=>{ const L=ri(6,15), l=ri(3,8), p=ri(10,20)/10, V=rd(L*l*p,3); return {q:`Une piscine (pavé droit) mesure ${L} m × ${l} m × ${N(p)} m. Quelle est sa contenance en litres ?`, rep:[N(V*1000), N(V*1000)+" L"], ex:`${L} × ${l} × ${N(p)} = ${N(V)} m³ = ${N(V*1000)} L.`, sx:S_UNIT}; }} ]
+ 3:[ {g:()=>{ const L=10*ri(3,10), l=10*ri(2,5), h=10*ri(2,5), V=L*l*h; return {q:`Un aquarium (pavé droit) mesure ${L} cm × ${l} cm × ${h} cm. Quelle est sa capacité en litres ?`, rep:[N(V/1000), N(V/1000)+" L"], ex:KCi("V",[`${L} × ${l} × ${h}`,`${N(V)} cm³`,`${N(V/1000)} dm³`,`${N(V/1000)} L`]), sx:S_UNIT}; }},
+     {g:()=>{ const L=ri(6,15), l=ri(3,8), p=ri(10,20)/10, V=rd(L*l*p,3); return {q:`Une piscine (pavé droit) mesure ${L} m × ${l} m × ${N(p)} m. Quelle est sa contenance en litres ?`, rep:[N(V*1000), N(V*1000)+" L"], ex:KCi("V",[`${L} × ${l} × ${N(p)}`,`${N(V)} m³`,`${N(V*1000)} L`]), sx:S_UNIT}; }} ]
 }}
 ],
 

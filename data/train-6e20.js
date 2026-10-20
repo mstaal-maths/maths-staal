@@ -53,7 +53,7 @@ const secC = {t:"Appliquer un pourcentage", e:[
   {n:"Exercice 9", t:"Ordre de grandeur", w:"Sur ton cahier", h:`<p>Donne un ordre de grandeur : ${items(og.map(([p],i)=>`${p} % de ${sp(ogN[i]+ri(-3,3))}`),"  ·  ",true)}</p>`,
    c:items(og.map(([p,mot,d],i)=>`≈ ${mot} de ${sp(ogN[i])} : <b>environ ${sp(d===4/3? ogN[i]*3/4 : ogN[i]/d)}</b>`),"  ·  ",true)},
   {n:"Exercice 10", t:"Des problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un pull coûte ${pull} €, avec une remise de ${rem} %. Montant de la remise ? Nouveau prix ?</p><p><b>Problème 2 :</b> une tablette de ${ch} g contient ${cac} % de cacao. Quelle masse de cacao ?</p><p><b>Problème 3 :</b> un village de ${sp(vil)} habitants compte ${jeu} % d'enfants de moins de 10 ans. Combien d'enfants ?</p>`,
-   c:`<p><b>Problème 1 :</b> remise : ${pull} × ${rem} ÷ 100 = <b>${D(pull*rem,2)} €</b> ; nouveau prix : ${pull} − ${D(pull*rem,2)} = <b>${D(pull*100-pull*rem,2)} €</b>.</p><p><b>Problème 2 :</b> ${ch} × ${cac} ÷ 100 = <b>${D(ch*cac,2)} g</b>.</p><p><b>Problème 3 :</b> ${sp(vil)} × ${jeu} ÷ 100 = <b>${sp(vil*jeu/100)} enfants</b>.</p>`}
+   c:`<p><b>Problème 1 :</b> la remise R :</p>${KC("R",[`${rem} % de ${pull} €`,`${pull} × ${rem} ÷ 100`,`<b>${D(pull*rem,2)} €</b>`])}<p>Nouveau prix : ${pull} − ${D(pull*rem,2)} = <b>${D(pull*100-pull*rem,2)} €</b>.</p><p><b>Problème 2 :</b> la masse M de cacao :</p>${KC("M",[`${cac} % de ${ch} g`,`${ch} × ${cac} ÷ 100`,`<b>${D(ch*cac,2)} g</b>`])}<p><b>Problème 3 :</b> le nombre N d'enfants :</p>${KC("N",[`${jeu} % de ${sp(vil)}`,`${sp(vil)} × ${jeu} ÷ 100`,`<b>${sp(vil*jeu/100)} enfants</b>`])}`}
  ]};
 
 return [secA, secB, secC];

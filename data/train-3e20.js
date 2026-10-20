@@ -37,16 +37,16 @@ return [
    c:`<div class="figs">${H3.map((H,i)=>fig("Cas "+(i+1),randFig(H,true,300))).join("")}</div>${H3.map((H,i)=>`<p><b>Cas ${i+1} :</b> les droites (AA'), (BB') et (CC') se coupent en <b>O</b>. OA' = ${az(H.k)} × OA (on compte les carreaux) et les triangles sont ${side(H.k)} de O : rapport <b>${F(H.k)}</b>.</p>`).join("")}`},
   {n:"Exercice 2", t:"Avec des longueurs", w:"Sur ton cahier", h:`<p><b>a)</b> On passe du triangle OBE au triangle ABC par une homothétie de centre B. Les points B, O, C sont alignés dans cet ordre et B, E, A aussi. BO = ${F(E1.bo)} cm, BC = ${F(E1.bc)} cm et OE = ${F(E1.oe)} cm.</p><p>Donne le rapport de l'homothétie, puis calcule AC.</p>
    <p><b>b)</b> On passe du triangle ABC au triangle EBO par une homothétie de centre B. C a pour image O, et B est entre C et O. BC = ${F(E2.bc)} cm et BO = ${F(E2.bo)} cm.</p><p>Quel est le rapport de l'homothétie ?</p>`,
-   c:`<p><b>a)</b> O a pour image C, du même côté de B : rapport = ${"{BC/BO}"} = ${F(E1.bc)} ÷ ${F(E1.bo)} = <b>${F(E1.k)}</b>. E a pour image A, donc AC = ${F(E1.k)} × OE = ${F(E1.k)} × ${F(E1.oe)} = <b>${F(E1.ac)} cm</b>.</p>
+   c:`<p><b>a)</b> O a pour image C, du même côté de B :</p><p class="calc">k = ${"{BC/BO}"}<br>k = ${F(E1.bc)} ÷ ${F(E1.bo)}<br>k = <b>${F(E1.k)}</b></p><p>E a pour image A, donc :</p><p class="calc">AC = ${F(E1.k)} × OE<br>AC = ${F(E1.k)} × ${F(E1.oe)}<br>AC = <b>${F(E1.ac)} cm</b></p>
    <p><b>b)</b> ${"{BO/BC}"} = ${F(E2.bo)} ÷ ${F(E2.bc)} = ${az(E2.k)} ; C et O sont de part et d'autre de B : rapport <b>${F(E2.k)}</b>.</p>`}
  ]},
  {t:"Calculer avec le rapport d'homothétie", e:[
   {n:"Exercice 3", t:"Calculer une longueur", w:"Sur ton cahier", h:`${L4.map((x,i)=>`<p><b>${i+1})</b> Le triangle A'B'C' est l'image du triangle ABC par l'homothétie de centre O et de rapport ${F(x.k)}. AB = ${F(x.a)} cm. Calcule A'B'.</p>`).join("")}`,
-   c:L4.map((x,i)=>`<p><b>${i+1})</b> A'B' = ${az(x.k)} × ${F(x.a)} = <b>${F(r3(Math.abs(x.k)*x.a))} cm</b>.</p>`).join("")},
+   c:`<div class="calcs">${L4.map((x,i)=>`<p class="calc"><b>${i+1})</b><br>A'B' = ${az(x.k)} × ${F(x.a)}<br>A'B' = <b>${F(r3(Math.abs(x.k)*x.a))} cm</b></p>`).join("")}</div>`},
   {n:"Exercice 4", t:"Trouver le rapport d'homothétie", w:"Sur ton cahier", h:`<p>Dans chaque cas, le triangle A'B'C' est l'image du triangle ABC par une homothétie de centre O. Calcule le rapport k.</p>${R5.map((x,i)=>`<p><b>${i+1})</b> AB = ${F(x.a)} cm, A'B' = ${F(x.b)} cm et les deux triangles sont ${side(x.k)} de O.</p>`).join("")}`,
    c:R5.map((x,i)=>`<p><b>${i+1})</b> ${"{A'B'/AB}"} = ${F(x.b)} ÷ ${F(x.a)} = ${az(x.k)} ; triangles ${side(x.k)} de O : <b>k = ${F(x.k)}</b>.</p>`).join("")},
   {n:"Exercice 5", t:"Calculer une aire", w:"Sur ton cahier", h:`<p>Le triangle A'B'C' est l'image du triangle ABC par l'homothétie de centre O de rapport ${F(A6.k)}.</p><p>L'aire du triangle ABC est égale à ${A6.A} cm².</p><p>Calcule l'aire du triangle A'B'C'.</p>`,
-   c:`<p>Les aires sont multipliées par k² = (${F(A6.k)})² = ${F(r3(A6.k*A6.k))}.</p><p class="calc">Aire(A'B'C') = ${F(r3(A6.k*A6.k))} × ${A6.A} = ${F(A6.R)} cm²</p>`}
+   c:`<p>Les aires sont multipliées par k² = (${F(A6.k)})² = ${F(r3(A6.k*A6.k))}.</p><p class="calc">Aire(A'B'C') = ${F(r3(A6.k*A6.k))} × ${A6.A}<br>Aire(A'B'C') = ${F(A6.R)} cm²</p>`}
  ]},
  {t:"Construire l'image d'une figure", e:[
   {n:"Exercice 6", t:"Construction (centre A)", w:"Sur ton cahier", h:`<p>Recopie la figure en respectant les carreaux.</p><p><b>a)</b> Trace le triangle ${sub("A",1)}${sub("B",1)}${sub("C",1)}, image du triangle ABC par l'homothétie de centre A et de rapport ${F(C7.k1)}.</p><p><b>b)</b> Trace le triangle ${sub("A",2)}${sub("B",2)}${sub("C",2)}, image du triangle ABC par l'homothétie de centre A et de rapport ${F(C7.k2)}.</p>${homFig(C7.o)}`,

@@ -24,8 +24,8 @@ window.FIG7 = {tl, H, DU, p2};
 const S_REL = sch("Les relations à connaître", `<div class="scroll"><table class="std"><tbody><tr><td>1 min = 60 s</td><td>1 h = 60 min</td><td>1 jour = 24 h</td><td>1 semaine = 7 jours</td></tr><tr><td>1 an = 12 mois</td><td>1 décennie = 10 ans</td><td>1 siècle = 100 ans</td><td>1 millénaire = 1 000 ans</td></tr></tbody></table></div>`);
 const S_CONV = sch("Convertir", co("conv","heures → minutes → secondes : × 60 ; dans l'autre sens : ÷ 60",360)+`<p class="schN">Vers une unité plus petite, je multiplie par 60. Vers une unité plus grande, je divise par 60 : le quotient donne les unités plus grandes, le reste ce qui ne fait pas une unité complète.</p>`);
 const S_DEC = sch("Une heure = 60 minutes, pas 100", `<p class="calc">0,5 h = 30 min &nbsp; 0,25 h = 15 min &nbsp; 1,5 h = 1 h 30 min (et non 1 h 50 min)</p><p class="schN">Les durées ne se comptent pas par dizaines. Une durée est bien écrite quand il y a moins de 60 minutes : 2 h 73 min = 3 h 13 min.</p>`);
-const S_ARR = sch("Je cherche l'horaire d'arrivée", tl(20*60+50, 22*60+42, "b")+`<p class="schN">J'ajoute la durée : 20 h 50 min + 1 h 52 min = 21 h 102 min = 22 h 42 min.</p>`);
-const S_DEP = sch("Je cherche l'horaire de départ", tl(13*60+53, 15*60+8, "a")+`<p class="schN">Je retire la durée : 15 h 08 min = 14 h 68 min, puis 14 h 68 min − 1 h 15 min = 13 h 53 min.</p>`);
+const S_ARR = sch("Je cherche l'horaire d'arrivée", tl(20*60+50, 22*60+42, "b")+`<p class="schN">J'ajoute la durée. L'horaire d'arrivée H :</p><p class="calc">H = 20 h 50 min + 1 h 52 min<br>H = 21 h 102 min<br>H = 22 h 42 min</p>`);
+const S_DEP = sch("Je cherche l'horaire de départ", tl(13*60+53, 15*60+8, "a")+`<p class="schN">Je retire la durée. L'horaire de départ H :</p><p class="calc">H = 15 h 08 min − 1 h 15 min<br>H = 14 h 68 min − 1 h 15 min<br>H = 13 h 53 min</p>`);
 const S_DUR = sch("Je cherche la durée", tl(14*60+29, 15*60+41, "d")+`<p class="schN">Je retire l'horaire de départ à l'horaire d'arrivée : 15 h 41 min − 14 h 29 min = 1 h 12 min.</p>`);
 
 CH["6e-7"] = {
@@ -51,7 +51,7 @@ cours:[
   <p><b>Remarque :</b> une durée est bien écrite lorsque le nombre de minutes est inférieur à 60 : on n'écrit pas 2 h 73 min, mais 3 h 13 min, car 73 min = 60 min + 13 min.</p>`},
 {k:"II", t:"Convertir une durée", h:`
   <h4>1. Vers une unité plus petite : je multiplie</h4>
-  <p class="calc">2 h 23 min = 2 × 60 + 23 = 120 + 23 = 143 min<br>4 min 17 s = 4 × 60 + 17 = 240 + 17 = 257 s</p>
+  <p>2 h 23 min en minutes :</p><p class="calc">t = 2 × 60 + 23<br>t = 120 + 23<br>t = 143 min</p><p>4 min 17 s en secondes :</p><p class="calc">t = 4 × 60 + 17<br>t = 240 + 17<br>t = 257 s</p>
   <h4>2. Vers une unité plus grande : je divise</h4>
   <div class="retenir" data-l="Méthode"><ol><li>Je divise par 60.</li><li>Le quotient donne le nombre d'unités plus grandes.</li><li>Le reste donne ce qui ne fait pas une unité complète.</li></ol></div>
   <p><b>Exemple :</b> convertir 200 s en minutes et secondes.</p><p class="calc">200 = 3 × 60 + 20, donc 200 s = 3 min 20 s.</p>
@@ -64,14 +64,14 @@ cours:[
   <p><b>Problème :</b> le film commence à 20 h 50 et dure 1 h 52 min. À quelle heure se termine-t-il ?</p>
   ${co("arr","Frise : départ 20 h 50, + 1 h 52 min, arrivée ?",400)}
   <div class="retenir" data-l="Méthode"><p>On <b>ajoute</b> la durée à l'horaire de départ.</p></div>
-  <p class="calc">20 h 50 min + 1 h 52 min = 21 h 102 min<br>102 min = 60 min + 42 min = 1 h 42 min, donc 21 h 102 min = 22 h 42 min.</p>
+  <p>L'horaire d'arrivée H :</p><p class="calc">H = 20 h 50 min + 1 h 52 min<br>H = 21 h 102 min<br>H = 22 h 42 min</p><p>car 102 min = 60 min + 42 min = 1 h 42 min.</p>
   <p>Le film se termine à <b>22 h 42</b>.</p>
   <h4>2. Je cherche l'horaire de départ</h4>
   <p><b>Problème :</b> après 1 h 15 min de trajet, Nathan arrive à 15 h 08. À quelle heure est-il parti ?</p>
   ${co("dep","Frise : départ ?, + 1 h 15 min, arrivée 15 h 08",400)}
   <div class="retenir" data-l="Méthode"><p>On <b>retire</b> la durée à l'horaire d'arrivée.</p></div>
   <p>On ne peut pas enlever 15 min à 08 min : on transforme une heure en 60 minutes.</p>
-  <p class="calc">15 h 08 min = 14 h + 60 min + 8 min = 14 h 68 min<br>14 h 68 min − 1 h 15 min = 13 h 53 min.</p>
+  <p class="calc">15 h 08 min = 14 h + 60 min + 8 min = 14 h 68 min</p><p>L'horaire de départ H :</p><p class="calc">H = 15 h 08 min − 1 h 15 min<br>H = 14 h 68 min − 1 h 15 min<br>H = 13 h 53 min</p>
   <p>Nathan est parti à <b>13 h 53</b>.</p>
   <h4>3. Je cherche la durée écoulée</h4>
   <p><b>Problème :</b> le match commence à 14 h 29 et se termine à 15 h 41. Combien de temps a-t-il duré ?</p>
@@ -91,11 +91,11 @@ exos:[
 {t:"Convertir des durées", e:[
   {n:"Activité 1", t:"Les relations à connaître", w:"Sur ta feuille", h:`<p>1) Complète le tableau des égalités à connaître par cœur.</p><div class="scroll"><table class="std"><thead><tr><th>Les petites durées</th><th>Les grandes durées</th></tr></thead><tbody><tr><td>1 minute (min) = …… secondes (s)</td><td>1 an = …… mois</td></tr><tr><td>1 heure (h) = …… min</td><td>1 décennie = …… ans</td></tr><tr><td>1 jour = …… h</td><td>1 siècle = …… ans</td></tr><tr><td>1 semaine = …… jours</td><td>1 millénaire = …… ans</td></tr><tr><td>1 mois = ……, ……, …… ou …… jours</td><td></td></tr></tbody></table></div><p>2) Convertis en expliquant ta démarche à chaque fois : a) 5 h en minutes · b) 2 h 42 min en minutes · c) 240 s en minutes · d) 368 s en min et s</p>`,
    c:`<p>1)</p><div class="scroll"><table class="std"><thead><tr><th>Les petites durées</th><th>Les grandes durées</th></tr></thead><tbody><tr><td>1 minute (min) = <b>60</b> secondes (s)</td><td>1 an = <b>12</b> mois</td></tr><tr><td>1 heure (h) = <b>60</b> min</td><td>1 décennie = <b>10</b> ans</td></tr><tr><td>1 jour = <b>24</b> h</td><td>1 siècle = <b>100</b> ans</td></tr><tr><td>1 semaine = <b>7</b> jours</td><td>1 millénaire = <b>1 000</b> ans</td></tr><tr><td>1 mois = <b>28</b>, <b>29</b>, <b>30</b> ou <b>31</b> jours</td><td></td></tr></tbody></table></div>
-   <p>2) a) 1 h = 60 min, donc 5 h = 5 × 60 = <b>300 min</b>.</p><p>b) 2 h 42 min = 2 × 60 + 42 = 120 + 42 = <b>162 min</b>.</p><p>c) 240 s = 240 ÷ 60 = <b>4 min</b>.</p><p>d) 368 = 6 × 60 + 8, donc 368 s = <b>6 min 8 s</b>.</p>`},
+   <p>2) a) 1 h = 60 min, donc 5 h = 5 × 60 = <b>300 min</b>.</p><p>b) 2 h 42 min en minutes :</p><p class="calc">t = 2 × 60 + 42<br>t = 120 + 42<br>t = <b>162 min</b></p><p>c) 240 s = 240 ÷ 60 = <b>4 min</b>.</p><p>d) 368 = 6 × 60 + 8, donc 368 s = <b>6 min 8 s</b>.</p>`},
   {n:"Exercice 1", t:"Convertir en minutes", w:"Sur ta feuille", h:`<p>a) 3 h · b) 1 h 48 min · c) 7 h 12 min · d) 180 s · e) 4 h 05 min · f) 600 s</p>`,
-   c:`a) 3 × 60 = 180 min · b) 60 + 48 = 108 min · c) 7 × 60 + 12 = 420 + 12 = 432 min · d) 180 ÷ 60 = 3 min · e) 4 × 60 + 5 = 245 min · f) 600 ÷ 60 = 10 min`},
+   c:`<p>a) 3 × 60 = 180 min · b) 60 + 48 = 108 min</p><p>c) 7 h 12 min en minutes :</p><p class="calc">t = 7 × 60 + 12<br>t = 420 + 12<br>t = 432 min</p><p>d) 180 ÷ 60 = 3 min · e) 4 × 60 + 5 = 245 min · f) 600 ÷ 60 = 10 min</p>`},
   {n:"Exercice 2", t:"Convertir en secondes", w:"Sur ta feuille", h:`<p>a) 4 min · b) 6 min 37 s · c) 20 min · d) 1 h · e) 2 min 09 s · f) 1 h 10 min</p>`,
-   c:`a) 4 × 60 = 240 s · b) 6 × 60 + 37 = 360 + 37 = 397 s · c) 20 × 60 = 1 200 s · d) 1 h = 60 min = 60 × 60 = 3 600 s · e) 2 × 60 + 9 = 129 s · f) 1 h 10 min = 70 min = 70 × 60 = 4 200 s`},
+   c:`<p>a) 4 × 60 = 240 s</p><p>b) 6 min 37 s en secondes :</p><p class="calc">t = 6 × 60 + 37<br>t = 360 + 37<br>t = 397 s</p><p>c) 20 × 60 = 1 200 s · d) 1 h = 60 min = 60 × 60 = 3 600 s · e) 2 × 60 + 9 = 129 s · f) 1 h 10 min = 70 min = 70 × 60 = 4 200 s</p>`},
   {n:"Exercice 3", t:"Convertir en minutes et secondes", w:"Sur ta feuille", h:`<p>a) 138 s · b) 550 s · c) 245 s · d) 1 000 s</p>`,
    c:`a) 138 = 2 × 60 + 18 : 2 min 18 s · b) 550 = 9 × 60 + 10 : 9 min 10 s · c) 245 = 4 × 60 + 5 : 4 min 5 s · d) 1 000 = 16 × 60 + 40 : 16 min 40 s`},
   {n:"Exercice 4", t:"Convertir en heures, minutes et secondes", w:"Sur ta feuille", h:`<p>1) a) Convertis 8 853 s en minutes et secondes. b) Convertis le nombre de minutes trouvé en heures et minutes. c) Déduis-en la conversion de 8 853 s en heures, minutes et secondes.</p><p>2) De la même façon, convertis 32 790 s en heures, minutes et secondes.</p>`,
@@ -109,35 +109,35 @@ exos:[
 {t:"Calculer un horaire ou une durée", note:"<b>Rappel :</b> fais d'abord un schéma (une frise) pour voir ce que tu cherches.", e:[
   {n:"Activité 2", t:"Trouver l'horaire d'arrivée", w:"Sur ta feuille", h:`<p><b>Problème 1 :</b> Timéo prend l'avion à Paris à 14 h 48 pour se rendre à Berlin. Le trajet dure 2 h 07 min. À quelle heure arrive-t-il ?</p><p><b>Problème 2 :</b> Clotilde s'est connectée à internet à 12 h 38 et y est restée 1 h 43 min. À quelle heure s'est-elle déconnectée ?</p>`,
    c:`<p><b>Problème 1 :</b> on cherche l'horaire d'arrivée : on ajoute la durée.</p>${tl(14*60+48,16*60+55,"b")}<p class="calc">14 h 48 min + 2 h 07 min = 16 h 55 min</p><p>Timéo arrive à <b>16 h 55</b>.</p>
-   <p><b>Problème 2 :</b></p>${tl(12*60+38,14*60+21,"b")}<p class="calc">12 h 38 min + 1 h 43 min = 13 h 81 min<br>81 min = 60 min + 21 min, donc 13 h 81 min = 14 h 21 min</p><p>Clotilde s'est déconnectée à <b>14 h 21</b>.</p>`},
+   <p><b>Problème 2 :</b></p>${tl(12*60+38,14*60+21,"b")}<p class="calc">H = 12 h 38 min + 1 h 43 min<br>H = 13 h 81 min<br>H = 14 h 21 min</p><p>car 81 min = 60 min + 21 min = 1 h 21 min.</p><p>Clotilde s'est déconnectée à <b>14 h 21</b>.</p>`},
   {n:"Activité 3", t:"Trouver l'horaire de départ ou la durée", w:"Sur ta feuille", h:`<p><b>Problème 1 :</b> Alexis a sorti son gâteau du four à 9 h 52, après une cuisson de 35 min. À quelle heure l'a-t-il mis au four ?</p><p><b>Problème 2 :</b> Léo et sa famille sont partis de chez eux à 8 h 46 et sont arrivés au camping à 12 h 17. Combien de temps a duré leur trajet ?</p>`,
    c:`<p><b>Problème 1 :</b> on cherche l'horaire de départ : on retire la durée.</p>${tl(9*60+17,9*60+52,"a")}<p class="calc">9 h 52 min − 35 min = 9 h 17 min</p><p>Alexis a mis le gâteau au four à <b>9 h 17</b>.</p>
-   <p><b>Problème 2 :</b> on cherche une durée : on retire l'horaire de départ à l'horaire d'arrivée.</p>${tl(8*60+46,12*60+17,"d")}<p class="calc">12 h 17 min = 11 h 77 min<br>11 h 77 min − 8 h 46 min = 3 h 31 min</p><p>Le trajet a duré <b>3 h 31 min</b>.</p>`},
+   <p><b>Problème 2 :</b> on cherche une durée : on retire l'horaire de départ à l'horaire d'arrivée.</p>${tl(8*60+46,12*60+17,"d")}<p class="calc">t = 12 h 17 min − 8 h 46 min<br>t = 11 h 77 min − 8 h 46 min<br>t = 3 h 31 min</p><p>Le trajet a duré <b>3 h 31 min</b>.</p>`},
   {n:"Exercice 7", t:"Compléter un tableau", w:"Sur ta feuille", h:`<p>Dans chaque ligne, il manque une information. Complète le tableau.</p><div class="scroll"><table class="std"><thead><tr><th>Horaire de départ</th><th>Durée</th><th>Horaire d'arrivée</th></tr></thead><tbody>
     <tr><td>8 h 15</td><td>2 h 30 min</td><td>……</td></tr><tr><td>14 h 35</td><td>2 h 50 min</td><td>……</td></tr><tr><td>9 h 20</td><td>3 h 55 min</td><td>……</td></tr><tr><td>……</td><td>1 h 25 min</td><td>11 h 10</td></tr><tr><td>……</td><td>2 h 40 min</td><td>16 h 05</td></tr><tr><td>7 h 35</td><td>……</td><td>9 h 50</td></tr><tr><td>13 h 42</td><td>……</td><td>15 h 18</td></tr><tr><td>10 h 05</td><td>50 min</td><td>……</td></tr></tbody></table></div>`,
    c:`<div class="scroll"><table class="std"><thead><tr><th>Départ</th><th>Durée</th><th>Arrivée</th><th>Calcul</th></tr></thead><tbody>
     <tr><td>8 h 15</td><td>2 h 30 min</td><td><b>10 h 45</b></td><td>8 h 15 + 2 h 30 = 10 h 45</td></tr>
-    <tr><td>14 h 35</td><td>2 h 50 min</td><td><b>17 h 25</b></td><td>14 h 35 + 2 h 50 = 16 h 85 = 17 h 25</td></tr>
-    <tr><td>9 h 20</td><td>3 h 55 min</td><td><b>13 h 15</b></td><td>9 h 20 + 3 h 55 = 12 h 75 = 13 h 15</td></tr>
-    <tr><td><b>9 h 45</b></td><td>1 h 25 min</td><td>11 h 10</td><td>11 h 10 = 10 h 70 ; 10 h 70 − 1 h 25 = 9 h 45</td></tr>
-    <tr><td><b>13 h 25</b></td><td>2 h 40 min</td><td>16 h 05</td><td>16 h 05 = 15 h 65 ; 15 h 65 − 2 h 40 = 13 h 25</td></tr>
+    <tr><td>14 h 35</td><td>2 h 50 min</td><td><b>17 h 25</b></td><td>H = 14 h 35 + 2 h 50<br>H = 16 h 85<br>H = 17 h 25</td></tr>
+    <tr><td>9 h 20</td><td>3 h 55 min</td><td><b>13 h 15</b></td><td>H = 9 h 20 + 3 h 55<br>H = 12 h 75<br>H = 13 h 15</td></tr>
+    <tr><td><b>9 h 45</b></td><td>1 h 25 min</td><td>11 h 10</td><td>H = 11 h 10 − 1 h 25<br>H = 10 h 70 − 1 h 25<br>H = 9 h 45</td></tr>
+    <tr><td><b>13 h 25</b></td><td>2 h 40 min</td><td>16 h 05</td><td>H = 16 h 05 − 2 h 40<br>H = 15 h 65 − 2 h 40<br>H = 13 h 25</td></tr>
     <tr><td>7 h 35</td><td><b>2 h 15 min</b></td><td>9 h 50</td><td>9 h 50 − 7 h 35 = 2 h 15</td></tr>
-    <tr><td>13 h 42</td><td><b>1 h 36 min</b></td><td>15 h 18</td><td>15 h 18 = 14 h 78 ; 14 h 78 − 13 h 42 = 1 h 36</td></tr>
+    <tr><td>13 h 42</td><td><b>1 h 36 min</b></td><td>15 h 18</td><td>t = 15 h 18 − 13 h 42<br>t = 14 h 78 − 13 h 42<br>t = 1 h 36</td></tr>
     <tr><td>10 h 05</td><td>50 min</td><td><b>10 h 55</b></td><td>10 h 05 + 50 min = 10 h 55</td></tr></tbody></table></div>`},
   {n:"Exercice 8", t:"Des problèmes à résoudre", w:"Sur ta feuille", h:`<p>1) Sohan et sa famille sont partis de leur domicile à 8 h 50 ; le trajet jusqu'à la montagne a duré 6 h 25. À quelle heure sont-ils arrivés ?</p><p>2) Un randonneur part à 9 h 25 et rentre à 11 h 48. Pendant combien de temps a-t-il marché ?</p><p>3) J'ai rendez-vous à 17 h 15. Mon GPS indique 1 h 34 min de trajet. À quelle heure dois-je partir pour arriver pile à l'heure ?</p><p>4) Après le conseil de classe, le professeur principal reçoit ses 26 élèves et leurs parents. Il compte 10 min par rendez-vous et commence à 17 h. S'il respecte son timing, à quelle heure aura-t-il terminé ?</p>`,
-   c:`<p>1) 8 h 50 min + 6 h 25 min = 14 h 75 min = 15 h 15 min. Ils sont arrivés à <b>15 h 15</b>.</p>
+   c:`<p>1) L'horaire d'arrivée H :</p><p class="calc">H = 8 h 50 min + 6 h 25 min<br>H = 14 h 75 min<br>H = 15 h 15 min</p><p>Ils sont arrivés à <b>15 h 15</b>.</p>
    <p>2) 11 h 48 min − 9 h 25 min = 2 h 23 min. Il a marché <b>2 h 23 min</b>.</p>
-   <p>3) 17 h 15 min = 16 h 75 min ; 16 h 75 min − 1 h 34 min = 15 h 41 min. Je dois partir à <b>15 h 41</b>.</p>
+   <p>3) L'horaire de départ H :</p><p class="calc">H = 17 h 15 min − 1 h 34 min<br>H = 16 h 75 min − 1 h 34 min<br>H = 15 h 41 min</p><p>Je dois partir à <b>15 h 41</b>.</p>
    <p>4) 26 × 10 = 260 min, et 260 = 4 × 60 + 20, donc 260 min = 4 h 20 min. 17 h + 4 h 20 min = 21 h 20 min. Il aura terminé à <b>21 h 20</b>.</p>`}
  ]},
 {t:"Lire un tableau d'horaires", e:[
   {n:"Exercice 9", t:"Les trains", w:"Sur ta feuille", h:`<p>Voici les horaires de trois trains au départ de Nantes.</p><div class="scroll"><table class="std"><thead><tr><th>Gare</th><th>Train A</th><th>Train B</th><th>Train C</th></tr></thead><tbody><tr><th>Nantes</th><td>7 h 02</td><td>9 h 18</td><td>13 h 44</td></tr><tr><th>La Roche-sur-Yon</th><td>7 h 55</td><td>10 h 12</td><td>14 h 39</td></tr><tr><th>Les Sables d'Olonne</th><td>8 h 21</td><td>10 h 38</td><td>15 h 05</td></tr></tbody></table></div>
    <p>1) Combien de temps dure le trajet Nantes — Les Sables d'Olonne avec le train A ?</p><p>2) Combien de temps dure le trajet Nantes — La Roche-sur-Yon avec le train B ?</p><p>3) Je dois être aux Sables d'Olonne avant 15 h. Quels trains puis-je prendre ?</p><p>4) Le train C arrive aux Sables avec 12 min de retard. À quelle heure arrive-t-il ?</p><p>5) Quel est le train le plus rapide entre Nantes et Les Sables d'Olonne ? Justifie.</p>`,
-   c:`<p>1) 8 h 21 min − 7 h 02 min = <b>1 h 19 min</b>.</p><p>2) 10 h 12 min − 9 h 18 min : 10 h 12 = 9 h 72, puis 9 h 72 − 9 h 18 = <b>54 min</b>.</p><p>3) Le train A (arrivée 8 h 21) et le train B (arrivée 10 h 38). Le train C arrive à 15 h 05 : trop tard.</p><p>4) 15 h 05 + 12 min = <b>15 h 17</b>.</p>
-   <p>5) Train A : 1 h 19 min · Train B : 10 h 38 − 9 h 18 = 1 h 20 min · Train C : 15 h 05 − 13 h 44 = 14 h 65 − 13 h 44 = 1 h 21 min. Le plus rapide est le <b>train A</b> (1 h 19 min).</p>`},
+   c:`<p>1) 8 h 21 min − 7 h 02 min = <b>1 h 19 min</b>.</p><p>2) La durée t du trajet :</p><p class="calc">t = 10 h 12 − 9 h 18<br>t = 9 h 72 − 9 h 18<br>t = <b>54 min</b></p><p>3) Le train A (arrivée 8 h 21) et le train B (arrivée 10 h 38). Le train C arrive à 15 h 05 : trop tard.</p><p>4) 15 h 05 + 12 min = <b>15 h 17</b>.</p>
+   <p>5) Train A : 1 h 19 min · Train B : 10 h 38 − 9 h 18 = 1 h 20 min</p><p>Train C :</p><p class="calc">t = 15 h 05 − 13 h 44<br>t = 14 h 65 − 13 h 44<br>t = 1 h 21 min</p><p>Le plus rapide est le <b>train A</b> (1 h 19 min).</p>`},
   {n:"Exercice 10", t:"La soirée télé", w:"Sur ta feuille", h:`<p>Complète le programme de la soirée.</p><div class="scroll"><table class="std"><thead><tr><th>Émission</th><th>Début</th><th>Durée</th><th>Fin</th></tr></thead><tbody><tr><td>Le journal</td><td>20 h 00</td><td>35 min</td><td>……</td></tr><tr><td>Le film</td><td>20 h 45</td><td>1 h 58 min</td><td>……</td></tr><tr><td>Le débat</td><td>……</td><td>50 min</td><td>23 h 40</td></tr></tbody></table></div><p>1) Combien de temps s'écoule entre la fin du journal et le début du film ?</p><p>2) Combien de temps s'écoule entre la fin du film et le début du débat ?</p><p>3) Quelle est la durée totale de la soirée, du début du journal à la fin du débat ?</p>`,
    c:`<div class="scroll"><table class="std"><thead><tr><th>Émission</th><th>Début</th><th>Durée</th><th>Fin</th></tr></thead><tbody><tr><td>Le journal</td><td>20 h 00</td><td>35 min</td><td><b>20 h 35</b></td></tr><tr><td>Le film</td><td>20 h 45</td><td>1 h 58 min</td><td><b>22 h 43</b></td></tr><tr><td>Le débat</td><td><b>22 h 50</b></td><td>50 min</td><td>23 h 40</td></tr></tbody></table></div>
-   <p>Journal : 20 h 00 + 35 min = 20 h 35.</p><p>Film : 20 h 45 + 1 h 58 = 21 h 103 = 22 h 43.</p><p>Débat : 23 h 40 = 22 h 100 ; 22 h 100 − 50 min = 22 h 50.</p>
+   <p>Journal : 20 h 00 + 35 min = 20 h 35.</p><p>Fin du film :</p><p class="calc">H = 20 h 45 + 1 h 58<br>H = 21 h 103<br>H = 22 h 43</p><p>Début du débat :</p><p class="calc">H = 23 h 40 − 50 min<br>H = 22 h 100 − 50 min<br>H = 22 h 50</p>
    <p>1) 20 h 45 − 20 h 35 = <b>10 min</b>.</p><p>2) 22 h 50 − 22 h 43 = <b>7 min</b>.</p><p>3) 23 h 40 − 20 h 00 = <b>3 h 40 min</b>.</p>`}
  ]}
 ],
@@ -152,7 +152,7 @@ quiz:[
 {nom:"Convertir vers une unité plus petite", schema:S_CONV, q:{
  1:[ {g:()=>{ const h=ri(2,9); return {q:`Convertis ${h} h en minutes.`, rep:String(60*h), ex:`${h} × 60 = ${60*h} min.`, sx:S_CONV}; }},
      {g:()=>{ const m=ri(2,9); return {q:`Convertis ${m} min en secondes.`, rep:String(60*m), ex:`${m} × 60 = ${60*m} s.`, sx:S_CONV}; }} ],
- 2:[ {g:()=>{ const h=ri(1,5), m=ri(5,55); return {q:`Convertis ${h} h ${p2(m)} min en minutes.`, rep:String(60*h+m), ex:`${h} × 60 + ${m} = ${60*h} + ${m} = ${60*h+m} min.`, sx:S_CONV}; }},
+ 2:[ {g:()=>{ const h=ri(1,5), m=ri(5,55); return {q:`Convertis ${h} h ${p2(m)} min en minutes.`, rep:String(60*h+m), ex:`En minutes :<br>t = ${h} × 60 + ${m}<br>t = ${60*h} + ${m}<br>t = ${60*h+m} min`, sx:S_CONV}; }},
      {g:()=>{ const m=ri(2,9), s=ri(5,55); return {q:`Convertis ${m} min ${p2(s)} s en secondes.`, rep:String(60*m+s), ex:`${m} × 60 + ${s} = ${60*m+s} s.`, sx:S_CONV}; }} ],
  3:[ {q:"Combien de secondes y a-t-il dans 1 heure ?", rep:"3 600", ex:"1 h = 60 min = 60 × 60 s = 3 600 s.", sx:S_CONV},
      {g:()=>{ const m=ri(5,20); return {q:`Convertis 1 h ${m} min en secondes.`, rep:String((60+m)*60).replace(/\B(?=(\d{3})+(?!\d))/g," "), ex:`1 h ${m} min = ${60+m} min = ${60+m} × 60 = ${String((60+m)*60).replace(/\B(?=(\d{3})+(?!\d))/g," ")} s.`, sx:S_CONV}; }} ]
@@ -174,7 +174,7 @@ quiz:[
 {nom:"Horaire d'arrivée", schema:S_ARR, q:{
  1:[ {g:()=>{ const a=ri(7,18)*60+ri(0,4)*5, d=ri(1,3)*60+ri(1,5)*5; const b=a+d; if((a%60)+(d%60)>=60) return {q:`Départ à ${H(a)}, durée ${DU(d)}. À quelle heure arrive-t-on ?`, t:"□ h □", r:[String(Math.floor(b/60)),p2(b%60)], ex:`${H(a)} + ${DU(d)} = ${H(b)}.`, sx:S_ARR};
        return {q:`Départ à ${H(a)}, durée ${DU(d)}. À quelle heure arrive-t-on ?`, t:"□ h □", r:[String(Math.floor(b/60)),[p2(b%60),String(b%60)]], ex:`${H(a)} + ${DU(d)} = ${H(b)}.`, sx:S_ARR}; }} ],
- 2:[ {g:()=>{ let a,d; do{ a=ri(8,18)*60+ri(30,55); d=ri(1,3)*60+ri(20,55); }while((a%60)+(d%60)<60); const b=a+d; return {q:`Un film commence à ${H(a)} et dure ${DU(d)}. À quelle heure se termine-t-il ?`, t:"□ h □", r:[String(Math.floor(b/60)),[p2(b%60),String(b%60)]], ex:`${Math.floor(a/60)} h ${a%60} min + ${DU(d)} = ${Math.floor(a/60)+Math.floor(d/60)} h ${(a%60)+(d%60)} min = ${H(b)}.`, sx:S_ARR}; }} ],
+ 2:[ {g:()=>{ let a,d; do{ a=ri(8,18)*60+ri(30,55); d=ri(1,3)*60+ri(20,55); }while((a%60)+(d%60)<60); const b=a+d; return {q:`Un film commence à ${H(a)} et dure ${DU(d)}. À quelle heure se termine-t-il ?`, t:"□ h □", r:[String(Math.floor(b/60)),[p2(b%60),String(b%60)]], ex:`L'horaire de fin H :<br>H = ${Math.floor(a/60)} h ${a%60} min + ${DU(d)}<br>H = ${Math.floor(a/60)+Math.floor(d/60)} h ${(a%60)+(d%60)} min<br>H = ${H(b)}`, sx:S_ARR}; }} ],
  3:[ {g:()=>{ const n=ri(12,30), k=pick([5,10,15]), a=pick([14,16,17])*60; const b=a+n*k; return {q:`${n} rendez-vous de ${k} min chacun, à la suite, à partir de ${H(a)}. À quelle heure est-ce terminé ?`, t:"□ h □", r:[String(Math.floor(b/60)),[p2(b%60),String(b%60)]], ex:`${n} × ${k} = ${n*k} min = ${DU(n*k)}, et ${H(a)} + ${DU(n*k)} = ${H(b)}.`, sx:S_ARR}; }} ]
 }},
 {nom:"Horaire de départ", schema:S_DEP, q:{
@@ -209,9 +209,9 @@ comp:COMP,
 exos:[
 {t:"Changer d'unité", p:3, h:`<p>Complète.</p><p>a) 5 min = …… s · b) 3 h 38 min = …… min · c) 500 min = …… h …… min · d) 2 jours 5 h = …… h · e) 2,5 h = …… h …… min · f) 425 s = …… min …… s</p>`,
  c:`<p>a) 1 min = 60 s, donc 5 min = 5 × 60 = <b>300 s</b>.</p>
-  <p>b) 3 h 38 min = 3 × 60 + 38 = 180 + 38 = <b>218 min</b>.</p>
+  <p>b) 3 h 38 min en minutes :</p><p class="calc">t = 3 × 60 + 38<br>t = 180 + 38<br>t = <b>218 min</b></p>
   <p>c) 500 = 8 × 60 + 20, donc 500 min = <b>8 h 20 min</b>.</p>
-  <p>d) 2 jours = 2 × 24 = 48 h, donc 2 jours 5 h = 48 + 5 = <b>53 h</b>.</p>
+  <p>d) 2 jours 5 h en heures :</p><p class="calc">t = 2 × 24 + 5<br>t = 48 + 5<br>t = <b>53 h</b></p>
   <p>e) 0,5 h, c'est une demi-heure, soit 30 min. Donc 2,5 h = <b>2 h 30 min</b> (et non 2 h 50 min).</p>
   <p>f) 425 = 7 × 60 + 5, donc 425 s = <b>7 min 5 s</b>.</p>
   <p><i>0,5 point par conversion.</i></p>`},
@@ -219,15 +219,15 @@ exos:[
   <p>a) Avec le départ n° 1, combien de temps dure le tour complet, du Port au Village ?</p>
   <p>b) Lucas monte à la Plage des Dunes dans le train de 13 h 57. Il descend au Village. Combien de temps reste-t-il dans le train ?</p>
   <p>c) Nina arrive au Port à 12 h 50. Elle prend le premier petit train qui part. Combien de temps attend-elle ?</p>`,
- c:`<p>a) Le départ n° 1 part du Port à 10 h 15 et arrive au Village à 11 h 08.</p><p class="calc">11 h 08 min = 10 h 68 min<br>10 h 68 min − 10 h 15 min = 53 min</p><p>Le tour complet dure <b>53 min</b>. <i>(1 point)</i></p>
-  <p>b) Le train de 13 h 57 est le départ n° 2 : il arrive au Village à 14 h 33.</p><p class="calc">14 h 33 min = 13 h 93 min<br>13 h 93 min − 13 h 57 min = 36 min</p><p>Lucas reste <b>36 min</b> dans le train. <i>(1 point)</i></p>
-  <p>c) Le premier train qui part du Port après 12 h 50 est le départ n° 2, à 13 h 40.</p><p class="calc">13 h 40 min = 12 h 100 min<br>12 h 100 min − 12 h 50 min = 50 min</p><p>Nina attend <b>50 min</b>. <i>(1 point)</i></p>`},
+ c:`<p>a) Le départ n° 1 part du Port à 10 h 15 et arrive au Village à 11 h 08.</p><p class="calc">t = 11 h 08 min − 10 h 15 min<br>t = 10 h 68 min − 10 h 15 min<br>t = 53 min</p><p>Le tour complet dure <b>53 min</b>. <i>(1 point)</i></p>
+  <p>b) Le train de 13 h 57 est le départ n° 2 : il arrive au Village à 14 h 33.</p><p class="calc">t = 14 h 33 min − 13 h 57 min<br>t = 13 h 93 min − 13 h 57 min<br>t = 36 min</p><p>Lucas reste <b>36 min</b> dans le train. <i>(1 point)</i></p>
+  <p>c) Le premier train qui part du Port après 12 h 50 est le départ n° 2, à 13 h 40.</p><p class="calc">t = 13 h 40 min − 12 h 50 min<br>t = 12 h 100 min − 12 h 50 min<br>t = 50 min</p><p>Nina attend <b>50 min</b>. <i>(1 point)</i></p>`},
 {t:"Deux problèmes", p:4, h:`<p><b>Problème 1 :</b> Hugo commence une randonnée à 9 h 52. Il revient à son point de départ à 15 h 17. Combien de temps a duré sa randonnée ?</p>
   <p><b>Problème 2 :</b> le concert de Maëlys commence à 19 h 35. Il dure 2 h 48 min. À quelle heure se termine-t-il ?</p>`,
  c:`<p><b>Problème 1 :</b> on cherche une durée. On retire l'horaire de départ à l'horaire d'arrivée.</p>${tl(9*60+52, 15*60+17, "d")}
-  <p class="calc">15 h 17 min = 14 h 77 min<br>14 h 77 min − 9 h 52 min = 5 h 25 min</p><p>La randonnée a duré <b>5 h 25 min</b>.</p>
+  <p class="calc">t = 15 h 17 min − 9 h 52 min<br>t = 14 h 77 min − 9 h 52 min<br>t = 5 h 25 min</p><p>La randonnée a duré <b>5 h 25 min</b>.</p>
   <p><b>Problème 2 :</b> on cherche l'horaire d'arrivée. On ajoute la durée à l'horaire de départ.</p>${tl(19*60+35, 22*60+23, "b")}
-  <p class="calc">19 h 35 min + 2 h 48 min = 21 h 83 min<br>83 min = 60 min + 23 min = 1 h 23 min<br>21 h 83 min = 22 h 23 min</p><p>Le concert se termine à <b>22 h 23</b>.</p>
+  <p class="calc">H = 19 h 35 min + 2 h 48 min<br>H = 21 h 83 min<br>H = 22 h 23 min</p><p>car 83 min = 60 min + 23 min = 1 h 23 min.</p><p>Le concert se termine à <b>22 h 23</b>.</p>
   <p><i>2 points par problème : 1 point pour la démarche (le bon calcul), 1 point pour le résultat juste avec l'unité et une phrase.</i></p>`}
 ],
 bep:{
@@ -237,20 +237,20 @@ comp:COMP,
 exos:[
 {t:"Changer d'unité", p:3, h:`<p>Complète.</p><p>a) 5 min = …… s · b) 3 h 38 min = …… min · c) 500 min = …… h …… min · d) 2,5 h = …… h …… min</p>`,
  c:`<p>a) 1 min = 60 s, donc 5 min = 5 × 60 = <b>300 s</b>. <i>(0,5 point)</i></p>
-  <p>b) 3 h 38 min = 3 × 60 + 38 = 180 + 38 = <b>218 min</b>. <i>(0,5 point)</i></p>
+  <p>b) 3 h 38 min en minutes : <i>(0,5 point)</i></p><p class="calc">t = 3 × 60 + 38<br>t = 180 + 38<br>t = <b>218 min</b></p>
   <p>c) 500 = 8 × 60 + 20, donc 500 min = <b>8 h 20 min</b>. <i>(1 point)</i></p>
   <p>d) 0,5 h, c'est une demi-heure, soit 30 min. Donc 2,5 h = <b>2 h 30 min</b> (et non 2 h 50 min). <i>(1 point)</i></p>`},
 {t:"Le petit train touristique", p:3, h:`<p>Un petit train fait le tour d'une station balnéaire. Voici ses horaires de la journée.</p>${TAB}
   <p>a) Avec le départ n° 1, combien de temps dure le tour complet, du Port au Village ?</p>
   <p>b) Nina arrive au Port à 12 h 50. Elle prend le premier petit train qui part. Combien de temps attend-elle ?</p>`,
- c:`<p>a) Le départ n° 1 part du Port à 10 h 15 et arrive au Village à 11 h 08.</p><p class="calc">11 h 08 min = 10 h 68 min<br>10 h 68 min − 10 h 15 min = 53 min</p><p>Le tour complet dure <b>53 min</b>. <i>(1,5 point)</i></p>
-  <p>b) Le premier train qui part du Port après 12 h 50 est le départ n° 2, à 13 h 40.</p><p class="calc">13 h 40 min = 12 h 100 min<br>12 h 100 min − 12 h 50 min = 50 min</p><p>Nina attend <b>50 min</b>. <i>(1,5 point)</i></p>`},
+ c:`<p>a) Le départ n° 1 part du Port à 10 h 15 et arrive au Village à 11 h 08.</p><p class="calc">t = 11 h 08 min − 10 h 15 min<br>t = 10 h 68 min − 10 h 15 min<br>t = 53 min</p><p>Le tour complet dure <b>53 min</b>. <i>(1,5 point)</i></p>
+  <p>b) Le premier train qui part du Port après 12 h 50 est le départ n° 2, à 13 h 40.</p><p class="calc">t = 13 h 40 min − 12 h 50 min<br>t = 12 h 100 min − 12 h 50 min<br>t = 50 min</p><p>Nina attend <b>50 min</b>. <i>(1,5 point)</i></p>`},
 {t:"Deux problèmes", p:4, h:`<p><b>Problème 1 :</b> Hugo commence une randonnée à 9 h 52. Il revient à son point de départ à 15 h 17. Combien de temps a duré sa randonnée ?</p>
   <p><b>Problème 2 :</b> le concert de Maëlys commence à 19 h 35. Il dure 2 h 48 min. À quelle heure se termine-t-il ?</p>`,
  c:`<p><b>Problème 1 :</b> on cherche une durée. On retire l'horaire de départ à l'horaire d'arrivée.</p>${tl(9*60+52, 15*60+17, "d")}
-  <p class="calc">15 h 17 min = 14 h 77 min<br>14 h 77 min − 9 h 52 min = 5 h 25 min</p><p>La randonnée a duré <b>5 h 25 min</b>.</p>
+  <p class="calc">t = 15 h 17 min − 9 h 52 min<br>t = 14 h 77 min − 9 h 52 min<br>t = 5 h 25 min</p><p>La randonnée a duré <b>5 h 25 min</b>.</p>
   <p><b>Problème 2 :</b> on cherche l'horaire d'arrivée. On ajoute la durée à l'horaire de départ.</p>${tl(19*60+35, 22*60+23, "b")}
-  <p class="calc">19 h 35 min + 2 h 48 min = 21 h 83 min<br>83 min = 60 min + 23 min = 1 h 23 min<br>21 h 83 min = 22 h 23 min</p><p>Le concert se termine à <b>22 h 23</b>.</p>
+  <p class="calc">H = 19 h 35 min + 2 h 48 min<br>H = 21 h 83 min<br>H = 22 h 23 min</p><p>car 83 min = 60 min + 23 min = 1 h 23 min.</p><p>Le concert se termine à <b>22 h 23</b>.</p>
   <p><i>2 points par problème : 1 point pour la démarche (le bon calcul), 1 point pour le résultat juste avec l'unité et une phrase.</i></p>`}
 ]}
 };

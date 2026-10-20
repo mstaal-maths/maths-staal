@@ -181,12 +181,12 @@ exos:[
    <p class="calc">4² = 2,5² + h²<br>h² = 16 − 6,25<br>h² = 9,75<br>h = ${rac("9,75")} ≈ 3,12 m</p>
    <p class="calc">V<sub>cône</sub> = {π × r² × h/3}<br>V<sub>cône</sub> ≈ {π × 2,5² × 3,12/3}<br>V<sub>cône</sub> ≈ 20,42 m³</p>
    <p>Remarque : avec la valeur exacte h = ${rac("9,75")}, on trouve V<sub>cône</sub> ≈ 20,44 m³.</p>
-   <p><b>b)</b> V<sub>cylindre</sub> = π × r² × h = π × 2,5² × 10 = 62,5π ≈ 196,35 m³.</p><p class="calc">V<sub>total</sub> ≈ 196,35 + 20,42<br>V<sub>total</sub> ≈ 216,77 m³</p><p>Le volume total de la tour est d'environ <b>216,77 m³</b> (216,79 m³ avec la valeur exacte de h).</p>`},
+   <p><b>b)</b></p><p class="calc">V<sub>cylindre</sub> = π × r² × h<br>V<sub>cylindre</sub> = π × 2,5² × 10<br>V<sub>cylindre</sub> = 62,5π<br>V<sub>cylindre</sub> ≈ 196,35 m³</p><p class="calc">V<sub>total</sub> ≈ 196,35 + 20,42<br>V<sub>total</sub> ≈ 216,77 m³</p><p>Le volume total de la tour est d'environ <b>216,77 m³</b> (216,79 m³ avec la valeur exacte de h).</p>`},
   {n:"Exercice 7", t:"Abri de jardin", w:"Sur ton cahier", h:`<p>Mme Dubois vient de faire construire un abri dans son jardin comme sur la photo.</p>${ex("e7","Photo de l'appentis : hauteur 5,70 m contre le mur, 2,80 m à l'avant, profondeur 4,50 m, longueur 6 m",420)}
    <p>Elle souhaite maintenant recouvrir le toit de shingles (couvertures en bitume pour abri) vendus 9,30 € le m².</p>
    <p><b>a)</b> Montre que le toit de l'appentis a une surface de 32,1 m².</p><p><b>b)</b> Quelle somme Mme Dubois devra-t-elle dépenser pour recouvrir son abri ?</p>`,
    c:`<p><b>a)</b> Le toit est un rectangle de longueur 6 m. Sa largeur ℓ est l'hypoténuse d'un triangle rectangle :</p><ul><li>côté vertical : 5,70 − 2,80 = 2,90 m ;</li><li>côté horizontal : 4,50 m.</li></ul>
-   <p class="calc">ℓ² = 2,9² + 4,5²<br>ℓ² = 8,41 + 20,25<br>ℓ² = 28,66<br>ℓ = ${rac("28,66")} ≈ 5,35 m</p><p class="calc">Aire du toit = 6 × ${rac("28,66")} ≈ 32,1 m²</p>
+   <p class="calc">ℓ² = 2,9² + 4,5²<br>ℓ² = 8,41 + 20,25<br>ℓ² = 28,66<br>ℓ = ${rac("28,66")} ≈ 5,35 m</p><p>Aire A du toit :</p><p class="calc">A = 6 × ${rac("28,66")}<br>A ≈ 32,1 m²</p>
    <p class="calc"><b>b)</b> 32,1 × 9,30 = 298,53 €</p><p>Mme Dubois devra dépenser environ <b>298,53 €</b>.</p>`},
   {n:"Exercice 8", t:"Calculer le côté manquant", w:"Sur ton cahier", h:`<p>Dans chacun de ces triangles, calcule la longueur du côté manquant.</p>
    <div class="figs">${fig("a. JMX rectangle en M : calcule JX.",ex("e8a","Triangle JMX rectangle en M : JM = 4,2 et MX = 5,6",200))}${fig("b. PIF rectangle en I : calcule PI.",ex("e8b","Triangle PIF rectangle en I : IF = 4,2 cm et PF = 5,8 cm",200))}</div>

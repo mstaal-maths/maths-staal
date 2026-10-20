@@ -89,7 +89,7 @@ return [
    <p><b>1)</b> Calcule ${an("ABC")} et ${an("ACB")}.</p><p><b>2)</b> Calcule ${an("BAC")} de deux façons.</p>`,
    c:`${triF(x9.b,x9.c,[["A","x","B",BL,x9.b+"°"],["A","B","C",OR,x9.a+"°"],["A","C","y",GR,x9.c+"°"],["B","C","A",BL,x9.b+"°"],["C","A","B",GR,x9.c+"°"]],{xy:true, w:380})}
    <p><b>1)</b> (xy) // (BC) et ${an("xAB")}, ${an("ABC")} sont alternes-internes : ${an("ABC")} = ${an("xAB")} = <b>${x9.b}°</b>.</p><p>De même, ${an("ACB")} = ${an("yAC")} = <b>${x9.c}°</b>.</p>
-   <p><b>2)</b> Avec l'angle plat ${an("xAy")} : ${an("BAC")} = 180° − ${x9.b}° − ${x9.c}° = <b>${x9.a}°</b>.</p><p>Avec le triangle : ${an("BAC")} = 180° − ${an("ABC")} − ${an("ACB")} = 180° − ${x9.b}° − ${x9.c}° = <b>${x9.a}°</b>.</p>`},
+   <p><b>2)</b> Avec l'angle plat ${an("xAy")} : ${an("BAC")} = 180° − ${x9.b}° − ${x9.c}° = <b>${x9.a}°</b>.</p><p>Avec le triangle :</p><p class="calc">${an("BAC")} = 180° − ${an("ABC")} − ${an("ACB")}<br>${an("BAC")} = 180° − ${x9.b}° − ${x9.c}°<br>${an("BAC")} = <b>${x9.a}°</b></p>`},
   {n:"Exercice 10", t:"Pour aller plus loin : le triangle isocèle", w:"Sur ton cahier", h:`<p>On admet que dans un triangle isocèle, les deux angles situés à la base sont égaux.</p><p>Réponds en justifiant.</p>
    <p><b>1)</b> Le triangle ABC est isocèle en A et ${an("BAC")} = ${i10a}°. Calcule ${an("ABC")} et ${an("ACB")}.</p><p><b>2)</b> Le triangle DEG est isocèle en D et ${an("DEG")} = ${i10b}°. Calcule ${an("DGE")} et ${an("EDG")}.</p>`,
    c:`<p><b>1)</b> ${an("ABC")} = ${an("ACB")} et ${an("ABC")} + ${an("ACB")} = 180° − ${i10a}° = ${180-i10a}°.</p><p>Donc ${an("ABC")} = ${an("ACB")} = ${180-i10a}° ÷ 2 = <b>${(180-i10a)/2}°</b>.</p>

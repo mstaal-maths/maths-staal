@@ -24,7 +24,7 @@ const KCS = arr => `<div class="calcs">${arr.map(x=>`<div>${x}</div>`).join("")}
 const S_SENS = sch("Le sens d'un pourcentage", cent(30,{c:12})+`<p class="calc">30 % = ${F(30,100)} = 0,3</p><p class="schN">30 parts sur 100.</p>`);
 const S_USU = sch("Les pourcentages usuels", `<div class="scroll"><table class="std"><tbody><tr><th>%</th><td>100 %</td><td>75 %</td><td>50 %</td><td>25 %</td><td>20 %</td><td>10 %</td><td>1 %</td></tr><tr><th>fraction</th><td>1</td><td>${F(3,4)}</td><td>${F(1,2)}</td><td>${F(1,4)}</td><td>${F(1,5)}</td><td>${F(1,10)}</td><td>${F(1,100)}</td></tr><tr><th>décimal</th><td>1</td><td>0,75</td><td>0,5</td><td>0,25</td><td>0,2</td><td>0,1</td><td>0,01</td></tr></tbody></table></div>`);
 const S_PROP = sch("Calculer une proportion", `<p class="calc">${F(10,25)} = ${F(40,100)} = 0,4 = 40 %</p><p class="schN">Proportion = effectif de la partie ÷ effectif total. Pour comparer, on compare les pourcentages, pas les effectifs.</p>`);
-const S_APP = sch("Appliquer un pourcentage", `<p class="calc">p % de N = N × p ÷ 100<br>13 % de 225 € = 225 × 13 ÷ 100 = 29,25 €</p><p class="schN">De tête : 50 % = la moitié, 25 % = le quart, 10 % = le dixième.</p>`);
+const S_APP = sch("Appliquer un pourcentage", `<p class="calc">p % de N = N × p ÷ 100</p>${KC("A",["13 % de 225 €","225 × 13 ÷ 100","29,25 €"])}<p class="schN">De tête : 50 % = la moitié, 25 % = le quart, 10 % = le dixième.</p>`);
 
 CH["6e-20"] = {
 intro:"Le sens d'un pourcentage et les pourcentages usuels, calculer une proportion, appliquer un pourcentage de tête ou par le calcul, et donner un ordre de grandeur.",
@@ -82,15 +82,15 @@ exos:[
   {n:"Exercice 8", t:"Calcul mental", w:"Sur ta feuille", h:`<p>Un collège compte 120 élèves de 6e. Calcule de tête : a) 50 % de 120 · b) 25 % de 120 · c) 10 % de 120 · d) 20 % de 120 · e) 5 % de 120 · f) 75 % de 120</p>`,
    c:`<p>a) 120 ÷ 2 = <b>60</b> · b) 120 ÷ 4 = <b>30</b> · c) 120 ÷ 10 = <b>12</b> · d) 20 % = 2 × 10 % : 2 × 12 = <b>24</b> · e) la moitié de 10 % : 12 ÷ 2 = <b>6</b> · f) 75 % = 3 × 25 % : 3 × 30 = <b>90</b></p>`},
   {n:"Exercice 9", t:"Faire le lien", w:"Sur ta feuille", h:`<p>Complète. Les nombres d'une même ligne sont égaux.</p><p>a) La moitié de 28 = 28 × ${F(1,2)} = 50 % de 28 = …… · b) Le quart de 80 = ${F(1,4)} de 80 = 25 % de 80 = …… · c) Le dixième de 350 = ${F(1,10)} de 350 = 10 % de 350 = …… · d) Les trois quarts de 60 = ${F(3,4)} de 60 = 75 % de 60 = ……</p>`,
-   c:`<p>a) 28 ÷ 2 = <b>14</b> · b) 80 ÷ 4 = <b>20</b> · c) 350 ÷ 10 = <b>35</b> · d) (60 ÷ 4) × 3 = 15 × 3 = <b>45</b></p>`},
+   c:`<p>a) 28 ÷ 2 = <b>14</b> · b) 80 ÷ 4 = <b>20</b> · c) 350 ÷ 10 = <b>35</b> </p>${KC("D",["(60 ÷ 4) × 3","15 × 3","<b>45</b>"],"d)")}`},
   {n:"Exercice 10", t:"Calculer un pourcentage", w:"Sur ton cahier", h:`<p>Calcule en posant le calcul « N × p ÷ 100 ».</p><p>a) A = 13 % de 225 € · b) B = 24 % de 775 élèves · c) C = 35 % de 60 kg · d) D = 8 % de 450 € · e) E = 15 % de 300 m · f) F = 60 % de 45 L</p>`,
    c:`${KCS([KC("A",["13 % de 225 €","225 × 13 ÷ 100","2 925 ÷ 100","<b>29,25 €</b>"],"a)"), KC("B",["24 % de 775 élèves","775 × 24 ÷ 100","18 600 ÷ 100","<b>186 élèves</b>"],"b)"), KC("C",["35 % de 60 kg","60 × 35 ÷ 100","2 100 ÷ 100","<b>21 kg</b>"],"c)"), KC("D",["8 % de 450 €","450 × 8 ÷ 100","3 600 ÷ 100","<b>36 €</b>"],"d)"), KC("E",["15 % de 300 m","300 × 15 ÷ 100","4 500 ÷ 100","<b>45 m</b>"],"e)"), KC("F",["60 % de 45 L","45 × 60 ÷ 100","2 700 ÷ 100","<b>27 L</b>"],"f)")])}`},
   {n:"Exercice 11", t:"Ordre de grandeur", w:"Sur ta feuille", h:`<p>Sans poser de calcul, donne un ordre de grandeur de chaque résultat.</p><p>a) 48 % de 60,45 € · b) 26 % de 398 élèves · c) 9,8 % de 2 012 € · d) 74 % de 81 km</p>`,
    c:`<p>a) ≈ 50 % de 60 € = la moitié : <b>environ 30 €</b> · b) ≈ 25 % de 400 = le quart : <b>environ 100 élèves</b></p><p>c) ≈ 10 % de 2 000 € = le dixième : <b>environ 200 €</b> · d) ≈ 75 % de 80 km = les trois quarts : <b>environ 60 km</b></p>`},
   {n:"Exercice 12", t:"Des problèmes", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un collège compte 775 élèves. 24 % des élèves sont externes. Combien y a-t-il d'élèves externes ?</p><p><b>Problème 2 :</b> un pull coûte 40 €. Pendant les soldes, il y a une remise de 30 %. Calcule le montant de la remise, puis le nouveau prix du pull.</p><p><b>Problème 3 :</b> une tablette de chocolat de 200 g contient 70 % de cacao. Quelle est la masse de cacao dans cette tablette ?</p><p><b>Problème 4 :</b> un village compte 2 500 habitants. 12 % d'entre eux ont moins de 10 ans. Combien d'habitants ont moins de 10 ans ?</p>`,
-   c:`<p><b>Problème 1 :</b> 775 × 24 ÷ 100 = 186. Il y a <b>186 élèves externes</b>.</p><p><b>Problème 2 :</b> remise : 40 × 30 ÷ 100 = <b>12 €</b>. Nouveau prix : 40 − 12 = <b>28 €</b>.</p><p><b>Problème 3 :</b> 200 × 70 ÷ 100 = <b>140 g</b> de cacao.</p><p><b>Problème 4 :</b> 2 500 × 12 ÷ 100 = <b>300 habitants</b>.</p>`},
+   c:`<p><b>Problème 1 :</b> le nombre E d'élèves externes :</p>${KC("E",["24 % de 775","775 × 24 ÷ 100","186"])}<p>Il y a <b>186 élèves externes</b>.</p><p><b>Problème 2 :</b> la remise R :</p>${KC("R",["30 % de 40 €","40 × 30 ÷ 100","<b>12 €</b>"])}<p>Nouveau prix : 40 − 12 = <b>28 €</b>.</p><p><b>Problème 3 :</b> la masse M de cacao :</p>${KC("M",["70 % de 200 g","200 × 70 ÷ 100","<b>140 g</b>"])}<p><b>Problème 4 :</b> le nombre N d'habitants de moins de 10 ans :</p>${KC("N",["12 % de 2 500","2 500 × 12 ÷ 100","<b>300 habitants</b>"])}`},
   {n:"En ++", t:"Les soldes en cascade", w:"Sur ton cahier", h:`<p>Un jeu coûte 100 €. Le magasin baisse son prix de 20 %, puis, une semaine plus tard, baisse encore le nouveau prix de 20 %. Léna dit : « Au total, le prix a baissé de 40 %. » A-t-elle raison ? Explique.</p>`,
-   c:`<p>Première baisse : 20 % de 100 € = 20 €, le prix passe à 80 €.</p><p>Deuxième baisse : 20 % de <b>80 €</b> = 80 × 20 ÷ 100 = 16 €, le prix passe à 64 €.</p><p>Au total, le prix a baissé de 100 − 64 = 36 €, c'est-à-dire de <b>36 %</b>. <b>Léna a tort</b> : la deuxième baisse est calculée sur un prix plus petit.</p>`}
+   c:`<p>Première baisse : 20 % de 100 € = 20 €, le prix passe à 80 €.</p><p>Deuxième baisse, calculée sur <b>80 €</b> :</p>${KC("B",["20 % de 80 €","80 × 20 ÷ 100","16 €"])}<p>Le prix passe à 64 €.</p><p>Au total, le prix a baissé de 100 − 64 = 36 €, c'est-à-dire de <b>36 %</b>. <b>Léna a tort</b> : la deuxième baisse est calculée sur un prix plus petit.</p>`}
  ]}
 ],
 
@@ -108,8 +108,8 @@ quiz:[
 }},
 {nom:"Appliquer un pourcentage", schema:S_APP, q:{
  1:[ {g:()=>{ const p=pick([50,25,10]), N=pick([20,40,60,80,120,200,400]); return {q:`${p} % de ${N} = ?`, rep:String(N*p/100), sx:S_APP}; }} ],
- 2:[ {g:()=>{ const p=pick([20,5,75,30]), N=20*ri(2,20); return {q:`${p} % de ${N} = ?`, rep:D(N*p,2), ex:`${N} × ${p} ÷ 100 = ${sp(N*p)} ÷ 100 = ${D(N*p,2)}.`, sx:S_APP}; }} ],
- 3:[ {g:()=>{ const p=ri(2,40), N=ri(11,99)*5; return {q:`${p} % de ${N} € = ? (en €)`, rep:D(N*p,2), ex:`${N} × ${p} ÷ 100 = ${sp(N*p)} ÷ 100 = ${D(N*p,2)}.`, sx:S_APP}; }},
+ 2:[ {g:()=>{ const p=pick([20,5,75,30]), N=20*ri(2,20); return {q:`${p} % de ${N} = ?`, rep:D(N*p,2), ex:`<br>A = ${p} % de ${N}<br>A = ${N} × ${p} ÷ 100<br>A = ${sp(N*p)} ÷ 100<br>A = ${D(N*p,2)}`, sx:S_APP}; }} ],
+ 3:[ {g:()=>{ const p=ri(2,40), N=ri(11,99)*5; return {q:`${p} % de ${N} € = ? (en €)`, rep:D(N*p,2), ex:`<br>A = ${p} % de ${N} €<br>A = ${N} × ${p} ÷ 100<br>A = ${sp(N*p)} ÷ 100<br>A = ${D(N*p,2)} €`, sx:S_APP}; }},
      {g:()=>{ const P=pick([40,60,80,120]), r=pick([10,20,25,50]); return {q:`Un article coûte ${P} €, remise de ${r} %. Nouveau prix (en €) ?`, rep:String(P-P*r/100), ex:`Remise : ${P*r/100} €.`, sx:S_APP}; }} ]
 }},
 {nom:"Ordre de grandeur", schema:S_APP, q:{

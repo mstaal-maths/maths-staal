@@ -124,7 +124,7 @@ return [
      const P2=`${p*p}${sq($x)}`, Ct=C===0?"":` ${C<0?"−":"+"} ${mono(Math.abs(C))}`;
      return `<p>On développe chaque expression :</p>${ch(fx("h"),[sq("("+p+$x+" − "+q+")"),`(${p}${$x} − ${q})(${p}${$x} − ${q})`,`${P2} − ${mono(p*q)} − ${mono(p*q)} + ${q*q}`,`${P2} − ${mono(2*p*q)} + ${q*q}`])}${ch(fx("i"),[`(${$x} − ${r})(${P2.replace(sq($x),$x)} + ${t})`,`${P2} + ${mono(t)} − ${mono(p*p*r)} − ${r*t}`,`${P2}${Ct} − ${r*t}`])}
      <p>On cherche ${$x} tel que ${fx("h")} = ${fx("i")} :</p>${calc([`${P2} − ${mono(2*p*q)} + ${q*q} = ${P2}${Ct} − ${r*t}`,[`${lin(A,B)} = ${lin(C,D)}`,"− "+p*p+$x+"²"],...(C===0?[]:[[`${mono(A-C)} + ${B} = ${F(D)}`,(C<0?"+ ":"− ")+mono(Math.abs(C))]]),[`${mono(A-C)} = ${F(D-B)}`,"− "+B],[`${$x} = ${FR(D-B,A-C)}`,"÷ "+(A-C<0?"("+F(A-C)+")":F(A-C))]])}
-     <p>On calcule l'image de ${FR(rn,rd)} avec ${$h} : (${p} × ${rn<0?"("+FR(rn,rd)+")":FR(rn,rd)} − ${q})² = ${FR(img[0],img[1])}${img[1]!==1&&Number.isInteger(img[0]/img[1]*1000)?" = "+F(img[0]/img[1]):""}.</p><p>Oui : l'antécédent commun est ${FR(rn,rd)} et l'image commune est ${FR(img[0],img[1])}${img[1]!==1&&Number.isInteger(img[0]/img[1]*1000)?" = "+F(img[0]/img[1]):""}.</p>`; })()}
+     <p>On calcule l'image de ${FR(rn,rd)} avec ${$h} :</p><p class="calc">${fx("h",FR(rn,rd))} = (${p} × ${rn<0?"("+FR(rn,rd)+")":FR(rn,rd)} − ${q})²<br>${fx("h",FR(rn,rd))} = ${FR(img[0],img[1])}${img[1]!==1&&Number.isInteger(img[0]/img[1]*1000)?`<br>${fx("h",FR(rn,rd))} = ${F(img[0]/img[1])}`:""}</p><p>Oui : l'antécédent commun est ${FR(rn,rd)} et l'image commune est ${FR(img[0],img[1])}${img[1]!==1&&Number.isInteger(img[0]/img[1]*1000)?" = "+F(img[0]/img[1]):""}.</p>`; })()}
  ]}
 ];
 };

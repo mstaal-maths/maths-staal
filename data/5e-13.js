@@ -15,6 +15,10 @@ const F = (a,b) => `{${a}/${b}}`;
 /* fraction irréductible (ou entier) */
 const irr = (a,b) => { const g=gcd(a,b); return b/g===1 ? String(a/g) : F(a/g,b/g); };
 const sum = a => a.reduce((x,y)=>x+y,0);
+/* calcul en chaîne (choix de M. Staal) : une étape par ligne, chaque ligne commence par le nom de la grandeur ; « ≈ … » pour une valeur arrondie */
+const KCl = (n, L) => L.map(String).filter((x,i,a)=>i===0||x!==a[i-1]).map(x=>/^≈/.test(String(x))?`${n} ${x}`:`${n} = ${x}`).join("<br>");
+const KC = (n, L) => `<p class="calc">${KCl(n,L)}</p>`;
+const KCi = (n, L) => `<span class="calc" style="display:block;margin:6px 0">${KCl(n,L)}</span>`;
 
 const BAR = "#4a86c5", BARS = "#1f4e79", RED = "#c0392b";
 const PAL = ["#6fa8dc","#f4b183","#a9d18e","#ffd966","#c9a0dc","#9fd4d0"];
@@ -93,7 +97,7 @@ function line(o){
 const tab = (head, rows) => `<div class="scroll"><table class="std"><thead><tr>${head.map((h,i)=>`<th>${i?h:`<b>${h}</b>`}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>i?`<td>${c}</td>`:`<th>${c}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 
 /* outils réutilisés par la fiche d'entraînement */
-window.STAT13 = {bars, pie, line, tab, N, F, irr, gcd, sum, rd};
+window.STAT13 = {bars, pie, line, tab, N, F, irr, gcd, sum, rd, KC, KCi};
 
 /* ===================== figures du cours et de la fiche ===================== */
 const SPORT = {cats:["Foot","Basket","Natation","Autre"], vals:[8,5,4,3]};
@@ -119,7 +123,7 @@ const S_BAR = sch("Lire un diagramme en barres", bars({...SPORT, ymax:9, ystep:1
 const S_PIE = sch("Angle d'un secteur", pie({...SPORT, w:240, R:90, lab:i=>[SPORT.cats[i]]})+`<p class="calc">Foot : ${F(8,20)} × 360° = 144°</p><p class="schN">L'angle est proportionnel à l'effectif. Le disque entier (360°) représente l'effectif total.</p>`);
 const S_LINE = sch("Lire un graphique cartésien", line({xs:[6,8,10,12,14,16,18], ys:[8,11,14,17,19,18,15], xmax:20, xstep:2, ymax:20, ystep:1, ylabStep:5, w:400, H:260, xlab:"Heure (h)"})+`<p class="schN">Abscisse : l'heure. Ordonnée : la température. À 12 h, il faisait 17 °C.</p>`);
 const S_CHOIX = sch("Choisir une représentation", `<p class="schN"><b>Diagramme en barres</b> : pour comparer des effectifs.</p><p class="schN"><b>Diagramme circulaire</b> : pour montrer la répartition d'un tout.</p><p class="schN"><b>Graphique cartésien</b> : pour suivre une évolution.</p>`);
-const S_MOY = sch("Calculer une moyenne", `<p class="calc">12 ; 15 ; 9 ; 14 ; 10<br>(12 + 15 + 9 + 14 + 10) ÷ 5 = 60 ÷ 5 = 12</p><p class="schN">Moyenne = somme des valeurs ÷ nombre de valeurs.</p>`);
+const S_MOY = sch("Calculer une moyenne", `<p class="calc">12 ; 15 ; 9 ; 14 ; 10<br>M = (12 + 15 + 9 + 14 + 10) ÷ 5<br>M = 60 ÷ 5<br>M = 12</p><p class="schN">Moyenne = somme des valeurs ÷ nombre de valeurs.</p>`);
 
 /* ---------- générateurs de séries pour le QCM ---------- */
 /* n entiers entre lo et hi, de somme tot (ou null) */
@@ -181,7 +185,7 @@ cours:[
   <p>Léa a eu <b>en moyenne</b> 12.</p>
   <div class="attention"><b>ATTENTION :</b> la moyenne résume la série par un seul nombre. Elle ne dit pas comment les valeurs sont réparties (elle n'est pas forcément l'une des valeurs).</div>
   <p><b>À toi de jouer :</b> calcule la moyenne de 7 ; 13 ; 10 ; 6, puis la fréquence (en %) de 6 élèves sur 25.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">Moyenne : (7 + 13 + 10 + 6) ÷ 4 = 36 ÷ 4 = 9</p><p class="calc">Fréquence : ${F(6,25)} = ${F(24,100)} = 24 %</p></div></details>`}
+  <details><summary>Voir la correction</summary><div class="corr"><p>La moyenne M :</p>${KC("M",["(7 + 13 + 10 + 6) ÷ 4","36 ÷ 4","9"])}<p>La fréquence f :</p>${KC("f",[F(6,25),F(24,100),"24 %"])}</div></details>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -201,13 +205,13 @@ exos:[
   {n:"Exercice 2", t:"Fréquences et comparaison", w:"Sur ton cahier", h:`<p>Dans une classe de 28 élèves, 7 portent des lunettes, 14 ont les cheveux bruns et 21 sont nés avant juillet.</p>
    <p><b>a)</b> Calcule la fréquence de chaque caractéristique sous forme de fraction irréductible, puis en pourcentage.</p>
    <p><b>b)</b> Dans une autre classe, 9 élèves sur 30 portent des lunettes. Dans quelle classe la proportion d'élèves qui portent des lunettes est-elle la plus grande ?</p>`,
-   c:`<p>Fréquence = ${F("effectif","effectif total")}. On simplifie la fraction, puis on l'écrit sur 100.</p><p><b>a)</b> Lunettes : ${F(7,28)} = ${F(1,4)} = ${F(25,100)} = 25 %</p><p>Cheveux bruns : ${F(14,28)} = ${F(1,2)} = ${F(50,100)} = 50 %</p><p>Nés avant juillet : ${F(21,28)} = ${F(3,4)} = ${F(75,100)} = 75 %</p>
-   <p><b>b)</b> ${F(9,30)} = 0,3 = 30 % et 30 % &gt; 25 % : la proportion est plus grande dans l'autre classe.</p>`}
+   c:`<p>Fréquence f = ${F("effectif","effectif total")}. On simplifie la fraction, puis on l'écrit sur 100.</p><p><b>a)</b> Lunettes :</p>${KC("f",[F(7,28),F(1,4),F(25,100),"25 %"])}<p>Cheveux bruns :</p>${KC("f",[F(14,28),F(1,2),F(50,100),"50 %"])}<p>Nés avant juillet :</p>${KC("f",[F(21,28),F(3,4),F(75,100),"75 %"])}
+   <p><b>b)</b> Dans l'autre classe :</p>${KC("f",[F(9,30),"0,3","30 %"])}<p>30 % &gt; 25 % : la proportion est plus grande dans l'autre classe.</p>`}
  ]},
 {t:"Lire et construire des représentations", e:[
   {n:"Exercice 3", t:"Lire un diagramme en barres", w:"Sur ton cahier", h:`<p>Le diagramme en barres ci-dessous donne le nombre de livres empruntés au CDI selon les jours de la semaine.</p>${E3}
    <p><b>a)</b> Combien de livres ont été empruntés le jeudi ? le vendredi ?</p><p><b>b)</b> Quel jour y a-t-il eu le plus d'emprunts ? Combien de fois plus que le vendredi ?</p><p><b>c)</b> Quel est le nombre total de livres empruntés ? Calcule la fréquence du lundi en pourcentage.</p>`,
-   c:`<p><b>a)</b> Jeudi : 15 livres ; vendredi : 5 livres.</p><p><b>b)</b> Le jeudi (15 livres). 15 ÷ 5 = 3 : trois fois plus que le vendredi.</p><p><b>c)</b> Total : 12 + 8 + 15 + 5 = 40 livres. Fréquence du lundi : ${F(12,40)} = 0,3 = 30 %.</p>`},
+   c:`<p><b>a)</b> Jeudi : 15 livres ; vendredi : 5 livres.</p><p><b>b)</b> Le jeudi (15 livres). 15 ÷ 5 = 3 : trois fois plus que le vendredi.</p><p><b>c)</b> Total : 12 + 8 + 15 + 5 = 40 livres.</p><p>Fréquence du lundi :</p>${KC("f",[F(12,40),"0,3","30 %"])}`},
   {n:"Exercice 4", t:"Construire un diagramme en barres", w:"Sur ton cahier", h:`<p>Les élèves d'un club choisissent leur sport :</p>${tab(["Sport","Football","Basket","Judo","Danse"],[["Nombre d'élèves","12","8","6","4"]])}
    <p>Construis un diagramme en barres :</p><p>axe vertical : 1 cm pour 2 élèves ;</p><p>barres de 1 cm de largeur, espacées de 1 cm.</p><p>N'oublie pas le titre et les graduations.</p>`,
    c:`<p>1 cm pour 2 élèves : on divise chaque effectif par 2 pour avoir la hauteur de la barre.</p><p>Football : 12 ÷ 2 = 6 cm ; Basket : 8 ÷ 2 = 4 cm.</p><p>Judo : 6 ÷ 2 = 3 cm ; Danse : 4 ÷ 2 = 2 cm.</p>${E4c}`},
@@ -221,7 +225,7 @@ exos:[
    <p><b>a)</b> Quel moyen de transport est le plus utilisé ? le moins utilisé ?</p><p><b>b)</b> Calcule le nombre d'élèves pour chaque moyen de transport.</p><p><b>c)</b> Quelle fraction des élèves vient à pied ou à vélo ?</p>`,
    c:`<p><b>a)</b> Le plus utilisé : le bus (40 %). Le moins utilisé : le vélo (15 %).</p>
    <p><b>b)</b> Bus : 200 × ${F(40,100)} = 80 élèves.</p><p>Vélo : 200 × ${F(15,100)} = 30 élèves.</p><p>À pied : 200 × ${F(25,100)} = 50 élèves.</p><p>Voiture : 200 × ${F(20,100)} = 40 élèves.</p><p>Total : 80 + 30 + 50 + 40 = 200.</p>
-   <p><b>c)</b> 25 % + 15 % = 40 %, soit ${F(40,100)} = ${F(2,5)} des élèves.</p>`},
+   <p><b>c)</b> La fraction f des élèves qui viennent à pied ou à vélo :</p>${KC("f",["25 % + 15 %","40 %",F(40,100),F(2,5)])}<p>${F(2,5)} des élèves viennent à pied ou à vélo.</p>`},
   {n:"Exercice 7", t:"Lire un graphique cartésien", w:"Sur ton cahier", h:`<p>On a relevé la température à Cholet un jour de printemps.</p>${E7}
    <p><b>a)</b> Quelle était la température à 10 h ? à 16 h ?</p><p><b>b)</b> À quelle heure la température relevée est-elle maximale ? Quelle est cette température ?</p><p><b>c)</b> Pendant quelle période de relevés la température a-t-elle baissé ?</p><p><b>d)</b> De combien de degrés la température a-t-elle augmenté entre 6 h et 14 h ?</p>`,
    c:`<p><b>a)</b> À 10 h : 13 °C ; à 16 h : 17 °C.</p><p><b>b)</b> Maximum à 14 h : 18 °C.</p><p><b>c)</b> Entre 14 h et 18 h (de 18 °C à 13 °C).</p><p><b>d)</b> 18 − 7 = 11 : la température a augmenté de 11 °C.</p>`},
@@ -234,7 +238,7 @@ exos:[
  ]},
 {t:"La moyenne", e:[
   {n:"Exercice 10", t:"Calculer une moyenne", w:"Sur ton cahier", h:`<p>Calcule la moyenne de chaque série.</p><p><b>a)</b> 5 ; 8 ; 11 ; 12 ; 14</p><p><b>b)</b> 7 ; 9 ; 12 ; 8 ; 14</p><p><b>c)</b> 1,52 m ; 1,48 m ; 1,60 m ; 1,56 m</p><p><b>d)</b> 2,5 ; 4 ; 3,5 ; 6</p>`,
-   c:`<p><b>a)</b> (5 + 8 + 11 + 12 + 14) ÷ 5 = 50 ÷ 5 = 10</p><p><b>b)</b> (7 + 9 + 12 + 8 + 14) ÷ 5 = 50 ÷ 5 = 10</p><p><b>c)</b> (1,52 + 1,48 + 1,60 + 1,56) ÷ 4 = 6,16 ÷ 4 = 1,54 m</p><p><b>d)</b> (2,5 + 4 + 3,5 + 6) ÷ 4 = 16 ÷ 4 = 4</p>`},
+   c:`<p>La moyenne M de chaque série :</p><p><b>a)</b></p>${KC("M",["(5 + 8 + 11 + 12 + 14) ÷ 5","50 ÷ 5","10"])}<p><b>b)</b></p>${KC("M",["(7 + 9 + 12 + 8 + 14) ÷ 5","50 ÷ 5","10"])}<p><b>c)</b></p>${KC("M",["(1,52 + 1,48 + 1,60 + 1,56) ÷ 4","6,16 ÷ 4","1,54 m"])}<p><b>d)</b></p>${KC("M",["(2,5 + 4 + 3,5 + 6) ÷ 4","16 ÷ 4","4"])}`},
   {n:"Exercice 11", t:"Températures de la semaine", w:"Sur ton cahier", h:`<p>Voici les températures maximales relevées pendant une semaine à Cholet :</p><p>14 °C ; 16 °C ; 15 °C ; 11 °C ; 13 °C ; 17 °C ; 18 °C.</p>
    <p><b>a)</b> Quelle est la température maximale moyenne de la semaine ?</p><p><b>b)</b> Quelle est la différence entre la température la plus haute et la plus basse ?</p>`,
    c:`<p><b>a)</b> Somme : 14 + 16 + 15 + 11 + 13 + 17 + 18 = 104. Moyenne : 104 ÷ 7 ≈ 14,9 °C.</p><p><b>b)</b> 18 − 11 = 7 : l'écart est de 7 °C.</p>`},
@@ -251,10 +255,10 @@ exos:[
 /* ===================== QCM ===================== */
 quiz:[
 {nom:"Effectifs et fréquences", schema:S_FREQ, q:{
- 1:[ {g:()=>{ const t=pick([20,25,50]), n=ri(1,t-1), p=n*100/t; return {q:`Sur ${t} élèves, ${n} ${n===1?"a":"ont"} choisi le foot. Quelle est la fréquence du foot, en pourcentage ?`, rep:[String(p), p+" %", p+"%"], ex:`${F(n,t)} = ${F(p,100)} = ${p} %.`, sx:S_FREQ}; }} ],
+ 1:[ {g:()=>{ const t=pick([20,25,50]), n=ri(1,t-1), p=n*100/t; return {q:`Sur ${t} élèves, ${n} ${n===1?"a":"ont"} choisi le foot. Quelle est la fréquence du foot, en pourcentage ?`, rep:[String(p), p+" %", p+"%"], ex:KCi("f",[F(n,t),F(p,100),p+" %"]), sx:S_FREQ}; }} ],
  2:[ {g:()=>{ const t=pick([24,28,30,36,40]); let n; do{ n=ri(2,t-2); }while(gcd(n,t)===1); const g=gcd(n,t);
        return {q:`Dans une classe de ${t} élèves, ${n} viennent en bus. Quelle est la fréquence du bus, sous forme de fraction irréductible ?`, c:shuf(uniq(irr(n,t),[F(n,t-n), irr(t-n,t), F(t/g,n/g)])), rep:irr(n,t), ex:`${F(n,t)} : on divise ${n} et ${t} par ${g}.`, sx:S_FREQ}; }},
-     {g:()=>{ const t=pick([20,25,50]), n=ri(1,t-1); return {q:`Sur ${t} élèves, ${n} ${n===1?"a":"ont"} 1 frère ou sœur. Écris cette fréquence sous forme de nombre décimal.`, rep:N(n/t), ex:`${F(n,t)} = ${n} ÷ ${t} = ${N(n/t)}.`, sx:S_FREQ}; }} ],
+     {g:()=>{ const t=pick([20,25,50]), n=ri(1,t-1); return {q:`Sur ${t} élèves, ${n} ${n===1?"a":"ont"} 1 frère ou sœur. Écris cette fréquence sous forme de nombre décimal.`, rep:N(n/t), ex:KCi("f",[F(n,t),`${n} ÷ ${t}`,N(n/t)]), sx:S_FREQ}; }} ],
  3:[ {q:"La somme des fréquences de toutes les valeurs d'une série est toujours égale à…", c:["1 (ou 100 %)","l'effectif total","0"], rep:"1 (ou 100 %)", sx:S_FREQ},
      {g:()=>{ const a=ri(1,5), b=pick([28,30]), p=a*100/b, oth=pick([20,25]), m=ri(1,oth-1), q=m*100/oth; if(rd(p,6)===q) return {q:`Classe A : ${a} ${a===1?"élève":"élèves"} sur ${b} ${a===1?"porte":"portent"} des lunettes. Classe B : ${m} sur ${oth}. Dans quelle classe la proportion est-elle la plus grande ?`, c:["A","B","autant"], rep:"autant", sx:S_FREQ};
        return {q:`Classe A : ${a} ${a===1?"élève":"élèves"} sur ${b} ${a===1?"porte":"portent"} des lunettes. Classe B : ${m} sur ${oth}. Dans quelle classe la proportion est-elle la plus grande ?`, c:["A","B","autant"], rep:p>q?"A":"B", ex:`A : ${F(a,b)} ${Number.isInteger(rd(p,6))?"=":"≈"} ${N(p,1)} % ; B : ${F(m,oth)} = ${q} %. On compare les fréquences, pas les effectifs.`, sx:S_FREQ}; }} ]
@@ -262,7 +266,7 @@ quiz:[
 {nom:"Diagramme en barres", schema:S_BAR, q:{
  1:[ {g:()=>{ const B=qBars(), i=ri(0,3); return {q:`Combien de livres ont été empruntés le ${JOURS[i].toLowerCase()} ?`, fig:B.fig, rep:String(B.v[i]), ex:`On lit la hauteur de la barre du ${JOURS[i].toLowerCase()} sur l'axe vertical.`, sx:B.sx}; }} ],
  2:[ {g:()=>{ const B=qBars(); return {q:"Quel est le nombre total de livres empruntés ?", fig:B.fig, rep:String(B.T0), ex:`${B.v.join(" + ")} = ${B.T0}.`, sx:B.sx}; }} ],
- 3:[ {g:()=>{ const B=qBars(), i=ri(0,3), p=B.v[i]*100/B.T0; return {q:`Quelle est la fréquence du ${JOURS[i].toLowerCase()}, en pourcentage ?`, fig:B.fig, rep:[N(p), N(p)+" %"], ex:`Total : ${B.v.join(" + ")} = ${B.T0}. Fréquence : ${F(B.v[i],B.T0)} = ${N(p/100)} = ${N(p)} %.`, sx:B.sx}; }} ]
+ 3:[ {g:()=>{ const B=qBars(), i=ri(0,3), p=B.v[i]*100/B.T0; return {q:`Quelle est la fréquence du ${JOURS[i].toLowerCase()}, en pourcentage ?`, fig:B.fig, rep:[N(p), N(p)+" %"], ex:`Total : ${B.v.join(" + ")} = ${B.T0}. Fréquence f du ${JOURS[i].toLowerCase()} :${KCi("f",[F(B.v[i],B.T0),N(p/100),N(p)+" %"])}`, sx:B.sx}; }} ]
 }},
 {nom:"Diagramme circulaire", schema:S_PIE, q:{
  1:[ {g:()=>{ const t=pick([12,18,20,24,30,36,40,45,60]), n=ri(1,t-1), k=360/t; return {q:`Un diagramme circulaire représente ${t} élèves (360°). Quel angle (en degrés) correspond à ${n} élève${n>1?"s":""} ?`, rep:[String(n*k), n*k+"°"], ex:`360 ÷ ${t} = ${k} : 1 élève correspond à ${k}°. ${n} × ${k} = ${n*k}°.`, sx:S_PIE}; }} ],
@@ -283,8 +287,8 @@ quiz:[
      {q:"Dans un diagramme en barres, la hauteur de chaque barre est proportionnelle…", c:["à l'effectif","au nombre de barres","à l'angle"], rep:"à l'effectif", sx:S_BAR} ]
 }},
 {nom:"La moyenne", schema:S_MOY, q:{
- 1:[ {g:()=>{ const n=pick([4,5]); let v; do{ v=Array.from({length:n},()=>ri(4,18)); }while(sum(v)%n); return {q:`Calcule la moyenne de : ${v.join(" ; ")}.`, rep:String(sum(v)/n), ex:`(${v.join(" + ")}) ÷ ${n} = ${sum(v)} ÷ ${n} = ${sum(v)/n}.`, sx:S_MOY}; }} ],
- 2:[ {g:()=>{ let v; do{ v=Array.from({length:4},()=>ri(4,13)/2); }while(!Number.isInteger(sum(v))||Number.isInteger(sum(v)/4)); const s=sum(v), m=s/4; return {q:`Calcule la moyenne de : ${v.map(x=>N(x)).join(" ; ")}.`, rep:N(m,4), ex:`(${v.map(x=>N(x)).join(" + ")}) ÷ 4 = ${N(s)} ÷ 4 = ${N(m,4)}.`, sx:S_MOY}; }},
+ 1:[ {g:()=>{ const n=pick([4,5]); let v; do{ v=Array.from({length:n},()=>ri(4,18)); }while(sum(v)%n); return {q:`Calcule la moyenne de : ${v.join(" ; ")}.`, rep:String(sum(v)/n), ex:KCi("M",[`(${v.join(" + ")}) ÷ ${n}`,`${sum(v)} ÷ ${n}`,sum(v)/n]), sx:S_MOY}; }} ],
+ 2:[ {g:()=>{ let v; do{ v=Array.from({length:4},()=>ri(4,13)/2); }while(!Number.isInteger(sum(v))||Number.isInteger(sum(v)/4)); const s=sum(v), m=s/4; return {q:`Calcule la moyenne de : ${v.map(x=>N(x)).join(" ; ")}.`, rep:N(m,4), ex:KCi("M",[`(${v.map(x=>N(x)).join(" + ")}) ÷ 4`,`${N(s)} ÷ 4`,N(m,4)]), sx:S_MOY}; }},
      {g:()=>{ let v; do{ v=Array.from({length:7},()=>ri(9,22)); }while(sum(v)%7===0); const s=sum(v); return {q:`Températures de la semaine (en °C) : ${v.join(" ; ")}. Quelle est la moyenne, arrondie au dixième ?`, rep:[N(s/7,1), N(s/7,1)+" °C"], ex:`Somme : ${s}. ${s} ÷ 7 ≈ ${N(s/7,1)}.`, sx:S_MOY}; }} ],
  3:[ {g:()=>{ let a,b,c,m,x; do{ a=ri(6,18); b=ri(6,18); c=ri(6,18); m=ri(10,14); x=4*m-a-b-c; }while(x<0||x>20); return {q:`Léa a obtenu ${a}, ${b} et ${c} à ses trois premiers devoirs. Quelle note doit-elle obtenir au quatrième pour avoir ${m} de moyenne ?`, rep:String(x), ex:`La somme doit valoir 4 × ${m} = ${4*m}. ${a} + ${b} + ${c} = ${a+b+c}. ${4*m} − ${a+b+c} = ${x}.`, sx:S_MOY}; }},
      {q:"Vrai ou faux : la moyenne d'une série est toujours l'une des valeurs de la série.", c:VF, rep:"Faux", ex:"Par exemple, la moyenne de 7 ; 13 ; 10 ; 6 est 9, qui n'est pas dans la série.", sx:S_MOY} ]
@@ -304,7 +308,7 @@ const G_SORTc = bars({...SORT, title:"Sortie de fin d'année", ylab:"Nombre de v
 const P_SORT = pie({...SORT, title:"Sortie de fin d'année", w:330, R:125, lab:i=>[SORT.cats[i], SORT.vals[i]*10+"°"]});
 const SAIS = tab(["Saison préférée","Printemps","Été","Automne","Hiver","Total"],[["Effectif","10","18","4","8",""],["Fréquence (%)","","","","",""]]);
 const SAISc = tab(["Saison préférée","Printemps","Été","Automne","Hiver","Total"],[["Effectif","10","18","4","8","40"],["Fréquence (%)","25 %","45 %","10 %","20 %","100 %"]]);
-const FREQc = `<p class="calc">Printemps : ${F(10,40)} = ${F(1,4)} = ${F(25,100)} = 25 %<br>Été : ${F(18,40)} = ${F(9,20)} = ${F(45,100)} = 45 %<br>Automne : ${F(4,40)} = ${F(1,10)} = ${F(10,100)} = 10 %<br>Hiver : ${F(8,40)} = ${F(1,5)} = ${F(20,100)} = 20 %</p>`;
+const FREQc = `<div class="calcs">${[["Printemps",[F(10,40),F(1,4),F(25,100),"25 %"]],["Été",[F(18,40),F(9,20),F(45,100),"45 %"]],["Automne",[F(4,40),F(1,10),F(10,100),"10 %"]],["Hiver",[F(8,40),F(1,5),F(20,100),"20 %"]]].map(([s,L])=>`<div><p>${s} :</p>${KC("f",L)}</div>`).join("")}</div>`;
 const ANGc = `<p class="calc">360 ÷ 36 = 10 : 1 élève correspond à 10°.<br>Musée : 9 × 10 = 90°<br>Zoo : 15 × 10 = 150°<br>Cinéma : 8 × 10 = 80°<br>Piscine : 4 × 10 = 40°</p><p>Vérification : 90 + 150 + 80 + 40 = 360.</p>`;
 const MAREEh = `<p>Le graphique ci-dessous donne la hauteur d'eau relevée toutes les heures dans un port, au cours d'une matinée.</p>${G_MAREE}`;
 const LIVh = `<p>On a demandé aux élèves d'une classe combien de livres ils ont lus pendant les vacances. Voici les résultats.</p>${G_LIV}`;
@@ -339,7 +343,7 @@ exos:[
  c:`<p>Fréquence = ${F("effectif","effectif total")}.</p><p>1. Total : 10 + 18 + 4 + 8 = 40. <i>(0,5 point)</i></p>${FREQc}${SAISc}<p><i>0,5 point par fréquence (2 points).</i></p><p>2. 10 % + 20 % = <b>30 %</b> des élèves. <i>(0,5 point)</i></p>`},
 {t:"Lire un diagramme en barres", p:4, h:`${LIVh}
   <p>a) Quel nombre de livres a été le plus souvent cité ? Par combien d'élèves ?</p><p>b) Combien d'élèves ont répondu ? Écris ton calcul.</p><p>c) Combien d'élèves ont lu au moins 3 livres ?</p><p>d) Quelle est la fréquence, en pourcentage, des élèves qui n'ont lu aucun livre ?</p>`,
- c:`${G_LIVc}<p>a) La barre la plus haute est celle de « 1 livre » : <b>7 élèves</b> ont lu 1 livre. <i>(1 point)</i></p><p>b)</p><p class="calc">3 + 7 + 6 + 3 + 1 = 20</p><p><b>20 élèves</b> ont répondu. <i>(1 point)</i></p><p>c) « Au moins 3 livres », c'est 3 livres ou 4 livres : 3 + 1 = <b>4 élèves</b>. <i>(1 point)</i></p><p>d) 3 élèves sur 20 n'ont lu aucun livre :</p><p class="calc">${F(3,20)} = ${F(15,100)} = 15 %</p><p>La fréquence est de <b>15 %</b>. <i>(1 point)</i></p>`},
+ c:`${G_LIVc}<p>a) La barre la plus haute est celle de « 1 livre » : <b>7 élèves</b> ont lu 1 livre. <i>(1 point)</i></p><p>b)</p><p class="calc">3 + 7 + 6 + 3 + 1 = 20</p><p><b>20 élèves</b> ont répondu. <i>(1 point)</i></p><p>c) « Au moins 3 livres », c'est 3 livres ou 4 livres : 3 + 1 = <b>4 élèves</b>. <i>(1 point)</i></p><p>d) 3 élèves sur 20 n'ont lu aucun livre :</p>${KC("f",[F(3,20),F(15,100),"15 %"])}<p>La fréquence est de <b>15 %</b>. <i>(1 point)</i></p>`},
 {t:"Représenter des données", p:4, h:`${SORTh}${G_SORT}
   <p>1. Recopie et complète le diagramme en barres pour « Cinéma » et « Piscine ».</p><p>2. On veut aussi représenter ces votes par un diagramme circulaire : les 36 élèves correspondent à 360°. Calcule l'angle du secteur de chaque sortie.</p>`,
  c:`<p>1. Barre « Cinéma » : hauteur 8 ; barre « Piscine » : hauteur 4. <i>(1 point : 0,5 par barre)</i></p>${G_SORTc}
@@ -365,7 +369,7 @@ exos:[
  c:`<p>Fréquence = ${F("effectif","effectif total")}.</p><p>1. Total : 10 + 18 + 4 + 8 = 40. <i>(0,5 point)</i></p>${FREQc}${SAISc}<p><i>0,5 point par fréquence (2 points).</i></p><p>2. 10 % + 20 % = <b>30 %</b> des élèves. <i>(1 point)</i></p>`},
 {t:"Lire un diagramme en barres", p:3.5, h:`${LIVh}
   <p>a) Quel nombre de livres a été le plus souvent cité ? Par combien d'élèves ?</p><p>b) Combien d'élèves ont répondu ? Écris ton calcul.</p><p>c) Quelle est la fréquence, en pourcentage, des élèves qui n'ont lu aucun livre ?</p>`,
- c:`${G_LIVc}<p>a) La barre la plus haute est celle de « 1 livre » : <b>7 élèves</b> ont lu 1 livre. <i>(1 point)</i></p><p>b)</p><p class="calc">3 + 7 + 6 + 3 + 1 = 20</p><p><b>20 élèves</b> ont répondu. <i>(1 point)</i></p><p>c) 3 élèves sur 20 n'ont lu aucun livre :</p><p class="calc">${F(3,20)} = ${F(15,100)} = 15 %</p><p>La fréquence est de <b>15 %</b>. <i>(1,5 point)</i></p>`},
+ c:`${G_LIVc}<p>a) La barre la plus haute est celle de « 1 livre » : <b>7 élèves</b> ont lu 1 livre. <i>(1 point)</i></p><p>b)</p><p class="calc">3 + 7 + 6 + 3 + 1 = 20</p><p><b>20 élèves</b> ont répondu. <i>(1 point)</i></p><p>c) 3 élèves sur 20 n'ont lu aucun livre :</p>${KC("f",[F(3,20),F(15,100),"15 %"])}<p>La fréquence est de <b>15 %</b>. <i>(1,5 point)</i></p>`},
 {t:"Représenter des données", p:5, h:`${SORTh}${G_SORT}
   <p>1. Recopie et complète le diagramme en barres pour « Cinéma » et « Piscine ».</p><p>2. On veut aussi représenter ces votes par un diagramme circulaire : les 36 élèves correspondent à 360°. Calcule l'angle du secteur de chaque sortie.</p>`,
  c:`<p>1. Barre « Cinéma » : hauteur 8 ; barre « Piscine » : hauteur 4. <i>(2 points : 1 par barre)</i></p>${G_SORTc}

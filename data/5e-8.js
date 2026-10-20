@@ -197,8 +197,8 @@ exos:[
    <p><b>1)</b> Calcule ${an("ABC")} et ${an("ACB")}.</p><p><b>2)</b> Calcule ${an("BAC")} de deux façons.</p>`,
    c:`${cr("e9c","Les angles de 48°, 65° et 67°",340)}
    <p><b>1)</b> (xy) // (BC) et ${an("xAB")}, ${an("ABC")} sont alternes-internes : ${an("ABC")} = ${an("xAB")} = <b>48°</b>.</p><p>De même, ${an("ACB")} = ${an("yAC")} = <b>65°</b>.</p>
-   <p><b>2)</b> Avec l'angle plat ${an("xAy")} : ${an("BAC")} = 180° − ${an("xAB")} − ${an("yAC")} = 180° − 48° − 65° = <b>67°</b>.</p>
-   <p>Avec le triangle : ${an("BAC")} = 180° − ${an("ABC")} − ${an("ACB")} = 180° − 48° − 65° = <b>67°</b>.</p>`},
+   <p><b>2)</b> Avec l'angle plat ${an("xAy")} :</p><p class="calc">${an("BAC")} = 180° − ${an("xAB")} − ${an("yAC")}<br>${an("BAC")} = 180° − 48° − 65°<br>${an("BAC")} = <b>67°</b></p>
+   <p>Avec le triangle :</p><p class="calc">${an("BAC")} = 180° − ${an("ABC")} − ${an("ACB")}<br>${an("BAC")} = 180° − 48° − 65°<br>${an("BAC")} = <b>67°</b></p>`},
   {n:"Exercice 10", t:"Pour aller plus loin : le triangle isocèle", w:"Sur ton cahier", h:`<p>On admet que dans un triangle isocèle, les deux angles situés à la base sont égaux.</p><p>Réponds en justifiant.</p>
    <p><b>1)</b> Le triangle ABC est isocèle en A et ${an("BAC")} = 40°. Calcule ${an("ABC")} et ${an("ACB")}.</p>
    <p><b>2)</b> Le triangle DEG est isocèle en D et ${an("DEG")} = 50°. Calcule ${an("DGE")} et ${an("EDG")}.</p>`,

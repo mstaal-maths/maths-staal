@@ -509,7 +509,7 @@ quiz:[
 {nom:"Aire du parallélogramme", schema:SC_AIRE, q:{
  1:[ {q:"Quelle est la formule de l'aire d'un parallélogramme ?", c:["base × hauteur","côté × côté","base + hauteur"], rep:"base × hauteur"},
      {g:()=>{ const b=ri(3,9), h=ri(2,7); return {q:`Un parallélogramme a une base de ${b} cm et une hauteur de ${h} cm. Quelle est son aire (en cm²) ?`, rep:String(b*h), ex:`${b} × ${h} = ${b*h} cm².`}; }} ],
- 2:[ {g:()=>{ const b=ri(3,9), h=ri(2,6), c=h+ri(1,3); return {q:`Un parallélogramme a une base de ${b} cm, une hauteur de ${h} cm et un côté penché de ${c} cm. Quelle est son aire (en cm²) ?`, rep:String(b*h), ex:`Aire = base × hauteur = ${b} × ${h} = ${b*h} cm². Le côté penché ne sert pas.`}; }},
+ 2:[ {g:()=>{ const b=ri(3,9), h=ri(2,6), c=h+ri(1,3); return {q:`Un parallélogramme a une base de ${b} cm, une hauteur de ${h} cm et un côté penché de ${c} cm. Quelle est son aire (en cm²) ?`, rep:String(b*h), ex:`L'aire A :<span class="calc" style="display:block;margin:6px 0">A = base × hauteur<br>A = ${b} × ${h}<br>A = ${b*h} cm²</span>Le côté penché ne sert pas.`}; }},
      {g:()=>{ const b=ri(4,12), h=ri(2,8)/2; return {q:`Base : ${b} cm, hauteur : ${fr(h)} cm. Quelle est l'aire du parallélogramme (en cm²) ?`, rep:C.txt(C.val(`${b} × ${fr(h)}`)), ex:`${b} × ${fr(h)} = ${C.txt(C.val(`${b} × ${fr(h)}`))} cm².`}; }} ],
  3:[ {g:()=>{ const h=ri(2,8), b=ri(2,9), A=b*h; return {q:`Un parallélogramme a une aire de ${A} cm² et une base de ${b} cm. Quelle est sa hauteur (en cm) ?`, rep:String(h), ex:`${b} × hauteur = ${A}, donc hauteur = ${A} ÷ ${b} = ${h} cm.`}; }},
      {q:"Vrai ou faux : la hauteur d'un parallélogramme est perpendiculaire à la base.", c:VF, rep:"Vrai"} ]

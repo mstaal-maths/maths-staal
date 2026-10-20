@@ -2,7 +2,7 @@
    Les diagrammes et les corrections sont produits à partir des mêmes valeurs. */
 TRAIN["5e-13"] = function(){
 const {ri, pick, shuf, distinct} = TR;
-const {bars, pie, line, tab, N, F, irr, gcd, sum} = window.STAT13;
+const {bars, pie, line, tab, N, F, irr, gcd, sum, KC} = window.STAT13;
 /* n entiers entre lo et hi, de somme tot */
 const split = (n, tot, lo, hi, fb) => { for(let g=0; g<3000; g++){ const v=[]; for(let i=0;i<n-1;i++) v.push(ri(lo,hi)); const l=tot-sum(v); if(l>=lo && l<=hi) return [...v, l]; } return fb; };
 const uniqMax = v => v.filter(x=>x===Math.max(...v)).length===1;
@@ -66,7 +66,7 @@ const intMean = n => { let v; do{ v=Array.from({length:n},()=>ri(3,18)); }while(
 const M10 = [intMean(5), intMean(5),
   (()=>{ let v; do{ v=Array.from({length:4},()=>ri(140,170)); }while(sum(v)%4); return v; })(),
   (()=>{ let v; do{ v=Array.from({length:4},()=>ri(3,14)/2); }while(!Number.isInteger(sum(v))); return v; })()];
-const mLine = (v,u="",d=1) => `(${v.map(x=>N(x/d)).join(" + ")}) ÷ ${v.length} = ${N(sum(v)/d)} ÷ ${v.length} = <b>${N(sum(v)/d/v.length,4)}${u}</b>`;
+const mLine = (v,u="",d=1) => KC("M",[`(${v.map(x=>N(x/d)).join(" + ")}) ÷ ${v.length}`,`${N(sum(v)/d)} ÷ ${v.length}`,`<b>${N(sum(v)/d/v.length,4)}${u}</b>`]);
 
 /* ===== Exercice 11 : températures de la semaine ===== */
 const E11 = (()=>{ let v; do{ v=Array.from({length:7},()=>ri(8,24)); }while(sum(v)%7===0); return v; })();
@@ -87,14 +87,14 @@ return [
    <p>${E1.v.map(x=>N(x*100/E1.t)).join(" + ")} = 100 : la somme des fréquences est bien 100 %.</p>`},
   {n:"Exercice 2", t:"Fréquences et comparaison", w:"Sur ton cahier", h:`<p>Dans une classe de ${E2.n} élèves, ${E2.k.map((k,i)=>`${k} ${CAR[i]}`).join(", ").replace(/, ([^,]*)$/," et $1")}.</p>
    <p><b>a)</b> Calcule la fréquence de chaque caractéristique sous forme de fraction irréductible, puis en pourcentage.</p><p><b>b)</b> Dans une autre classe, ${E2.m} ${E2.m===1?"élève":"élèves"} sur ${E2.M} ${E2.m===1?"porte":"portent"} des lunettes. Dans quelle classe la proportion d'élèves qui portent des lunettes est-elle la plus grande ?</p>`,
-   c:`<p>Fréquence = ${F("effectif","effectif total")}. On simplifie la fraction, puis on l'écrit en pourcentage.</p><p><b>a)</b> ${E2.k.map((k,i)=>`${["Lunettes","Cheveux bruns","Nés avant juillet"][i]} : ${F(k,E2.n)} = ${irr(k,E2.n)} = ${E2.p[i]} %`).join("</p><p>")}</p>
-   <p><b>b)</b> ${F(E2.m,E2.M)} = ${N(E2.q/100)} = ${E2.q} %. ${E2.q>E2.p[0]?`${E2.q} % &gt; ${E2.p[0]} % : la proportion est plus grande dans l'autre classe.`:`${E2.q} % &lt; ${E2.p[0]} % : la proportion est plus grande dans la première classe.`}</p>`}
+   c:`<p>Fréquence f = ${F("effectif","effectif total")}. On simplifie la fraction, puis on l'écrit en pourcentage.</p>${E2.k.map((k,i)=>`<p>${i?"":"<b>a)</b> "}${["Lunettes","Cheveux bruns","Nés avant juillet"][i]} :</p>${KC("f",[F(k,E2.n),irr(k,E2.n),E2.p[i]+" %"])}`).join("")}
+   <p><b>b)</b> Dans l'autre classe :</p>${KC("f",[F(E2.m,E2.M),N(E2.q/100),E2.q+" %"])}<p>${E2.q>E2.p[0]?`${E2.q} % &gt; ${E2.p[0]} % : la proportion est plus grande dans l'autre classe.`:`${E2.q} % &lt; ${E2.p[0]} % : la proportion est plus grande dans la première classe.`}</p>`}
  ]},
  {t:"Lire et construire des représentations", e:[
   {n:"Exercice 3", t:"Lire un diagramme en barres", w:"Sur ton cahier", h:`<p>Le diagramme donne le nombre de livres empruntés au CDI selon les jours de la semaine.</p>${bars(E3o)}
    <p><b>a)</b> Combien de livres ont été empruntés le ${JOURS[E3.im===0?1:0].toLowerCase()} ? le vendredi ?</p><p><b>b)</b> Quel jour y a-t-il eu le plus d'emprunts ? Combien de fois plus que le vendredi ?</p><p><b>c)</b> Quel est le nombre total de livres empruntés ? Calcule la fréquence du lundi en pourcentage.</p>`,
    c:`<p><b>a)</b> ${JOURS[E3.im===0?1:0]} : ${E3.v[E3.im===0?1:0]} livre${E3.v[E3.im===0?1:0]>1?"s":""} ; vendredi : ${E3.v[3]} livre${E3.v[3]>1?"s":""}.</p><p><b>b)</b> Le ${JOURS[E3.im].toLowerCase()} (${E3.v[E3.im]} livres). ${E3.v[E3.im]} ÷ ${E3.v[3]} = ${E3.k} : ${E3.k===2?"deux":"trois"} fois plus que le vendredi.</p>
-   <p><b>c)</b> Total : ${E3.v.join(" + ")} = ${E3.T} livres. Fréquence du lundi : ${F(E3.v[0],E3.T)} = ${N(E3.v[0]/E3.T)} = ${N(E3.v[0]*100/E3.T)} %.</p>${bars({...E3o, show:true})}`},
+   <p><b>c)</b> Total : ${E3.v.join(" + ")} = ${E3.T} livres.</p><p>Fréquence du lundi :</p>${KC("f",[F(E3.v[0],E3.T),N(E3.v[0]/E3.T),N(E3.v[0]*100/E3.T)+" %"])}${bars({...E3o, show:true})}`},
   {n:"Exercice 4", t:"Construire un diagramme en barres", w:"Sur ton cahier", h:`<p>Les élèves d'un club choisissent leur sport :</p>${tab(["Sport",...SP],[["Nombre d'élèves",...E4.map(String)]])}
    <p>Construis un diagramme en barres :</p><p>axe vertical : 1 cm pour 2 élèves ;</p><p>barres de 1 cm de largeur, espacées de 1 cm.</p><p>N'oublie pas le titre et les graduations.</p>`,
    c:(()=>{ const ym=Math.max(...E4)+(Math.max(...E4)%4?2:0); /* à l'échelle de la consigne : 1 cm = 45 px */
@@ -108,7 +108,7 @@ return [
    <p><b>a)</b> Quel moyen de transport est le plus utilisé ? le moins utilisé ?</p><p><b>b)</b> Calcule le nombre d'élèves pour chaque moyen de transport.</p><p><b>c)</b> Quelle fraction des élèves vient à pied ou à vélo ?</p>`,
    c:`<p><b>a)</b> Le plus utilisé : ${TR6[im6].toLowerCase()} (${E6.p[im6]} %). Le moins utilisé : ${TR6[in6].toLowerCase()} (${E6.p[in6]} %).</p>
    <p><b>b)</b> ${E6.p.map((p,i)=>`${TR6[i]} : ${N(E6.n)} × ${F(p,100)} = ${N(E6.n*p/100)} élèves`).join("</p><p>")}</p><p>Total : ${E6.p.map(p=>N(E6.n*p/100)).join(" + ")} = ${N(E6.n)}.</p>
-   <p><b>c)</b> ${E6.p[2]} % + ${E6.p[1]} % = ${pv} %, soit ${F(pv,100)} = ${irr(pv,100)} des élèves.</p>`},
+   <p><b>c)</b> La fraction f des élèves qui viennent à pied ou à vélo :</p>${KC("f",[`${E6.p[2]} % + ${E6.p[1]} %`,pv+" %",F(pv,100),irr(pv,100)])}<p>${irr(pv,100)} des élèves viennent à pied ou à vélo.</p>`},
   {n:"Exercice 7", t:"Lire un graphique cartésien", w:"Sur ton cahier", h:`<p>On a relevé la température à Cholet un jour de printemps.</p>${line(E7o)}
    <p><b>a)</b> Quelle était la température à ${H7[q7[0]]} h ? à ${H7[q7[1]]} h ?</p><p><b>b)</b> À quelle heure la température relevée est-elle maximale ? Quelle est cette température ?</p><p><b>c)</b> Pendant quelle période de relevés la température a-t-elle baissé ?</p><p><b>d)</b> De combien de degrés la température a-t-elle augmenté entre 6 h et ${H7[E7.im]} h ?</p>`,
    c:`<p><b>a)</b> À ${H7[q7[0]]} h : ${E7.y[q7[0]]} °C ; à ${H7[q7[1]]} h : ${E7.y[q7[1]]} °C.</p><p><b>b)</b> Maximum à ${H7[E7.im]} h : ${E7.y[E7.im]} °C.</p><p><b>c)</b> Entre ${H7[E7.im]} h et 18 h (de ${E7.y[E7.im]} °C à ${E7.y[6]} °C).</p><p><b>d)</b> ${E7.y[E7.im]} − ${E7.y[0]} = ${E7.y[E7.im]-E7.y[0]} : la température a augmenté de ${E7.y[E7.im]-E7.y[0]} °C.</p>${line({...E7o, show:true})}`},
@@ -121,7 +121,7 @@ return [
  ]},
  {t:"La moyenne", e:[
   {n:"Exercice 10", t:"Calculer une moyenne", w:"Sur ton cahier", h:`<p>Calcule la moyenne de chaque série.</p><p><b>a)</b> ${M10[0].join(" ; ")}</p><p><b>b)</b> ${M10[1].join(" ; ")}</p><p><b>c)</b> ${M10[2].map(x=>N(x/100)+" m").join(" ; ")}</p><p><b>d)</b> ${M10[3].map(x=>N(x)).join(" ; ")}</p>`,
-   c:`<p><b>a)</b> ${mLine(M10[0])}</p><p><b>b)</b> ${mLine(M10[1])}</p><p><b>c)</b> ${mLine(M10[2]," m",100)}</p><p><b>d)</b> ${mLine(M10[3])}</p>`},
+   c:`<p>La moyenne M de chaque série :</p><p><b>a)</b></p>${mLine(M10[0])}<p><b>b)</b></p>${mLine(M10[1])}<p><b>c)</b></p>${mLine(M10[2]," m",100)}<p><b>d)</b></p>${mLine(M10[3])}`},
   {n:"Exercice 11", t:"Températures de la semaine", w:"Sur ton cahier", h:`<p>Voici les températures maximales relevées pendant une semaine :</p><p>${E11.map(x=>x+" °C").join(" ; ")}.</p><p><b>a)</b> Quelle est la température maximale moyenne de la semaine (arrondie au dixième) ?</p><p><b>b)</b> Quelle est la différence entre la température la plus haute et la plus basse ?</p>`,
    c:`<p><b>a)</b> Somme : ${E11.join(" + ")} = ${sum(E11)}. Moyenne : ${sum(E11)} ÷ 7 ≈ <b>${N(sum(E11)/7,1)} °C</b>.</p><p><b>b)</b> ${Math.max(...E11)} − ${Math.min(...E11)} = ${Math.max(...E11)-Math.min(...E11)} : l'écart est de <b>${Math.max(...E11)-Math.min(...E11)} °C</b>.</p>`},
   {n:"Exercice 12", t:"Raisonner avec la moyenne", w:"Sur ton cahier", h:`<p><b>a)</b> Léa a obtenu ${E12.a}, ${E12.b} et ${E12.c} à ses trois premiers devoirs. Quelle note doit-elle obtenir au quatrième pour avoir ${E12.m} de moyenne ?</p>

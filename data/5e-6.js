@@ -191,7 +191,7 @@ cours:[
   <div class="attention"><b>ATTENTION :</b> la hauteur doit être perpendiculaire à la base choisie. Elle peut être à l'extérieur du triangle.</div>
   <div class="figs">${fig("Aire = 6 × 4 ÷ 2 = 12 cm²",co("a1","Triangle de base 6 cm et de hauteur 4 cm",230))}${fig("Les côtés de l'angle droit sont base et hauteur : Aire = 5 × 3 ÷ 2 = 7,5 cm²",co("a2","Triangle rectangle de côtés 5 cm et 3 cm",230))}${fig("La hauteur issue de A est à l'extérieur : Aire = 4 × 3,5 ÷ 2 = 7 cm²",co("a3","Triangle avec la hauteur à l'extérieur",230))}</div>
   <p><b>À toi de jouer :</b> un triangle a pour base 7 cm et pour hauteur correspondante 4 cm. Calcule son aire.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">Aire = 7 × 4 ÷ 2 = 28 ÷ 2 = 14 cm²</p></div></details>`}
+  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">A = 7 × 4 ÷ 2<br>A = 28 ÷ 2<br>A = 14 cm²</p></div></details>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -287,16 +287,16 @@ exos:[
    <p><b>a)</b> Calcule l'aire du triangle ABC.</p><p><b>b)</b> Calcule la longueur BI, puis l'aire du triangle ABI.</p><p><b>c)</b> Calcule l'aire du triangle AIC. Que constates-tu ? Quelle propriété du cours retrouves-tu ?</p><p><b>d)</b> Le triangle MNP a pour aire 18,4 cm². Q est le milieu de [NP]. Quelle est l'aire du triangle MNQ ? Justifie.</p>`,
    c:`<p><b>a)</b> Aire(ABC) = 10 × 6 ÷ 2 = <b>30 cm²</b>.</p>
    <p><b>b)</b> I est le milieu de [BC] : BI = 10 ÷ 2 = <b>5 cm</b>. La hauteur issue de A est aussi celle de ABI : Aire(ABI) = 5 × 6 ÷ 2 = <b>15 cm²</b>.</p>
-   <p><b>c)</b> Aire(AIC) = IC × 6 ÷ 2 = 5 × 6 ÷ 2 = <b>15 cm²</b>. Les triangles ABI et AIC ont la même aire (15 + 15 = 30 cm²) : une médiane partage un triangle en deux triangles de même aire.</p>
+   <p><b>c)</b></p><p class="calc">Aire(AIC) = IC × 6 ÷ 2<br>Aire(AIC) = 5 × 6 ÷ 2<br>Aire(AIC) = <b>15 cm²</b></p><p>Les triangles ABI et AIC ont la même aire (15 + 15 = 30 cm²) : une médiane partage un triangle en deux triangles de même aire.</p>
    <p><b>d)</b> (MQ) est une médiane de MNP, donc Aire(MNQ) = 18,4 ÷ 2 = <b>9,2 cm²</b>.</p>`}
  ]},
 {t:"L'aire d'un triangle", e:[
   {n:"Exercice 17", t:"Calculer des aires", w:"Sur ta feuille", h:`<p>Calcule l'aire de chaque triangle (figures non à l'échelle). Écris le calcul.</p><p><b>Attention :</b> une donnée peut être inutile !</p>
    <div class="figs">${fig("Triangle ① : Aire = ……………",ex("e17a","Triangle 1",270))}${fig("Triangle ② : Aire = ……………",ex("e17b","Triangle 2",270))}${fig("Triangle ③ : Aire = ……………",ex("e17c","Triangle 3",270))}${fig("Triangle ④ : Aire = ……………",ex("e17d","Triangle 4",270))}</div>`,
-   c:`<p>Aire = base × hauteur ÷ 2, avec la hauteur perpendiculaire à la base.</p><p><b>①</b> Base 8 cm, hauteur 5 cm : 8 × 5 ÷ 2 = 40 ÷ 2 = <b>20 cm²</b></p><p><b>②</b> Les côtés de l'angle droit sont base et hauteur : 9 × 6 ÷ 2 = 54 ÷ 2 = <b>27 cm²</b></p><p><b>③</b> La hauteur est à l'extérieur : 7 × 4 ÷ 2 = 28 ÷ 2 = <b>14 cm²</b></p><p><b>④</b> Base 8 cm, hauteur 3 cm : 8 × 3 ÷ 2 = 24 ÷ 2 = <b>12 cm²</b> (la longueur 5 cm ne sert pas).</p>`},
+   c:`<p>Aire = base × hauteur ÷ 2, avec la hauteur perpendiculaire à la base.</p><p><b>①</b> Base 8 cm, hauteur 5 cm :</p><p class="calc">A = 8 × 5 ÷ 2<br>A = 40 ÷ 2<br>A = <b>20 cm²</b></p><p><b>②</b> Les côtés de l'angle droit sont base et hauteur :</p><p class="calc">A = 9 × 6 ÷ 2<br>A = 54 ÷ 2<br>A = <b>27 cm²</b></p><p><b>③</b> La hauteur est à l'extérieur :</p><p class="calc">A = 7 × 4 ÷ 2<br>A = 28 ÷ 2<br>A = <b>14 cm²</b></p><p><b>④</b> Base 8 cm, hauteur 3 cm (la longueur 5 cm ne sert pas) :</p><p class="calc">A = 8 × 3 ÷ 2<br>A = 24 ÷ 2<br>A = <b>12 cm²</b></p>`},
   {n:"Exercice 18", t:"Retrouver une longueur", w:"Sur ta feuille", h:`<p><b>Rappel :</b> Aire = base × hauteur ÷ 2, donc base × hauteur = Aire × 2.</p><p>Calcule la longueur demandée.</p>
    <p><b>a)</b> Un triangle a pour aire 24 cm² et pour base 8 cm. Calcule la hauteur correspondante.</p><p><b>b)</b> Un triangle a pour aire 18 cm² et pour hauteur 4 cm. Calcule la base correspondante.</p><p><b>c)</b> Un triangle a pour aire 7,5 cm² et pour base 5 cm. Calcule la hauteur correspondante.</p>`,
-   c:`<p><b>a)</b> hauteur = 24 × 2 ÷ 8 = 48 ÷ 8 = <b>6 cm</b></p><p><b>b)</b> base = 18 × 2 ÷ 4 = 36 ÷ 4 = <b>9 cm</b></p><p><b>c)</b> hauteur = 7,5 × 2 ÷ 5 = 15 ÷ 5 = <b>3 cm</b></p>`},
+   c:`<p><b>a)</b> La hauteur h :</p><p class="calc">h = 24 × 2 ÷ 8<br>h = 48 ÷ 8<br>h = <b>6 cm</b></p><p><b>b)</b> La base b :</p><p class="calc">b = 18 × 2 ÷ 4<br>b = 36 ÷ 4<br>b = <b>9 cm</b></p><p><b>c)</b> La hauteur h :</p><p class="calc">h = 7,5 × 2 ÷ 5<br>h = 15 ÷ 5<br>h = <b>3 cm</b></p>`},
   {n:"Exercice 19", t:"Parallélogramme et triangle", w:"Sur ta feuille", h:`<p>ABCD est un parallélogramme : (AB) // (DC) et (AD) // (BC).</p><p>On donne AB = 9 cm et la hauteur issue de D mesure 4 cm.</p>${ex("e19","Parallélogramme ABCD",300)}
    <p><b>a)</b> Calcule l'aire du parallélogramme ABCD.</p><p><b>b)</b> Trace la diagonale [AC]. Quelle est l'aire du triangle ABC ? Explique.</p>`,
    c:`<p><b>a)</b> Aire(ABCD) = base × hauteur = 9 × 4 = <b>36 cm²</b>.</p><p><b>b)</b> La diagonale [AC] partage le parallélogramme en deux triangles de même aire : Aire(ABC) = 36 ÷ 2 = <b>18 cm²</b>.</p><p>Vérification : 9 × 4 ÷ 2 = 18.</p>`}
@@ -310,7 +310,7 @@ exos:[
    c:`${cr("e20","Triangle EFG, son cercle circonscrit, la hauteur [FH] et la médiane [FI]",300)}
    <p><b>1)</b> L'hypoténuse est le côté opposé à l'angle droit : <b>[EG]</b> (le plus long côté). À l'équerre, on vérifie que l'angle ${ang("EFG")} est droit : EFG est rectangle en F.</p>
    <p><b>2)</b> EFG est rectangle en F, donc son cercle circonscrit a pour diamètre l'hypoténuse [EG] : son centre est le milieu I de [EG]. Rayon : 10 ÷ 2 = <b>5 cm</b>.</p>
-   <p><b>3)</b> Aire(EFG) = EF × FG ÷ 2 = 6 × 8 ÷ 2 = <b>24 cm²</b>. Avec la base [EG] : 10 × FH ÷ 2 = 24, donc FH = 24 × 2 ÷ 10 = 48 ÷ 10 = <b>4,8 cm</b>.</p>
+   <p><b>3)</b></p><p class="calc">Aire(EFG) = EF × FG ÷ 2<br>Aire(EFG) = 6 × 8 ÷ 2<br>Aire(EFG) = <b>24 cm²</b></p><p>Avec la base [EG] : 10 × FH ÷ 2 = 24, donc :</p><p class="calc">FH = 24 × 2 ÷ 10<br>FH = 48 ÷ 10<br>FH = <b>4,8 cm</b></p>
    <p><b>4)</b> I est le centre du cercle et F est sur le cercle : FI = 5 cm, c'est le rayon (la médiane issue de F mesure la moitié de l'hypoténuse). Aire(EFI) = 24 ÷ 2 = <b>12 cm²</b> (une médiane partage le triangle en deux triangles de même aire).</p>`}
  ]}
 ],
@@ -357,7 +357,7 @@ quiz:[
  1:[ {g:()=>{ const b=ri(4,12), h=ri(2,9); return {q:"Quelle est l'aire de ce triangle (en cm²) ?", fig:aireFig("aigu",b,h), rep:[F(b*h/2),F(b*h/2)+" cm²"], ex:`Aire = ${b} × ${h} ÷ 2 = ${F(b*h/2)} cm².`, sx:S_AIRE}; }} ],
  2:[ {g:()=>{ const b=ri(3,10), h=ri(2,8); return {q:"Le triangle est rectangle en B. Quelle est son aire (en cm²) ?", fig:aireFig("rect",b,h), rep:[F(b*h/2),F(b*h/2)+" cm²"], ex:`Les côtés de l'angle droit sont base et hauteur : ${b} × ${h} ÷ 2 = ${F(b*h/2)} cm².`, sx:S_AIRE}; }},
      {g:()=>{ const b=ri(3,9), h=ri(2,7)+pick([0,0.5]); return {q:"La hauteur issue de A est à l'extérieur. Quelle est l'aire du triangle ABC (en cm²) ?", fig:aireFig("obtus",b,h,ri(12,22)/10), rep:[F(b*h/2),F(b*h/2)+" cm²"], ex:`Base BC = ${b} cm, hauteur ${F(h)} cm : ${b} × ${F(h)} ÷ 2 = ${F(b*h/2)} cm².`, sx:S_AIRE}; }} ],
- 3:[ {g:()=>{ const b=ri(3,12), h=ri(2,10), A=b*h/2; return {q:`Un triangle a pour aire ${F(A)} cm² et pour base ${b} cm. Quelle est la hauteur correspondante (en cm) ?`, rep:[F(h),F(h)+" cm"], ex:`hauteur = ${F(A)} × 2 ÷ ${b} = ${F(2*A)} ÷ ${b} = ${F(h)} cm.`, sx:S_AIRE}; }},
+ 3:[ {g:()=>{ const b=ri(3,12), h=ri(2,10), A=b*h/2; return {q:`Un triangle a pour aire ${F(A)} cm² et pour base ${b} cm. Quelle est la hauteur correspondante (en cm) ?`, rep:[F(h),F(h)+" cm"], ex:`La hauteur h :<span class="calc" style="display:block;margin:6px 0">h = ${F(A)} × 2 ÷ ${b}<br>h = ${F(2*A)} ÷ ${b}<br>h = ${F(h)} cm</span>`, sx:S_AIRE}; }},
      {g:()=>{ const [b,h,s]=pick(ISO3); return {q:"Quelle est l'aire de ce triangle (en cm²) ? Attention : une donnée est inutile.", fig:aireFig("iso",b,h,s), rep:[F(b*h/2),F(b*h/2)+" cm²"], ex:`${F(b)} × ${F(h)} ÷ 2 = ${F(b*h/2)} cm². La longueur ${F(s)} cm ne sert pas.`, sx:S_AIRE}; }} ]
 }}
 ]

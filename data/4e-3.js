@@ -134,7 +134,7 @@ cours:[
   <details><summary>Voir la correction</summary><div class="corr">
    ${ptab({h1:"Quantité d'eau (en L)",h2:"Hauteur d'eau (en cm)",r1:["54","<tspan font-style='italic'>x</tspan>"],r2:["7","60"]})}
    <p>C'est une situation de proportionnalité. D'après l'égalité des produits en croix :</p>
-   <p class="calc"><i>x</i> × 7 = 54 × 60<br><i>x</i> = ${F("54 × 60",7)} = ${F("3 240",7)} ≈ 462,86</p>
+   <p class="calc"><i>x</i> × 7 = 54 × 60<br><i>x</i> = ${F("54 × 60",7)}<br><i>x</i> = ${F("3 240",7)}<br><i>x</i> ≈ 462,86</p>
    <p>Il faut environ <b>462,86 L</b> d'eau pour avoir une hauteur d'eau de 60 cm.</p></div></details>`},
 {k:"2", t:"Reconnaître une situation de proportionnalité", h:`
   <div class="retenir" data-l="Définition"><p>Un tableau de proportionnalité est un tableau dans lequel on obtient les nombres d'une ligne en multipliant ceux de l'autre ligne par un même nombre appelé <b>coefficient de proportionnalité</b>.</p></div>
@@ -185,8 +185,8 @@ exos:[
    <p>Le prix de chaque nem et samoussa est de 0,95 €.</p><p>Le prix du porc au caramel est de 19 €/kg.</p><p>Le prix du riz est de 7,90 €/kg.</p>
    <p><b>Philippe possède 30 € en liquide. Doit-il sortir sa carte bleue pour payer ou est-ce que sa monnaie suffira ?</b></p>`,
    c:`<p>Nems : 4 + 2 + 4 = 10. Samoussas : 4 + 2 = 6. Cela fait 16 nems et samoussas.</p>
-   <p class="calc">Nems et samoussas : 16 × 0,95 = 15,20 €<br>Porc au caramel : 0,420 × 19 = 7,98 €<br>Riz : 450 g = 0,450 kg et 0,450 × 7,90 = 3,555 ≈ 3,56 €</p>
-   <p class="calc">Total : 15,20 + 7,98 + 3,555 = 26,735 ≈ 26,74 €</p>
+   <p class="calc">Nems et samoussas : 16 × 0,95 = 15,20 €<br>Porc au caramel : 0,420 × 19 = 7,98 €<br>Riz : 450 g = 0,450 kg</p><p>Prix R du riz :</p><p class="calc">R = 0,450 × 7,90<br>R = 3,555<br>R ≈ 3,56 €</p>
+   <p>Total T :</p><p class="calc">T = 15,20 + 7,98 + 3,555<br>T = 26,735<br>T ≈ 26,74 €</p>
    <p>26,74 € &lt; 30 € : <b>sa monnaie suffira</b>, il n'a pas besoin de sortir sa carte bleue.</p>`}
  ]},
 {t:"Compléter un tableau avec le produit en croix", e:[
@@ -195,16 +195,16 @@ exos:[
    <p><b>a)</b> Calcule la valeur de <i>y</i> dans ce tableau. Explique l'ensemble de tes calculs.</p><p><b>b)</b> Interprète ensuite ce résultat.</p>
    <div class="retenir" data-l="Définition"><p><b>Interpréter un résultat</b> signifie écrire une phrase qui explique ce résultat dans le contexte de l'exercice.</p></div>`,
    c:`<p><b>a)</b> C'est un tableau de proportionnalité. D'après l'égalité des produits en croix :</p>${croix("900","15","750","!y")}
-   <p class="calc">900 × <i>y</i> = 15 × 750<br><i>y</i> = ${F("15 × 750",900)} = ${F("11 250",900)} = 12,5</p>
+   <p class="calc">900 × <i>y</i> = 15 × 750<br><i>y</i> = ${F("15 × 750",900)}<br><i>y</i> = ${F("11 250",900)}<br><i>y</i> = 12,5</p>
    <p><b>b)</b> Un rouleau de papier de 750 kg contient <b>12,5 km</b> de papier.</p>`},
   {n:"Exercice 6", t:"Voyage au Royaume-Uni", w:"Sur ton cahier", h:`<p>Le cours de la livre sterling est de 1,15 €. Ce qui signifie que : 1 £ = 1,15 €.</p><p>Avant de partir, j'ai échangé 40 € dans un bureau de change.</p><p>Combien ai-je de livres sterling pour mon voyage ?</p>`,
    c:`${tab(["Livres sterling (£)","1","<i>x</i>"],[["Euros (€)","1,15","40"]])}
-   <p class="calc"><i>x</i> × 1,15 = 1 × 40<br><i>x</i> = 40 ÷ 1,15 ≈ 34,78</p><p>J'ai environ <b>34,78 £</b> pour mon voyage.</p>`},
+   <p class="calc"><i>x</i> × 1,15 = 1 × 40<br><i>x</i> = 40 ÷ 1,15<br><i>x</i> ≈ 34,78</p><p>J'ai environ <b>34,78 £</b> pour mon voyage.</p>`},
   {n:"Exercice 7", t:"Voyage aux États-Unis", w:"Sur ton cahier", h:`<p>L'an dernier, Zoé a échangé 29 € contre 38,20 $.</p><p>Cette année, elle retourne aux États-Unis.</p><p>Le cours du dollar n'a pas changé et cette fois, elle échange avant de partir 60 €.</p><p>Combien aura-t-elle de dollars ?</p>`,
    c:`${tab(["Euros (€)","29","60"],[["Dollars ($)","38,20","<i>x</i>"]])}
-   <p class="calc">29 × <i>x</i> = 38,20 × 60<br><i>x</i> = ${F("38,20 × 60",29)} = ${F("2 292",29)} ≈ 79,03</p><p>Zoé aura environ <b>79,03 $</b>.</p>`},
+   <p class="calc">29 × <i>x</i> = 38,20 × 60<br><i>x</i> = ${F("38,20 × 60",29)}<br><i>x</i> = ${F("2 292",29)}<br><i>x</i> ≈ 79,03</p><p>Zoé aura environ <b>79,03 $</b>.</p>`},
   {n:"Exercice 8", t:"Livre sterling", w:"Sur ton cahier", h:`<p>Le cours de la livre sterling est de 1,35 €.</p><p>Sophie achète sur internet deux places pour un concert à Londres.</p><p>Elle paie 102,4 livres sterling.</p><p><b>Combien coûte en euros une place de concert ?</b></p>`,
-   c:`<p>1 £ = 1,35 €, donc 102,4 £ = 102,4 × 1,35 = 138,24 €.</p><p>Pour une place : 138,24 ÷ 2 = 69,12.</p><p>Une place de concert coûte <b>69,12 €</b>.</p>`}
+   c:`<p>1 £ = 1,35 €, donc le prix P en euros de 102,4 £ :</p><p class="calc">P = 102,4 × 1,35<br>P = 138,24 €</p><p>Pour une place : 138,24 ÷ 2 = 69,12.</p><p>Une place de concert coûte <b>69,12 €</b>.</p>`}
  ]},
 {t:"Démontrer qu'un tableau est proportionnel", e:[
   {n:"Activité 2", t:"Bracelets en élastiques", w:"Sur ton cahier", h:`<p>Louise veut acheter des sachets d'élastiques pour réaliser des bracelets.</p><p>Après ses recherches, Louise a le choix entre ces deux possibilités :</p>
@@ -261,9 +261,9 @@ quiz:[
 }},
 {nom:"L'égalité des produits en croix", schema:S_CROIX, q:{
  1:[ {q:"Le tableau a | c en 1<sup>re</sup> ligne et b | d en 2<sup>e</sup> ligne est un tableau de proportionnalité. Quelle égalité est vraie ?", fig:croix("a","b","c","d"), c:["a × d = b × c","a × c = b × d","a + d = b + c"], rep:"a × d = b × c", ex:"On multiplie les nombres « en croix » : a × d = b × c.", sx:S_CROIX} ],
- 2:[ {g:()=>{ for(let g=0;g<300;g++){ const a=ri(2,12), x=ri(2,15), k=pick([2,3,4,5,6,1.5,2.5]); const b=rd(a*k), d=rd(x*k); if(Number.isInteger(b)&&d<200) return {q:`Ce tableau est un tableau de proportionnalité. Calcule <i>x</i>.`, fig:croix(String(a),N(b),"x",N(d)), rep:ans(x), ex:`a × d = b × c : ${a} × ${N(d)} = ${N(b)} × <i>x</i>, donc <i>x</i> = ${F(`${a} × ${N(d)}`,N(b))} = ${N(x)}.`, sx:S_CROIX}; } return {q:"Calcule x : 4 et 10 en 1re ligne, 6 et x en 2e ligne (proportionnalité).", rep:["15"], ex:"x = 6 × 10 ÷ 4 = 15.", sx:S_CROIX}; }} ],
+ 2:[ {g:()=>{ for(let g=0;g<300;g++){ const a=ri(2,12), x=ri(2,15), k=pick([2,3,4,5,6,1.5,2.5]); const b=rd(a*k), d=rd(x*k); if(Number.isInteger(b)&&d<200) return {q:`Ce tableau est un tableau de proportionnalité. Calcule <i>x</i>.`, fig:croix(String(a),N(b),"x",N(d)), rep:ans(x), ex:`a × d = b × c : ${a} × ${N(d)} = ${N(b)} × <i>x</i>, donc :<br><i>x</i> = ${F(`${a} × ${N(d)}`,N(b))}<br><i>x</i> = ${N(x)}`, sx:S_CROIX}; } return {q:"Calcule x : 4 et 10 en 1re ligne, 6 et x en 2e ligne (proportionnalité).", rep:["15"], ex:"<br><i>x</i> = 6 × 10 ÷ 4<br><i>x</i> = 15", sx:S_CROIX}; }} ],
  3:[ {g:()=>{ let a,b,c,v; do{ a=ri(3,13); b=ri(20,90); c=ri(15,80); v=b*c/a; }while(Number.isInteger(rd(v*100,6))); const r=Math.round(v*100)/100;
-       return {q:`Avec ${b} L d'eau dans un aquarium, la hauteur d'eau est de ${a} cm. La quantité d'eau est proportionnelle à la hauteur. Quelle quantité d'eau faut-il pour une hauteur de ${c} cm ? (arrondi au centième)`, fig:croix(String(b),String(a),"x",String(c)), rep:ans(r,"L"), ex:`<i>x</i> × ${a} = ${b} × ${c}, donc <i>x</i> = ${F(`${b} × ${c}`,a)} ≈ ${N(r,2)} L.`, sx:S_CROIX}; }} ]
+       return {q:`Avec ${b} L d'eau dans un aquarium, la hauteur d'eau est de ${a} cm. La quantité d'eau est proportionnelle à la hauteur. Quelle quantité d'eau faut-il pour une hauteur de ${c} cm ? (arrondi au centième)`, fig:croix(String(b),String(a),"x",String(c)), rep:ans(r,"L"), ex:`<i>x</i> × ${a} = ${b} × ${c}, donc :<br><i>x</i> = ${F(`${b} × ${c}`,a)}<br><i>x</i> ≈ ${N(r,2)} L`, sx:S_CROIX}; }} ]
 }},
 {nom:"Reconnaître une situation de proportionnalité", schema:S_REC, q:{
  1:[ {g:()=>{ const T=qProp(); return {q:"Ce tableau est-il un tableau de proportionnalité ?", fig:ptab({r1:T.xs.map(String),r2:T.ys.map(y=>N(y))}), c:ON, rep:T.ok?"Oui":"Non", ex:T.ok?`Tous les quotients valent ${N(T.k)} : ${T.xs.map((x,i)=>`${N(T.ys[i])} ÷ ${x} = ${N(T.k)}`).join(" ; ")}.`:`${N(T.ys[0])} ÷ ${T.xs[0]} = ${N(T.ys[0]/T.xs[0])} mais ${N(T.ys[T.j])} ÷ ${T.xs[T.j]} ${Number.isInteger(rd(T.ys[T.j]/T.xs[T.j]*1e3,6))?"=":"≈"} ${N(T.ys[T.j]/T.xs[T.j],3)} : un quotient différent suffit.`, sx:S_REC}; }} ],
@@ -294,8 +294,8 @@ exos:[
 {t:"La pile de feuilles (produits en croix)", p:4, h:`<p>La hauteur d'une pile de feuilles est proportionnelle au nombre de feuilles.</p><p>Une pile de 500 feuilles mesure 4,8 cm.</p>
   ${tab(["Nombre de feuilles","500","320",""],[["Hauteur (en cm)","4,8","<i>x</i>","3"]])}
   <p><b>a)</b> Calcule <i>x</i> en utilisant l'égalité des produits en croix. Interprète le résultat.</p><p><b>b)</b> Combien de feuilles faut-il pour une pile de 3 cm ? Donne l'arrondi à l'unité.</p>`,
- c:`<p><b>a)</b> 500 × <i>x</i> = 4,8 × 320, donc <i>x</i> = ${F("4,8 × 320",500)} = ${F("1 536",500)} = 3,072. <i>(1,5 point)</i></p><p>Une pile de 320 feuilles mesure 3,072 cm (environ 3,1 cm). <i>(0,5 point)</i></p>
-  <p><b>b)</b> <i>y</i> × 4,8 = 500 × 3, donc <i>y</i> = ${F("500 × 3","4,8")} = 312,5. <i>(1,5 point)</i></p><p>Il faut environ 313 feuilles (312 ou 313 feuilles acceptés). <i>(0,5 point)</i></p>`},
+ c:`<p><b>a)</b> 500 × <i>x</i> = 4,8 × 320, donc :</p><p class="calc"><i>x</i> = ${F("4,8 × 320",500)}<br><i>x</i> = ${F("1 536",500)}<br><i>x</i> = 3,072</p><p><i>(1,5 point)</i></p><p>Une pile de 320 feuilles mesure 3,072 cm (environ 3,1 cm). <i>(0,5 point)</i></p>
+  <p><b>b)</b> <i>y</i> × 4,8 = 500 × 3, donc :</p><p class="calc"><i>y</i> = ${F("500 × 3","4,8")}<br><i>y</i> = 312,5</p><p><i>(1,5 point)</i></p><p>Il faut environ 313 feuilles (312 ou 313 feuilles acceptés). <i>(0,5 point)</i></p>`},
 {t:"Proportionnel ou non ?", p:4, h:`<p>Pour chaque situation, indique si c'est une situation de proportionnalité. <b>Justifie.</b></p>
   <p><b>a)</b></p>${tab(["Nombre de stylos","4","7","10"],[["Prix (en €)","5,20","9,10","13"]])}
   <p><b>b)</b></p>${tab(["Durée (en min)","2","5","8"],[["Distance (en m)","300","800","1 200"]])}

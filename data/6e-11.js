@@ -146,7 +146,7 @@ quiz:[
 {nom:"La somme des angles", schema:S_SOM, q:{
  1:[ {q:"Dans un triangle, la somme des trois angles est égale à…", c:["180°","90°","360°"], rep:"180°", sx:S_SOM},
      {g:()=>{ const a=ri(20,80), b=ri(20,80); return {q:`Un triangle a deux angles de ${a}° et ${b}°. Combien mesure le troisième (en °) ?`, rep:String(180-a-b), ex:`180 − (${a} + ${b}) = ${180-a-b}.`, sx:S_RED}; }} ],
- 2:[ {g:()=>{ const a=ri(95,130), b=ri(10,180-a-10); return {q:`Dans le triangle ABC, ${A("ABC")} = ${a}° et ${A("BCA")} = ${b}°. Combien mesure ${A("CAB")} (en °) ?`, rep:String(180-a-b), ex:`180° − (${a}° + ${b}°) = 180° − ${a+b}° = ${180-a-b}°.`, sx:S_RED}; }},
+ 2:[ {g:()=>{ const a=ri(95,130), b=ri(10,180-a-10); return {q:`Dans le triangle ABC, ${A("ABC")} = ${a}° et ${A("BCA")} = ${b}°. Combien mesure ${A("CAB")} (en °) ?`, rep:String(180-a-b), ex:`<br>${A("CAB")} = 180° − (${a}° + ${b}°)<br>${A("CAB")} = 180° − ${a+b}°<br>${A("CAB")} = ${180-a-b}°`, sx:S_RED}; }},
      {g:()=>{ const m=shuf([ri(30,80),ri(30,80)]); const ok=pick([true,false]); const t=ok?180-m[0]-m[1]:180-m[0]-m[1]+pick([-10,10,20]); return {q:`Peut-on avoir un triangle dont les angles mesurent ${m[0]}°, ${m[1]}° et ${t}° ?`, c:["Oui","Non"], rep:ok?"Oui":"Non", ex:`${m[0]} + ${m[1]} + ${t} = ${m[0]+m[1]+t}.`, sx:S_SOM}; }} ],
  3:[ {q:"Un triangle peut-il avoir deux angles obtus ?", c:["Non","Oui"], rep:"Non", ex:"Deux angles obtus font déjà plus de 180°.", sx:S_SOM},
      {g:()=>{ const a=ri(40,80)+0.5, b=ri(30,60); return {q:`Un triangle a deux angles de ${fr(a)}° et ${b}°. Combien mesure le troisième (en °) ?`, rep:fr(180-a-b), ex:`180 − (${fr(a)} + ${b}) = ${fr(180-a-b)}.`, sx:S_RED}; }} ]

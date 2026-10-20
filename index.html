@@ -545,6 +545,7 @@ html.sheetmode #sheetpage{display:block;max-width:182mm;margin:0 auto;padding:0}
 /* ---------- jeu du labyrinthe ---------- */
 .infoh{font-family:var(--f-display);font-size:1.3rem;margin:36px 0 14px}
 .chap.info p{margin:0}
+.feuillebox{margin:28px 0;border:2px dashed var(--line);border-radius:14px;padding:6px 16px;background:var(--surface)}.feuillebox>summary{cursor:pointer;font-weight:700;font-size:1.1rem;padding:10px 0}.feuillebox>summary small{font-weight:400;color:var(--muted)}
 .jeuxacc{margin:0 0 48px}.jeuxacc .infoh{margin-top:0}
 .jeuxacc .jsub{font-size:1.05rem;margin:18px 0 10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .jeuxautres{margin:14px 0;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:4px 14px}
@@ -1601,7 +1602,8 @@ function renderExos(panel, D){
     <h2 class="sech"><span>${String.fromCharCode(65+si)}</span>${fmt(S.t)}</h2>
     ${S.note?`<p class="note">${fmt(S.note)}</p>`:""}
     ${S.e.map(e=>exCard(e)).join("")}
-  </section>`).join("");
+  </section>`).join("") + (D.feuille ? `<details class="feuillebox"><summary>Feuille de constructions <small>(faite en classe avec la feuille distribuée)</small></summary>
+    ${D.feuille.map(e=>exCard(e)).join("")}</details>` : "");
 }
 
 /* ---------- Quiz : questions fixes ou générées, révision espacée ---------- */
@@ -2092,7 +2094,14 @@ function sheetPage(key, kind, only){
   document.title = /^ev/.test(kind) && E ? `${EA.titre}${/^evc/.test(kind)?" — Corrigé":""} — ${id}` : `Chapitre ${n} — ${T}${SUF[kind]||""} — ${id}`;
 }
 /* ---------- Navigation ---------- */
-function route(){
+/* feuilles de construction de M. Staal : rangées à part, à la fin de l'onglet Exercices (pas dans la liste ni dans les PDF d'exercices) */
+const isFeuille = (S,e) => /^Feuille de constructions/i.test(S.t||"") || /^Feuille ·/.test(e.n||"") || /feuille de constructions/i.test(e.w||"");
+function splitFeuilles(){ Object.values(typeof CH!=="undefined"?CH:{}).forEach(D=>{ if(!D || D._fx || !D.exos) return; D._fx=1; const F=[];
+  D.exos=D.exos.map(S=>{ const keep=S.e.filter(e=>!isFeuille(S,e)); S.e.filter(e=>isFeuille(S,e)).forEach(e=>F.push(e)); return Object.assign({},S,{e:keep}); }).filter(S=>S.e.length);
+  const no=e=>{ const m=/^Feuille · Exercice (\d+)/.exec(e.n||""); return m?+m[1]:null; };
+  if(F.length && F.every(e=>no(e)!==null)) F.sort((a,b)=>no(a)-no(b));
+  if(F.length) D.feuille=F; }); }
+function route(){ splitFeuilles();
   if(TIMER){ clearInterval(TIMER); TIMER=null; }
   PRINT.cur=null; document.documentElement.classList.remove("hasprint");
   const sm = location.hash.match(/^#sheet:((?:6e|5e|4e|3e)-\d+):(\w+)(?::([\d,]+))?$/); if(sm){ sheetPage(sm[1], sm[2], sm[3]); return; }

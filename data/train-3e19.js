@@ -76,14 +76,14 @@ return [
 <p><b>2 –</b> Vérifie que ${fx("p",F(B.v))} = ${F(B.Pv)}. Interprète cette valeur.</p>
 <p><b>3 –</b> a) Donne la relation algébrique de la fonction ${$p}. b) La fonction ${$p} est-elle linéaire ? Si oui, indique son coefficient.</p>`,
    c:`<p><b>1 –</b></p>${vt($x,[0,1,B.u,B.m1,B.m2],fx("p"),[0,F(B.p),F(B.Pu),F(B.P1),F(B.P2)])}<p class="calc">${F(B.p)} × ${F(B.u)} = ${F(B.Pu)}<br>${F(B.P1)} ÷ ${F(B.p)} = ${F(B.m1)}<br>${F(B.P2)} ÷ ${F(B.p)} = ${F(B.m2)}</p>
-<p><b>2 –</b> ${fx("p",F(B.v))} = ${F(B.p)} × ${F(B.v)} = ${F(B.Pv)}.</p><p>${F(B.v)} kg coûtent ${F(B.Pv)} €${Math.abs(B.Pv*100-Math.round(B.Pv*100))>1e-6?` (environ ${F(Math.round(B.Pv*100)/100)} €)`:""}.</p>
+<p><b>2 –</b></p><p class="calc">${fx("p",F(B.v))} = ${F(B.p)} × ${F(B.v)}<br>${fx("p",F(B.v))} = ${F(B.Pv)}</p><p>${F(B.v)} kg coûtent ${F(B.Pv)} €${Math.abs(B.Pv*100-Math.round(B.Pv*100))>1e-6?` (environ ${F(Math.round(B.Pv*100)/100)} €)`:""}.</p>
 <p><b>3 –</b> a) ${fx("p")} = ${F(B.p)}${$x}</p><p>b) Oui, ${$p} est une fonction linéaire de coefficient ${F(B.p)}.</p>`},
   {n:"Exercice 3", t:"Image et antécédent", w:"Sur ton cahier", h:`<p>On note ${X("f")} la fonction linéaire telle que ${fx("f")} = ${mono(C.a)}.</p>
 <p><b>1 –</b> Calcule l'image de ${F(C.x)} par la fonction ${X("f")}.</p><p><b>2 –</b> Calcule l'antécédent de ${F(C.y2)} par la fonction ${X("f")}.</p>`,
    c:`<p><b>1 –</b></p>${calc([`${fx("f",F(C.x))} = ${F(C.a)} × ${P(C.x)}`,`${fx("f",F(C.x))} = ${F(C.y)}`])}<p>L'image de ${F(C.x)} est ${F(C.y)}.</p>
 <p><b>2 –</b> On cherche ${$x} tel que ${fx("f")} = ${F(C.y2)}.</p>${calc([`${mono(C.a)} = ${F(C.y2)}`,[`${$x} = ${F(C.y2)} ÷ ${P(C.a)}`,"÷ "+P(C.a)],`${$x} = ${F(C.x2)}`])}<p>L'antécédent de ${F(C.y2)} est ${F(C.x2)}.</p>`},
   {n:"Exercice 4", t:"Représenter une fonction linéaire", w:"Sur ton cahier", h:`<p>Représente graphiquement la fonction ${fx("f")} = ${mono(Dk)} (${$x} de −3 à 3).</p>`,
-   c:`<p>${X("f")} est linéaire : sa droite passe par l'origine. ${fx("f","2")} = ${F(Dk)} × 2 = ${F(2*Dk)} : on place (0 ; 0) et (2 ; ${F(2*Dk)}).</p>
+   c:`<p>${X("f")} est linéaire : sa droite passe par l'origine.</p><p class="calc">${fx("f","2")} = ${F(Dk)} × 2<br>${fx("f","2")} = ${F(2*Dk)}</p><p>On place (0 ; 0) et (2 ; ${F(2*Dk)}).</p>
 ${plot({x:[-3,3],y:[-9,9],u:40,v:14,ys:2,gy:1,c:[D(Dk,0)],p:pts([[0,0],[2,2*Dk]]),xl:"x",yl:fx("f"),alt:`Droite de f(x) = ${F(Dk)}x passant par l'origine et par (2 ; ${F(2*Dk)})`})}
 <p>${Dk>0?"Le coefficient est positif : la droite « monte ».":"Le coefficient est négatif : la droite « descend »."}</p>`}
  ]},
@@ -102,7 +102,7 @@ ${plot({x:[-3,3],y:[-9,9],u:40,v:14,ys:2,gy:1,c:[D(Dk,0)],p:pts([[0,0],[2,2*Dk]]
 <p><b>2 –</b> On résout ${fx("g")} = ${F(G.y)}.</p>${calc([`${F(G.b)} ${G.a<0?"−":"+"} ${mono(Math.abs(G.a))} = ${F(G.y)}`,[`${mono(G.a)} = ${F(G.y-G.b)}`,(G.b>0?"− ":"+ ")+F(Math.abs(G.b))],[`${$x} = ${SV(G.y-G.b,G.a)}`,"÷ "+P(G.a)]])}<p>L'antécédent de ${F(G.y)} est ${SV(G.y-G.b,G.a)}.</p>`},
   {n:"Exercice 8", t:"Tableau de valeurs et représentation graphique", w:"Sur ton cahier", h:`<p>Soit ${X("f")} la fonction telle que ${fx("f")} = ${lin(H.a,H.b)}.</p>
 <p><b>1 –</b> Complète le tableau de valeurs.</p>${vt($x,H.xs,fx("f"),["","",""])}<p><b>2 –</b> Trace la représentation graphique de la fonction ${X("f")}.</p>`,
-   c:`<p><b>1 –</b></p>${vt($x,H.xs,fx("f"),H.xs.map(x=>H.a*x+H.b))}<p class="calc">${H.xs.map(x=>`${fx("f",F(x))} = ${H.a===1?F(x):`${F(H.a)} × ${P(x)}`} ${H.b<0?"−":"+"} ${F(Math.abs(H.b))} = ${F(H.a*x+H.b)}`).join("<br>")}</p>
+   c:`<p><b>1 –</b></p>${vt($x,H.xs,fx("f"),H.xs.map(x=>H.a*x+H.b))}<div class="calcs">${H.xs.map(x=>`<p class="calc">${fx("f",F(x))} = ${H.a===1?F(x):`${F(H.a)} × ${P(x)}`} ${H.b<0?"−":"+"} ${F(Math.abs(H.b))}<br>${fx("f",F(x))} = ${F(H.a*x+H.b)}</p>`).join("")}</div>
 <p><b>2 –</b> On place les points du tableau et on trace la droite. Elle coupe l'axe des ordonnées en ${F(H.b)} (l'ordonnée à l'origine) et elle ${H.a>0?"« monte » (a &gt; 0)":"« descend » (a &lt; 0)"}.</p>
 ${plot({x:[-3,3],y:[-11,11],u:40,v:12,ys:2,gy:1,c:[D(H.a,H.b)],p:pts(H.xs.map(x=>[x,H.a*x+H.b])),xl:"x",yl:fx("f"),alt:`Droite de f(x) = ${F(H.a)}x + ${F(H.b)}`})}`}
  ]},

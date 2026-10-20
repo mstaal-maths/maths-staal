@@ -8,19 +8,23 @@ const r3 = x => Math.round(x*1000)/1000;
 const F = x => { const r=r3(x); const [i,d]=String(Math.abs(r)).split("."); return (r<0?"−":"")+i.replace(/\B(?=(\d{3})+(?!\d))/g," ")+(d?","+d:""); };
 const F2 = x => { const s=F(Math.round(x*100)/100); return s.includes(",")&&s.split(",")[1].length===1 ? s+"0" : s; };   /* prix : 1,30 */
 const Q = (a,b) => `{${a}/${b}}`;
+/* calcul en chaîne (choix de M. Staal) : une étape par ligne, chaque ligne commence par le nom de la grandeur ; « ≈ … » pour une valeur arrondie */
+const KCl = (n, L) => L.map(String).filter((x,i,a)=>i===0||x!==a[i-1]).map(x=>/^≈/.test(String(x))?`${n} ${x}`:`${n} = ${x}`).join("<br>");
+const KC = (n, L) => `<p class="calc">${KCl(n,L)}</p>`;
+const KCi = (n, L) => `<span class="calc" style="display:block;margin:6px 0">${KCl(n,L)}</span>`;
 const gcd = (a,b) => b ? gcd(b, a%b) : a;
 const qt = (y,x) => { const q=y/x; return Math.abs(r3(q)-q)<1e-9 ? "= "+F(q) : "≈ "+F(Math.round(q*100)/100); };
 /* tableau à deux lignes : en-têtes en gras dans la première colonne */
 const T2 = (h1, r1, h2, r2, extra) => `<div class="scroll"><table class="std"><tbody><tr><th>${h1}</th>${r1.map(v=>`<td>${v}</td>`).join("")}</tr><tr><th>${h2}</th>${r2.map(v=>`<td>${v}</td>`).join("")}</tr>${extra?`<tr><th>${extra[0]}</th>${extra[1].map(v=>`<td>${v}</td>`).join("")}</tr>`:""}</tbody></table></div>`;
 const TB = (head, rows) => `<div class="scroll"><table class="std"><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>i?`<td>${c}</td>`:`<th>${c}</th>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-window.PROP = {F, F2, Q, gcd, T2, TB, r3};
+window.PROP = {F, F2, Q, gcd, T2, TB, r3, KC};
 
 /* ===================== schémas ===================== */
 const S_REC = sch("Reconnaître la proportionnalité", T2("Masse (kg)",["1","3","5"],"Prix (€)",["2,40","7,20","12"],["Prix ÷ masse",["2,4","2,4","2,4"]])+`<p class="schN">Tous les quotients sont égaux : c'est un tableau de proportionnalité, de coefficient 2,4. Un seul quotient différent suffit pour dire « non ».</p>`);
 const S_COEF = sch("Le coefficient de proportionnalité", `<p class="calc">× 2,4 : 1 kg → 2,40 € &nbsp;&nbsp; 3 kg → 7,20 €</p><p class="schN">Prix unitaire, vitesse (60 km en 1 h), échelle (1 cm pour 500 m) : on multiplie par le coefficient, ou on divise dans l'autre sens.</p>`);
 const S_LIN = sch("Linéarité et retour à l'unité", `<p class="calc">4 pers. → 250 g &nbsp; 2 pers. → 250 ÷ 2 = 125 g &nbsp; 6 pers. → 250 + 125 = 375 g</p><p class="calc">5 stylos → 6,50 € &nbsp; 1 stylo → 6,50 ÷ 5 = 1,30 € &nbsp; 8 stylos → 8 × 1,30 = 10,40 €</p>`);
-const S_PROP = sch("Proportion et pourcentage", `<p class="calc">${Q(12,30)} = ${Q(2,5)} = 0,4 = ${Q(40,100)} = 40 %</p><p class="schN">Proportion = quantité ÷ total. Un pourcentage est une proportion sur 100. Pour comparer des proportions, on les écrit en pourcentages.</p>`);
-const S_PCT = sch("Prendre un pourcentage", `<p class="calc">${"<i>t</i>"} % de Q = Q × ${Q("t",100)}<br>15 % de 60 = 60 × ${Q(15,100)} = 9</p><p class="schN">50 % : la moitié · 25 % : le quart · 10 % : je divise par 10 · 1 % : je divise par 100.</p>`);
+const S_PROP = sch("Proportion et pourcentage", `<p class="calc">p = ${Q(12,30)}<br>p = ${Q(2,5)}<br>p = 0,4<br>p = ${Q(40,100)}<br>p = 40 %</p><p class="schN">Proportion = quantité ÷ total. Un pourcentage est une proportion sur 100. Pour comparer des proportions, on les écrit en pourcentages.</p>`);
+const S_PCT = sch("Prendre un pourcentage", `<p class="calc">${"<i>t</i>"} % de Q = Q × ${Q("t",100)}</p><p class="calc">15 % de 60 :<br>P = 60 × ${Q(15,100)}<br>P = 9</p><p class="schN">50 % : la moitié · 25 % : le quart · 10 % : je divise par 10 · 1 % : je divise par 100.</p>`);
 
 /* ===================== données de la fiche ===================== */
 const E1 = [
@@ -69,16 +73,16 @@ cours:[
 {k:"III", t:"Proportions et pourcentages", h:`
   <h4>1. Proportion et pourcentage</h4>
   <div class="retenir" data-l="Définition"><p>Une <b>proportion</b> exprime la part d'une quantité par rapport à un tout : ${Q("quantité","total")}.</p><p>Elle s'écrit avec une fraction, un nombre décimal ou un pourcentage.</p><p>Un <b>pourcentage</b> est une proportion écrite avec le dénominateur 100 : 36 % = ${Q(36,100)} = 0,36.</p></div>
-  <p><b>Exemple :</b> dans une classe de 30 élèves, 12 portent des lunettes. La proportion d'élèves qui portent des lunettes est :</p>
-  <p class="calc">${Q(12,30)} = ${Q(2,5)} = 0,4 = ${Q(40,100)} = 40 %</p>
+  <p><b>Exemple :</b> dans une classe de 30 élèves, 12 portent des lunettes. La proportion p d'élèves qui portent des lunettes est :</p>
+  ${KC("p",[Q(12,30),Q(2,5),"0,4",Q(40,100),"40 %"])}
   <h4>2. Prendre un pourcentage d'une quantité</h4>
   <div class="retenir" data-l="Méthode"><p>Pour calculer :</p><p><b>1)</b> <b>50 %</b> : je prends la moitié ; <b>25 %</b> : le quart ; <b>10 %</b> : je divise par 10 ; <b>1 %</b> : je divise par 100 ;</p><p><b>2)</b> pour <i>t</i> % d'une quantité Q, je calcule Q × ${Q("t",100)}.</p></div>
   <p><b>Exemples :</b></p>
   <p class="calc">10 % de 350 € : 350 ÷ 10 = 35 €</p>
   <p class="calc">15 % de 60 : 60 × ${Q(15,100)} = 9</p>
-  <p>Autre méthode : 10 % de 60 = 6 et 5 % de 60 = 3, donc 15 % de 60 = 6 + 3 = 9.</p>
+  <p>Autre méthode : 10 % de 60 = 6 et 5 % de 60 = 3. Donc, pour P = 15 % de 60 :</p>${KC("P",["6 + 3","9"])}
   <p><b>À toi de jouer :</b> calcule 20 % de 85 €, puis donne le pourcentage que représentent 18 élèves sur 24.</p>
-  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">20 % de 85 € : 85 × ${Q(20,100)} = 17 €</p><p class="calc">${Q(18,24)} = 0,75 = 75 %</p></div></details>`}
+  <details><summary>Voir la correction</summary><div class="corr"><p class="calc">20 % de 85 € : 85 × ${Q(20,100)} = 17 €</p><p>La proportion p :</p>${KC("p",[Q(18,24),"0,75","75 %"])}</div></details>`}
 ],
 
 /* ===================== EXERCICES ===================== */
@@ -112,13 +116,13 @@ exos:[
   {n:"Exercice 8", t:"Les briques de la boîte", w:"Sur ta feuille", h:`<p>Une boîte contient 24 briques : 6 rouges, 9 bleues et 9 jaunes. Donne chaque proportion sous trois formes.</p>${TB(["Couleur","Fraction irréductible","Nombre décimal","Pourcentage"],[["Rouge","","",""],["Bleue","","",""],["Jaune","","",""]])}`,
    c:`${TB(["Couleur","Fraction irréductible","Nombre décimal","Pourcentage"],[["Rouge",`${Q(6,24)} = ${Q(1,4)}`,"0,25","25 %"],["Bleue",`${Q(9,24)} = ${Q(3,8)}`,"0,375","37,5 %"],["Jaune",`${Q(9,24)} = ${Q(3,8)}`,"0,375","37,5 %"]])}<p>Vérification : 25 % + 37,5 % + 37,5 % = 100 %.</p>`},
   {n:"Exercice 9", t:"Pourcentages mentaux", w:"Sur ta feuille", h:`<p>Calcule mentalement et écris seulement les résultats.</p><p>a) 50 % de 90 : …… b) 25 % de 120 : …… c) 10 % de 350 : …… d) 1 % de 800 : …… e) 75 % de 40 : …… f) 20 % de 60 : ……</p>`,
-   c:`<p>a) 50 % de 90 : la moitié, 90 ÷ 2 = <b>45</b></p><p>b) 25 % de 120 : le quart, 120 ÷ 4 = <b>30</b></p><p>c) 10 % de 350 : 350 ÷ 10 = <b>35</b></p><p>d) 1 % de 800 : 800 ÷ 100 = <b>8</b></p><p>e) 75 % de 40 : trois quarts, 40 ÷ 4 = 10 puis 10 × 3 = <b>30</b></p><p>f) 20 % de 60 : 10 % de 60 = 6, donc 20 % de 60 = 6 × 2 = <b>12</b></p>`},
+   c:`<p>a) 50 % de 90 : la moitié, 90 ÷ 2 = <b>45</b></p><p>b) 25 % de 120 : le quart, 120 ÷ 4 = <b>30</b></p><p>c) 10 % de 350 : 350 ÷ 10 = <b>35</b></p><p>d) 1 % de 800 : 800 ÷ 100 = <b>8</b></p><p>e) 75 % de 40 : trois quarts, 40 ÷ 4 = 10 puis 10 × 3 = <b>30</b></p><p>f) 20 % de 60 : 10 % de 60 = 6, donc pour P = 20 % de 60 :</p>${KC("P",["6 × 2","<b>12</b>"])}`},
   {n:"Exercice 10", t:"Calculer avec des pourcentages", w:"Sur ton cahier", h:`<p>Calcule (calculatrice autorisée).</p><p>a) 15 % de 60 b) 30 % de 250 c) 12 % de 150 d) 18 élèves sur 24 : quel pourcentage ? e) 45 élèves sur 150 : quel pourcentage ? f) 21 élèves sur 25 : quel pourcentage ?</p>`,
-   c:`<p>Pour <i>t</i> % de Q, je calcule Q × ${Q("t",100)}. Pour un pourcentage, je calcule la proportion ${Q("quantité","total")}.</p><p>a) 60 × ${Q(15,100)} = 900 ÷ 100 = <b>9</b></p><p>b) 250 × ${Q(30,100)} = 7 500 ÷ 100 = <b>75</b></p><p>c) 150 × ${Q(12,100)} = 1 800 ÷ 100 = <b>18</b></p><p>d) ${Q(18,24)} = 18 ÷ 24 = 0,75 = <b>75 %</b></p><p>e) ${Q(45,150)} = 45 ÷ 150 = 0,3 = <b>30 %</b></p><p>f) ${Q(21,25)} = 21 ÷ 25 = 0,84 = <b>84 %</b></p>`},
+   c:`<p>Pour <i>t</i> % de Q, je calcule Q × ${Q("t",100)}. Pour un pourcentage, je calcule la proportion ${Q("quantité","total")}.</p><p>a)</p>${KC("P",[`60 × ${Q(15,100)}`,"900 ÷ 100","<b>9</b>"])}<p>b)</p>${KC("P",[`250 × ${Q(30,100)}`,"7 500 ÷ 100","<b>75</b>"])}<p>c)</p>${KC("P",[`150 × ${Q(12,100)}`,"1 800 ÷ 100","<b>18</b>"])}<p>d)</p>${KC("p",[Q(18,24),"18 ÷ 24","0,75","<b>75 %</b>"])}<p>e)</p>${KC("p",[Q(45,150),"45 ÷ 150","0,3","<b>30 %</b>"])}<p>f)</p>${KC("p",[Q(21,25),"21 ÷ 25","0,84","<b>84 %</b>"])}`},
   {n:"Exercice 11", t:"L'élection des délégués", w:"Sur ta feuille", h:`<p>Pour l'élection des délégués, 4 élèves se présentent. Chaque élève de la classe (25 élèves) a voté pour un seul candidat. Complète le tableau.</p>${TB(["Candidat","Chloé","Hugo","Zoé","Léo","Total"],[["Nombre de voix","10","7","5","3","25"],["Pourcentage","","","","",""]])}<p>Que vaut la somme des pourcentages ? Explique pourquoi sur ton cahier.</p>`,
    c:`${TB(["Candidat","Chloé","Hugo","Zoé","Léo","Total"],[["Nombre de voix","10","7","5","3","25"],["Pourcentage","40 %","28 %","20 %","12 %","100 %"]])}<p>Chaque pourcentage : ${Q("voix",25)} = ${Q("voix × 4",100)}.</p><p>La somme est 40 + 28 + 20 + 12 = <b>100 %</b> : toutes les voix représentent le tout.</p>`},
   {n:"Exercice 12", t:"Comparer des proportions", w:"Sur ton cahier", h:`<p>Compare les proportions (calculatrice autorisée).</p><p>a) En 5<sup>e</sup>C, 21 élèves sur 25 ont réussi leur ASSR. En 5<sup>e</sup>D, le taux de réussite est de 84 %. Lola affirme : « La proportion d'élèves ayant réussi est la même dans les deux classes. » A-t-elle raison ?</p><p>b) Dans la préparation A, il y a 44 mL de sirop pour une boisson de 400 mL. Dans la préparation B, il y a 38 mL de sirop pour 350 mL. Laquelle est la plus concentrée en sirop ?</p><p>c) Majid obtient 11 fois Face sur 25 lancers. Alice obtient 12 fois Pile sur 20 lancers. Qui a obtenu la plus grande proportion de Face ?</p>`,
-   c:`<p>a) ${Q(21,25)} = ${Q(84,100)} = 84 % : <b>oui, Lola a raison</b>.</p><p>b) A : ${Q(44,400)} = 0,11 = 11 % ; B : ${Q(38,350)} ≈ 0,1086 ≈ 10,9 %. <b>La préparation A</b> est la plus concentrée.</p><p>c) Majid : ${Q(11,25)} = 0,44 = 44 %. Alice a 20 − 12 = 8 Face sur 20 : ${Q(8,20)} = 0,4 = 40 %. <b>Majid</b> a la plus grande proportion de Face.</p>`},
+   c:`<p>a) En 5<sup>e</sup>C :</p>${KC("p",[Q(21,25),Q(84,100),"84 %"])}<p><b>Oui, Lola a raison</b>.</p><p>b) Préparation A :</p>${KC("p",[Q(44,400),"0,11","11 %"])}<p>Préparation B :</p>${KC("p",[Q(38,350),"≈ 0,1086","≈ 10,9 %"])}<p><b>La préparation A</b> est la plus concentrée.</p><p>c) Majid :</p>${KC("p",[Q(11,25),"0,44","44 %"])}<p>Alice a 20 − 12 = 8 Face sur 20 :</p>${KC("p",[Q(8,20),"0,4","40 %"])}<p><b>Majid</b> a la plus grande proportion de Face.</p>`},
   {n:"Exercice 13", t:"Réductions et augmentations", w:"Sur ton cahier", h:`<p>a) Un jeu coûte 45 €. Pendant les soldes, il bénéficie d'une réduction de 20 %. Quel est le montant de la réduction ? Quel est le nouveau prix ?</p><p>b) Un sweat coûte 60 €. Un magasin propose 15 % de réduction. Quel est son prix après réduction ?</p><p>c) Un abonnement coûte 80 € par an. Son prix augmente de 10 %. Quel est le nouveau prix ?</p>`,
    c:`<p>a) Réduction : 45 × ${Q(20,100)} = <b>9 €</b> ; nouveau prix : 45 − 9 = <b>36 €</b>.</p><p>b) Réduction : 60 × ${Q(15,100)} = 9 € ; prix : 60 − 9 = <b>51 €</b>.</p><p>c) Augmentation : 80 × ${Q(10,100)} = 8 € ; nouveau prix : 80 + 8 = <b>88 €</b>.</p>`},
   {n:"Exercice 14", t:"Pour aller plus loin : une œuvre à l'échelle", w:"Sur ton cahier", h:`<p>Pour reproduire une œuvre de Kandinsky de 80 cm sur 60 cm, on la dessine à l'échelle ${Q(1,4)} (toutes les longueurs sont divisées par 4).</p><p><b>1)</b> Quelles sont les dimensions de la reproduction ?</p><p><b>2)</b> Quelles seraient les dimensions à l'échelle ${Q(1,8)} ?</p>`,
@@ -180,7 +184,7 @@ const mk = b => {
     {h:`Calcule : ${a4.map(q=>q.h).join(" ; ")}.`, p:a4.length*0.5, pb:a4.length*0.5,
      c:`${a4.map(q=>`<p class="calc">${q.h} : ${q.c}</p>`).join("")}<p><i>0,5 point par calcul.</i></p>`},
     {h:`Écris sous la forme d'un pourcentage : 7 élèves sur 20 ; 27 élèves sur 30.`, p:1, pb:1,
-     c:`<p class="calc">${Q(7,20)} = ${Q("7 × 5","20 × 5")} = ${Q(35,100)} = <b>35 %</b></p><p class="calc">${Q(27,30)} = ${Q(9,10)} = ${Q(90,100)} = <b>90 %</b></p><p><i>0,5 point par pourcentage.</i></p>`},
+     c:`<p>7 élèves sur 20 :</p>${KC("p",[Q(7,20),Q("7 × 5","20 × 5"),Q(35,100),"<b>35 %</b>"])}<p>27 élèves sur 30 :</p>${KC("p",[Q(27,30),Q(9,10),Q(90,100),"<b>90 %</b>"])}<p><i>0,5 point par pourcentage.</i></p>`},
     {h:`Un abonnement de musique coûte 32 € par mois. Son prix augmente de 25 %. Quel est son nouveau prix ?`, p:1.5, pb:2,
      c:`<p>Je calcule l'augmentation : 25 %, c'est le quart.</p><p class="calc">25 % de 32 € : 32 ÷ 4 = 8 €</p><p>Je l'ajoute à l'ancien prix :</p><p class="calc">32 + 8 = 40 €</p><p>Le nouveau prix est de <b>40 €</b> par mois.`},
     {h:`Dans une classe de 25 élèves, 40 % des élèves mangent à la cantine. Combien d'élèves mangent à la cantine ?`, p:1, rm:true,
@@ -188,14 +192,14 @@ const mk = b => {
   ]);
   /* Ex 5 */
   const BOT = L(b, [
-    {n:"Soleil", d:`18 cL de jus d'orange pour 40 cL`, c:`${Q(18,40)} = ${Q(9,20)} = ${Q("9 × 5","20 × 5")} = ${Q(45,100)} = <b>45 %</b>`},
-    {n:"Tropic", d:`12 cL de jus d'orange pour 25 cL`, c:`${Q(12,25)} = ${Q("12 × 4","25 × 4")} = ${Q(48,100)} = <b>48 %</b>`},
-    {n:"Verger", d:`les ${Q(2,5)} de la bouteille sont du jus d'orange`, c:`${Q(2,5)} = ${Q("2 × 20","5 × 20")} = ${Q(40,100)} = <b>40 %</b>`, rm:true}
+    {n:"Soleil", d:`18 cL de jus d'orange pour 40 cL`, c:[Q(18,40),Q(9,20),Q("9 × 5","20 × 5"),Q(45,100),"<b>45 %</b>"]},
+    {n:"Tropic", d:`12 cL de jus d'orange pour 25 cL`, c:[Q(12,25),Q("12 × 4","25 × 4"),Q(48,100),"<b>48 %</b>"]},
+    {n:"Verger", d:`les ${Q(2,5)} de la bouteille sont du jus d'orange`, c:[Q(2,5),Q("2 × 20","5 × 20"),Q(40,100),"<b>40 %</b>"], rm:true}
   ]);
   const pb5 = b ? 1.5 : 1;
   const q5 = [
     {h:`Calcule la proportion de jus d'orange de chaque bouteille, sous la forme d'un pourcentage.`, p:BOT.length*1, pb:BOT.length*pb5,
-     c:`<p>Proportion = ${Q("quantité de jus d'orange","quantité totale")}.</p>${BOT.map(o=>`<p class="calc">${o.n} : ${o.c}</p>`).join("")}<p><i>${pn(pb5)} point par bouteille.</i></p>`},
+     c:`<p>Proportion p = ${Q("quantité de jus d'orange","quantité totale")}.</p>${BOT.map(o=>`<p>${o.n} :</p>${KC("p",o.c)}`).join("")}<p><i>${pn(pb5)} point par bouteille.</i></p>`},
     {h: b ? `Dans quelle bouteille la proportion de jus d'orange est-elle la plus grande ? Justifie.` : `Range les trois bouteilles, de la plus riche en jus d'orange à la moins riche.`, p:1, pb:1,
      c: b ? `<p>48 % &gt; 45 % : la proportion de jus d'orange est la plus grande dans la bouteille <b>Tropic</b>.` : `<p>48 % &gt; 45 % &gt; 40 % : <b>Tropic</b>, puis <b>Soleil</b>, puis <b>Verger</b>.`}
   ];
@@ -240,7 +244,7 @@ quiz:[
  2:[ {g:()=>{ const v=pick([12,16,18,20,24,30,40,50,60,80,90]), t=pick([0.5,1.5,2,2.5,3,3.5]); const tt=Math.floor(t)?`${Math.floor(t)} h${t%1?" 30 min":""}`:"30 min";
        return {q:`À la vitesse moyenne constante de ${v} km/h, quelle distance parcourt-on en ${tt} (en km) ?`, rep:F(v*t), ex:`${tt} = ${F(t)} h ; ${F(t)} × ${v} = ${F(v*t)} km.`, sx:S_COEF}; }},
      {g:()=>{ const v=pick([12,18,20,24,30,40,60,80]), t=pick([1.5,2,2.5,3,4]); return {q:`Un cycliste roule à ${v} km/h. Combien d'heures lui faut-il pour parcourir ${F(v*t)} km ?`, rep:[F(t)], ex:`${F(v*t)} ÷ ${v} = ${F(t)} h${t%1?` (soit ${Math.floor(t)} h 30 min)`:""}.`, sx:S_COEF}; }} ],
- 3:[ {g:()=>{ const d=ri(2,19)/2; return {q:`Sur une carte à l'échelle ${Q(1,"50 000")}, 1 cm représente 500 m. Quelle est la distance réelle pour ${F(d)} cm sur la carte (en km) ?`, rep:F(d*0.5), ex:`${F(d)} × 500 = ${F(d*500)} m = ${F(d*0.5)} km.`, sx:S_COEF}; }},
+ 3:[ {g:()=>{ const d=ri(2,19)/2; return {q:`Sur une carte à l'échelle ${Q(1,"50 000")}, 1 cm représente 500 m. Quelle est la distance réelle pour ${F(d)} cm sur la carte (en km) ?`, rep:F(d*0.5), ex:`La distance réelle d :${KCi("d",[`${F(d)} × 500`,`${F(d*500)} m`,`${F(d*0.5)} km`])}`, sx:S_COEF}; }},
      {g:()=>{ const km=ri(1,8); return {q:`Sur une carte à l'échelle ${Q(1,"50 000")}, 1 cm représente 500 m. Un sentier mesure ${km} km. Quelle est sa longueur sur la carte (en cm) ?`, rep:F(km*2), ex:`${km} km = ${F(km*1000)} m et ${F(km*1000)} ÷ 500 = ${km*2} cm.`, sx:S_COEF}; }} ]
 }},
 {nom:"Linéarité et retour à l'unité", schema:S_LIN, q:{
@@ -251,10 +255,10 @@ quiz:[
 }},
 {nom:"Proportions et pourcentages", schema:S_PROP, q:{
  1:[ {g:()=>{ const p=ri(1,99); const good=F(p/100); return {q:`Quel nombre décimal est égal à ${p} % ?`, c:shuf(uniq(good,[F(p/10),F(p/1000),F(p)]).slice(0,3)), rep:good, ex:`${p} % = ${Q(p,100)} = ${good}.`, sx:S_PROP}; }} ],
- 2:[ {g:()=>{ const t=pick([4,5,10,20,25,50]), n=ri(1,t-1); return {q:`${n} ${n===1?"élève":"élèves"} sur ${t} ${n===1?"porte":"portent"} des lunettes. Quel pourcentage cela représente-t-il (en %) ?`, rep:[F(n*100/t), F(n*100/t)+" %"], ex:`${Q(n,t)} = ${Q(F(n*100/t),100)} = ${F(n*100/t)} %.`, sx:S_PROP}; }},
-     {g:()=>{ const t=pick([20,40,8]), n=ri(2,t-1), g=gcd(n,t); return {q:`Dans une boîte de ${t} briques, ${n} sont rouges. Quelle est la proportion de briques rouges ?`, c:shuf(uniq(F(n/t),[F(n/100), F(n/10), F((t-n)/t)]).slice(0,3)), rep:F(n/t), ex:`${Q(n,t)}${g>1?` = ${Q(n/g,t/g)}`:""} = ${F(n/t)} = ${F(n*100/t)} %.`, sx:S_PROP}; }} ],
+ 2:[ {g:()=>{ const t=pick([4,5,10,20,25,50]), n=ri(1,t-1); return {q:`${n} ${n===1?"élève":"élèves"} sur ${t} ${n===1?"porte":"portent"} des lunettes. Quel pourcentage cela représente-t-il (en %) ?`, rep:[F(n*100/t), F(n*100/t)+" %"], ex:KCi("p",[Q(n,t),Q(F(n*100/t),100),`${F(n*100/t)} %`]), sx:S_PROP}; }},
+     {g:()=>{ const t=pick([20,40,8]), n=ri(2,t-1), g=gcd(n,t); return {q:`Dans une boîte de ${t} briques, ${n} sont rouges. Quelle est la proportion de briques rouges ?`, c:shuf(uniq(F(n/t),[F(n/100), F(n/10), F((t-n)/t)]).slice(0,3)), rep:F(n/t), ex:KCi("p",[Q(n,t),Q(n/g,t/g),F(n/t),`${F(n*100/t)} %`]), sx:S_PROP}; }} ],
  3:[ {g:()=>{ const t=pick([20,25,50]), a=ri(Math.ceil(t/3),t-1), pa=a*100/t, ok=Math.random()<0.4, p=ok?pa:pa+pick([-4,-2,2,4]);
-       return {q:`Classe A : ${a} élèves sur ${t} ont réussi. Classe B : ${p} % ont réussi. Quelle classe a la plus grande proportion de réussite ?`, c:["la classe A","la classe B","la même proportion"], rep:ok?"la même proportion":pa>p?"la classe A":"la classe B", ex:`${Q(a,t)} = ${Q(pa,100)} = ${pa} %, à comparer avec ${p} %.`, sx:S_PROP}; }},
+       return {q:`Classe A : ${a} élèves sur ${t} ont réussi. Classe B : ${p} % ont réussi. Quelle classe a la plus grande proportion de réussite ?`, c:["la classe A","la classe B","la même proportion"], rep:ok?"la même proportion":pa>p?"la classe A":"la classe B", ex:`${KCi("p",[Q(a,t),Q(pa,100),`${pa} %`])}À comparer avec ${p} %.`, sx:S_PROP}; }},
      {g:()=>{ const n=ri(10,20), f=ri(Math.ceil(n/4),n-2), m=pick([20,25]), pile=ri(Math.ceil(m/4),m-3), face=m-pile; const pa=f/n, pb=face/m;
        if(Math.abs(pa-pb)<1e-9) return {q:`Majid obtient ${f} fois Face sur ${n} lancers. Alice obtient ${pile} fois Pile sur ${m} lancers. Qui a la plus grande proportion de Face ?`, c:["Majid","Alice","autant"], rep:"autant", ex:`Alice a ${face} Face : ${Q(face,m)} = ${Q(f,n)}.`, sx:S_PROP};
        return {q:`Majid obtient ${f} fois Face sur ${n} lancers. Alice obtient ${pile} fois Pile sur ${m} lancers. Qui a la plus grande proportion de Face ?`, c:["Majid","Alice","autant"], rep:pa>pb?"Majid":"Alice", ex:`Attention : Alice a ${m} − ${pile} = ${face} Face. Majid : ${Q(f,n)} ${qt(f*100,n)} % ; Alice : ${Q(face,m)} = ${F(pb*100)} %.`, sx:S_PROP}; }} ]
@@ -264,7 +268,7 @@ quiz:[
  2:[ {g:()=>{ const t=pick([5,15,20,30,40,60,75]), N=pick([20,40,60,80,120,200,250,300]); return {q:`Calcule ${t} % de ${N}.`, rep:F(N*t/100), ex:`${N} × ${Q(t,100)} = ${F(N*t/100)}.`, sx:S_PCT}; }} ],
  3:[ {g:()=>{ const P=ri(3,20)*5, t=pick([10,20,30,40,50]), up=Math.random()<0.3; const r=P*t/100;
        return {q:`Un article coûte ${P} €. Son prix ${up?"augmente":"baisse"} de ${t} %. Quel est le nouveau prix (en €) ?`, rep:[F2(up?P+r:P-r),F(up?P+r:P-r)], ex:`${up?"Augmentation":"Réduction"} : ${P} × ${Q(t,100)} = ${F(r)} € ; ${P} ${up?"+":"−"} ${F(r)} = ${F(up?P+r:P-r)} €.`, sx:S_PCT}; }},
-     {g:()=>{ const t=pick([12,15,18,35,45]), N=pick([40,60,80,120,150,200]); return {q:`Calcule ${t} % de ${N}.`, rep:F(N*t/100), ex:`${N} × ${Q(t,100)} = ${F(N*t)} ÷ 100 = ${F(N*t/100)}.`, sx:S_PCT}; }} ]
+     {g:()=>{ const t=pick([12,15,18,35,45]), N=pick([40,60,80,120,150,200]); return {q:`Calcule ${t} % de ${N}.`, rep:F(N*t/100), ex:KCi("P",[`${N} × ${Q(t,100)}`,`${F(N*t)} ÷ 100`,F(N*t/100)]), sx:S_PCT}; }} ]
 }}
 ]
 };

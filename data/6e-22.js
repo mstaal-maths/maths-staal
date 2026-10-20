@@ -23,7 +23,7 @@ window.FIG22 = {quad, D};
 
 /* ---------- schémas ---------- */
 const S_AGR = sch("Agrandir, réduire", co("agr","Le triangle ABC agrandi 1,5 fois",400)+`<p class="schN">On <b>multiplie</b> toutes les longueurs par le même nombre. Les angles ne changent pas.</p>`);
-const S_ECH = sch("L'échelle", `<p class="calc">Échelle 1/100 : 1 cm sur le plan → 100 cm = 1 m en réalité</p><p class="schN">longueur réelle = longueur sur le plan × 100 ; longueur sur le plan = longueur réelle ÷ 100. Mêmes unités !</p>`);
+const S_ECH = sch("L'échelle", `<p class="calc">Échelle ${F(1,100)} : 1 cm sur le plan → 100 cm = 1 m en réalité</p><p class="schN">longueur réelle = longueur sur le plan × 100 ; longueur sur le plan = longueur réelle ÷ 100. Mêmes unités !</p>`);
 
 CH["6e-22"] = {
 intro:"Agrandir ou réduire une figure en multipliant ses longueurs par un même nombre, et utiliser l'échelle d'un plan ou d'une carte.",
@@ -40,7 +40,7 @@ cours:[
   <div class="retenir" data-l="Propriété"><p>Dans un agrandissement ou une réduction, la forme de la figure est conservée : les angles gardent la même mesure, les droites perpendiculaires restent perpendiculaires et les droites parallèles restent parallèles.</p></div>
   <p><b>Exemple :</b> on agrandit le triangle ABC 1,5 fois : chaque longueur est multipliée par 1,5.</p>
   ${co("agr","Le triangle ABC (4 cm, 3 cm, 5 cm) et le triangle A'B'C' agrandi 1,5 fois (6 cm, 4,5 cm, 7,5 cm)",480)}
-  <p><b>Astuce :</b> multiplier par 1,5, c'est ajouter la moitié, car 1,5 = 1 + ${F(1,2)} :</p><p class="calc">4 × 1,5 = 4 + 2 = 6 ; 3 × 1,5 = 3 + 1,5 = 4,5 ; 5 × 1,5 = 5 + 2,5 = 7,5</p>
+  <p><b>Astuce :</b> multiplier par 1,5, c'est ajouter la moitié, car 1,5 = 1 + ${F(1,2)} :</p><div class="calcs"><div><p class="calc">A'B' = 4 × 1,5<br>A'B' = 4 + 2<br>A'B' = 6</p></div><div><p class="calc">B'C' = 3 × 1,5<br>B'C' = 3 + 1,5<br>B'C' = 4,5</p></div><div><p class="calc">A'C' = 5 × 1,5<br>A'C' = 5 + 2,5<br>A'C' = 7,5</p></div></div>
   <p class="attention"><b>ATTENTION :</b> ajouter le même nombre à toutes les longueurs ne donne pas un agrandissement : la figure est déformée.</p>
   <h4>Sur un quadrillage</h4>
   <p>On compte les carreaux de chaque segment et on multiplie ce nombre par le même nombre.</p>
@@ -49,7 +49,7 @@ cours:[
   <div class="retenir" data-l="Définition"><p>Sur un plan ou une carte, les longueurs sont proportionnelles aux longueurs réelles. L'<b>échelle</b> indique par combien il faut multiplier une longueur du plan pour obtenir la longueur réelle (dans la même unité).</p></div>
   <p><b>Exemple :</b> sur un plan à l'échelle ${F(1,100)} (on lit « 1 sur 100 »), 1 cm sur le plan représente 100 cm, c'est-à-dire 1 m, en réalité.</p>
   <div class="retenir" data-l="Méthode"><ol><li>longueur réelle = longueur sur le plan × 100 (pour une échelle ${F(1,100)}) ;</li><li>longueur sur le plan = longueur réelle ÷ 100 ;</li><li>on fait attention à exprimer les longueurs dans la même unité, puis on convertit à la fin.</li></ol></div>
-  <p><b>Exemple :</b> sur une carte à l'échelle ${F(1,"100 000")}, deux villages sont à 3 cm l'un de l'autre. En réalité : 3 × 100 000 = 300 000 cm = 3 km.</p>
+  <p><b>Exemple :</b> sur une carte à l'échelle ${F(1,"100 000")}, deux villages sont à 3 cm l'un de l'autre. La distance réelle d :</p><p class="calc">d = 3 × 100 000<br>d = 300 000 cm<br>d = 3 km</p>
   <div class="scroll"><table class="std"><tbody><tr><th>Longueur sur la carte (cm)</th><td>1</td><td>3</td><td>5,5</td></tr><tr><th>Longueur réelle (cm)</th><td>100 000</td><td>300 000</td><td>550 000</td></tr></tbody></table></div>
   <h4>L'échelle graphique</h4>
   <p>Certaines cartes indiquent l'échelle par un segment gradué : il suffit de reporter les distances avec la règle ou le compas.</p>
@@ -77,12 +77,12 @@ exos:[
 {t:"Plans et cartes", e:[
   {n:"Exercice 6", t:"Le plan de l'appartement", w:"Sur ta feuille", h:`<p>Ce plan est dessiné à l'échelle ${F(1,100)} (si ta feuille est imprimée sans réduction).</p>${ex("e6","Plan d'un appartement : entrée, cuisine, salle de bain, séjour, chambre, bureau",400)}<p>a) Que représente 1 cm sur le plan ? b) Mesure le séjour sur le plan, puis calcule ses dimensions réelles. c) Fais de même pour la chambre et la cuisine. d) Quelles sont les dimensions réelles de l'appartement entier ?</p>`,
    c:`<p>a) 1 cm sur le plan représente 100 cm, soit <b>1 m</b>.</p><p>b) Séjour : 5 cm sur 4 cm sur le plan, soit <b>5 m sur 4 m</b>.</p><p>c) Chambre : 4 cm sur 3,5 cm, soit <b>4 m sur 3,5 m</b>. Cuisine : 3 cm sur 2,5 cm, soit <b>3 m sur 2,5 m</b>.</p><p>d) 11,5 cm sur 6 cm sur le plan : <b>11,5 m sur 6 m</b>.</p><p><i>Mesures faites sur la fiche imprimée ; sur écran, les longueurs ne sont pas en vraie grandeur.</i></p>`},
-  {n:"Exercice 7", t:"La carte au 1/100 000", w:"Sur ta feuille", h:`<p>Sur une carte à l'échelle ${F(1,"100 000")} :</p><p>a) que représente 1 cm sur la carte, en cm ? en m ? en km ? b) Deux villes sont à 4 cm l'une de l'autre. Quelle est la distance réelle ? c) Un lac mesure 7,5 cm de long sur la carte. Quelle est sa longueur réelle ? d) Deux villages sont distants de 12 km. Quelle est la distance sur la carte ?</p>`,
+  {n:"Exercice 7", t:"La carte au {1/100 000}", w:"Sur ta feuille", h:`<p>Sur une carte à l'échelle ${F(1,"100 000")} :</p><p>a) que représente 1 cm sur la carte, en cm ? en m ? en km ? b) Deux villes sont à 4 cm l'une de l'autre. Quelle est la distance réelle ? c) Un lac mesure 7,5 cm de long sur la carte. Quelle est sa longueur réelle ? d) Deux villages sont distants de 12 km. Quelle est la distance sur la carte ?</p>`,
    c:`<p>a) 1 cm représente <b>100 000 cm = 1 000 m = 1 km</b>.</p><p>b) 4 × 1 km = <b>4 km</b>. c) 7,5 × 1 km = <b>7,5 km</b>. d) 1 cm sur la carte représente 1 km, donc 12 km sont représentés par <b>12 cm</b> sur la carte.</p>`},
   {n:"Exercice 8", t:"L'échelle graphique", w:"Sur ta feuille", h:`<p>Sur cette carte (imprimée sans réduction), utilise l'échelle graphique pour trouver les distances réelles « à vol d'oiseau ».</p>${ex("e8","Carte : Arbois, Brévans, Cernay, Dampierre, et une échelle graphique de 0 à 2 km",420)}<p>a) Arbois – Brévans · b) Brévans – Cernay · c) Brévans – Dampierre</p>`,
    c:`<p>Sur l'échelle, 1 km correspond à 2 cm.</p><p>a) Arbois – Brévans : 6 cm sur la carte, soit <b>3 km</b>.</p><p>b) Brévans – Cernay : 4 cm, soit <b>2 km</b>.</p><p>c) Brévans – Dampierre : 5 cm, soit <b>2,5 km</b>.</p><p><i>On peut aussi reporter l'échelle au compas : Arbois – Brévans fait 3 fois le segment « 1 km ».</i></p>`},
   {n:"Exercice 9", t:"Maquettes et dessins", w:"Sur ton cahier", h:`<p>a) Une maquette de voiture est à l'échelle ${F(1,43)}. Elle mesure 10 cm de long. Quelle est la longueur réelle de la voiture, en m ?</p><p>b) La tour Eiffel mesure environ 330 m. Quelle serait sa hauteur sur une maquette à l'échelle ${F(1,"1 000")} ?</p><p>c) Sur un dessin agrandi 5 fois, une fourmi mesure 4 cm. Quelle est sa longueur réelle ?</p>`,
-   c:`<p>a) 10 × 43 = 430 cm = <b>4,3 m</b>.</p><p>b) 330 m = 33 000 cm ; 33 000 ÷ 1 000 = <b>33 cm</b>.</p><p>c) 4 ÷ 5 = <b>0,8 cm</b>, soit 8 mm.</p>`},
+   c:`<p>a) La longueur réelle L :</p><p class="calc">L = 10 × 43<br>L = 430 cm<br>L = <b>4,3 m</b></p><p>b) 330 m = 33 000 cm ; 33 000 ÷ 1 000 = <b>33 cm</b>.</p><p>c) 4 ÷ 5 = <b>0,8 cm</b>, soit 8 mm.</p>`},
   {n:"Exercice 10", t:"Le plan de la classe", w:"Sur ton cahier", h:`<p>Une salle de classe rectangulaire mesure 8 m sur 6 m. Le bureau du professeur mesure 1,6 m sur 0,8 m. Dessine le plan de la classe à l'échelle ${F(1,100)}, avec le bureau.</p>`,
    c:`<p>À l'échelle ${F(1,100)}, 1 m devient 1 cm : la classe est un rectangle de <b>8 cm sur 6 cm</b> et le bureau un rectangle de <b>1,6 cm sur 0,8 cm</b>.</p><svg class="fig" viewBox="0 0 260 200" width="260" role="img" aria-label="Plan de la classe : 8 cm sur 6 cm, avec le bureau"><rect x="10" y="10" width="240" height="180" style="fill:#f3f7fc;stroke:#222;stroke-width:2.5"/><rect x="106" y="22" width="48" height="24" style="fill:#fbe3c6;stroke:#222;stroke-width:1.5"/><text x="130" y="38" text-anchor="middle" style="font-size:10px">bureau</text><text x="130" y="186" text-anchor="middle" style="font-size:12px">8 cm</text><text x="244" y="104" text-anchor="end" style="font-size:12px">6 cm</text></svg><p><i>Figure réduite ; sur ton cahier, trace-la en vraie grandeur. Le bureau peut être placé où tu veux.</i></p>`},
   {n:"En ++", t:"Et l'aire ?", w:"Sur ton cahier", h:`<p>Un carré de 3 cm de côté est agrandi 2 fois.</p><p>a) Quelle est la longueur du côté du nouveau carré ? Calcule l'aire des deux carrés.</p><p>b) L'aire a-t-elle été multipliée par 2 ? Par combien ? Fais un dessin pour expliquer.</p>`,
@@ -100,7 +100,7 @@ quiz:[
      {g:()=>{ const l=ri(2,8)*2; return {q:`Une figure est réduite de moitié. Un côté de ${l} cm devient (en cm)…`, rep:String(l/2), ex:`${l} ÷ 2 = ${l/2}.`, sx:S_AGR}; }} ]
 }},
 {nom:"Échelles", schema:S_ECH, q:{
- 1:[ {g:()=>{ const l=ri(2,15); return {q:`Plan à l'échelle ${F(1,100)} : ${l} cm sur le plan représentent… (en m)`, rep:String(l), ex:`${l} × 100 = ${sp(l*100)} cm = ${l} m.`, sx:S_ECH}; }} ],
+ 1:[ {g:()=>{ const l=ri(2,15); return {q:`Plan à l'échelle ${F(1,100)} : ${l} cm sur le plan représentent… (en m)`, rep:String(l), ex:`La longueur réelle L :<br>L = ${l} × 100<br>L = ${sp(l*100)} cm<br>L = ${l} m`, sx:S_ECH}; }} ],
  2:[ {g:()=>{ const l=ri(11,99); return {q:`Carte au ${F(1,"100 000")} : ${D(l,1)} cm sur la carte représentent… (en km)`, rep:D(l,1), ex:"1 cm représente 1 km.", sx:S_ECH}; }},
      {g:()=>{ const r=ri(2,12)*50; return {q:`Plan au ${F(1,100)} : une longueur réelle de ${D(r,2)} m mesure… sur le plan (en cm)`, rep:D(r,2), ex:`${D(r,2)} m = ${r} cm ; ${r} ÷ 100 = ${D(r,2)} cm.`, sx:S_ECH}; }} ],
  3:[ {g:()=>{ const e=pick([10,20,50]), l=ri(2,9); return {q:`Maquette au ${F(1,e)} : un objet mesure ${l} cm sur la maquette. Sa longueur réelle (en cm) ?`, rep:String(l*e), ex:`${l} × ${e} = ${l*e} cm.`, sx:S_ECH}; }},

@@ -40,7 +40,7 @@ const SUP = {p:pick([0.1,0.2,0.3,0.4,0.5])};
 return [
  {t:"Conversions de durées", e:[
   {n:"Exercice 1", t:"Conversions de durée", w:"Sur ton cahier", h:`<p>Rappel : 1 h = 60 min / 1 min = 60 s / 1 h = 3 600 s.</p><p><b>1)</b> Convertis ${C1.m} min en secondes.</p><p><b>2)</b> Convertis ${C1.h} h ${C1.mm} min en minutes.</p><p><b>3)</b> Convertis ${C1.d} jours en secondes.</p>`,
-   c:`<p><b>1)</b> ${C1.m} × 60 = <b>${N(C1.m*60)} s</b>.</p><p><b>2)</b> ${C1.h} × 60 + ${C1.mm} = ${C1.h*60} + ${C1.mm} = <b>${C1.h*60+C1.mm} min</b>.</p><p><b>3)</b> ${C1.d} jours = ${C1.d*24} h et ${C1.d*24} × 3 600 = <b>${N(C1.d*86400)} s</b>.</p>`},
+   c:`<p><b>1)</b> ${C1.m} × 60 = <b>${N(C1.m*60)} s</b>.</p><p><b>2)</b></p><p class="calc">t = ${C1.h} × 60 + ${C1.mm}<br>t = ${C1.h*60} + ${C1.mm}<br>t = <b>${C1.h*60+C1.mm} min</b></p><p><b>3)</b> ${C1.d} jours = ${C1.d*24} h et ${C1.d*24} × 3 600 = <b>${N(C1.d*86400)} s</b>.</p>`},
   {n:"Exercice 2", t:"Des minutes aux heures", w:"Sur ton cahier", h:`<p><b>a)</b> ${N(C2.M)} min représentent combien d'heures ? Donne un arrondi à l'unité.</p><p><b>b)</b> Convertis ${N(C2.M)} min en heures et minutes.</p>`,
    c:`<p><b>a)</b> ${N(C2.M)} ÷ 60 ${Math.abs(C2.M/60-rd(C2.M/60,2))>1e-9?"≈":"="} ${N(C2.M/60,2)} : environ <b>${Math.round(C2.M/60)} h</b>.</p><p><b>b)</b> ${C2.h} h = ${N(C2.h*60)} min, donc ${N(C2.M)} min = ${N(C2.h*60)} min + ${C2.m} min = <b>${C2.h} h ${pad(C2.m)} min</b>.</p>`}
  ]},
@@ -48,15 +48,15 @@ return [
   {n:"Exercice 3", t:"Vitesse et énergie", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> une voiture roule à une vitesse moyenne de ${N(A1.v)} km/h. En ${A1.t} h, combien de kilomètres a-t-elle parcourus ?</p><p><b>Problème 2 :</b> une voiture a roulé ${A1.t2} h et a parcouru ${N(A1.d2)} km. Quelle a été sa vitesse moyenne en km/h ?</p><p><b>Problème 3 :</b> mon lave-vaisselle a une puissance de 1 kW et il lave pendant ${A1.e} h. Cette semaine, je l'ai mis en route ${A1.n} fois. Combien d'énergie ai-je consommée en kWh ?</p>`,
    c:`<p><b>Problème 1 :</b> ${N(A1.v)} × ${A1.t} = <b>${N(rd(A1.v*A1.t,2))} km</b>.</p><p><b>Problème 2 :</b> ${N(A1.d2)} ÷ 2 = <b>${N(A1.d2/2)} km/h</b>.</p><p><b>Problème 3 :</b> un lavage : 1 kW × ${A1.e} h = ${A1.e} kWh. ${A1.n} lavages : ${A1.n} × ${A1.e} = <b>${A1.n*A1.e} kWh</b>.</p>`},
   {n:"Exercice 4", t:"La vitesse moyenne en km/h", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un routier a parcouru ${N(E1.d)} km en ${E1.t} h. Quelle a été sa vitesse moyenne en km/h ?</p><p><b>Problème 2 :</b> un automobiliste a roulé à une vitesse moyenne de ${N(E1.v2)} km/h et a parcouru ${N(E1.d2)} km. Combien d'heures a-t-il roulé ?</p>`,
-   c:`<p><b>Problème 1 :</b> V = {d/t} = ${N(E1.d)} ÷ ${E1.t} = <b>${N(E1.v)} km/h</b>.</p><p><b>Problème 2 :</b> t = {d/V} = ${N(E1.d2)} ÷ ${N(E1.v2)} = <b>${E1.t2} h</b>.</p>`},
+   c:`<p><b>Problème 1 :</b></p><p class="calc">V = {d/t}<br>V = ${N(E1.d)} ÷ ${E1.t}<br>V = <b>${N(E1.v)} km/h</b></p><p><b>Problème 2 :</b></p><p class="calc">t = {d/V}<br>t = ${N(E1.d2)} ÷ ${N(E1.v2)}<br>t = <b>${E1.t2} h</b></p>`},
   {n:"Exercice 5", t:"Le prix au kilo en €/kg", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> j'ai acheté ${N(E2.m)} kg de poires et j'ai payé ${N2(E2.P)} €. Quel est le prix au kilo des poires ?</p><p><b>Problème 2 :</b> les courgettes sont à ${N2(E2.p2)} €/kg. J'achète ${N(E2.m2)} kg de courgettes. Combien vais-je payer ?</p>`,
-   c:`<p><b>Problème 1 :</b> ${N2(E2.P)} ÷ ${N(E2.m)} ${ap(E2.P/E2.m,2)} <b>${N2(E2.P/E2.m)} €/kg</b>.</p><p><b>Problème 2 :</b> ${N2(E2.p2)} × ${N(E2.m2)} = ${N(rd(E2.p2*E2.m2,4))}${ap(E2.p2*E2.m2,2)==="="?"":` ≈ ${N2(E2.p2*E2.m2)}`}. Je vais payer <b>${N2(E2.p2*E2.m2)} €</b>.</p>`},
+   c:`<p><b>Problème 1 :</b> ${N2(E2.P)} ÷ ${N(E2.m)} ${ap(E2.P/E2.m,2)} <b>${N2(E2.P/E2.m)} €/kg</b>.</p><p><b>Problème 2 :</b></p><p class="calc">P = ${N2(E2.p2)} × ${N(E2.m2)}<br>P = ${N(rd(E2.p2*E2.m2,4))}${ap(E2.p2*E2.m2,2)==="="?"":`<br>P ≈ ${N2(E2.p2*E2.m2)}`}</p><p>Je vais payer <b>${N2(E2.p2*E2.m2)} €</b>.</p>`},
   {n:"Exercice 6", t:"Un sprinteur", w:"Sur ton cahier", h:`<p>Un sprinteur court le 100 m en ${N(E3.t)} s.</p><p>Calcule sa vitesse moyenne en m/s. Arrondis au centième.</p>`,
-   c:`<p>V = {d/t} = {100/${N(E3.t)}} ${ap(100/E3.t,2)} <b>${N2(100/E3.t)} m/s</b>.</p>`},
+   c:`<p class="calc">V = {d/t}<br>V = {100/${N(E3.t)}}<br>V ${ap(100/E3.t,2)} <b>${N2(100/E3.t)} m/s</b></p>`},
   {n:"Exercice 7", t:"Le remplissage d'un barrage", w:"Sur ton cahier", h:`<p>Un barrage a une retenue d'eau d'environ ${N(E4.V)} m<sup>3</sup>. Une rivière y déverse son eau avec un débit moyen de ${E4.D} m<sup>3</sup>/s.</p><p>Calcule la durée de remplissage de ce barrage, arrondie à l'unité : <b>a)</b> en secondes ; <b>b)</b> en heures ; <b>c)</b> en jours.</p>`,
-   c:`<p><b>a)</b> t = {V/D} = ${N(E4.V)} ÷ ${E4.D} ${ap(E4.s,0)} <b>${N(Math.round(E4.s))} s</b>.</p><p><b>b)</b> ${N(Math.round(E4.s))} ÷ 3 600 ≈ <b>${N(Math.round(E4.s/3600))} h</b>.</p><p><b>c)</b> ${N(rd(E4.s/3600,2))} ÷ 24 ≈ <b>${N(Math.round(E4.s/86400))} jours</b>.</p>`},
+   c:`<p><b>a)</b></p><p class="calc">t = {V/D}<br>t = ${N(E4.V)} ÷ ${E4.D}<br>t ${ap(E4.s,0)} <b>${N(Math.round(E4.s))} s</b></p><p><b>b)</b> ${N(Math.round(E4.s))} ÷ 3 600 ≈ <b>${N(Math.round(E4.s/3600))} h</b>.</p><p><b>c)</b> ${N(rd(E4.s/3600,2))} ÷ 24 ≈ <b>${N(Math.round(E4.s/86400))} jours</b>.</p>`},
   {n:"Exercice 8", t:"Orage et vitesse du son", w:"Sur ton cahier", h:`<p>Le son se déplace à la vitesse de 330 m/s.</p><p>On entend le tonnerre ${E5.t} s après avoir vu un éclair. À quelle distance se situe l'orage ? Convertis en kilomètres.</p>`,
-   c:`${pt(["Distance (en m)","330","D"],["Temps (en s)","1",String(E5.t)])}<p>D = 330 × ${E5.t} = ${N(330*E5.t)} m, soit <b>${N(330*E5.t/1000)} km</b>.</p>`}
+   c:`${pt(["Distance (en m)","330","D"],["Temps (en s)","1",String(E5.t)])}<p class="calc">D = 330 × ${E5.t}<br>D = ${N(330*E5.t)} m</p><p>soit <b>${N(330*E5.t/1000)} km</b>.</p>`}
  ]},
  {t:"Sujets de brevet", e:[
   {n:"Exercice 9", t:"Une course de 24 heures", w:"Sur ton cahier", h:`<p>Sur une course de 24 heures, les voitures tournent sur un circuit dont un tour mesure ${N(LM.L)} km.</p><p>La voiture gagnante a parcouru ${N(LM.D)} km.</p><p><b>1)</b> Détermine le nombre de tours complets effectués par cette voiture.</p><p><b>2)</b> Calcule sa vitesse moyenne en km/h. Arrondis à l'unité.</p><p><b>3)</b> 1 mile ≈ 1 609 m. La voiture n° 37 roule à ${LM.mph} mph (miles par heure) et la voiture n° 38 à ${LM.kmh} km/h. Quelle est la plus rapide ?</p>`,
@@ -66,7 +66,7 @@ return [
  ]},
  {t:"Grandeurs composées et conversions", e:[
   {n:"Exercice 11", t:"Débit et vitesse", w:"Sur ton cahier", h:`<p><b>Problème 1 :</b> un ballon d'eau chaude de ${N(A2.V)} L se vide en ${A2.t} min. Quel est le débit en L/s ?</p><p><b>Problème 2 :</b> un cycliste a une vitesse moyenne de ${N(A2.c)} m/s. Quelle est sa vitesse moyenne en km/h ?</p>`,
-   c:`<p><b>Problème 1 :</b> ${A2.t} min = ${N(A2.t*60)} s. D = ${N(A2.V)} ÷ ${N(A2.t*60)} = <b>${N(A2.D)} L/s</b>.</p><p><b>Problème 2 :</b> en 1 h = 3 600 s : ${N(A2.c)} × 3 600 = ${N(rd(A2.c*3600,2))} m = ${N(rd(A2.c*3.6,4))} km. Sa vitesse est de <b>${N(rd(A2.c*3.6,4))} km/h</b>.</p>`},
+   c:`<p><b>Problème 1 :</b> ${A2.t} min = ${N(A2.t*60)} s.</p><p class="calc">D = ${N(A2.V)} ÷ ${N(A2.t*60)}<br>D = <b>${N(A2.D)} L/s</b></p><p><b>Problème 2 :</b> en 1 h = 3 600 s : ${N(A2.c)} × 3 600 = ${N(rd(A2.c*3600,2))} m = ${N(rd(A2.c*3.6,4))} km. Sa vitesse est de <b>${N(rd(A2.c*3.6,4))} km/h</b>.</p>`},
   {n:"Exercice 12", t:"Temps de réaction", w:"Sur ton cahier", h:`<p>Un conducteur met ${E6.t} s avant de commencer à freiner quand il voit un obstacle.</p><p>Calcule la distance parcourue, en m, pendant ce temps de réaction s'il roule à ${E6.v} km/h.</p>`,
    c:`<p>${E6.v} km = ${N(E6.v*1000)} m en 3 600 s. En 1 s : ${N(E6.v*1000)} ÷ 3 600 = ${N(E6.v/3.6)} m.</p><p>En ${E6.t} s : <b>${N(E6.v/3.6*E6.t)} m</b>.</p>`},
   {n:"Exercice 13", t:"Sous le pont", w:"Sur ton cahier", h:`<p>Sous un pont, une rivière a un débit de ${N(E7.D)} m<sup>3</sup>/s.</p><p>Tom traverse le pont en ${E7.m} min. Combien de litres d'eau sont passés sous le pont pendant ce temps ?</p>`,
@@ -76,9 +76,9 @@ return [
   {n:"Exercice 15", t:"Débit d'un robinet", w:"Sur ton cahier", h:`<p>Le débit moyen d'un robinet est de ${N(E9.D)} L/s.</p><p>Transforme ce débit : <b>a)</b> en L/min ; <b>b)</b> en L/h ; <b>c)</b> en m<sup>3</sup>/h.</p>`,
    c:`<p><b>a)</b> ${N(E9.D)} × 60 = <b>${N(E9.D*60)} L/min</b>.</p><p><b>b)</b> ${N(E9.D)} × 3 600 = <b>${N(E9.D*3600)} L/h</b>.</p><p><b>c)</b> ${N(E9.D*3600)} L = ${N(E9.D*3.6)} m<sup>3</sup> : le débit est de <b>${N(E9.D*3.6)} m<sup>3</sup>/h</b>.</p>`},
   {n:"Exercice 16", t:"Vitesse d'un marcheur", w:"Sur ton cahier", h:`<p>Un randonneur a parcouru ${E10.d} km en 1 h ${E10.m} min.</p><p>Calcule sa vitesse moyenne en km/h.</p>`,
-   c:`<p>1 h ${E10.m} min = ${E10.T} min.</p>${pt(["Distance (en km)",String(E10.d),"D"],["Temps (en min)",String(E10.T),"60"])}<p>D = ${E10.d} × 60 ÷ ${E10.T} = <b>${N(E10.v)} km/h</b>.</p>`},
+   c:`<p>1 h ${E10.m} min = ${E10.T} min.</p>${pt(["Distance (en km)",String(E10.d),"D"],["Temps (en min)",String(E10.T),"60"])}<p class="calc">D = ${E10.d} × 60 ÷ ${E10.T}<br>D = <b>${N(E10.v)} km/h</b></p>`},
   {n:"Exercice 17", t:"Un chargeur branché pour rien", w:"Sur ton cahier", h:`<p>Un chargeur branché sur une prise, mais non connecté à un téléphone, développe une puissance de ${N(SUP.p)} W.</p><p><b>a)</b> Calcule l'énergie consommée en une journée complète, en Wh.</p><p><b>b)</b> Calcule l'énergie consommée en une année de 365 jours. Convertis en kWh.</p>`,
-   c:`<p><b>a)</b> E = P × t = ${N(SUP.p)} × 24 = <b>${N(SUP.p*24)} Wh</b>.</p><p><b>b)</b> ${N(SUP.p*24)} × 365 = ${N(rd(SUP.p*24*365,2))} Wh = <b>${N(rd(SUP.p*24*365/1000,4))} kWh</b>.</p>`}
+   c:`<p><b>a)</b></p><p class="calc">E = P × t<br>E = ${N(SUP.p)} × 24<br>E = <b>${N(SUP.p*24)} Wh</b></p><p><b>b)</b> ${N(SUP.p*24)} × 365 = ${N(rd(SUP.p*24*365,2))} Wh = <b>${N(rd(SUP.p*24*365/1000,4))} kWh</b>.</p>`}
  ]}
 ];
 };

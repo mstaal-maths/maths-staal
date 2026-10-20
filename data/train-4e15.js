@@ -3,7 +3,7 @@ TRAIN["4e-15"] = function(){
 const {ri, pick, shuf, distinct} = TR;
 const {ptab, tab, N, E, F, exact, rd, BISC} = window.P415;
 const isInt = x => Number.isInteger(rd(x,6));
-const app = (t,q) => `${F(N(t),100)} × ${N(q)} = ${N(t/100)} × ${N(q)} = ${N(t*q/100)}`;
+const app = (t,q) => `P = ${F(N(t),100)} × ${N(q)}<br>P = ${N(t/100)} × ${N(q)}<br>P = ${N(t*q/100)}`;
 
 /* ===== appliquer ===== */
 const A = (()=>{ let t,n; do{ t=pick([20,40,60,80,30,70]); n=ri(15,120); }while(!isInt(t*n/100)); return {t,n}; })();
@@ -43,11 +43,11 @@ return [
  ]},
  {t:"Chercher un pourcentage", e:[
   {n:"Exercice D", t:"Les vaches noires", w:"Sur ton cahier", h:`<p>Dans une ferme, ${D.k} vaches sur ${D.n} sont noires. Quel est le pourcentage de vaches noires ?</p>`,
-   c:`${ptab({h1:"Nombre de vaches noires",h2:"Nombre total de vaches",r1:[String(D.k),"!"+N(D.k*100/D.n)],r2:[String(D.n),"100"]})}<p class="calc">${F(D.k,D.n)} = ${N(D.k/D.n)} = ${F(N(D.k*100/D.n),100)} = ${N(D.k*100/D.n)} %</p><p>Il y a <b>${N(D.k*100/D.n)} % de vaches noires</b>.</p>`},
+   c:`${ptab({h1:"Nombre de vaches noires",h2:"Nombre total de vaches",r1:[String(D.k),"!"+N(D.k*100/D.n)],r2:[String(D.n),"100"]})}<p class="calc">p = ${F(D.k,D.n)}<br>p = ${N(D.k/D.n)}<br>p = ${F(N(D.k*100/D.n),100)}<br>p = ${N(D.k*100/D.n)} %</p><p>Il y a <b>${N(D.k*100/D.n)} % de vaches noires</b>.</p>`},
   {n:"Exercice E", t:"Les filles d'un autre club", w:"Sur ton cahier", h:`<p>Un club compte ${EE.n} licenciés, dont ${EE.k} filles. Quel est le pourcentage de filles dans ce club ?</p>`,
-   c:`<p class="calc">${F(EE.k,EE.n)} = ${N(EE.k/EE.n)} = ${F(N(EE.k*100/EE.n),100)} = ${N(EE.k*100/EE.n)} %</p><p>Il y a <b>${N(EE.k*100/EE.n)} % de filles</b>.</p>`},
+   c:`<p class="calc">p = ${F(EE.k,EE.n)}<br>p = ${N(EE.k/EE.n)}<br>p = ${F(N(EE.k*100/EE.n),100)}<br>p = ${N(EE.k*100/EE.n)} %</p><p>Il y a <b>${N(EE.k*100/EE.n)} % de filles</b>.</p>`},
   {n:"Exercice F", t:"L'élection du délégué", w:"Sur ton cahier", h:`<p>Pour élire le délégué, les ${FV.n} élèves de la classe ont voté.</p>${tab(["Candidat",...NOMS],[["Nombre de voix",...FV.v.map(String)]])}<p>Calcule le pourcentage de voix de chaque candidat. Arrondis à l'unité.</p>`,
-   c:`${FV.v.map((v,i)=>`<p>• ${NOMS[i]} : ${F(v,FV.n)} ${isInt(v*100/FV.n)?"=":"≈"} ${N(rd(v/FV.n,2))} = <b>${FV.p[i]} %</b></p>`).join("")}<p>${FV.p.join(" % + ")} % = ${FV.p.reduce((a,b)=>a+b,0)} %${FV.p.reduce((a,b)=>a+b,0)===100?".":" : on ne trouve pas exactement 100 % car les pourcentages sont arrondis."}</p>`}
+   c:`${FV.v.map((v,i)=>`<p>• ${NOMS[i]} :</p><p class="calc">p = ${F(v,FV.n)}<br>p ${isInt(v*100/FV.n)?"=":"≈"} ${N(rd(v/FV.n,2))}<br>p ${isInt(v*100/FV.n)?"=":"≈"} <b>${FV.p[i]} %</b></p>`).join("")}<p>${FV.p.join(" % + ")} % = ${FV.p.reduce((a,b)=>a+b,0)} %${FV.p.reduce((a,b)=>a+b,0)===100?".":" : on ne trouve pas exactement 100 % car les pourcentages sont arrondis."}</p>`}
  ]},
  {t:"Appliquer un pourcentage d'augmentation ou de réduction", e:[
   {n:"Exercice 2", t:"Différentes situations", w:"Sur ton cahier", h:`<p><b>Problème 1 –</b> Pendant les soldes, Sophie achète un pantalon qui a une réduction de ${P1.t} %. Ce pantalon coûte à la base ${E(P1.p)} €. Combien va-t-elle le payer ?</p>
@@ -60,15 +60,15 @@ return [
  ]},
  {t:"Chercher un pourcentage d'augmentation ou de réduction", e:[
   {n:"Exercice H", t:"Les chaussures", w:"Sur ton cahier", h:`<p>Une paire de chaussures coûtait ${H.p} €. Son prix a augmenté de ${E(H.a)} €. Quel est le pourcentage d'augmentation ?</p>`,
-   c:`<p class="calc">${F(E(H.a),H.p)} = ${N(H.t/100)} = ${F(N(H.t),100)} = ${N(H.t)} %</p><p>Le prix a augmenté de <b>${N(H.t)} %</b>.</p>`},
+   c:`<p class="calc">p = ${F(E(H.a),H.p)}<br>p = ${N(H.t/100)}<br>p = ${F(N(H.t),100)}<br>p = ${N(H.t)} %</p><p>Le prix a augmenté de <b>${N(H.t)} %</b>.</p>`},
   {n:"Exercice I", t:"La remise", w:"Sur ton cahier", h:`<p>Sur un article qui coûte ${I.p} €, un vendeur fait une remise de ${I.r} €. Quel est le pourcentage de réduction ? Arrondis à l'unité.</p>`,
-   c:`<p class="calc">${F(I.r,I.p)} ≈ ${N(rd(I.r/I.p,2))} = ${F(I.pc,100)} = ${I.pc} %</p><p>Le pourcentage de réduction est d'environ <b>${I.pc} %</b>.</p>`},
+   c:`<p class="calc">p = ${F(I.r,I.p)}<br>p ≈ ${N(rd(I.r/I.p,2))}<br>p ≈ ${F(I.pc,100)}<br>p ≈ ${I.pc} %</p><p>Le pourcentage de réduction est d'environ <b>${I.pc} %</b>.</p>`},
   {n:"Exercice J", t:"Les lunettes", w:"Sur ton cahier", h:`<p>Une paire de lunettes coûtait ${J.p} €. Elle est maintenant vendue ${E(J.n)} €. Quel est le pourcentage de réduction ?</p>`,
-   c:`<p>${J.p} − ${E(J.n)} = ${E(J.p-J.n)} : le prix a baissé de ${E(J.p-J.n)} €.</p><p class="calc">${F(E(J.p-J.n),J.p)} = ${N(J.t/100)} = ${F(J.t,100)} = ${J.t} %</p><p>Le pourcentage de réduction est de <b>${J.t} %</b>.</p>`},
+   c:`<p>${J.p} − ${E(J.n)} = ${E(J.p-J.n)} : le prix a baissé de ${E(J.p-J.n)} €.</p><p class="calc">p = ${F(E(J.p-J.n),J.p)}<br>p = ${N(J.t/100)}<br>p = ${F(J.t,100)}<br>p = ${J.t} %</p><p>Le pourcentage de réduction est de <b>${J.t} %</b>.</p>`},
   {n:"Exercice 3", t:"Différentes situations (2)", w:"Sur ton cahier", h:`<p><b>Problème 1 –</b> Une famille a utilisé ${W.a} m³ d'eau en 2017 et ${N(W.b)} m³ en 2018. Quel est le pourcentage d'augmentation de cette consommation ?</p>
    <p><b>Problème 2 –</b> En quelques années, la surface d'une forêt est passée de ${N(AM.a)} millions à ${N(AM.b)} millions de km². Exprime cette diminution en pourcentage.</p>`,
-   c:`<p><b>Problème 1 :</b> ${N(W.b)} − ${W.a} = ${N(W.b-W.a)}. ${F(N(W.b-W.a),W.a)} = ${N(W.t/100)} = ${W.t} % : la consommation a augmenté de <b>${W.t} %</b>.</p>
-   <p><b>Problème 2 :</b> ${N(AM.a)} − ${N(AM.b)} = ${N(AM.a-AM.b)}. ${F(N(AM.a-AM.b),N(AM.a))} = ${N(AM.t/100)} = ${AM.t} % : la surface a diminué de <b>${AM.t} %</b>.</p>`}
+   c:`<p><b>Problème 1 :</b> ${N(W.b)} − ${W.a} = ${N(W.b-W.a)}.</p><p class="calc">p = ${F(N(W.b-W.a),W.a)}<br>p = ${N(W.t/100)}<br>p = ${W.t} %</p><p>La consommation a augmenté de <b>${W.t} %</b>.</p>
+   <p><b>Problème 2 :</b> ${N(AM.a)} − ${N(AM.b)} = ${N(AM.a-AM.b)}.</p><p class="calc">p = ${F(N(AM.a-AM.b),N(AM.a))}<br>p = ${N(AM.t/100)}<br>p = ${AM.t} %</p><p>La surface a diminué de <b>${AM.t} %</b>.</p>`}
  ]}
 ];
 };
