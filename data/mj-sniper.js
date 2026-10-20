@@ -168,6 +168,7 @@ const CSS = `
 .mj-sniper-lvd{color:var(--muted);font-size:.95rem}
 .mj-sniper-hud{display:flex;align-items:center;gap:22px;margin:10px 0 6px;flex-wrap:wrap}
 .mj-sniper-target{display:flex;align-items:center;gap:12px;min-height:64px;flex:1;min-width:0}
+@media (max-width:600px){ .mj-sniper-target{flex-basis:100%} }   /* téléphone : le nombre à viser a sa propre ligne (sinon il chevauche « Tir ») */
 .mj-sniper-target .lab{font-size:.95rem;color:var(--muted);font-weight:600}
 .mj-sniper-target .val{font-family:var(--f-display);font-weight:800;font-size:2.4rem;line-height:1;color:var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);border:2px solid color-mix(in srgb,var(--c) 45%,transparent);border-radius:14px;padding:6px 16px;display:inline-flex;align-items:center}
 .mj-sniper-mots{font-size:1.35rem;line-height:1.25;font-family:var(--f-body);font-weight:700}

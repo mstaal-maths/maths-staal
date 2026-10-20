@@ -294,9 +294,9 @@ function init(root){
       <div class="mj-graph-h"><h3 id="mjg-titre"></h3><span id="mjg-rec"></span></div>
       <form class="mj-graph-form" autocomplete="off" onsubmit="return false">
         <span><i>f</i>(<i>x</i>) =</span>
-        <label><input id="mjg-a" inputmode="decimal" aria-label="coefficient a" spellcheck="false"><span class="lab">a</span></label>
+        <label><input id="mjg-a" inputmode="text" aria-label="coefficient a" spellcheck="false"><span class="lab">a</span></label>
         <span><i>x</i></span>
-        <span id="mjg-bbox" style="display:contents"><span>+</span><label><input id="mjg-b" inputmode="decimal" aria-label="nombre b" spellcheck="false" value="0"><span class="lab">b</span></label></span>
+        <span id="mjg-bbox" style="display:contents"><span>+</span><label><input id="mjg-b" inputmode="text" aria-label="nombre b" spellcheck="false" value="0"><span class="lab">b</span></label></span>
         <button class="btn primary" type="button" id="mjg-feu">Feu !</button>
       </form>
       <p class="mj-graph-prev" id="mjg-prev" aria-live="polite"></p>

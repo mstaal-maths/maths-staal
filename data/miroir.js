@@ -99,7 +99,7 @@ function draw(){
   if(a==="vh") g+=`<line x1="-0.2" y1="${h/2}" x2="${w+0.2}" y2="${h/2}" class="maxe"/>`;
   if(a==="d") g+=`<line x1="-0.2" y1="-0.2" x2="${w+0.2}" y2="${h+0.2}" class="maxe"/>`;
   $("mboard").innerHTML=g+"</svg>";
-  R0.querySelectorAll(".mc").forEach(el=>{ el.onpointerdown=e=>{ e.preventDefault(); peint=true; paint(el); }; el.onpointerenter=()=>{ if(peint) paint(el); }; });
+  R0.querySelectorAll(".mc").forEach(el=>{ el.onpointerdown=e=>{ e.preventDefault(); if(e.pointerType!=="mouse" && el.hasPointerCapture && el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId); peint=true; paint(el); }; el.onpointerenter=()=>{ if(peint) paint(el); }; });
 }
 function paint(el){
   const L=LV[cur], r=+el.dataset.r, c=+el.dataset.c; if(montre(L,r,c)){ msg("Cette partie est déjà faite : colorie de l'<b>autre côté</b> de l'axe.", ""); return; }

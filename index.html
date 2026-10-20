@@ -962,6 +962,31 @@ html.sheetmode #sheetpage{display:block;max-width:182mm;margin:0 auto;padding:0}
 @media (max-width:1000px){ .tabl .tlay{grid-template-columns:minmax(0,1fr)} .tabl .tpanel{position:static;order:-1} }
 @media (max-width:600px){ .tabl .tmenus{display:none} .tabl .tright .tround{display:none} .tabl .tshare{padding:6px 10px} .tabl .ttitle{font-size:15px} .tabl .tscroll{height:440px} }
 @media (max-width:760px){ .laby .lgrid{grid-template-columns:minmax(0,1fr)} .laby .lws{height:480px} .laby .lleft{max-width:420px} }
+/* ---------- plein écran des mini-jeux de maths : bouton visible seulement sur téléphone et tablette ---------- */
+.mjfs-go,.mjfs-flot{display:none}
+@media (max-width:900px),(pointer:coarse){ .head .mjfs-go{display:inline-flex;align-items:center;gap:10px;justify-self:start;padding:12px 18px}
+  .mjfs-flot{display:inline-flex;align-items:center;gap:8px;position:fixed;z-index:40;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));
+    padding:10px 16px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.28);transition:opacity .2s,transform .2s}
+  .mjfs-flot.cache{opacity:0;transform:translateY(12px);pointer-events:none} }
+.mjfs-go svg,.mjfsx svg,.mjfs-rot svg{flex:none}
+html.mjfs,html.mjfs body{overflow:hidden;height:100%}
+html.mjfs body{padding:0;margin:0}
+html.mjfs .wrap{max-width:none;padding:0}
+html.mjfs .top,html.mjfs #aff,html.mjfs .sitefoot,html.mjfs #app>:not(#labyroot){display:none!important}
+html.mjfs{--mjfs-bar:calc(46px + env(safe-area-inset-top,0px))}
+html.mjfs #app{position:fixed;left:0;right:0;top:var(--mjfs-bar);bottom:0;z-index:60;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:var(--paper);
+  padding:8px max(8px,env(safe-area-inset-right,0px)) max(8px,env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+html.mjfs #labyroot{transform-origin:0 0}
+html.mjfs.fs-1 #app{top:calc(var(--mjfs-bar) / 1.12)} html.mjfs.fs-2 #app{top:calc(var(--mjfs-bar) / 1.25)}   /* le mode DYS agrandit la page avec zoom */
+#mjfsbar{position:fixed;left:0;right:0;top:0;height:var(--mjfs-bar);z-index:61;display:flex;align-items:center;gap:10px;background:var(--surface);color:var(--ink);border-bottom:2px solid var(--line);
+  padding:env(safe-area-inset-top,0px) max(8px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px))}
+#mjfsbar .mjfs-t{flex:1;min-width:0;font-weight:700;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mjfsbar .mjfs-rot{display:none;flex:1;min-width:0;align-items:center;gap:8px;font-size:14px;line-height:1.2;font-weight:600;color:var(--muted)}
+@media (orientation:portrait){ html.mjfs-large #mjfsbar .mjfs-rot{display:flex} html.mjfs-large #mjfsbar .mjfs-t{display:none} }
+#mjfsbar .mjfsx{flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;font-size:15px;border-radius:999px;border-width:2px;line-height:1.2}
+@media (prefers-reduced-motion:no-preference){ html.mjfs-large #mjfsbar .mjfs-rot svg{animation:mjfsrot 2.4s ease-in-out 3} }
+@keyframes mjfsrot{0%,30%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
+@media print{ #mjfsbar{display:none} }
 </style>
 
 <div class="wrap">
@@ -1682,14 +1707,128 @@ async function labyrinthe(jeu){
   const J=JEUX[jeu], cls=J.cls;
   if(J.mj) document.documentElement.style.setProperty("--c", CLASSES[cls].couleur);
   crumbs.innerHTML = `<a href="#accueil">Accueil</a><span aria-hidden="true">›</span><a href="#${cls}">${CLASSES[cls].nom}</a><span aria-hidden="true">›</span><span>${J.titre}</span>`;
-  app.innerHTML = `<div class="head"><span class="eyebrow">${J.mj||/^(miroir6|rapp6|puiss[3-6]|compte|bnav5)$/.test(jeu)?"Mini-jeu de maths":"Informatique · "+(J.eyebrow||(J.tab?"séance tableur":"jeu de programmation"))}</span><h1>${J.titre}</h1>
+  const mjm = !!(J.mj||/^(miroir6|rapp6|puiss[3-6]|compte|bnav5)$/.test(jeu));
+  app.innerHTML = `<div class="head"><span class="eyebrow">${mjm?"Mini-jeu de maths":"Informatique · "+(J.eyebrow||(J.tab?"séance tableur":"jeu de programmation"))}</span><h1>${J.titre}</h1>
+    ${mjm?`<button class="btn primary mjfs-go" id="mjfsgo" type="button"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.5 7V2.5H7M13 2.5h4.5V7M17.5 13v4.5H13M7 17.5H2.5V13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Plein écran</button>`:""}
     <p>${J.intro}</p></div>
-    <div id="labyroot"><p class="where">Chargement du jeu…</p></div>`;
+    <div id="labyroot"><p class="where">Chargement du jeu…</p></div>${mjm?`<button class="btn primary mjfs-flot cache" id="mjfsflot" type="button" tabindex="-1" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.5 7V2.5H7M13 2.5h4.5V7M17.5 13v4.5H13M7 17.5H2.5V13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Plein écran</button>`:""}`;
   try{ if(J.mod) await loadJS(J.mod.src); else if(J.tab) await loadJS("data/tableur.js"); else { await loadJS("lib/blockly/blockly_compressed.js"); await loadJS("lib/blockly/fr.js"); await loadJS("data/laby.js"); } }
   catch(e){ document.getElementById("labyroot").innerHTML = `<p class="where">Le jeu n'a pas pu se charger. Vérifie ta connexion, puis recharge la page.</p>`; return; }
   const root=document.getElementById("labyroot"); if(!root || location.hash.slice(1)!==jeu) return;
   if(J.mod) window[J.mod.name].init(root, J.mod.pack); else if(J.tab) TABLEUR.init(root, J.tab); else LABY.init(root, J.pack);
+
+  const fsb=document.getElementById("mjfsgo"), flot=document.getElementById("mjfsflot");
+  if(fsb) fsb.onclick=()=>MJFS.on(jeu);
+  /* le jeu fait parfois défiler la page jusqu'à lui : un bouton flottant prend le relais quand celui du titre n'est plus visible */
+  if(fsb && flot){ flot.onclick=()=>MJFS.on(jeu);
+    if(window.IntersectionObserver) new IntersectionObserver(es=>es.forEach(e=>{ const v=!e.isIntersecting; flot.classList.toggle("cache", !v); flot.tabIndex=v?0:-1; flot.setAttribute("aria-hidden", v?"false":"true"); })).observe(fsb); }
 }
+/* ---------- Plein écran des mini-jeux de maths (téléphone et tablette) ----------
+   Le bouton « Plein écran » n'est visible que sur un écran étroit ou tactile : sur ordinateur, rien ne change.
+   En plein écran : on cache l'en-tête du site, le fil d'Ariane et les textes autour du jeu ; le jeu occupe toute la fenêtre.
+   Les règles @media (largeur) de la page sont évaluées pour une largeur « virtuelle » (celle qui montre le mieux le jeu),
+   puis le jeu est réduit avec transform: scale pour tenir dans la largeur de l'écran (les clics restent justes :
+   les jeux lisent leurs coordonnées avec getBoundingClientRect ou getScreenCTM).
+   Fullscreen API quand elle existe (Android, tablettes) ; sinon (iPhone) le mode « plein écran » de la page suffit. */
+const MJFS = (() => {
+  const D = document.documentElement;
+  let on = false, jeu = null, regles = [], ro = null, choix = null, hChoix = 0, pushed = false, occupe = false, tRe = 0, dernier = 0, appui = false, apiOn = false;
+  const ICO_X = `<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>`;
+  const ICO_ROT = `<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+  const $r = () => document.getElementById("labyroot"), $app = () => document.getElementById("app");
+  /* toutes les règles @media qui dépendent de la largeur (sauf celles du bouton lui-même) */
+  function lister(){
+    const L = [], fouille = rs => { for(const r of rs){
+      if(r instanceof CSSMediaRule){ if(/(min|max)-width/.test(r.media.mediaText) && !/mjfs/.test(r.cssText)) L.push({r, t:r.media.mediaText}); else fouille(r.cssRules); }
+      else if(r.cssRules && !(r instanceof CSSStyleRule)) fouille(r.cssRules); } };
+    for(const sh of document.styleSheets){ let rs; try{ rs = sh.cssRules; }catch(e){ continue; } if(rs) fouille(rs); }
+    return L;
+  }
+  const WRE = /\(\s*(min|max)-width\s*:\s*([\d.]+)px\s*\)/g;
+  function vaut(texte, V){   /* la requête est-elle vraie pour un écran de largeur V ? (les autres critères sont lus sur le vrai écran) */
+    return texte.split(",").some(q => { let ok = true;
+      q.replace(WRE, (m, k, n) => { if(k === "min" ? V < +n : V > +n) ok = false; return ""; });
+      const reste = q.replace(WRE, "").replace(/\band\b/g, " ").replace(/^\s*(only\s+)?(all|screen)\b/, "").trim();
+      if(ok && reste){ try{ ok = matchMedia(reste.replace(/\)\s*\(/g, ") and (")).matches; }catch(e){} }
+      return ok; });
+  }
+  function largeur(V){ regles.forEach(o => { try{ o.r.media.mediaText = vaut(o.t, V) ? "all" : "not all"; }catch(e){} }); }
+  function signale(){ occupe = true; try{ window.dispatchEvent(new Event("resize")); }catch(e){} occupe = false; }
+  function dispo(){ const a = $app(), cs = getComputedStyle(a);
+    return {w: a.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), h: a.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)}; }
+  function poser(c){ const r = $r(); if(!r) return; const A = dispo();
+    largeur(c.w + 32); r.style.width = c.w + "px";
+    if(c.s < 1){ const h = r.offsetHeight; r.style.transform = `scale(${c.s})`;
+      r.style.marginBottom = (h * c.s - h) + "px"; r.style.marginRight = (c.w * c.s - c.w) + "px";
+      r.style.marginLeft = Math.max(0, (A.w - c.w * c.s) / 2) + "px"; }
+    else { r.style.transform = r.style.marginBottom = r.style.marginRight = ""; r.style.marginLeft = c.w < A.w ? (A.w - c.w) / 2 + "px" : ""; }
+  }
+  /* choisit la largeur de mise en page : le plus grand zoom qui fait tout tenir sans défiler (zoom ≥ 0,85 en portrait, ≥ 0,72 en paysage,
+     pour que le texte reste lisible) ; sinon, en portrait : la mise en page du téléphone sans zoom (on fait défiler) ;
+     en paysage : la plus compacte avec un zoom ≥ 0,72 */
+  function choisir(){
+    const r = $r(); if(!on || !r) return; const A = dispo(); if(A.w < 100 || A.h < 100) return;
+    const maxw = JEUX[jeu] && (JEUX[jeu].wide || JEUX[jeu].tab) ? 1240 : 1040;
+    r.style.transform = r.style.margin = "";
+    const C = [...new Set([Math.floor(A.w), 560, 640, 720, 800, 880, 960, 1040, 1120, 1200, 1240])].filter(w => w >= Math.floor(A.w) && w <= Math.max(Math.floor(A.w), maxw)).sort((a, b) => a - b);
+    const M = C.map(w => { largeur(w + 32); r.style.width = w + "px"; return {w, h: r.offsetHeight, s: Math.min(1, A.w / w)}; });
+    const paysage = A.w > A.h * 1.15, tient = M.filter(m => m.s >= (paysage ? 0.72 : 0.85) && m.h * m.s <= A.h + 1);
+    let c;
+    if(tient.length) c = tient.reduce((a, b) => b.s > a.s ? b : a);
+    else if(paysage){ const L = M.filter(m => m.s >= 0.72), P = L.length ? L : M, hmin = Math.min(...P.map(m => m.h * m.s));
+      c = P.filter(m => m.h * m.s <= hmin * 1.1).reduce((a, b) => b.s > a.s ? b : a); }
+    else c = M[0];
+    const g = M[M.length - 1]; D.classList.toggle("mjfs-large", g.w / Math.max(1, g.h) > 1.3);
+    choix = c; poser(c); hChoix = r.offsetHeight; dernier = Date.now(); signale();
+  }
+  function plusTard(ms){ clearTimeout(tRe); tRe = setTimeout(() => { if(!on) return; if(appui){ plusTard(400); return; } choisir(); }, ms); }
+  function auResize(){ if(occupe || !on) return; const a = document.activeElement;
+    if(a && /^(INPUT|TEXTAREA)$/.test(a.tagName) && Math.abs(innerWidth - (auResize.w || 0)) < 2){ return; }   /* clavier du téléphone : on ne bouge rien */
+    auResize.w = innerWidth; plusTard(120); }
+  function auChange(){ const r = $r(); if(!on || !r || !choix) return; const h = r.offsetHeight;
+    if(choix.s < 1) r.style.marginBottom = (h * choix.s - h) + "px";
+    if(Math.abs(h - hChoix) > Math.max(40, hChoix * 0.15)) plusTard(Date.now() - dernier < 1200 ? 1200 : 350); }
+  const auPop = () => { if(on){ pushed = false; off(); } };
+  const auEsc = e => { if(on && e.key === "Escape" && !e.defaultPrevented) off(); };
+  const auFs = () => { const el = document.fullscreenElement || document.webkitFullscreenElement; if(el) apiOn = true; else if(apiOn){ apiOn = false; if(on) off(); } };
+  const bas = () => { appui = true; }, haut = () => { appui = false; };
+  function entrer(j){
+    if(on) return; const r = $r(); if(!r) return; jeu = j; on = true; appui = false;
+    const J = JEUX[j] || {};
+    const bar = document.createElement("div"); bar.id = "mjfsbar";
+    bar.innerHTML = `<span class="mjfs-t">${esc(J.titre || "")}</span><span class="mjfs-rot">${ICO_ROT}<span>Tourne ton téléphone pour mieux voir</span></span>
+      <button class="btn mjfsx" type="button">${ICO_X} Quitter</button>`;
+    bar.querySelector(".mjfsx").onclick = () => off();
+    document.body.appendChild(bar);
+    D.classList.add("mjfs"); regles = lister(); auResize.w = innerWidth;
+    try{ history.pushState({mjfs: 1}, "", location.href); pushed = true; }catch(e){ pushed = false; }
+    addEventListener("popstate", auPop); addEventListener("keydown", auEsc); addEventListener("resize", auResize);
+    document.addEventListener("fullscreenchange", auFs); document.addEventListener("webkitfullscreenchange", auFs);
+    r.addEventListener("pointerdown", bas, true); addEventListener("pointerup", haut, true); addEventListener("pointercancel", haut, true);
+    const req = D.requestFullscreen || D.webkitRequestFullscreen;
+    if(req){ try{ const p = req.call(D, {navigationUI: "hide"}); if(p && p.catch) p.catch(() => {}); }catch(e){} }
+    $app().scrollTop = 0; choisir();
+    if(window.ResizeObserver){ ro = new ResizeObserver(auChange); ro.observe(r); }
+    setTimeout(() => { if(on) choisir(); }, 450);   /* après l'éventuel passage en plein écran du navigateur */
+    bar.querySelector(".mjfsx").focus({preventScroll: true});
+  }
+  function off(depuisRoute){
+    if(!on) return; on = false; clearTimeout(tRe);
+    if(ro){ ro.disconnect(); ro = null; }
+    removeEventListener("popstate", auPop); removeEventListener("keydown", auEsc); removeEventListener("resize", auResize);
+    document.removeEventListener("fullscreenchange", auFs); document.removeEventListener("webkitfullscreenchange", auFs);
+    removeEventListener("pointerup", haut, true); removeEventListener("pointercancel", haut, true);
+    const r = $r(); if(r){ r.removeEventListener("pointerdown", bas, true); r.style.transform = r.style.margin = r.style.width = ""; }
+    regles.forEach(o => { try{ o.r.media.mediaText = o.t; }catch(e){} }); regles = []; choix = null;
+    D.classList.remove("mjfs", "mjfs-large"); const b = document.getElementById("mjfsbar"); if(b) b.remove();
+    const el = document.fullscreenElement || document.webkitFullscreenElement; apiOn = false;
+    if(el){ try{ const p = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if(p && p.catch) p.catch(() => {}); }catch(e){} }
+    if(pushed && !depuisRoute){ pushed = false; try{ history.back(); }catch(e){} } pushed = false;
+    signale();
+    if(!depuisRoute && r){ const g = document.getElementById("mjfsgo"); requestAnimationFrame(() => { r.scrollIntoView({block: "start"}); if(g) g.focus({preventScroll: true}); }); }
+  }
+  return {on: entrer, off, get actif(){ return on; }, get etat(){ return choix && {w: choix.w, s: +choix.s.toFixed(3)}; }};
+})();
 
 function chapitre(id, n){
   const C = CLASSES[id], ch = C.chapitres[n-1];
@@ -2276,6 +2415,7 @@ function splitFeuilles(){ Object.values(typeof CH!=="undefined"?CH:{}).forEach(D
   if(F.length && F.every(e=>no(e)!==null)) F.sort((a,b)=>no(a)-no(b));
   if(F.length) D.feuille=F; }); }
 function route(){ splitFeuilles();
+  if(MJFS.actif) MJFS.off(true);
   if(TIMER){ clearInterval(TIMER); TIMER=null; }
   PRINT.cur=null; document.documentElement.classList.remove("hasprint");
   const sm = location.hash.match(/^#sheet:((?:6e|5e|4e|3e)-\d+):(\w+)(?::([\d,]+))?$/); if(sm){ sheetPage(sm[1], sm[2], sm[3]); return; }

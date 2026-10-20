@@ -171,6 +171,9 @@ const CSS = `
 .mj-ninja-ov .btn{font-size:1.15rem;padding:12px 26px;background:#ffcf3f;color:#15213b;border-color:#ffcf3f}
 .mj-ninja-ov .btn:hover{background:#ffe07a}
 .mj-ninja-ov .btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+/* téléphone : le panneau tient dans la petite zone de jeu ; sur un très petit écran, la consigne du début est déjà écrite au-dessus */
+@media (max-width:600px){ .mj-ninja-ov{gap:4px;padding:6px 10px} .mj-ninja-ov h3{font-size:1.15rem;line-height:1.15} .mj-ninja-ov p{font-size:.85rem;line-height:1.25} .mj-ninja-ov .btn{font-size:1rem;padding:7px 16px} }
+@media (max-width:420px){ .mj-ninja-ov:has(.mj-ninja-go:not([hidden])) p{display:none} }
 .mj-ninja-fb{display:flex;align-items:center;gap:16px;margin-top:10px;min-height:70px}
 .mj-ninja-msg{flex:1;border-radius:12px;padding:8px 14px;background:color-mix(in srgb,var(--c) 8%,var(--surface));border:1.5px solid var(--line);line-height:1.5;font-size:1rem;min-height:52px}
 .mj-ninja-msg.ok{border-color:var(--ok);background:var(--okbg)}

@@ -13,6 +13,7 @@ let R0=null, M=null, mode="rel", moi=null, lui=null, tour="eleve", attente=null,
 const KEY="staal-bnav5-";
 const store={ get(k){ try{ return localStorage.getItem(KEY+k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(KEY+k,v); }catch(e){} } };
 const $ = id => R0.querySelector("#"+id);
+const tactile = () => { try{ return matchMedia("(pointer: coarse)").matches; }catch(e){ return false; } };   /* écran tactile : on écrit avec le pavé du jeu */
 const rnd = (a,b) => a+Math.floor(Math.random()*(b-a+1));
 function flotte(){
   for(let essai=0; essai<500; essai++){
@@ -89,11 +90,11 @@ function panneau(){
   const barre=`<div class="btour" aria-label="À qui de jouer"><span class="${tour==="eleve"?"on":""}">① À toi</span><span class="${tour!=="eleve"?"on":""}">② À l'ordinateur</span></div>`;
   if(tour==="eleve"){
     p.innerHTML=barre+`<h3>À toi de tirer !</h3><p>Écris les coordonnées du point où tu tires, sur la <b>flotte de l'ordinateur</b>.</p>
-      <form id="bform" class="bform"><label for="bin">Je tire en</label><input id="bin" class="bin" autocomplete="off" placeholder="( x ; y )" inputmode="text"><button class="btn primary">Feu !</button></form>
+      <form id="bform" class="bform"><label for="bin">Je tire en</label><input id="bin" class="bin" autocomplete="off" placeholder="( x ; y )" inputmode="${tactile()?"none":"text"}"><button class="btn primary">Feu !</button></form>
       <div class="bkeys">${["−","0","1","2","3","4","5","6","7","8","9",";",",","(",")","⌫"].filter(k=>mode==="rel"||k!=="−").map(k=>`<button class="ckey bk" data-k="${k}">${k}</button>`).join("")}</div>`;
-    const inp=$("bin"); setTimeout(()=>inp.focus({preventScroll:true}),0);
+    const inp=$("bin"); if(!tactile()) setTimeout(()=>inp.focus({preventScroll:true}),0);
     $("bform").onsubmit=e=>{ e.preventDefault(); tirer(inp.value); };
-    R0.querySelectorAll(".bk").forEach(b=>b.onclick=e=>{ e.preventDefault(); const k=b.dataset.k; if(k==="⌫") inp.value=inp.value.slice(0,-1); else inp.value+=k; inp.focus({preventScroll:true}); });
+    R0.querySelectorAll(".bk").forEach(b=>b.onclick=e=>{ e.preventDefault(); const k=b.dataset.k; if(k==="⌫") inp.value=inp.value.slice(0,-1); else inp.value+=k; if(!tactile()) inp.focus({preventScroll:true}); });
   } else if(tour==="reflexion"){
     p.innerHTML=barre+`<div class="bres">${dernier}</div><h3>Maintenant, c'est l'ordinateur qui tire…</h3><p class="bannonce bpense">L'ordinateur réfléchit<span>.</span><span>.</span><span>.</span></p>`;
   } else {
