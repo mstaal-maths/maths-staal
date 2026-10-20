@@ -79,13 +79,13 @@ const LV = [
   {nom: "Grands écarts", court: "décimaux exacts", pts: 120, exact: true,
    aide: "Plus loin, et parfois avec des nombres décimaux : 7,5² = 7,5 × 7,5 = 56,25. Le résultat tombe encore juste."},
   {nom: "Au dixième près", court: "arrondi", pts: 150, exact: false,
-   aide: "La racine carrée ne tombe plus juste : donne la longueur arrondie au dixième de mètre. La corde est bonne à ± 0,05 m près."},
+   aide: "La racine carrée ne tombe plus juste : donne la longueur arrondie au dixième de mètre. La corde est bonne à ± 0,1 m près."},
   {nom: "Décimaux au dixième", court: "décimaux + arrondi", pts: 150, exact: false,
-   aide: "Des longueurs décimales, et un résultat arrondi au dixième de mètre (± 0,05 m)."},
+   aide: "Des longueurs décimales, et un résultat arrondi au dixième de mètre (± 0,1 m)."},
   {nom: "Viser sur l'échelle", court: "côté de l'angle droit", pts: 150, exact: true,
    aide: "La corde est connue ! Le grappin se plante sur l'échelle de l'immeuble d'en face : trouve de combien de mètres plus bas (ou plus haut). Cette fois, on soustrait les carrés."},
   {nom: "Maître ninja", court: "tout mélangé", pts: 200, exact: false,
-   aide: "Tout se mélange : la corde ou la hauteur, avec un résultat arrondi au dixième de mètre (± 0,05 m)."}
+   aide: "Tout se mélange : la corde ou la hauteur, avec un résultat arrondi au dixième de mètre (± 0,1 m)."}
 ];
 function generer(niv){
   const C = LV[niv], l = [], vus = new Set();
@@ -112,7 +112,7 @@ function lire(s){
 }
 /* 0 : réussi ; -1 : corde trop courte (il tombe) ; +1 : corde trop longue (il s'écrase contre le mur) */
 function juger(j, x){
-  const e = j.exact10, x10 = x*10, tol = j.arr ? 0.5 : 1e-6;
+  const e = j.exact10, x10 = x*10, tol = j.arr ? 1 : 1e-6;
   if (Math.abs(x10 - e) <= tol + 1e-9) return 0;
   const s = x10 < e ? -1 : 1;
   return j.ask === "hyp" ? s : -s;      /* viser trop bas avec une corde fixe : la corde est trop longue pour ce point */
@@ -344,7 +344,7 @@ function poser(fondu){
   const j = G.sauts[G.k];
   G.j = j; G.g = geo(j);
   stats();
-  const tol = j.arr ? `<span class="tol">Arrondi au dixième · tolérance ± 0,05 m</span>` : `<span class="tol">Valeur exacte</span>`;
+  const tol = j.arr ? `<span class="tol">Arrondi au dixième · tolérance ± 0,1 m</span>` : `<span class="tol">Valeur exacte</span>`;
   const sens = j.up ? "plus haut" : "plus bas";
   $("#mjn-q").innerHTML = nbsp(j.ask === "hyp"
     ? `<p>Écart horizontal : <b>${f10(j.d10)} m</b><br>Différence de hauteur : <b>${f10(j.v10)} m</b></p><p>Quelle longueur de corde ${j.hyp} faut-il ?</p>${tol}`
@@ -540,7 +540,7 @@ function resultat(x, res){
     G.serie++; G.ok++; G.best = Math.max(G.best, G.serie);
     const bonus = Math.min(100, 25*(G.serie - 1)), gain = C.pts + bonus;
     G.score += gain;
-    const autre = j.arr && Math.abs(x*10 - j.rep10) > 1e-9 ? `<p class="tip">Ta valeur ${fx(x)} m est juste à 0,05 m près. Au dixième près, on écrit ${f10(j.rep10)} m.</p>` : "";
+    const autre = j.arr && Math.abs(x*10 - j.rep10) > 1e-9 ? `<p class="tip">Ta valeur ${fx(x)} m est juste à 0,1 m près. Au dixième près, on écrit ${f10(j.rep10)} m.</p>` : "";
     bulle(G.g.C.x + 20, G.g.yB - 66, "+" + gain, "#69db7c", 28);
     msg(`<p><b>${pick(["Pile la bonne longueur !", "Parfait, la corde est bien tendue !", "Atterrissage réussi !", "Quel ninja !"])}</b> ${j.ask === "hyp" ? "La corde mesurait" : "Il fallait viser à"} ${j.arr && !j.parfait ? "environ " : ""}${f10(j.rep10)} m${j.ask === "hyp" ? "" : (j.up ? " plus haut" : " plus bas")}.</p>${autre}<p>+${C.pts} points${bonus ? ` et +${bonus} pour la série de ${G.serie}` : ""}.</p>`, "ok");
     stats();
