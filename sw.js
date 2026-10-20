@@ -8,5 +8,5 @@ self.addEventListener("fetch", e=>{
   if(r.mode==="navigate"){ e.respondWith(fetch(r).then(x=>{ const y=x.clone(); caches.open(V).then(c=>c.put("index.html",y)); return x; }).catch(()=>caches.match("index.html"))); return; }
   e.respondWith(caches.open(store).then(c=>c.match(r,{ignoreSearch:true}).then(hit=>{
     const net=fetch(r).then(x=>{ if(x.ok) c.put(r,x.clone()); return x; }).catch(()=>hit);
-    if(hit){ e.waitUntil(net.catch(()=>{})); return hit; } return net; })));
+    if(hit && media){ e.waitUntil(net.catch(()=>{})); return hit; } return net.then(x=>x||hit, ()=>hit); })));
 });
