@@ -710,11 +710,15 @@ const PACKS = {
 let P=null, LV=null, R0=null, cur=0, tool=null, pend=[], wait=null, hover=null, mouse=null, done=[], drag=null;
 const store = { get(k){ try{ return localStorage.getItem(P.key+k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(P.key+k,v); }catch(e){} } };
 let PK="6e";
+/* séance : SUB = numéros (dans LV) des niveaux de la séance, dans l'ordre ; OPT = options données par la page (niv, onChange, onFin, fin) */
+let SUB=[], OPT={};
+const numero = i => SUB.indexOf(i)+1;
 const $ = id => R0.querySelector("#"+id);
 const SCN = () => ({tool, pend:pend.map(id=>(pt(id)||{}).name)});
 
-function init(root, pack){
-  PK=pack||"6e"; P=PACKS[PK]; LV=P.levels; R0=root;
+function init(root, pack, opts){
+  PK=pack||"6e"; P=PACKS[PK]; LV=P.levels; R0=root; OPT=opts||{};
+  SUB=(OPT.niv||LV.map((_,i)=>i)).filter(i=>i>=0 && i<LV.length);
   try{ done=JSON.parse(store.get("done")||"[]"); }catch(e){ done=[]; }
   root.innerHTML = `<div class="geo">
     <div class="glevels" id="glevels"></div>
@@ -748,9 +752,9 @@ function init(root, pack){
   svg.addEventListener("pointerleave", ()=>{ if(!drag){ mouse=null; hover=null; draw(); } });
   $("greset").onclick=()=>load(cur);
   $("gcheck").onclick=()=>verifier(true);
-  let st=+(store.get("niveau")||0); if(!(st>=0&&st<LV.length)) st=0;
+  let st=+(store.get("niveau")||0); if(!SUB.includes(st)){ st=SUB.find(i=>!done.includes(i)); if(st===undefined) st=SUB[0]; }
   load(st);
-  requestAnimationFrame(()=>{ const t=$("glevels"); if(t && t.getBoundingClientRect().top>80) window.scrollTo({top: window.scrollY + t.getBoundingClientRect().top - 8}); });
+  requestAnimationFrame(()=>{ const t=document.getElementById("sbar")||$("glevels"); if(t && t.getBoundingClientRect().top>80) window.scrollTo({top: window.scrollY + t.getBoundingClientRect().top - 8}); });
 }
 function annuler(){ if(UNDO.length){ const s=JSON.parse(UNDO.pop()); OB=s.OB; NID=s.NID; pend=[]; wait=null; status(); draw(); after(); } }
 function world(e){ const svg=$("gsvg"), p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY; const q=p.matrixTransform(svg.getScreenCTM().inverse()); return {x:q.x, y:q.y}; }
@@ -769,8 +773,8 @@ function load(i){
   recompute();
   tool=null;
   let html="", g=null;
-  LV.forEach((l,j)=>{ if(l.groupe!==g){ g=l.groupe; html+=`<span class="ggroupe">${g}</span>`; }
-    html+=`<button class="lnum${j===i?" on":""}${done.includes(j)?" ok":""}${l.defi?" defi":""}" data-i="${j}" aria-label="Niveau ${j+1}${done.includes(j)?" (réussi)":""}">${j+1}</button>`; });
+  SUB.forEach((j,k)=>{ const l=LV[j]; if(l.groupe!==g){ g=l.groupe; html+=`<span class="ggroupe">${g}</span>`; }
+    html+=`<button class="lnum${j===i?" on":""}${done.includes(j)?" ok":""}${l.defi?" defi":""}" data-i="${j}" aria-label="Niveau ${k+1}${done.includes(j)?" (réussi)":""}">${k+1}</button>`; });
   $("glevels").innerHTML=html;
   R0.querySelectorAll("#glevels .lnum").forEach(b=>b.onclick=()=>load(+b.dataset.i));
   /* outils : tous ceux déjà rencontrés, sauf ceux interdits dans ce niveau */
@@ -780,7 +784,8 @@ function load(i){
     + `<button class="gtool gundo" id="gundo" title="Annuler la dernière action"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 4 10l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 10H14a5 5 0 0 1 0 10h-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Annuler</span></button>`;
   $("gundo").onclick=annuler;
   R0.querySelectorAll(".gtool[data-t]:not(.lock)").forEach(b=>b.onclick=()=>{ tool=b.dataset.t; pend=[]; wait=null; status(); draw(); after(); });
-  $("gtitre").textContent=`Niveau ${i+1} · ${L.titre.replace(/^Défi : /,"Défi · ")}`;
+  $("gtitre").textContent=`Niveau ${numero(i)}${OPT.niv?" sur "+SUB.length:""} · ${L.titre.replace(/^Défi : /,"Défi · ")}`;
+  if(OPT.onChange) OPT.onChange(i, done.slice());
   $("gcons").innerHTML=L.consigne;
   $("gaide").innerHTML=L.aide||"Suis les étapes ci-dessus, dans l'ordre.";
   $("gvoir").innerHTML=L.voir?`<details class="lsolbox"><summary>Toujours bloqué ? Voir une construction possible</summary><p>${L.voir}</p></details>`:"";
@@ -1005,14 +1010,20 @@ function verifier(manuel){
   }
   if(r===true || (r && r.nom)){
     if(r.nom){ const [p,n]=r.nom; const other=OB.find(o=>o.k==="pt" && o.name===n && o!==p && !o.given); if(other) other.name=nextName(); p.name=n; draw(); }
-    if(!done.includes(cur)){ done.push(cur); store.set("done", JSON.stringify(done)); R0.querySelector(`#glevels .lnum[data-i="${cur}"]`).classList.add("ok"); }
-    msg(`<b>Bravo, figure réussie !</b> ${L.bravo}${cur<LV.length-1?`<br><button class="btn primary" id="gnext">Niveau suivant →</button>`:"<br>Tu as terminé tous les niveaux disponibles !"}`, "ok");
-    const nx=$("gnext"); if(nx) nx.onclick=()=>load(cur+1);
+    const avant=SUB.every(j=>done.includes(j)), neuf=!done.includes(cur);
+    if(neuf){ done.push(cur); store.set("done", JSON.stringify(done)); R0.querySelector(`#glevels .lnum[data-i="${cur}"]`).classList.add("ok"); }
+    const nxt=SUB[SUB.indexOf(cur)+1];
+    msg(`<b>Bravo, figure réussie !</b> ${L.bravo}${nxt!==undefined?`<br><button class="btn primary" id="gnext">Niveau suivant →</button>`:OPT.onFin?`<br><button class="btn primary" id="gfinb">${OPT.fin||"Terminer la séance"} →</button>`:"<br>Tu as terminé tous les niveaux disponibles !"}`, "ok");
+    const nx=$("gnext"); if(nx) nx.onclick=()=>load(nxt);
+    const fb=$("gfinb"); if(fb) fb.onclick=()=>OPT.onFin(done.slice());
+    if(neuf && OPT.onChange) OPT.onChange(cur, done.slice());
+    if(neuf && !avant && SUB.every(j=>done.includes(j)) && OPT.onFin) OPT.onFin(done.slice());
     return;
   }
   if(manuel) msg(`<b>Pas encore !</b> ${r}`, "ko"); else if(!$("gmsg").classList.contains("ko")) msg("");
 }
 function msg(h,kind){ const el=$("gmsg"); if(!el) return; el.hidden=!h; el.className="lmsg "+(kind||""); el.innerHTML=h; }
-function destroy(){ R0=null; drag=null; }
-return {init, destroy, PACKS, _t:{inter, interCC, interLC, interLL, lin, proj, clip, T, recompute, get OB(){ return OB; }, load:i=>load(i), click:p=>click(p), setTool:t=>{ tool=t; pend=[]; wait=null; status(); }}};
+function levels(pack){ return PACKS[pack||"6e"].levels.map(L=>({t:L.titre, defi:!!L.defi})); }
+function destroy(){ R0=null; drag=null; OPT={}; }
+return {init, destroy, levels, PACKS, _t:{inter, interCC, interLC, interLL, lin, proj, clip, T, recompute, get OB(){ return OB; }, load:i=>load(i), click:p=>click(p), setTool:t=>{ tool=t; pend=[]; wait=null; status(); }}};
 })();

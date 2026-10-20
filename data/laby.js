@@ -72,7 +72,35 @@ const L6 = [
  {titre:"Défi : le grand zigzag", defi:true, voir:true, dir:"E", max:7, blocs:MVR,
   map:["########","R...####","###.####","###.####","###....#","######.#","######.#","######D#"],
   aide:"Le motif « 3 cases vers la droite, puis 3 cases vers le bas » revient 2 fois. Avec seulement 7 blocs, il faut des « répéter » à l'intérieur d'un « répéter ». Commence par écrire le motif une seule fois, puis compte tes blocs.",
-  sol:[["repeter",2,[["repeter",3,[["avancer"]]],["droite"],["repeter",3,[["avancer"]]],["gauche"]]]]}
+  sol:[["repeter",2,[["repeter",3,[["avancer"]]],["droite"],["repeter",3,[["avancer"]]],["gauche"]]]]},
+ /* ---- niveaux ajoutés pour les séances (indices 14 et 15 : séance 2) ---- */
+ {titre:"Trois boucles à la suite", dir:"E", max:8, blocs:MVR,
+  map:["##########","##########","#####...D#","#####.####","#####.####","#R....####","##########","##########"],
+  aide:"Le chemin a trois lignes droites : une boucle « répéter » pour chacune. Entre deux boucles, le robot doit tourner. Compte bien les cases de chaque ligne.",
+  sol:[["repeter",4,[["avancer"]]],["gauche"],["repeter",3,[["avancer"]]],["droite"],["repeter",3,[["avancer"]]]]},
+ {titre:"Le grand escalier", dir:"E", max:7, blocs:MVR,
+  map:["#########","#######D#","#######.#","#####...#","#####.###","###...###","###.#####","#R..#####","#########"],
+  aide:"Chaque marche est plus grande : 2 cases en avant, puis 2 cases vers le haut. Écris le motif d'une marche (6 blocs), puis mets-le dans un « répéter ». Combien y a-t-il de marches ?",
+  sol:[["repeter",3,[["avancer"],["avancer"],["gauche"],["avancer"],["avancer"],["droite"]]]]},
+ /* ---- niveaux bonus « En autonomie » (indices 16 à 19) ---- */
+ {titre:"La spirale", dir:"E", max:12, blocs:MVR,
+  map:["#########","#R......#","#######.#","###...#.#","###.#.#.#","###.#D#.#","###.###.#","###.....#","#########"],
+  aide:"Le robot fait 6 cases, tourne à droite, 6 cases, tourne à droite… puis 4 cases deux fois, puis 2 cases deux fois. Chaque paire « répéter … avancer, tourner à droite » peut se répéter 2 fois : une boucle dans une boucle !",
+  sol:[["repeter",2,[["repeter",6,[["avancer"]]],["droite"]]],["repeter",2,[["repeter",4,[["avancer"]]],["droite"]]],["repeter",2,[["repeter",2,[["avancer"]]],["droite"]]]]},
+ {titre:"Prévois : une boucle dans une boucle", type:"prevois", dir:"E", max:0, blocs:[],
+  map:["#########","#.......#","#.......#","#...B..C#","#.......#","#.......#","#R..A...#","#########"],
+  prog:[["repeter",2,[["repeter",3,[["avancer"]]],["gauche"]]]], rep:"B",
+  aide:"La grande boucle est faite 2 fois. À chaque fois, le robot avance de 3 cases, puis tourne à gauche. Suis-le avec ton doigt : où est-il après le premier tour ? Et après le deuxième ?",
+  sol:null},
+ {titre:"Trouve les erreurs : le grand carré", type:"bug", dir:"E", max:4, blocs:MVR,
+  map:["#######","#R....#","#####.#","#####.#","#####.#","#D....#","#######"],
+  depart:[["repeter",3,[["repeter",3,[["avancer"]]],["gauche"]]]],
+  aide:"Ce programme contient DEUX erreurs. Regarde d'abord dans quel sens le robot doit tourner au coin. Compte ensuite les cases de chaque côté : combien de fois faut-il avancer ?",
+  sol:[["repeter",3,[["repeter",4,[["avancer"]]],["droite"]]]]},
+ {titre:"La montagne", dir:"E", max:11, blocs:MVR,
+  map:["##########","##########","####...###","###..#..##","##..###..#","#R.#####D#","##########"],
+  aide:"Le robot monte un escalier, avance d'une case au sommet, puis descend l'autre escalier. Une boucle pour la montée, un bloc au sommet, une boucle pour la descente : dans la descente, le robot tourne d'abord à droite.",
+  sol:[["repeter",3,[["avancer"],["gauche"],["avancer"],["droite"]]],["avancer"],["repeter",3,[["avancer"],["droite"],["avancer"],["gauche"]]]]}
 ];
 
 /* ==================================================================
@@ -148,7 +176,46 @@ const L5 = [
   map:["########","########","########","#R..P.D#","########","########","########","########"], doors:[47],
   prog:[["repeter",3,[["multiplier",2],["ajouter",1]]],["repeter",5,[["avancer"]]]], rep:5,
   aide:"Remonte à l'envers, tour de boucle par tour de boucle. Le dernier calcul est « ajouter 1 » : avant, le robot affichait 46. Et avant « multiplier par 2 » ?",
-  sol:null}
+  sol:null},
+ /* ---- niveaux ajoutés pour les séances (15 et 16 : séance 1 ; 17 : séance 2) ---- */
+ {titre:"Trois portes", v0:1, dir:"E", max:11, blocs:["avancer","ajouter","enlever","multiplier"],
+  map:["##########","#R.P.P.P.D","##########"], doors:[4,8,5],
+  aide:"Les portes demandent 4, puis 8, puis 5. Avant chaque porte, change le nombre du robot : de 1 à 4, puis de 4 à 8, puis de 8 à 5. Il faudra enlever, cette fois !",
+  sol:[["ajouter",3],["avancer"],["avancer"],["multiplier",2],["avancer"],["avancer"],["enlever",3],["avancer"],["avancer"],["avancer"],["avancer"]]},
+ {titre:"Le coffre-fort 2", type:"coffre", dir:"E", max:0, blocs:[],
+  map:["########","#R...PD#","########"], doors:[28],
+  prog:[["enlever",3],["multiplier",4],["repeter",4,[["avancer"]]],["avancer"]], rep:10,
+  aide:"Remonte le programme à l'envers. Le dernier calcul est « multiplier par 4 » : avant, le robot affichait 28 ÷ 4 = 7. Et avant « enlever 3 », il affichait… ?",
+  sol:null},
+ {titre:"Prévois avec deux boucles", type:"prevois", v0:5, dir:"E", max:0, blocs:[],
+  map:["########","#R....D#","########"],
+  prog:[["repeter",2,[["ajouter",3]]],["repeter",3,[["multiplier",2]]],["repeter",5,[["avancer"]]]], rep:88,
+  aide:"Première boucle : on ajoute 3, deux fois de suite. Deuxième boucle : on multiplie par 2, trois fois de suite. Note le nombre du robot après chaque calcul.",
+  sol:null},
+ /* ---- niveaux bonus « En autonomie » (18 à 22) ---- */
+ {titre:"Le virage des nombres", v0:2, dir:"E", max:7, blocs:["avancer","gauche","droite","ajouter","enlever","multiplier","repeter"],
+  map:["######","#R.P##","###.##","###P##","###.##","###D##","######"], doors:[6,18],
+  aide:"La porte du haut demande 6, celle du bas demande 18. Quel calcul fait passer de 2 à 6, puis de 6 à 18 ? N'oublie pas de tourner au coin, et pense au bloc « répéter » pour la fin du chemin.",
+  sol:[["multiplier",3],["avancer"],["avancer"],["droite"],["multiplier",3],["repeter",4,[["avancer"]]]]},
+ {titre:"La formule cachée", type:"formule", dir:"E", max:6, fixe:{ajouter:2}, blocs:["avancer","ajouter","multiplier","repeter"],
+  map:["########","#R..P.D#","########"], doors:["f"], fn:v=>5*v+10, formule:"5 fois le nombre de départ, plus 10", tests:[1,4,7],
+  aide:"Ici, le bloc « ajouter » ajoute seulement 2. Astuce : 5 × départ + 10, c'est la même chose que 5 × (départ + 2). Vérifie avec 1 : 5 × 1 + 10 = 15, et 5 × (1 + 2) = 15.",
+  sol:[["ajouter",2],["multiplier",5],["repeter",5,[["avancer"]]]]},
+ {titre:"Le coffre-fort à étages", type:"coffre", dir:"E", max:0, blocs:[],
+  map:["########","#R..P.D#","########"], doors:[60],
+  prog:[["repeter",3,[["ajouter",2],["multiplier",2]]],["repeter",5,[["avancer"]]]], rep:4,
+  aide:"Remonte à l'envers, tour de boucle par tour de boucle. Dans chaque tour, le dernier calcul est « multiplier par 2 » : avant, le robot affichait 60 ÷ 2 = 30, et avant « ajouter 2 », il affichait 28…",
+  sol:null},
+ {titre:"Prévois le grand calcul", type:"prevois", v0:2, dir:"E", max:0, blocs:[],
+  map:["########","#R....D#","########"],
+  prog:[["repeter",2,[["multiplier",3],["ajouter",1],["multiplier",2]]],["repeter",5,[["avancer"]]]], rep:86,
+  aide:"La boucle contient trois calculs : × 3, puis + 1, puis × 2. Elle est faite 2 fois. Tour 1 : 2 × 3 = 6, puis 6 + 1 = 7, puis 7 × 2 = 14. Tour 2 : on repart de 14…",
+  sol:null},
+ {titre:"Trouve l'erreur : la boucle", type:"bug", v0:3, dir:"E", max:4, fixe:{multiplier:2}, blocs:["avancer","multiplier","repeter"],
+  map:["########","#R..P.D#","########"], doors:[48],
+  depart:[["repeter",3,[["multiplier",2]]],["repeter",5,[["avancer"]]]],
+  aide:"Le robot affiche 24 au lieu de 48. 3 × 2 = 6, 6 × 2 = 12… Combien de fois faut-il doubler 3 pour obtenir 48 ?",
+  sol:[["repeter",4,[["multiplier",2]]],["repeter",5,[["avancer"]]]]}
 ];
 
 /* on retire les rangées de haies inutiles en haut et en bas (une seule rangée de bordure suffit) */
@@ -268,6 +335,9 @@ function mazeSVG(L){
    Page du jeu
 ------------------------------------------------------------------ */
 let P=null, LEVELS=null, WS=null, WS2=null, THEME=null, cur=0, timer=null, angle=0, RO=null;
+/* séance : SUB = numéros (dans LEVELS) des niveaux de la séance, dans l'ordre ; OPT = options données par la page (niv, onChange, onFin, fin) */
+let SUB=[], OPT={};
+const numero = i => SUB.indexOf(i)+1;
 const store = { get(k){ try{ return localStorage.getItem(P.key+k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(P.key+k, v); }catch(e){} }, del(k){ try{ localStorage.removeItem(P.key+k); }catch(e){} } };
 function done(){ try{ return JSON.parse(store.get("done")||"[]"); }catch(e){ return []; } }
 const PACKS = {
@@ -275,8 +345,9 @@ const PACKS = {
   "5e": {key:"staal-nombres5-", levels:L5, start:"l_start5"}
 };
 
-function init(root, pack){
-  defineBlocks(); P=PACKS[pack]; LEVELS=P.levels;
+function init(root, pack, opts){
+  defineBlocks(); P=PACKS[pack]; LEVELS=P.levels; OPT=opts||{};
+  SUB=(OPT.niv||LEVELS.map((_,i)=>i)).filter(i=>i>=0 && i<LEVELS.length);
   root.innerHTML = `<div class="laby">
     <div class="lhead"><div class="llevels" id="llevels"></div><p class="where" id="lleg"></p></div>
     <div class="lgrid">
@@ -286,8 +357,8 @@ function init(root, pack){
         <details class="lhelp"><summary>Besoin d'aide ?</summary><p id="laide"></p><div id="lsol"></div></details></div>
       <div class="lright"><div id="lws" class="lws"></div><div id="lstatic" class="lstatic" hidden></div></div>
     </div></div>`;
-  const nd = LEVELS.filter(l=>l.defi).length;
-  document.getElementById("lleg").innerHTML = nd ? `Les ${nd} derniers niveaux (en orange) sont des <b>défis</b> pour aller plus loin.` : "";
+  const nd = SUB.filter(i=>LEVELS[i].defi).length;
+  document.getElementById("lleg").innerHTML = !nd ? "" : OPT.niv ? `Les niveaux en orange sont des <b>défis</b> pour aller plus loin.` : `Les ${nd} derniers niveaux (en orange) sont des <b>défis</b> pour aller plus loin.`;
   WS = Blockly.inject(document.getElementById("lws"), {
     renderer:"zelos", media:"lib/blockly/media/", sounds:false, trashcan:true, scrollbars:true,
     zoom:{controls:true, wheel:false, startScale:(window.innerWidth<600?0.66:0.82), maxScale:1.4, minScale:0.5},
@@ -298,13 +369,13 @@ function init(root, pack){
   });
   WS.addChangeListener(Blockly.Events.disableOrphans);
   WS.addChangeListener(e=>{ if(e.isUiEvent) return; count(); if(!timer && e.type!==Blockly.Events.FINISHED_LOADING) save(); });
-  let start = +(store.get("niveau")||0); if(!(start>=0&&start<LEVELS.length)) start=0;
+  let start = +(store.get("niveau")||0); if(!SUB.includes(start)){ const d=done(); start=SUB.find(i=>!d.includes(i)); if(start===undefined) start=SUB[0]; }
   load(start);
   RO=new ResizeObserver(()=>{ if(WS) Blockly.svgResize(WS); }); RO.observe(document.getElementById("lws"));
 }
 function levelsBar(){
   const d=done();
-  document.getElementById("llevels").innerHTML = LEVELS.map((L,i)=>`<button class="lnum${i===cur?" on":""}${d.includes(i)?" ok":""}${L.defi?" defi":""}" data-i="${i}" aria-label="Niveau ${i+1}${L.defi?" (défi)":""}${d.includes(i)?" (réussi)":""}">${i+1}</button>`).join("");
+  document.getElementById("llevels").innerHTML = SUB.map((i,j)=>{ const L=LEVELS[i]; return `<button class="lnum${i===cur?" on":""}${d.includes(i)?" ok":""}${L.defi?" defi":""}" data-i="${i}" aria-label="Niveau ${j+1}${L.defi?" (défi)":""}${d.includes(i)?" (réussi)":""}">${j+1}</button>`; }).join("");
   document.querySelectorAll("#llevels .lnum").forEach(b=>b.onclick=()=>{ stop(); load(+b.dataset.i); });
 }
 const TB = k => { const t={kind:"block", type:"l_"+k}; const L=LEVELS[cur];
@@ -321,7 +392,8 @@ function consigne(L){
 }
 function load(i){
   cur=i; store.set("niveau", i); const L=LEVELS[i];
-  document.getElementById("ltitre").textContent = `Niveau ${i+1}${L.defi?" · Défi":""} · ${L.titre.replace(/^Défi : /,"")}`;
+  document.getElementById("ltitre").textContent = `Niveau ${numero(i)}${OPT.niv?" sur "+SUB.length:""}${L.defi?" · Défi":""} · ${L.titre.replace(/^Défi : /,"")}`;
+  if(OPT.onChange) OPT.onChange(i, done());
   document.getElementById("lconsigne").innerHTML = consigne(L);
   document.getElementById("lmaze").innerHTML = mazeSVG(L);
   document.getElementById("laide").textContent = L.aide;
@@ -432,9 +504,13 @@ function animate(res, fin, fast){
 }
 const fmtN = v => String(v).replace("-","−");
 function win(extra){
-  const d=done(); if(!d.includes(cur)){ d.push(cur); store.set("done", JSON.stringify(d)); } levelsBar();
-  msg(`<b>Bravo, niveau réussi !</b>${extra||""}${cur<LEVELS.length-1?` <br><button class="btn primary" id="lnext">Niveau suivant →</button>`:" <br>Tu as terminé tous les niveaux : bravo !"}`, "ok");
-  const nx=document.getElementById("lnext"); if(nx) nx.onclick=()=>load(cur+1);
+  const d=done(), avant=SUB.every(i=>d.includes(i)); if(!d.includes(cur)){ d.push(cur); store.set("done", JSON.stringify(d)); } levelsBar();
+  const nxt=SUB[SUB.indexOf(cur)+1];
+  msg(`<b>Bravo, niveau réussi !</b>${extra||""}${nxt!==undefined?` <br><button class="btn primary" id="lnext">Niveau suivant →</button>`:OPT.onFin?` <br><button class="btn primary" id="lfin">${OPT.fin||"Terminer la séance"} →</button>`:" <br>Tu as terminé tous les niveaux : bravo !"}`, "ok");
+  const nx=document.getElementById("lnext"); if(nx) nx.onclick=()=>load(nxt);
+  const fb=document.getElementById("lfin"); if(fb) fb.onclick=()=>OPT.onFin(done());
+  if(OPT.onChange) OPT.onChange(cur, d);
+  if(!avant && SUB.every(i=>d.includes(i)) && OPT.onFin) OPT.onFin(d);
 }
 function failMsg(res){
   if(res.end==="mur") return "<b>Aïe !</b> Le robot s'est cogné contre une haie. Regarde où il s'est arrêté, puis corrige ton programme.";
@@ -486,6 +562,7 @@ function check(ans){
   setVal(v); const res=simulate(L, L.prog, v);
   animate(res, ()=>{ if(res.end==="ok") win(` Avec ${fmtN(v)} au départ, la porte s'ouvre.`); else msg(failMsg(res)+" Essaie un autre nombre de départ.", "ko"); });
 }
-function destroy(){ stop(); if(WS2){ const w=WS2; WS2=null; w.dispose(); } if(RO){ RO.disconnect(); RO=null; } if(WS){ const w=WS; WS=null; w.dispose(); } }
-return {init, destroy, L6, L5, simulate, blocksIn};
+function levels(pack){ return PACKS[pack].levels.map(L=>({t:L.titre, defi:!!L.defi})); }
+function destroy(){ OPT={}; stop(); if(WS2){ const w=WS2; WS2=null; w.dispose(); } if(RO){ RO.disconnect(); RO=null; } if(WS){ const w=WS; WS=null; w.dispose(); } }
+return {init, destroy, levels, L6, L5, simulate, blocksIn, PACKS, parse};
 })();

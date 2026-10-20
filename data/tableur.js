@@ -327,7 +327,7 @@ const RET5 = `<li><b>=SOMME(B2:B6)</b> additionne les cellules de B2 jusqu'à B6
   <li>Le diagramme en barres sert à comparer des effectifs ; le diagramme circulaire montre les parts d'un tout.</li>`;
 /* ---------------- 4e : statistiques, diagrammes, moyenne, calcul littéral ---------------- */
 const APP=[8,15,10,3,3], NOTES=[8,10,12,14,16], EFFN=[2,5,8,4,1], TRAJ=[12,25,8,17,30,14,9,21,16,18];
-const START4 = {A1:"Personnes par appartement", G1:"Total", A2:"Effectif",
+const START4 = {A1:"Personnes par appartement", G1:"Total", A2:"Effectif", A3:"Fréquence (%)",
   A15:"Note", G15:"Total", A16:"Effectif", A17:"Note × effectif", A18:"Moyenne",
   A20:"Temps de trajet (min)", A21:"Moyenne", A22:"Étendue",
   A24:"x", A25:"2(x + 3)", A26:"2x + 6", A27:"2x + 3"};
@@ -394,17 +394,29 @@ const M4 = [
   q:{lab:"Quelle expression est égale à 2(x + 3) pour toutes les valeurs de x ?", choix:["2x + 6","2x + 3"], ok:s=>s==="2x + 6"},
   test:()=>{ const x=c=>V(key(23,c)); for(const [r,f,t] of [[24,v=>2*(v+3),"2(x + 3)"],[25,v=>2*v+6,"2x + 6"],[26,v=>2*v+3,"2x + 3"]]){ const l=ligne(r,COLS(1,6),c=>f(x(c)),c=>key(23,c),`Écris la formule de ${t} en ${key(r,1)}, puis recopie-la jusqu'à la colonne G.`); if(l!==true) return l; } return true; },
   aide:"En B25 : =2*(B24+3). En B26 : =2*B24+6. En B27 : =2*B24+3. Puis recopie vers la droite.",
-  bravo:"2(x + 3) et 2x + 6 sont égaux pour toutes les valeurs testées : c'est la <b>distributivité</b>, 2(x + 3) = 2 × x + 2 × 3. En revanche, 2x + 3 est différent : pour x = 0, on obtient 6 et 3. Un seul contre-exemple suffit pour prouver qu'une égalité est fausse !"}
+  bravo:"2(x + 3) et 2x + 6 sont égaux pour toutes les valeurs testées : c'est la <b>distributivité</b>, 2(x + 3) = 2 × x + 2 × 3. En revanche, 2x + 3 est différent : pour x = 0, on obtient 6 et 3. Un seul contre-exemple suffit pour prouver qu'une égalité est fausse !"},
+ /* mission ajoutée (indice 7) : dans la séance, elle vient juste après le diagramme circulaire */
+ {t:"Les fréquences en pourcentage", cible:["B3:F3"],
+  h:`<p>La <b>fréquence</b> d'une valeur, c'est son effectif divisé par l'effectif total. Pour l'écrire en <b>pourcentage</b>, on la multiplie par 100.</p>
+     ${note("Exemple : 8 appartements sur 39 ont 1 habitant. 8 ÷ 39 × 100 ≈ 20,5 : cela fait environ 20,5 %.")}
+     ${ol(`Clique sur ${cel("B3")}.`, `Écris une formule qui calcule ${cel("B2")} ÷ ${cel("G2")} × 100, puis appuie sur ${ENT}.`, `Pendant la recopie, G2 ne doit pas bouger : écris-le <b>$G$2</b> dans ta formule.`, `Recopie la formule jusqu'à ${cel("F3")} avec le petit carré bleu ${CARRE}.`, "Lis le pourcentage des appartements où vivent 3 personnes, et écris-le ci-dessous, arrondi au dixième.")}`,
+  q:{lab:"Pourcentage des appartements avec 3 personnes (au dixième) :", ok:s=>{ const v=nb(String(s).replace("%","")); return eq(v,25.6)||eq(v,25.64); }},
+  test:()=>{ if(!eq(V("G2"),39)) return "La cellule G2 doit contenir l'effectif total, 39 : fais d'abord la mission 1.";
+    return cellsOk(RANGE(2,1,5), k=>APP[pos(k).c-1]/39*100, "Écris la formule en B3, puis recopie-la jusqu'à F3.",
+      (k,v)=> v && v.err==="#DIV/0!" && k!=="B3" ? `En ${k}, le tableur affiche #DIV/0! (division par zéro). En recopiant vers la droite, G2 est devenu H2, I2… qui sont vides ! Pour <b>bloquer</b> la cellule G2, écris <b>$G$2</b> : en B3, =B2/$G$2*100. Puis recopie de nouveau.` : null); },
+  aide:"En B3 : =B2/$G$2*100, puis recopie jusqu'à F3. Les signes $ empêchent le tableur de décaler G2 pendant la recopie.",
+  bravo:"Les pourcentages sont environ 20,5 % ; 38,5 % ; 25,6 % ; 7,7 % et 7,7 %. Ensemble, ils font 100 % : tous les appartements sont comptés. Ce sont les pourcentages écrits dans le diagramme circulaire !"}
 ];
 const RET4 = `<li><b>=SOMME(…)</b>, <b>=MOYENNE(…)</b>, <b>=MAX(…)</b> et <b>=MIN(…)</b> calculent la somme, la moyenne, la plus grande et la plus petite valeur.</li>
   <li>Moyenne pondérée = somme des (valeur × effectif) ÷ effectif total.</li>
   <li>Étendue = plus grande valeur − plus petite valeur.</li>
+  <li>Fréquence = effectif ÷ effectif total ; en pourcentage, on la multiplie par 100. Pour bloquer une cellule pendant une recopie, on écrit $G$2.</li>
   <li>Le diagramme en bâtons compare des effectifs ; le diagramme circulaire montre les parts d'un tout.</li>
   <li>Tester une égalité avec quelques valeurs ne prouve pas qu'elle est vraie, mais un seul contre-exemple prouve qu'elle est fausse.</li>`;
 
 /* ---------------- 3e : fonctions, tableau de valeurs, équations par essais successifs ---------------- */
 const XS3=[-3,-2,-1,0,1,2,3];
-const START3 = {A1:"x", A2:"f(x) = 3x − 5", A4:"Nombre de départ", A5:"Programme 1 : (x − 4)²", A6:"Programme 2 : x² + 2x", A8:"Programme A : 8x + 7", A9:"Programme B : 5x + 12"};
+const START3 = {A1:"x", A2:"f(x) = 3x − 5", A3:"g(x) = x² − 4", A4:"Nombre de départ", A5:"Programme 1 : (x − 4)²", A6:"Programme 2 : x² + 2x", A8:"Programme A : 8x + 7", A9:"Programme B : 5x + 12"};
 XS3.forEach((v,i)=>{ START3[CN(i+1)+"1"]=String(v); });
 const carre = k => /[²³]/.test(CELLS[k]||"") ? `En ${k}, le carré s'écrit <b>^2</b> dans un tableur : par exemple =B4^2.` : null;
 function rowF(r, cols, f, conseil){ for(const c of cols){ const k=key(r,c), sp=carre(k); if(sp) return sp; } return cellsOk(cols.map(c=>key(r,c)), k=>f(V(key(3,pos(k).c))), conseil); }
@@ -461,20 +473,35 @@ const M3 = [
   test:()=>{ if(!eq(V("B4"),1.6)) return "Écris 1,6 dans la cellule B4."; const r=cellsOk(RANGE(3,2,11), k=>1.6+0.01*(pos(k).c-1), "En C4, écris =B4+0,01, puis recopie jusqu'à L4."); if(r!==true) return r;
     const a=rowF(7,COLS(1,11),x=>8*x+7,"Les formules des lignes 8 et 9 doivent rester en place."); if(a!==true) return a; return rowF(8,COLS(1,11),x=>5*x+12,"Les formules des lignes 8 et 9 doivent rester en place."); },
   aide:"Après la recopie, la ligne 4 contient 1,6 ; 1,61 ; … ; 1,7. Pour 1,66, A < B ; pour 1,67, A > B.",
-  bravo:"La solution est entre 1,66 et 1,67. En résolvant l'équation : 8x + 7 = 5x + 12 donne 3x = 5, donc x = 5/3 ≈ 1,667. Ce nombre n'a pas d'écriture décimale exacte : le tableur ne pouvait pas le trouver exactement ! Bravo, tu as terminé la séance."}
+  bravo:"La solution est entre 1,66 et 1,67. En résolvant l'équation : 8x + 7 = 5x + 12 donne 3x = 5, donc x = 5/3 ≈ 1,667. Ce nombre n'a pas d'écriture décimale exacte : le tableur ne pouvait pas le trouver exactement ! Bravo, tu as terminé la séance."},
+ /* mission ajoutée (indice 7) : dans la séance, elle vient juste après « Image et antécédent » */
+ {t:"Plusieurs antécédents", cible:["B3:H3"],
+  h:`<p>Voici une autre fonction : <b>g : x ⟼ x² − 4</b>. On calcule ses images sur la ligne 3.</p>
+     ${ol(`Clique sur ${cel("B3")}.`, `Écris une formule qui calcule x² − 4 avec x = ${cel("B1")}. Dans un tableur, le carré s'écrit <b>^2</b>.`, `Recopie la formule jusqu'à ${cel("H3")} avec le petit carré bleu ${CARRE}.`, "Cherche sur la ligne 3 les cellules qui affichent <b>0</b>. Les antécédents de 0 sont écrits au-dessus, sur la ligne 1.")}
+     ${voir(`g(−3) = 5 dans la cellule ${cel("B3")}.`)}`,
+  q:{lab:"Les antécédents de 0 par g, dans le tableau, sont :", choix:["seulement 2","−2 et 2","seulement 0","−4 et 4"], ok:s=>s==="−2 et 2"},
+  test:()=>{ const sq=COLS(1,7).map(c=>key(2,c)).find(k=>/[²³]/.test(CELLS[k]||"")); if(sq) return `En ${sq}, le carré s'écrit <b>^2</b> dans un tableur : par exemple =B1^2-4.`;
+    return cellsOk(RANGE(2,1,7), k=>V(key(0,pos(k).c))**2-4, "Écris la formule en B3, puis recopie-la jusqu'à H3."); },
+  aide:"En B3 : =B1^2-4, puis recopie jusqu'à H3. Cherche ensuite les 0 sur la ligne 3 : l'antécédent est le nombre écrit juste au-dessus, sur la ligne 1.",
+  bravo:"g(−2) = (−2)² − 4 = 4 − 4 = 0 et g(2) = 2² − 4 = 0 : le nombre 0 a <b>deux antécédents</b> par g, −2 et 2. Un nombre a une seule image, mais il peut avoir plusieurs antécédents."}
 ];
 const RET3 = `<li>Un tableau de valeurs se remplit avec une formule recopiée : =3*B1-5. Le carré s'écrit ^2.</li>
   <li>f(2) = 1 : 1 est l'image de 2, et 2 est un antécédent de 1.</li>
+  <li>Un nombre a une seule image, mais il peut avoir plusieurs antécédents : par g : x ⟼ x² − 4, les antécédents de 0 sont −2 et 2.</li>
   <li>La représentation graphique d'une fonction affine est une droite.</li>
   <li>Le tableur permet de résoudre une équation par essais successifs, en affinant le pas (0,1 puis 0,01…). La résolution algébrique donne la valeur exacte.</li>`;
 
 const PACKS = {
   "6e": {key:"staal-tableur6-etat", titre:"Séance tableur · Proportionnalité", start:START6, missions:M6, ret:RET6, widths:[200,...Array(NC-1).fill(66)]},
   "5e": {key:"staal-tableur5-etat", titre:"Séance tableur · Statistiques", start:START5, missions:M5, ret:RET5, chart:true, chartAt:[0,4], widths:[190,80,90,124,...Array(NC-4).fill(76)]},
-  "4e": {key:"staal-tableur4-etat", rows:30, titre:"Séance tableur · Statistiques et diagrammes", start:START4, missions:M4, ret:RET4, chart:true, chartAt:[3,0], widths:[210,...Array(NC-1).fill(66)]},
-  "3e": {key:"staal-tableur3-etat", titre:"Séance tableur · Fonctions et équations", start:START3, missions:M3, ret:RET3, chart:true, chartTypes:["points","barres"], chartAt:[10,0], widths:[210,...Array(NC-1).fill(66)]}
+  "4e": {key:"staal-tableur4-etat", rows:30, ajouts:["A3"], titre:"Séance tableur · Statistiques et diagrammes", start:START4, missions:M4, ret:RET4, chart:true, chartAt:[3,0], widths:[210,...Array(NC-1).fill(66)]},
+  "3e": {key:"staal-tableur3-etat", ajouts:["A3"], titre:"Séance tableur · Fonctions et équations", start:START3, missions:M3, ret:RET3, chart:true, chartTypes:["points","barres"], chartAt:[10,0], widths:[210,...Array(NC-1).fill(66)]}
 };
 let P=PACKS["6e"], MISSIONS=M6;
+/* séance : SUB = numéros (dans MISSIONS) des missions de la séance, dans l'ordre ; OPT = options données par la page (niv, onChange, onFin, fin) */
+let SUB=[], OPT={};
+const numero = i => SUB.indexOf(i)+1;
+const allDone = () => SUB.every(j=>S.done.includes(j));
 
 /* ---------------- graphique (5e) ---------------- */
 function chartData(ch){
@@ -549,7 +576,10 @@ function insertChart(){
 
 /* ---------------- état ---------------- */
 let S=null, UNDO=[], REDO=[];
-function load(){ try{ const s=JSON.parse(localStorage.getItem(P.key)||"null"); if(s && s.cells) return s; }catch(e){} return null; }
+function load(){ try{ const s=JSON.parse(localStorage.getItem(P.key)||"null"); if(s && s.cells){
+    /* cellules de départ des missions ajoutées après coup : on les ajoute si elles manquent (sans toucher au travail de l'élève) */
+    (P.ajouts||[]).forEach(k=>{ if(!(k in s.cells) && k in P.start) s.cells[k]=P.start[k]; });
+    if(!Array.isArray(s.done)) s.done=[]; if(!s.ans) s.ans={}; return s; } }catch(e){} return null; }
 function fresh(){ return {cells:Object.assign({},P.start), m:0, done:[], ans:{}, chart:null}; }
 function save(){ try{ localStorage.setItem(P.key, JSON.stringify(S)); }catch(e){} }
 
@@ -574,9 +604,11 @@ function toolbar(){
     ${b(ico("link"),"Insérer un lien")}${b(ico("add_comment"),"Insérer un commentaire")}${b(ico("insert_chart"),"Insérer un graphique", P.chart?"chart":null)}${b(ico("filter_alt"),"Créer un filtre")}${b(ico("functions"),"Fonctions")}
   </div>`;
 }
-function init(root, pack){
-  P=PACKS[pack]||PACKS["6e"]; MISSIONS=P.missions; WIDTH=P.widths.slice(); NR=P.rows||24; if(window.innerWidth<600) WIDTH[0]=Math.min(WIDTH[0],170);
+function init(root, pack, opts){
+  P=PACKS[pack]||PACKS["6e"]; MISSIONS=P.missions; OPT=opts||{};
+  SUB=(OPT.niv||MISSIONS.map((_,i)=>i)).filter(i=>i>=0 && i<MISSIONS.length); WIDTH=P.widths.slice(); NR=P.rows||24; if(window.innerWidth<600) WIDTH[0]=Math.min(WIDTH[0],170);
   R=root; S=load()||fresh(); CELLS=S.cells; UNDO=[]; REDO=[];
+  if(!SUB.includes(S.m)){ const j=SUB.find(j=>!S.done.includes(j)); S.m = j===undefined ? SUB[0] : j; }
   let head=`<tr><th class="tcorner"></th>${WIDTH.map((w,c)=>`<th class="tch" data-c="${c}">${CN(c)}</th>`).join("")}</tr>`;
   let body=""; for(let r=0;r<NR;r++){ body+=`<tr><th class="trh" data-r="${r}">${r+1}</th>`; for(let c=0;c<NC;c++) body+=`<td class="tc" data-r="${r}" data-c="${c}"></td>`; body+="</tr>"; }
   root.innerHTML = `<div class="tabl"><div class="tlay">
@@ -780,37 +812,41 @@ function bind(){
 function done(i){ const M=MISSIONS[i]; return M.test()===true && (!M.q || !!S.ans[i] && M.q.ok(S.ans[i])); }
 function panel(){
   const PN=$("tpanel"), i=S.m, M=MISSIONS[i];
-  const steps=MISSIONS.map((m,j)=>`<button class="tstep${j===i?" on":""}${S.done.includes(j)?" ok":""}${m.defi?" defi":""}" data-j="${j}" aria-label="Mission ${j+1}${m.defi?" (défi)":""}${S.done.includes(j)?" (réussie)":""}">${j+1}</button>`).join("");
+  const steps=SUB.map((j,k)=>{ const m=MISSIONS[j]; return `<button class="tstep${j===i?" on":""}${S.done.includes(j)?" ok":""}${m.defi?" defi":""}" data-j="${j}" aria-label="Mission ${k+1}${m.defi?" (défi)":""}${S.done.includes(j)?" (réussie)":""}">${k+1}</button>`; }).join("");
+  if(OPT.onChange) OPT.onChange(i, S.done.slice());
   let q="";
   if(M.q && M.q.choix) q=`<div class="tq"><span class="tqlab">${M.q.lab}</span>${M.q.choix.map(x=>`<button class="btn tchoice${S.ans[i]===x?" sel":""}" data-x="${x}">${x}</button>`).join("")}</div>`;
   else if(M.q) q=`<div class="tq"><label class="tqlab" for="tqin">${M.q.lab}</label><input id="tqin" class="tqin" autocomplete="off" value="${(S.ans[i]||"").replace(/"/g,"&quot;")}"></div>`;
   PN.innerHTML = `<div class="tsteps">${steps}</div>
-    <h2>Mission ${i+1}${M.defi?" · Défi":""}</h2><h3>${M.t.replace(/^Défi : /,"")}</h3>
+    <h2>Mission ${numero(i)}${OPT.niv?" sur "+SUB.length:""}${M.defi?" · Défi":""}</h2><h3>${M.t.replace(/^Défi : /,"")}</h3>
     <div class="tconsigne">${M.h}${M.q&&!M.h2?q:""}${M.h2?q+M.h2:""}</div>
     <button class="btn primary" id="tcheck">Vérifier</button>
     <div class="tmsg" id="tmsg" hidden></div>
     <details class="lhelp"><summary>Besoin d'aide ?</summary><p>${M.aide}</p></details>
-    ${S.done.length===MISSIONS.length?retenir():""}
+    ${allDone()?retenir():""}
     <p class="treset"><button class="linkbtn" id="treset">Recommencer la séance depuis le début</button></p>`;
   PN.querySelectorAll(".tstep").forEach(b=>b.onclick=()=>{ S.m=+b.dataset.j; save(); panel(); });
   PN.querySelectorAll(".tchoice").forEach(b=>b.onclick=()=>{ S.ans[i]=b.dataset.x; save(); panel(); check(false, true); });
   const qi=$("tqin"); if(qi){ qi.addEventListener("input", ()=>{ S.ans[i]=qi.value; save(); }); qi.addEventListener("keydown", e=>{ if(e.key==="Enter") check(false); }); }
   $("tcheck").onclick=()=>check(false);
-  const rb=$("treset"); rb.onclick=()=>{ if(rb.dataset.sure){ S=fresh(); CELLS=S.cells; UNDO=[]; REDO=[]; save(); recalc(); paint(); select(0,1); panel(); drawChart(); }
+  const rb=$("treset"); rb.onclick=()=>{ if(rb.dataset.sure){ S=fresh(); S.m=SUB[0]; CELLS=S.cells; UNDO=[]; REDO=[]; save(); recalc(); paint(); select(0,1); panel(); drawChart(); }
     else { rb.dataset.sure=1; rb.textContent="Tout sera effacé : clique encore pour confirmer."; } };
   if(S.done.includes(i)) msg(`<b>Mission réussie !</b> ${M.bravo}${nextBtn(i)}`, "ok");
   if(TB) paint();
 }
-const nextBtn = i => i<MISSIONS.length-1 ? `<br><button class="btn primary" id="tnext">Mission suivante →</button>` : "";
+const nextOf = i => SUB[SUB.indexOf(i)+1];
+const nextBtn = i => nextOf(i)!==undefined ? `<br><button class="btn primary" id="tnext">Mission suivante →</button>` : OPT.onFin ? `<br><button class="btn primary" id="tfinb">${OPT.fin||"Terminer la séance"} →</button>` : "";
 function retenir(){ return `<div class="tretenir"><h3>Ce qu'il faut retenir</h3><ul>${P.ret}</ul></div>`; }
 function msg(h, kind){ const el=$("tmsg"); if(!el) return; el.hidden=!h; el.className="tmsg "+(kind||""); el.innerHTML=h;
-  const n=$("tnext"); if(n) n.onclick=()=>{ S.m++; save(); panel(); }; }
+  const n=$("tnext"); if(n) n.onclick=()=>{ S.m=nextOf(S.m); save(); panel(); };
+  const fb=$("tfinb"); if(fb) fb.onclick=()=>OPT.onFin(S.done.slice()); }
 /* auto : vérification silencieuse après chaque modification */
 function check(auto, fromChoice){
   const i=S.m, M=MISSIONS[i];
   if(done(i)){
-    const first=!S.done.includes(i); if(first){ S.done.push(i); save(); }
+    const first=!S.done.includes(i), avant=allDone(); if(first){ S.done.push(i); save(); }
     if(first || !auto) panel();
+    if(first && !avant && allDone() && OPT.onFin) OPT.onFin(S.done.slice());
     return;
   }
   if(auto) return;
@@ -818,6 +854,7 @@ function check(auto, fromChoice){
   if(t!==true){ msg(`<b>Pas encore !</b> ${t}`, "ko"); return; }
   if(M.q){ const a=S.ans[i]; msg(!a ? "<b>Presque !</b> Le tableau est juste : réponds maintenant à la question." : `<b>Ta réponse n'est pas la bonne.</b> ${fromChoice?"Relis la consigne, ":"Regarde bien le tableur, "}puis essaie encore.`, "ko"); }
 }
-function destroy(){ clearInterval(autoT); autoT=null; lastPE=null; if(RO){ RO.disconnect(); RO=null; } R=null; SC=null; TB=null; editing=null; fill=null; drag=null; }
-return {init, destroy, PACKS, _t:{tokenize, parse, shift, setCells:c=>{ CELLS=c; recalc(); return VAL; }}};
+function levels(pack){ return (PACKS[pack]||PACKS["6e"]).missions.map(M=>({t:M.t, defi:!!M.defi})); }
+function destroy(){ OPT={}; clearInterval(autoT); autoT=null; lastPE=null; if(RO){ RO.disconnect(); RO=null; } R=null; SC=null; TB=null; editing=null; fill=null; drag=null; }
+return {init, destroy, levels, PACKS, _t:{tokenize, parse, shift, setCells:c=>{ CELLS=c; recalc(); return VAL; }}};
 })();

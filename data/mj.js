@@ -21,6 +21,43 @@ MJ["multiples6"] = {cls:"6e", src:"data/mj-multiples.js", name:"MJ_MULTIPLES", w
     <rect x="114" y="13" width="78" height="6" rx="3" fill="#dde4f0"/><rect x="114" y="13" width="46" height="6" rx="3" fill="#2563eb"/>
     ${[["123","ok"],["58",""],["207","ok"],["94",""],["311","ko"],["66","ok"],["145",""],["900","ok"],["251",""],["72","ok"],["119",""],["438","ok"]].map(([n,s],i)=>{ const x=8+(i%4)*47, y=31+Math.floor(i/4)*26;
       return `<rect x="${x}" y="${y}" width="43" height="22" rx="5" fill="${s==="ok"?"#e3f5ec":s==="ko"?"#fce9e9":"#fff"}" stroke="${s==="ok"?"#167a54":s==="ko"?"#c43c3c":"#c9d4e3"}" stroke-width="1.5"/><text x="${x+21.5}" y="${y+15.5}" text-anchor="middle" style="font:800 11px Arial,sans-serif" fill="${s==="ok"?"#167a54":s==="ko"?"#c43c3c":"#15213b"}">${n}</text>${s==="ko"?`<path d="M${x+9} ${y+11}h25" stroke="#c43c3c" stroke-width="1.6"/>`:""}`; }).join("")}`};
+MJ["ninja6"] = {cls:"6e", src:"data/mj-ninja.js", name:"MJ_NINJA", wide:true,
+  titre:"Fraction Ninja", tag:"Fractions", badge:"10 niveaux",
+  desc:"Chocolat, pizzas, pastèques volent : tranche-les d'un coup de sabre aux 3/5, aux 2/3… le plus précisément possible !",
+  intro:"Un objet est lancé avec une consigne comme « Coupe aux 3/5 » : clique et glisse à travers l'objet pour le trancher au bon endroit. Plus ta coupe est précise, plus tu marques, et les coupes précises d'affilée font des combos.",
+  ill:`<rect width="200" height="110" fill="#1b2747"/>
+    <rect x="14" y="0" width="7" height="110" fill="#fff" opacity=".05"/><rect x="180" y="0" width="8" height="110" fill="#fff" opacity=".05"/>
+    <circle cx="164" cy="22" r="11" fill="#fff" opacity=".07"/>
+    <g transform="translate(22 52) rotate(-6)"><rect width="78" height="30" rx="3" fill="#4a2412"/>
+      ${[0,1,2].map(i=>[0,1].map(j=>`<rect x="${1.5+i*26}" y="${1.5+j*15}" width="23" height="12" rx="2" fill="#86492a"/>`).join("")).join("")}
+      <path d="M77 2V28" stroke="#b9784a" stroke-width="2"/></g>
+    <g transform="translate(112 50) rotate(9)"><rect width="52" height="30" rx="3" fill="#4a2412"/>
+      ${[0,1].map(i=>[0,1].map(j=>`<rect x="${1.5+i*26}" y="${1.5+j*15}" width="23" height="12" rx="2" fill="#86492a"/>`).join("")).join("")}
+      <path d="M1 2V28" stroke="#b9784a" stroke-width="2"/></g>
+    <path d="M118 6C112 36 104 70 92 104" stroke="#bfe9ff" stroke-width="6" stroke-linecap="round" opacity=".45" fill="none"/>
+    <path d="M118 6C112 36 104 70 92 104" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <rect x="98" y="88" width="5" height="5" fill="#6e381b"/><rect x="122" y="92" width="4" height="4" fill="#9a5a32"/><rect x="86" y="40" width="4" height="4" fill="#9a5a32"/><rect x="128" y="38" width="5" height="5" fill="#6e381b"/>
+    <rect x="6" y="8" width="76" height="34" rx="8" fill="#fff" stroke="#ffcf3f" stroke-width="2"/>
+    <text x="11" y="29.5" style="font:700 10px Arial,sans-serif;letter-spacing:0" fill="#15213b">Coupe aux</text>
+    <text x="70" y="23" text-anchor="middle" style="font:800 11px Arial,sans-serif;letter-spacing:0" fill="#1d4ed8">3</text><path d="M64 25.5h12" stroke="#1d4ed8" stroke-width="1.6"/><text x="70" y="36" text-anchor="middle" style="font:800 11px Arial,sans-serif;letter-spacing:0" fill="#1d4ed8">5</text>
+    <text x="150" y="102" text-anchor="middle" style="font:800 12px Arial,sans-serif;letter-spacing:0" fill="#ffcf3f">COMBO ×3</text>`};
+MJ["golf6"] = {cls:"6e", src:"data/mj-golf.js", name:"MJ_GOLF", wide:true,
+  titre:"Le mini-golf des angles", tag:"Angles", badge:"9 trous",
+  desc:"Tape l'angle de tir, dose la puissance et fais rebondir la balle sur les murs jusqu'au trou !",
+  intro:"Tape l'angle de tir en degrés, choisis la puissance et vise le trou : estime, mesure au rapporteur, puis calcule les rebonds. Moins tu utilises de coups, plus tu gagnes d'étoiles.",
+  ill:`<rect width="200" height="110" fill="#2e6b3b"/>
+    <rect x="7" y="7" width="186" height="96" rx="5" fill="#4aa35a" stroke="#8a5a2b" stroke-width="6"/>
+    ${[...Array(9)].map((_,i)=>`<path d="M${22+i*20} 10V100" stroke="rgba(255,255,255,.16)"/>`).join("")}${[...Array(4)].map((_,i)=>`<path d="M10 ${25+i*20}H190" stroke="rgba(255,255,255,.16)"/>`).join("")}
+    <rect x="96" y="34" width="8" height="66" fill="#9a6332" stroke="#6b4220" stroke-width="1.2"/>
+    <path d="M34 88L100 13.5L163.5 84" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="2 4" stroke-linecap="round"/>
+    <circle cx="100" cy="14" r="4.5" fill="rgba(255,255,255,.4)" stroke="#fff" stroke-width="1" stroke-dasharray="2 1.5"/>
+    <path d="M34 88H80" stroke="#15213b" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M60 88A26 26 0 0 0 51.2 68.5" fill="none" stroke="#7a3fd0" stroke-width="2.4"/>
+    <rect x="64" y="68" width="30" height="16" rx="5" fill="#fff" stroke="#7a3fd0" stroke-width="1.5"/><text x="79" y="79.5" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#7a3fd0">48°</text>
+    <circle cx="164" cy="84" r="7" fill="#e8f5e9"/><circle cx="164" cy="84" r="5.5" fill="#0f2a18"/>
+    <path d="M165 84V60" stroke="#f4f4f4" stroke-width="1.8"/><path d="M165.5 60l12 4-12 4z" fill="#e53935"/>
+    <circle cx="35" cy="89.5" r="4.5" fill="rgba(0,0,0,.25)"/><circle cx="34" cy="88" r="4.5" fill="#fff" stroke="#8a95a3" stroke-width=".8"/>
+    <rect x="128" y="18" width="56" height="18" rx="6" fill="#fff" stroke="#2563eb" stroke-width="1.4"/><text x="156" y="30.5" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#2563eb">Tir : 48°</text>`};
 MJ["ascenseur5"] = {cls:"5e", src:"data/mj-ascenseur.js", name:"MJ_ASCENSEUR", wide:true,
   titre:"L'ascenseur des relatifs", tag:"Nombres relatifs", badge:"8 niveaux",
   desc:"Prévois l'étage où arrive l'ascenseur, sous-sols compris, puis regarde-le faire le trajet.",
@@ -74,6 +111,24 @@ MJ["peintre4"] = {cls:"4e", src:"data/mj-peintre.js", name:"MJ_PEINTRE", wide:tr
   desc:"Mélange les pots dans les bonnes proportions pour reproduire la teinte exacte que veut le client.",
   intro:"Reproduis la teinte demandée en versant les bonnes quantités de chaque pot. Si les proportions sont fausses, la couleur change : multiplie la recette par le bon coefficient.",
   ill:`<rect width="200" height="110" fill="#fbf7ef"/><g transform="translate(8 14)"><ellipse cx="22" cy="7" rx="18" ry="4.5" fill="#c9ced8" stroke="#6b7280" stroke-width="1.5"/><path d="M4 7V40Q4 45 22 45Q40 45 40 40V7" fill="#e7eaf0" stroke="#6b7280" stroke-width="1.5"/><path d="M4 17H40V33H4Z" fill="#306fce"/><ellipse cx="22" cy="7" rx="15" ry="3.2" fill="#306fce"/><text x="22" y="62" text-anchor="middle" style="font:800 12px Arial,sans-serif" fill="#1b2a44">3 L</text></g><g transform="translate(56 14)"><ellipse cx="22" cy="7" rx="18" ry="4.5" fill="#c9ced8" stroke="#6b7280" stroke-width="1.5"/><path d="M4 7V40Q4 45 22 45Q40 45 40 40V7" fill="#e7eaf0" stroke="#6b7280" stroke-width="1.5"/><path d="M4 17H40V33H4Z" fill="#f6df30"/><ellipse cx="22" cy="7" rx="15" ry="3.2" fill="#f6df30"/><text x="22" y="62" text-anchor="middle" style="font:800 12px Arial,sans-serif" fill="#1b2a44">2 L</text></g><text x="54" y="44" text-anchor="middle" style="font:800 13px Arial,sans-serif" fill="#1b2a44">+</text><rect x="12" y="88" width="84" height="17" rx="6" fill="#fff" stroke="#1b2a44"/><text x="54" y="100.5" text-anchor="middle" style="font:800 10.5px Arial,sans-serif" fill="#1b2a44">× 3 → 15 L</text><path d="M102 40h14m-5-5 5 5-5 5" fill="none" stroke="#1b2a44" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M155 16A33 33 0 0 0 155 82Z" fill="#488e3f"/><path d="M155 16A33 33 0 0 1 155 82Z" fill="#60a636"/><circle cx="155" cy="49" r="33" fill="none" stroke="#6b7280" stroke-width="1.8"/><path d="M155 16V82" stroke="#fff" stroke-width="1.8"/><text x="155" y="100" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#1b2a44">même teinte ?</text>`};
+MJ["grappin4"] = {cls:"4e", src:"data/mj-grappin.js", name:"MJ_GRAPPIN", wide:true,
+  titre:"Le ninja au grappin", tag:"Pythagore", badge:"6 niveaux",
+  desc:"Calcule la longueur exacte de la corde pour que le ninja saute de toit en toit sans finir dans les cartons.",
+  intro:"La corde bien tendue est l'hypoténuse du triangle rectangle : calcule sa longueur avec le théorème de Pythagore, puis appuie sur Entrée. Trop courte, le ninja tombe ; trop longue, il s'écrase contre le mur !",
+  ill:`<defs><linearGradient id="ill-grappin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151d45"/><stop offset=".6" stop-color="#3b3474"/><stop offset="1" stop-color="#c96f6a"/></linearGradient></defs>
+    <rect width="200" height="110" fill="url(#ill-grappin)"/><circle cx="178" cy="16" r="8" fill="#fff3c4"/>
+    ${[[14,10],[40,22],[96,8],[120,26],[150,12]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="1" fill="#fff" opacity=".7"/>`).join("")}
+    <rect x="0" y="104" width="200" height="6" fill="#14182c"/>
+    <rect x="0" y="30" width="58" height="80" fill="#2c3560"/><rect x="0" y="28" width="58" height="4" fill="#58628f"/>
+    <rect x="142" y="66" width="58" height="44" fill="#3a3060"/><rect x="142" y="64" width="58" height="4" fill="#58628f"/>
+    ${[[8,40],[24,40],[40,52],[8,64],[24,76],[40,88],[152,76],[168,88],[184,76]].map(([x,y])=>`<rect x="${x}" y="${y}" width="7" height="9" rx="1" fill="#ffd76a"/>`).join("")}
+    <path d="M58 30L58 66L142 66" fill="none" stroke="#fff" stroke-width="1.6" stroke-dasharray="4 3.5"/>
+    <path d="M58 58H66V66" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="1.4"/>
+    <path d="M58 30L142 66" stroke="#e9c46a" stroke-width="2"/>
+    <g transform="translate(80 40.4)"><circle r="2.4" fill="#cfd6e2"/><path d="M-1 1L-2.5 7M1 1L2.5 7" stroke="#1b1e2b" stroke-width="2.6" stroke-linecap="round"/><circle cy="8" r="4.6" fill="#1b1e2b"/><rect x="-1" y="6" width="5.6" height="2.8" rx="1.4" fill="#f3cfaa"/><rect x="-4.6" y="3.6" width="9.2" height="1.9" fill="#e03131"/><path d="M-4.6 4.5q-4 -1 -7 1.5" stroke="#e03131" stroke-width="1.4" fill="none"/><rect x="-4" y="12" width="8" height="10" rx="3" fill="#1b1e2b"/><path d="M-2 21L-4 28M2 21L1 28" stroke="#1b1e2b" stroke-width="3" stroke-linecap="round"/></g>
+    <rect x="92" y="70" width="40" height="15" rx="7.5" fill="#fff" stroke="#15213b"/><text x="112" y="81" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#15213b">12 m</text>
+    <rect x="18" y="41" width="34" height="15" rx="7.5" fill="#fff" stroke="#15213b"/><text x="35" y="52" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#15213b">5 m</text>
+    <rect x="98" y="26" width="34" height="15" rx="7.5" fill="#ffd43b" stroke="#15213b"/><text x="115" y="37" text-anchor="middle" style="font:800 10px Arial,sans-serif" fill="#15213b">? m</text>`};
 MJ["graph3"] = {cls:"3e", src:"data/mj-graph.js", name:"MJ_GRAPH", wide:true,
   titre:"Graph Shooter", tag:"Fonctions affines", badge:"8 niveaux",
   desc:"Choisis a et b : ta droite traverse le plus de cibles possible d'un seul tir, en évitant les murs.",

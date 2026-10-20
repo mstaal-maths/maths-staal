@@ -79,7 +79,54 @@ const L4 = [
   ref:[S.rep(8,[S.rep(4,[S.av(70),S.ga(90)]),S.ga(45)])],
   consigne:"Dessine la rosace de 8 carrés (côtés de 70 pas), avec 5 blocs au maximum.",
   aide:"Un carré, c'est « répéter 4 fois : avancer, tourner de 90° ». Après chaque carré, le lutin tourne un peu : 8 carrés pour faire un tour complet, 360° ÷ 8 = …",
-  sol:[S.rep(8,[S.rep(4,[S.av(70),S.ga(90)]),S.ga(45)])]}
+  sol:[S.rep(8,[S.rep(4,[S.av(70),S.ga(90)]),S.ga(45)])]},
+ /* ---- niveaux ajoutés pour les séances (11, 12, 13 : séance 1 ; 14, 15 : séance 2) ---- */
+ {titre:"Le rectangle", debut:{x:-75,y:-40,dir:90}, blocs:[...MV,"s_repeter"], max:5, strict:true, must:["repeter"],
+  ref:[S.rep(2,[S.av(150),S.ga(90),S.av(80),S.ga(90)])],
+  consigne:"Dessine le rectangle en pointillés gris : longueur 150 pas, largeur 80 pas. Utilise une boucle, avec <b>5 blocs au maximum</b>.",
+  aide:"Ce qui se répète, ce n'est pas un seul côté : c'est « une longueur, un quart de tour, une largeur, un quart de tour ». Le lutin fait cela 2 fois.",
+  sol:[S.rep(2,[S.av(150),S.ga(90),S.av(80),S.ga(90)])]},
+ {titre:"Le polygone à 12 côtés", debut:{x:-20,y:-75,dir:90}, blocs:[...MV,"s_repeter"], max:3, strict:true, must:["repeter"],
+  ref:[S.rep(12,[S.av(40),S.ga(30)])],
+  consigne:"Dessine le dodécagone régulier : un polygone qui a 12 côtés de 40 pas. Utilise <b>3 blocs au maximum</b>.",
+  aide:"Quand le lutin a fait le tour de la figure, il a tourné de 360° en tout. Il tourne 12 fois de la même façon : 360° ÷ 12 = …",
+  sol:[S.rep(12,[S.av(40),S.ga(30)])]},
+ {titre:"La maison", debut:{x:-50,y:-90,dir:90}, blocs:[...MV,"s_repeter"], max:9, must:["repeter"],
+  ref:[S.rep(4,[S.av(100),S.ga(90)]),S.ga(90),S.av(100),S.dr(90),S.rep(3,[S.av(100),S.ga(120)])],
+  consigne:"Dessine la maison : un carré de côté 100 pas, avec un toit en forme de triangle équilatéral de côté 100 pas. Le lutin part du coin en bas à gauche.",
+  aide:"Trace d'abord le carré avec une boucle : le lutin revient à son point de départ. Fais-le ensuite monter jusqu'au coin en haut à gauche, tourné vers la droite (tourner, avancer de 100, tourner). Le toit est un triangle équilatéral : à chaque coin, le lutin tourne de 120°.",
+  sol:[S.rep(4,[S.av(100),S.ga(90)]),S.ga(90),S.av(100),S.dr(90),S.rep(3,[S.av(100),S.ga(120)])]},
+ {titre:"Une frise de triangles", debut:{x:-150,y:-20,dir:90}, blocs:["s_avancer","s_repeter","s_poser","s_lever","s_call"], def:[S.rep(3,[S.av(40),S.ga(120)])], max:5, strict:true, must:["repeter","call"],
+  ref:[S.rep(5,[S.call(),S.lever(),S.av(60),S.poser()])],
+  consigne:"Cette fois, le bloc « motif » trace un triangle équilatéral de côté 40 pas, puis ramène le lutin à son point de départ. Dessine la frise de 5 triangles : <b>60 pas</b> entre le début de deux triangles. 5 blocs au maximum.",
+  aide:"Chaque triangle est l'image du précédent par une translation de 60 pas vers la droite. Dans la boucle : le motif, puis relever le stylo, avancer de 60, reposer le stylo. Le tout, 5 fois.",
+  sol:[S.rep(5,[S.call(),S.lever(),S.av(60),S.poser()])]},
+ {titre:"Des carrés emboîtés", debut:{x:-50,y:-50,dir:90}, blocs:[...MV,"s_repeter","s_set","s_change","s_var"], vars:["côté"], max:6, strict:true, must:["set","change"],
+  ref:[S.set("côté",20),S.rep(5,[S.rep(4,[S.av(V("côté")),S.ga(90)]),S.chg("côté",20)])],
+  consigne:"Dessine les 5 carrés en pointillés gris, qui partent du même coin : côtés de 20, 40, 60, 80 et 100 pas. Utilise la variable <b>côté</b>, avec 6 blocs au maximum.",
+  aide:"Un carré, c'est « répéter 4 fois : avancer de côté, tourner de 90° ». Mets côté à 20 au début. Après chaque carré, ajoute 20 à côté. Le tout dans une boucle « répéter 5 fois » : une boucle dans une boucle !",
+  sol:[S.set("côté",20),S.rep(5,[S.rep(4,[S.av(V("côté")),S.ga(90)]),S.chg("côté",20)])]},
+ /* ---- niveaux bonus « En autonomie » (16 à 19) ---- */
+ {titre:"L'étoile à cinq branches", debut:{x:-75,y:30,dir:90}, blocs:[...MV,"s_repeter"], max:3, strict:true, must:["repeter"],
+  ref:[S.rep(5,[S.av(150),S.dr(144)])],
+  consigne:"Dessine l'étoile à cinq branches : 5 traits de 150 pas. Utilise <b>3 blocs au maximum</b>.",
+  aide:"Souviens-toi du niveau « Prévois le dessin » : l'étoile était l'un des dessins proposés ! Pour l'étoile, le lutin fait DEUX tours complets en 5 virages : 2 × 360° = 720°, et 720° ÷ 5 = …",
+  sol:[S.rep(5,[S.av(150),S.dr(144)])]},
+ {titre:"La rosace de triangles", debut:{x:0,y:0,dir:90}, blocs:[...MV,"s_repeter"], max:5, strict:true,
+  ref:[S.rep(6,[S.rep(3,[S.av(80),S.ga(120)]),S.ga(60)])],
+  consigne:"Dessine la rosace de 6 triangles équilatéraux (côtés de 80 pas), qui ont tous un sommet au centre. Utilise <b>5 blocs au maximum</b>.",
+  aide:"Un triangle équilatéral : répéter 3 fois (avancer de 80, tourner de 120°). Après chaque triangle, le lutin tourne un peu : 6 triangles pour faire un tour complet, 360° ÷ 6 = …",
+  sol:[S.rep(6,[S.rep(3,[S.av(80),S.ga(120)]),S.ga(60)])]},
+ {titre:"La spirale triangulaire", debut:{x:-20,y:-40,dir:90}, blocs:["s_avancer","s_gauche","s_droite","s_repeter","s_set","s_change","s_var"], vars:["côté"], max:5, strict:true, must:["set","change"],
+  ref:[S.set("côté",15),S.rep(15,[S.av(V("côté")),S.ga(120),S.chg("côté",15)])],
+  consigne:"Dessine la spirale triangulaire : le 1<sup>er</sup> trait mesure 15 pas, et chaque trait mesure 15 pas de plus que le précédent (15 traits). Utilise la variable <b>côté</b>, avec 5 blocs au maximum.",
+  aide:"C'est comme la spirale carrée, mais le lutin tourne comme pour un triangle équilatéral : de 120°. Mets côté à 15 ; puis répéter 15 fois : avancer de côté, tourner de 120°, ajouter 15 à côté.",
+  sol:[S.set("côté",15),S.rep(15,[S.av(V("côté")),S.ga(120),S.chg("côté",15)])]},
+ {titre:"Les créneaux du château", debut:{x:-160,y:-40,dir:90}, blocs:[...MV,"s_repeter"], max:9, strict:true, must:["repeter"],
+  ref:[S.rep(4,[S.ga(90),S.av(40),S.dr(90),S.av(40),S.dr(90),S.av(40),S.ga(90),S.av(40)])],
+  consigne:"Dessine le haut du mur du château : 4 créneaux de 40 pas de large et 40 pas de haut. Utilise <b>9 blocs au maximum</b>.",
+  aide:"Un créneau : monter de 40, aller à droite de 40, descendre de 40, aller à droite de 40. Le lutin regarde vers la droite au départ : il tourne à gauche pour monter, à droite pour aller à droite… Écris un créneau, puis mets-le dans « répéter 4 fois ».",
+  sol:[S.rep(4,[S.ga(90),S.av(40),S.dr(90),S.av(40),S.dr(90),S.av(40),S.ga(90),S.av(40)])]}
 ];
 const B3 = ["s_demander","s_reponse","s_dire","s_add","s_sub","s_mul","s_div","s_set","s_var"];
 const PROG_STAAL=[S.dem("Choisis un nombre"),S.set("a",O("-",REP,4)),S.set("b",O("*",V("a"),V("a"))),S.set("Résultat",O("-",V("b"),10)),S.dire(V("Résultat"))];
@@ -160,7 +207,36 @@ const L3 = [
  {titre:"Défi : nombre premier ?", defi:true, voir:true, blocs:[...B3,"s_si","s_sisinon","s_jusqua","s_eq","s_mod","s_gt","s_change"], vars:["d","compteur"], tests:[7,12,1,29,2,15,49], f:x=>[premier(x)?"premier":"pas premier"],
   consigne:"Le lutin demande un nombre entier positif, puis dit « premier » ou « pas premier ». Un nombre premier a exactement deux diviseurs : 1 et lui-même.",
   aide:"Compte les diviseurs du nombre dans la variable « compteur » (comme au niveau précédent, mais au lieu de dire d, on ajoute 1 à compteur). À la fin : si compteur = 2, alors premier, sinon pas premier.",
-  sol:[S.dem("Choisis un nombre"),S.set("compteur",0),S.set("d",1),S.jusq(O(">",V("d"),REP),[S.si(O("=",O("mod",REP,V("d")),0),[S.chg("compteur",1)]),S.chg("d",1)]),S.sisinon(O("=",V("compteur"),2),[S.dire("premier")],[S.dire("pas premier")])]}
+  sol:[S.dem("Choisis un nombre"),S.set("compteur",0),S.set("d",1),S.jusq(O(">",V("d"),REP),[S.si(O("=",O("mod",REP,V("d")),0),[S.chg("compteur",1)]),S.chg("d",1)]),S.sisinon(O("=",V("compteur"),2),[S.dire("premier")],[S.dire("pas premier")])]},
+ /* ---- niveaux bonus « En autonomie » (14 à 18) ---- */
+ {titre:"Le polygone de ton choix", d:true, debut:{x:-40,y:-95,dir:90}, blocs:["s_demander","s_reponse","s_avancer","s_gauche","s_droite","s_repeter","s_div"], must:["repeter"], tests:[5,3,8],
+  ref:[S.dem("Combien de côtés ?"),S.rep(REP,[S.av(80),S.ga(O("/",360,REP))])],
+  consigne:"Le lutin demande un nombre de côtés, puis trace le polygone régulier qui a ce nombre de côtés (côtés de 80 pas). En pointillés gris : le polygone pour la réponse <b>5</b>. Ton programme sera testé avec plusieurs réponses.",
+  aide:"Le nombre de côtés est dans le bloc bleu « réponse » : c'est le nombre de répétitions. À chaque sommet, le lutin tourne de 360 ÷ réponse : utilise le bloc vert de la division.",
+  sol:[S.dem("Combien de côtés ?"),S.rep(REP,[S.av(80),S.ga(O("/",360,REP))])]},
+ {titre:"Positif, négatif ou nul ?", blocs:[...B3,"s_sisinon","s_lt","s_gt","s_eq"], vars:["nombre"], tests:[7,-3,0,0.5,-12], f:x=>[x>0?"positif":x<0?"négatif":"nul"], must:["sisinon"],
+  consigne:"Le lutin demande un nombre, puis dit <b>positif</b>, <b>négatif</b> ou <b>nul</b> (écris ces mots sans faute, avec l'accent).",
+  aide:"Il y a trois cas, mais un « si … alors … sinon » n'en choisit que deux. Place un deuxième « si … alors … sinon » dans le « sinon » du premier : si réponse > 0, alors positif ; sinon, si réponse < 0, alors négatif, sinon nul.",
+  sol:[S.dem("Choisis un nombre"),S.sisinon(O(">",REP,0),[S.dire("positif")],[S.sisinon(O("<",REP,0),[S.dire("négatif")],[S.dire("nul")])])]},
+ {titre:"La somme des entiers", blocs:[...B3,"s_repeter","s_change"], vars:["somme","i"], tests:[4,10,1,100], f:x=>[x*(x+1)/2], must:["repeter","change"],
+  consigne:"Le lutin demande un nombre entier n, puis dit la somme 1 + 2 + 3 + … + n. Par exemple, pour 4, il dit 10, car 1 + 2 + 3 + 4 = 10.",
+  aide:"Deux variables : « somme » (au départ 0) et « i » (au départ 1). Répéter « réponse » fois : ajouter i à somme, puis ajouter 1 à i. À la fin, dire somme.",
+  sol:[S.dem("Choisis un nombre"),S.set("somme",0),S.set("i",1),S.rep(REP,[S.chg("somme",V("i")),S.chg("i",1)]),S.dire(V("somme"))]},
+ {titre:"La table de multiplication", blocs:[...B3,"s_repeter","s_change"], vars:["k"], tests:[7,3,12], f:x=>[1,2,3,4,5,6,7,8,9,10].map(k=>x*k), must:["repeter"],
+  consigne:"Le lutin demande un nombre, puis dit sa table de multiplication, de × 1 jusqu'à × 10 : pour 7, il dit 7, puis 14, puis 21… jusqu'à 70.",
+  aide:"Utilise une variable k qui vaut 1, puis 2, puis 3… jusqu'à 10. Mettre k à 1, puis répéter 10 fois : dire (réponse × k), puis ajouter 1 à k.",
+  sol:[S.dem("Choisis un nombre"),S.set("k",1),S.rep(10,[S.dire(O("*",REP,V("k"))),S.chg("k",1)])]},
+ {titre:"Le dé, 60 fois", vars:["six"], noask:true, blocs:["s_dire","s_repeter","s_si","s_eq","s_rand","s_set","s_change","s_var"], must:["repeter","si"],
+  check:X=>{ const n6=X.draws.filter(v=>v===6).length;
+    if(X.asked) return "Dans ce niveau, le lutin ne demande rien : il fait les tirages tout seul.";
+    if(X.draws.some(v=>v<1||v>6)) return "Chaque tirage doit donner un nombre entier de 1 à 6 : utilise « nombre aléatoire entre 1 et 6 ».";
+    if(X.draws.length!==60) return `Le programme doit faire exactement 60 tirages (ici, il en a fait ${X.draws.length}). Attention : chaque bloc « nombre aléatoire » utilisé fait un nouveau tirage.`;
+    if(X.said.length!==1 || num(X.said[0])!==n6) return `Lors de ce test, le 6 est sorti ${n6} fois : le lutin devait dire seulement ${n6}. Il a dit : ${X.said.length?X.said.map(fmtV).join(" ; "):"(rien)"}.`;
+    return ""; },
+  okmsg:X=>`Ton programme a été testé avec 3 séries de 60 lancers : à chaque fois, le lutin a bien dit le nombre de 6 (par exemple ${X.said.map(fmtV).join(" et ")}). On s'attend à environ 10 fois le 6, car 60 ÷ 6 = 10.`,
+  consigne:"On lance un dé 60 fois. Le lutin tire 60 fois un nombre au hasard entre 1 et 6, compte les 6 dans la variable <b>six</b>, puis dit le nombre de 6 obtenus.",
+  aide:"Mettre six à 0. Répéter 60 fois : si (nombre aléatoire entre 1 et 6) = 6 alors ajouter 1 à six. Enfin : dire six. Lance plusieurs fois : le résultat change, mais reste proche de 10.",
+  sol:[S.set("six",0),S.rep(60,[S.si(O("=",RAND(1,6),6),[S.chg("six",1)])]),S.dire(V("six"))]}
 ];
 const PACKS = {
   "4e":{key:"staal-scratch4-", levels:L4, dessin:true},
@@ -375,6 +451,9 @@ function thumb(lines){ let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9; lines.forEach(l=>{
 
 /* ================= page ================= */
 let P=null, LV=null, WS=null, THEME=null, R0=null, cur=0, timer=null, RO=null, run=null, rapide=false, done=[], live=null;
+/* séance : SUB = numéros (dans LV) des niveaux de la séance, dans l'ordre ; OPT = options données par la page (niv, onChange, onFin, fin) */
+let SUB=[], OPT={};
+const numero = i => SUB.indexOf(i)+1;
 const D = L => L && L.d!==undefined ? L.d : !!(P && P.dessin);   /* niveau avec dessin ? */
 const store = { get(k){ try{ return localStorage.getItem(P.key+k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(P.key+k,v); }catch(e){} }, del(k){ try{ localStorage.removeItem(P.key+k); }catch(e){} } };
 const $ = id => R0 && R0.querySelector("#"+id);
@@ -442,8 +521,9 @@ function style(){
 @media (max-width:820px){ .scr .sgrid2, .scr.scalc .sgrid2{grid-template-columns:minmax(0,1fr)} .scr .sws{height:470px} }
 `; document.head.appendChild(s);
 }
-async function init(root, pack){
-  destroy(); style(); R0=root; P=PACKS[pack]||PACKS["4e"]; LV=P.levels;
+async function init(root, pack, opts){
+  destroy(); style(); R0=root; P=PACKS[pack]||PACKS["4e"]; LV=P.levels; OPT=opts||{};
+  SUB=(OPT.niv||LV.map((_,i)=>i)).filter(i=>i>=0 && i<LV.length);
   try{ done=JSON.parse(store.get("done")||"[]"); }catch(e){ done=[]; }
   try{ if(!window.Blockly) await loadJS("lib/blockly/blockly_compressed.js"); if(!(Blockly.Msg && Blockly.Msg.DELETE_BLOCK && /Supprimer/.test(Blockly.Msg.DELETE_BLOCK))) await loadJS("lib/blockly/fr.js"); }
   catch(e){ root.innerHTML=`<p class="where">Le jeu n'a pas pu se charger. Recharge la page.</p>`; return; }
@@ -458,7 +538,7 @@ async function init(root, pack){
         <details class="lhelp"><summary>Besoin d'aide ?</summary><p id="saide"></p><div id="ssol"></div></details></div>
       <div class="sright"><p class="swshint" id="swshint">👉 <b>Fais glisser</b> les blocs de la colonne de gauche et accroche-les sous le bloc jaune « quand le drapeau vert est cliqué ». Pour enlever un bloc, fais-le glisser vers la gauche ou dans la poubelle.</p><div id="sws" class="sws"></div><div id="sstatic" class="sstatic" hidden></div></div>
     </div></div>`;
-  const nd=LV.filter(l=>l.defi).length; $("sleg").innerHTML = nd ? `Les ${nd} derniers niveaux (bordure orange) sont des <b>défis</b>.` : "";
+  const nd=SUB.filter(i=>LV[i].defi).length; $("sleg").innerHTML = !nd ? "" : OPT.niv ? `Les niveaux à bordure orange sont des <b>défis</b>.` : `Les ${nd} derniers niveaux (bordure orange) sont des <b>défis</b>.`;
   THEME = THEME || Blockly.Theme.defineTheme("staal-scr", {base:Blockly.Themes.Classic, fontStyle:{family:"Arial, Helvetica, sans-serif", size:12, weight:"600"}, startHats:true,
       componentStyles:{workspaceBackgroundColour:"#f9f9fb", flyoutBackgroundColour:"#eef0f5", flyoutOpacity:1, toolboxBackgroundColour:"#ffffff", toolboxForegroundColour:"#1b2a44"}});
   WS = Blockly.inject($("sws"), {renderer:"zelos", media:"lib/blockly/media/", sounds:false, trashcan:true, scrollbars:true,
@@ -467,11 +547,11 @@ async function init(root, pack){
   WS.addChangeListener(Blockly.Events.disableOrphans);
   WS.addChangeListener(e=>{ if(e.isUiEvent) return; compte(); if(!timer && e.type!==Blockly.Events.FINISHED_LOADING) save(); });
   RO=new ResizeObserver(()=>{ if(WS) Blockly.svgResize(WS); }); RO.observe($("sws"));
-  let st=+(store.get("niveau")||0); if(!(st>=0&&st<LV.length)) st=0;
+  let st=+(store.get("niveau")||0); if(!SUB.includes(st)){ st=SUB.find(i=>!done.includes(i)); if(st===undefined) st=SUB[0]; }
   load(st);
 }
 function levelsBar(){
-  $("slevels").innerHTML=LV.map((L,i)=>`<button class="lnum${i===cur?" on":""}${done.includes(i)?" ok":""}${L.defi?" defi":""}" data-i="${i}" aria-label="Niveau ${i+1}${L.defi?" (défi)":""}${done.includes(i)?" (réussi)":""}">${i+1}</button>`).join("");
+  $("slevels").innerHTML=SUB.map((i,j)=>{ const L=LV[i]; return `<button class="lnum${i===cur?" on":""}${done.includes(i)?" ok":""}${L.defi?" defi":""}" data-i="${i}" aria-label="Niveau ${j+1}${L.defi?" (défi)":""}${done.includes(i)?" (réussi)":""}">${j+1}</button>`; }).join("");
   R0.querySelectorAll("#slevels .lnum").forEach(b=>b.onclick=()=>{ stop(); load(+b.dataset.i); });
 }
 function mainProg(){ const s=WS.getBlocksByType("s_start")[0]; return s ? tree(s.getNextBlock()) : []; }
@@ -487,7 +567,8 @@ function pressKey(k){
 function load(i){
   stop(); live=null; cur=i; store.set("niveau",i); const L=LV[i]; VARS = (L.vars && L.vars.length) ? L.vars : ["nombre"]; if(L.bloc) BLOC=L.bloc;
   const sc=R0.querySelector(".scr"); if(sc) sc.classList.toggle("scalc", !D(L));
-  $("stitre").textContent=`Niveau ${i+1}${L.defi?" · Défi":""} · ${L.titre.replace(/^Défi : /,"")}`;
+  $("stitre").textContent=`Niveau ${numero(i)}${OPT.niv?" sur "+SUB.length:""}${L.defi?" · Défi":""} · ${L.titre.replace(/^Défi : /,"")}`;
+  if(OPT.onChange) OPT.onChange(i, done.slice());
   $("scons").innerHTML=L.consigne; $("saide").textContent=L.aide;
   $("ssol").innerHTML = L.voir && L.sol ? `<details class="lsolbox"><summary>Toujours bloqué ? Voir une solution possible</summary><p class="where">Essaie d'abord avec l'aide ! Voici <b>une</b> solution :</p>${progHTML(L.sol, null, {def2:L.soldef2, keys:L.solkeys})}</details>` : "";
   const h=R0.querySelector("details.lhelp"); if(h) h.open=false;
@@ -582,9 +663,14 @@ function anim(prog, def, entree, fin, o){
   step();
 }
 function win(extra){
+  const avant=SUB.every(i=>done.includes(i));
   if(!done.includes(cur)){ done.push(cur); store.set("done", JSON.stringify(done)); } levelsBar();
-  msg(`<b>Bravo, niveau réussi !</b> ${extra||""}${cur<LV.length-1?`<br><button class="btn primary" id="snext">Niveau suivant →</button>`:"<br>Tu as terminé tous les niveaux : bravo !"}`, "ok");
-  const n=$("snext"); if(n) n.onclick=()=>load(cur+1);
+  const nxt=SUB[SUB.indexOf(cur)+1];
+  msg(`<b>Bravo, niveau réussi !</b> ${extra||""}${nxt!==undefined?`<br><button class="btn primary" id="snext">Niveau suivant →</button>`:OPT.onFin?`<br><button class="btn primary" id="sfinb">${OPT.fin||"Terminer la séance"} →</button>`:"<br>Tu as terminé tous les niveaux : bravo !"}`, "ok");
+  const n=$("snext"); if(n) n.onclick=()=>load(nxt);
+  const fb=$("sfinb"); if(fb) fb.onclick=()=>OPT.onFin(done.slice());
+  if(OPT.onChange) OPT.onChange(cur, done.slice());
+  if(!avant && SUB.every(i=>done.includes(i)) && OPT.onFin) OPT.onFin(done.slice());
 }
 const blocName = {call2:"que tu as créé", demander:"« demander … et attendre »", repeter:"« répéter … fois »", call:"« motif »", set:"« mettre … à »", change:"« ajouter … à »", sisinon:"« si … alors … sinon »", jusqua:"« répéter jusqu'à »", si:"« si … alors »"};
 function lancer(){
@@ -622,7 +708,7 @@ function verifier3(){
     let X;
     for(const seed of [11,23,47]){ X=runSync(L, prog, null, null, {seed}); if(X.err){ msg(`<b>Oups !</b> ${X.err}`, "ko"); return; } const e=L.check(X); if(e){ msg(`<b>Pas encore !</b> ${e}`, "ko"); return; } }
     if(miss.length){ msg(`<b>Les résultats sont justes !</b> Mais dans ce niveau, il faut utiliser le bloc ${miss.map(m=>blocName[m]||m).join(" et ")}.`, "ko"); return; }
-    win(`Ton programme a été testé avec 3 séries de 100 tirages : à chaque fois, le lutin a bien dit le nombre de 0 puis le nombre de 1 (par exemple ${X.said.map(fmtV).join(" et ")}).`); return;
+    win(L.okmsg ? L.okmsg(X) : `Ton programme a été testé avec 3 séries de 100 tirages : à chaque fois, le lutin a bien dit le nombre de 0 puis le nombre de 1 (par exemple ${X.said.map(fmtV).join(" et ")}).`); return;
   }
   if(D(L) && L.tests){
     const li=[];
@@ -676,11 +762,12 @@ function mystere(){
   if(oa&&ob) win(`Avec ${fmtV(num(a))} et avec ${fmtV(num(b))}, le lutin dit bien ${L.cible}. En effet, (x − 4)² = 25 donne x − 4 = 5 ou x − 4 = −5.`);
   else msg(`Avec ${fmtV(num(a))}, le lutin dit ${fmtV(ra)} ${oa?"✓":"✗"} · avec ${fmtV(num(b))}, il dit ${fmtV(rb)} ${ob?"✓":"✗"}. ${oa||ob?"Il en manque un : pense aux nombres négatifs !":"Remonte le programme à l'envers."}`, "ko");
 }
-function destroy(){ if(timer){ clearTimeout(timer); timer=null; } run=null; if(RO){ RO.disconnect(); RO=null; } if(WS){ const w=WS; WS=null; try{ w.dispose(); }catch(e){} } R0=null; }
+function levels(pack){ return PACKS[pack].levels.map(L=>({t:L.titre, defi:!!L.defi})); }
+function destroy(){ OPT={}; if(timer){ clearTimeout(timer); timer=null; } run=null; if(RO){ RO.disconnect(); RO=null; } if(WS){ const w=WS; WS=null; try{ w.dispose(); }catch(e){} } R0=null; }
 window.addEventListener("hashchange", ()=>{ if(R0 && !R0.isConnected) destroy(); });
 document.addEventListener("keydown", e=>{ if(!R0 || !R0.isConnected || !LV || !LV[cur] || !LV[cur].keys) return; const k={ArrowRight:"droite",ArrowLeft:"gauche",ArrowUp:"haut",ArrowDown:"bas"}[e.key]; if(!k || !LV[cur].touches.includes(k)) return;
   if(/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||"")) return; e.preventDefault(); pressKey(k); });
-return {init, destroy, PACKS, _t:{setDef2:l=>{ const d=WS.getBlocksByType("s_def2")[0]; Blockly.Events.disable(); let b=d.getNextBlock(); if(b) b.dispose(false); Blockly.Events.enable(); chain(WS, d.nextConnection, l); WS.getAllBlocks(false).forEach(x=>x.setEnabled(true)); },
+return {init, destroy, levels, PACKS, _t:{setDef2:l=>{ const d=WS.getBlocksByType("s_def2")[0]; Blockly.Events.disable(); let b=d.getNextBlock(); if(b) b.dispose(false); Blockly.Events.enable(); chain(WS, d.nextConnection, l); WS.getAllBlocks(false).forEach(x=>x.setEnabled(true)); },
   addKey:(k,l)=>{ const h=WS.newBlock("s_key"); h.setFieldValue(k,"K"); h.initSvg(); h.render(); h.moveBy(320,320); chain(WS, h.nextConnection, l); WS.getAllBlocks(false).forEach(x=>x.setEnabled(true)); },
   keyProgs:()=>keyProgs(), defProg2:()=>defProg2(), pressKey:k=>pressKey(k), RAND, PAR, runSync, compare, count, kinds, L4, L3, S, V, O, REP, premier, get WS(){ return WS; }, mainProg:()=>mainProg(), load:i=>load(i), chain:(l)=>{ const s=WS.getBlocksByType("s_start")[0]; Blockly.Events.disable(); let b=s.getNextBlock(); if(b) b.dispose(false); Blockly.Events.enable(); chain(WS, s.nextConnection, l); WS.getAllBlocks(false).forEach(x=>x.setEnabled(true)); }}};
 })();

@@ -1,12 +1,12 @@
 {
- "name": "Les maths avec M. Staal",
- "short_name": "Maths M. Staal",
+ "name": "Révimaths",
+ "short_name": "Révimaths",
  "lang": "fr",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
  "background_color": "#f6f8fc",
- "theme_color": "#1b2a44",
+ "theme_color": "#15213b",
  "icons": [
   {
    "src": "icon-192.png",

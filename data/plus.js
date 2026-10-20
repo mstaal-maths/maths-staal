@@ -1,5 +1,5 @@
 /* =====================================================================
-   Les maths avec M. Staal — fonctions ajoutées
+   Révimaths — fonctions ajoutées
    · lecture à voix haute (les maths sont lues comme on les dit)
    · sommaire cliquable, chapitre précédent / suivant, « reprendre là où j'en étais »
    · onglet « En un coup d'œil » (un grand schéma, seulement pour certains chapitres)

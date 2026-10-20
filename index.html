@@ -3,18 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Les maths avec M. Staal – Révisions de maths de la 6e à la 3e</title>
-<meta name="description" content="Le site de révision de M. Staal, professeur de mathématiques : cours, exercices corrigés, QCM et évaluations d'entraînement pour les élèves de la 6e à la 3e.">
+<title>Révimaths – Révisions de maths de la 6e à la 3e</title>
+<meta name="description" content="Cours clairs, exercices corrigés pas à pas, QCM, évaluations d'entraînement et mini-jeux pour réviser les maths de la 6e à la 3e. Gratuit et adapté aux élèves DYS.">
 <link rel="canonical" href="https://mstaal-maths.github.io/maths-staal/">
-<meta property="og:title" content="Les maths avec M. Staal">
-<meta property="og:description" content="Cours, exercices corrigés et entraînement pour les élèves de la 6e à la 3e.">
+<meta property="og:title" content="Révimaths – Révisions de maths de la 6e à la 3e">
+<meta property="og:description" content="Cours clairs, exercices corrigés pas à pas, QCM, évaluations d'entraînement et mini-jeux pour réviser les maths de la 6e à la 3e. Gratuit et adapté aux élèves DYS.">
 <meta property="og:url" content="https://mstaal-maths.github.io/maths-staal/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Révimaths">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://mstaal-maths.github.io/maths-staal/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f6f8fc">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<meta name="apple-mobile-web-app-title" content="Maths M. Staal">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Révimaths">
 <meta name="google-site-verification" content="FbK-a01abS9KfgRM0RR3wsXvcssGQ3GlBl0Y_OxGacg">
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>(function(){ var t="light"; try{ t=localStorage.getItem("staal-theme")==="dark"?"dark":"light"; }catch(e){} document.documentElement.setAttribute("data-theme", t); })();</script>
@@ -75,7 +83,7 @@ p{margin:0}
 /* barre du haut */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:40px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600}
-.badge{width:38px;height:38px;border-radius:9px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:15px;letter-spacing:.02em}
+.badge{width:38px;height:38px;flex:none;display:block}
 .crumbs{font-size:15px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .crumbs a{text-decoration:none;font-weight:500;color:var(--ink)}
 .crumbs a:hover{text-decoration:underline}
@@ -594,6 +602,45 @@ html.sheetmode #sheetpage{display:block;max-width:182mm;margin:0 auto;padding:0}
 .laby .ldoor{transition:opacity .25s}
 .laby .ldoor.open{opacity:.15}
 .laby .ldoor.shut rect:first-child{stroke:#d32f2f;stroke-width:3}
+/* ---------- séances informatiques : page de l'outil, bandeau d'une séance, bilan ---------- */
+.seances{display:grid;gap:18px}
+.seance{display:grid;gap:10px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--line);border-left:12px solid var(--c);border-radius:16px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.seance:hover{border-color:var(--c);transform:translateY(-2px)}
+.seance .shd{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.seance .snum{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.pastille{display:inline-block;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;background:var(--ink);color:var(--paper);line-height:1.5}
+.seance h2{font-size:1.5rem}
+.seance .sphr{max-width:72ch;line-height:1.6}
+.seance .sniv{display:flex;flex-wrap:wrap;gap:6px 8px;margin:2px 0 0;padding:0;list-style:none}
+.seance .sniv li{font-size:14px;border:1.5px solid var(--line);border-radius:999px;padding:2px 11px;color:var(--muted);background:var(--paper);line-height:1.6}
+.seance .sniv li b{color:var(--ink);margin-right:2px}
+.seance .sniv li.defi{border-color:#e2902a}
+.seance .sniv li.ok{border-color:var(--ok);color:var(--ok);background:var(--okbg)}
+.seance .sniv li.ok b{color:var(--ok)}
+.seance .sft{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.seance .sprog{font-size:15px;font-weight:600;color:var(--muted)}
+.seance .sprog.ok{color:var(--ok)}
+.seance .btn{pointer-events:none}
+.seance.libre{border:3px dashed var(--muted);background:transparent;margin-top:10px}
+.seance.libre:hover{border-color:var(--c)}
+.seance.libre .snum{color:var(--ink)}
+.seance.libre .pastille{background:transparent;color:var(--ink);border:2px dashed var(--muted)}
+.head.shead h1{font-size:clamp(1.7rem,4.4vw,2.6rem)}
+.head.shead .sintro{font-size:15px}
+.sbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:10px 16px;margin:-8px 0 18px;border-radius:14px;background:var(--surface);border:2px solid var(--line);border-left:12px solid var(--c)}
+.sbar.libre{border:3px dashed var(--muted)}
+.sbar .sbn{font-weight:700;font-family:var(--f-display)}
+.sbar .sbtrack{flex:1 1 140px;min-width:110px;max-width:420px;height:12px;border-radius:999px;background:var(--line);overflow:hidden}
+.sbar .sbtrack i{display:block;height:100%;background:var(--ok);border-radius:999px;transition:width .4s}
+.sbar .sbd{color:var(--muted);font-size:15px;font-weight:600}
+.sfin{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(8,14,28,.55)}
+.sfinbox{background:var(--surface);color:var(--ink);border:2px solid var(--line);border-top:12px solid var(--c);border-radius:20px;width:100%;max-width:580px;max-height:calc(100vh - 32px);overflow:auto;padding:22px 26px 24px;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.sfinbox h2{font-size:2rem;margin:6px 0 10px}
+.sfinbox h3{font-size:1.1rem;margin:18px 0 6px}
+.sfinbox ul{margin:0;padding-left:1.2em;line-height:1.6}
+.sfinbox li+li{margin-top:6px}
+.sfinbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+@media (prefers-reduced-motion: reduce){ .seance{transition:none} .seance:hover{transform:none} .sbar .sbtrack i{transition:none} }
 /* ---------- rapporteur, miroir, bataille navale ---------- */
 .rap .glevels,.mir .glevels{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px}
 .rap .ggrid,.mir .ggrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
@@ -918,7 +965,7 @@ html.sheetmode #sheetpage{display:block;max-width:182mm;margin:0 auto;padding:0}
 
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="#accueil"><span class="badge">MS</span><span>Les maths avec M. Staal</span></a>
+    <a class="brand" href="#accueil"><img class="badge" alt="" src="data:image/png;base64,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"><span>Révimaths</span></a>
     <div class="tools"><nav class="crumbs" id="crumbs" aria-label="Fil d'Ariane"></nav>
       <button class="tool dys" id="dysbtn" aria-pressed="false">Mode DYS</button>
       <button class="tool small" id="affbtn" aria-expanded="false" aria-controls="aff">Personnaliser</button></div>
@@ -1297,19 +1344,10 @@ function classe(id){
     <div class="chaps">${infoCards(id)}</div>
     ${mjCards(id)?`<h2 class="infoh">Mini-jeux de maths</h2><div class="chaps">${mjCards(id)}</div>`:""}`;
 }
-function infoCards(id){ return `${INFO34[id] ? INFO34[id]() : id==="5e"
-      ? `<a class="chap info" href="#nombres">${ILL("nombres")}<div class="row"><span class="n">Programmation</span><span class="st on">15 niveaux</span></div>
-      <h3>Le labyrinthe des nombres</h3><p class="where">Le robot transporte un nombre : programme les calculs qui ouvrent les portes à code.</p></a>
-      <a class="chap info" href="#tableur5">${ILL("tableur5")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
-      <h3>Le tableur · Statistiques</h3><p class="where">Effectifs, fréquences, pourcentages, moyenne et diagrammes, calculés par le tableur.</p></a>
-      <a class="chap info" href="#geo5">${ILL("geo5")}<div class="row"><span class="n">Géométrie</span><span class="st on">15 niveaux</span></div>
-      <h3>Géométrie dynamique</h3><p class="where">Construis des figures avec les outils de GeoGebra, puis déplace les points pour découvrir des propriétés.</p></a>`
-      : `<a class="chap info" href="#labyrinthe">${ILL("labyrinthe")}<div class="row"><span class="n">Programmation</span><span class="st on">14 niveaux</span></div>
-      <h3>Le labyrinthe</h3><p class="where">Programme un robot avec des blocs, comme dans Scratch, pour le guider jusqu'au drapeau.</p></a>
-      <a class="chap info" href="#tableur">${ILL("tableur")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
-      <h3>Le tableur · Proportionnalité</h3><p class="where">Découvre le tableur : formules, recopie, et un test pour savoir si un tableau est de proportionnalité.</p></a>
-      <a class="chap info" href="#geo6">${ILL("geo6")}<div class="row"><span class="n">Géométrie</span><span class="st on">16 niveaux</span></div>
-      <h3>Constructions géométriques</h3><p class="where">Construis des figures avec la règle, l'équerre et le compas, de plus en plus difficiles.</p></a>`}`; }
+/* cartes des séances informatiques (page de la classe et accueil) : le badge annonce le contenu (séances + autonomie) */
+const INFO = {"6e":["labyrinthe","tableur","geo6"], "5e":["nombres","tableur5","geo5"], "4e":["stylo4","tableur4","geo4"], "3e":["prog3","tableur3","geo3"]};
+function infoCards(id){ return (INFO[id]||[]).map(k=>{ const J=JEUX[k]; return `<a class="chap info" href="#${k}">${ILL(k)}<div class="row"><span class="n">${J.carte.tag}</span><span class="st on">${badgeSeances(J)}</span></div>
+      <h3>${J.carte.h}</h3><p class="where">${J.carte.p}</p></a>`; }).join(""); }
 const MJ_EXTRA = id => ({
   "6e": `<a class="chap info" href="#rapp6">${ILL("rapp6")}<div class="row"><span class="n">Géométrie</span><span class="st on">10 niveaux</span></div>
       <h3>Le rapporteur</h3><p class="where">Déplace et tourne le rapporteur pour mesurer des angles, puis pour en construire.</p></a>
@@ -1465,45 +1503,180 @@ function ILL(k){
 }
 /* ---------- Jeu de programmation : le labyrinthe (Blockly chargé seulement ici) ---------- */
 const loadJS = src => new Promise((ok,ko)=>{ if(document.querySelector(`script[src="${src}"]`)) return ok(); const s=document.createElement("script"); s.src=src; s.onload=ok; s.onerror=ko; document.head.appendChild(s); });
-/* séances informatiques de 4e et de 3e (cartes de la page de la classe) */
-const INFO34 = {
-  "4e": () => `<a class="chap info" href="#stylo4">${ILL("stylo4")}<div class="row"><span class="n">Programmation</span><span class="st on">11 niveaux</span></div>
-      <h3>Le lutin dessinateur</h3><p class="where">Programme le stylo du lutin, comme dans Scratch : polygones, frise par translation, variables.</p></a>
-      <a class="chap info" href="#tableur4">${ILL("tableur4")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
-      <h3>Le tableur · Statistiques</h3><p class="where">Diagrammes en bâtons et circulaires, moyenne pondérée, étendue, et une égalité à tester.</p></a>
-      <a class="chap info" href="#geo4">${ILL("geo4")}<div class="row"><span class="n">Géométrie</span><span class="st on">12 niveaux</span></div>
-      <h3>Géométrie dynamique</h3><p class="where">Translations et frise, puis le théorème de Pythagore et sa réciproque.</p></a>`,
-  "3e": () => `<a class="chap info" href="#prog3">${ILL("prog3")}<div class="row"><span class="n">Programmation</span><span class="st on">14 niveaux</span></div>
-      <h3>Programmer avec Scratch</h3><p class="where">Tout ce qui est attendu en fin de 3e : figures, variables, conditions, événements, blocs personnalisés et hasard.</p></a>
-      <a class="chap info" href="#tableur3">${ILL("tableur3")}<div class="row"><span class="n">Tableur</span><span class="st on">7 missions</span></div>
-      <h3>Le tableur · Fonctions</h3><p class="where">Tableau de valeurs, représentation graphique, et équations résolues par essais successifs.</p></a>
-      <a class="chap info" href="#geo3">${ILL("geo3")}<div class="row"><span class="n">Géométrie</span><span class="st on">11 niveaux</span></div>
-      <h3>Géométrie dynamique</h3><p class="where">Symétrie axiale, rotation, homothétie, puis le théorème de Thalès et sa réciproque.</p></a>`
-};
 const JEUX = {
-  labyrinthe:{cls:"6e", pack:"6e", titre:"Le labyrinthe", intro:"Assemble les blocs pour guider le robot jusqu'au drapeau, puis clique sur « Lancer le programme ». Les blocs ont les mêmes couleurs et les mêmes noms que dans Scratch."},
-  tableur:{cls:"6e", tab:"6e", titre:"Le tableur", intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
-  tableur5:{cls:"5e", tab:"5e", titre:"Le tableur", intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
-  geo6:{cls:"6e", mod:{src:"data/geojeu.js", name:"GEOJEU"}, wide:true, eyebrow:"géométrie", titre:"Constructions géométriques", intro:"Construis les figures demandées avec les instruments : règle, équerre, compas… De nouveaux outils se débloquent au fil des niveaux."},
-  geo5:{cls:"5e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"5e"}, wide:true, eyebrow:"géométrie dynamique", titre:"Géométrie dynamique", intro:"Construis les figures avec les outils d'un logiciel de géométrie, comme GeoGebra, puis déplace les points pour observer."},
+  labyrinthe:{cls:"6e", pack:"6e", store:"staal-laby6-done", titre:"Le labyrinthe",
+    carte:{tag:"Programmation", h:"Le labyrinthe", p:"Programme un robot avec des blocs, comme dans Scratch, pour le guider jusqu'au drapeau."},
+    seances:[
+      {titre:"Donner des ordres au robot", phrase:"Tu écris tes premiers programmes, bloc après bloc, puis tu découvres la boucle « répéter » pour les raccourcir.", niv:[0,1,2,3,4,5,6,7],
+       appris:["Un programme est une suite d'instructions : le robot les fait dans l'ordre, une par une.", "Pour choisir « à gauche » ou « à droite », il faut regarder dans quel sens le robot regarde.", "Pour trouver une erreur, on lance le programme et on regarde où le robot se trompe.", "La boucle « répéter … fois » refait les blocs placés à l'intérieur : le programme est plus court."]},
+      {titre:"Des boucles bien placées", phrase:"Tu mets plusieurs boucles à la suite, tu places des blocs avant et après une boucle, et tu corriges des programmes.", niv:[8,14,15,9,10,11],
+       appris:["On peut mettre plusieurs boucles à la suite, avec des blocs entre elles.", "Pour écrire une boucle, on cherche le motif qui se répète sur le chemin.", "On peut prévoir ce que fait un programme en le suivant, tour de boucle après tour de boucle.", "Corriger un programme, c'est souvent changer le sens d'un virage ou le nombre de répétitions."]},
+    ],
+    libre:{titre:"Défis et niveaux bonus", phrase:"Les défis, avec des boucles dans des boucles, et des niveaux bonus : la spirale, la montagne…", niv:[12,13,16,17,18,19],
+       appris:["Une boucle peut contenir une autre boucle.", "Avec peu de blocs, il faut bien chercher ce qui se répète."]},
+    intro:"Assemble les blocs pour guider le robot jusqu'au drapeau, puis clique sur « Lancer le programme ». Les blocs ont les mêmes couleurs et les mêmes noms que dans Scratch."},
+  tableur:{cls:"6e", tab:"6e", store:"staal-tableur6-etat", titre:"Le tableur",
+    carte:{tag:"Tableur", h:"Le tableur · Proportionnalité", p:"Découvre le tableur : formules, recopie, et un test pour savoir si un tableau est de proportionnalité."},
+    seances:[{titre:"Proportionnalité", phrase:"Tu découvres le tableur : les cellules, les formules, la recopie, puis tu testes si un tableau est de proportionnalité.", niv:[0,1,2,3,4,5,6],
+       appris:["Une formule commence toujours par le signe = ; le signe × s'écrit * et le signe ÷ s'écrit /.", "Quand on recopie une formule, le tableur adapte les noms des cellules.", "Quand on change un nombre, le tableur recalcule tout seul.", "Pour savoir si un tableau est de proportionnalité, on calcule les quotients : ils doivent être tous égaux."]}],
+    intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
+  tableur5:{cls:"5e", tab:"5e", store:"staal-tableur5-etat", titre:"Le tableur",
+    carte:{tag:"Tableur", h:"Le tableur · Statistiques", p:"Effectifs, fréquences, pourcentages, moyenne et diagrammes, calculés par le tableur."},
+    seances:[{titre:"Statistiques", phrase:"Tu fais calculer au tableur l'effectif total, les fréquences, les pourcentages et une moyenne, puis tu dessines des diagrammes.", niv:[0,1,2,3,4,5,6],
+       appris:["=SOMME(B2:B6) additionne les cellules de B2 jusqu'à B6 ; =MOYENNE(B10:H10) calcule leur moyenne.", "Fréquence = effectif ÷ effectif total. Elle peut s'écrire avec une fraction, un nombre décimal ou un pourcentage.", "Pour bloquer une cellule pendant une recopie, on écrit des $ : $B$7.", "Le diagramme en barres sert à comparer des effectifs ; le diagramme circulaire montre les parts d'un tout."]}],
+    intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
+  geo6:{cls:"6e", mod:{src:"data/geojeu.js", name:"GEOJEU"}, wide:true, eyebrow:"géométrie", store:"staal-geo6-done", titre:"Constructions géométriques",
+    carte:{tag:"Géométrie", h:"Constructions géométriques", p:"Construis des figures avec la règle, l'équerre et le compas, de plus en plus difficiles."},
+    seances:[{titre:"Construire avec les instruments", phrase:"Tu places des points, tu traces des droites, des perpendiculaires et des parallèles, puis tu mesures et tu traces des cercles.", niv:[0,1,2,3,4,5,6,7,8,9,10,11,12,13],
+       appris:["Une droite est illimitée des deux côtés ; un segment s'arrête à ses deux extrémités ; une demi-droite a une origine.", "Deux droites perpendiculaires forment un angle droit ; deux droites parallèles ne se coupent jamais.", "Le milieu M de [AB] est sur le segment, et AM = MB.", "Tous les points d'un cercle sont à la même distance du centre : le rayon. Le diamètre mesure deux fois le rayon."]}],
+    libre:{titre:"Deux défis", phrase:"Deux défis pour aller plus loin : construire un triangle avec le compas, puis reporter une longueur sans règle graduée.", niv:[14,15],
+       appris:["Le compas sert à placer un point à une distance donnée de deux points.", "Avec le compas, on peut reporter une longueur sans la mesurer."]},
+    intro:"Construis les figures demandées avec les instruments : règle, équerre, compas… De nouveaux outils se débloquent au fil des niveaux."},
+  geo5:{cls:"5e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"5e"}, wide:true, eyebrow:"géométrie dynamique", store:"staal-geo5-done", titre:"Géométrie dynamique",
+    carte:{tag:"Géométrie", h:"Géométrie dynamique", p:"Construis des figures avec les outils de GeoGebra, puis déplace les points pour découvrir des propriétés."},
+    seances:[{titre:"Symétrie, parallélogrammes et triangles", phrase:"Tu découvres un logiciel de géométrie dynamique : symétrie centrale, parallélogrammes, médiatrices et hauteurs d'un triangle.", niv:[0,1,2,3,4,6,7,8,9,10],
+       appris:["Dans un logiciel de géométrie dynamique, la figure garde ses propriétés quand on déplace ses points.", "A' est le symétrique de A par rapport à O quand O est le milieu de [AA'].", "Dans un parallélogramme, les diagonales se coupent en leur milieu et les côtés opposés ont la même longueur.", "Les trois médiatrices d'un triangle se coupent au centre du cercle qui passe par ses trois sommets."]}],
+    libre:{titre:"Pour aller plus loin", phrase:"Pour continuer : les trois hauteurs, une médiane, un triangle avec un angle donné, et deux défis.", niv:[5,11,12,13,14],
+       appris:["Les trois hauteurs d'un triangle sont concourantes ; la médiane joint un sommet au milieu du côté opposé.", "Dans un triangle, chaque côté est plus petit que la somme des deux autres."]},
+    intro:"Construis les figures avec les outils d'un logiciel de géométrie, comme GeoGebra, puis déplace les points pour observer."},
   rapp6:{cls:"6e", mod:{src:"data/rapporteur.js", name:"RAPPORTEUR"}, wide:true, eyebrow:"géométrie", titre:"Le rapporteur", intro:"Mesure et construis des angles avec un rapporteur que tu déplaces et que tu fais tourner."},
   miroir6:{cls:"6e", mod:{src:"data/miroir.js", name:"MIROIR"}, eyebrow:"géométrie", titre:"Le miroir", intro:"Complète chaque figure pour qu'elle soit symétrique par rapport à l'axe rouge."},
   bnav5:{cls:"5e", mod:{src:"data/bnav.js", name:"BNAV"}, wide:true, eyebrow:"repérage", titre:"La bataille navale du repère", intro:"Coule la flotte de l'ordinateur en écrivant les coordonnées de tes tirs. Quand l'ordinateur tire, clique sur le point qu'il annonce."},
   compte:{cls:"5e", mod:{src:"data/compte.js", name:"COMPTE"}, eyebrow:"jeu de calcul", titre:"Le compte est bon", intro:"Atteins la cible en calculant avec les plaques, puis écris tout ton calcul en une seule ligne, avec des parenthèses si besoin."},
-  nombres:{cls:"5e", pack:"5e", titre:"Le labyrinthe des nombres", intro:"Le robot transporte un nombre. Les portes ne s'ouvrent que s'il affiche le bon code : programme ses déplacements et ses calculs. Les blocs ont les mêmes couleurs et les mêmes noms que dans Scratch."},
-  stylo4:{cls:"4e", mod:{src:"data/scratch.js", name:"SCRATCH", pack:"4e"}, wide:true, eyebrow:"programmation", titre:"Le lutin dessinateur", intro:"Le lutin tient un stylo. Assemble les blocs pour qu'il trace le dessin en pointillés, puis clique sur « Lancer le programme ». Les blocs ont les mêmes couleurs et les mêmes noms que dans Scratch."},
-  tableur4:{cls:"4e", tab:"4e", titre:"Le tableur", intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
+  nombres:{cls:"5e", pack:"5e", store:"staal-nombres5-done", titre:"Le labyrinthe des nombres",
+    carte:{tag:"Programmation", h:"Le labyrinthe des nombres", p:"Le robot transporte un nombre : programme les calculs qui ouvrent les portes à code."},
+    seances:[
+      {titre:"Les programmes de calcul", phrase:"Le robot calcule en avançant : tu choisis les bons calculs, dans le bon ordre, et tu retrouves des nombres de départ.", niv:[0,1,2,15,3,4,5,16],
+       appris:["Un programme de calcul transforme un nombre, étape par étape.", "L'ordre des calculs compte : « ajouter 2 puis multiplier par 2 » ne donne pas le même résultat que l'inverse.", "Pour retrouver le nombre de départ, on remonte le programme à l'envers, avec les calculs inverses."]},
+      {titre:"Des boucles et des formules", phrase:"Tu répètes des calculs avec la boucle « répéter », puis tu écris des programmes qui marchent pour n'importe quel nombre de départ.", niv:[6,7,8,17,9,10,11,12],
+       appris:["La boucle « répéter » refait des calculs : multiplier 4 fois de suite par 2, c'est multiplier par 16.", "Une formule donne le résultat pour n'importe quel nombre de départ.", "Dans 3 × (x + 2), on calcule d'abord la parenthèse."]},
+    ],
+    libre:{titre:"Défis et niveaux bonus", phrase:"Les défis et des niveaux bonus : un virage, une formule cachée, des coffres-forts à étages…", niv:[13,14,18,19,20,21,22],
+       appris:["On peut mélanger déplacements, virages, calculs et boucles.", "5 × x + 10 et 5 × (x + 2) donnent toujours le même résultat."]},
+    intro:"Le robot transporte un nombre. Les portes ne s'ouvrent que s'il affiche le bon code : programme ses déplacements et ses calculs. Les blocs ont les mêmes couleurs et les mêmes noms que dans Scratch."},
+  stylo4:{cls:"4e", mod:{src:"data/scratch.js", name:"SCRATCH", pack:"4e"}, wide:true, eyebrow:"programmation", store:"staal-scratch4-done", titre:"Le lutin dessinateur",
+    carte:{tag:"Programmation", h:"Le lutin dessinateur", p:"Programme le stylo du lutin, comme dans Scratch : polygones, frise par translation, variables."},
+    seances:[
+      {titre:"Polygones et boucles", phrase:"Le lutin trace des figures avec son stylo : tu trouves de combien il doit tourner pour fermer un polygone, avec la boucle « répéter ».", niv:[0,1,11,2,3,4,12,13],
+       appris:["Pour tracer un polygone régulier, le lutin tourne de 360° ÷ (nombre de côtés) à chaque sommet.", "Le lutin ne tourne pas de l'angle de la figure : il tourne de 180° moins cet angle (120° pour un triangle équilatéral).", "La boucle « répéter » évite d'écrire plusieurs fois les mêmes blocs."]},
+      {titre:"Frises et variables", phrase:"Tu traces des frises en répétant un motif par translation, puis tu utilises une variable qui change à chaque tour de boucle.", niv:[5,6,14,7,15,8],
+       appris:["Dans une frise, chaque motif est l'image du précédent par une translation : on relève le stylo, on avance, on repose le stylo.", "Une variable garde un nombre en mémoire ; « ajouter 10 à côté » change sa valeur à chaque tour de boucle.", "On peut mettre une boucle dans une boucle."]},
+    ],
+    libre:{titre:"Défis et dessins bonus", phrase:"Les défis et des dessins bonus : l'étoile, la rosace de triangles, la spirale triangulaire, les créneaux du château.", niv:[9,10,16,17,18,19],
+       appris:["Pour l'étoile à cinq branches, le lutin fait deux tours complets : il tourne de 720° ÷ 5 = 144° à chaque pointe.", "Le bloc « si … alors … sinon » permet de choisir entre deux dessins."]},
+    intro:"Le lutin tient un stylo. Assemble les blocs pour qu'il trace le dessin en pointillés, puis clique sur « Lancer le programme ». Les blocs ont les mêmes couleurs et les mêmes noms que dans Scratch."},
+  tableur4:{cls:"4e", tab:"4e", store:"staal-tableur4-etat", titre:"Le tableur",
+    carte:{tag:"Tableur", h:"Le tableur · Statistiques", p:"Diagrammes en bâtons et circulaires, fréquences, moyenne pondérée, étendue, et une égalité à tester."},
+    seances:[{titre:"Statistiques et diagrammes", phrase:"Tu fais tracer des diagrammes au tableur, tu calcules des fréquences, une moyenne pondérée et une étendue, puis tu testes une égalité.", niv:[0,1,2,7,3,4,5,6],
+       appris:["=SOMME(…), =MOYENNE(…), =MAX(…) et =MIN(…) calculent la somme, la moyenne, la plus grande et la plus petite valeur.", "Fréquence = effectif ÷ effectif total ; en pourcentage, on la multiplie par 100.", "Moyenne pondérée = somme des (valeur × effectif) ÷ effectif total ; étendue = plus grande valeur − plus petite valeur.", "Un seul contre-exemple suffit pour prouver qu'une égalité est fausse."]}],
+    intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
   puiss6:{cls:"6e", mod:{src:"data/puiss4.js", name:"PUISS4", pack:"6e"}, eyebrow:"jeu de calcul", titre:"Le Puissance 4 du calcul", intro:"Choisis une colonne, puis fais le calcul de la case où tombe ton jeton. Réponse juste : le jeton est posé. Aligne 4 jetons pour gagner, à deux ou contre l'ordinateur."},
   puiss5:{cls:"5e", mod:{src:"data/puiss4.js", name:"PUISS4", pack:"5e"}, eyebrow:"jeu de calcul", titre:"Le Puissance 4 du calcul", intro:"Choisis une colonne, puis fais le calcul de la case où tombe ton jeton. Réponse juste : le jeton est posé. Aligne 4 jetons pour gagner, à deux ou contre l'ordinateur."},
   puiss4:{cls:"4e", mod:{src:"data/puiss4.js", name:"PUISS4", pack:"4e"}, eyebrow:"jeu de calcul", titre:"Le Puissance 4 du calcul", intro:"Choisis une colonne, puis fais le calcul de la case où tombe ton jeton. Réponse juste : le jeton est posé. Aligne 4 jetons pour gagner, à deux ou contre l'ordinateur."},
-  geo4:{cls:"4e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"4e"}, wide:true, eyebrow:"géométrie dynamique", titre:"Géométrie dynamique", intro:"Construis des images par translation avec les outils d'un logiciel comme GeoGebra, puis utilise le théorème de Pythagore."},
-  prog3:{cls:"3e", mod:{src:"data/scratch.js", name:"SCRATCH", pack:"3e"}, wide:true, eyebrow:"programmation", titre:"Programmer avec Scratch", intro:"Programme le lutin avec les blocs de Scratch : figures, programmes de calcul, conditions, scripts lancés par les touches du clavier, blocs que tu crées toi-même et tirages au hasard."},
-  tableur3:{cls:"3e", tab:"3e", titre:"Le tableur", intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
+  geo4:{cls:"4e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"4e"}, wide:true, eyebrow:"géométrie dynamique", store:"staal-geo4-done", titre:"Géométrie dynamique",
+    carte:{tag:"Géométrie", h:"Géométrie dynamique", p:"Translations et frise, puis le théorème de Pythagore et sa réciproque."},
+    seances:[{titre:"Translations et Pythagore", phrase:"Tu construis des images par translation et une frise, puis tu calcules des longueurs avec le théorème de Pythagore.", niv:[0,1,2,3,4,5,6,7,8,9],
+       appris:["Par une translation, la figure « glisse » sans tourner ni changer de taille : elle conserve les longueurs.", "Chaque motif d'une frise est l'image du précédent par la même translation.", "Dans un triangle rectangle, le carré de l'hypoténuse est égal à la somme des carrés des deux autres côtés."]}],
+    libre:{titre:"Pour aller plus loin", phrase:"Pour continuer : la réciproque du théorème de Pythagore, et un défi où il ne faut pas se fier à son œil.", niv:[10,11],
+       appris:["Si le carré du plus grand côté est égal à la somme des carrés des deux autres, le triangle est rectangle.", "Si ce n'est pas égal, le triangle n'est pas rectangle, même s'il en a l'air."]},
+    intro:"Construis des images par translation avec les outils d'un logiciel comme GeoGebra, puis utilise le théorème de Pythagore."},
+  prog3:{cls:"3e", mod:{src:"data/scratch.js", name:"SCRATCH", pack:"3e"}, wide:true, eyebrow:"programmation", store:"staal-scratch3b-done", titre:"Programmer avec Scratch",
+    carte:{tag:"Programmation", h:"Programmer avec Scratch", p:"Tout ce qui est attendu en fin de 3e : figures, variables, conditions, événements, blocs personnalisés et hasard."},
+    seances:[
+      {titre:"Figures, calculs et conditions", phrase:"Tu lis et tu écris des scripts : des figures avec des boucles, des programmes de calcul avec des variables, et un premier « si … alors … sinon ».", niv:[0,1,2,3,4,5,6,7],
+       appris:["Le bloc « demander » range la réponse dans « réponse » ; une variable garde un nombre pour plus tard.", "On teste un programme avec plusieurs nombres, pour être sûr qu'il marche à chaque fois.", "« si … alors … sinon » choisit entre deux actions ; « modulo » donne le reste d'une division."]},
+      {titre:"Événements, blocs et hasard", phrase:"Tu écris plusieurs scripts qui démarrent avec les touches du clavier, tu crées tes propres blocs et tu simules le hasard.", niv:[8,9,10,11],
+       appris:["Chaque bloc « quand … » commence un nouveau script : plusieurs scripts peuvent marcher ensemble.", "Un bloc que tu crées, avec un paramètre, évite de réécrire plusieurs fois le même script.", "« nombre aléatoire entre 0 et 1 » simule un lancer de pièce : sur 100 lancers, on obtient environ 50 fois chaque face."]},
+    ],
+    libre:{titre:"Défis et programmes bonus", phrase:"Les défis et des programmes bonus : polygone de ton choix, positif ou négatif, somme des entiers, table de multiplication, lancers de dé.", niv:[12,13,14,15,16,17,18],
+       appris:["Un « si … alors … sinon » peut être placé dans un autre, pour choisir entre trois cas.", "Une boucle et une variable qui augmente permettent de calculer une somme ou une table."]},
+    intro:"Programme le lutin avec les blocs de Scratch : figures, programmes de calcul, conditions, scripts lancés par les touches du clavier, blocs que tu crées toi-même et tirages au hasard."},
+  tableur3:{cls:"3e", tab:"3e", store:"staal-tableur3-etat", titre:"Le tableur",
+    carte:{tag:"Tableur", h:"Le tableur · Fonctions", p:"Tableau de valeurs, représentation graphique, et équations résolues par essais successifs."},
+    seances:[{titre:"Fonctions et équations", phrase:"Tu remplis des tableaux de valeurs, tu lis des images et des antécédents, tu traces une représentation graphique et tu résous des équations par essais.", niv:[0,1,7,2,3,4,5,6],
+       appris:["Un tableau de valeurs se remplit avec une formule recopiée ; le carré s'écrit ^2.", "Un nombre a une seule image, mais il peut avoir plusieurs antécédents.", "La représentation graphique d'une fonction affine est une droite.", "Le tableur permet de résoudre une équation par essais successifs, en affinant le pas (0,1 puis 0,01…)."]}],
+    intro:"Un tableur comme ceux des ordinateurs du collège. Les boutons grisés existent dans un vrai tableur, mais on n'en a pas besoin aujourd'hui. Suis les missions à droite (sur téléphone : au-dessus)."},
   puiss3:{cls:"3e", mod:{src:"data/puiss4.js", name:"PUISS4", pack:"3e"}, eyebrow:"jeu de calcul", titre:"Le Puissance 4 du calcul", intro:"Choisis une colonne, puis développe et réduis l'expression de la case où tombe ton jeton. Réponse juste : le jeton est posé. Aligne 4 jetons pour gagner, à deux ou contre l'ordinateur."},
-  geo3:{cls:"3e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"3e"}, wide:true, eyebrow:"géométrie dynamique", titre:"Géométrie dynamique", intro:"Construis des images par symétrie, rotation et homothétie, puis utilise le théorème de Thalès et sa réciproque."}
+  geo3:{cls:"3e", mod:{src:"data/geojeu.js", name:"GEOJEU", pack:"3e"}, wide:true, eyebrow:"géométrie dynamique", store:"staal-geo3-done", titre:"Géométrie dynamique",
+    carte:{tag:"Géométrie", h:"Géométrie dynamique", p:"Symétrie axiale, rotation, homothétie, puis le théorème de Thalès et sa réciproque."},
+    seances:[{titre:"Transformations et Thalès", phrase:"Tu construis des images par symétrie, rotation et homothétie, puis tu utilises le théorème de Thalès et sa réciproque.", niv:[0,1,2,3,4,5,6,7,8,9],
+       appris:["La symétrie axiale et la rotation conservent les longueurs et les angles.", "Une homothétie de rapport 2 multiplie les longueurs par 2 ; avec un rapport négatif, l'image est de l'autre côté du centre.", "Quand (MN) // (BC) : AM/AB = AN/AC = MN/BC. Si les quotients sont différents, les droites ne sont pas parallèles."]}],
+    libre:{titre:"Un défi pour finir", phrase:"Un défi pour aller plus loin : deux quarts de tour à la suite.", niv:[10],
+       appris:["Deux rotations d'un quart de tour font un demi-tour : c'est la symétrie centrale."]},
+    intro:"Construis des images par symétrie, rotation et homothétie, puis utilise le théorème de Thalès et sa réciproque."}
 };
 /* mini-jeux de maths (data/mj.js : registre ; chaque jeu est dans data/mj-<nom>.js) */
 if(window.MJ) Object.entries(MJ).forEach(([k,m])=>{ JEUX[k]={cls:m.cls, mod:{src:m.src, name:m.name}, wide:!!m.wide, mj:true, titre:m.titre, intro:m.intro}; });
+/* ---------- Séances informatiques : page de l'outil (séances + « En autonomie »), page d'une séance, bilan ----------
+   URL : #labyrinthe (page de l'outil), #labyrinthe/s1, #labyrinthe/s2 (séances), #labyrinthe/libre (en autonomie). */
+const UNITE = J => J.tab ? ["mission","missions"] : ["niveau","niveaux"];
+const reussis = (n, J) => J.tab ? `${n} mission${n>1?"s":""} réussie${n>1?"s":""}` : `${n} niveau${n>1?"x":""} réussi${n>1?"s":""}`;
+function badgeSeances(J){ const n=J.seances.length; return n===1 ? (J.libre?"1 séance + autonomie":"1 séance d'1 h") : `${n} séances${J.libre?" + autonomie":""}`; }
+function seanceDe(J, sid){ if(sid==="libre") return J.libre||null; const m=/^s(\d)$/.exec(sid||""); return m ? J.seances[+m[1]-1]||null : null; }
+const nomSeance = (J, sid) => sid==="libre" ? "En autonomie" : J.seances.length>1 ? "Séance "+sid.slice(1) : "Séance";
+/* progression enregistrée par le jeu (mêmes clés qu'avant : rien n'est perdu) */
+function faits(J){ try{ const v=JSON.parse(localStorage.getItem(J.store)||"null"); const d=J.tab ? (v&&v.done) : v; return Array.isArray(d) ? d : []; }catch(e){ return []; } }
+const moteur = J => J.mod ? window[J.mod.name] : J.tab ? window.TABLEUR : window.LABY;
+const packDe = J => J.mod ? J.mod.pack : J.tab ? J.tab : J.pack;
+async function chargerMoteur(J, complet){
+  if(J.mod) await loadJS(J.mod.src); else if(J.tab) await loadJS("data/tableur.js");
+  else { if(complet){ await loadJS("lib/blockly/blockly_compressed.js"); await loadJS("lib/blockly/fr.js"); } await loadJS("data/laby.js"); }
+}
+function outil(jeu){
+  const J=JEUX[jeu], C=CLASSES[J.cls], d=faits(J), U=UNITE(J);
+  document.documentElement.style.setProperty("--c", C.couleur);
+  crumbs.innerHTML = `<a href="#accueil">Accueil</a><span aria-hidden="true">›</span><a href="#${J.cls}">${C.nom}</a><span aria-hidden="true">›</span><span>${J.titre}</span>`;
+  const n=J.seances.length;
+  const intro = n>1 ? `${n===2?"Deux":n} séances d'une heure en salle informatique, avec M. Staal${J.libre?", puis « En autonomie » pour t'entraîner quand tu veux":""}.`
+    : `Une séance d'une heure en salle informatique, avec M. Staal${J.libre?", puis « En autonomie » pour t'entraîner quand tu veux":". Tu peux la refaire chez toi quand tu veux"}.`;
+  const bloc = (S, sid) => { const libre=sid==="libre", tot=S.niv.length, ok=S.niv.filter(i=>d.includes(i)).length;
+    return `<a class="seance${libre?" libre":""}" href="#${jeu}/${sid}">
+      <div class="shd"><span class="snum">${nomSeance(J,sid)}</span><span class="pastille">${libre?"Quand tu veux, chez toi":"1 h en salle informatique"}</span></div>
+      <h2>${esc(S.titre)}</h2>
+      <p class="sphr">${libre?"Pour t'entraîner ou t'amuser chez toi, quand tu veux. ":""}${S.phrase}</p>
+      <ol class="sniv" data-niv="${S.niv.join(",")}" aria-label="${U[1]} de cette ${libre?"partie":"séance"}">${S.niv.map((i,k)=>`<li class="${d.includes(i)?"ok":""}"><b>${k+1}</b></li>`).join("")}</ol>
+      <div class="sft"><span class="sprog${ok===tot?" ok":""}">${ok===tot?`Tout est réussi : ${tot} sur ${tot} ✓`:ok?`${reussis(ok,J)} sur ${tot}`:`${tot} ${U[1]}`}</span><span class="btn primary">${ok===tot?"Revoir":ok?"Continuer":"Commencer"} →</span></div></a>`; };
+  app.innerHTML = `<div class="head"><span class="eyebrow">Informatique · ${J.eyebrow||(J.tab?"tableur":"programmation")}</span><h1>${J.carte.h}</h1><p>${intro}</p></div>
+    <div class="seances">${J.seances.map((S,i)=>bloc(S,"s"+(i+1))).join("")}${J.libre?bloc(J.libre,"libre"):""}</div>`;
+  /* noms des niveaux, lus dans le jeu lui-même */
+  chargerMoteur(J, false).then(()=>{ const M=moteur(J); if(!M || !M.levels || location.hash.slice(1)!==jeu) return; const T=M.levels(packDe(J));
+    app.querySelectorAll(".sniv").forEach(ol=>{ ol.dataset.niv.split(",").map(Number).forEach((i,k)=>{ const li=ol.children[k], t=T[i]; if(!li||!t) return; li.innerHTML=`<b>${k+1}</b> ${esc(t.t)}`; if(t.defi) li.classList.add("defi"); }); }); }).catch(()=>{});
+}
+function seancePage(jeu, sid){
+  const J=JEUX[jeu], C=CLASSES[J.cls], S=seanceDe(J,sid), libre=sid==="libre", nom=nomSeance(J,sid), U=UNITE(J), tot=S.niv.length;
+  document.documentElement.style.setProperty("--c", C.couleur);
+  crumbs.innerHTML = `<a href="#accueil">Accueil</a><span aria-hidden="true">›</span><a href="#${J.cls}">${C.nom}</a><span aria-hidden="true">›</span><a href="#${jeu}">${J.titre}</a><span aria-hidden="true">›</span><span>${nom}</span>`;
+  app.innerHTML = `<div class="head shead"><span class="eyebrow">${J.carte.h} · ${libre?"quand tu veux, chez toi":"1 h en salle informatique"}</span><h1>${(libre?"En autonomie":nom)+" · "+esc(S.titre)}</h1><p>${S.phrase}</p><p class="sintro">${J.intro}</p></div>
+    <div class="sbar${libre?" libre":""}" id="sbar" aria-live="polite"></div>
+    <div id="labyroot"><p class="where">Chargement du jeu…</p></div>`;
+  const barre = (cur, d) => { const el=document.getElementById("sbar"); if(!el) return; const k=S.niv.indexOf(cur)+1, ok=S.niv.filter(i=>d.includes(i)).length;
+    el.innerHTML = `<span class="sbn">${U[0]==="mission"?"Mission":"Niveau"} ${k} sur ${tot}</span><span class="sbtrack" role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${ok}"><i style="width:${Math.round(100*ok/tot)}%"></i></span><span class="sbd">${ok===tot?`Tout est réussi ✓`:`${reussis(ok,J)} sur ${tot}`}</span>`; };
+  barre(S.niv[0], faits(J));
+  const opts = {niv:S.niv.slice(), fin: libre?"Voir mon bilan":"Terminer la séance", onChange:barre, onFin:d=>bilan(jeu, sid, d)};
+  chargerMoteur(J, true).then(()=>{ const root=document.getElementById("labyroot"); if(!root || location.hash.slice(1)!==jeu+"/"+sid) return; moteur(J).init(root, packDe(J), opts); })
+    .catch(()=>{ const r=document.getElementById("labyroot"); if(r) r.innerHTML=`<p class="where">Le jeu n'a pas pu se charger. Vérifie ta connexion, puis recharge la page.</p>`; });
+}
+/* bilan de fin de séance (fenêtre par-dessus le jeu) */
+function bilan(jeu, sid, d){
+  document.querySelectorAll(".sfin").forEach(x=>x.remove());
+  const J=JEUX[jeu], S=seanceDe(J,sid), libre=sid==="libre", nom=nomSeance(J,sid), U=UNITE(J), tot=S.niv.length;
+  const reste=S.niv.map((i,k)=>d.includes(i)?null:k+1).filter(x=>x);
+  const idx=libre ? -1 : +sid.slice(1)-1, suite = libre ? null : J.seances[idx+1] ? [`#${jeu}/s${idx+2}`, `Séance ${idx+2}`] : J.libre ? [`#${jeu}/libre`, "En autonomie"] : null;
+  const liste = l => l.length===1 ? `le n° ${l[0]}` : `les n° ${l.slice(0,-1).join(", ")} et ${l[l.length-1]}`;
+  const box=document.createElement("div"); box.className="sfin"; box.setAttribute("role","dialog"); box.setAttribute("aria-modal","true"); box.setAttribute("aria-labelledby","sfint");
+  box.innerHTML = `<div class="sfinbox"><p class="eyebrow">${J.carte.h} · ${libre?"En autonomie":nom}</p>`
+    + (reste.length ? `<h2 id="sfint">Encore un petit effort !</h2><p>Il te reste ${reste.length} ${reste.length>1?U[1]:U[0]} à réussir : ${liste(reste)}. Clique sur ${reste.length>1?"leur":"son"} numéro, en haut du jeu.</p>
+        <div class="sfinbtns"><button class="btn primary" type="button" data-x>D'accord</button></div>`
+      : `<h2 id="sfint">${libre?"Bravo, tu as tout réussi !":"Séance terminée !"}</h2><p>Tu as réussi ${tot>1?`les ${tot} ${U[1]}`:`la ${U[0]}`} ${libre?"en autonomie":"de la séance"}. Bravo !</p>
+        <h3>${libre?"Ce que tu sais faire maintenant":"Ce que tu as appris"}</h3><ul>${S.appris.map(a=>`<li>${a}</li>`).join("")}</ul>
+        <div class="sfinbtns">${suite?`<a class="btn primary" href="${suite[0]}">${suite[1]} →</a>`:""}<a class="btn${suite?"":" primary"}" href="#${jeu}">Retour à la page des séances</a><button class="btn" type="button" data-x>Revoir les ${U[1]}</button></div>`)
+    + `</div>`;
+  const fermer=()=>{ box.remove(); document.removeEventListener("keydown", esc1); };
+  const esc1=e=>{ if(e.key==="Escape") fermer(); };
+  box.addEventListener("click", e=>{ if(e.target===box || e.target.closest("[data-x]")) fermer(); else if(e.target.closest("a")) fermer(); });
+  document.addEventListener("keydown", esc1);
+  document.body.appendChild(box); const f=box.querySelector(".btn"); if(f) f.focus({preventScroll:true});
+}
 async function labyrinthe(jeu){
   const J=JEUX[jeu], cls=J.cls;
   if(J.mj) document.documentElement.style.setProperty("--c", CLASSES[cls].couleur);
@@ -1900,7 +2073,7 @@ const PRINTABLE = {cours:"Le cours", essentiel:"En un coup d'œil", ex:"Exercice
 const PRINT = {cur:null};
 const pnum = v => String(v).replace(".",",");
 function printHTML(P){
-  const D=P.D, head = sub => `<div class="ph"><small>Les maths avec M. Staal · ${esc(P.nom)} · Chapitre ${P.n}</small><h1>${esc(P.titre)}</h1><h2>${sub}</h2></div>`;
+  const D=P.D, head = sub => `<div class="ph"><small>Révimaths · ${esc(P.nom)} · Chapitre ${P.n}</small><h1>${esc(P.titre)}</h1><h2>${sub}</h2></div>`;
   const ident = `<div class="pid"><span>Nom : ……………………………</span><span>Prénom : ……………………………</span><span>Classe : ………</span></div>`;
   if(P.t==="cours") return head(PRINTABLE.cours)
     + (D.savoir?`<div class="pblk keep"><h3>Ce que je dois savoir faire</h3><ul>${D.savoir.map(x=>`<li>${fmt(x)}</li>`).join("")}</ul></div>`:"")
@@ -2108,13 +2281,16 @@ function route(){ splitFeuilles();
   document.documentElement.classList.remove("sheetmode");
   const h = location.hash.slice(1), m = h.match(/^(6e|5e|4e|3e)(?:-ch(\d+))?$/);
   document.documentElement.style.removeProperty("--c");
-  if(window.LABY) LABY.destroy(); if(window.TABLEUR) TABLEUR.destroy(); if(window.COMPTE) COMPTE.destroy(); if(window.GEOJEU) GEOJEU.destroy(); if(window.RAPPORTEUR) RAPPORTEUR.destroy(); if(window.MIROIR) MIROIR.destroy(); if(window.BNAV) BNAV.destroy();
-  document.documentElement.classList.toggle("wide", !!(JEUX[h] && (JEUX[h].tab || JEUX[h].wide)));
-  if(window.PAGES && PAGES[h]) PAGES[h].show(); else if(h==="mentions") mentions(); else if(JEUX[h]) labyrinthe(h); else if(h==="choix") home(true); else if(!m) home(); else if(!m[2]) classe(m[1]); else chapitre(m[1], +m[2]);
+  document.querySelectorAll(".sfin").forEach(x=>x.remove());
+  const hb=h.split("/")[0], JS=JEUX[hb] && JEUX[hb].seances ? JEUX[hb] : null, sid=JS && seanceDe(JS, h.split("/")[1]) ? h.split("/")[1] : null;
+  if(window.LABY) LABY.destroy(); if(window.SCRATCH) SCRATCH.destroy(); if(window.TABLEUR) TABLEUR.destroy(); if(window.COMPTE) COMPTE.destroy(); if(window.GEOJEU) GEOJEU.destroy(); if(window.RAPPORTEUR) RAPPORTEUR.destroy(); if(window.MIROIR) MIROIR.destroy(); if(window.BNAV) BNAV.destroy();
+  document.documentElement.classList.toggle("wide", JS ? !!(sid && (JS.tab || JS.wide)) : !!(JEUX[h] && (JEUX[h].tab || JEUX[h].wide)));
+  if(window.PAGES && PAGES[h]) PAGES[h].show(); else if(h==="mentions") mentions(); else if(JS) (sid ? seancePage(hb, sid) : outil(hb)); else if(JEUX[h]) labyrinthe(h); else if(h==="choix") home(true); else if(!m) home(); else if(!m[2]) classe(m[1]); else chapitre(m[1], +m[2]);
   /* bouton de retour bien visible en haut de chaque page (sauf l'accueil) */
   let back=null;
   if(m && !m[2]) back=["#accueil","Retour à l'accueil"];
   else if(m && m[2]) back=["#"+m[1],"Retour aux chapitres"];
+  else if(JS) back = sid ? ["#"+hb,"Retour aux séances"] : ["#"+JS.cls,"Retour aux chapitres"];
   else if(JEUX[h]) back=["#"+JEUX[h].cls,"Retour aux chapitres"];
   else if(h==="mentions") back=["#accueil","Retour à l'accueil"];
   else if(window.PAGES && PAGES[h]) back=PAGES[h].back;
