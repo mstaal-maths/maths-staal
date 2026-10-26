@@ -35,6 +35,7 @@ head=f'''<!doctype html>
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-title" content="Laats">
 <meta name="author" content="Johann STAAL">
+<script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","name":"Laats","alternateName":"Laats maths","url":"{URL}","inLanguage":"fr","author":{{"@type":"Person","name":"Johann STAAL"}}}}</script>
 <meta name="google-site-verification" content="FbK-a01abS9KfgRM0RR3wsXvcssGQ3GlBl0Y_OxGacg">
 '''
 open(os.path.join(DST,'index.html'),'w',encoding='utf-8').write(head+html)
