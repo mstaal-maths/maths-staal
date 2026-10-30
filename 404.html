@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laats a déménagé</title>
+<link rel="canonical" href="https://mstaal-maths.github.io/">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="2; url=https://mstaal-maths.github.io/">
+<script>
+(function(){
+  var go=function(){ location.replace("https://mstaal-maths.github.io/"+(location.hash||"")); };
+  try{
+    if(navigator.serviceWorker && navigator.serviceWorker.getRegistrations){
+      navigator.serviceWorker.getRegistrations().then(function(rs){ return Promise.all(rs.map(function(r){ return r.unregister(); })); }).then(go, go);
+      setTimeout(go, 1500);
+    } else go();
+  }catch(e){ go(); }
+})();
+</script>
+<style>body{font-family:Arial,sans-serif;background:#f6f8fc;color:#15213b;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:16px}a{color:#2563eb}</style>
+</head>
+<body><p>Le site a une nouvelle adresse.<br>Redirection vers <a href="https://mstaal-maths.github.io/">mstaal-maths.github.io</a>…</p></body>
+</html>

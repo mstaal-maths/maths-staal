@@ -1,3 +1,3 @@
-# Les maths avec M. Staal
+# Laats a déménagé
 
-Site de révision pour les élèves de 6e et de 5e : cours, exercices corrigés, entraînement et évaluations d'entraînement.
+Le site est maintenant à https://mstaal-maths.github.io/

@@ -1,1 +1,0 @@
-/* Blockly — https://github.com/google/blockly — Licence Apache 2.0 (Google LLC) */
